@@ -291,44 +291,29 @@
       {% for testimonial in testimonial_blocks %}
         <div class="ai-testimonials-carousel__slide-{{ ai_gen_id }}" {{ testimonial.shopify_attributes }}>
           <div class="slide">
-            <div class="row1">
-              <div class="ai-testimonials-carousel__avatar-{{ ai_gen_id }}">
-                  {% if testimonial.settings.aaavatar %}
-                    <img
-                      src="{{ testimonial.settings.avatar | image_url: width: 200 }}"
-                      alt="{{ testimonial.settings.author | escape }}"
-                      loading="lazy"
-                      width="200"
-                      height="200"
-                    >
-                  {% endif %}
-              </div>
-            
-
-              <div>
-                {% if testimonial.settings.author != blank %}
-                  <div class="ai-testimonials-carousel__author-{{ ai_gen_id }}">
-                    {{ testimonial.settings.author }}
-                  </div>
-                {% endif %}
-                <div class="ai-testimonials-carousel__stars-{{ ai_gen_id }}">
-                  {% for star in (1..5) %}
-                    <svg
-                      class="ai-testimonials-carousel__star-{{ ai_gen_id }} {% if star > testimonial.settings.rating %}ai-testimonials-carousel__star-{{ ai_gen_id }}--empty{% endif %}"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  {% endfor %}
-                </div>
-              </div>
+            <div class="ai-testimonials-carousel__stars-{{ ai_gen_id }}">
+              {% for star in (1..5) %}
+                <svg
+                  class="ai-testimonials-carousel__star-{{ ai_gen_id }} {% if star > testimonial.settings.rating %}ai-testimonials-carousel__star-{{ ai_gen_id }}--empty{% endif %}"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              {% endfor %}
             </div>
             {% if testimonial.settings.quote != blank %}
               <div class="row2 ai-testimonials-carousel__quote-{{ ai_gen_id }}">
                 "{{ testimonial.settings.quote }}"
               </div>
             {% endif %}
+             <div>
+                {% if testimonial.settings.author != blank %}
+                  <div class="ai-testimonials-carousel__author-{{ ai_gen_id }}">
+                    - {{ testimonial.settings.author }} - VERIFIED BUYER
+                  </div>
+                {% endif %}
+              </div>
           </div>
         </div>
       {% endfor %}
