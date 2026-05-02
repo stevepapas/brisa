@@ -293,7 +293,7 @@
           <div class="slide">
             <div class="row1">
               <div class="ai-testimonials-carousel__avatar-{{ ai_gen_id }}">
-                  {% if testimonial.settings.avatar %}
+                  {% if testimonial.settings.aaavatar %}
                     <img
                       src="{{ testimonial.settings.avatar | image_url: width: 200 }}"
                       alt="{{ testimonial.settings.author | escape }}"
@@ -310,7 +310,7 @@
             
 
               <div>
-                {% if testimonial.settings.aauthor != blank %}
+                {% if testimonial.settings.author != blank %}
                   <div class="ai-testimonials-carousel__author-{{ ai_gen_id }}">
                     {{ testimonial.settings.author }}
                   </div>
