@@ -17,7 +17,7 @@
   }
   @media (min-width: 768px) {
     .ai-marquee-{{ ai_gen_id }} {
-      margin-top: -20px !important;
+      margin-top: 0px !important;
     }
   }
 
@@ -149,7 +149,7 @@
         if (!item) return;
 
         const itemWidth = item.offsetWidth;
-        const speed = 5;
+        const speed = 0;
         const pixelsPerSecond = itemWidth / speed;
 
         track.style.animationDuration = speed + 's';
