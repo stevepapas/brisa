@@ -1,0 +1,361 @@
+{% doc %}
+  @prompt
+    move the marquee from the header here
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-marquee-{{ ai_gen_id }} {
+    display: inline-block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    padding: {{ block.settings.vertical_padding }}px 0;
+    overflow: hidden;
+    position: relative;
+   
+  }
+  @media (min-width: 768px) {
+    .ai-marquee-{{ ai_gen_id }} {
+      margin-top: -20px !important;
+    }
+  }
+
+  .ai-marquee-track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.item_spacing }}px;
+    animation: ai-marquee-scroll-{{ ai_gen_id }} 90s linear infinite;
+    will-change: transform;
+  }
+
+  .ai-marquee-{{ ai_gen_id }}:hover .ai-marquee-track-{{ ai_gen_id }} {
+    animation-play-state: paused;
+  }
+
+  .ai-marquee-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.item_spacing }}px;
+    white-space: nowrap;
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    text-transform: {{ block.settings.text_transform }};
+  }
+
+  .ai-marquee-separator-{{ ai_gen_id }} {
+    width: {{ block.settings.separator_size }}px;
+    height: {{ block.settings.separator_size }}px;
+    background-color: {{ block.settings.separator_color }};
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ai-marquee-item-{{ ai_gen_id }} img {
+    max-height: 20px; 
+    margin-right: 20px;
+  }
+
+  @keyframes ai-marquee-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-marquee-item-{{ ai_gen_id }} {
+      font-size: {{ block.settings.font_size | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<marquee-block-{{ ai_gen_id }} class="ai-marquee-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-marquee-track-{{ ai_gen_id }}">
+    {% for i in (1..2) %}
+      <div class="ai-marquee-item-{{ ai_gen_id }}">
+        {% if block.settings.text_1 != blank %}
+          <span>
+          {% if block.settings.image_1 != blank %}
+            <img src="{{ block.settings.image_1 | image_url }}" alt="{{ block.settings.image_1.alt | escape }}">
+          {% endif %}
+            {{ block.settings.text_1 }}</span>
+          {% if block.settings.show_separator %}
+            <span class="ai-marquee-separator-{{ ai_gen_id }}"></span>
+          {% endif %}
+        {% endif %}
+        {% if block.settings.text_2 != blank %}
+          <span>
+          {% if block.settings.image_2 != blank %}
+            <img src="{{ block.settings.image_2 | image_url }}" alt="{{ block.settings.image_2.alt | escape }}">
+          {% endif %}  
+          {{ block.settings.text_2 }}</span>
+          {% if block.settings.show_separator %}
+            <span class="ai-marquee-separator-{{ ai_gen_id }}"></span>
+          {% endif %}
+        {% endif %}
+        {% if block.settings.text_3 != blank %}
+          <span>
+          {% if block.settings.image_3 != blank %}
+            <img src="{{ block.settings.image_3 | image_url }}" alt="{{ block.settings.image_3.alt | escape }}">
+          {% endif %}
+          {{ block.settings.text_3 }}</span>
+          {% if block.settings.show_separator %}
+            <span class="ai-marquee-separator-{{ ai_gen_id }}"></span>
+          {% endif %}
+        {% endif %}
+        {% if block.settings.text_4 != blank %}
+          <span>
+          {% if block.settings.image_4 != blank %}
+            <img src="{{ block.settings.image_4 | image_url }}" alt="{{ block.settings.image_4.alt | escape }}">
+          {% endif %}
+          {{ block.settings.text_4 }}</span>
+          {% if block.settings.show_separator %}
+            <span class="ai-marquee-separator-{{ ai_gen_id }}"></span>
+          {% endif %}
+        {% endif %}
+        {% if block.settings.text_5 != blank %}
+          <span>
+          {% if block.settings.image_5 != blank %}
+            <img src="{{ block.settings.image_5 | image_url }}" alt="{{ block.settings.image_5.alt | escape }}">
+          {% endif %}
+          {{ block.settings.text_5 }}</span>
+          {% if block.settings.show_separator %}
+            <span class="ai-marquee-separator-{{ ai_gen_id }}"></span>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</marquee-block-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class MarqueeBlock{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.adjustSpeed();
+      }
+
+      adjustSpeed() {
+        const track = this.querySelector('.ai-marquee-track-{{ ai_gen_id }}');
+        if (!track) return;
+
+        const item = track.querySelector('.ai-marquee-item-{{ ai_gen_id }}');
+        if (!item) return;
+
+        const itemWidth = item.offsetWidth;
+        const speed = 5;
+        const pixelsPerSecond = itemWidth / speed;
+
+        track.style.animationDuration = speed + 's';
+      }
+    }
+
+    customElements.define('marquee-block-{{ ai_gen_id }}', MarqueeBlock{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Marquee",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image 1",
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "Free shipping on orders over $100"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image 2",
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "Premium wellness products"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Image 3",
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3",
+      "default": "Subscribe and save 15%"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Image 4",
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Image 5",
+    },
+    {
+      "type": "text",
+      "id": "text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text style",
+      "options": [
+        {
+          "value": "none",
+          "label": "Normal"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "lowercase",
+          "label": "Lowercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Separator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_separator",
+      "label": "Show separator",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "separator_size",
+      "label": "Size",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "item_spacing",
+      "label": "Item spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee"
+    }
+  ]
+}
+{% endschema %}

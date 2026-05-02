@@ -1,0 +1,903 @@
+{% doc %}
+  @prompt
+    Create a testimonials carousel with left and right navigation arrows (prev/next buttons) positioned on either side of the slide, styled to match a spa-inspired earthy luxury wellness brand. Arrows should be subtle and elegant (e.g. thin chevrons or minimal SVG arrows) in a dark neutral tone. Also include dot navigation below. Each testimonial block must have a Shopify image_picker setting for a circular avatar, quote text, author name, and star rating (1-5). No shake or jitter: fixed-height container, CSS transform: translateX on flex track, will-change: transform, backface-visibility: hidden, overflow: hidden, ease-in-out 500ms. Autoplay with pause on hover. Mobile swipe support. Vanilla JS only. Pre-populate with 4 slides: Name: Dante, 5 stars, Quote: "Good for those moments you'd normally go for a smoke without thinking."
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-testimonials-carousel-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .ai-testimonials-carousel__heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    font-size: {{ block.settings.heading_font_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin-bottom: 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-testimonials-carousel__container-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    {% if block.settings.background_image %}
+      background-color: transparent;
+    {% else %}
+      background-color: {{ block.settings.background_color }};
+    {% endif %}
+    padding: {{ block.settings.vertical_padding }}px {{ block.settings.horizontal_padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .ai-testimonials-carousel__bg-image-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ block.settings.border_radius }}px;
+    z-index: 0;
+  }
+
+  .ai-testimonials-carousel__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    background-color: {{ block.settings.overlay_color }};
+    opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    border-radius: {{ block.settings.border_radius }}px;
+    z-index: 1;
+  }
+
+  .ai-testimonials-carousel__blur-{{ ai_gen_id }} {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur({{ block.settings.background_blur }}px);
+    -webkit-backdrop-filter: blur({{ block.settings.background_blur }}px);
+    border-radius: {{ block.settings.border_radius }}px;
+    z-index: 2;
+  }
+
+  .ai-testimonials-carousel__track-{{ ai_gen_id }} {
+    display: flex;
+    height: {{ block.settings.slide_height }}px;
+    transition: transform 500ms ease-in-out;
+    will-change: transform;
+    backface-visibility: hidden;
+    position: relative;
+    z-index: 3;
+  }
+
+  .ai-testimonials-carousel__slide-{{ ai_gen_id }} {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  .ai-testimonials-carousel__avatar-{{ ai_gen_id }} {
+    width: {{ block.settings.avatar_size }}px;
+    height: {{ block.settings.avatar_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+
+  .ai-testimonials-carousel__avatar-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-testimonials-carousel__avatar-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background-color: {{ block.settings.placeholder_color }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-testimonials-carousel__avatar-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-testimonials-carousel__stars-{{ ai_gen_id }} {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .ai-testimonials-carousel__star-{{ ai_gen_id }} {
+    width: {{ block.settings.star_size }}px;
+    height: {{ block.settings.star_size }}px;
+    fill: {{ block.settings.star_color }};
+  }
+
+  .ai-testimonials-carousel__star-{{ ai_gen_id }}--empty {
+    fill: {{ block.settings.star_empty_color }};
+  }
+
+  .ai-testimonials-carousel__quote-{{ ai_gen_id }} {
+    font-size: {{ block.settings.quote_font_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.quote_color }};
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .ai-testimonials-carousel__author-{{ ai_gen_id }} {
+    font-size: {{ block.settings.author_font_size }}px;
+    color: {{ block.settings.author_color }};
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-testimonials-carousel__nav-button-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    z-index: 4;
+    transition: opacity 0.3s ease;
+    color: {{ block.settings.arrow_color }};
+  }
+
+  .ai-testimonials-carousel__nav-button-{{ ai_gen_id }}:hover {
+    opacity: 0.7;
+  }
+
+  .ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--prev {
+    left: {{ block.settings.arrow_offset }}px;
+  }
+
+  .ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--next {
+    right: {{ block.settings.arrow_offset }}px;
+  }
+
+  .ai-testimonials-carousel__nav-button-{{ ai_gen_id }} svg {
+    width: {{ block.settings.arrow_size }}px;
+    height: {{ block.settings.arrow_size }}px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .ai-testimonials-carousel__dots-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .ai-testimonials-carousel__dot-{{ ai_gen_id }} {
+    width: {{ block.settings.dot_size }}px;
+    height: {{ block.settings.dot_size }}px;
+    border-radius: 50%;
+    background-color: {{ block.settings.dot_color }};
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .ai-testimonials-carousel__dot-{{ ai_gen_id }}:hover {
+    transform: scale(1.2);
+  }
+
+  .ai-testimonials-carousel__dot-{{ ai_gen_id }}--active {
+    background-color: {{ block.settings.dot_active_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-testimonials-carousel__slide-{{ ai_gen_id }} {
+      padding: 0 20px;
+    }
+
+    .ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--prev {
+      left: 8px;
+    }
+
+    .ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--next {
+      right: 8px;
+    }
+
+    .ai-testimonials-carousel__quote-{{ ai_gen_id }} {
+      font-size: {{ block.settings.quote_font_size | times: 0.9 }}px;
+    }
+
+    .ai-testimonials-carousel__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_font_size | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<testimonials-carousel-{{ ai_gen_id }}
+  class="ai-testimonials-carousel-{{ ai_gen_id }}"
+  data-autoplay="{{ block.settings.autoplay }}"
+  data-autoplay-speed="{{ block.settings.autoplay_speed }}"
+  {{ block.shopify_attributes }}
+>
+
+  {% if block.settings.heading != blank %}
+    <h2 class="ai-testimonials-carousel__heading-{{ ai_gen_id }}">
+      {{ block.settings.heading }}
+    </h2>
+  {% endif %}
+
+  <div class="ai-testimonials-carousel__container-{{ ai_gen_id }}">
+
+    {% if block.settings.background_image %}
+      <img
+        src="{{ block.settings.background_image | image_url: width: 1400 }}"
+        alt=""
+        class="ai-testimonials-carousel__bg-image-{{ ai_gen_id }}"
+        loading="lazy"
+        width="1400"
+        aria-hidden="true"
+      >
+    {% endif %}
+
+    {% if block.settings.overlay_opacity > 0 %}
+      <div class="ai-testimonials-carousel__overlay-{{ ai_gen_id }}"></div>
+    {% endif %}
+
+    {% if block.settings.background_blur > 0 %}
+      <div class="ai-testimonials-carousel__blur-{{ ai_gen_id }}"></div>
+    {% endif %}
+
+    <div class="ai-testimonials-carousel__track-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign avatar_key = 'testimonial_' | append: i | append: '_avatar'
+          assign quote_key = 'testimonial_' | append: i | append: '_quote'
+          assign author_key = 'testimonial_' | append: i | append: '_author'
+          assign rating_key = 'testimonial_' | append: i | append: '_rating'
+
+          assign avatar = block.settings[avatar_key]
+          assign quote = block.settings[quote_key]
+          assign author = block.settings[author_key]
+          assign rating = block.settings[rating_key]
+        %}
+
+        <div class="ai-testimonials-carousel__slide-{{ ai_gen_id }}">
+          <div class="ai-testimonials-carousel__avatar-{{ ai_gen_id }}">
+            {% if avatar %}
+              <img
+                src="{{ avatar | image_url: width: 200 }}"
+                alt="{{ author | escape }}"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
+            {% else %}
+              <div class="ai-testimonials-carousel__avatar-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="ai-testimonials-carousel__stars-{{ ai_gen_id }}">
+            {% for star in (1..5) %}
+              <svg
+                class="ai-testimonials-carousel__star-{{ ai_gen_id }} {% if star > rating %}ai-testimonials-carousel__star-{{ ai_gen_id }}--empty{% endif %}"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            {% endfor %}
+          </div>
+
+          {% if quote != blank %}
+            <div class="ai-testimonials-carousel__quote-{{ ai_gen_id }}">
+              "{{ quote }}"
+            </div>
+          {% endif %}
+
+          {% if author != blank %}
+            <div class="ai-testimonials-carousel__author-{{ ai_gen_id }}">
+              {{ author }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <button
+      class="ai-testimonials-carousel__nav-button-{{ ai_gen_id }} ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--prev"
+      aria-label="Previous testimonial"
+    >
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <button
+      class="ai-testimonials-carousel__nav-button-{{ ai_gen_id }} ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--next"
+      aria-label="Next testimonial"
+    >
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <div class="ai-testimonials-carousel__dots-{{ ai_gen_id }}">
+    {% for i in (1..4) %}
+      <button
+        class="ai-testimonials-carousel__dot-{{ ai_gen_id }} {% if i == 1 %}ai-testimonials-carousel__dot-{{ ai_gen_id }}--active{% endif %}"
+        aria-label="Go to testimonial {{ i }}"
+        data-index="{{ i | minus: 1 }}"
+      ></button>
+    {% endfor %}
+  </div>
+</testimonials-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class TestimonialsCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.currentIndex = 0;
+        this.totalSlides = 4;
+        this.autoplayInterval = null;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('.ai-testimonials-carousel__track-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--prev');
+        this.nextButton = this.querySelector('.ai-testimonials-carousel__nav-button-{{ ai_gen_id }}--next');
+        this.dots = this.querySelectorAll('.ai-testimonials-carousel__dot-{{ ai_gen_id }}');
+        this.container = this.querySelector('.ai-testimonials-carousel__container-{{ ai_gen_id }}');
+
+        this.autoplay = this.dataset.autoplay === 'true';
+        this.autoplaySpeed = parseInt(this.dataset.autoplaySpeed) || 5000;
+
+        this.setupEventListeners();
+
+        if (this.autoplay) {
+          this.startAutoplay();
+        }
+      }
+
+      setupEventListeners() {
+        this.prevButton.addEventListener('click', () => this.goToPrev());
+        this.nextButton.addEventListener('click', () => this.goToNext());
+
+        this.dots.forEach((dot) => {
+          dot.addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            this.goToSlide(index);
+          });
+        });
+
+        this.container.addEventListener('mouseenter', () => this.pauseAutoplay());
+        this.container.addEventListener('mouseleave', () => {
+          if (this.autoplay) {
+            this.startAutoplay();
+          }
+        });
+
+        this.track.addEventListener('touchstart', (e) => {
+          this.touchStartX = e.changedTouches[0].screenX;
+        });
+
+        this.track.addEventListener('touchend', (e) => {
+          this.touchEndX = e.changedTouches[0].screenX;
+          this.handleSwipe();
+        });
+      }
+
+      handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = this.touchStartX - this.touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            this.goToNext();
+          } else {
+            this.goToPrev();
+          }
+        }
+      }
+
+      goToSlide(index) {
+        this.currentIndex = index;
+        this.updateCarousel();
+        this.resetAutoplay();
+      }
+
+      goToPrev() {
+        this.currentIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+        this.updateCarousel();
+        this.resetAutoplay();
+      }
+
+      goToNext() {
+        this.currentIndex = (this.currentIndex + 1) % this.totalSlides;
+        this.updateCarousel();
+        this.resetAutoplay();
+      }
+
+      updateCarousel() {
+        const offset = -this.currentIndex * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+
+        this.dots.forEach((dot, index) => {
+          if (index === this.currentIndex) {
+            dot.classList.add('ai-testimonials-carousel__dot-{{ ai_gen_id }}--active');
+          } else {
+            dot.classList.remove('ai-testimonials-carousel__dot-{{ ai_gen_id }}--active');
+          }
+        });
+      }
+
+      startAutoplay() {
+        this.autoplayInterval = setInterval(() => {
+          this.goToNext();
+        }, this.autoplaySpeed);
+      }
+
+      pauseAutoplay() {
+        if (this.autoplayInterval) {
+          clearInterval(this.autoplayInterval);
+          this.autoplayInterval = null;
+        }
+      }
+
+      resetAutoplay() {
+        if (this.autoplay) {
+          this.pauseAutoplay();
+          this.startAutoplay();
+        }
+      }
+
+      disconnectedCallback() {
+        this.pauseAutoplay();
+      }
+    }
+
+    customElements.define('testimonials-carousel-{{ ai_gen_id }}', TestimonialsCarousel{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Testimonials carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What our customers say"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Font size",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#282828"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "slide_height",
+      "label": "Slide height",
+      "min": 300,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "horizontal_padding",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 80,
+      "step": 10,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "background_blur",
+      "label": "Background blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote text",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author name",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star filled",
+      "default": "#d4a574"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Star empty",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Avatar placeholder",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "quote_font_size",
+      "label": "Quote size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "author_font_size",
+      "label": "Author size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Elements"
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "label": "Avatar size",
+      "min": 60,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star size",
+      "min": 16,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Navigation arrows"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow color",
+      "default": "#282828"
+    },
+    {
+      "type": "range",
+      "id": "arrow_size",
+      "label": "Arrow size",
+      "min": 24,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "arrow_offset",
+      "label": "Arrow offset",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Dot navigation"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot inactive",
+      "default": "#c0c0c0"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Dot active",
+      "default": "#282828"
+    },
+    {
+      "type": "range",
+      "id": "dot_size",
+      "label": "Dot size",
+      "min": 6,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "min": 3000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_1_avatar",
+      "label": "Avatar"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_1_quote",
+      "label": "Quote",
+      "default": "Good for those moments you'd normally go for a smoke without thinking."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_1_author",
+      "label": "Author name",
+      "default": "Dante"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_1_rating",
+      "label": "Star rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_2_avatar",
+      "label": "Avatar"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_2_quote",
+      "label": "Quote",
+      "default": "A beautiful ritual that helps me pause and reset throughout my day."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_2_author",
+      "label": "Author name",
+      "default": "Sarah"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_2_rating",
+      "label": "Star rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_3_avatar",
+      "label": "Avatar"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_3_quote",
+      "label": "Quote",
+      "default": "The flavors are incredible and the experience feels truly premium."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_3_author",
+      "label": "Author name",
+      "default": "Marcus"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_3_rating",
+      "label": "Star rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Testimonial 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "testimonial_4_avatar",
+      "label": "Avatar"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_4_quote",
+      "label": "Quote",
+      "default": "Brisa has become an essential part of my wellness routine."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_4_author",
+      "label": "Author name",
+      "default": "Emma"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_4_rating",
+      "label": "Star rating",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials carousel"
+    }
+  ]
+}
+{% endschema %}
