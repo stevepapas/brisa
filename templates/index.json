@@ -95,7 +95,28 @@
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div style=\"display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: stretch;\">\n  <div style=\"padding-right: 100px; background-image: url('https://cdn.shopify.com/s/files/1/0939/5752/1780/files/black-tran.png?v=1772367343'); background-size: contain; background-repeat: no-repeat; background-position: right center;\">\n    <h3 class=\"heading h2\">WHAT IS BRISA.</h3>\n    <p style=\"margin-bottom: 1rem;\">Most people trying to quit vaping fail because nothing replaces the ritual. The reach. The draw. The exhale. Brisa does exactly that - same size, same weight, same throat sensation. No nicotine. No smoke. No vapour. Just the part that actually helps.</p>\n    <img src=\"https://cdn.shopify.com/s/files/1/0939/5752/1780/files/icons.png?v=1775132113\">\n  </div>\n</div>",
+        "liquid": "<div style=\"display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: stretch;\">\n  <div style=\"padding-right: 100px; background-image: url('https://cdn.shopify.com/s/files/1/0939/5752/1780/files/cyan-tran.png?v=1772367343'); background-size: contain; background-repeat: no-repeat; background-position: right center;\">\n    <h3 class=\"heading h2\">WHAT IS BRISA.</h3>\n    <p style=\"margin-bottom: 1rem;\">Most people trying to quit vaping fail because nothing replaces the ritual. The reach. The draw. The exhale. Brisa does exactly that - same size, same weight, same throat sensation. No nicotine. No smoke. No vapour. Just the part that actually helps.</p>\n    <img src=\"https://cdn.shopify.com/s/files/1/0939/5752/1780/files/what-is-brisa-icons.png?v=1778982909\">\n  </div>\n</div>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "custom_liquid_4DbTQE": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "section {border-top: 2px solid #ccc; background: red !important;}",
+        "h2 {margin-bottom: 0px; font-size: 26px; text-transform: uppercase; line-height: 1.2;}",
+        "h3 {margin-top: 0px; margin-bottom: 0px; line-height: 1.2;}",
+        ".carousel-container.brisas {background: transparent;}",
+        "@media (max-width: 768px) {.product-card {min-width: 45%; }}",
+        ".product-main-image {max-width: 100%;}"
+      ],
+      "name": "Choose your Brisa",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% assign collection = collections['brisas'] %}\n<div>\n<h2 class=\"tex bold text-center\">Choose your Brisa</h2>\n<h3 class=\"tex text-center\">Select From {{ collection.products_count }} Colours</h3>\n</div>\n<div>\n\n\n  <div class=\"carousel-container brisas\">\n    <button class=\"carousel-arrow carousel-arrow-left\"  aria-label=\"Previous\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"15 18 9 12 15 6\"></polyline>\n      </svg>\n    </button>\n\n    <div class=\"product-carousel\" style=\"background-color: transparent\" id=\"productCarousel\">\n      \n      {% for product in collection.products limit: 8 %}\n        <div class=\"product-card product-{{ product.handle }}\"><a href=\"{{ product.url }}\">\n          <div class=\"product-image-wrapper no-padding\">\n            <div class=\"fruit-elements\">\n              {% if product.metafields.custom.sprout_image_1 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_1 | img_url: '150x150' }}\" alt=\"Sprout 1\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_2 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_2 | img_url: '150x150' }}\" alt=\"Sprout 2\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_3 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_3 | img_url: '150x150' }}\" alt=\"Sprout 3\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_4 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_4 | img_url: '150x150' }}\" alt=\"Sprout 4\">\n                </div>\n              {% endif %}\n            </div>\n\n            {% if product.metafields.custom.carousel_product_image %}\n              <img class=\"product-main-image\" src=\"{{ product.metafields.custom.carousel_product_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% else %}\n              <img class=\"product-main-image\" src=\"{{ product.featured_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% endif %}\n          </div>\n\n          <div class=\"product-info\">\n            <h3 class=\"product-title\">{{ product.title }}</h3>\n            <p class=\"product-price\">{{ product.price | money }}</p>\n          </div>\n        </a></div>\n      {% endfor %}\n    </div>\n\n    <button class=\"carousel-arrow carousel-arrow-right\" aria-label=\"Next\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"9 18 15 12 9 6\"></polyline>\n      </svg>\n    </button>\n  </div>\n</div>",
         "background_type": "full_width",
         "add_vertical_spacing": true,
         "background": "rgba(0,0,0,0)",
@@ -132,26 +153,6 @@
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"two-column-grid fw-white-bg\">\n  <div class=\"grid-column\" style=\"padding-left: var(--container-gutter);\">\n    <h3 class=\"heading h2\">WHY BRISA WORKS WHEN EVERYTHING ELSE DIDN'T.</h3>\n    <p>Brisa matches the exact size, weight, draw, and throat sensation you're already used to. It's not a substitute. It's a precise physical replacement for the ritual - engineered to give your hands and your mouth exactly what they're reaching for, without the nicotine.</p>\n  </div>\n  <div class=\"grid-column\" style=\"max-width: 100% !important; padding: 0px; \">\n<img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-packs.png?v=1775142199\" style=\"position: relative; top: -150px\">\n    \n  </div>\n</div>\n<div style=\"text-align: center; padding: 0;\"><a href=\"/products/brisa-device-black\" class=\"home_button\" >SHOP STARTER KIT</a></div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "custom_liquid_4DbTQE": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "h2 {margin-bottom: 0px; font-size: 26px; text-transform: uppercase; line-height: 1.2;}",
-        "h3 {margin-top: 0px; margin-bottom: 0px; line-height: 1.2;}",
-        ".carousel-container.brisas {background: transparent;}",
-        "@media (max-width: 768px) {.product-card {min-width: 45%; }}",
-        ".product-main-image {max-width: 100%;}"
-      ],
-      "name": "Choose your Brisa",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "{% assign collection = collections['brisas'] %}\n<div>\n<h2 class=\"tex bold text-center\">Choose your Brisa</h2>\n<h3 class=\"tex text-center\">Select From {{ collection.products_count }} Colours</h3>\n</div>\n<div>\n\n\n  <div class=\"carousel-container brisas\">\n    <button class=\"carousel-arrow carousel-arrow-left\"  aria-label=\"Previous\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"15 18 9 12 15 6\"></polyline>\n      </svg>\n    </button>\n\n    <div class=\"product-carousel\" style=\"background-color: transparent\" id=\"productCarousel\">\n      \n      {% for product in collection.products limit: 8 %}\n        <div class=\"product-card product-{{ product.handle }}\"><a href=\"{{ product.url }}\">\n          <div class=\"product-image-wrapper no-padding\">\n            <div class=\"fruit-elements\">\n              {% if product.metafields.custom.sprout_image_1 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_1 | img_url: '150x150' }}\" alt=\"Sprout 1\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_2 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_2 | img_url: '150x150' }}\" alt=\"Sprout 2\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_3 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_3 | img_url: '150x150' }}\" alt=\"Sprout 3\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_4 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_4 | img_url: '150x150' }}\" alt=\"Sprout 4\">\n                </div>\n              {% endif %}\n            </div>\n\n            {% if product.metafields.custom.carousel_product_image %}\n              <img class=\"product-main-image\" src=\"{{ product.metafields.custom.carousel_product_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% else %}\n              <img class=\"product-main-image\" src=\"{{ product.featured_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% endif %}\n          </div>\n\n          <div class=\"product-info\">\n            <h3 class=\"product-title\">{{ product.title }}</h3>\n            <p class=\"product-price\">{{ product.price | money }}</p>\n          </div>\n        </a></div>\n      {% endfor %}\n    </div>\n\n    <button class=\"carousel-arrow carousel-arrow-right\" aria-label=\"Next\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"9 18 15 12 9 6\"></polyline>\n      </svg>\n    </button>\n  </div>\n</div>",
         "background_type": "full_width",
         "add_vertical_spacing": true,
         "background": "rgba(0,0,0,0)",
@@ -651,9 +652,9 @@
     "slideshow_brisa_rBtQLP",
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",
+    "custom_liquid_4DbTQE",
     "custom_liquid_W4dQmg",
     "custom_liquid_aMT7Gq",
-    "custom_liquid_4DbTQE",
     "brisa_testimonials_PaAQ3F",
     "custom_liquid_ffP48k",
     "custom_liquid_aprqnP",
