@@ -123,25 +123,6 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
-    "custom_liquid_W4dQmg": {
-      "type": "custom-liquid",
-      "custom_css": [
-        ".section__color-wrapper {background: transparent;}",
-        "section {background: #f2f2f2; padding: 50px 10px; border-radius: 40px !important;}",
-        ".two-column-grid {display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; align-items: center;}",
-        "@media (min-width: 767px) {.two-column-grid {grid-template-columns: 3fr 1fr; }}"
-      ],
-      "name": "It's not just the habit",
-      "settings": {
-        "subheading": "",
-        "title": "IT’S NOT JUST THE HABIT. IT’S THE RITUAL.",
-        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <p>You've tried stopping before. The patches didn't work. The gum didn't work. Because they never replaced this — the reach for it, the pause, the exhale. That's the ritual. And that's exactly what Brisa is built for.\n</p>\n  </div>\n  <div class=\"grid-column\" style=\"max-width: 100% !important; background-image: url();background-position: right center; background-size: contain; background-repeat: no-repeat; padding: 0px; \">\n<img src=\"//brisabetter.com/cdn/shop/files/sq-7.jpg?v=4399890867302413098\">\n    \n  </div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "custom_liquid_aMT7Gq": {
       "type": "custom-liquid",
       "custom_css": [
@@ -665,7 +646,6 @@
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",
     "custom_liquid_4DbTQE",
-    "custom_liquid_W4dQmg",
     "custom_liquid_aMT7Gq",
     "brisa_testimonials_PaAQ3F",
     "custom_liquid_ffP48k",
