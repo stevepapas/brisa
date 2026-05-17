@@ -1,0 +1,188 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --card-bg: rgba(255, 255, 255, 0.18);
+    --card-border: rgba(255, 255, 255, 0.35);
+    background: {{ section.settings.bg_color_top }};
+    background: linear-gradient(180deg, {{ section.settings.bg_color_top }}, {{ section.settings.bg_color_bottom }});
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+
+  .why-brisa-works__heading {
+    text-align: center;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 32px;
+  }
+
+  .why-brisa-works__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .why-brisa-works__card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--card-border);
+    border-radius: 18px;
+    padding: 28px 28px 24px;
+  }
+
+  .why-brisa-works__card-title {
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px;
+  }
+
+  .why-brisa-works__card-text {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .why-brisa-works__heading {
+      font-size: 2.5rem;
+    }
+
+    .why-brisa-works__grid {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .why-brisa-works__card {
+      flex: 1;
+    }
+  }
+</style>
+
+<section class="why-brisa-works">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="why-brisa-works__heading">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+
+  <div class="why-brisa-works__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'card' -%}
+        <div class="why-brisa-works__card" {{ block.shopify_attributes }}>
+          {%- if block.settings.title != blank -%}
+            <h3 class="why-brisa-works__card-title">{{ block.settings.title | escape }}</h3>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="why-brisa-works__card-text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Brisa Works",
+  "class": "shopify-section--why-brisa-works",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Habit Loop"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Most people don't just miss the nicotine. They miss the reach, the draw, the pause and the routine. Brisa gives that moment a cleaner replacement."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHY BRISA WORKS"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_top",
+      "label": "Background gradient top",
+      "default": "#29b6f6"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_bottom",
+      "label": "Background gradient bottom",
+      "default": "#1e88e5"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 48
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "card",
+        "settings": {
+          "title": "Habit Loop",
+          "text": "Most people don't just miss the nicotine. They miss the reach, the draw, the pause and the routine. Brisa gives that moment a cleaner replacement."
+        }
+      },
+      {
+        "type": "card",
+        "settings": {
+          "title": "Sensory Feel",
+          "text": "The flavour core and airflow are designed to feel familiar, giving your mouth and hands something to do when the urge hits."
+        }
+      },
+      {
+        "type": "card",
+        "settings": {
+          "title": "No Nicotine",
+          "text": "No nicotine. No smoke. No vapour. Just a reusable device and food-grade flavour cores."
+        }
+      }
+    ]
+  }
+}
+{% endschema %}
