@@ -646,6 +646,18 @@
     "1777722508659cced2": {
       "type": "_blocks",
       "settings": {}
+    },
+    "177899310035a7028b": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17789936267965322a": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "177899374592e5fb95": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
@@ -670,6 +682,9 @@
     "custom_liquid_CUBaDy",
     "image_with_text_VMWxg8",
     "custom_liquid_ke6YPe",
-    "1777722508659cced2"
+    "1777722508659cced2",
+    "177899310035a7028b",
+    "17789936267965322a",
+    "177899374592e5fb95"
   ]
 }
