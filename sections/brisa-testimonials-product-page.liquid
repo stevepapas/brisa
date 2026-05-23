@@ -90,6 +90,7 @@
 {
   "name": "Brisa product reviews",
   "class": "shopify-section--brisa-testimonials-product-page",
+  "max_blocks": 12,
   "settings": [
     {
       "type": "metaobject_list",
@@ -137,6 +138,37 @@
       "step": 500,
       "unit": "ms",
       "default": 5000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Legacy testimonial",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Legacy blocks are kept only so older page data can save. Reviews displayed by this section come from the testimonial metaobject setting above."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
     }
   ],
   "presets": [
