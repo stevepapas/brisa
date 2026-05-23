@@ -114,12 +114,37 @@
         </div>
       </div>
 
-      <div class="brisa-product-area-info__landscape" aria-hidden="true">
-        <span class="brisa-product-area-info__cloud brisa-product-area-info__cloud--one"></span>
-        <span class="brisa-product-area-info__cloud brisa-product-area-info__cloud--two"></span>
-        <span class="brisa-product-area-info__cloud brisa-product-area-info__cloud--three"></span>
-        <span class="brisa-product-area-info__hill brisa-product-area-info__hill--back"></span>
-        <span class="brisa-product-area-info__hill brisa-product-area-info__hill--front"></span>
+      <div class="brisa-product-area-info__landscape">
+        {% if section.settings.landscape_image != blank %}
+          <img
+            src="{{ section.settings.landscape_image | image_url: width: 900 }}"
+            alt="{{ section.settings.landscape_image.alt | default: 'Brisa install video' | escape }}"
+            class="brisa-product-area-info__landscape-image"
+            loading="lazy"
+            width="{{ section.settings.landscape_image.width }}"
+            height="{{ section.settings.landscape_image.height }}"
+          >
+        {% endif %}
+
+        {% if section.settings.landscape_video != blank %}
+          {% liquid
+            assign video_src = ''
+            if section.settings.landscape_video.type == 'youtube'
+              assign video_src = 'https://www.youtube.com/embed/' | append: section.settings.landscape_video.id | append: '?autoplay=1&rel=0&modestbranding=1'
+            elsif section.settings.landscape_video.type == 'vimeo'
+              assign video_src = 'https://player.vimeo.com/video/' | append: section.settings.landscape_video.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+            endif
+          %}
+
+          <button
+            type="button"
+            class="brisa-product-area-info__play"
+            data-brisa-video-src="{{ video_src | escape }}"
+            aria-label="Play install video"
+          >
+            <span aria-hidden="true"></span>
+          </button>
+        {% endif %}
       </div>
     </div>
 
@@ -154,6 +179,19 @@
 {
   "name": "Brisa product area info",
   "class": "shopify-section--brisa-product-area-info",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "landscape_image",
+      "label": "Landscape image"
+    },
+    {
+      "type": "video_url",
+      "id": "landscape_video",
+      "label": "Landscape video",
+      "accept": ["youtube", "vimeo"]
+    }
+  ],
   "presets": [
     {
       "name": "Brisa product area info",

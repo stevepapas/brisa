@@ -385,3 +385,55 @@ class BrisaProductTestimonials extends HTMLElement {
 if (!customElements.get('brisa-product-testimonials')) {
   customElements.define('brisa-product-testimonials', BrisaProductTestimonials);
 }
+
+document.addEventListener('click', (event) => {
+  const playButton = event.target.closest('[data-brisa-video-src]');
+  if (!playButton) return;
+
+  const videoSrc = playButton.dataset.brisaVideoSrc;
+  if (!videoSrc) return;
+
+  let lightbox = document.querySelector('.brisa-video-lightbox');
+
+  if (!lightbox) {
+    lightbox = document.createElement('div');
+    lightbox.className = 'brisa-video-lightbox';
+    lightbox.innerHTML = `
+      <button class="brisa-video-lightbox__overlay" type="button" aria-label="Close video"></button>
+      <div class="brisa-video-lightbox__content" role="dialog" aria-modal="true" aria-label="Video">
+        <button class="brisa-video-lightbox__close" type="button" aria-label="Close video">&times;</button>
+        <iframe title="Brisa video" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+  }
+
+  const iframe = lightbox.querySelector('iframe');
+  iframe.src = videoSrc;
+  lightbox.classList.add('is-open');
+  document.documentElement.style.overflow = 'hidden';
+});
+
+document.addEventListener('click', (event) => {
+  const closeButton = event.target.closest('.brisa-video-lightbox__close, .brisa-video-lightbox__overlay');
+  if (!closeButton) return;
+
+  const lightbox = closeButton.closest('.brisa-video-lightbox');
+  const iframe = lightbox.querySelector('iframe');
+
+  iframe.src = '';
+  lightbox.classList.remove('is-open');
+  document.documentElement.style.overflow = '';
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+
+  const lightbox = document.querySelector('.brisa-video-lightbox.is-open');
+  if (!lightbox) return;
+
+  const iframe = lightbox.querySelector('iframe');
+  iframe.src = '';
+  lightbox.classList.remove('is-open');
+  document.documentElement.style.overflow = '';
+});
