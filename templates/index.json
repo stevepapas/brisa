@@ -190,23 +190,6 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
-    "custom_liquid_aMT7Gq": {
-      "type": "custom-liquid",
-      "custom_css": [
-        ".section__color-wrapper {background: transparent;}",
-        ".two-column-grid {display: grid; grid-template-columns: 3fr 1fr; gap: 0.5rem; align-items: center;}"
-      ],
-      "name": "Why Brisa Helps",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<div class=\"two-column-grid fw-white-bg\">\n  <div class=\"grid-column\" style=\"padding-left: var(--container-gutter);\">\n    <h3 class=\"heading h2\">WHY BRISA WORKS WHEN EVERYTHING ELSE DIDN'T.</h3>\n    <p>Brisa matches the exact size, weight, draw, and throat sensation you're already used to. It's not a substitute. It's a precise physical replacement for the ritual - engineered to give your hands and your mouth exactly what they're reaching for, without the nicotine.</p>\n  </div>\n  <div class=\"grid-column\" style=\"max-width: 100% !important; padding: 0px; \">\n<img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-packs.png?v=1775142199\" style=\"position: relative; top: -150px\">\n    \n  </div>\n</div>\n<div style=\"text-align: center; padding: 0;\"><a href=\"/products/brisa-device-black\" class=\"home_button\" >SHOP STARTER KIT</a></div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "brisa_testimonials_PaAQ3F": {
       "type": "brisa-testimonials",
       "blocks": {
@@ -324,49 +307,6 @@
         "autoplay_speed": 5000
       }
     },
-    "custom_liquid_ffP48k": {
-      "type": "custom-liquid",
-      "custom_css": [
-        ".row2 {border-top: 2px solid black !important; position: relative;}",
-        ".row2 > :first-child {padding-top: 10px; background: #fed5d6; border-radius: 0px; padding: 10px 40px 10px 10px;}",
-        ".row2 > * {position: relative;}",
-        ".row2 > :last-child {padding-top: 10px; background: #e1f0d8; border-radius: 0px; padding: 10px 10px 10px 40px;}",
-        ".row2 > :last-child img {max-height: 40px; border-radius: 0px; margin-bottom: 10px;}"
-      ],
-      "name": "Stop Paying",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n.three-column-grid {\n  display: grid;\n  grid-template-columns: 1fr auto 1fr;\n  gap: 0rem;\n}\n.three-column-grid.row2 p {\n  color: black !important;\n  font-weight: bold;\n  margin-top: 12px;\n  font-size: 11px;\n}\n\n\n.row2 > :nth-child(2) img {\n    position: absolute;\n    left: -22px;\n    top: 00px;\n    min-width: 42px;\n    z-index: 3;\n}\n\n\n@media (min-width: 768px) {\n.three-column-grid.row2 p {\n    color: black !important;\n    margin-top: 12px;\n    font-size: 18px;\n    font-weight: 300;\n\n}\n.row2 > :nth-child(2) img {\nleft: -25px;\n    min-width: 50px;\n\n}\n}\n\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n.three-column-grid.top-price {\n  margin-top: 4px;\n  font-weight: bold;\n  text-align: center;\n}\n\n \n\n \n  @media (max-width: 768px) {\n    .three-column-grid {\n      gap: 0rem;\n    }\n  }\n</style>\n\n<div style=\"text-align: center; padding: 0;\">\n\n<h2 class=\"heading h2\">STOP PAYING FOR THE SAME HABIT AGAIN AND AGAIN\n\n</h2>\n\n<p>Buy the device once, keep it, and only replace the cores when needed.\n</p>\n\n\n</div>\n\n\n<div class=\"three-column-grid top-price\">\n  <div class=\"grid-column top\">\n$300+ /Mo\n</div><div class=\"griatd-column icons\">\n&nbsp;\n</div><div class=\"grid-column icons\">\n$130. Once\n</div>\n</div>\n\n\n\n<div class=\"three-column-grid row2\">\n  <div class=\"grid-column icons\">\n    <h4 style=\"line-height: 1.2\">WHAT YOU'RE SPENDING NOW</h4>\n<p>\n12 months vaping<br>\n= $4,680</p>\n<p>12 months smoking<br>\n= $6,000 +</p>\n<p>Still damaging your health \n</p>\n<p> Still draining your wallet\n</p>\n<p>Ticking time bomb</p>\n\n  </div>\n  <div class=\"grid-column\">\n<img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/black-tran.png?v=1772367343\">\n    \n  </div>\n<div class=\"grid-column\">\n<img src=\"https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446\">\n<p>\nMetal reusable device- built to last\n</p><p>\n9 cores included in starter kit (27 days)\n</p><p>\nCleaning kit\n</p><p>\nCarry bag\n</p><p>\n$45/month for new cores \n</p>\n\n\n\n</div>\n</div>\n\n<p>For less than 2 weeks of your old habit’s cost, it could all be over for good.</p>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "custom_liquid_aprqnP": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {background: #f2f2f2; padding-top: 10px; padding-left: 0px; color: white; border-top-left-radius: 40px !important; border-top-right-radius: 40px !important;}",
-        ".custom-two-column {padding: 0px;}",
-        ".section__color-wrapper {background: transparent;}",
-        ".custom-two-column {gap: 0px;}",
-        "a {background-color: white !important; color: black; border-radius: 15px !important;}",
-        ".container {padding-left: 0px; padding-right: 0px;}",
-        ".custom-two-column__image img {border-radius: 0px;}",
-        "@media (min-width: 768px) {.custom-two-column {flex-direction: column; }}"
-      ],
-      "name": "Better Cores",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n\n\n.custom-two-column__image {\n  flex: 1 1 100%;\n}\n\n\n.custom-two-column__text {\n  flex: 1 1 100%;\n}\n\n.custom-two-column__text h2 {\n  margin-bottom: 15px;\n}\n\n.custom-two-column__text p {\n  line-height: 1.6;\n}\n\n@media (min-width: 768px) {\n  .custom-two-column__image {\n    flex: 1 1 45%;\n  }\n  \n  .custom-two-column__text {\n    flex: 1 1 45%;\n  }\n}\n</style>\n\n{% assign featured_image = 'better-cores.png' | file_url %}\n{% assign brisa-box = 'better-cores-image.png' | file_url %}\n{% assign better-way-to-quit = 'better-way-to-quit.png' | file_url %}\n\n<div class=\"light_grey_box\" >\n<h2 class=\"tex text-center\"><img src=\"{{ featured_image }}\" alt=\"better\" style=\"display: inline; max-height: 70px; border-radius: 0px; max-width: 100%; height: auto; \" /></h2>\n\n\n\n<div class=\"custom-two-column\" style=\"max-width: 100% !important\">\n  <div class=\"custom-two-column__image\">\n    <img src=\"{{ brisa-box }}\" alt=\"Description of image\">\n  </div>\n  \n  <div class=\"custom-two-column__text\" style=\"background-color: #555;\npadding: 10px; 50px; text-align: center; width: 100%\" >\n    \n   \n\n<a class=\"button\" href=\"/pages/shop\n\">SHOP NOW</a>\n  </div>\n\n\n</div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "1773237972417d2c8a": {
       "type": "_blocks",
       "blocks": {
@@ -413,46 +353,6 @@
         "subheading": "",
         "title": "",
         "liquid": "{% assign collection = collections['cores'] %}\n<div>\n<h2 class=\"bold tex text-center\">Better Core</h2>\n<h3 class=\"tex text-center\">Food grade aroma cores for the Brisa ritual</h3>\n\n<div class=\"carousel-container brisas flavours\">\n    <button class=\"carousel-arrow carousel-arrow-left\"  aria-label=\"Previous\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"15 18 9 12 15 6\"></polyline>\n      </svg>\n    </button>\n\n    <div class=\"product-carousel\" id=\"productCarousel\">\n      {% assign collection = collections['cores'] %}\n      {% for product in collection.products limit: 8 %}\n        <div class=\"product-card product-{{ product.handle }}\" style=\"background-size: cover; background-image: url({{ product.metafields.custom.carousel_background_gradient | img_url: '1000x1000' }});\">\n\n<a href=\"{{ product.url }}\">         \n<div class=\"product-image-wrapper\">\n            <div class=\"fruit-elements\">\n              {% if product.metafields.custom.sprout_image_1 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_1 | img_url: '150x150' }}\" alt=\"Sprout 1\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_2 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_2 | img_url: '150x150' }}\" alt=\"Sprout 2\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_3 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_3 | img_url: '150x150' }}\" alt=\"Sprout 3\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_4 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_4 | img_url: '150x150' }}\" alt=\"Sprout 4\">\n                </div>\n              {% endif %}\n            </div>\n\n            {% if product.metafields.custom.carousel_product_image %}\n              <img class=\"product-main-image\" src=\"{{ product.metafields.custom.carousel_product_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% else %}\n              <img class=\"product-main-image\" src=\"{{ product.featured_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% endif %}\n          </div>\n\n          <div class=\"product-info\">\n            <h3 class=\"product-title\">{{ product.title }}</h3>\n            <p class=\"product-price\">{{ product.price | money }}</p>\n          </div></a>\n        </div>\n      {% endfor %}\n    </div>\n\n    <button class=\"carousel-arrow carousel-arrow-right\" aria-label=\"Next\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"9 18 15 12 9 6\"></polyline>\n      </svg>\n    </button>\n  </div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "custom_liquid_MgV3x8": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {background: url(https://cdn.shopify.com/s/files/1/0939/5752/1780/files/learn_the_better_way.jpg?v=1770034687); background-size: cover; background-position: center;}",
-        ".section__color-wrapper {background: transparent;}",
-        "a {background-color: white !important; color: black; border-radius: 15px !important;}",
-        ".header {max-width: 250px; margin: 0 auto; line-height: 1; padding: 50px 0px;}",
-        "h2 {margin: 7px 0px !important; font-size: 28px;}"
-      ],
-      "name": "Learn",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n.custom-two-column {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 30px;\n  align-items: center;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 40px 20px;\n}\n\n.custom-two-column__image {\n  flex: 1 1 100%;\n}\n\n.custom-two-column__image img {\n  width: 100%;\n  height: auto;\n  border-radius: 8px;\n}\n\n.custom-two-column__text {\n  flex: 1 1 100%;\n}\n\n.custom-two-column__text h2 {\n  margin-bottom: 15px;\n}\n\n.custom-two-column__text p {\n  line-height: 1.6;\n}\n\n@media (min-width: 768px) {\n  .custom-two-column__image {\n    flex: 1 1 45%;\n  }\n  \n  .custom-two-column__text {\n    flex: 1 1 45%;\n  }\n}\n</style>\n\n{% assign featured_image = 'better-white.png' | file_url %}\n\n\n<div class=\"grey_box\">\n<div class=\"header\">\n<h2 class=\"tex\">Learn the </h2>\n<h2 class=\"tex text-right\">\n<img src=\"{{ featured_image }}\" alt=\"better\" style=\"display: inline; max-height: 40px; border-radius: 0px; vertical-align: middle; max-width: 100%; height: auto; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.8)) \" /> way</h2>\n</div>\n\n\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "custom_liquid_BEYbT6": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {}",
-        ".section__color-wrapper {background: transparent;}",
-        "a {background-color: black !important; color: white; border-radius: 15px !important;}",
-        ".header {max-width: 250px; margin: 0 auto; line-height: 1; padding: 50px 0px;}",
-        "h2 {margin: 7px 0px !important; font-size: 28px;}"
-      ],
-      "name": "Learn Text",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n.custom-two-column {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 30px;\n  align-items: center;\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 40px 20px;\n}\n\n.custom-two-column__image {\n  flex: 1 1 100%;\n}\n\n.custom-two-column__image img {\n  width: 100%;\n  height: auto;\n  border-radius: 8px;\n}\n\n.custom-two-column__text {\n  flex: 1 1 100%;\n}\n\n.custom-two-column__text h2 {\n  margin-bottom: 15px;\n}\n\n.custom-two-column__text p {\n  line-height: 1.6;\n}\n\n@media (min-width: 768px) {\n  .custom-two-column__image {\n    flex: 1 1 45%;\n  }\n  \n  .custom-two-column__text {\n    flex: 1 1 45%;\n  }\n}\n</style>\n\n{% assign featured_image = 'better-white.png' | file_url %}\n\n\n<div class=\"grey_box\">\n<div class=\"ccustom-two-column\">\n  <div class=\"custom-two-column__image\">\n    \n  </div>\n  \n  <div class=\"custom-two-column__text\">\n    \n    <p class=\"tex\" style=\"margin-bottom: 0px\">Vaping has real effects. Quitting has real challenges, but big improvements.</p><p class=\"tex\">Brisa makes the switch easier, and the science explains why. </p>\n\n<a class=\"button\" href=\"/pages/learn\n\">Explore the Science</a>\n  </div>\n</div>\n</div>",
         "background_type": "full_width",
         "add_vertical_spacing": true,
         "background": "rgba(0,0,0,0)",
@@ -740,14 +640,9 @@
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",
     "custom_liquid_4DbTQE",
-    "custom_liquid_aMT7Gq",
     "brisa_testimonials_PaAQ3F",
-    "custom_liquid_ffP48k",
-    "custom_liquid_aprqnP",
     "1773237972417d2c8a",
     "custom_liquid_JHFYBz",
-    "custom_liquid_MgV3x8",
-    "custom_liquid_BEYbT6",
     "image_with_text_jtTw6U",
     "multi_column_Xa8YUJ",
     "image_with_text_wC8Yh3",
