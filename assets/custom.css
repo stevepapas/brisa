@@ -1595,4 +1595,14 @@ display: none;
     margin: 0 -20px;
     padding-inline: 20px;
   }
+  .brisa-comparison__table {
+    grid-template-columns: minmax(24%, 1fr) minmax(27%, 1.05fr) repeat(3, minmax(15%, 1fr));
+  }
+
+  .brisa-comparison__cell--heading {
+    font-size: 11px;
+  }
+  .brisa-comparison__cell {
+    font-size: 11px;
+  }
 }

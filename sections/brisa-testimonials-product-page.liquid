@@ -50,7 +50,7 @@
               </div>
 
               {% if quote != blank %}
-                <p class="brisa-product-testimonials__quote">"{{ quote | strip_html | escape }}"</p>
+                <p class="brisa-product-testimonials__quote">"{{ quote | strip_html | truncatewords: 30 | escape }}"</p>
               {% endif %}
             </div>
           </article>
