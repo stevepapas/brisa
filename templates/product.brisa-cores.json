@@ -169,6 +169,44 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
+    "brisa_product_area_info_t9x6TB": {
+      "type": "brisa-product-area-info",
+      "blocks": {
+        "cost_row_Jk6kGQ": {
+          "type": "cost_row",
+          "settings": {
+            "amount": "$4,600",
+            "label": "a year",
+            "highlight_amount": false
+          }
+        },
+        "cost_row_4z8L4h": {
+          "type": "cost_row",
+          "settings": {
+            "amount": "$20,000",
+            "label": "by 2030",
+            "highlight_amount": false
+          }
+        },
+        "cost_row_7HpGpL": {
+          "type": "cost_row",
+          "settings": {
+            "amount": "$130",
+            "label": "to start with Brisa",
+            "highlight_amount": true
+          }
+        }
+      },
+      "block_order": [
+        "cost_row_Jk6kGQ",
+        "cost_row_4z8L4h",
+        "cost_row_7HpGpL"
+      ],
+      "name": "Brisa product area info",
+      "settings": {
+        "heading": "YOU'RE NOT BROKE.\nYOU JUST VAPE."
+      }
+    },
     "custom_liquid_VxEmGV": {
       "type": "custom-liquid",
       "custom_css": [
@@ -337,6 +375,7 @@
       ],
       "name": "Brisa product reviews",
       "settings": {
+        "testimonials": [],
         "heading": "Real Aussies. Real Reviews.",
         "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
         "show_arrows": true,
@@ -352,6 +391,7 @@
     "product-content",
     "1772962804ca13e40e",
     "custom_liquid_wKcMgG",
+    "brisa_product_area_info_t9x6TB",
     "custom_liquid_VxEmGV",
     "brisa_comparison_table_ntMxq4",
     "brisa_testimonials_product_page_x4dyKh"
