@@ -1,165 +1,19 @@
-{% liquid
-  assign ai_gen_id = section.id | replace: '-', '' | downcase
-%}
-
 <style>
   #shopify-section-{{ section.id }} {
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} {
-    color: {{ section.settings.text_color }};
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__container {
-    max-width: {{ section.settings.max_width }}px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__header {
-    max-width: 760px;
-    margin: 0 auto 28px;
-    text-align: center;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__heading {
-    margin: 0;
-    color: {{ section.settings.heading_color }};
-    font-size: {{ section.settings.heading_size }}px;
-    font-weight: 800;
-    line-height: 1.05;
-    text-transform: uppercase;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__subheading {
-    margin: 12px 0 0;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__scroll {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 18px 4px;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__table {
-    position: relative;
-    display: grid;
-    grid-template-columns: minmax(120px, 1fr) minmax(112px, 1.05fr) repeat(3, minmax(105px, 1fr));
-    min-width: 620px;
-    max-width: 900px;
-    margin: 0 auto;
-    isolation: isolate;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell {
-    min-height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 12px;
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.15;
-    text-align: center;
-    border-top: {{ section.settings.line_width }}px solid {{ section.settings.line_color }};
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell--label {
-    justify-content: flex-start;
-    text-align: left;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell--heading {
-    min-height: 58px;
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    border-top: 0;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell--brisa {
-    position: relative;
-    z-index: 1;
-    color: {{ section.settings.brisa_text_color }};
-    background: {{ section.settings.brisa_color }};
-    border-top-color: transparent;
-    box-shadow: 0 0 0 1px {{ section.settings.brisa_color }};
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell--brisa-heading {
-    min-height: 76px;
-    border-radius: {{ section.settings.brisa_radius }}px {{ section.settings.brisa_radius }}px 0 0;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell--brisa-last {
-    border-radius: 0 0 {{ section.settings.brisa_radius }}px {{ section.settings.brisa_radius }}px;
-    min-height: 72px;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__logo {
-    display: block;
-    max-width: 86px;
-    max-height: 42px;
-    object-fit: contain;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__logo-text {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4px 8px 2px;
-    color: #111111;
-    background: #ffffff;
-    border-radius: 4px;
-    font-family: Georgia, serif;
-    font-size: 26px;
-    font-weight: 800;
-    line-height: 0.85;
-    letter-spacing: -0.08em;
-    text-transform: uppercase;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__logo-text small {
-    font-family: Arial, sans-serif;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__value {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__value--icon {
-    width: {{ section.settings.icon_size }}px;
-    height: {{ section.settings.icon_size }}px;
-    border-radius: 50%;
-    color: {{ section.settings.icon_color }};
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__cell--brisa .brisa-comparison__value--icon {
-    color: {{ section.settings.brisa_icon_color }};
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__value--icon svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__footnote {
-    max-width: 760px;
-    margin: 18px auto 0;
-    text-align: center;
-    font-size: 13px;
-    line-height: 1.5;
+    --brisa-comparison-text-color: {{ section.settings.text_color }};
+    --brisa-comparison-max-width: {{ section.settings.max_width }}px;
+    --brisa-comparison-heading-color: {{ section.settings.heading_color }};
+    --brisa-comparison-heading-size: {{ section.settings.heading_size }}px;
+    --brisa-comparison-line-width: {{ section.settings.line_width }}px;
+    --brisa-comparison-line-color: {{ section.settings.line_color }};
+    --brisa-comparison-brisa-text-color: {{ section.settings.brisa_text_color }};
+    --brisa-comparison-brisa-color: {{ section.settings.brisa_color }};
+    --brisa-comparison-brisa-radius: {{ section.settings.brisa_radius }}px;
+    --brisa-comparison-icon-size: {{ section.settings.icon_size }}px;
+    --brisa-comparison-icon-color: {{ section.settings.icon_color }};
+    --brisa-comparison-brisa-icon-color: {{ section.settings.brisa_icon_color }};
   }
 
   @media screen and (max-width: 749px) {
@@ -167,18 +21,10 @@
       padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
     }
 
-    .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__heading {
-      font-size: {{ section.settings.heading_size | times: 0.74 | round }}px;
-    }
-
-    .brisa-comparison-{{ ai_gen_id }} .brisa-comparison__scroll {
-      margin: 0 -20px;
-      padding-inline: 20px;
-    }
   }
 </style>
 
-<section class="brisa-comparison brisa-comparison-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
+<section class="brisa-comparison" {{ section.shopify_attributes }}>
   <div class="brisa-comparison__container">
     {% if section.settings.heading != blank or section.settings.subheading != blank %}
       <div class="brisa-comparison__header">

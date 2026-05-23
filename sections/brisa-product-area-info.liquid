@@ -1,23 +1,151 @@
 <section class="brisa-product-area-info" {{ section.shopify_attributes }}>
   <div class="brisa-product-area-info__inner">
-    {% if section.settings.heading != blank %}
-      <h2 class="brisa-product-area-info__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
-    {% endif %}
+    <div class="brisa-product-area-info__guarantee">
+      <strong>30-DAY SUCCESS GUARANTEE</strong>
+      <span>If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.</span>
+    </div>
 
-    <div class="brisa-product-area-info__rows">
-      {% for block in section.blocks %}
-        <div class="brisa-product-area-info__row" {{ block.shopify_attributes }}>
-          {% if block.settings.amount != blank %}
-            <span class="brisa-product-area-info__amount {% if block.settings.highlight_amount %}brisa-product-area-info__amount--highlight{% endif %}">
-              {{ block.settings.amount | escape }}
-            </span>
-          {% endif %}
+    <div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
+      <div class="brisa-product-area-info__trust-item">
+        <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <path d="M7 30h25l6-9h3a4 4 0 0 1 4 4v5h-5" />
+            <path d="M7 30V18h23v12" />
+            <path d="M15 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM36 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+            <path d="M11 16h14M8 21h10M5 25h10" />
+          </svg>
+        </span>
+        <span>Free shipping<br>PLUS ANY 2+U</span>
+      </div>
 
-          {% if block.settings.label != blank %}
-            <span class="brisa-product-area-info__label">{{ block.settings.label | escape }}</span>
-          {% endif %}
+      <div class="brisa-product-area-info__trust-item">
+        <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <rect x="11" y="21" width="26" height="19" rx="3" />
+            <path d="M17 21v-6a7 7 0 0 1 14 0v6" />
+            <path d="M24 29v5" />
+          </svg>
+        </span>
+        <span>Secure checkout</span>
+      </div>
+
+      <div class="brisa-product-area-info__trust-item">
+        <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" focusable="false">
+            <path d="M8 20c5-7 11-7 16 0 5-7 11-7 16 0" />
+            <path d="M8 29c5-7 11-7 16 0 5-7 11-7 16 0" />
+            <circle cx="12" cy="37" r="3" />
+            <circle cx="24" cy="37" r="3" />
+            <circle cx="36" cy="37" r="3" />
+          </svg>
+        </span>
+        <span>1,000+ Aussies on<br>Brisa</span>
+      </div>
+    </div>
+
+    <div class="brisa-product-area-info__sellout">WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW</div>
+
+    <div class="brisa-product-area-info__panel brisa-product-area-info__panel--aroma">
+      <h2 class="brisa-product-area-info__panel-heading">ENGINEERED FOR AROMA.</h2>
+      <p class="brisa-product-area-info__panel-subheading">Built to deliver the ritual without the chemistry.</p>
+
+      <div class="brisa-product-area-info__feature-list">
+        <div class="brisa-product-area-info__feature">
+          <span class="brisa-product-area-info__feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M40 7C21.5 8.5 10.5 17.5 9 35.5C18.5 37 30.5 31 35.5 21.5" />
+              <path d="M9.5 36C15.5 25.5 23.5 19.5 35.5 16" />
+            </svg>
+          </span>
+          <p><strong>Food-grade aroma compounds.</strong> Built from natural fibres and food-grade aroma. The same scent profile, clean hand to mouth ritual without vaping or smoke.</p>
         </div>
-      {% endfor %}
+
+        <div class="brisa-product-area-info__feature">
+          <span class="brisa-product-area-info__feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M7 18h25c4 0 6-5 3-8-2.4-2-6-1-7 2" />
+              <path d="M7 27h31c4 0 6 5 3 8-2.4 2-6 1-7-2" />
+              <path d="M7 36h19" />
+            </svg>
+          </span>
+          <p><strong>Cool, clean draw.</strong> Delivers a familiar draw-like scent with zero hand-to-mouth separation. Just swap, pull, and satisfy. No smoke, no nicotine, no vapour.</p>
+        </div>
+
+        <div class="brisa-product-area-info__feature">
+          <span class="brisa-product-area-info__feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M17 24V12.5a3 3 0 0 1 6 0V23" />
+              <path d="M23 22V9.5a3 3 0 0 1 6 0V23" />
+              <path d="M29 23V13a3 3 0 0 1 6 0v14" />
+              <path d="M17 25 13.5 21.5a3 3 0 0 0-4.3 4.2l8.4 10.1A12 12 0 0 0 39 28v-8a3 3 0 0 0-6 0" />
+            </svg>
+          </span>
+          <p><strong>Full ritual replacement.</strong> Same motion. Same draw. Same throat sensation. The core does the sensory work - your hands do the rest.</p>
+        </div>
+
+        <div class="brisa-product-area-info__feature">
+          <span class="brisa-product-area-info__feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <circle cx="24" cy="24" r="17" />
+              <path d="M17 17 31 31M31 17 17 31" />
+            </svg>
+          </span>
+          <p><strong>Drug-free, every time.</strong> Zero nicotine. Zero pharmaceuticals. Zero combustion. Just the ritual, on your terms.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="brisa-product-area-info__panel brisa-product-area-info__panel--install">
+      <h2 class="brisa-product-area-info__script-heading">HOW TO<br><span>INSTALL</span></h2>
+      <p class="brisa-product-area-info__panel-subheading">Three steps. Less than ten seconds.</p>
+
+      <div class="brisa-product-area-info__steps">
+        <div class="brisa-product-area-info__step">
+          <span>01</span>
+          <p><strong>Twist open</strong> Unscrew the top of your Better Unit.</p>
+        </div>
+        <div class="brisa-product-area-info__step">
+          <span>02</span>
+          <p><strong>Slot the core in</strong> Drop the new core into the chamber.</p>
+        </div>
+        <div class="brisa-product-area-info__step">
+          <span>03</span>
+          <p><strong>Twist closed &amp; draw</strong> The ritual is back. Same motion, fresh flavour.</p>
+        </div>
+      </div>
+
+      <div class="brisa-product-area-info__landscape" aria-hidden="true">
+        <span class="brisa-product-area-info__cloud brisa-product-area-info__cloud--one"></span>
+        <span class="brisa-product-area-info__cloud brisa-product-area-info__cloud--two"></span>
+        <span class="brisa-product-area-info__cloud brisa-product-area-info__cloud--three"></span>
+        <span class="brisa-product-area-info__hill brisa-product-area-info__hill--back"></span>
+        <span class="brisa-product-area-info__hill brisa-product-area-info__hill--front"></span>
+      </div>
+    </div>
+
+    <div class="brisa-product-area-info__starter">
+      <h2>NEW TO BRISA?</h2>
+      <p>Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 3 mini-cores (30 days), a cleaning kit, a 30-day bag, all for $130.</p>
+      <a href="/products/starter-kit" class="brisa-product-area-info__button">GET THE STARTER KIT</a>
+    </div>
+
+    <div class="brisa-product-area-info__cost">
+      <h2 class="brisa-product-area-info__heading">YOU'RE NOT BROKE.<br>YOU JUST VAPE.</h2>
+
+      <div class="brisa-product-area-info__rows">
+        <div class="brisa-product-area-info__row">
+          <span class="brisa-product-area-info__amount">$4,600</span>
+          <span class="brisa-product-area-info__label">a year</span>
+        </div>
+        <div class="brisa-product-area-info__row">
+          <span class="brisa-product-area-info__amount">$20,000</span>
+          <span class="brisa-product-area-info__label">by 2030</span>
+        </div>
+        <div class="brisa-product-area-info__row">
+          <span class="brisa-product-area-info__amount brisa-product-area-info__amount--highlight">$130</span>
+          <span class="brisa-product-area-info__label">to start with Brisa</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -26,71 +154,10 @@
 {
   "name": "Brisa product area info",
   "class": "shopify-section--brisa-product-area-info",
-  "max_blocks": 3,
-  "settings": [
-    {
-      "type": "textarea",
-      "id": "heading",
-      "label": "Heading",
-      "default": "YOU'RE NOT BROKE.\nYOU JUST VAPE."
-    }
-  ],
-  "blocks": [
-    {
-      "type": "cost_row",
-      "name": "Cost row",
-      "settings": [
-        {
-          "type": "text",
-          "id": "amount",
-          "label": "Amount",
-          "default": "$4,600"
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "a year"
-        },
-        {
-          "type": "checkbox",
-          "id": "highlight_amount",
-          "label": "Highlight amount",
-          "default": false
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "Brisa product area info",
-      "category": "Brisa",
-      "blocks": [
-        {
-          "type": "cost_row",
-          "settings": {
-            "amount": "$4,600",
-            "label": "a year",
-            "highlight_amount": false
-          }
-        },
-        {
-          "type": "cost_row",
-          "settings": {
-            "amount": "$20,000",
-            "label": "by 2030",
-            "highlight_amount": false
-          }
-        },
-        {
-          "type": "cost_row",
-          "settings": {
-            "amount": "$130",
-            "label": "to start with Brisa",
-            "highlight_amount": true
-          }
-        }
-      ]
+      "category": "Brisa"
     }
   ]
 }
