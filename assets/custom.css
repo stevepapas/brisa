@@ -346,7 +346,7 @@ img {
   stroke: currentColor;
   stroke-width: 2;
   fill: none;
-  color: white;
+  color: #91bded;
 }
 
 
@@ -456,7 +456,6 @@ img {
   transition: transform 0.3s ease;
   border-radius: 0px;
   overflow: hidden;
-  min-width: calc(33.333%);
   flex-shrink: 0;
   margin: 0px 10px;
 }
@@ -512,8 +511,8 @@ img {
   }
   
   .carousel-arrow svg {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
   }
 
   .product-flavour {
@@ -596,9 +595,6 @@ img {
 
 
 @media (max-width: 768px) {
-  .product-card {
-    min-width: 41%;
-  }
   .product-image-wrapper {
     min-height:150px;
   }
@@ -648,7 +644,7 @@ display: none;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #333;
+  background: white;
   width: 44px;
   height: 44px;
   display: flex;
@@ -966,6 +962,162 @@ display: none;
   font-weight: 900;
   line-height: 1.05;
 }
+
+.trust-bar {
+  background: #038bdd !important;
+  padding: 12px 0px !important;
+}
+.trust-bar__item {
+  gap: 3px !important;
+}
+@media (max-width: 749px) {
+  .trust-bar__item {
+    font-size: 0.7rem;
+  }
+}
+
+
+.trust-bar img {
+  border-radius: 0px !important;
+}
+
+ .social-proof__icons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 12px;
+    padding: 28px 20px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .social-proof__icon-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #111111;
+  }
+
+  .social-proof__icon-img {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .trust-bar {
+    background: #1a9de0;
+    padding: 12px 16px;
+  }
+
+  .trust-bar__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  .trust-bar__icon {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .testimonials-slider {
+    padding: 36px 20px 32px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+
+  .testimonials-slider__track {
+    overflow: hidden;
+  }
+
+  .testimonials-slider__slides {
+    display: flex;
+    transition: transform 0.4s ease;
+  }
+
+  .testimonials-slider__slide {
+    min-width: 100%;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
+
+  .testimonials-slider__quote {
+    font-size: 1.05rem;
+    font-style: italic;
+    font-weight: 600;
+    color: #111111;
+    line-height: 1.65;
+    margin: 0 0 20px;
+  }
+
+  .testimonials-slider__author {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #111111;
+    text-transform: uppercase;
+  }
+
+  .testimonials-slider__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    background: none;
+    border: 2px solid #cccccc;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #555555;
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .testimonials-slider__btn--prev { left: 0; }
+  .testimonials-slider__btn--next { right: 0; }
+
+  .testimonials-slider__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .testimonials-slider__dot {
+    width: 10px;
+    height: 10px;
+
+    background: #cccccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s;
+  }
+
+  .testimonials-slider__dot.is-active {
+    background: #1a9de0;
+  }
 
 .brisa-product-area-info__trust-row {
   display: grid;
