@@ -9,6 +9,49 @@
  */
 {
   "sections": {
+    "slideshow_brisa_D7qePP": {
+      "type": "slideshow-brisa",
+      "blocks": {
+        "image_XNiWMW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/cores-group.png",
+            "mobile_image": "shopify://shop_images/cores-group.png",
+            "text_position": "middle_left",
+            "subheading": "",
+            "title": "",
+            "content": "<h2>REFILL THE RITUAL</h2>",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_XNiWMW"
+      ],
+      "custom_css": [
+        "h3 {margin-bottom: 0px; line-height: 1.3;}",
+        "@media (max-width: 767px) {h3 {font-size: 25px; } .slideshow__slide-inner {align-items: end; } .vertical-breather {padding-block: 0px; } .content-box--small, .content-box--medium, .container--flush .content-box--large {margin-inline-start: 0px; }}",
+        "@media screen and (min-width: 1000px) {.content-box--medium {width: 89%; }}",
+        "p {color: white; line-height: 1.2;}"
+      ],
+      "name": "Slideshow Brisa",
+      "settings": {
+        "section_height": "small",
+        "transition_type": "sweep",
+        "show_initial_transition": false,
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -88,6 +131,7 @@
     }
   },
   "order": [
+    "slideshow_brisa_D7qePP",
     "main",
     "product-content",
     "1772962804ca13e40e"
