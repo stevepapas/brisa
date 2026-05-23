@@ -1,0 +1,160 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #ffffff;
+  }
+
+</style>
+
+{%- if section.blocks.size > 0 -%}
+  <div class="social-proof__icons">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'icon_item' -%}
+        <div class="social-proof__icon-item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon_image != blank -%}
+            {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'social-proof__icon-img', loading: 'lazy' }}
+          {%- else -%}
+            <span class="social-proof__icon-img" style="font-size:2rem;">{{ block.settings.icon_emoji }}</span>
+          {%- endif -%}
+          <span>{{ block.settings.label | escape }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+<div class="trust-bar">
+  <div class="trust-bar__inner">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'trust_item' -%}
+        <div class="trust-bar__item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon_image != blank -%}
+            {{ block.settings.icon_image | image_url: width: 48 | image_tag: loading: 'lazy', style: 'width:24px;height:24px;object-fit:contain;' }}
+          {%- else -%}
+            <span class="trust-bar__icon">{{ block.settings.icon_emoji }}</span>
+          {%- endif -%}
+          <span>{{ block.settings.text | escape }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{%- assign testimonials = shop.metaobjects.testimonial.values -%}
+{%- if testimonials.size > 0 -%}
+  <div class="testimonials-slider" id="testimonials-{{ section.id }}">
+    <button class="testimonials-slider__btn testimonials-slider__btn--prev" aria-label="Previous">&#8249;</button>
+    <div class="testimonials-slider__track">
+      <div class="testimonials-slider__slides" id="slides-{{ section.id }}">
+        {%- for t in testimonials -%}
+          <div class="testimonials-slider__slide">
+            <p class="testimonials-slider__quote">&ldquo;{{ t.quote | escape }}&rdquo;</p>
+            <p class="testimonials-slider__author">&mdash; {{ t.author | escape }}{%- if t.verified_label != blank %} &middot; {{ t.verified_label | escape }}{%- endif -%}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <button class="testimonials-slider__btn testimonials-slider__btn--next" aria-label="Next">&#8250;</button>
+    <div class="testimonials-slider__dots" id="dots-{{ section.id }}">
+      {%- for t in testimonials -%}
+        <button class="testimonials-slider__dot{% if forloop.first %} is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"></button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var slider = document.getElementById('testimonials-{{ section.id }}');
+      var slides = document.getElementById('slides-{{ section.id }}');
+      var dots = document.querySelectorAll('#dots-{{ section.id }} .testimonials-slider__dot');
+      var total = {{ testimonials.size }};
+      var current = 0;
+
+      function goTo(index) {
+        current = (index + total) % total;
+        slides.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots.forEach(function(d, i) {
+          d.classList.toggle('is-active', i === current);
+        });
+      }
+
+      slider.querySelector('.testimonials-slider__btn--prev').addEventListener('click', function() { goTo(current - 1); });
+      slider.querySelector('.testimonials-slider__btn--next').addEventListener('click', function() { goTo(current + 1); });
+      dots.forEach(function(d) {
+        d.addEventListener('click', function() { goTo(parseInt(this.dataset.index)); });
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Social Proof",
+  "class": "shopify-section--social-proof",
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "icon_item",
+      "name": "Icon item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image",
+          "info": "Upload a PNG icon (recommended 88x88px). Leave blank to use emoji."
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Emoji fallback",
+          "default": "✅"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Satisfies the ritual"
+        }
+      ]
+    },
+    {
+      "type": "trust_item",
+      "name": "Trust bar item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image",
+          "info": "Upload a PNG icon. Leave blank to use emoji."
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Emoji fallback",
+          "default": "🚚"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping"
+        }
+      ]
+    }
+  ],
+  "settings": [],
+  "presets": [
+    {
+      "name": "Social Proof",
+      "blocks": [
+        { "type": "icon_item", "settings": { "icon_emoji": "🔄", "label": "Satisfies the ritual" } },
+        { "type": "icon_item", "settings": { "icon_emoji": "🚭", "label": "No smoke No vapour" } },
+        { "type": "icon_item", "settings": { "icon_emoji": "✨", "label": "Throat sensation" } },
+        { "type": "icon_item", "settings": { "icon_emoji": "🚫", "label": "No Nicotine" } },
+        { "type": "trust_item", "settings": { "icon_emoji": "🚚", "text": "Free Shipping" } },
+        { "type": "trust_item", "settings": { "icon_emoji": "🛡️", "text": "Secure Checkout" } },
+        { "type": "trust_item", "settings": { "icon_emoji": "👥", "text": "1,000+ aussies" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
