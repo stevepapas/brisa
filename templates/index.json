@@ -481,62 +481,6 @@
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       }
-    },
-    "featured_product_t3CBtH": {
-      "type": "featured-product",
-      "blocks": {
-        "variant_picker_niwepC": {
-          "type": "variant_picker",
-          "settings": {
-            "hide_sold_out_variants": false,
-            "selector_mode": "block",
-            "color_mode": "swatch",
-            "variant_image_options": "",
-            "size_chart_page": ""
-          }
-        },
-        "quantity_selector_qWYWfM": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons_iKTVC4": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_payment_button": true,
-            "show_gift_card_recipient": false,
-            "atc_button_background": "rgba(0,0,0,0)",
-            "atc_button_text_color": "rgba(0,0,0,0)",
-            "buy_now_button_background": "rgba(0,0,0,0)",
-            "buy_now_button_text_color": "rgba(0,0,0,0)"
-          }
-        }
-      },
-      "block_order": [
-        "variant_picker_niwepC",
-        "quantity_selector_qWYWfM",
-        "buy_buttons_iKTVC4"
-      ],
-      "name": "Featured product",
-      "settings": {
-        "product": "",
-        "subheading": "Subheading",
-        "title": "Featured product",
-        "show_vendor": true,
-        "show_sku": false,
-        "show_badges": false,
-        "show_taxes_included": false,
-        "show_product_rating": false,
-        "show_share_buttons": true,
-        "help_page": "",
-        "enable_video_autoplay": true,
-        "enable_video_looping": false,
-        "enable_image_zoom": true,
-        "show_thumbnails_on_mobile": false,
-        "desktop_thumbnails_position": "bottom",
-        "transition_effect": "slide",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
     }
   },
   "order": [
@@ -556,7 +500,6 @@
     "177899310035a7028b",
     "17789936267965322a",
     "177899374592e5fb95",
-    "faq_jptxLw",
-    "featured_product_t3CBtH"
+    "faq_jptxLw"
   ]
 }
