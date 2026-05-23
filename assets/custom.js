@@ -227,3 +227,161 @@ document.addEventListener('DOMContentLoaded', function () {
     cartLink.setAttribute('href', '#');
   }
 });
+
+class BrisaProductTestimonials extends HTMLElement {
+  constructor() {
+    super();
+    this.currentIndex = 0;
+    this.autoplayInterval = null;
+    this.touchStartX = 0;
+    this.touchEndX = 0;
+    this.handleResize = this.handleResize.bind(this);
+  }
+
+  connectedCallback() {
+    this.track = this.querySelector('.brisa-product-testimonials__track');
+    this.cards = Array.from(this.querySelectorAll('.brisa-product-testimonials__card'));
+    this.prevButton = this.querySelector('.brisa-product-testimonials__nav--prev');
+    this.nextButton = this.querySelector('.brisa-product-testimonials__nav--next');
+    this.dotsContainer = this.querySelector('.brisa-product-testimonials__dots');
+    this.autoplay = this.dataset.autoplay === 'true';
+    this.autoplaySpeed = parseInt(this.dataset.autoplaySpeed, 10) || 5000;
+    this.mobilePageSize = parseInt(this.dataset.mobilePageSize, 10) || 2;
+    this.desktopPageSize = parseInt(this.dataset.desktopPageSize, 10) || 3;
+    this.mobileQuery = window.matchMedia('(max-width: 749px)');
+
+    if (!this.track || this.cards.length === 0) return;
+
+    this.setupEventListeners();
+    this.refresh();
+
+    if (this.autoplay && this.totalSlides > 1) {
+      this.startAutoplay();
+    }
+  }
+
+  disconnectedCallback() {
+    this.pauseAutoplay();
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  setupEventListeners() {
+    if (this.prevButton) {
+      this.prevButton.addEventListener('click', () => this.goToPrev());
+    }
+
+    if (this.nextButton) {
+      this.nextButton.addEventListener('click', () => this.goToNext());
+    }
+
+    this.addEventListener('mouseenter', () => this.pauseAutoplay());
+    this.addEventListener('mouseleave', () => {
+      if (this.autoplay && this.totalSlides > 1) this.startAutoplay();
+    });
+
+    this.track.addEventListener('touchstart', (event) => {
+      this.touchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
+
+    this.track.addEventListener('touchend', (event) => {
+      this.touchEndX = event.changedTouches[0].screenX;
+      this.handleSwipe();
+    }, { passive: true });
+
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  handleResize() {
+    const previousPageSize = this.pageSize;
+    this.refresh();
+
+    if (previousPageSize !== this.pageSize) {
+      this.goToSlide(0);
+    }
+  }
+
+  refresh() {
+    this.pageSize = this.mobileQuery.matches ? this.mobilePageSize : this.desktopPageSize;
+    this.totalSlides = Math.ceil(this.cards.length / this.pageSize);
+    this.currentIndex = Math.min(this.currentIndex, Math.max(this.totalSlides - 1, 0));
+    this.renderDots();
+    this.updateCarousel();
+  }
+
+  renderDots() {
+    if (!this.dotsContainer) return;
+
+    this.dotsContainer.innerHTML = '';
+
+    for (let index = 0; index < this.totalSlides; index += 1) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'brisa-product-testimonials__dot';
+      dot.dataset.index = index;
+      dot.setAttribute('aria-label', `Go to testimonial group ${index + 1}`);
+      dot.addEventListener('click', () => this.goToSlide(index));
+      this.dotsContainer.appendChild(dot);
+    }
+
+    this.dots = Array.from(this.dotsContainer.querySelectorAll('.brisa-product-testimonials__dot'));
+  }
+
+  handleSwipe() {
+    const diff = this.touchStartX - this.touchEndX;
+    if (Math.abs(diff) < 50) return;
+    diff > 0 ? this.goToNext() : this.goToPrev();
+  }
+
+  goToPrev() {
+    this.goToSlide((this.currentIndex - 1 + this.totalSlides) % this.totalSlides);
+  }
+
+  goToNext() {
+    this.goToSlide((this.currentIndex + 1) % this.totalSlides);
+  }
+
+  goToSlide(index) {
+    if (Number.isNaN(index) || this.totalSlides <= 0) return;
+    this.currentIndex = Math.max(0, Math.min(index, this.totalSlides - 1));
+    this.updateCarousel();
+    this.resetAutoplay();
+  }
+
+  updateCarousel() {
+    const firstCardIndex = this.currentIndex * this.pageSize;
+    const targetCard = this.cards[firstCardIndex];
+    const offset = targetCard ? targetCard.offsetLeft : 0;
+
+    this.track.style.transform = `translateX(${-offset}px)`;
+
+    if (this.dots) {
+      this.dots.forEach((dot, index) => {
+        if (index === this.currentIndex) {
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+    }
+  }
+
+  startAutoplay() {
+    this.pauseAutoplay();
+    this.autoplayInterval = setInterval(() => this.goToNext(), this.autoplaySpeed);
+  }
+
+  pauseAutoplay() {
+    if (!this.autoplayInterval) return;
+    clearInterval(this.autoplayInterval);
+    this.autoplayInterval = null;
+  }
+
+  resetAutoplay() {
+    if (!this.autoplay || this.totalSlides <= 1) return;
+    this.startAutoplay();
+  }
+}
+
+if (!customElements.get('brisa-product-testimonials')) {
+  customElements.define('brisa-product-testimonials', BrisaProductTestimonials);
+}

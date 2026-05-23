@@ -1,0 +1,97 @@
+<section class="brisa-product-area-info" {{ section.shopify_attributes }}>
+  <div class="brisa-product-area-info__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="brisa-product-area-info__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+    {% endif %}
+
+    <div class="brisa-product-area-info__rows">
+      {% for block in section.blocks %}
+        <div class="brisa-product-area-info__row" {{ block.shopify_attributes }}>
+          {% if block.settings.amount != blank %}
+            <span class="brisa-product-area-info__amount {% if block.settings.highlight_amount %}brisa-product-area-info__amount--highlight{% endif %}">
+              {{ block.settings.amount | escape }}
+            </span>
+          {% endif %}
+
+          {% if block.settings.label != blank %}
+            <span class="brisa-product-area-info__label">{{ block.settings.label | escape }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa product area info",
+  "class": "shopify-section--brisa-product-area-info",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "YOU'RE NOT BROKE.\nYOU JUST VAPE."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cost_row",
+      "name": "Cost row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "amount",
+          "label": "Amount",
+          "default": "$4,600"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "a year"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight_amount",
+          "label": "Highlight amount",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa product area info",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "cost_row",
+          "settings": {
+            "amount": "$4,600",
+            "label": "a year",
+            "highlight_amount": false
+          }
+        },
+        {
+          "type": "cost_row",
+          "settings": {
+            "amount": "$20,000",
+            "label": "by 2030",
+            "highlight_amount": false
+          }
+        },
+        {
+          "type": "cost_row",
+          "settings": {
+            "amount": "$130",
+            "label": "to start with Brisa",
+            "highlight_amount": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
