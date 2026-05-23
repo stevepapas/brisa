@@ -382,7 +382,22 @@
       {% for product in slider_collection.products limit: section.settings.product_limit %}
         {% liquid
           assign swatch_color = product.metafields.custom.carousel_background_colour.value | default: product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
-          assign flavour_label = product.metafields.custom.flavour.value | default: product.metafields.custom.flavour | default: product.title
+          assign swatch_label = ''
+
+          case section.settings.swatch_label_source
+            when 'product_title'
+              assign swatch_label = product.title
+            when 'flavour'
+              assign swatch_label = product.metafields.custom.flavour.value | default: product.metafields.custom.flavour | default: product.title
+            when 'vendor'
+              assign swatch_label = product.vendor
+            when 'product_type'
+              assign swatch_label = product.type
+            when 'custom_metafield'
+              assign metafield_namespace = section.settings.swatch_label_metafield_namespace
+              assign metafield_key = section.settings.swatch_label_metafield_key
+              assign swatch_label = product.metafields[metafield_namespace][metafield_key].value | default: product.metafields[metafield_namespace][metafield_key]
+          endcase
         %}
 
         <button
@@ -395,7 +410,9 @@
         >
           {% if section.settings.use_swatch_nav %}
             <span class="product-slider__swatch" style="--product-slider-swatch: {{ swatch_color }};"></span>
-            <span class="product-slider__swatch-label">{{ flavour_label | escape }}</span>
+            {% if swatch_label != blank %}
+              <span class="product-slider__swatch-label">{{ swatch_label | escape }}</span>
+            {% endif %}
           {% else %}
             <span class="product-slider__dot"></span>
           {% endif %}
@@ -499,6 +516,53 @@
       "id": "use_swatch_nav",
       "label": "Use colour swatches as page navigation",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "swatch_label_source",
+      "label": "Swatch navigation text",
+      "info": "Used only when colour swatches are enabled.",
+      "options": [
+        {
+          "value": "flavour",
+          "label": "Flavour metafield"
+        },
+        {
+          "value": "product_title",
+          "label": "Product title"
+        },
+        {
+          "value": "vendor",
+          "label": "Vendor"
+        },
+        {
+          "value": "product_type",
+          "label": "Product type"
+        },
+        {
+          "value": "custom_metafield",
+          "label": "Custom product metafield"
+        },
+        {
+          "value": "none",
+          "label": "No text"
+        }
+      ],
+      "default": "flavour"
+    },
+    {
+      "type": "text",
+      "id": "swatch_label_metafield_namespace",
+      "label": "Custom swatch text metafield namespace",
+      "info": "Used when swatch navigation text is set to custom product metafield.",
+      "default": "custom"
+    },
+    {
+      "type": "text",
+      "id": "swatch_label_metafield_key",
+      "label": "Custom swatch text metafield key",
+      "info": "Used when swatch navigation text is set to custom product metafield.",
+      "default": "flavour"
     },
     {
       "type": "range",
