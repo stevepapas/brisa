@@ -1,0 +1,525 @@
+{% liquid
+  assign ai_gen_id = section.id | replace: '-', '' | downcase
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} {
+    font-family: inherit;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    color: {{ section.settings.bar_text_color }};
+    background: {{ section.settings.bar_background }};
+    font-size: {{ section.settings.bar_font_size }}px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__content {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__subheading {
+    margin: 6px 0 0;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.subheading_size }}px;
+    line-height: 1.45;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__list {
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.item_gap }}px;
+    margin-top: {{ section.settings.list_spacing }}px;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__item {
+    display: grid;
+    grid-template-columns: {{ section.settings.icon_size }}px 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    color: {{ section.settings.icon_color }};
+    background: {{ section.settings.icon_background }};
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__icon svg {
+    display: block;
+    width: {{ section.settings.icon_svg_size }}%;
+    height: {{ section.settings.icon_svg_size }}%;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__item-title {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.item_title_size }}px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__item-text {
+    margin: 2px 0 0;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.item_text_size }}px;
+    line-height: 1.32;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__bar {
+      font-size: {{ section.settings.bar_font_size | times: 0.85 | round }}px;
+    }
+
+    .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__heading {
+      font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
+    }
+
+    .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__item {
+      grid-template-columns: {{ section.settings.mobile_icon_size }}px 1fr;
+      gap: 12px;
+    }
+
+    .brisa-aroma-{{ ai_gen_id }} .brisa-aroma__icon {
+      width: {{ section.settings.mobile_icon_size }}px;
+      height: {{ section.settings.mobile_icon_size }}px;
+    }
+  }
+</style>
+
+<section class="brisa-aroma brisa-aroma-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
+  {% if section.settings.show_bar and section.settings.bar_text != blank %}
+    <div class="brisa-aroma__bar">{{ section.settings.bar_text | escape }}</div>
+  {% endif %}
+
+  <div class="brisa-aroma__inner">
+    <div class="brisa-aroma__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="brisa-aroma__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="brisa-aroma__subheading">{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="brisa-aroma__list">
+          {% for block in section.blocks %}
+            <div class="brisa-aroma__item" {{ block.shopify_attributes }}>
+              <div class="brisa-aroma__icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'leaf' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M40 7C21.5 8.5 10.5 17.5 9 35.5C18.5 37 30.5 31 35.5 21.5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M9.5 36C15.5 25.5 23.5 19.5 35.5 16" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'airflow' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M7 18h24c4.5 0 6.5-5.5 3-8.2C31.6 8 28 8.9 27 12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                      <path d="M7 26h31c4.5 0 6.5 5.5 3 8.2C38.6 36 35 35.1 34 32" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                      <path d="M7 34h18" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'hand' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M17 24V12.5a3 3 0 0 1 6 0V23" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+                      <path d="M23 22V9.5a3 3 0 0 1 6 0V23" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+                      <path d="M29 23V13a3 3 0 0 1 6 0v14" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+                      <path d="M17 25 13.5 21.5a3 3 0 0 0-4.3 4.2l8.4 10.1A12 12 0 0 0 39 28v-8a3 3 0 0 0-6 0" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% when 'cross' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
+                      <path d="M17 17 31 31M31 17 17 31" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                  {% else %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
+                      <path d="M16 24h16" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                {% endcase %}
+              </div>
+
+              <div class="brisa-aroma__item-copy">
+                {% if block.settings.title != blank %}
+                  <h3 class="brisa-aroma__item-title">{{ block.settings.title | escape }}</h3>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <p class="brisa-aroma__item-text">{{ block.settings.text | escape }}</p>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa aroma features",
+  "class": "shopify-section--brisa-aroma-features",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "label": "Show top bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bar_text",
+      "label": "Top bar text",
+      "default": "We sold out fast last time - get in quick and order now"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Engineered for aroma."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Built to deliver the ritual without the chemistry."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Section max width",
+      "min": 480,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 660
+    },
+    {
+      "type": "range",
+      "id": "list_spacing",
+      "label": "Space above items",
+      "min": 12,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Space between items",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bar_background",
+      "label": "Top bar background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bar_text_color",
+      "label": "Top bar text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#0798dc"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "bar_font_size",
+      "label": "Top bar font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "item_title_size",
+      "label": "Item title size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "item_text_size",
+      "label": "Item text size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Desktop icon size",
+      "min": 40,
+      "max": 88,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "label": "Mobile icon size",
+      "min": 36,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "icon_svg_size",
+      "label": "Icon artwork size",
+      "min": 50,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 72
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "airflow", "label": "Airflow" },
+            { "value": "hand", "label": "Hand" },
+            { "value": "cross", "label": "Cross" }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Food-grade aroma compounds."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Built from natural fibre and food-grade aroma - the same ingredient class used in food and drink products you trust."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa aroma features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Food-grade aroma compounds.",
+            "text": "Built from natural fibre and food-grade aroma - the same ingredient class used in food and drink products you trust."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "airflow",
+            "title": "Cool, clean draw.",
+            "text": "Calibrated airflow gives the same hand-to-mouth sensation as a vape pull. Pure airflow, no smoke, no vapour."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "hand",
+            "title": "Full ritual replacement.",
+            "text": "Same motion, same draw, same throat sensation. The core does the sensory work - your hands do the rest."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "cross",
+            "title": "Drug-free, every time.",
+            "text": "Zero nicotine. Zero pharmaceuticals. Zero combustion. Just the ritual, on your terms."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

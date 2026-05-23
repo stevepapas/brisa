@@ -1,0 +1,88 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_title": false,
+        "page_width": "medium"
+      }
+    },
+    "aroma_features": {
+      "type": "brisa-aroma-features",
+      "blocks": {
+        "food-grade-aroma": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Food-grade aroma compounds.",
+            "text": "Built from natural fibre and food-grade aroma - the same ingredient class used in food and drink products you trust."
+          }
+        },
+        "clean-draw": {
+          "type": "feature",
+          "settings": {
+            "icon": "airflow",
+            "title": "Cool, clean draw.",
+            "text": "Calibrated airflow gives the same hand-to-mouth sensation as a vape pull. Pure airflow, no smoke, no vapour."
+          }
+        },
+        "ritual-replacement": {
+          "type": "feature",
+          "settings": {
+            "icon": "hand",
+            "title": "Full ritual replacement.",
+            "text": "Same motion, same draw, same throat sensation. The core does the sensory work - your hands do the rest."
+          }
+        },
+        "drug-free": {
+          "type": "feature",
+          "settings": {
+            "icon": "cross",
+            "title": "Drug-free, every time.",
+            "text": "Zero nicotine. Zero pharmaceuticals. Zero combustion. Just the ritual, on your terms."
+          }
+        }
+      },
+      "block_order": [
+        "food-grade-aroma",
+        "clean-draw",
+        "ritual-replacement",
+        "drug-free"
+      ],
+      "settings": {
+        "show_bar": true,
+        "bar_text": "We sold out fast last time - get in quick and order now",
+        "heading": "Engineered for aroma.",
+        "subheading": "Built to deliver the ritual without the chemistry.",
+        "max_width": 760,
+        "content_width": 660,
+        "list_spacing": 32,
+        "item_gap": 28,
+        "background": "#f4f4f4",
+        "heading_color": "#000000",
+        "text_color": "#000000",
+        "bar_background": "#000000",
+        "bar_text_color": "#ffffff",
+        "icon_background": "#0798dc",
+        "icon_color": "#ffffff",
+        "bar_font_size": 18,
+        "heading_size": 30,
+        "subheading_size": 15,
+        "item_title_size": 15,
+        "item_text_size": 14,
+        "icon_size": 54,
+        "mobile_icon_size": 50,
+        "icon_svg_size": 72,
+        "padding_top": 40,
+        "padding_bottom": 48,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "aroma_features"
+  ]
+}
