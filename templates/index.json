@@ -190,6 +190,45 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
+    "why_brisa_works_B3VdJE": {
+      "type": "why-brisa-works",
+      "blocks": {
+        "card_bmkRbN": {
+          "type": "card",
+          "settings": {
+            "title": "Habit Loop",
+            "text": "Most people don't just miss the nicotine. They miss the reach, the draw, the pause and the routine. Brisa gives that moment a cleaner replacement."
+          }
+        },
+        "card_pxxGDy": {
+          "type": "card",
+          "settings": {
+            "title": "Sensory Feel",
+            "text": "The flavour core and airflow are designed to feel familiar, giving your mouth and hands something to do when the urge hits."
+          }
+        },
+        "card_r7iXTV": {
+          "type": "card",
+          "settings": {
+            "title": "No Nicotine",
+            "text": "No nicotine. No smoke. No vapour. Just a reusable device and food-grade flavour cores."
+          }
+        }
+      },
+      "block_order": [
+        "card_bmkRbN",
+        "card_pxxGDy",
+        "card_r7iXTV"
+      ],
+      "name": "Why Brisa Works",
+      "settings": {
+        "heading": "WHY BRISA WORKS",
+        "bg_color_top": "#29b6f6",
+        "bg_color_bottom": "#1e88e5",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "brisa_testimonials_PaAQ3F": {
       "type": "brisa-testimonials",
       "blocks": {
@@ -640,6 +679,7 @@
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",
     "custom_liquid_4DbTQE",
+    "why_brisa_works_B3VdJE",
     "brisa_testimonials_PaAQ3F",
     "1773237972417d2c8a",
     "custom_liquid_JHFYBz",
