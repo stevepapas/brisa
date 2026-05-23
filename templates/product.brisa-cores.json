@@ -152,60 +152,10 @@
         "include_vertical_margins": true
       }
     },
-    "custom_liquid_wKcMgG": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {background: #eee; padding: 50px 0px;}",
-        "* {background: transparent;}"
-      ],
-      "name": "Why $130",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n  .grid-column {\n    padding: 0rem;\n  }\n  .grid-column p {\n    margin:w 0;\n    line-height: 1.6;\n    color: #555;\n  }\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    <h3 class=\"heading h2\">ENGINEERED FOR AROMA.</h3>\n<p style=\"margin-bottom: 30px !important\"><b>Built to deliver the ritual without the chemistry.</b></p>\n\n<div class=\"product-proof__icons\"><div class=\"social-proof__icon-item\"><img src=\"//brisabetter.com/cdn/shop/files/brisa_03.png?v=1779115801&amp;width=88\" alt=\"\" srcset=\"//brisabetter.com/cdn/shop/files/brisa_03.png?v=1779115801&amp;width=88 88w\" width=\"88\" height=\"89\" loading=\"lazy\" class=\"social-proof__icon-img\">\n<span><b>Food-grade aroma compounds.</b><br>Built from natural fibre and food-grade aroma — the same ingredient class used in food and drink products you trust.</span>\n\n\n        </div></div>\n  </div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "brisa_product_area_info_t9x6TB": {
       "type": "brisa-product-area-info",
-      "blocks": {
-        "cost_row_Jk6kGQ": {
-          "type": "cost_row",
-          "settings": {
-            "amount": "$4,600",
-            "label": "a year",
-            "highlight_amount": false
-          }
-        },
-        "cost_row_4z8L4h": {
-          "type": "cost_row",
-          "settings": {
-            "amount": "$20,000",
-            "label": "by 2030",
-            "highlight_amount": false
-          }
-        },
-        "cost_row_7HpGpL": {
-          "type": "cost_row",
-          "settings": {
-            "amount": "$130",
-            "label": "to start with Brisa",
-            "highlight_amount": true
-          }
-        }
-      },
-      "block_order": [
-        "cost_row_Jk6kGQ",
-        "cost_row_4z8L4h",
-        "cost_row_7HpGpL"
-      ],
       "name": "Brisa product area info",
-      "settings": {
-        "heading": "YOU'RE NOT BROKE.\nYOU JUST VAPE."
-      }
+      "settings": {}
     },
     "custom_liquid_VxEmGV": {
       "type": "custom-liquid",
@@ -322,7 +272,7 @@
       ],
       "name": "Brisa comparison table",
       "settings": {
-        "heading": "",
+        "heading": "Brisa vs alternatives",
         "subheading": "",
         "table_label": "Brisa comparison table",
         "brisa_heading": "Brisa Better",
@@ -375,7 +325,6 @@
       ],
       "name": "Brisa product reviews",
       "settings": {
-        "testimonials": [],
         "heading": "Real Aussies. Real Reviews.",
         "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
         "show_arrows": true,
@@ -390,7 +339,6 @@
     "main",
     "product-content",
     "1772962804ca13e40e",
-    "custom_liquid_wKcMgG",
     "brisa_product_area_info_t9x6TB",
     "custom_liquid_VxEmGV",
     "brisa_comparison_table_ntMxq4",
