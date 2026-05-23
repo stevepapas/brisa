@@ -9,18 +9,18 @@
  */
 {
   "sections": {
-    "slideshow_brisa_D7qePP": {
+    "slideshow_brisa_LPC6iL": {
       "type": "slideshow-brisa",
       "blocks": {
-        "image_XNiWMW": {
+        "image_BaBDEt": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/cores-group.png",
-            "mobile_image": "shopify://shop_images/cores-group.png",
+            "image": "shopify://shop_images/DSC_2245.jpg",
+            "mobile_image": "shopify://shop_images/DSC_2245.jpg",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
-            "content": "<h2>REFILL THE RITUAL</h2>",
+            "content": "<div class=\"three-column-grid fw-white-bg\" style=\"font-weight: bold;\ncolor: white;\njustify-content: center;\ngap: 10px;\ngrid-template-columns: auto auto auto;\nalign-items: center; padding-bottom: 0px\">\n\n  <div class=\"grid-column\" style=\"font-weight: bold;\">\n<span class=\"ai-testimonials-carousel__stars-top\">\n<svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n          <svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n\n</span>\n</div>\n  <div class=\"grid-column\" align-content:=\"\" center=\"\">\n    Rated 4.7 (163)\n  </div>\n  <div class=\"grid-column\" align-content:=\"\" center=\"\">\n1,000+ Aussies\n    \n  </div>\n</div>\n\n\n<h2 style=\"color: white; text-align: center; line-height: 1.2; margin-top: 0px;\">KEEP THE RITUAL<br>DROP THE HABIT.\n</h2>\n<p style=\"font-weight: bold; text-align: center; font-size: 90%\">A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking. Snap in a core. Take the draw. Move on.</p>\n<a class=\"home_button\" href=\"/products/brisa-device-rose\">Shop starter kit - $130</a>\n<div class=\"small\">Free shipping · 30-Day Success Guarantee · Ships in 1–2 days</div>\n<style>\n.ai-testimonials-carousel__stars-top {\n    gap: 4px;{\n  }\n .ai-testimonials-carousel__star-top {\n    width: 30px;\n    height: 30px;\n    fill: #008bdc;\n  }\n\n  .ai-testimonials-carousel__star-top--empty {\n    fill: #008bdc;\n  }\n</style>",
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -34,7 +34,7 @@
         }
       },
       "block_order": [
-        "image_XNiWMW"
+        "image_BaBDEt"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
@@ -73,6 +73,26 @@
             "size_chart_page": ""
           }
         },
+        "liquid_DmN84X": {
+          "type": "liquid",
+          "name": "Brisa Gives",
+          "settings": {
+            "liquid": "<p><b>Brisa gives you something to reach for in the moments you nearly turn back. Everything you need to get started, including: </b></p>\n<ul>\n\n<li>The Brisa device</li>\n<li>Cleaning kit</li>\n<li>Storage bag</li>\n<li>9 mint cores, enough aroma cores for a complete month</li>\n</ul>"
+          }
+        },
+        "liquid_zYKRxA": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<span class=\"tex bold\" style=\"font-size: 24px\">{{ product.price | money }}</span>"
+          }
+        },
+        "liquid_TU4fi4": {
+          "type": "liquid",
+          "name": "Reviews and shipping",
+          "settings": {
+            "liquid": "<p><img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/5-star.png?v=1775131594\" style=\"max-height: 30px\">\n(36 reviews)</p>\n<p><b>Free Shipping Australia-wide</b></p>"
+          }
+        },
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3": {
           "type": "shopify://apps/appstle-bundles/blocks/appstle-volume-discount-bundle/8909921b-2d24-4d68-9b12-9d045d3dcb0a",
           "settings": {}
@@ -93,6 +113,9 @@
         "description_mjgBLA",
         "g_combined_listings_swatch_widget_HGPpek",
         "variant_picker",
+        "liquid_DmN84X",
+        "liquid_zYKRxA",
+        "liquid_TU4fi4",
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
         "buy_buttons"
       ],
@@ -128,12 +151,174 @@
         "include_horizontal_margins": true,
         "include_vertical_margins": true
       }
+    },
+    "custom_liquid_wKcMgG": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "section {background: #eee; padding: 50px 0px; border-radius: 40px;}",
+        "* {background: transparent;}"
+      ],
+      "name": "Why $130",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">WHY $130 IS THE SMARTEST MONEY YOU'LL SPEND THIS YEAR</h3>\n<p style=\"margin-bottom: 30px !important\"><b>YOU'RE ALREADY SPENDING MORE THAN THIS EVERY TWO WEEKS:</b><br>\nVapers spend $300+/month. Smokers spend $500+/month. $130 once to end it isn't an expense — it's the cheapest decision you'll make all year.\n</b></p><p style=\"margin-bottom: 30px !important\"><b>\nEVERYTHING INCLUDED FROM DAY ONE:</b><br>\nDevice, 9 aroma cores (27 days supply), cleaning kit, carry bag. Open the box and you're ready. Nothing else to buy.\n</b></p><p style=\"margin-bottom: 30px !important\"><b>\nONGOING COST:</b><br>\nLESS THAN $45/MONTH Every month you use Brisa instead of vaping you're saving $250+\n</b></p><p><b>\nTHE ONLY THING BUILT FOR THE REAL PROBLEM:</b><br>Patches replace nicotine. Gum replaces nicotine. Nothing else replaces the ritual. Brisa is the only thing built specifically for that.</b></p> \n  </div>\n</div>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "custom_liquid_VxEmGV": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "section {padding: 20px 0px;}",
+        "* {background: transparent;}"
+      ],
+      "name": "How it Works",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">HOW IT WORKS</h3>\n<p style=\"margin-bottom: 30px !important\"><b>\n1. UNSCREW THE TOP </b><br>\nTwist off the top cap and drop your aroma core inside. Takes seconds.\n<br><br>\n<b>2. SET YOUR AIRFLOW</b><br>\nDial the base to find your perfect draw — tighter or looser, just like you're used to. \n<br><br><b>\n3. REACH FOR IT INSTEAD </b><br>\nEvery time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back.\n</p>\n  </div>\n  <div class=\"grid-column\">\n  </div>\n</div>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "brisa_comparison_table_ntMxq4": {
+      "type": "brisa-comparison-table",
+      "blocks": {
+        "row_H7WBdM": {
+          "type": "row",
+          "settings": {
+            "label": "Monthly cost",
+            "brisa_value_type": "text",
+            "brisa_text": "$45",
+            "column_2_value_type": "text",
+            "column_2_text": "$300+",
+            "column_3_value_type": "text",
+            "column_3_text": "$400+",
+            "column_4_value_type": "text",
+            "column_4_text": "$100+"
+          }
+        },
+        "row_izm7Ec": {
+          "type": "row",
+          "settings": {
+            "label": "Nicotine",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "check",
+            "column_4_text": ""
+          }
+        },
+        "row_Xbh3BT": {
+          "type": "row",
+          "settings": {
+            "label": "Chemicals",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "check",
+            "column_4_text": ""
+          }
+        },
+        "row_hGgG6N": {
+          "type": "row",
+          "settings": {
+            "label": "Ritual kept",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        },
+        "row_V4U8Tm": {
+          "type": "row",
+          "settings": {
+            "label": "Habit broken",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "cross",
+            "column_2_text": "",
+            "column_3_value_type": "cross",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        },
+        "row_t98cKz": {
+          "type": "row",
+          "settings": {
+            "label": "Sensory satisfaction",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_H7WBdM",
+        "row_izm7Ec",
+        "row_Xbh3BT",
+        "row_hGgG6N",
+        "row_V4U8Tm",
+        "row_t98cKz"
+      ],
+      "name": "Brisa comparison table",
+      "settings": {
+        "heading": "Brisa vs alternatives",
+        "subheading": "",
+        "table_label": "Brisa comparison table",
+        "brisa_heading": "Brisa Better",
+        "column_2_heading": "Vaping",
+        "column_3_heading": "Smoking",
+        "column_4_heading": "Nicorette",
+        "background": "#ffffff",
+        "text_color": "#111111",
+        "heading_color": "#111111",
+        "line_color": "#111111",
+        "line_width": 4,
+        "brisa_color": "#0798dc",
+        "brisa_text_color": "#ffffff",
+        "icon_color": "#2350a4",
+        "brisa_icon_color": "#ffffff",
+        "icon_size": 36,
+        "brisa_radius": 18,
+        "heading_size": 36,
+        "max_width": 900,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "footnote": ""
+      }
     }
   },
   "order": [
-    "slideshow_brisa_D7qePP",
+    "slideshow_brisa_LPC6iL",
     "main",
     "product-content",
-    "1772962804ca13e40e"
+    "1772962804ca13e40e",
+    "custom_liquid_wKcMgG",
+    "custom_liquid_VxEmGV",
+    "brisa_comparison_table_ntMxq4"
   ]
 }
