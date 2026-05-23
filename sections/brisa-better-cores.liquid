@@ -1,0 +1,767 @@
+{% liquid
+  assign section_id = section.id | replace: '-', '' | downcase
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .brisa-better-cores-{{ section_id }} {
+    color: {{ section.settings.text_color }};
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__content {
+    max-width: {{ section.settings.content_width }}px;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__intro {
+    margin: 0 0 18px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.intro_size }}px;
+    line-height: 1.38;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__stars {
+    display: inline-flex;
+    gap: 6px;
+    color: {{ section.settings.star_color }};
+    line-height: 1;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__star {
+    display: block;
+    width: {{ section.settings.star_size }}px;
+    height: {{ section.settings.star_size }}px;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__star svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__rating-text {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.rating_size }}px;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 4px 22px;
+    color: {{ section.settings.badge_text_color }};
+    background: {{ section.settings.badge_background }};
+    border-radius: {{ section.settings.badge_radius }}px;
+    font-size: {{ section.settings.badge_size }}px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: {{ section.settings.column_gap }}px;
+    row-gap: {{ section.settings.row_gap }}px;
+    margin-top: {{ section.settings.features_spacing }}px;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__feature {
+    display: grid;
+    grid-template-columns: {{ section.settings.icon_size }}px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    color: {{ section.settings.icon_color }};
+    background: {{ section.settings.icon_background }};
+    border-radius: 50%;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__icon svg {
+    display: block;
+    width: 78%;
+    height: 78%;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__feature-title {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.feature_title_size }}px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__feature-text {
+    margin: 2px 0 0;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.feature_text_size }}px;
+    line-height: 1.2;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__aroma {
+    margin-top: {{ section.settings.aroma_spacing }}px;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__aroma-heading {
+    margin: 0 0 4px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.aroma_heading_size }}px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__aroma-heading-prefix {
+    color: {{ section.settings.muted_color }};
+  }
+
+  .brisa-better-cores-{{ section_id }} .brisa-better-cores__aroma-text {
+    margin: 0;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.aroma_text_size }}px;
+    line-height: 1.28;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__intro {
+      font-size: {{ section.settings.intro_size | times: 0.9 | round }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__heading {
+      font-size: {{ section.settings.heading_size | times: 0.72 | round }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__stars {
+      gap: 4px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__star {
+      width: {{ section.settings.star_size | times: 0.82 | round }}px;
+      height: {{ section.settings.star_size | times: 0.82 | round }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__rating-text {
+      font-size: {{ section.settings.rating_size | times: 0.86 | round }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__badge {
+      padding-inline: 14px;
+      font-size: {{ section.settings.badge_size | times: 0.88 | round }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__features {
+      column-gap: 18px;
+      row-gap: {{ section.settings.mobile_row_gap }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__feature {
+      grid-template-columns: {{ section.settings.mobile_icon_size }}px minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__icon {
+      width: {{ section.settings.mobile_icon_size }}px;
+      height: {{ section.settings.mobile_icon_size }}px;
+    }
+
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__feature-title {
+      font-size: {{ section.settings.feature_title_size | times: 0.86 | round }}px;
+    }
+  }
+
+  @media screen and (max-width: 520px) {
+    .brisa-better-cores-{{ section_id }} .brisa-better-cores__features {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="brisa-better-cores brisa-better-cores-{{ section_id }}" {{ section.shopify_attributes }}>
+  <div class="brisa-better-cores__inner">
+    <div class="brisa-better-cores__content">
+      {% if section.settings.intro != blank %}
+        <p class="brisa-better-cores__intro">{{ section.settings.intro | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.show_rating %}
+        <div class="brisa-better-cores__rating" aria-label="{{ section.settings.rating_accessibility_label | escape }}">
+          <span class="brisa-better-cores__stars" aria-hidden="true">
+            {% for i in (1..5) %}
+              <span class="brisa-better-cores__star">
+                <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                  <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z"/>
+                </svg>
+              </span>
+            {% endfor %}
+          </span>
+
+          {% if section.settings.rating_text != blank %}
+            <span class="brisa-better-cores__rating-text">{{ section.settings.rating_text | escape }}</span>
+          {% endif %}
+
+          {% if section.settings.badge_text != blank %}
+            <span class="brisa-better-cores__badge">{{ section.settings.badge_text | escape }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="brisa-better-cores__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="brisa-better-cores__features">
+          {% for block in section.blocks %}
+            <div class="brisa-better-cores__feature" {{ block.shopify_attributes }}>
+              <div class="brisa-better-cores__icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'leaf' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M40 7C21.5 8.5 10.5 17.5 9 35.5C18.5 37 30.5 31 35.5 21.5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M9.5 36C15.5 25.5 23.5 19.5 35.5 16" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'slot' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M24 7 41 40H7L24 7Z" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/>
+                      <path d="M24 15 34 36 24 30 14 36 24 15Z" fill="currentColor"/>
+                    </svg>
+                  {% when 'no_nicotine' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="3.6"/>
+                      <path d="m12 36 24-24" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
+                      <path d="M16 26h17.5c2 0 3.5-1.5 3.5-3.5S35.5 19 33.5 19H30" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/>
+                      <path d="M19 19h6M20 19l-3 7" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'sparkles' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M16 7 18.7 14.3 26 17 18.7 19.7 16 27 13.3 19.7 6 17 13.3 14.3 16 7Z" fill="currentColor"/>
+                      <path d="M32 18 34.6 25.4 42 28 34.6 30.6 32 38 29.4 30.6 22 28 29.4 25.4 32 18Z" fill="currentColor"/>
+                      <path d="M17 30 18.6 34.4 23 36 18.6 37.6 17 42 15.4 37.6 11 36 15.4 34.4 17 30Z" fill="currentColor"/>
+                    </svg>
+                  {% else %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
+                      <path d="m16 24 5 5 11-12" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                {% endcase %}
+              </div>
+
+              <div class="brisa-better-cores__feature-copy">
+                {% if block.settings.title != blank %}
+                  <h3 class="brisa-better-cores__feature-title">{{ block.settings.title | escape }}</h3>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <p class="brisa-better-cores__feature-text">{{ block.settings.text | escape }}</p>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.aroma_heading != blank or section.settings.aroma_text != blank %}
+        <div class="brisa-better-cores__aroma">
+          {% if section.settings.aroma_heading != blank %}
+            <h3 class="brisa-better-cores__aroma-heading">
+              {% if section.settings.aroma_prefix != blank %}
+                <span class="brisa-better-cores__aroma-heading-prefix">{{ section.settings.aroma_prefix | escape }}</span>
+              {% endif %}
+              {{ section.settings.aroma_heading | escape }}
+            </h3>
+          {% endif %}
+
+          {% if section.settings.aroma_text != blank %}
+            <p class="brisa-better-cores__aroma-text">{{ section.settings.aroma_text | escape }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa better cores",
+  "class": "shopify-section--brisa-better-cores",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro text",
+      "default": "Food-grade aroma cores for your Better Unit. Made to slot in, deliver the draw, and keep the moment yours."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.7 (163)"
+    },
+    {
+      "type": "text",
+      "id": "rating_accessibility_label",
+      "label": "Rating accessibility label",
+      "default": "Rated 4.7 out of 5 by 163 customers"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Happy customers"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Better cores"
+    },
+    {
+      "type": "text",
+      "id": "aroma_prefix",
+      "label": "Aroma heading prefix",
+      "default": "AROMA - "
+    },
+    {
+      "type": "text",
+      "id": "aroma_heading",
+      "label": "Aroma heading",
+      "default": "MINT ICE."
+    },
+    {
+      "type": "textarea",
+      "id": "aroma_text",
+      "label": "Aroma text",
+      "default": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Section max width",
+      "min": 480,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 820
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 420,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "features_spacing",
+      "label": "Space above features",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Feature column gap",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Feature row gap",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "mobile_row_gap",
+      "label": "Mobile feature row gap",
+      "min": 12,
+      "max": 44,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "aroma_spacing",
+      "label": "Space above aroma copy",
+      "min": 16,
+      "max": 72,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted label color",
+      "default": "#858585"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#1687d9"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#35adff"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#1379dd"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#38adf5"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "intro_size",
+      "label": "Intro size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 21
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star size",
+      "min": 20,
+      "max": 46,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "rating_size",
+      "label": "Rating text size",
+      "min": 14,
+      "max": 34,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "label": "Badge text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Badge corner radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 32,
+      "max": 88,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "label": "Feature title size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "label": "Feature text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "aroma_heading_size",
+      "label": "Aroma heading size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "aroma_text_size",
+      "label": "Aroma text size",
+      "min": 14,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 44,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "label": "Mobile icon size",
+      "min": 40,
+      "max": 84,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "leaf",
+              "label": "Leaf"
+            },
+            {
+              "value": "slot",
+              "label": "Slot-in"
+            },
+            {
+              "value": "no_nicotine",
+              "label": "No nicotine"
+            },
+            {
+              "value": "sparkles",
+              "label": "Sparkles"
+            },
+            {
+              "value": "check",
+              "label": "Check"
+            }
+          ],
+          "default": "leaf"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Food-Grade Cores"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa better cores",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Food-Grade Cores",
+            "text": "Natural aroma compounds only"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "no_nicotine",
+            "title": "No Nicotine",
+            "text": ""
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "slot",
+            "title": "Slot-in Install",
+            "text": ""
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Multiple aroma profiles",
+            "text": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
