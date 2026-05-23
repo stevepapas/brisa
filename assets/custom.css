@@ -963,6 +963,12 @@ display: none;
   line-height: 1.05;
 }
 
+.trust-bar {
+  background: #038bdd !important;
+}
+.trust-bar img {
+  border-radius: 0px !important;
+}
 .brisa-product-area-info__trust-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
