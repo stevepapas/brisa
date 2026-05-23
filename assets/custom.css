@@ -596,9 +596,6 @@ img {
 
 
 @media (max-width: 768px) {
-  .product-card {
-    min-width: 41%;
-  }
   .product-image-wrapper {
     min-height:150px;
   }
