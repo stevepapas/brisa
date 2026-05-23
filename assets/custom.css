@@ -692,7 +692,7 @@ display: none;
 .template-brisa-devices slide-show > * > * > * > *,
 .template-brisa-devices slide-show > * > * > * > * > *,
 .template-brisa-devices slide-show > * > * > * > * > * > * {
-  min-height: 110px;
+  min-height: 300px;
   max-height: 320px;
 }
 
