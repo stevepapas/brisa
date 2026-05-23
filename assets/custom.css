@@ -681,7 +681,11 @@ display: none;
 }
 
 .template-brisa-cores slide-show > *,
-.template-brisa-devices slide-show > * {
+.template-brisa-cores slide-show > * > *,
+.template-brisa-cores slide-show > * > * > *,
+.template-brisa-devices slide-show > *,
+.template-brisa-devices slide-show > * > *,
+.template-brisa-devices slide-show > * > * > *, {
   min-height: 110px;
   max-height: 320px;
 }
