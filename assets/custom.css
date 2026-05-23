@@ -967,6 +967,9 @@ display: none;
   background: #038bdd !important;
   padding: 12px 0px !important;
 }
+.trust-bar__item {
+  gap: 3px !important;
+}
 .trust-bar img {
   border-radius: 0px !important;
 }
