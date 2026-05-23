@@ -1,9 +1,5 @@
 {% liquid
-  assign selected_testimonials = section.settings.testimonials
-  if selected_testimonials == blank
-    assign selected_testimonials = shop.metaobjects.testimonial.values
-  endif
-
+  assign selected_testimonials = shop.metaobjects.testimonial.values
   assign total_testimonials = selected_testimonials | size
   assign mobile_slides = total_testimonials | plus: 1 | divided_by: 2
   assign desktop_slides = total_testimonials | plus: 2 | divided_by: 3
@@ -92,13 +88,6 @@
   "class": "shopify-section--brisa-testimonials-product-page",
   "max_blocks": 12,
   "settings": [
-    {
-      "type": "metaobject_list",
-      "id": "testimonials",
-      "label": "Testimonials",
-      "metaobject_type": "testimonial",
-      "limit": 24
-    },
     {
       "type": "text",
       "id": "heading",
