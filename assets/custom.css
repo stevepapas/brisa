@@ -970,6 +970,13 @@ display: none;
 .trust-bar__item {
   gap: 3px !important;
 }
+@media (max-width: 749px) {
+  .trust-bar__item {
+    font-size: 0.7rem;
+  }
+}
+
+
 .trust-bar img {
   border-radius: 0px !important;
 }
