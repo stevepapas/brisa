@@ -1,0 +1,528 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.page_background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+    color: {{ section.settings.text_color }};
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__ribbon {
+    padding: 22px 28px;
+    color: {{ section.settings.ribbon_text_color }};
+    background: {{ section.settings.ribbon_background }};
+    font-size: {{ section.settings.ribbon_size }}px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__panel {
+    padding: 80px 44px 80px;
+    background: {{ section.settings.box_background }};
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__heading {
+    max-width: 860px;
+    margin: 0 auto 12px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.28;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__subheading {
+    margin: 0 auto;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.subheading_size }}px;
+    font-weight: 900;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__subheading strong,
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__subheading a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 12px auto 32px;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__stars {
+    display: inline-flex;
+    gap: 8px;
+    color: {{ section.settings.star_color }};
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__star {
+    width: {{ section.settings.star_size }}px;
+    height: {{ section.settings.star_size }}px;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__star svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__rating-text {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.rating_size }}px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 6px 28px;
+    color: {{ section.settings.badge_text_color }};
+    background: {{ section.settings.badge_background }};
+    border-radius: {{ section.settings.badge_radius }}px;
+    font-size: {{ section.settings.badge_size }}px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 820px;
+    min-height: 92px;
+    margin: 0 auto 24px;
+    padding: 20px 34px;
+    color: {{ section.settings.button_text_color }} !important;
+    background: {{ section.settings.button_background }};
+    border-radius: 999px;
+    font-size: {{ section.settings.button_size }}px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__benefits {
+    margin: 0;
+    color: {{ section.settings.benefits_color }};
+    font-size: {{ section.settings.benefits_size }}px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box {
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__ribbon {
+      padding: 16px 18px;
+      font-size: {{ section.settings.ribbon_size | times: 0.7 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__panel {
+      padding: 50px 22px 52px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__heading {
+      font-size: {{ section.settings.heading_size | times: 0.62 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__subheading {
+      font-size: {{ section.settings.subheading_size | times: 0.7 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__rating {
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__star {
+      width: {{ section.settings.star_size | times: 0.72 | round }}px;
+      height: {{ section.settings.star_size | times: 0.72 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__rating-text {
+      font-size: {{ section.settings.rating_size | times: 0.78 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__badge {
+      padding-inline: 18px;
+      font-size: {{ section.settings.badge_size | times: 0.82 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__button {
+      min-height: 70px;
+      margin-bottom: 20px;
+      font-size: {{ section.settings.button_size | times: 0.7 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__benefits {
+      font-size: {{ section.settings.benefits_size | times: 0.72 | round }}px;
+    }
+  }
+</style>
+
+<section class="black-ribbon-blue-box" {{ section.shopify_attributes }}>
+  {% if section.settings.ribbon_text != blank %}
+    <div class="black-ribbon-blue-box__ribbon">{{ section.settings.ribbon_text | escape }}</div>
+  {% endif %}
+
+  <div class="black-ribbon-blue-box__panel">
+    {% if section.settings.heading != blank %}
+      <h2 class="black-ribbon-blue-box__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    {% if section.settings.subheading != blank %}
+      <div class="black-ribbon-blue-box__subheading">{{ section.settings.subheading }}</div>
+    {% endif %}
+
+    {% if section.settings.show_rating %}
+      <div class="black-ribbon-blue-box__rating" aria-label="{{ section.settings.rating_label | escape }}">
+        <span class="black-ribbon-blue-box__stars" aria-hidden="true">
+          {% for star in (1..5) %}
+            <span class="black-ribbon-blue-box__star">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
+              </svg>
+            </span>
+          {% endfor %}
+        </span>
+
+        {% if section.settings.rating_text != blank %}
+          <span class="black-ribbon-blue-box__rating-text">{{ section.settings.rating_text | escape }}</span>
+        {% endif %}
+
+        {% if section.settings.badge_text != blank %}
+          <span class="black-ribbon-blue-box__badge">{{ section.settings.badge_text | escape }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_text != blank %}
+      <a class="black-ribbon-blue-box__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_text | escape }}
+      </a>
+    {% endif %}
+
+    {% if section.settings.benefits != blank %}
+      <p class="black-ribbon-blue-box__benefits">{{ section.settings.benefits | escape }}</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Black Ribbon, blue box",
+  "class": "shopify-section--black-ribbon-blue-box",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ribbon_text",
+      "label": "Ribbon text",
+      "default": "⚡WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Vaping can cost you $4,380 this year."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>BRISA STARTER KIT <strong>$130 - ONCE.</strong><br>CORES FROM $30</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.7 (163)"
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Rating accessibility label",
+      "default": "Rated 4.7 out of 5 by 163 customers"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Happy customers"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "ADD STARTER KIT →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "benefits",
+      "label": "Benefits text",
+      "default": "Free shipping · 30-Day Success Guarantee · Ships in 1–2 days"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 600,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "page_background",
+      "label": "Page background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "ribbon_background",
+      "label": "Ribbon background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "ribbon_text_color",
+      "label": "Ribbon text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "box_background",
+      "label": "Box background",
+      "default": "#1198dc"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Stars",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#c6e9ff"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#26579a"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#48aeea"
+    },
+    {
+      "type": "color",
+      "id": "benefits_color",
+      "label": "Benefits text",
+      "default": "#c9edff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "ribbon_size",
+      "label": "Ribbon size",
+      "min": 16,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 18,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 33
+    },
+    {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star size",
+      "min": 20,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "rating_size",
+      "label": "Rating size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "label": "Badge size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "badge_radius",
+      "label": "Badge radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button size",
+      "min": 22,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "benefits_size",
+      "label": "Benefits size",
+      "min": 16,
+      "max": 34,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    }
+  ],
+  "presets": [
+    {
+      "name": "Black Ribbon, blue box",
+      "category": "Brisa"
+    }
+  ]
+}
+{% endschema %}
