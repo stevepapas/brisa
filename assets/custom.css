@@ -648,7 +648,7 @@ display: none;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #333;
+  background: white;
   width: 44px;
   height: 44px;
   display: flex;
