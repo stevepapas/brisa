@@ -695,3 +695,8 @@ display: none;
   min-height: 110px;
   max-height: 320px;
 }
+
+.template-brisa-cores h2,
+.template-brisa-devices h2 {
+  color: white;
+}
