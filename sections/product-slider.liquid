@@ -36,6 +36,7 @@
     position: relative;
     margin-top: {{ section.settings.slider_spacing }}px;
     overflow: hidden;
+    border-radius: {{ section.settings.slider_border_radius }}px;
   }
 
   #shopify-section-{{ section.id }} .product-slider__track {
@@ -54,7 +55,7 @@
     {% endif %}
     background-position: center;
     background-size: cover;
-    border-radius: {{ section.settings.slide_border_radius }}px;
+    border-radius: {{ section.settings.slider_border_radius }}px;
   }
 
   #shopify-section-{{ section.id }} .product-slider__link {
@@ -780,8 +781,8 @@
     },
     {
       "type": "range",
-      "id": "slide_border_radius",
-      "label": "Slide border radius",
+      "id": "slider_border_radius",
+      "label": "Slider border radius",
       "min": 0,
       "max": 60,
       "step": 2,
