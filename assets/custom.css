@@ -876,6 +876,59 @@ display: none;
   text-align: center;
 }
 
+.brisa-product-testimonials__video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 34px -20px 0;
+}
+
+.brisa-product-testimonials__video-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  overflow: hidden;
+  background: #d8f6ff;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.brisa-product-testimonials__video-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.brisa-product-testimonials__video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid #38b6ff;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  transform: translate(-50%, -50%);
+}
+
+.brisa-product-testimonials__video-play span {
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 18px solid #2d579b;
+}
+
 @media (max-width: 749px) {
   .shopify-section--brisa-testimonials-product-page {
     padding-top: var(--brisa-reviews-mobile-padding-top, 32px);
@@ -930,6 +983,22 @@ display: none;
 
   .brisa-product-testimonials__disclaimer {
     font-size: calc(var(--brisa-reviews-disclaimer-size, 25px) * 0.58);
+  }
+
+  .brisa-product-testimonials__video-grid {
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  .brisa-product-testimonials__video-play {
+    width: 42px;
+    height: 42px;
+  }
+
+  .brisa-product-testimonials__video-play span {
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 15px;
   }
 }
 

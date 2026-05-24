@@ -80,6 +80,44 @@
   {% if section.settings.disclaimer != blank %}
     <p class="brisa-product-testimonials__disclaimer">{{ section.settings.disclaimer | escape }}</p>
   {% endif %}
+
+  {% assign video_blocks = section.blocks | where: 'type', 'video_review' %}
+  {% if video_blocks.size > 0 %}
+    <div class="brisa-product-testimonials__video-grid">
+      {% for block in video_blocks %}
+        {% liquid
+          assign video_src = ''
+          if block.settings.video_url.type == 'youtube'
+            assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+          elsif block.settings.video_url.type == 'vimeo'
+            assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+          endif
+        %}
+
+        <button
+          type="button"
+          class="brisa-product-testimonials__video-thumb"
+          {% if video_src != blank %}data-brisa-video-src="{{ video_src | escape }}"{% endif %}
+          aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.thumbnail != blank %}
+            <img
+              src="{{ block.settings.thumbnail | image_url: width: 420 }}"
+              alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
+              loading="lazy"
+              width="{{ block.settings.thumbnail.width }}"
+              height="{{ block.settings.thumbnail.height }}"
+            >
+          {% endif %}
+
+          <span class="brisa-product-testimonials__video-play" aria-hidden="true">
+            <span></span>
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+  {% endif %}
 </brisa-product-testimonials>
 
 {% schema %}
@@ -156,6 +194,29 @@
           "max": 5,
           "step": 1,
           "default": 5
+        }
+      ]
+    },
+    {
+      "type": "video_review",
+      "name": "Video review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Person thumbnail"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "Video",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Accessibility label",
+          "default": "customer video review"
         }
       ]
     }
