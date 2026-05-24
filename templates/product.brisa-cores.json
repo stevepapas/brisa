@@ -52,6 +52,25 @@
         "background": "rgba(0,0,0,0)"
       }
     },
+    "brisa_device_header_cgyBnd": {
+      "type": "brisa-device-header",
+      "name": "Brisa device header",
+      "settings": {
+        "intro": "Food-grade aroma cores for your Better Unit. Made to slot in, deliver the draw, and keep the moment yours.",
+        "show_rating": true,
+        "rating_text": "Rated 4.7 (163)",
+        "rating_label": "Rated 4.7 out of 5 by 163 customers",
+        "badge_text": "Happy customers",
+        "heading": "Better cores",
+        "background": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#111111",
+        "accent_color": "#38adf5",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "heading_size": 54
+      }
+    },
     "custom_liquid_8wqDgb": {
       "type": "custom-liquid",
       "name": "Custom Liquid",
@@ -354,6 +373,7 @@
   },
   "order": [
     "slideshow_brisa_LPC6iL",
+    "brisa_device_header_cgyBnd",
     "custom_liquid_8wqDgb",
     "main",
     "product-content",
