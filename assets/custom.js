@@ -392,6 +392,7 @@ document.addEventListener('click', (event) => {
 
   const videoSrc = playButton.dataset.brisaVideoSrc;
   if (!videoSrc) return;
+  const videoType = playButton.dataset.brisaVideoType || 'iframe';
 
   let lightbox = document.querySelector('.brisa-video-lightbox');
 
@@ -402,14 +403,31 @@ document.addEventListener('click', (event) => {
       <button class="brisa-video-lightbox__overlay" type="button" aria-label="Close video"></button>
       <div class="brisa-video-lightbox__content" role="dialog" aria-modal="true" aria-label="Video">
         <button class="brisa-video-lightbox__close" type="button" aria-label="Close video">&times;</button>
-        <iframe title="Brisa video" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+        <div class="brisa-video-lightbox__frame"></div>
       </div>
     `;
     document.body.appendChild(lightbox);
   }
 
-  const iframe = lightbox.querySelector('iframe');
-  iframe.src = videoSrc;
+  const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
+  frame.innerHTML = '';
+
+  if (videoType === 'html5') {
+    const video = document.createElement('video');
+    video.src = videoSrc;
+    video.controls = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    frame.appendChild(video);
+  } else {
+    const iframe = document.createElement('iframe');
+    iframe.title = 'Brisa video';
+    iframe.allow = 'autoplay; encrypted-media; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.src = videoSrc;
+    frame.appendChild(iframe);
+  }
+
   lightbox.classList.add('is-open');
   document.documentElement.style.overflow = 'hidden';
 });
@@ -419,9 +437,9 @@ document.addEventListener('click', (event) => {
   if (!closeButton) return;
 
   const lightbox = closeButton.closest('.brisa-video-lightbox');
-  const iframe = lightbox.querySelector('iframe');
+  const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
 
-  iframe.src = '';
+  frame.innerHTML = '';
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });
@@ -432,8 +450,8 @@ document.addEventListener('keydown', (event) => {
   const lightbox = document.querySelector('.brisa-video-lightbox.is-open');
   if (!lightbox) return;
 
-  const iframe = lightbox.querySelector('iframe');
-  iframe.src = '';
+  const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
+  frame.innerHTML = '';
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });

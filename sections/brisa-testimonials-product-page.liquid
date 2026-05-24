@@ -87,10 +87,21 @@
       {% for block in video_blocks %}
         {% liquid
           assign video_src = ''
-          if block.settings.video_url.type == 'youtube'
+          assign video_type = ''
+
+          if block.settings.video != blank
+            assign local_video_source = block.settings.video.sources | where: 'format', 'mp4' | first
+            if local_video_source == blank
+              assign local_video_source = block.settings.video.sources | first
+            endif
+            assign video_src = local_video_source.url
+            assign video_type = 'html5'
+          elsif block.settings.video_url.type == 'youtube'
             assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+            assign video_type = 'iframe'
           elsif block.settings.video_url.type == 'vimeo'
             assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+            assign video_type = 'iframe'
           endif
         %}
 
@@ -98,6 +109,7 @@
           type="button"
           class="brisa-product-testimonials__video-thumb"
           {% if video_src != blank %}data-brisa-video-src="{{ video_src | escape }}"{% endif %}
+          {% if video_type != blank %}data-brisa-video-type="{{ video_type }}"{% endif %}
           aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
           {{ block.shopify_attributes }}
         >
@@ -207,9 +219,15 @@
           "label": "Person thumbnail"
         },
         {
+          "type": "video",
+          "id": "video",
+          "label": "Local video",
+          "info": "Replaces the external video if both are set."
+        },
+        {
           "type": "video_url",
           "id": "video_url",
-          "label": "Video",
+          "label": "External video",
           "accept": ["youtube", "vimeo"]
         },
         {
