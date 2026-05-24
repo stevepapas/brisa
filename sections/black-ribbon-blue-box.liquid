@@ -187,9 +187,13 @@
   }
 </style>
 
+{% liquid
+  assign ribbon_text = section.settings.ribbon_text | strip
+%}
+
 <section class="black-ribbon-blue-box" {{ section.shopify_attributes }}>
-  {% if section.settings.ribbon_text != blank %}
-    <div class="black-ribbon-blue-box__ribbon">{{ section.settings.ribbon_text | escape }}</div>
+  {% if ribbon_text != blank %}
+    <div class="black-ribbon-blue-box__ribbon">{{ ribbon_text | escape }}</div>
   {% endif %}
 
   <div class="black-ribbon-blue-box__panel">
