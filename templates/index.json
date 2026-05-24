@@ -232,6 +232,170 @@
         "flavour_size": 22
       }
     },
+    "why_brisa_works_B3VdJE": {
+      "type": "why-brisa-works",
+      "blocks": {
+        "card_bmkRbN": {
+          "type": "card",
+          "settings": {
+            "title": "Habit Loop",
+            "text": "Most people don't just miss the nicotine. They miss the reach, the draw, the pause and the routine. Brisa gives that moment a cleaner replacement."
+          }
+        },
+        "card_pxxGDy": {
+          "type": "card",
+          "settings": {
+            "title": "Sensory Feel",
+            "text": "The flavour core and airflow are designed to feel familiar, giving your mouth and hands something to do when the urge hits."
+          }
+        },
+        "card_r7iXTV": {
+          "type": "card",
+          "settings": {
+            "title": "No Nicotine",
+            "text": "No nicotine. No smoke. No vapour. Just a reusable device and food-grade flavour cores."
+          }
+        }
+      },
+      "block_order": [
+        "card_bmkRbN",
+        "card_pxxGDy",
+        "card_r7iXTV"
+      ],
+      "name": "Why Brisa Works",
+      "settings": {
+        "heading": "WHY BRISA WORKS",
+        "bg_color_top": "#29b6f6",
+        "bg_color_bottom": "#1e88e5",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "brisa_comparison_table_PqHQJk": {
+      "type": "brisa-comparison-table",
+      "blocks": {
+        "row_kUBAMt": {
+          "type": "row",
+          "settings": {
+            "label": "Monthly cost",
+            "brisa_value_type": "text",
+            "brisa_text": "$45",
+            "column_2_value_type": "text",
+            "column_2_text": "$300+",
+            "column_3_value_type": "text",
+            "column_3_text": "$400+",
+            "column_4_value_type": "text",
+            "column_4_text": "$100+"
+          }
+        },
+        "row_r6aqPA": {
+          "type": "row",
+          "settings": {
+            "label": "Nicotine",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "check",
+            "column_4_text": ""
+          }
+        },
+        "row_wXdhxb": {
+          "type": "row",
+          "settings": {
+            "label": "Chemicals",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "check",
+            "column_4_text": ""
+          }
+        },
+        "row_eMDGYJ": {
+          "type": "row",
+          "settings": {
+            "label": "Ritual kept",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        },
+        "row_rTcTmd": {
+          "type": "row",
+          "settings": {
+            "label": "Habit broken",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "cross",
+            "column_2_text": "",
+            "column_3_value_type": "cross",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        },
+        "row_iHCFi7": {
+          "type": "row",
+          "settings": {
+            "label": "Sensory satisfaction",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_kUBAMt",
+        "row_r6aqPA",
+        "row_wXdhxb",
+        "row_eMDGYJ",
+        "row_rTcTmd",
+        "row_iHCFi7"
+      ],
+      "name": "Brisa comparison table",
+      "settings": {
+        "heading": "WHY BRISA BEATS THE OLD OPTIONS",
+        "subheading": "",
+        "table_label": "Brisa comparison table",
+        "brisa_heading": "Brisa Better",
+        "column_2_heading": "Vaping",
+        "column_3_heading": "Smoking",
+        "column_4_heading": "Nicorette",
+        "background": "#ffffff",
+        "text_color": "#111111",
+        "heading_color": "#111111",
+        "line_color": "#111111",
+        "line_width": 4,
+        "brisa_color": "#0798dc",
+        "brisa_text_color": "#ffffff",
+        "icon_color": "#2350a4",
+        "brisa_icon_color": "#ffffff",
+        "icon_size": 36,
+        "brisa_radius": 18,
+        "heading_size": 36,
+        "max_width": 900,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "footnote": ""
+      }
+    },
     "product_slider_Ahg8i4": {
       "type": "product-slider",
       "name": "Choose Core",
@@ -282,47 +446,6 @@
         "subheading_size": 18,
         "product_name_size": 18,
         "flavour_size": 22
-      }
-    },
-    "black_ribbon_blue_box_bnUnL4": {
-      "type": "black-ribbon-blue-box",
-      "name": "Black Ribbon, blue box",
-      "settings": {
-        "ribbon_text": "",
-        "heading": "Vaping can cost you $4,380 this year.",
-        "subheading": "<p>BRISA STARTER KIT <strong>$130 - ONCE.</strong><br/>CORES FROM $30</p>",
-        "show_rating": true,
-        "rating_text": "Rated 4.7 (163)",
-        "rating_label": "Rated 4.7 out of 5 by 163 customers",
-        "badge_text": "Happy customers",
-        "button_text": "ADD STARTER KIT →",
-        "button_link": "",
-        "benefits": "Free shipping · 30-Day Success Guarantee · Ships in 1–2 days",
-        "max_width": 900,
-        "padding_top": 0,
-        "padding_bottom": 20,
-        "mobile_padding_top": 0,
-        "mobile_padding_bottom": 20,
-        "page_background": "#ffffff",
-        "ribbon_background": "#000000",
-        "ribbon_text_color": "#ffffff",
-        "box_background": "#1198dc",
-        "text_color": "#ffffff",
-        "star_color": "#ffffff",
-        "badge_background": "#c6e9ff",
-        "badge_text_color": "#26579a",
-        "button_background": "#ffffff",
-        "button_text_color": "#48aeea",
-        "benefits_color": "#c9edff",
-        "ribbon_size": 30,
-        "heading_size": 52,
-        "subheading_size": 33,
-        "star_size": 38,
-        "rating_size": 28,
-        "badge_size": 22,
-        "badge_radius": 8,
-        "button_size": 42,
-        "benefits_size": 26
       }
     },
     "blue_layout_2_dK4pUp": {
@@ -376,43 +499,45 @@
         "button_size": 25
       }
     },
-    "why_brisa_works_B3VdJE": {
-      "type": "why-brisa-works",
-      "blocks": {
-        "card_bmkRbN": {
-          "type": "card",
-          "settings": {
-            "title": "Habit Loop",
-            "text": "Most people don't just miss the nicotine. They miss the reach, the draw, the pause and the routine. Brisa gives that moment a cleaner replacement."
-          }
-        },
-        "card_pxxGDy": {
-          "type": "card",
-          "settings": {
-            "title": "Sensory Feel",
-            "text": "The flavour core and airflow are designed to feel familiar, giving your mouth and hands something to do when the urge hits."
-          }
-        },
-        "card_r7iXTV": {
-          "type": "card",
-          "settings": {
-            "title": "No Nicotine",
-            "text": "No nicotine. No smoke. No vapour. Just a reusable device and food-grade flavour cores."
-          }
-        }
-      },
-      "block_order": [
-        "card_bmkRbN",
-        "card_pxxGDy",
-        "card_r7iXTV"
-      ],
-      "name": "Why Brisa Works",
+    "black_ribbon_blue_box_bnUnL4": {
+      "type": "black-ribbon-blue-box",
+      "name": "Black Ribbon, blue box",
       "settings": {
-        "heading": "WHY BRISA WORKS",
-        "bg_color_top": "#29b6f6",
-        "bg_color_bottom": "#1e88e5",
-        "padding_top": 48,
-        "padding_bottom": 48
+        "ribbon_text": "",
+        "heading": "Vaping can cost you $4,380 this year.",
+        "subheading": "<p>BRISA STARTER KIT <strong>$130 - ONCE.</strong><br/>CORES FROM $30</p>",
+        "show_rating": true,
+        "rating_text": "Rated 4.7 (163)",
+        "rating_label": "Rated 4.7 out of 5 by 163 customers",
+        "badge_text": "Happy customers",
+        "button_text": "ADD STARTER KIT →",
+        "button_link": "",
+        "benefits": "Free shipping · 30-Day Success Guarantee · Ships in 1–2 days",
+        "max_width": 900,
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 20,
+        "page_background": "#ffffff",
+        "ribbon_background": "#000000",
+        "ribbon_text_color": "#ffffff",
+        "box_background": "#1198dc",
+        "text_color": "#ffffff",
+        "star_color": "#ffffff",
+        "badge_background": "#c6e9ff",
+        "badge_text_color": "#26579a",
+        "button_background": "#ffffff",
+        "button_text_color": "#48aeea",
+        "benefits_color": "#c9edff",
+        "ribbon_size": 30,
+        "heading_size": 52,
+        "subheading_size": 33,
+        "star_size": 38,
+        "rating_size": 28,
+        "badge_size": 22,
+        "badge_radius": 8,
+        "button_size": 42,
+        "benefits_size": 26
       }
     },
     "image_with_text_jtTw6U": {
@@ -619,11 +744,12 @@
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",
     "product_slider_aJ9PmW",
+    "why_brisa_works_B3VdJE",
+    "brisa_comparison_table_PqHQJk",
     "product_slider_Ahg8i4",
-    "black_ribbon_blue_box_bnUnL4",
     "blue_layout_2_dK4pUp",
     "blue_layout_3_fA438y",
-    "why_brisa_works_B3VdJE",
+    "black_ribbon_blue_box_bnUnL4",
     "image_with_text_jtTw6U",
     "multi_column_Xa8YUJ",
     "image_with_text_wC8Yh3",
