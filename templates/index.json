@@ -260,7 +260,7 @@
         "button_link": "shopify://products/brisa-device-black",
         "button_background": "#38b6ff",
         "button_text_color": "#ffffff",
-        "button_radius": 15,
+        "button_radius": 24,
         "button_spacing": 20,
         "max_width": 1200,
         "slider_spacing": 20,
