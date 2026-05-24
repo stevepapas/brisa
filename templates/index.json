@@ -179,6 +179,9 @@
     },
     "product_slider_aJ9PmW": {
       "type": "product-slider",
+      "custom_css": [
+        ".shopifysection {}"
+      ],
       "name": "Choose Brisa",
       "settings": {
         "collection": "brisas",
