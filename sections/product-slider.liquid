@@ -41,6 +41,7 @@
 
   .shopify_section_product_slider .product-slider__track {
     display: flex;
+    border-radius: inherit;
     transition: transform 0.4s ease;
     will-change: transform;
   }
@@ -61,6 +62,8 @@
   .shopify_section_product_slider .product-slider__link {
     display: block;
     color: inherit;
+    border-radius: inherit;
+    overflow: hidden;
     text-decoration: none;
   }
 
@@ -71,6 +74,7 @@
     justify-content: center;
     min-height: {{ section.settings.card_height }}px;
     padding: {{ section.settings.image_padding }}px 20px;
+    border-radius: inherit;
     overflow: visible;
   }
 
@@ -316,7 +320,7 @@
   {% endif %}
 
   {% if slider_collection != blank and slider_collection.products_count > 0 %}
-    <div class="product-slider__viewport">
+    <div class="product-slider__viewport" style="border-radius: {{ section.settings.slider_border_radius }}px;">
       <button class="product-slider__arrow product-slider__arrow--prev" type="button" aria-label="Previous product" data-product-slider-prev>
         <svg viewBox="0 0 24 24" focusable="false">
           <polyline points="15 18 9 12 15 6"></polyline>
@@ -333,6 +337,7 @@
             class="product-slider__card"
             data-product-slider-card
             data-product-title="{{ product.title | escape }}"
+            style="border-radius: {{ section.settings.slider_border_radius }}px;"
           >
             <a class="product-slider__link" href="{{ product.url }}">
               <div class="product-slider__image-wrapper">
