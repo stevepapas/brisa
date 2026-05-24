@@ -114,38 +114,64 @@
         </div>
       </div>
 
-      <div class="brisa-product-area-info__landscape">
-        {% if section.settings.landscape_image != blank %}
-          <img
-            src="{{ section.settings.landscape_image | image_url: width: 900 }}"
-            alt="{{ section.settings.landscape_image.alt | default: 'Brisa install video' | escape }}"
-            class="brisa-product-area-info__landscape-image"
-            loading="lazy"
-            width="{{ section.settings.landscape_image.width }}"
-            height="{{ section.settings.landscape_image.height }}"
-          >
-        {% endif %}
+      {% liquid
+        assign landscape_video_src = ''
+        assign landscape_video_type = ''
 
-        {% if section.settings.landscape_video != blank %}
-          {% liquid
-            assign video_src = ''
-            if section.settings.landscape_video.type == 'youtube'
-              assign video_src = 'https://www.youtube.com/embed/' | append: section.settings.landscape_video.id | append: '?autoplay=1&rel=0&modestbranding=1'
-            elsif section.settings.landscape_video.type == 'vimeo'
-              assign video_src = 'https://player.vimeo.com/video/' | append: section.settings.landscape_video.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
-            endif
-          %}
+        if section.settings.landscape_local_video != blank
+          assign landscape_local_source = section.settings.landscape_local_video.sources | where: 'format', 'mp4' | first
+          if landscape_local_source == blank
+            assign landscape_local_source = section.settings.landscape_local_video.sources | first
+          endif
+          assign landscape_video_src = landscape_local_source.url
+          assign landscape_video_type = 'html5'
+        elsif section.settings.landscape_video.type == 'youtube'
+          assign landscape_video_src = 'https://www.youtube.com/embed/' | append: section.settings.landscape_video.id | append: '?autoplay=1&rel=0&modestbranding=1'
+          assign landscape_video_type = 'iframe'
+        elsif section.settings.landscape_video.type == 'vimeo'
+          assign landscape_video_src = 'https://player.vimeo.com/video/' | append: section.settings.landscape_video.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+          assign landscape_video_type = 'iframe'
+        endif
+      %}
 
-          <button
-            type="button"
-            class="brisa-product-area-info__play"
-            data-brisa-video-src="{{ video_src | escape }}"
-            aria-label="Play install video"
-          >
-            <span aria-hidden="true"></span>
-          </button>
-        {% endif %}
-      </div>
+      {% if landscape_video_src != blank or section.settings.landscape_image != blank %}
+        <div class="brisa-product-area-info__landscape">
+          {% if landscape_video_src != blank %}
+            <button
+              type="button"
+              class="brisa-product-area-info__landscape-trigger"
+              data-brisa-video-src="{{ landscape_video_src | escape }}"
+              data-brisa-video-type="{{ landscape_video_type }}"
+              data-brisa-video-aspect="portrait"
+              aria-label="{{ section.settings.landscape_video_label | default: 'Play install video' | escape }}"
+            >
+              {% if section.settings.landscape_image != blank %}
+                <img
+                  src="{{ section.settings.landscape_image | image_url: width: 720 }}"
+                  alt="{{ section.settings.landscape_image.alt | default: section.settings.landscape_video_label | default: 'Brisa install video' | escape }}"
+                  class="brisa-product-area-info__landscape-image"
+                  loading="lazy"
+                  width="{{ section.settings.landscape_image.width }}"
+                  height="{{ section.settings.landscape_image.height }}"
+                >
+              {% endif %}
+
+              <span class="brisa-product-area-info__play" aria-hidden="true">
+                <span></span>
+              </span>
+            </button>
+          {% elsif section.settings.landscape_image != blank %}
+            <img
+              src="{{ section.settings.landscape_image | image_url: width: 720 }}"
+              alt="{{ section.settings.landscape_image.alt | default: 'Brisa install video' | escape }}"
+              class="brisa-product-area-info__landscape-image"
+              loading="lazy"
+              width="{{ section.settings.landscape_image.width }}"
+              height="{{ section.settings.landscape_image.height }}"
+            >
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
 
     <div class="brisa-product-area-info__starter">
@@ -183,13 +209,26 @@
     {
       "type": "image_picker",
       "id": "landscape_image",
-      "label": "Landscape image"
+      "label": "Video poster",
+      "info": "Portrait image shown before the video plays."
+    },
+    {
+      "type": "video",
+      "id": "landscape_local_video",
+      "label": "Local video",
+      "info": "Portrait video from Shopify Files. Replaces the external video if both are set."
     },
     {
       "type": "video_url",
       "id": "landscape_video",
-      "label": "Landscape video",
+      "label": "External video",
       "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "landscape_video_label",
+      "label": "Video accessibility label",
+      "default": "Play install video"
     }
   ],
   "presets": [

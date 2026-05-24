@@ -393,6 +393,7 @@ document.addEventListener('click', (event) => {
   const videoSrc = playButton.dataset.brisaVideoSrc;
   if (!videoSrc) return;
   const videoType = playButton.dataset.brisaVideoType || 'iframe';
+  const videoAspect = playButton.dataset.brisaVideoAspect || 'landscape';
 
   let lightbox = document.querySelector('.brisa-video-lightbox');
 
@@ -409,7 +410,9 @@ document.addEventListener('click', (event) => {
     document.body.appendChild(lightbox);
   }
 
+  const content = lightbox.querySelector('.brisa-video-lightbox__content');
   const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
+  content.classList.toggle('brisa-video-lightbox__content--portrait', videoAspect === 'portrait');
   frame.innerHTML = '';
 
   if (videoType === 'html5') {
@@ -437,9 +440,11 @@ document.addEventListener('click', (event) => {
   if (!closeButton) return;
 
   const lightbox = closeButton.closest('.brisa-video-lightbox');
+  const content = lightbox.querySelector('.brisa-video-lightbox__content');
   const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
 
   frame.innerHTML = '';
+  content.classList.remove('brisa-video-lightbox__content--portrait');
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });
@@ -450,8 +455,10 @@ document.addEventListener('keydown', (event) => {
   const lightbox = document.querySelector('.brisa-video-lightbox.is-open');
   if (!lightbox) return;
 
+  const content = lightbox.querySelector('.brisa-video-lightbox__content');
   const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
   frame.innerHTML = '';
+  content.classList.remove('brisa-video-lightbox__content--portrait');
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });
