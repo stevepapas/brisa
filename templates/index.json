@@ -574,7 +574,7 @@
         "max_width": 1200,
         "slider_spacing": 20,
         "pagination_spacing": 24,
-        "slider_border_radius": 0,
+        "slider_border_radius": 12,
         "nav_gap": 12,
         "card_height": 420,
         "mobile_card_height": 220,
@@ -595,7 +595,7 @@
         "text_color": "#111111",
         "flavour_color": "#ffffff",
         "arrow_background": "#ffffff",
-        "arrow_color": "#000000",
+        "arrow_color": "#38b6ff",
         "dot_color": "#c7c7c7",
         "active_nav_color": "#000000",
         "heading_size": 32,
@@ -651,6 +651,40 @@
     },
     "brisa_testimonials_product_page_HnzNQj": {
       "type": "brisa-testimonials-product-page",
+      "blocks": {
+        "video_review_NxjJdN": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-2.png",
+            "video": "shopify://files/videos/test2.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_GewtFM": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-3.png",
+            "video": "shopify://files/videos/test3.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_mNzzaA": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-1.png",
+            "video": "shopify://files/videos/test-1.mov",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        }
+      },
+      "block_order": [
+        "video_review_NxjJdN",
+        "video_review_GewtFM",
+        "video_review_mNzzaA"
+      ],
       "name": "Brisa product reviews",
       "settings": {
         "heading": "Real Aussies. Real Reviews.",
