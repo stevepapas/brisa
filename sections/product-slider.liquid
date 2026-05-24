@@ -308,7 +308,6 @@
         {% for product in slider_collection.products limit: section.settings.product_limit %}
           {% liquid
             assign card_image = product.metafields.custom.carousel_product_image.value | default: product.featured_image
-            assign swatch_color = product.metafields.custom.carousel_background_colour.value | default: product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
           %}
 
           <div
@@ -379,7 +378,18 @@
     <div class="product-slider__pagination" data-product-slider-pagination>
       {% for product in slider_collection.products limit: section.settings.product_limit %}
         {% liquid
-          assign swatch_color = product.metafields.custom.carousel_background_colour.value | default: product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
+          assign swatch_color = section.settings.dot_color
+          case section.settings.swatch_color_source
+            when 'carousel_swatch_colour'
+              assign swatch_color = product.metafields.custom.carousel_swatch_colour.value | default: product.metafields.custom.carousel_swatch_colour | default: section.settings.dot_color
+            when 'carousel_background_colour'
+              assign swatch_color = product.metafields.custom.carousel_background_colour.value | default: product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
+            when 'custom_metafield'
+              assign swatch_color_namespace = section.settings.swatch_color_metafield_namespace
+              assign swatch_color_key = section.settings.swatch_color_metafield_key
+              assign swatch_color = product.metafields[swatch_color_namespace][swatch_color_key].value | default: product.metafields[swatch_color_namespace][swatch_color_key] | default: section.settings.dot_color
+          endcase
+
           assign swatch_label = ''
 
           case section.settings.swatch_label_source
@@ -520,6 +530,45 @@
       "id": "use_swatch_nav",
       "label": "Use colour swatches as page navigation",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "swatch_color_source",
+      "label": "Swatch colour source",
+      "info": "Used only when colour swatches are enabled.",
+      "options": [
+        {
+          "value": "carousel_swatch_colour",
+          "label": "Products Meta Field: Carousel Swatch Colour"
+        },
+        {
+          "value": "carousel_background_colour",
+          "label": "Products Meta Field: Carousel Background Colour"
+        },
+        {
+          "value": "custom_metafield",
+          "label": "Custom product metafield"
+        },
+        {
+          "value": "fallback",
+          "label": "Fallback dot colour"
+        }
+      ],
+      "default": "carousel_swatch_colour"
+    },
+    {
+      "type": "text",
+      "id": "swatch_color_metafield_namespace",
+      "label": "Custom swatch colour metafield namespace",
+      "info": "Used when swatch colour source is set to custom product metafield.",
+      "default": "custom"
+    },
+    {
+      "type": "text",
+      "id": "swatch_color_metafield_key",
+      "label": "Custom swatch colour metafield key",
+      "info": "Used when swatch colour source is set to custom product metafield.",
+      "default": "carousel_swatch_colour"
     },
     {
       "type": "select",
