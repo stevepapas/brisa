@@ -5,11 +5,26 @@
   }
 
   #shopify-section-{{ section.id }} .black-ribbon-blue-box {
+    color: {{ section.settings.text_color }};
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .black-ribbon-blue-box__ribbon-wrap {
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
     padding: 0 20px;
-    color: {{ section.settings.text_color }};
-    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__panel {
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__panel-inner {
+      max-width: {{ section.settings.max_width }}px;
+      margin: 0 auto;
+      padding: 80px 44px 80px;
+    }
   }
 
   #shopify-section-{{ section.id }} .black-ribbon-blue-box__ribbon {
@@ -135,7 +150,7 @@
       padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
     }
 
-    #shopify-section-{{ section.id }} .black-ribbon-blue-box {
+    #shopify-section-{{ section.id }} .black-ribbon-blue-box__ribbon-wrap {
       padding: 0;
     }
 
@@ -192,11 +207,14 @@
 %}
 
 <section class="black-ribbon-blue-box" {{ section.shopify_attributes }}>
-  {% if ribbon_text != blank %}
-    <div class="black-ribbon-blue-box__ribbon">{{ ribbon_text | escape }}</div>
-  {% endif %}
+  <div class="black-ribbon-blue-box__ribbon-wrap">
+    {% if ribbon_text != blank %}
+      <div class="black-ribbon-blue-box__ribbon">{{ ribbon_text | escape }}</div>
+    {% endif %}
+  </div>
 
   <div class="black-ribbon-blue-box__panel">
+    <div class="black-ribbon-blue-box__panel-inner">
     {% if section.settings.heading != blank %}
       <h2 class="black-ribbon-blue-box__heading">{{ section.settings.heading | escape }}</h2>
     {% endif %}
@@ -236,6 +254,7 @@
     {% if section.settings.benefits != blank %}
       <p class="black-ribbon-blue-box__benefits">{{ section.settings.benefits | escape }}</p>
     {% endif %}
+    </div>
   </div>
 </section>
 
