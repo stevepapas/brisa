@@ -393,6 +393,8 @@
           assign swatch_label = ''
 
           case section.settings.swatch_label_source
+            when 'carousel_swatch_colour'
+              assign swatch_label = product.metafields.custom.carousel_swatch_colour.value | default: product.metafields.custom.carousel_swatch_colour
             when 'product_title'
               assign swatch_label = product.title
             when 'flavour'
@@ -577,6 +579,10 @@
       "info": "Used only when colour swatches are enabled.",
       "options": [
         {
+          "value": "carousel_swatch_colour",
+          "label": "Products Meta Field: Carousel Swatch Colour"
+        },
+        {
           "value": "flavour",
           "label": "Flavour metafield"
         },
@@ -601,7 +607,7 @@
           "label": "No text"
         }
       ],
-      "default": "flavour"
+      "default": "carousel_swatch_colour"
     },
     {
       "type": "text",
