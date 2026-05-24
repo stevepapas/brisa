@@ -20,7 +20,7 @@
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
-            "content": "<div class=\"three-column-grid fw-white-bg\" style=\"font-weight: bold;\ncolor: white;\njustify-content: center;\ngap: 10px;\ngrid-template-columns: auto auto auto;\nalign-items: center; padding-bottom: 0px\">\n\n  <div class=\"grid-column\" style=\"font-weight: bold;\">\n<span class=\"ai-testimonials-carousel__stars-top\">\n<svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n          <svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n\n</span>\n</div>\n  <div class=\"grid-column\" style=\"font-size: 12px\">\n    Rated 4.7 (163)\n  </div>\n  <div class=\"grid-column\" align-content:=\"\" center=\"\">\n1,000+ Aussies\n    \n  </div>\n</div>\n\n\n<h2 style=\"color: white; text-align: left; line-height: 1.2; margin-top: 0px;\">KEEP THE RITUAL<br>DROP THE HABIT.\n</h2>\n<p style=\"font-weight: bold; text-align: left; font-size: 90%\">A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking. Snap in a core. Take the draw. Move on.</p>\n<a class=\"home_button\" href=\"/products/brisa-device-rose\">Shop starter kit - $130</a>\n<div class=\"small\">Free shipping · 30-Day Success Guarantee · Ships in 1–2 days</div>\n<style>\n.ai-testimonials-carousel__stars-top {\n    gap: 4px;{\n  }\n .ai-testimonials-carousel__star-top {\n    width: 24px;\n    height: 24px;\n    fill: #008bdc;\n  }\n\n  .ai-testimonials-carousel__star-top--empty {\n    fill: #008bdc;\n  }\n</style>",
+            "content": "<div class=\"three-column-grid\" style=\"font-weight: bold;\ncolor: white;\njustify-content: center;\ngap: 10px;\ngrid-template-columns: auto auto auto;\nalign-items: center; padding-bottom: 0px\">\n\n  <div class=\"grid-column\" style=\"font-weight: bold;\">\n<span class=\"ai-testimonials-carousel__stars-top\">\n<svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n          <svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n\n</span>\n</div>\n  <div class=\"grid-column\" style=\"font-size: 12px\">\n    Rated 4.7 (163)\n  </div>\n  <div class=\"grid-column\" align-content:=\"\" center=\"\">\n1,000+ Aussies\n    \n  </div>\n</div>\n\n\n<h2 style=\"color: white; text-align: left; line-height: 1.2; margin-top: 0px;\">KEEP THE RITUAL<br>DROP THE HABIT.\n</h2>\n<p style=\"font-weight: bold; text-align: left; font-size: 90%\">A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking. Snap in a core. Take the draw. Move on.</p>\n<a class=\"home_button\" href=\"/products/brisa-device-rose\">Shop starter kit - $130</a>\n<div class=\"small\">Free shipping · 30-Day Success Guarantee · Ships in 1–2 days</div>\n<style>\n.ai-testimonials-carousel__stars-top {\n    gap: 4px;{\n  }\n .ai-testimonials-carousel__star-top {\n    width: 24px;\n    height: 24px;\n    fill: #008bdc;\n  }\n\n  .ai-testimonials-carousel__star-top--empty {\n    fill: #008bdc;\n  }\n</style>",
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -200,18 +200,11 @@
         "swatch_size": 32,
         "swatch_text_size": 12,
         "swatch_label_width": 80,
-        "button_text": "Shop starter kit",
-        "button_link": "",
-        "button_background": "#38b6ff",
-        "button_text_color": "#ffffff",
-        "button_radius": 15,
-        "button_spacing": 20,
         "max_width": 1200,
         "slider_spacing": 20,
         "pagination_spacing": 24,
         "nav_gap": 12,
         "card_height": 420,
-        "slider_border_radius": 12,
         "mobile_card_height": 220,
         "image_padding": 40,
         "image_width": 70,
@@ -259,18 +252,11 @@
         "swatch_size": 32,
         "swatch_text_size": 12,
         "swatch_label_width": 80,
-        "button_text": "Shop starter kit - $130 →",
-        "button_link": "shopify://products/brisa-device-black",
-        "button_background": "#38b6ff",
-        "button_text_color": "#ffffff",
-        "button_radius": 24,
-        "button_spacing": 20,
         "max_width": 1200,
         "slider_spacing": 20,
         "pagination_spacing": 24,
         "nav_gap": 12,
         "card_height": 420,
-        "slider_border_radius": 12,
         "mobile_card_height": 220,
         "image_padding": 40,
         "image_width": 70,
@@ -337,6 +323,57 @@
         "badge_radius": 8,
         "button_size": 42,
         "benefits_size": 26
+      }
+    },
+    "blue_layout_2_dK4pUp": {
+      "type": "blue-layout-2",
+      "name": "Blue layout 2",
+      "settings": {
+        "number": "1,000+",
+        "stat_copy": "AUSSIES HAVE STARTED WITH BRISA",
+        "badge": "DESIGNED TO REBEL",
+        "heading": "FOR THE ONES WHO ARE DONE\nWITH THE HABIT",
+        "body": "Not another vape. Not another patch. Not another \"just use willpower\" lecture. Brisa was built for the moment your hand reaches before your brain catches up.",
+        "content_width": 560,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "background": "#ffffff",
+        "panel_background": "#1198dc",
+        "text_color": "#ffffff",
+        "border_color": "#cdeeff",
+        "border_width": 4,
+        "divider_color": "#b8e9ff",
+        "divider_width": 3,
+        "badge_background": "#7ccfff",
+        "badge_text_color": "#2c579b",
+        "number_size": 72,
+        "stat_copy_size": 19,
+        "badge_size": 18,
+        "heading_size": 34,
+        "body_size": 20
+      }
+    },
+    "blue_layout_3_fA438y": {
+      "type": "blue-layout-3",
+      "name": "Blue layout 3",
+      "settings": {
+        "heading": "MATES PACK — 2 DEVICES, SAVE $40",
+        "body": "$220. Two devices. Two starter kits. Built for doing it with a mate.",
+        "button_text": "GET THE MATES PACK→",
+        "button_link": "",
+        "content_width": 520,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "background": "#ffffff",
+        "panel_background": "#dff2ff",
+        "text_color": "#098bd8",
+        "border_color": "#159ee7",
+        "border_width": 3,
+        "button_background": "#38b6ff",
+        "button_text_color": "#ffffff",
+        "heading_size": 27,
+        "body_size": 16,
+        "button_size": 25
       }
     },
     "why_brisa_works_B3VdJE": {
@@ -467,45 +504,6 @@
         "button_text_color": "rgba(0,0,0,0)"
       }
     },
-    "gallery_custom_Q4D4Wi": {
-      "type": "gallery-custom",
-      "blocks": {
-        "image_VaWRDg": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC_2174.jpg",
-            "caption": ""
-          }
-        },
-        "image_Uttctj": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC_2571.jpg",
-            "caption": ""
-          }
-        },
-        "image_CXmG98": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DSC_2274.jpg",
-            "caption": ""
-          }
-        }
-      },
-      "block_order": [
-        "image_VaWRDg",
-        "image_Uttctj",
-        "image_CXmG98"
-      ],
-      "name": "Gallery",
-      "settings": {
-        "subheading": "<span class=\"tex\" style=\"color: black\"><img src=\"https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446\" alt=\"Brisa\" style=\"margin: 0px; display: inline; height: 1.4em; vertical-align: middle; border-radius: 0px;\"> in Real Life</span>",
-        "title": "",
-        "show_arrows": true,
-        "background": "#f5f5f5",
-        "text_color": "#282828"
-      }
-    },
     "custom_liquid_ke6YPe": {
       "type": "custom-liquid",
       "name": "Custom Liquid",
@@ -623,11 +621,12 @@
     "product_slider_aJ9PmW",
     "product_slider_Ahg8i4",
     "black_ribbon_blue_box_bnUnL4",
+    "blue_layout_2_dK4pUp",
+    "blue_layout_3_fA438y",
     "why_brisa_works_B3VdJE",
     "image_with_text_jtTw6U",
     "multi_column_Xa8YUJ",
     "image_with_text_wC8Yh3",
-    "gallery_custom_Q4D4Wi",
     "custom_liquid_ke6YPe",
     "1777722508659cced2",
     "177899310035a7028b",
