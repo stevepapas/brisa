@@ -170,7 +170,9 @@
       "name": "Brisa product area info",
       "settings": {
         "landscape_image": "shopify://shop_images/4-steps-how-to.png",
-        "landscape_video": ""
+        "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
+        "landscape_video": "",
+        "landscape_video_label": "Play install video"
       }
     },
     "custom_liquid_VxEmGV": {
