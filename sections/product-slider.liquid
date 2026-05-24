@@ -54,6 +54,7 @@
     {% endif %}
     background-position: center;
     background-size: cover;
+    border-radius: {{ section.settings.slide_border_radius }}px;
   }
 
   #shopify-section-{{ section.id }} .product-slider__link {
@@ -249,6 +250,23 @@
     text-align: center;
   }
 
+  #shopify-section-{{ section.id }} .product-slider__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: {{ section.settings.button_spacing }}px;
+    padding: 14px 28px;
+    color: {{ section.settings.button_text_color }} !important;
+    background: {{ section.settings.button_background }};
+    border-radius: {{ section.settings.button_radius }}px;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       padding-top: {{ section.settings.mobile_padding_top }}px;
@@ -429,6 +447,12 @@
         </button>
       {% endfor %}
     </div>
+
+    {% if section.settings.button_text != blank %}
+      <a class="product-slider__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_text | escape }}
+      </a>
+    {% endif %}
   {% else %}
     <p class="product-slider__subheading">Select a collection to show products.</p>
   {% endif %}
@@ -655,6 +679,53 @@
     },
     {
       "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop starter kit"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button colour",
+      "default": "#38b6ff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "label": "Space above button",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
       "content": "Layout"
     },
     {
@@ -706,6 +777,16 @@
       "step": 20,
       "unit": "px",
       "default": 420
+    },
+    {
+      "type": "range",
+      "id": "slide_border_radius",
+      "label": "Slide border radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "range",
