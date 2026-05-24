@@ -5,8 +5,6 @@
   } 
 
   #shopify-section-{{ section.id }} .habit-replacement {
-    max-width: {{ section.settings.max_width }}px;
-    margin: 0 auto;
     color: {{ section.settings.text_color }};
   }
 
@@ -21,7 +19,21 @@
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__bottom {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
     background: {{ section.settings.bottom_panel_background }};
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .habit-replacement__top {
+      padding: 0;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__top-inner {
+      max-width: {{ section.settings.max_width }}px;
+      margin: 0 auto;
+      padding: 42px 48px 54px;
+    }
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__eyebrow {
@@ -213,6 +225,7 @@
 
 <section class="habit-replacement" {{ section.shopify_attributes }}>
   <div class="habit-replacement__top">
+    <div class="habit-replacement__top-inner">
     {% if section.settings.eyebrow != blank %}
       <div class="habit-replacement__eyebrow">{{ section.settings.eyebrow | escape }}</div>
     {% endif %}
@@ -237,6 +250,7 @@
           </div>
         {% endif %}
       {% endfor %}
+    </div>
     </div>
   </div>
 

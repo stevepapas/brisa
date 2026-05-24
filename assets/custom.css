@@ -1403,6 +1403,15 @@ display: none;
   cursor: pointer;
 }
 
+.brisa-product-area-info__landscape-trigger .brisa-product-area-info__landscape-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 .brisa-product-area-info__landscape-image {
   display: block;
   width: 100%;
@@ -1422,6 +1431,7 @@ display: none;
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;

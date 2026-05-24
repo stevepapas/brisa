@@ -117,6 +117,11 @@
       {% liquid
         assign landscape_video_src = ''
         assign landscape_video_type = ''
+        assign landscape_poster = section.settings.landscape_image
+
+        if landscape_poster == blank and section.settings.landscape_local_video != blank
+          assign landscape_poster = section.settings.landscape_local_video.preview_image
+        endif
 
         if section.settings.landscape_local_video != blank
           assign landscape_local_source = section.settings.landscape_local_video.sources | where: 'format', 'mp4' | first
@@ -134,7 +139,7 @@
         endif
       %}
 
-      {% if landscape_video_src != blank or section.settings.landscape_image != blank %}
+      {% if landscape_video_src != blank or landscape_poster != blank %}
         <div class="brisa-product-area-info__landscape">
           {% if landscape_video_src != blank %}
             <button
@@ -145,14 +150,14 @@
               data-brisa-video-aspect="portrait"
               aria-label="{{ section.settings.landscape_video_label | default: 'Play install video' | escape }}"
             >
-              {% if section.settings.landscape_image != blank %}
+              {% if landscape_poster != blank %}
                 <img
-                  src="{{ section.settings.landscape_image | image_url: width: 720 }}"
-                  alt="{{ section.settings.landscape_image.alt | default: section.settings.landscape_video_label | default: 'Brisa install video' | escape }}"
+                  src="{{ landscape_poster | image_url: width: 900 }}"
+                  alt="{{ landscape_poster.alt | default: section.settings.landscape_video_label | default: 'Brisa install video' | escape }}"
                   class="brisa-product-area-info__landscape-image"
                   loading="lazy"
-                  width="{{ section.settings.landscape_image.width }}"
-                  height="{{ section.settings.landscape_image.height }}"
+                  width="{{ landscape_poster.width }}"
+                  height="{{ landscape_poster.height }}"
                 >
               {% endif %}
 
@@ -160,14 +165,14 @@
                 <span></span>
               </span>
             </button>
-          {% elsif section.settings.landscape_image != blank %}
+          {% elsif landscape_poster != blank %}
             <img
-              src="{{ section.settings.landscape_image | image_url: width: 720 }}"
-              alt="{{ section.settings.landscape_image.alt | default: 'Brisa install video' | escape }}"
+              src="{{ landscape_poster | image_url: width: 900 }}"
+              alt="{{ landscape_poster.alt | default: 'Brisa install video' | escape }}"
               class="brisa-product-area-info__landscape-image"
               loading="lazy"
-              width="{{ section.settings.landscape_image.width }}"
-              height="{{ section.settings.landscape_image.height }}"
+              width="{{ landscape_poster.width }}"
+              height="{{ landscape_poster.height }}"
             >
           {% endif %}
         </div>

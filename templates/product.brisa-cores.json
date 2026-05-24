@@ -54,6 +54,43 @@
     },
     "brisa_device_header_cgyBnd": {
       "type": "brisa-device-header",
+      "blocks": {
+        "feature_leaf": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Food-Grade Cores",
+            "text": "Natural aroma compounds only"
+          }
+        },
+        "feature_no_nicotine": {
+          "type": "feature",
+          "settings": {
+            "icon": "no_nicotine",
+            "title": "No Nicotine"
+          }
+        },
+        "feature_slot": {
+          "type": "feature",
+          "settings": {
+            "icon": "slot",
+            "title": "Slot-in Install"
+          }
+        },
+        "feature_sparkles": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Multiple aroma profiles"
+          }
+        }
+      },
+      "block_order": [
+        "feature_leaf",
+        "feature_no_nicotine",
+        "feature_slot",
+        "feature_sparkles"
+      ],
       "name": "Brisa device header",
       "settings": {
         "intro": "Food-grade aroma cores for your Better Unit. Made to slot in, deliver the draw, and keep the moment yours.",
