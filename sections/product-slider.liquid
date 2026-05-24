@@ -36,6 +36,7 @@
     position: relative;
     margin-top: {{ section.settings.slider_spacing }}px;
     overflow: hidden;
+    border-radius: {{ section.settings.slider_border_radius }}px;
   }
 
   .shopify_section_product_slider .product-slider__track {
@@ -54,6 +55,7 @@
     {% endif %}
     background-position: center;
     background-size: cover;
+    border-radius: {{ section.settings.slider_border_radius }}px;
   }
 
   .shopify_section_product_slider .product-slider__link {
@@ -196,7 +198,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: {{ section.settings.nav_gap }}px;
-    margin-top: {% if section.settings.show_product_name %}0{% else %}{{ section.settings.pagination_spacing }}px{% endif %};
+    margin-top: {{ section.settings.pagination_spacing }}px;
   }
 
   .shopify_section_product_slider .product-slider__nav {
@@ -247,6 +249,23 @@
     font-weight: 800;
     line-height: 1.1;
     text-align: center;
+  }
+
+  .shopify_section_product_slider .product-slider__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: {{ section.settings.button_spacing }}px;
+    padding: 14px 28px;
+    color: {{ section.settings.button_text_color }} !important;
+    background: {{ section.settings.button_background }};
+    border-radius: {{ section.settings.button_radius }}px;
+    font-size: {{ section.settings.button_size }}px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: uppercase;
   }
 
   @media screen and (max-width: 749px) {
@@ -429,6 +448,12 @@
         </button>
       {% endfor %}
     </div>
+
+    {% if section.settings.button_text != blank %}
+      <a class="product-slider__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_text | escape }}
+      </a>
+    {% endif %}
   {% else %}
     <p class="product-slider__subheading">Select a collection to show products.</p>
   {% endif %}
@@ -655,6 +680,63 @@
     },
     {
       "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop starter kit"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button colour",
+      "default": "#38b6ff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_spacing",
+      "label": "Space above button",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
       "content": "Layout"
     },
     {
@@ -680,12 +762,22 @@
     {
       "type": "range",
       "id": "pagination_spacing",
-      "label": "Space above pagination",
+      "label": "Pagination margin top",
       "min": 8,
       "max": 60,
       "step": 4,
       "unit": "px",
       "default": 24
+    },
+    {
+      "type": "range",
+      "id": "slider_border_radius",
+      "label": "Slider border radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "range",
