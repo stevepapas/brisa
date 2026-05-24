@@ -7,6 +7,8 @@
   #shopify-section-{{ section.id }} {
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    border-top: {{ section.settings.border_top_width }}px solid {{ section.settings.border_top_color }};
+    border-bottom: {{ section.settings.border_bottom_width }}px solid {{ section.settings.border_bottom_color }};
   }
 
   #shopify-section-{{ section.id }} .product-slider {
@@ -906,8 +908,40 @@
     {
       "type": "color",
       "id": "background",
-      "label": "Background",
+      "label": "Section background colour",
       "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_top_width",
+      "label": "Top border width",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "border_top_color",
+      "label": "Top border colour",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "border_bottom_width",
+      "label": "Bottom border width",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "border_bottom_color",
+      "label": "Bottom border colour",
+      "default": "#000000"
     },
     {
       "type": "color",
