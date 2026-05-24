@@ -1,5 +1,9 @@
 {% liquid
   assign section_id = section.id | replace: '-', '' | downcase
+  assign star_color = section.settings.accent_color | default: '#1687d9'
+  assign icon_background = '#38adf5'
+  assign badge_background = '#35adff'
+  assign badge_text_color = '#1379dd'
 %}
 
 <style>
@@ -26,6 +30,7 @@
     margin: 0 0 18px;
     color: {{ section.settings.text_color }};
     font-size: 21px;
+    font-weight: 400;
     line-height: 1.38;
   }
 
@@ -40,7 +45,7 @@
   .brisa-device-header-{{ section_id }} .brisa-device-header__stars {
     display: inline-flex;
     gap: 6px;
-    color: {{ section.settings.accent_color }};
+    color: {{ star_color }};
     line-height: 1;
   }
 
@@ -68,8 +73,8 @@
     align-items: center;
     min-height: 32px;
     padding: 4px 22px;
-    color: {{ section.settings.heading_color }};
-    background: {{ section.settings.accent_color }};
+    color: {{ badge_text_color }};
+    background: {{ badge_background }};
     border-radius: 6px;
     font-size: 18px;
     font-weight: 800;
@@ -108,7 +113,7 @@
     width: 72px;
     height: 72px;
     color: #ffffff;
-    background: {{ section.settings.accent_color }};
+    background: {{ icon_background }};
     border-radius: 50%;
     overflow: hidden;
   }
@@ -138,6 +143,7 @@
     margin: 2px 0 0;
     color: {{ section.settings.text_color }};
     font-size: 20px;
+    font-weight: 400;
     line-height: 1.2;
   }
 
@@ -190,6 +196,10 @@
 
     .brisa-device-header-{{ section_id }} .brisa-device-header__feature-title {
       font-size: 24px;
+    }
+
+    .brisa-device-header-{{ section_id }} .brisa-device-header__feature-text {
+      font-size: 17px;
     }
   }
 
@@ -362,7 +372,7 @@
       "type": "color",
       "id": "accent_color",
       "label": "Accent color",
-      "default": "#38adf5"
+      "default": "#1687d9"
     },
     {
       "type": "range",
@@ -451,7 +461,38 @@
   "presets": [
     {
       "name": "Brisa device header",
-      "category": "Brisa"
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Food-Grade Cores",
+            "text": "Natural aroma compounds only"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "no_nicotine",
+            "title": "No Nicotine"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "slot",
+            "title": "Slot-in Install"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Multiple aroma profiles"
+          }
+        }
+      ]
     }
   ]
 }
