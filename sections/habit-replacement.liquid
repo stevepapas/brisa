@@ -8,7 +8,6 @@
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
     color: {{ section.settings.text_color }};
-    background: {{ section.settings.panel_background }};
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__top,
@@ -17,7 +16,12 @@
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__top {
+    background: {{ section.settings.top_panel_background }};
     border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__bottom {
+    background: {{ section.settings.bottom_panel_background }};
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__eyebrow {
@@ -385,8 +389,14 @@
     },
     {
       "type": "color",
-      "id": "panel_background",
-      "label": "Panel background",
+      "id": "top_panel_background",
+      "label": "Top panel background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "bottom_panel_background",
+      "label": "Bottom panel background",
       "default": "#f4f4f4"
     },
     {
