@@ -49,6 +49,9 @@
     min-width: 100%;
     overflow: hidden;
     background-color: {{ section.settings.card_background }};
+    {% if section.settings.slide_background_image != blank %}
+      background-image: url({{ section.settings.slide_background_image | image_url: width: 1600 }});
+    {% endif %}
     background-position: center;
     background-size: cover;
   }
@@ -305,23 +308,18 @@
         {% for product in slider_collection.products limit: section.settings.product_limit %}
           {% liquid
             assign card_image = product.metafields.custom.carousel_product_image.value | default: product.featured_image
-            assign bg_image = product.metafields.custom.carousel_background_gradient.value
             assign swatch_color = product.metafields.custom.carousel_background_colour.value | default: product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
-            assign flavour_label = product.metafields.custom.flavour.value | default: product.metafields.custom.flavour | default: product.title
           %}
 
           <div
             class="product-slider__card"
             data-product-slider-card
             data-product-title="{{ product.title | escape }}"
-            {% if bg_image != blank %}
-              style="background-image: url({{ bg_image | image_url: width: 1200 }});"
-            {% endif %}
           >
             <a class="product-slider__link" href="{{ product.url }}">
               <div class="product-slider__image-wrapper">
-                {% if section.settings.show_flavour_label %}
-                  <div class="product-slider__flavour">{{ flavour_label | escape }}</div>
+                {% if section.settings.show_slide_product_name %}
+                  <div class="product-slider__flavour">{{ product.title | escape }}</div>
                 {% endif %}
 
                 <div class="product-slider__sprouts">
@@ -513,6 +511,12 @@
     },
     {
       "type": "checkbox",
+      "id": "show_slide_product_name",
+      "label": "Show product name in slide",
+      "default": true
+    },
+    {
+      "type": "checkbox",
       "id": "use_swatch_nav",
       "label": "Use colour swatches as page navigation",
       "default": true
@@ -593,12 +597,6 @@
       "step": 10,
       "unit": "px",
       "default": 80
-    },
-    {
-      "type": "checkbox",
-      "id": "show_flavour_label",
-      "label": "Show product flavour on card",
-      "default": true
     },
     {
       "type": "header",
@@ -779,6 +777,11 @@
       "id": "card_background",
       "label": "Card fallback background",
       "default": "#38b6ff"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_background_image",
+      "label": "Slide background image"
     },
     {
       "type": "color",
