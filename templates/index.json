@@ -500,7 +500,7 @@
         "heading": "DRUG-FREE\nRITUAL-LOCKED\nHABIT REPLACED",
         "bottom_eyebrow": "HOW IT WORKS",
         "bottom_heading": "FOUR STEPS.\nREPLACE THE MOMENT",
-        "video_image": "shopify://shop_images/fc2d8494e44e8b89bb5f7b4801147c0e06231cf02f4a387992c623714a1da150_a66f8e0e-d8d5-4763-8d33-7c2829631b70.png",
+        "video_image": "shopify://shop_images/4-steps-how-to.png",
         "video_url": "",
         "max_width": 520,
         "padding_top": 0,
@@ -659,29 +659,6 @@
         "show_dots": false,
         "autoplay": false,
         "autoplay_speed": 5000
-      }
-    },
-    "blue_layout_3_fA438y": {
-      "type": "blue-layout-3",
-      "name": "Blue layout 3",
-      "settings": {
-        "heading": "MATES PACK — 2 DEVICES, SAVE $40",
-        "body": "$220. Two devices. Two starter kits. Built for doing it with a mate.",
-        "button_text": "GET THE MATES PACK→",
-        "button_link": "",
-        "content_width": 520,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "background": "#ffffff",
-        "panel_background": "#dff2ff",
-        "text_color": "#098bd8",
-        "border_color": "#159ee7",
-        "border_width": 3,
-        "button_background": "#38b6ff",
-        "button_text_color": "#ffffff",
-        "heading_size": 27,
-        "body_size": 16,
-        "button_size": 25
       }
     },
     "black_ribbon_blue_box_bnUnL4": {
@@ -938,7 +915,6 @@
     "blocks_nnxhpq",
     "custom_liquid_f33WWJ",
     "brisa_testimonials_product_page_HnzNQj",
-    "blue_layout_3_fA438y",
     "black_ribbon_blue_box_bnUnL4",
     "image_with_text_jtTw6U",
     "multi_column_Xa8YUJ",
