@@ -261,20 +261,32 @@
         >
       {% endif %}
 
-      {% if section.settings.video_url != blank %}
-        {% liquid
-          assign video_src = ''
-          if section.settings.video_url.type == 'youtube'
-            assign video_src = 'https://www.youtube.com/embed/' | append: section.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
-          elsif section.settings.video_url.type == 'vimeo'
-            assign video_src = 'https://player.vimeo.com/video/' | append: section.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
-          endif
-        %}
+      {% liquid
+        assign video_src = ''
+        assign video_type = ''
 
+        if section.settings.video != blank
+          assign local_video_source = section.settings.video.sources | where: 'format', 'mp4' | first
+          if local_video_source == blank
+            assign local_video_source = section.settings.video.sources | first
+          endif
+          assign video_src = local_video_source.url
+          assign video_type = 'html5'
+        elsif section.settings.video_url.type == 'youtube'
+          assign video_src = 'https://www.youtube.com/embed/' | append: section.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+          assign video_type = 'iframe'
+        elsif section.settings.video_url.type == 'vimeo'
+          assign video_src = 'https://player.vimeo.com/video/' | append: section.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+          assign video_type = 'iframe'
+        endif
+      %}
+
+      {% if video_src != blank %}
         <button
           type="button"
           class="habit-replacement__play"
           data-brisa-video-src="{{ video_src | escape }}"
+          data-brisa-video-type="{{ video_type }}"
           aria-label="Play video"
         >
           <span aria-hidden="true"></span>
@@ -338,9 +350,15 @@
       "label": "Cloud image"
     },
     {
+      "type": "video",
+      "id": "video",
+      "label": "Local video",
+      "info": "Replaces the external video if both are set."
+    },
+    {
       "type": "video_url",
       "id": "video_url",
-      "label": "Video link",
+      "label": "External video",
       "accept": ["youtube", "vimeo"]
     },
     {
