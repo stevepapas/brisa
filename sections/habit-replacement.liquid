@@ -1,0 +1,573 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: {{ section.settings.text_color }};
+    background: {{ section.settings.panel_background }};
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__top,
+  #shopify-section-{{ section.id }} .habit-replacement__bottom {
+    padding: 42px 48px 54px;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__top {
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__eyebrow {
+    display: table;
+    margin: 0 auto 24px;
+    padding: 8px 16px;
+    color: {{ section.settings.eyebrow_color }};
+    background: {{ section.settings.eyebrow_background }};
+    border-radius: 999px;
+    font-size: {{ section.settings.eyebrow_size }}px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__heading {
+    margin: 0 auto 30px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.35;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__reasons {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__reason {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    color: {{ section.settings.number_color }};
+    background: {{ section.settings.number_background }};
+    border-radius: 50%;
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__reason-title {
+    margin: 0 0 3px;
+    color: {{ section.settings.heading_color }};
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__reason-text {
+    margin: 0;
+    color: {{ section.settings.text_color }};
+    font-size: 17px;
+    line-height: 1.24;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__bottom {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__bottom-heading {
+    margin: 0 auto 16px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.bottom_heading_size }}px;
+    font-weight: 900;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__video {
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto 30px;
+    overflow: hidden;
+    background: #d8f6ff;
+    border-radius: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__video-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.92);
+    border: 3px solid {{ section.settings.number_background }};
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__play span {
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 22px solid {{ section.settings.eyebrow_color }};
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__steps {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__step {
+    display: grid;
+    grid-template-columns: 38px 8px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    margin-bottom: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__step-index {
+    color: {{ section.settings.step_number_color }};
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__step-line {
+    display: block;
+    width: 5px;
+    min-height: 38px;
+    background: {{ section.settings.eyebrow_background }};
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__step-title {
+    display: block;
+    margin-bottom: 2px;
+    color: {{ section.settings.heading_color }};
+    font-size: 11px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__step-text {
+    margin: 0;
+    color: {{ section.settings.text_color }};
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .habit-replacement__top,
+    #shopify-section-{{ section.id }} .habit-replacement__bottom {
+      padding: 32px 28px 42px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__heading {
+      font-size: {{ section.settings.heading_size | times: 0.86 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__bottom-heading {
+      font-size: {{ section.settings.bottom_heading_size | times: 0.86 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__reason-text {
+      font-size: 15px;
+    }
+  }
+</style>
+
+<section class="habit-replacement" {{ section.shopify_attributes }}>
+  <div class="habit-replacement__top">
+    {% if section.settings.eyebrow != blank %}
+      <div class="habit-replacement__eyebrow">{{ section.settings.eyebrow | escape }}</div>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="habit-replacement__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+    {% endif %}
+
+    <div class="habit-replacement__reasons">
+      {% for block in section.blocks %}
+        {% if block.type == 'reason' %}
+          <div class="habit-replacement__reason" {{ block.shopify_attributes }}>
+            <span class="habit-replacement__number">{{ forloop.index }}</span>
+            <div>
+              {% if block.settings.title != blank %}
+                <h3 class="habit-replacement__reason-title">{{ block.settings.title | escape }}</h3>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <p class="habit-replacement__reason-text">{{ block.settings.text | escape }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="habit-replacement__bottom">
+    {% if section.settings.bottom_eyebrow != blank %}
+      <div class="habit-replacement__eyebrow">{{ section.settings.bottom_eyebrow | escape }}</div>
+    {% endif %}
+
+    {% if section.settings.bottom_heading != blank %}
+      <h2 class="habit-replacement__bottom-heading">{{ section.settings.bottom_heading | escape | newline_to_br }}</h2>
+    {% endif %}
+
+    <div class="habit-replacement__video">
+      {% if section.settings.video_image != blank %}
+        <img
+          class="habit-replacement__video-image"
+          src="{{ section.settings.video_image | image_url: width: 900 }}"
+          alt="{{ section.settings.video_image.alt | default: 'How Brisa works' | escape }}"
+          loading="lazy"
+          width="{{ section.settings.video_image.width }}"
+          height="{{ section.settings.video_image.height }}"
+        >
+      {% endif %}
+
+      {% if section.settings.video_url != blank %}
+        {% liquid
+          assign video_src = ''
+          if section.settings.video_url.type == 'youtube'
+            assign video_src = 'https://www.youtube.com/embed/' | append: section.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+          elsif section.settings.video_url.type == 'vimeo'
+            assign video_src = 'https://player.vimeo.com/video/' | append: section.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+          endif
+        %}
+
+        <button
+          type="button"
+          class="habit-replacement__play"
+          data-brisa-video-src="{{ video_src | escape }}"
+          aria-label="Play video"
+        >
+          <span aria-hidden="true"></span>
+        </button>
+      {% endif %}
+    </div>
+
+    <div class="habit-replacement__steps">
+      {% assign step_index = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'step' %}
+          {% assign step_index = step_index | plus: 1 %}
+          <div class="habit-replacement__step" {{ block.shopify_attributes }}>
+            <span class="habit-replacement__step-index">{{ step_index | prepend: '0' | slice: -2, 2 }}</span>
+            <span class="habit-replacement__step-line" aria-hidden="true"></span>
+            <p class="habit-replacement__step-text">
+              {% if block.settings.title != blank %}
+                <strong class="habit-replacement__step-title">{{ block.settings.title | escape }}</strong>
+              {% endif %}
+              {{ block.settings.text | escape }}
+            </p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Habit replacement",
+  "class": "shopify-section--habit-replacement",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Top badge",
+      "default": "HABIT - REPLACEMENT DESIGN"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Top heading",
+      "default": "DRUG-FREE\nRITUAL-LOCKED\nHABIT REPLACED"
+    },
+    {
+      "type": "text",
+      "id": "bottom_eyebrow",
+      "label": "Bottom badge",
+      "default": "HOW IT WORKS"
+    },
+    {
+      "type": "textarea",
+      "id": "bottom_heading",
+      "label": "Bottom heading",
+      "default": "FOUR STEPS.\nREPLACE THE MOMENT"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_image",
+      "label": "Cloud image"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video link",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Panel background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_background",
+      "label": "Badge background",
+      "default": "#75cfff"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Badge text",
+      "default": "#2c579b"
+    },
+    {
+      "type": "color",
+      "id": "number_background",
+      "label": "Number background",
+      "default": "#1198dc"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "step_number_color",
+      "label": "Step number",
+      "default": "#94d7fb"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Badge size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Top heading size",
+      "min": 20,
+      "max": 46,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "range",
+      "id": "bottom_heading_size",
+      "label": "Bottom heading size",
+      "min": 20,
+      "max": 46,
+      "step": 1,
+      "unit": "px",
+      "default": 26
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Precise Sensory Feel"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Food-grade aroma cores and adjustable airflow designed to give the moment a familiar feel."
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Pick your ritual"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Choose a aroma core and snap it into your Brisa."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Habit replacement",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "reason",
+          "settings": {
+            "title": "Precise Sensory Feel",
+            "text": "Food-grade aroma cores and adjustable airflow designed to give the moment a familiar feel."
+          }
+        },
+        {
+          "type": "reason",
+          "settings": {
+            "title": "Hand-to-Mouth Ritual",
+            "text": "Same reach. Same pause. Same routine. A cleaner object to put in your hand when the trigger hits."
+          }
+        },
+        {
+          "type": "reason",
+          "settings": {
+            "title": "Zero Nicotine, Smoke or Vapour",
+            "text": "No batteries. No heat. No smoke. No vapour. No nicotine."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Pick your ritual",
+            "text": "Choose a aroma core and snap it into your Brisa."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Replace the reach",
+            "text": "When you'd normally reach for a vape or smoke, reach for Brisa instead."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Keep the motion",
+            "text": "Same hand-to-mouth routine. Familiar draw. No nicotine, smoke or vapour."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Step away over time",
+            "text": "Brisa is built to replace the old routine, not become a new one."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
