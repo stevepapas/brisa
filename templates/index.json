@@ -220,7 +220,7 @@
         "padding_bottom": 36,
         "mobile_padding_top": 28,
         "mobile_padding_bottom": 28,
-        "background": "#ffffff",
+        "background": "#f5f5f5",
         "card_background": "#38b6ff",
         "slide_background_image": "shopify://shop_images/sky-background.png",
         "heading_color": "#000000",
