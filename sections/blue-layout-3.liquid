@@ -1,0 +1,242 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-3 {
+    padding: 30px 20px 36px;
+    color: {{ section.settings.text_color }};
+    background: {{ section.settings.panel_background }};
+    border-top: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-3__inner {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-3__heading {
+    margin: 0 0 6px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-3__text {
+    margin: 0 0 26px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.body_size }}px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-3__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 22px;
+    color: {{ section.settings.button_text_color }} !important;
+    background: {{ section.settings.button_background }};
+    border-radius: 999px;
+    font-size: {{ section.settings.button_size }}px;
+    font-weight: 900;
+    line-height: 1;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .blue-layout-3 {
+      padding-inline: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .blue-layout-3__heading {
+      font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .blue-layout-3__text {
+      font-size: {{ section.settings.body_size | times: 0.9 | round }}px;
+    }
+  }
+</style>
+
+<section class="blue-layout-3" {{ section.shopify_attributes }}>
+  <div class="blue-layout-3__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="blue-layout-3__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    {% if section.settings.body != blank %}
+      <p class="blue-layout-3__text">{{ section.settings.body | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.button_text != blank %}
+      <a class="blue-layout-3__button" href="{{ section.settings.button_link }}">
+        {{ section.settings.button_text | escape }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blue layout 3",
+  "class": "shopify-section--blue-layout-3",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "MATES PACK — 2 DEVICES, SAVE $40"
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "$220. Two devices. Two starter kits. Built for doing it with a mate."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "GET THE MATES PACK→"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 320,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Panel background",
+      "default": "#dff2ff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#098bd8"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#159ee7"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#38b6ff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 18,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "default": 27
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button size",
+      "min": 14,
+      "max": 34,
+      "step": 1,
+      "unit": "px",
+      "default": 25
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blue layout 3",
+      "category": "Brisa"
+    }
+  ]
+}
+{% endschema %}
