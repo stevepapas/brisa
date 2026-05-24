@@ -422,6 +422,11 @@ img {
   padding: 30px 0px;
 }
 
+.three-column-grid > *,
+.two-column-grid > * { 
+  display: initial;
+}
+
 
 
 .carousel-container.brisas .product-main-image {
