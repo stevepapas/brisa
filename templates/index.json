@@ -122,7 +122,7 @@
         "trust_item_6LCJwc"
       ],
       "custom_css": [
-        "h2 {font-size: 32px;}"
+        ".testimonials-slider {border-bottom: 2px solid #ccc;}"
       ],
       "name": "Social Proof",
       "settings": {}
