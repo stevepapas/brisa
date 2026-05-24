@@ -172,10 +172,6 @@
             "buy_now_button_background": "rgba(0,0,0,0)",
             "buy_now_button_text_color": "rgba(0,0,0,0)"
           }
-        },
-        "appstle_bundles_appstle_volume_discount_bundle_FkaTHa": {
-          "type": "shopify://apps/appstle-bundles/blocks/appstle-volume-discount-bundle/8909921b-2d24-4d68-9b12-9d045d3dcb0a",
-          "settings": {}
         }
       },
       "block_order": [
@@ -187,8 +183,7 @@
         "liquid_zYKRxA",
         "liquid_TU4fi4",
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
-        "buy_buttons",
-        "appstle_bundles_appstle_volume_discount_bundle_FkaTHa"
+        "buy_buttons"
       ],
       "custom_css": [
         ".product-meta__price-list-container {display: none;}",
