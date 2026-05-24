@@ -52,6 +52,19 @@
         "background": "rgba(0,0,0,0)"
       }
     },
+    "custom_liquid_8wqDgb": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "subheading": "Your subheading",
+        "title": "Your title",
+        "liquid": "<p style=\"text-align: center\">Write or copy/paste Liquid code</p>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -155,7 +168,10 @@
     "brisa_product_area_info_t9x6TB": {
       "type": "brisa-product-area-info",
       "name": "Brisa product area info",
-      "settings": {}
+      "settings": {
+        "landscape_image": "shopify://shop_images/4-steps-how-to.png",
+        "landscape_video": ""
+      }
     },
     "custom_liquid_VxEmGV": {
       "type": "custom-liquid",
@@ -336,6 +352,7 @@
   },
   "order": [
     "slideshow_brisa_LPC6iL",
+    "custom_liquid_8wqDgb",
     "main",
     "product-content",
     "1772962804ca13e40e",
