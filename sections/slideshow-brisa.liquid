@@ -3,6 +3,7 @@
     --progress-bar-color: {{ section.blocks.first.settings.text_color.red }}, {{ section.blocks.first.settings.text_color.green }}, {{ section.blocks.first.settings.text_color.blue }};
     --section-autoplay-duration: {% if section.settings.autoplay %}{{ section.settings.cycle_speed }}s{% else %}0s{% endif %};
     --section-animation-play-state: paused;
+    --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size }}px;
     background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
   }
 
@@ -58,7 +59,10 @@
   #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar page-dots {
     position: static;
     inset: auto;
+    display: flex;
     flex: 0 1 auto;
+    flex-wrap: nowrap;
+    align-items: center;
     justify-content: center;
     gap: 10px;
     max-width: min(100%, 720px);
@@ -74,9 +78,15 @@
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb {
     position: relative;
-    flex: 0 0 auto;
-    width: {{ section.settings.thumbnail_size }}px;
-    height: {{ section.settings.thumbnail_size }}px;
+    display: block;
+    flex: 0 0 var(--slideshow-brisa-thumb-size);
+    width: var(--slideshow-brisa-thumb-size);
+    min-width: var(--slideshow-brisa-thumb-size);
+    max-width: var(--slideshow-brisa-thumb-size);
+    height: var(--slideshow-brisa-thumb-size);
+    min-height: var(--slideshow-brisa-thumb-size);
+    max-height: var(--slideshow-brisa-thumb-size);
+    aspect-ratio: 1 / 1;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -84,7 +94,15 @@
     border-radius: {{ section.settings.thumbnail_radius }}px;
     background: #e8e8e8;
     cursor: pointer;
+    box-sizing: border-box;
     transition: border-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb:before {
@@ -120,6 +138,8 @@
     display: block;
     width: 100%;
     height: 100%;
+    max-width: none;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
   }
@@ -128,6 +148,7 @@
     display: block;
     width: 100%;
     height: 100%;
+    aspect-ratio: 1 / 1;
     background: #d0d0d0;
   }
 
@@ -159,14 +180,13 @@
   }
 
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
+    }
+
     #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
       gap: 10px;
       padding: 12px 14px 14px;
-    }
-
-    #shopify-section-{{ section.id }} .slideshow-brisa__thumb {
-      width: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
-      height: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
     }
 
     #shopify-section-{{ section.id }} .slideshow-brisa__arrow {
@@ -338,11 +358,13 @@
               aria-controls="block-{{ section.id }}-{{ block.id }}"
               {% if forloop.first %}aria-current="true"{% endif %}
             >
-              {%- if thumb_image != blank -%}
-                {{ thumb_image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', class: 'slideshow-brisa__thumb-image', widths: '80,120,160', sizes: '80px', alt: '' }}
-              {%- else -%}
-                <span class="slideshow-brisa__thumb-placeholder" aria-hidden="true"></span>
-              {%- endif -%}
+              <span class="slideshow-brisa__thumb-media" aria-hidden="true">
+                {%- if thumb_image != blank -%}
+                  {{ thumb_image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', class: 'slideshow-brisa__thumb-image', widths: '80,120,160', sizes: '80px', width: 160, height: 160, alt: '' }}
+                {%- else -%}
+                  <span class="slideshow-brisa__thumb-placeholder"></span>
+                {%- endif -%}
+              </span>
               <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
             </button>
           {%- endfor -%}
