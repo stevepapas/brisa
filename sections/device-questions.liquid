@@ -1,0 +1,376 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__box {
+    padding: {{ section.settings.box_padding_vertical }}px {{ section.settings.box_padding_horizontal }}px;
+    color: {{ section.settings.text_color }};
+    background: {{ section.settings.panel_background }};
+    border: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    border-radius: {{ section.settings.border_radius }}px;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__heading {
+    margin: 0 0 {{ section.settings.heading_spacing }}px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__item {
+    padding: {{ section.settings.item_padding_vertical }}px 0;
+    border-top: {{ section.settings.divider_width }}px solid {{ section.settings.divider_color }};
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__item:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__item:last-child {
+    padding-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__question {
+    margin: 0 0 10px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.question_size }}px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__answer {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.answer_size }}px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__answer p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__answer p + p {
+    margin-top: 10px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .device-questions__heading {
+      font-size: {{ section.settings.heading_size | times: 0.82 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .device-questions__question {
+      font-size: {{ section.settings.question_size | times: 0.92 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .device-questions__answer {
+      font-size: {{ section.settings.answer_size | times: 0.95 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .device-questions__box {
+      padding: {{ section.settings.box_padding_vertical | times: 0.75 | round }}px {{ section.settings.box_padding_horizontal | times: 0.75 | round }}px;
+    }
+  }
+</style>
+
+<section class="device-questions" {{ section.shopify_attributes }}>
+  <div class="device-questions__box">
+    {% if section.settings.heading != blank %}
+      <h2 class="device-questions__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="device-questions__list" itemscope itemtype="https://schema.org/FAQPage">
+        {% for block in section.blocks %}
+          {% if block.type == 'question' %}
+            <div class="device-questions__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
+              {% if block.settings.question != blank %}
+                <h3 class="device-questions__question" itemprop="name">{{ block.settings.question | escape }}</h3>
+              {% endif %}
+
+              {% if block.settings.answer != blank %}
+                <div class="device-questions__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div itemprop="text">{{ block.settings.answer }}</div>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Device questions",
+  "class": "shopify-section--device-questions",
+  "disabled_on": {
+    "groups": ["header", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 480,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "box_padding_vertical",
+      "label": "Box padding vertical",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "box_padding_horizontal",
+      "label": "Box padding horizontal",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Space below heading",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "item_padding_vertical",
+      "label": "Space between questions",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Divider width",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "question_size",
+      "label": "Question size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "label": "Answer size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Box background",
+      "default": "#d9efff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#2c4e8a"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Box border",
+      "default": "#7eb8e0"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#7eb8e0"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How does Brisa work?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Brisa uses aroma cores and a tactile ritual to replace the hand-to-mouth habit of vaping. You inhale clean air through a familiar motion, tricking your brain without the nicotine.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Device questions",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "question": "How does Brisa work?",
+            "answer": "<p>Brisa uses aroma cores and a tactile ritual to replace the hand-to-mouth habit of vaping. You inhale clean air through a familiar motion, tricking your brain without the nicotine.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Is there nicotine in Brisa?",
+            "answer": "<p>No nicotine. No vapour. No combustion. Just food-grade flavour cores and the ritual your hands already know.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "How long does each core last?",
+            "answer": "<p>Each core lasts 2.5 to 4 days depending on how often you reach for it and the aroma profile. The Starter Kit (9 cores) covers 3 to 5 weeks of ritual. The Mates Pack covers 3 to 5 weeks per person - 18 cores total, split across both devices.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "What if it doesn't work?",
+            "answer": "<p>Every device is covered by the 30-Day Success Guarantee. If Brisa doesn't work in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call. We don't stop until you've kicked the habit.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Can the Mates Pack ship to two addresses?",
+            "answer": "<p>Yes. At checkout you'll enter two separate shipping addresses. Both devices are delivered independently.</p>"
+          }
+        },
+        {
+          "type": "question",
+          "settings": {
+            "question": "Is Brisa available outside Australia?",
+            "answer": "<p>Currently we ship Australia-wide only, with free standard shipping on every order.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
