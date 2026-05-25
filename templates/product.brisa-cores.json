@@ -67,21 +67,24 @@
           "type": "feature",
           "settings": {
             "icon": "no_nicotine",
-            "title": "No Nicotine"
+            "title": "No Nicotine",
+            "text": ""
           }
         },
         "feature_slot": {
           "type": "feature",
           "settings": {
             "icon": "slot",
-            "title": "Slot-in Install"
+            "title": "Slot-in Install",
+            "text": ""
           }
         },
         "feature_sparkles": {
           "type": "feature",
           "settings": {
             "icon": "sparkles",
-            "title": "Multiple aroma profiles"
+            "title": "Multiple aroma profiles",
+            "text": ""
           }
         }
       },
@@ -108,22 +111,15 @@
         "heading_size": 54
       }
     },
-    "custom_liquid_8wqDgb": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid",
-      "settings": {
-        "subheading": "Your subheading",
-        "title": "Your title",
-        "liquid": "<p style=\"text-align: center\">Write or copy/paste Liquid code</p>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "main": {
       "type": "main-product",
       "blocks": {
+        "text_ibagWd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>HOW MUCH?</p>"
+          }
+        },
         "description_mjgBLA": {
           "type": "description",
           "settings": {}
@@ -179,6 +175,7 @@
         }
       },
       "block_order": [
+        "text_ibagWd",
         "description_mjgBLA",
         "g_combined_listings_swatch_widget_HGPpek",
         "variant_picker",
@@ -411,7 +408,6 @@
   "order": [
     "slideshow_brisa_LPC6iL",
     "brisa_device_header_cgyBnd",
-    "custom_liquid_8wqDgb",
     "main",
     "product-content",
     "1772962804ca13e40e",
