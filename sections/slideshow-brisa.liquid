@@ -8,6 +8,22 @@
 
   {%- for block in section.blocks -%}
     {%- assign text_position = block.settings.text_position | split: '_' | first -%}
+    {%- assign image_focal = block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}
+    {%- assign mobile_image_focal = block.settings.mobile_image_focal_point | default: block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}
+    {%- assign split_image_focal = block.settings.split_image_focal_point | default: block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}
+
+    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper:not(.slideshow__image-wrapper--secondary):not(.hidden-lap-and-up) .slideshow__image,
+    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper:not(.slideshow__image-wrapper--secondary):not(.hidden-lap-and-up) .slideshow__image--placeholder {
+      object-position: {{ image_focal }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper.hidden-lap-and-up .slideshow__image {
+      object-position: {{ mobile_image_focal }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper--secondary .slideshow__image {
+      object-position: {{ split_image_focal }};
+    }
 
     {%- case text_position -%}
       {%- when 'top' -%}
@@ -29,10 +45,139 @@
       --section-blocks-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
     }
   {%- endfor -%}
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 14px 20px 18px;
+    background: {{ section.settings.nav_background }};
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar page-dots {
+    position: static;
+    inset: auto;
+    flex: 0 1 auto;
+    justify-content: center;
+    gap: 10px;
+    max-width: min(100%, 720px);
+    margin: 0;
+    padding: 0;
+    pointer-events: auto;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb {
+    position: relative;
+    flex: 0 0 auto;
+    width: {{ section.settings.thumbnail_size }}px;
+    height: {{ section.settings.thumbnail_size }}px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 2px solid transparent;
+    border-radius: {{ section.settings.thumbnail_radius }}px;
+    background: #e8e8e8;
+    cursor: pointer;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb:before {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb:after {
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    background: transparent;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: var(--transform-origin-start);
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb[aria-current="true"]:after {
+    animation: slideshowProgressBarAnimation var(--section-autoplay-duration) linear;
+    animation-play-state: var(--section-animation-play-state, paused);
+    animation-fill-mode: forwards;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb[aria-current="true"] {
+    border-color: {{ section.settings.thumbnail_active_border }};
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__thumb-placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #d0d0d0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__arrow {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: {{ section.settings.arrow_background }};
+    color: {{ section.settings.arrow_color }};
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
+      gap: 10px;
+      padding: 12px 14px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa__thumb {
+      width: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
+      height: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa__arrow {
+      width: 38px;
+      height: 38px;
+    }
+  }
 </style>
 
 <section class="section section--flush">
-  <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow--{{ section.settings.section_height }}">
+  <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
     <div class="slideshow__slide-list">
       {%- for block in section.blocks -%}
         {%- comment -%}
@@ -175,13 +320,38 @@
     </div>
 
     {%- if section.blocks.size > 1 -%}
-      <page-dots {% if section.settings.autoplay %}animation-timer{% endif %} class="slideshow__nav container">
-        {%- for block in section.blocks -%}
-          <button class="slideshow__progress-bar" aria-controls="block-{{ section.id }}-{{ block.id }}" {% if forloop.first %}aria-current="true"{% endif%}>
-            <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
-          </button>
-        {%- endfor -%}
-      </page-dots>
+      <div class="slideshow-brisa__nav-bar">
+        <button type="button" class="slideshow-brisa__arrow slideshow-brisa__arrow--prev prev-next-button" is="prev-button" aria-label="{{ 'general.accessibility.previous' | t }}">
+          {%- render 'icon' with 'nav-arrow-left', direction_aware: true -%}
+        </button>
+
+        <page-dots {% if section.settings.autoplay %}animation-timer{% endif %} class="slideshow-brisa__dots">
+          {%- for block in section.blocks -%}
+            {%- assign thumb_image = block.settings.image -%}
+            {%- if thumb_image == blank -%}
+              {%- assign thumb_image = block.settings.mobile_image -%}
+            {%- endif -%}
+
+            <button
+              type="button"
+              class="slideshow-brisa__thumb"
+              aria-controls="block-{{ section.id }}-{{ block.id }}"
+              {% if forloop.first %}aria-current="true"{% endif %}
+            >
+              {%- if thumb_image != blank -%}
+                {{ thumb_image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', class: 'slideshow-brisa__thumb-image', widths: '80,120,160', sizes: '80px', alt: '' }}
+              {%- else -%}
+                <span class="slideshow-brisa__thumb-placeholder" aria-hidden="true"></span>
+              {%- endif -%}
+              <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
+            </button>
+          {%- endfor -%}
+        </page-dots>
+
+        <button type="button" class="slideshow-brisa__arrow slideshow-brisa__arrow--next prev-next-button" is="next-button" aria-label="{{ 'general.accessibility.next' | t }}">
+          {%- render 'icon' with 'nav-arrow-right', direction_aware: true -%}
+        </button>
+      </div>
     {%- endif -%}
   </slide-show>
 </section>
@@ -189,7 +359,7 @@
 {% schema %}
 {
   "name": "Slideshow",
-  "class": "shopify-section--slideshow",
+  "class": "shopify-section--slideshow-brisa",
   "disabled_on": {
     "groups": ["header", "custom.overlay"]
   },
@@ -273,6 +443,54 @@
       "label": "Background",
       "info": "Used while slideshow image is loading",
       "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "color",
+      "id": "nav_background",
+      "label": "Navigation bar background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_size",
+      "min": 48,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Thumbnail size",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "thumbnail_radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Thumbnail corner radius",
+      "default": 10
+    },
+    {
+      "type": "color",
+      "id": "thumbnail_active_border",
+      "label": "Active thumbnail border",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "arrow_background",
+      "label": "Arrow background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_color",
+      "label": "Arrow icon color",
+      "default": "#1a1a1a"
     }
   ],
   "blocks": [
@@ -297,6 +515,59 @@
           "id": "mobile_image",
           "label": "Mobile image",
           "info": "1000 x 1400px .jpg recommended. If none is set, desktop image will be used."
+        },
+        {
+          "type": "select",
+          "id": "image_focal_point",
+          "label": "Image position",
+          "info": "Controls which part of the image stays visible when cropped.",
+          "options": [
+            { "value": "top_left", "label": "Top left" },
+            { "value": "top_center", "label": "Top center" },
+            { "value": "top_right", "label": "Top right" },
+            { "value": "center_left", "label": "Center left" },
+            { "value": "center_center", "label": "Center" },
+            { "value": "center_right", "label": "Center right" },
+            { "value": "bottom_left", "label": "Bottom left" },
+            { "value": "bottom_center", "label": "Bottom center" },
+            { "value": "bottom_right", "label": "Bottom right" }
+          ],
+          "default": "center_center"
+        },
+        {
+          "type": "select",
+          "id": "mobile_image_focal_point",
+          "label": "Mobile image position",
+          "info": "Leave as center unless using a separate mobile image.",
+          "options": [
+            { "value": "top_left", "label": "Top left" },
+            { "value": "top_center", "label": "Top center" },
+            { "value": "top_right", "label": "Top right" },
+            { "value": "center_left", "label": "Center left" },
+            { "value": "center_center", "label": "Center" },
+            { "value": "center_right", "label": "Center right" },
+            { "value": "bottom_left", "label": "Bottom left" },
+            { "value": "bottom_center", "label": "Bottom center" },
+            { "value": "bottom_right", "label": "Bottom right" }
+          ],
+          "default": "center_center"
+        },
+        {
+          "type": "select",
+          "id": "split_image_focal_point",
+          "label": "Split image position",
+          "options": [
+            { "value": "top_left", "label": "Top left" },
+            { "value": "top_center", "label": "Top center" },
+            { "value": "top_right", "label": "Top right" },
+            { "value": "center_left", "label": "Center left" },
+            { "value": "center_center", "label": "Center" },
+            { "value": "center_right", "label": "Center right" },
+            { "value": "bottom_left", "label": "Bottom left" },
+            { "value": "bottom_center", "label": "Bottom center" },
+            { "value": "bottom_right", "label": "Bottom right" }
+          ],
+          "default": "center_center"
         },
         {
           "type": "header",

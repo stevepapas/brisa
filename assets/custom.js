@@ -462,3 +462,23 @@ document.addEventListener('keydown', (event) => {
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });
+
+document.addEventListener('prev-next:prev', (event) => {
+  const navBar = event.target.closest('.slideshow-brisa__nav-bar');
+  if (!navBar) return;
+
+  const slideshow = navBar.closest('slide-show.slideshow-brisa');
+  if (slideshow && typeof slideshow.previous === 'function') {
+    slideshow.previous();
+  }
+});
+
+document.addEventListener('prev-next:next', (event) => {
+  const navBar = event.target.closest('.slideshow-brisa__nav-bar');
+  if (!navBar) return;
+
+  const slideshow = navBar.closest('slide-show.slideshow-brisa');
+  if (slideshow && typeof slideshow.next === 'function') {
+    slideshow.next();
+  }
+});
