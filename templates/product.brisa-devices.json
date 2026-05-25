@@ -15,8 +15,8 @@
         "image_BaBDEt": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC_2245.jpg",
-            "mobile_image": "shopify://shop_images/DSC_2245.jpg",
+            "image": "shopify://shop_images/device-slide-1.png",
+            "mobile_image": "shopify://shop_images/device-slide-1.png",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
@@ -31,10 +31,94 @@
             "overlay_color": "#000000",
             "overlay_opacity": 30
           }
+        },
+        "image_f69Nyc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
+            "split_image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
+            "text_position": "middle_center",
+            "subheading": "Tell your story",
+            "title": "Slide title",
+            "content": "Slide title",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_HQUYeh": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
+            "split_image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
+            "text_position": "middle_center",
+            "subheading": "Tell your story",
+            "title": "Slide title",
+            "content": "Slide title",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_enhjyK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_Design_-_1.png",
+            "split_image": "shopify://shop_images/Untitled_Design_-_1.png",
+            "text_position": "middle_center",
+            "subheading": "Tell your story",
+            "title": "Slide title",
+            "content": "Slide title",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_RpGaXN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
+            "split_image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
+            "text_position": "middle_center",
+            "subheading": "Tell your story",
+            "title": "Slide title",
+            "content": "Slide title",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
         }
       },
       "block_order": [
-        "image_BaBDEt"
+        "image_BaBDEt",
+        "image_f69Nyc",
+        "image_HQUYeh",
+        "image_enhjyK",
+        "image_RpGaXN"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
