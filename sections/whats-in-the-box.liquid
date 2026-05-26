@@ -98,6 +98,8 @@
     margin: 0 auto;
     width: 100%;
     max-width: {{ section.settings.image_max_width }}px;
+    min-height: 280px;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: {{ section.settings.image_radius }}px;
   }
@@ -320,7 +322,7 @@
         {% endif %}
 
         {% for block in section.blocks %}
-          {% if block.type == 'callout' %}
+          {% if block.type == 'item' %}
           <div
             class="whats-in-the-box__callout whats-in-the-box__callout--position-{{ block.settings.position }}"
             {{ block.shopify_attributes }}
@@ -369,15 +371,21 @@
         {% endfor %}
       </div>
 
-      {% assign media_blocks = section.blocks | where: 'type', 'gallery_media' %}
-      {% if media_blocks.size > 0 %}
+      {%- assign has_media_blocks = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'box_image' and block.settings.media_image != blank -%}
+          {%- assign has_media_blocks = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_media_blocks -%}
         <div class="whats-in-the-box__media-gallery" role="list" aria-label="Additional media">
-          {% for block in media_blocks %}
-            {%- assign media_alt = block.settings.image.alt | default: section.settings.heading | escape -%}
-            <div class="whats-in-the-box__media-item" role="listitem" {{ block.shopify_attributes }}>
-              {% if block.settings.image != blank %}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'box_image' and block.settings.media_image != blank -%}
+              {%- assign media_alt = block.settings.media_image.alt | default: section.settings.heading | escape -%}
+              <div class="whats-in-the-box__media-item" role="listitem" {{ block.shopify_attributes }}>
                 {{
-                  block.settings.image
+                  block.settings.media_image
                   | image_url: width: 1200
                   | image_tag:
                     loading: 'lazy',
@@ -385,17 +393,11 @@
                     sizes: '(min-width: 1000px) 25vw, 50vw',
                     alt: media_alt
                 }}
-              {% elsif block.settings.video != blank %}
-                {{ block.settings.video | video_tag: image_size: '1200x', autoplay: false, loop: false, muted: true, controls: true, preload: 'metadata' }}
-              {% elsif block.settings.video_url != blank %}
-                <div class="video-wrapper">
-                  {{ block.settings.video_url | external_video_tag: image_size: '1200x' }}
-                </div>
-              {% endif %}
-            </div>
-          {% endfor %}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
-      {% endif %}
+      {%- endif -%}
     </div>
 
     {% if section.settings.footer_text != blank %}
@@ -406,7 +408,7 @@
 
 {% schema %}
 {
-  "name": "What's in the box",
+  "name": "Whats in the box",
   "class": "shopify-section--whats-in-the-box",
   "max_blocks": 12,
   "settings": [
@@ -414,7 +416,7 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "WHAT'S IN THE BOX"
+      "default": "WHATS IN THE BOX"
     },
     {
       "type": "text",
@@ -783,7 +785,7 @@
   ],
   "blocks": [
     {
-      "type": "callout",
+      "type": "item",
       "name": "Callout",
       "settings": [
         {
@@ -827,35 +829,24 @@
       ]
     },
     {
-      "type": "gallery_media",
+      "type": "box_image",
       "name": "Media",
       "settings": [
         {
           "type": "image_picker",
-          "id": "image",
+          "id": "media_image",
           "label": "Image"
-        },
-        {
-          "type": "video",
-          "id": "video",
-          "label": "Video (upload)"
-        },
-        {
-          "type": "video_url",
-          "id": "video_url",
-          "label": "Video URL",
-          "accept": ["youtube", "vimeo"]
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "What's in the box",
+      "name": "Whats in the box",
       "category": "Brisa",
       "blocks": [
         {
-          "type": "callout",
+          "type": "item",
           "settings": {
             "position": "top-right",
             "icon": "device",
@@ -864,7 +855,7 @@
           }
         },
         {
-          "type": "callout",
+          "type": "item",
           "settings": {
             "position": "middle-right",
             "icon": "leaf",
@@ -873,7 +864,7 @@
           }
         },
         {
-          "type": "callout",
+          "type": "item",
           "settings": {
             "position": "bottom-right",
             "icon": "bag",
@@ -882,7 +873,7 @@
           }
         },
         {
-          "type": "callout",
+          "type": "item",
           "settings": {
             "position": "bottom-left",
             "icon": "sparkle",
