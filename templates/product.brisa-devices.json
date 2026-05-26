@@ -274,21 +274,77 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
-    "custom_liquid_VxEmGV": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {padding: 20px 0px;}",
-        "* {background: transparent;}"
+    "engineered_switch_NniVXE": {
+      "type": "engineered-switch",
+      "blocks": {
+        "item_hwzCAW": {
+          "type": "item",
+          "settings": {
+            "icon": "ruler",
+            "title": "Same weight. Same size. Same length.",
+            "text": "Your hand's muscle memory transfers the day you open the box. No awkward adjustment period."
+          }
+        },
+        "item_cFDtgF": {
+          "type": "item",
+          "settings": {
+            "icon": "airflow",
+            "title": "Tuned airflow — matches a real vape draw.",
+            "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
+          }
+        },
+        "item_YX9bzh": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Precision-formulated aroma cores.",
+            "text": "Food-grade formulations engineered for optimal aroma depth, throat feel, and the sensory feel that makes the ritual land."
+          }
+        },
+        "item_6aWWMh": {
+          "type": "item",
+          "settings": {
+            "icon": "cross",
+            "title": "Zero nicotine. Zero vapour. Zero chemicals.",
+            "text": "Every sensory cue of a vape. None of the 7,000 chemicals keeping you hooked."
+          }
+        }
+      },
+      "block_order": [
+        "item_hwzCAW",
+        "item_cFDtgF",
+        "item_YX9bzh",
+        "item_6aWWMh"
       ],
-      "name": "How it Works",
+      "name": "Engineered for the switch",
       "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">HOW IT WORKS</h3>\n<p style=\"margin-bottom: 30px !important\"><b>\n1. UNSCREW THE TOP </b><br>\nTwist off the top cap and drop your aroma core inside. Takes seconds.\n<br><br>\n<b>2. SET YOUR AIRFLOW</b><br>\nDial the base to find your perfect draw — tighter or looser, just like you're used to. \n<br><br><b>\n3. REACH FOR IT INSTEAD </b><br>\nEvery time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back.\n</p>\n  </div>\n  <div class=\"grid-column\">\n  </div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
+        "show_bar": false,
+        "bar_text": "We sold out fast last time - get in quick and order now",
+        "heading": "Engineered for the switch",
+        "subheading": "Built so your body doesn't know the difference.",
+        "max_width": 1100,
+        "content_width": 920,
+        "list_spacing": 36,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "item_gap": 26,
+        "heading_size": 26,
+        "subheading_size": 13,
+        "item_title_size": 13,
+        "item_text_size": 12,
+        "bar_font_size": 13,
+        "icon_size": 64,
+        "mobile_icon_size": 54,
+        "icon_svg_size": 70,
+        "background": "#f5f5f5",
+        "bar_background": "#e9f4ff",
+        "bar_text_color": "#003a72",
+        "heading_color": "#111111",
+        "text_color": "#2b2b2b",
+        "icon_background": "#008bdc",
+        "icon_color": "#ffffff"
       }
     },
     "brisa_comparison_table_ntMxq4": {
@@ -492,6 +548,18 @@
         "border_color": "#7eb8e0",
         "divider_color": "#7eb8e0"
       }
+    },
+    "brisa_product_reviews_zMjLwQ": {
+      "type": "brisa-product-reviews",
+      "name": "Brisa product reviews",
+      "settings": {
+        "heading": "Real Aussies. Real Reviews.",
+        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_arrows": true,
+        "show_dots": false,
+        "autoplay": false,
+        "autoplay_speed": 5000
+      }
     }
   },
   "order": [
@@ -500,8 +568,9 @@
     "product-content",
     "1772962804ca13e40e",
     "custom_liquid_wKcMgG",
-    "custom_liquid_VxEmGV",
+    "engineered_switch_NniVXE",
     "brisa_comparison_table_ntMxq4",
-    "device_questions_PFtKdK"
+    "device_questions_PFtKdK",
+    "brisa_product_reviews_zMjLwQ"
   ]
 }
