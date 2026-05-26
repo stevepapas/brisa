@@ -17,6 +17,9 @@
           "settings": {
             "image": "shopify://shop_images/DSC_2245.jpg",
             "mobile_image": "shopify://shop_images/DSC_2245.jpg",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
@@ -49,7 +52,14 @@
         "show_initial_transition": false,
         "autoplay": true,
         "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
+        "background": "rgba(0,0,0,0)",
+        "nav_background": "#ffffff",
+        "thumbnail_gap": 8,
+        "thumbnail_size": 64,
+        "thumbnail_radius": 10,
+        "thumbnail_active_border": "#008bdc",
+        "arrow_background": "#f2f2f2",
+        "arrow_color": "#1a1a1a"
       }
     },
     "social_proof_testimonials_gAi9fg": {
@@ -828,6 +838,7 @@
     },
     "custom_liquid_ke6YPe": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "Custom Liquid",
       "settings": {
         "subheading": "",
