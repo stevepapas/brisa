@@ -5,9 +5,10 @@
   }
 
   #shopify-section-{{ section.id }} .device-questions {
-    max-width: {{ section.settings.max_width }}px;
-    margin: 0 auto;
-    padding: 0 20px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
   }
 
   #shopify-section-{{ section.id }} .device-questions__box {
@@ -16,6 +17,11 @@
     background: {{ section.settings.panel_background }};
     border: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
     border-radius: {{ section.settings.border_radius }}px;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__box-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
   }
 
   #shopify-section-{{ section.id }} .device-questions__heading {
@@ -89,29 +95,31 @@
 
 <section class="device-questions" {{ section.shopify_attributes }}>
   <div class="device-questions__box">
-    {% if section.settings.heading != blank %}
-      <h2 class="device-questions__heading">{{ section.settings.heading | escape }}</h2>
-    {% endif %}
+    <div class="device-questions__box-inner">
+      {% if section.settings.heading != blank %}
+        <h2 class="device-questions__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
 
-    {% if section.blocks.size > 0 %}
-      <div class="device-questions__list" itemscope itemtype="https://schema.org/FAQPage">
-        {% for block in section.blocks %}
-          {% if block.type == 'question' %}
-            <div class="device-questions__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
-              {% if block.settings.question != blank %}
-                <h3 class="device-questions__question" itemprop="name">{{ block.settings.question | escape }}</h3>
-              {% endif %}
+      {% if section.blocks.size > 0 %}
+        <div class="device-questions__list" itemscope itemtype="https://schema.org/FAQPage">
+          {% for block in section.blocks %}
+            {% if block.type == 'question' %}
+              <div class="device-questions__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
+                {% if block.settings.question != blank %}
+                  <h3 class="device-questions__question" itemprop="name">{{ block.settings.question | escape }}</h3>
+                {% endif %}
 
-              {% if block.settings.answer != blank %}
-                <div class="device-questions__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                  <div itemprop="text">{{ block.settings.answer }}</div>
-                </div>
-              {% endif %}
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
+                {% if block.settings.answer != blank %}
+                  <div class="device-questions__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div itemprop="text">{{ block.settings.answer }}</div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
   </div>
 </section>
 
