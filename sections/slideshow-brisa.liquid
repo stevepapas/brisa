@@ -244,6 +244,54 @@
     cursor: default;
   }
 
+  {%- if section.settings.desktop_layout == 'square' -%}
+    @media screen and (min-width: 1000px) {
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop slide-show.slideshow-brisa,
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-list,
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide,
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-inner {
+        min-height: 0;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop slide-show.slideshow-brisa {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-list {
+        position: relative;
+        flex: 0 0 auto;
+        width: min({{ section.settings.desktop_max_width }}px, 100%);
+        max-width: 100%;
+        margin-inline: auto;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-inner::before {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__image-wrapper,
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__image {
+        width: 100%;
+        height: 100%;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__image {
+        object-fit: {{ section.settings.desktop_image_fit }};
+        object-position: center;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__nav-bar {
+        width: min({{ section.settings.desktop_max_width }}px, 100%);
+        max-width: 100%;
+      }
+    }
+  {%- endif -%}
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
@@ -261,7 +309,7 @@
   }
 </style>
 
-<section class="section section--flush" data-active-kit-set="{{ active_kit_set }}">
+<section class="section section--flush{% if section.settings.desktop_layout == 'square' %} slideshow-brisa-section--square-desktop{% endif %}" data-active-kit-set="{{ active_kit_set }}">
   <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
     <div class="slideshow__slide-list">
       {%- assign visible_index = 0 -%}
@@ -552,6 +600,42 @@
         { "value": "mates", "label": "Mates Pack" },
         { "value": "all", "label": "Show all slides" }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "select",
+      "id": "desktop_layout",
+      "label": "Desktop image layout",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Full width (theme default)" },
+        { "value": "square", "label": "Square, centered (product pages)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "desktop_max_width",
+      "min": 360,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop max width",
+      "default": 520,
+      "visible_if": "{{ section.settings.desktop_layout == 'square' }}"
+    },
+    {
+      "type": "select",
+      "id": "desktop_image_fit",
+      "label": "Desktop image fit",
+      "default": "contain",
+      "options": [
+        { "value": "contain", "label": "Show full image (no crop)" },
+        { "value": "cover", "label": "Fill square (may crop)" }
+      ],
+      "visible_if": "{{ section.settings.desktop_layout == 'square' }}"
     },
     {
       "type": "select",

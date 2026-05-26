@@ -674,17 +674,7 @@ display: none;
   overflow: visible;
 }
 
-.template-brisa-cores slide-show.slideshow-brisa .slideshow__slide-list,
-.template-brisa-devices slide-show.slideshow-brisa .slideshow__slide-list {
-  min-height: 300px;
-  max-height: 320px;
-  overflow: hidden;
-}
-
-.template-brisa-cores slide-show.slideshow-brisa .slideshow__slide-list *,
-.template-brisa-devices slide-show.slideshow-brisa .slideshow__slide-list * {
-  max-height: 320px;
-}
+/* Square desktop layout is handled in slideshow-brisa.liquid (desktop_layout: square) */
 
 .template-brisa-cores slide-show h2,
 .template-brisa-devices slide-show h2 {
