@@ -551,6 +551,33 @@
     "brisa_product_detail": {
       "type": "brisa-product-detail",
       "blocks": {
+        "video_review_YgGhPE": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-3.png",
+            "video": "shopify://files/videos/test3.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_UEWdDR": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-2.png",
+            "video": "shopify://files/videos/test2.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_ax9HCM": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-1.png",
+            "video": "shopify://files/videos/test-1.mov",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
         "step_1": {
           "type": "step",
           "settings": {
@@ -574,6 +601,9 @@
         }
       },
       "block_order": [
+        "video_review_YgGhPE",
+        "video_review_UEWdDR",
+        "video_review_ax9HCM",
         "step_1",
         "step_2",
         "step_3"
