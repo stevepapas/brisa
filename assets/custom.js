@@ -468,6 +468,58 @@ function getSlideshowBrisaFromNav(navBar) {
   return section?.querySelector('slide-show.slideshow-brisa') ?? null;
 }
 
+function slideMatchesKitSet(element, kitSet) {
+  const slideKit = element?.dataset?.kitSet || 'both';
+  return kitSet === 'all' || slideKit === 'both' || slideKit === kitSet;
+}
+
+function applySlideshowBrisaKit(section, kitSet) {
+  if (!section || !kitSet) return;
+
+  const slideshow = section.querySelector('slide-show.slideshow-brisa');
+  const pageDots = section.querySelector('page-dots.slideshow-brisa__dots');
+  const navBar = section.querySelector('.slideshow-brisa__nav-bar');
+  if (!slideshow) return;
+
+  section.dataset.activeKitSet = kitSet;
+
+  const items = Array.from(slideshow.querySelectorAll('slide-show-item'));
+  const thumbs = pageDots ? Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb')) : [];
+  const visibleItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
+  const visibleThumbs = thumbs.filter((thumb) => slideMatchesKitSet(thumb, kitSet));
+
+  items.forEach((item) => item.setAttribute('hidden', ''));
+  thumbs.forEach((thumb) => {
+    thumb.hidden = true;
+    thumb.setAttribute('aria-selected', 'false');
+    thumb.removeAttribute('aria-current');
+  });
+
+  visibleItems.forEach((item, index) => {
+    if (index === 0) {
+      item.removeAttribute('hidden');
+    } else {
+      item.setAttribute('hidden', '');
+    }
+  });
+
+  visibleThumbs.forEach((thumb, index) => {
+    thumb.hidden = false;
+    thumb.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+    if (index === 0) {
+      thumb.setAttribute('aria-current', 'true');
+    }
+  });
+
+  if (navBar) {
+    navBar.hidden = visibleItems.length <= 1;
+  }
+
+  if (pageDots && pageDots.selectedIndex !== 0) {
+    pageDots.selectedIndex = 0;
+  }
+}
+
 function initSlideshowBrisaSection(section) {
   if (section.dataset.slideshowBrisaInit === 'true') return;
 
@@ -502,6 +554,16 @@ function initSlideshowBrisaSection(section) {
 function initAllSlideshowBrisaSections(root = document) {
   root.querySelectorAll('.shopify-section--slideshow-brisa').forEach(initSlideshowBrisaSection);
 }
+
+document.addEventListener('click', (event) => {
+  const kitCard = event.target.closest('.product-kit-picker__card--starter, .product-kit-picker__card--mates');
+  if (!kitCard) return;
+
+  const kitSet = kitCard.classList.contains('product-kit-picker__card--mates') ? 'mates' : 'starter';
+  document.querySelectorAll('.shopify-section--slideshow-brisa').forEach((section) => {
+    applySlideshowBrisaKit(section, kitSet);
+  });
+});
 
 document.addEventListener('DOMContentLoaded', () => initAllSlideshowBrisaSections());
 document.addEventListener('shopify:section:load', (event) => {

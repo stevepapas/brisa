@@ -15,6 +15,7 @@
         "image_BaBDEt": {
           "type": "image",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/device-slide-1.png",
             "mobile_image": "shopify://shop_images/device-slide-1.png",
             "image_focal_point": "center_center",
@@ -38,6 +39,7 @@
         "image_f69Nyc": {
           "type": "image",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
             "split_image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
             "image_focal_point": "center_center",
@@ -61,6 +63,7 @@
         "image_HQUYeh": {
           "type": "image",
           "settings": {
+            "kit_set": "mates",
             "image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
             "split_image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
             "image_focal_point": "center_center",
@@ -84,6 +87,7 @@
         "image_enhjyK": {
           "type": "image",
           "settings": {
+            "kit_set": "mates",
             "image": "shopify://shop_images/Untitled_Design_-_1.png",
             "split_image": "shopify://shop_images/Untitled_Design_-_1.png",
             "image_focal_point": "center_center",
@@ -107,6 +111,7 @@
         "image_RpGaXN": {
           "type": "image",
           "settings": {
+            "kit_set": "mates",
             "image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
             "split_image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
             "image_focal_point": "center_center",
@@ -143,6 +148,11 @@
       ],
       "name": "Slideshow Brisa",
       "settings": {
+        "starter_product": "brisa-device-black",
+        "starter_handle": "brisa-device-black",
+        "mates_product": "brisa-mates-pack-ocean-starter-kit",
+        "mates_handle": "brisa-mates-pack-ocean-starter-kit",
+        "editor_preview_kit": "auto",
         "section_height": "small",
         "transition_type": "sweep",
         "show_initial_transition": false,

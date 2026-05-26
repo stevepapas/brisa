@@ -1,12 +1,35 @@
 {%- liquid
   assign active_kit_set = 'all'
 
+  assign starter_product = section.settings.starter_product
+  assign mates_product = section.settings.mates_product
+
+  if starter_product == blank and section.settings.starter_handle != blank
+    assign starter_product = all_products[section.settings.starter_handle]
+  endif
+
+  if mates_product == blank and section.settings.mates_handle != blank
+    assign mates_product = all_products[section.settings.mates_handle]
+  endif
+
   if request.page_type == 'product' and product != blank
-    if section.settings.mates_handle != blank and product.handle == section.settings.mates_handle
+    if mates_product != blank and product.id == mates_product.id
       assign active_kit_set = 'mates'
-    elsif section.settings.starter_handle != blank and product.handle == section.settings.starter_handle
+    elsif starter_product != blank and product.id == starter_product.id
       assign active_kit_set = 'starter'
+    elsif mates_product != blank and product.handle == mates_product.handle
+      assign active_kit_set = 'mates'
+    elsif starter_product != blank and product.handle == starter_product.handle
+      assign active_kit_set = 'starter'
+    elsif starter_product != blank and product.handle == section.settings.starter_handle
+      assign active_kit_set = 'starter'
+    elsif mates_product != blank and product.handle == section.settings.mates_handle
+      assign active_kit_set = 'mates'
     endif
+  endif
+
+  if request.design_mode and section.settings.editor_preview_kit != 'auto' and section.settings.editor_preview_kit != blank
+    assign active_kit_set = section.settings.editor_preview_kit
   endif
 
   assign visible_blocks_count = 0
@@ -238,7 +261,7 @@
   }
 </style>
 
-<section class="section section--flush">
+<section class="section section--flush" data-active-kit-set="{{ active_kit_set }}">
   <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
     <div class="slideshow__slide-list">
       {%- assign visible_index = 0 -%}
@@ -257,7 +280,10 @@
         {%- endunless -%}
 
         {%- assign visible_index = visible_index | plus: 1 -%}
-        {%- assign is_first_visible = visible_index == 1 -%}
+        {%- assign is_first_visible = false -%}
+        {%- if visible_index == 1 -%}
+          {%- assign is_first_visible = true -%}
+        {%- endif -%}
         {%- comment -%}
         ------------------------------------------------------------------------------------------------------------------
         IMAGE PART
@@ -383,6 +409,7 @@
           {{ block.shopify_attributes }}
           id="block-{{ section.id }}-{{ block.id }}"
           class="slideshow__slide {% if split_image != blank %}slideshow__slide--split{% endif %} {% if section.settings.transition_type == 'sweep' %}slideshow__slide--sweep{% endif %}"
+          data-kit-set="{{ block_kit_set }}"
           {% unless is_first_visible %}hidden{% endunless %}
           {% if section.settings.section_height == 'auto' %}
             style="--image-aspect-ratio: {{ image_aspect_ratio }}; --mobile-image-aspect-ratio: {{ mobile_image.aspect_ratio | default: image_aspect_ratio | default: 1 }};"
@@ -443,6 +470,7 @@
             type="button"
             role="tab"
             class="slideshow-brisa__thumb"
+            data-kit-set="{{ block_kit_set }}"
             data-slide-index="{{ dot_index }}"
             aria-controls="block-{{ section.id }}-{{ block.id }}"
             {% if dot_index == 0 %}aria-current="true" aria-selected="true"{% else %}aria-selected="false"{% endif %}
@@ -487,16 +515,43 @@
       "content": "Kit sets"
     },
     {
+      "type": "paragraph",
+      "content": "Match the Product kit picker: assign each slide to Starter Kit, Mates Pack, or Both. Slides tagged Both always show."
+    },
+    {
+      "type": "product",
+      "id": "starter_product",
+      "label": "Starter Kit product"
+    },
+    {
       "type": "text",
       "id": "starter_handle",
-      "label": "Starter Kit product handle",
-      "default": "starter-kit"
+      "label": "Starter Kit handle (fallback)",
+      "default": "brisa-device-black"
+    },
+    {
+      "type": "product",
+      "id": "mates_product",
+      "label": "Mates Pack product"
     },
     {
       "type": "text",
       "id": "mates_handle",
-      "label": "Mates Pack product handle",
-      "default": "mates-pack"
+      "label": "Mates Pack handle (fallback)",
+      "default": "brisa-mates-pack-ocean-starter-kit"
+    },
+    {
+      "type": "select",
+      "id": "editor_preview_kit",
+      "label": "Theme editor preview",
+      "info": "Preview which kit slides show while editing. Auto uses the current product.",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Auto (from product)" },
+        { "value": "starter", "label": "Starter Kit" },
+        { "value": "mates", "label": "Mates Pack" },
+        { "value": "all", "label": "Show all slides" }
+      ]
     },
     {
       "type": "select",
@@ -642,6 +697,18 @@
       "name": "Image",
       "settings": [
         {
+          "type": "select",
+          "id": "kit_set",
+          "label": "Kit set",
+          "default": "both",
+          "info": "Which kit this slide belongs to. Use Both for slides shared by Starter Kit and Mates Pack.",
+          "options": [
+            { "value": "both", "label": "Both" },
+            { "value": "starter", "label": "Starter Kit" },
+            { "value": "mates", "label": "Mates Pack" }
+          ]
+        },
+        {
           "type": "image_picker",
           "id": "image",
           "info": "2160 x 1080px .jpg recommended, 1080 x 1080px .jpg recommended if split",
@@ -664,17 +731,6 @@
           "id": "thumbnail_image",
           "label": "Thumbnail image",
           "info": "Optional. Used in pagination. Falls back to slide image if empty."
-        },
-        {
-          "type": "select",
-          "id": "kit_set",
-          "label": "Kit set",
-          "default": "both",
-          "options": [
-            { "value": "both", "label": "Both" },
-            { "value": "starter", "label": "Starter Kit" },
-            { "value": "mates", "label": "Mates Pack" }
-          ]
         },
         {
           "type": "select",
