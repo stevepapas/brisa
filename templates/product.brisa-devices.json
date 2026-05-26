@@ -12,9 +12,131 @@
     "slideshow_brisa_LPC6iL": {
       "type": "slideshow-brisa",
       "blocks": {
+        "image_Ng4pBr": {
+          "type": "image",
+          "name": "mp1",
+          "settings": {
+            "kit_set": "mates",
+            "image": "shopify://shop_images/mates-pack-2.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_8JzWqj": {
+          "type": "image",
+          "name": "mp2",
+          "settings": {
+            "kit_set": "mates",
+            "image": "shopify://shop_images/mates-pack-1.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_fqhXJ3": {
+          "type": "image",
+          "name": "mp3",
+          "settings": {
+            "kit_set": "mates",
+            "image": "shopify://shop_images/mates-pack-4.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_drDPHj": {
+          "type": "image",
+          "name": "mp4",
+          "settings": {
+            "kit_set": "mates",
+            "image": "shopify://shop_images/mates-pack-5.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
+        "image_mUiUVU": {
+          "type": "image",
+          "name": "mp5",
+          "settings": {
+            "kit_set": "mates",
+            "image": "shopify://shop_images/mates-pack-1.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
         "image_BaBDEt": {
           "type": "image",
+          "name": "sk1",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/device-slide-1.png",
             "mobile_image": "shopify://shop_images/device-slide-1.png",
             "image_focal_point": "center_center",
@@ -35,30 +157,11 @@
             "overlay_opacity": 30
           }
         },
-        "image_dkr4kg": {
-          "type": "image",
-          "settings": {
-            "image_focal_point": "center_center",
-            "mobile_image_focal_point": "center_center",
-            "split_image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
         "image_f69Nyc": {
           "type": "image",
+          "name": "sk2",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
             "split_image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
             "image_focal_point": "center_center",
@@ -81,7 +184,9 @@
         },
         "image_HQUYeh": {
           "type": "image",
+          "name": "sk3",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
             "split_image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
             "image_focal_point": "center_center",
@@ -104,7 +209,9 @@
         },
         "image_enhjyK": {
           "type": "image",
+          "name": "sk4",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/Untitled_Design_-_1.png",
             "split_image": "shopify://shop_images/Untitled_Design_-_1.png",
             "image_focal_point": "center_center",
@@ -127,7 +234,9 @@
         },
         "image_RpGaXN": {
           "type": "image",
+          "name": "sk5",
           "settings": {
+            "kit_set": "starter",
             "image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
             "split_image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
             "image_focal_point": "center_center",
@@ -150,8 +259,12 @@
         }
       },
       "block_order": [
+        "image_Ng4pBr",
+        "image_8JzWqj",
+        "image_fqhXJ3",
+        "image_drDPHj",
+        "image_mUiUVU",
         "image_BaBDEt",
-        "image_dkr4kg",
         "image_f69Nyc",
         "image_HQUYeh",
         "image_enhjyK",
@@ -165,6 +278,11 @@
       ],
       "name": "Slideshow Brisa",
       "settings": {
+        "starter_product": "",
+        "starter_handle": "brisa-device-black",
+        "mates_product": "",
+        "mates_handle": "brisa-mates-pack-ocean-starter-kit",
+        "editor_preview_kit": "auto",
         "section_height": "small",
         "transition_type": "sweep",
         "show_initial_transition": false,
