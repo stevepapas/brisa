@@ -1,7 +1,5 @@
 {% liquid
   assign section_uid = section.id | replace: '-', '' | downcase
-  assign image_offset_x = section.settings.image_offset_x | default: 30 | minus: 30
-  assign image_offset_y = section.settings.image_offset_y | default: 30 | minus: 30
   assign main_image_alt = section.settings.image.alt | default: section.settings.heading | escape
 %}
 
@@ -11,50 +9,48 @@
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
 
-  .whats-in-the-box-{{ section_uid }} {
+  .brisa-whats-in-the-box-{{ section_uid }} {
     color: {{ section.settings.text_color }};
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__inner {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__inner {
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
     padding: 0 20px;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__header {
-    margin: 0 0 {{ section.settings.header_spacing }}px;
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__header {
+    margin: 0 0 32px;
     text-align: center;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__heading {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__heading {
     margin: 0;
     color: {{ section.settings.heading_color }};
-    font-size: {{ section.settings.heading_size }}px;
+    font-size: 48px;
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__subheading {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__subheading {
     margin: 12px 0 0;
-    color: {{ section.settings.text_color }};
-    font-size: {{ section.settings.subheading_size }}px;
-    font-weight: 400;
+    font-size: 18px;
     line-height: 1.4;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__panel {
-    padding: {{ section.settings.panel_padding_vertical }}px {{ section.settings.panel_padding_horizontal }}px;
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__panel {
+    padding: 48px 40px;
     background: {{ section.settings.panel_background }};
-    border-radius: {{ section.settings.panel_radius }}px;
+    border-radius: 24px;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__panel-heading {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__panel-heading {
     margin: 0;
     color: {{ section.settings.panel_heading_color }};
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: {{ section.settings.panel_heading_size }}px;
+    font-size: 40px;
     font-weight: 400;
     line-height: 1.1;
     text-align: center;
@@ -62,29 +58,20 @@
     letter-spacing: 0.04em;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__panel-tagline {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__panel-tagline {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin: 10px 0 {{ section.settings.panel_tagline_spacing }}px;
+    margin: 10px 0 32px;
     color: {{ section.settings.panel_heading_color }};
-    font-size: {{ section.settings.panel_tagline_size }}px;
+    font-size: 10px;
     font-weight: 700;
-    line-height: 1.2;
     letter-spacing: 0.12em;
-    text-align: center;
     text-transform: uppercase;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__panel-tagline svg {
-    display: block;
-    width: 14px;
-    height: 14px;
-    flex: 0 0 auto;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__stage {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__stage {
     display: grid;
     grid-template-columns: 1fr minmax(240px, 44%) 1fr;
     grid-template-rows: auto auto auto;
@@ -92,211 +79,137 @@
     align-items: center;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__image-wrap {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__image-wrap {
     grid-column: 2;
     grid-row: 1 / span 3;
     margin: 0 auto;
     width: 100%;
-    max-width: {{ section.settings.image_max_width }}px;
+    max-width: 520px;
     min-height: 280px;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    border-radius: {{ section.settings.image_radius }}px;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__image {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__image {
     display: block;
     width: 100%;
     height: 100%;
-    max-width: none;
-    border-radius: 0;
-    object-fit: {{ section.settings.image_fit }};
-    transform: translate({{ image_offset_x }}%, {{ image_offset_y }}%) scale({{ section.settings.image_zoom | divided_by: 100.0 }});
-    transform-origin: center;
+    object-fit: contain;
+    object-position: center;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__media-gallery {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout {
     display: grid;
-    grid-template-columns: repeat({{ section.settings.media_columns_desktop }}, minmax(0, 1fr));
-    gap: {{ section.settings.media_gap }}px;
-    margin-top: {{ section.settings.media_spacing }}px;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__media-item {
-    overflow: hidden;
-    border-radius: {{ section.settings.media_radius }}px;
-    background: rgba(0, 0, 0, 0.04);
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__media-item img,
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__media-item video {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: none;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout {
-    display: grid;
-    grid-template-columns: {{ section.settings.callout_icon_size }}px 1fr;
+    grid-template-columns: 48px 1fr;
     gap: 12px;
     align-items: start;
     max-width: 280px;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout-icon {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: {{ section.settings.callout_icon_size }}px;
-    height: {{ section.settings.callout_icon_size }}px;
+    width: 48px;
+    height: 48px;
     color: {{ section.settings.callout_icon_color }};
-    flex: 0 0 auto;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout-icon svg {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout-icon svg {
     display: block;
     width: 100%;
     height: 100%;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout-title {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout-title {
     margin: 0;
     color: {{ section.settings.panel_heading_color }};
-    font-size: {{ section.settings.callout_title_size }}px;
+    font-size: 14px;
     font-weight: 900;
     line-height: 1.15;
     text-transform: uppercase;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout-text {
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout-text {
     margin: 4px 0 0;
     color: {{ section.settings.panel_heading_color }};
-    font-size: {{ section.settings.callout_text_size }}px;
-    font-weight: 400;
+    font-size: 14px;
     line-height: 1.3;
   }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-top-right {
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: start;
-  }
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-top-right { grid-column: 3; grid-row: 1; justify-self: start; }
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-middle-right { grid-column: 3; grid-row: 2; justify-self: start; }
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-bottom-right { grid-column: 3; grid-row: 3; justify-self: start; }
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-bottom-left { grid-column: 1; grid-row: 3; justify-self: end; }
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-top-left { grid-column: 1; grid-row: 1; justify-self: end; }
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-middle-left { grid-column: 1; grid-row: 2; justify-self: end; }
 
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-middle-right {
-    grid-column: 3;
-    grid-row: 2;
-    justify-self: start;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-bottom-right {
-    grid-column: 3;
-    grid-row: 3;
-    justify-self: start;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-bottom-left {
-    grid-column: 1;
-    grid-row: 3;
-    justify-self: end;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-top-left {
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: end;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-middle-left {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: end;
-  }
-
-  .whats-in-the-box-{{ section_uid }} .whats-in-the-box__footer {
-    margin: {{ section.settings.footer_spacing }}px 0 0;
-    color: {{ section.settings.text_color }};
-    font-size: {{ section.settings.footer_size }}px;
-    font-weight: 400;
+  .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__footer {
+    margin: 28px 0 0;
+    font-size: 16px;
     line-height: 1.4;
     text-align: center;
   }
 
   @media screen and (max-width: 999px) {
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__stage {
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__stage {
       display: flex;
       flex-direction: column;
       gap: 28px;
     }
 
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__image-wrap {
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__image-wrap {
       order: -1;
       max-width: 100%;
     }
 
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__media-gallery {
-      grid-template-columns: repeat({{ section.settings.media_columns_mobile }}, minmax(0, 1fr));
-    }
-
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout {
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout {
       max-width: none;
     }
 
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-top-right,
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-middle-right,
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-bottom-right,
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-bottom-left,
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-top-left,
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout--position-middle-left {
-      grid-column: auto;
-      grid-row: auto;
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-top-right,
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-middle-right,
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-bottom-right,
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-bottom-left,
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-top-left,
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__callout--position-middle-left {
       justify-self: stretch;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__heading {
-      font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__heading {
+      font-size: 38px;
     }
 
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__panel {
-      padding: {{ section.settings.panel_padding_vertical | times: 0.72 | round }}px {{ section.settings.panel_padding_horizontal | times: 0.72 | round }}px;
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__panel {
+      padding: 34px 28px;
     }
 
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__panel-heading {
-      font-size: {{ section.settings.panel_heading_size | times: 0.82 | round }}px;
-    }
-
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout {
-      grid-template-columns: {{ section.settings.callout_icon_size | times: 0.85 | round }}px 1fr;
-    }
-
-    .whats-in-the-box-{{ section_uid }} .whats-in-the-box__callout-icon {
-      width: {{ section.settings.callout_icon_size | times: 0.85 | round }}px;
-      height: {{ section.settings.callout_icon_size | times: 0.85 | round }}px;
+    .brisa-whats-in-the-box-{{ section_uid }} .brisa-whats-in-the-box__panel-heading {
+      font-size: 32px;
     }
   }
 </style>
 
-<section class="whats-in-the-box whats-in-the-box-{{ section_uid }}" {{ section.shopify_attributes }}>
-  <div class="whats-in-the-box__inner">
-    <header class="whats-in-the-box__header">
-      {% if section.settings.heading != blank %}
-        <h2 class="whats-in-the-box__heading">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
+<section class="brisa-whats-in-the-box brisa-whats-in-the-box-{{ section_uid }}" {{ section.shopify_attributes }}>
+  <div class="brisa-whats-in-the-box__inner">
+    {% if section.settings.heading != blank %}
+      <header class="brisa-whats-in-the-box__header">
+        <h2 class="brisa-whats-in-the-box__heading">{{ section.settings.heading | escape }}</h2>
+        {% if section.settings.subheading != blank %}
+          <p class="brisa-whats-in-the-box__subheading">{{ section.settings.subheading | escape }}</p>
+        {% endif %}
+      </header>
+    {% endif %}
 
-      {% if section.settings.subheading != blank %}
-        <p class="whats-in-the-box__subheading">{{ section.settings.subheading | escape }}</p>
-      {% endif %}
-    </header>
-
-    <div class="whats-in-the-box__panel">
+    <div class="brisa-whats-in-the-box__panel">
       {% if section.settings.panel_heading != blank %}
-        <h3 class="whats-in-the-box__panel-heading">{{ section.settings.panel_heading | escape }}</h3>
+        <h3 class="brisa-whats-in-the-box__panel-heading">{{ section.settings.panel_heading | escape }}</h3>
       {% endif %}
 
       {% if section.settings.panel_tagline != blank %}
-        <p class="whats-in-the-box__panel-tagline">
+        <p class="brisa-whats-in-the-box__panel-tagline">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
             <path d="M20 7C10.5 8 5.5 12.5 5 20C11 21 16.5 17.5 18.5 12" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M5.5 19.5C9 14 12.5 11.5 17.5 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
@@ -305,15 +218,15 @@
         </p>
       {% endif %}
 
-      <div class="whats-in-the-box__stage">
+      <div class="brisa-whats-in-the-box__stage">
         {% if section.settings.image != blank %}
-          <div class="whats-in-the-box__image-wrap">
+          <div class="brisa-whats-in-the-box__image-wrap">
             {{
               section.settings.image
               | image_url: width: 1400
               | image_tag:
                 loading: 'lazy',
-                class: 'whats-in-the-box__image',
+                class: 'brisa-whats-in-the-box__image',
                 widths: '600,800,1000,1200,1400',
                 sizes: '(min-width: 1000px) 44vw, 100vw',
                 alt: main_image_alt
@@ -322,12 +235,11 @@
         {% endif %}
 
         {% for block in section.blocks %}
-          {% if block.type == 'item' %}
           <div
-            class="whats-in-the-box__callout whats-in-the-box__callout--position-{{ block.settings.position }}"
+            class="brisa-whats-in-the-box__callout brisa-whats-in-the-box__callout--position-{{ block.settings.position }}"
             {{ block.shopify_attributes }}
           >
-            <div class="whats-in-the-box__callout-icon" aria-hidden="true">
+            <div class="brisa-whats-in-the-box__callout-icon" aria-hidden="true">
               {% case block.settings.icon %}
                 {% when 'device' %}
                   <svg viewBox="0 0 48 48" fill="none" focusable="false">
@@ -344,73 +256,37 @@
                     <path d="M14 18h20l2 22H12l2-22Z" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/>
                     <path d="M18 18v-4a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
                   </svg>
-                {% when 'sparkle' %}
-                  <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                    <path d="M24 6l2.5 8.5L35 17l-8.5 2.5L24 28l-2.5-8.5L13 17l8.5-2.5L24 6Z" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/>
-                    <path d="M34 30l1.5 5 5 1.5-5 1.5L34 43l-1.5-5-5-1.5 5-1.5L34 30Z" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
-                  </svg>
                 {% else %}
                   <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                    <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
-                    <path d="M16 24h16" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M24 6l2.5 8.5L35 17l-8.5 2.5L24 28l-2.5-8.5L13 17l8.5-2.5L24 6Z" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/>
                   </svg>
               {% endcase %}
             </div>
 
-            <div class="whats-in-the-box__callout-copy">
+            <div>
               {% if block.settings.title != blank %}
-                <h4 class="whats-in-the-box__callout-title">{{ block.settings.title | escape }}</h4>
+                <h4 class="brisa-whats-in-the-box__callout-title">{{ block.settings.title | escape }}</h4>
               {% endif %}
-
               {% if block.settings.text != blank %}
-                <p class="whats-in-the-box__callout-text">{{ block.settings.text | escape }}</p>
+                <p class="brisa-whats-in-the-box__callout-text">{{ block.settings.text | escape }}</p>
               {% endif %}
             </div>
           </div>
-          {% endif %}
         {% endfor %}
       </div>
-
-      {%- assign has_media_blocks = false -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'box_image' and block.settings.media_image != blank -%}
-          {%- assign has_media_blocks = true -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- if has_media_blocks -%}
-        <div class="whats-in-the-box__media-gallery" role="list" aria-label="Additional media">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'box_image' and block.settings.media_image != blank -%}
-              {%- assign media_alt = block.settings.media_image.alt | default: section.settings.heading | escape -%}
-              <div class="whats-in-the-box__media-item" role="listitem" {{ block.shopify_attributes }}>
-                {{
-                  block.settings.media_image
-                  | image_url: width: 1200
-                  | image_tag:
-                    loading: 'lazy',
-                    widths: '400,600,800,1000,1200',
-                    sizes: '(min-width: 1000px) 25vw, 50vw',
-                    alt: media_alt
-                }}
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
     </div>
 
     {% if section.settings.footer_text != blank %}
-      <p class="whats-in-the-box__footer">{{ section.settings.footer_text | escape }}</p>
+      <p class="brisa-whats-in-the-box__footer">{{ section.settings.footer_text | escape }}</p>
     {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Whats in the box",
-  "class": "shopify-section--whats-in-the-box",
-  "max_blocks": 12,
+  "name": "Brisa whats in the box",
+  "class": "shopify-section--brisa-whats-in-the-box",
+  "max_blocks": 8,
   "settings": [
     {
       "type": "text",
@@ -439,72 +315,13 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Product image",
-      "info": "Recommended: 1200 x 900px or wider."
-    },
-    {
-      "type": "header",
-      "content": "Image adjustments"
-    },
-    {
-      "type": "select",
-      "id": "image_fit",
-      "label": "Image fit",
-      "default": "contain",
-      "options": [
-        { "value": "contain", "label": "Contain" },
-        { "value": "cover", "label": "Cover" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "image_max_width",
-      "label": "Image max width",
-      "min": 320,
-      "max": 720,
-      "step": 20,
-      "unit": "px",
-      "default": 520
-    },
-    {
-      "type": "range",
-      "id": "image_zoom",
-      "label": "Image zoom",
-      "min": 80,
-      "max": 140,
-      "step": 2,
-      "unit": "%",
-      "default": 100
-    },
-    {
-      "type": "range",
-      "id": "image_offset_x",
-      "label": "Image pan X",
-      "min": 0,
-      "max": 60,
-      "step": 2,
-      "unit": "%",
-      "default": 30
-    },
-    {
-      "type": "range",
-      "id": "image_offset_y",
-      "label": "Image pan Y",
-      "min": 0,
-      "max": 60,
-      "step": 2,
-      "unit": "%",
-      "default": 30
+      "label": "Product image"
     },
     {
       "type": "text",
       "id": "footer_text",
       "label": "Footer text",
       "default": "Everything in one box. Ships in 1-2 business days."
-    },
-    {
-      "type": "header",
-      "content": "Layout"
     },
     {
       "type": "range",
@@ -535,216 +352,6 @@
       "step": 4,
       "unit": "px",
       "default": 48
-    },
-    {
-      "type": "range",
-      "id": "header_spacing",
-      "label": "Space below header",
-      "min": 12,
-      "max": 60,
-      "step": 4,
-      "unit": "px",
-      "default": 32
-    },
-    {
-      "type": "range",
-      "id": "footer_spacing",
-      "label": "Space above footer",
-      "min": 12,
-      "max": 60,
-      "step": 4,
-      "unit": "px",
-      "default": 28
-    },
-    {
-      "type": "range",
-      "id": "panel_padding_vertical",
-      "label": "Panel padding vertical",
-      "min": 20,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "panel_padding_horizontal",
-      "label": "Panel padding horizontal",
-      "min": 16,
-      "max": 80,
-      "step": 4,
-      "unit": "px",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "panel_radius",
-      "label": "Panel corner radius",
-      "min": 0,
-      "max": 40,
-      "step": 4,
-      "unit": "px",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "panel_tagline_spacing",
-      "label": "Space below panel tagline",
-      "min": 12,
-      "max": 60,
-      "step": 4,
-      "unit": "px",
-      "default": 32
-    },
-    {
-      "type": "range",
-      "id": "image_radius",
-      "label": "Image corner radius",
-      "min": 0,
-      "max": 24,
-      "step": 4,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "Additional media"
-    },
-    {
-      "type": "range",
-      "id": "media_spacing",
-      "label": "Space above media",
-      "min": 0,
-      "max": 60,
-      "step": 4,
-      "unit": "px",
-      "default": 28
-    },
-    {
-      "type": "range",
-      "id": "media_gap",
-      "label": "Media gap",
-      "min": 8,
-      "max": 32,
-      "step": 4,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "media_radius",
-      "label": "Media corner radius",
-      "min": 0,
-      "max": 24,
-      "step": 4,
-      "unit": "px",
-      "default": 12
-    },
-    {
-      "type": "range",
-      "id": "media_columns_desktop",
-      "label": "Media columns (desktop)",
-      "min": 2,
-      "max": 4,
-      "step": 1,
-      "default": 4
-    },
-    {
-      "type": "range",
-      "id": "media_columns_mobile",
-      "label": "Media columns (mobile)",
-      "min": 1,
-      "max": 2,
-      "step": 1,
-      "default": 1
-    },
-    {
-      "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "label": "Heading size",
-      "min": 24,
-      "max": 72,
-      "step": 2,
-      "unit": "px",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "subheading_size",
-      "label": "Subheading size",
-      "min": 14,
-      "max": 28,
-      "step": 2,
-      "unit": "px",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "panel_heading_size",
-      "label": "Panel heading size",
-      "min": 24,
-      "max": 56,
-      "step": 2,
-      "unit": "px",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "panel_tagline_size",
-      "label": "Panel tagline size",
-      "min": 8,
-      "max": 16,
-      "step": 1,
-      "unit": "px",
-      "default": 10
-    },
-    {
-      "type": "range",
-      "id": "callout_title_size",
-      "label": "Callout title size",
-      "min": 12,
-      "max": 22,
-      "step": 1,
-      "unit": "px",
-      "default": 14
-    },
-    {
-      "type": "range",
-      "id": "callout_text_size",
-      "label": "Callout text size",
-      "min": 12,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "default": 14
-    },
-    {
-      "type": "range",
-      "id": "footer_size",
-      "label": "Footer text size",
-      "min": 12,
-      "max": 22,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "callout_icon_size",
-      "label": "Callout icon size",
-      "min": 32,
-      "max": 72,
-      "step": 4,
-      "unit": "px",
-      "default": 48
-    },
-    {
-      "type": "header",
-      "content": "Colors"
     },
     {
       "type": "color",
@@ -827,22 +434,11 @@
           "default": "Premium. Reusable. Built to last."
         }
       ]
-    },
-    {
-      "type": "box_image",
-      "name": "Media",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "media_image",
-          "label": "Image"
-        }
-      ]
     }
   ],
   "presets": [
     {
-      "name": "Whats in the box",
+      "name": "Brisa whats in the box",
       "category": "Brisa",
       "blocks": [
         {
