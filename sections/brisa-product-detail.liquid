@@ -74,12 +74,20 @@
     gap: 12px;
   }
 
+  .brisa-product-detail-{{ section_uid }} .brisa-product-area-info__sellout {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+  }
+
   .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo {
     display: flex;
     align-items: center;
     gap: 12px;
     max-width: 680px;
-    margin: 0 auto 18px;
+    margin: 16px auto 18px;
     padding: 14px 16px;
     color: {{ section.settings.promo_text_color }};
     background: {{ section.settings.promo_background }};
@@ -314,6 +322,7 @@
 
     .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo {
       max-width: none;
+      margin-top: 16px;
       margin-left: 0;
       margin-right: 0;
     }
