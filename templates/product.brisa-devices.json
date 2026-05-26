@@ -17,6 +17,9 @@
           "settings": {
             "image": "shopify://shop_images/device-slide-1.png",
             "mobile_image": "shopify://shop_images/device-slide-1.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
@@ -37,6 +40,9 @@
           "settings": {
             "image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
             "split_image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "Tell your story",
             "title": "Slide title",
@@ -57,6 +63,9 @@
           "settings": {
             "image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
             "split_image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "Tell your story",
             "title": "Slide title",
@@ -77,6 +86,9 @@
           "settings": {
             "image": "shopify://shop_images/Untitled_Design_-_1.png",
             "split_image": "shopify://shop_images/Untitled_Design_-_1.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "Tell your story",
             "title": "Slide title",
@@ -97,6 +109,9 @@
           "settings": {
             "image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
             "split_image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "Tell your story",
             "title": "Slide title",
@@ -133,7 +148,13 @@
         "show_initial_transition": false,
         "autoplay": true,
         "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
+        "background": "rgba(0,0,0,0)",
+        "nav_background": "#ffffff",
+        "thumbnail_size": 64,
+        "thumbnail_radius": 10,
+        "thumbnail_active_border": "#008bdc",
+        "arrow_background": "#ffffff",
+        "arrow_color": "#1a1a1a"
       }
     },
     "main": {
@@ -394,6 +415,83 @@
         "mobile_padding_bottom": 36,
         "footnote": ""
       }
+    },
+    "device_questions_PFtKdK": {
+      "type": "device-questions",
+      "blocks": {
+        "question_hw4pbt": {
+          "type": "question",
+          "settings": {
+            "question": "How does Brisa work?",
+            "answer": "<p>Brisa uses aroma cores and a tactile ritual to replace the hand-to-mouth habit of vaping. You inhale clean air through a familiar motion, tricking your brain without the nicotine.</p>"
+          }
+        },
+        "question_MA3EtX": {
+          "type": "question",
+          "settings": {
+            "question": "Is there nicotine in Brisa?",
+            "answer": "<p>No nicotine. No vapour. No combustion. Just food-grade flavour cores and the ritual your hands already know.</p>"
+          }
+        },
+        "question_BWYAAp": {
+          "type": "question",
+          "settings": {
+            "question": "How long does each core last?",
+            "answer": "<p>Each core lasts 2.5 to 4 days depending on how often you reach for it and the aroma profile. The Starter Kit (9 cores) covers 3 to 5 weeks of ritual. The Mates Pack covers 3 to 5 weeks per person - 18 cores total, split across both devices.</p>"
+          }
+        },
+        "question_YAKgfd": {
+          "type": "question",
+          "settings": {
+            "question": "What if it doesn't work?",
+            "answer": "<p>Every device is covered by the 30-Day Success Guarantee. If Brisa doesn't work in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call. We don't stop until you've kicked the habit.</p>"
+          }
+        },
+        "question_xtD9Vi": {
+          "type": "question",
+          "settings": {
+            "question": "Can the Mates Pack ship to two addresses?",
+            "answer": "<p>Yes. At checkout you'll enter two separate shipping addresses. Both devices are delivered independently.</p>"
+          }
+        },
+        "question_m8ApTb": {
+          "type": "question",
+          "settings": {
+            "question": "Is Brisa available outside Australia?",
+            "answer": "<p>Currently we ship Australia-wide only, with free standard shipping on every order.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question_hw4pbt",
+        "question_MA3EtX",
+        "question_BWYAAp",
+        "question_YAKgfd",
+        "question_xtD9Vi",
+        "question_m8ApTb"
+      ],
+      "name": "Device questions",
+      "settings": {
+        "heading": "Questions",
+        "max_width": 900,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "box_padding_vertical": 36,
+        "box_padding_horizontal": 40,
+        "heading_spacing": 24,
+        "item_padding_vertical": 22,
+        "border_width": 2,
+        "divider_width": 2,
+        "border_radius": 0,
+        "heading_size": 40,
+        "question_size": 18,
+        "answer_size": 16,
+        "background": "#ffffff",
+        "panel_background": "#d9efff",
+        "text_color": "#2c4e8a",
+        "border_color": "#7eb8e0",
+        "divider_color": "#7eb8e0"
+      }
     }
   },
   "order": [
@@ -403,6 +501,7 @@
     "1772962804ca13e40e",
     "custom_liquid_wKcMgG",
     "custom_liquid_VxEmGV",
-    "brisa_comparison_table_ntMxq4"
+    "brisa_comparison_table_ntMxq4",
+    "device_questions_PFtKdK"
   ]
 }
