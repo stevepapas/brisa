@@ -54,21 +54,33 @@
     gap: 16px;
     padding: 14px 20px 18px;
     background: {{ section.settings.nav_background }};
+    position: relative;
+    z-index: 2;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar page-dots {
     position: static;
     inset: auto;
     display: flex;
-    flex: 0 1 auto;
+    flex: 1 1 auto;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    max-width: min(100%, 720px);
+    min-width: 0;
+    max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 2px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
     pointer-events: auto;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar page-dots::-webkit-scrollbar {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa {
@@ -80,6 +92,7 @@
     position: relative;
     display: block;
     flex: 0 0 var(--slideshow-brisa-thumb-size);
+    scroll-snap-align: center;
     width: var(--slideshow-brisa-thumb-size);
     min-width: var(--slideshow-brisa-thumb-size);
     max-width: var(--slideshow-brisa-thumb-size);
@@ -345,7 +358,7 @@
           {%- render 'icon' with 'nav-arrow-left', direction_aware: true -%}
         </button>
 
-        <page-dots {% if section.settings.autoplay %}animation-timer{% endif %} class="slideshow-brisa__dots">
+        <page-dots align-selected {% if section.settings.autoplay %}animation-timer{% endif %} class="slideshow-brisa__dots">
           {%- for block in section.blocks -%}
             {%- assign thumb_image = block.settings.image -%}
             {%- if thumb_image == blank -%}
@@ -385,7 +398,7 @@
   "disabled_on": {
     "groups": ["header", "custom.overlay"]
   },
-  "max_blocks": 5,
+  "max_blocks": 12,
   "settings": [
     {
       "type": "select",
