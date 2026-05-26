@@ -455,6 +455,18 @@
         "footnote": ""
       }
     },
+    "brisa_product_reviews_zMjLwQ": {
+      "type": "brisa-product-reviews",
+      "name": "Brisa product reviews",
+      "settings": {
+        "heading": "Real Aussies. Real Reviews.",
+        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_arrows": true,
+        "show_dots": false,
+        "autoplay": false,
+        "autoplay_speed": 5000
+      }
+    },
     "device_questions_PFtKdK": {
       "type": "device-questions",
       "blocks": {
@@ -531,18 +543,6 @@
         "border_color": "#7eb8e0",
         "divider_color": "#7eb8e0"
       }
-    },
-    "brisa_product_reviews_zMjLwQ": {
-      "type": "brisa-product-reviews",
-      "name": "Brisa product reviews",
-      "settings": {
-        "heading": "Real Aussies. Real Reviews.",
-        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
-        "show_arrows": true,
-        "show_dots": false,
-        "autoplay": false,
-        "autoplay_speed": 5000
-      }
     }
   },
   "order": [
@@ -552,7 +552,7 @@
     "1772962804ca13e40e",
     "engineered_switch_NniVXE",
     "brisa_comparison_table_ntMxq4",
-    "device_questions_PFtKdK",
-    "brisa_product_reviews_zMjLwQ"
+    "brisa_product_reviews_zMjLwQ",
+    "device_questions_PFtKdK"
   ]
 }
