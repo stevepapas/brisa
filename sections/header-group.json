@@ -17,7 +17,7 @@
         "message_yeyJkg": {
           "type": "message",
           "settings": {
-            "text": "FREE SHIPPING ON ALL STARTER KIDS AUS & NZ",
+            "text": "FREE SHIPPING ON ALL STARTER KITS AUS",
             "learn_more_text": "Learn more",
             "title": "",
             "content": "",
@@ -47,7 +47,6 @@
     },
     "header": {
       "type": "header",
-      "disabled": true,
       "custom_css": [],
       "settings": {
         "enable_sticky_header": true,
