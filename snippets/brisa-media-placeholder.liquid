@@ -1,0 +1,15 @@
+{%- liquid
+  assign placeholder_type = type | default: 'landscape'
+  assign placeholder_label = label | default: 'VIDEO PLACE HOLDER'
+-%}
+
+<div class="brisa-media-placeholder brisa-media-placeholder--{{ placeholder_type }}" aria-hidden="true">
+  <span class="brisa-media-placeholder__scene">
+    <span class="brisa-media-placeholder__cloud brisa-media-placeholder__cloud--left"></span>
+    <span class="brisa-media-placeholder__cloud brisa-media-placeholder__cloud--right"></span>
+    <span class="brisa-media-placeholder__hill"></span>
+  </span>
+  {%- if placeholder_label != blank -%}
+    <span class="brisa-media-placeholder__label">{{ placeholder_label | escape }}</span>
+  {%- endif -%}
+</div>

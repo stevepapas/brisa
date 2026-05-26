@@ -254,6 +254,15 @@
   .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results .brisa-product-testimonials {
     max-width: 100%;
     padding: 0;
+    margin-top: 24px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results .brisa-product-testimonials__video-grid {
+    margin: 0 0 18px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results .brisa-product-testimonials__video-thumb {
+    aspect-ratio: 9 / 16;
   }
 
   .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results .brisa-product-testimonials__heading {
@@ -328,10 +337,20 @@
     }
 
     .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(110px, 38%);
+      gap: 14px;
       margin-left: -20px;
       margin-right: -20px;
       padding: 24px 20px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand-heading {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand-text {
+      font-size: 13px;
     }
 
     .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how,
@@ -449,9 +468,13 @@
           {% endif %}
         </div>
 
-        {% if section.settings.brand_image != blank %}
-          {{ section.settings.brand_image | image_url: width: 600 | image_tag: class: 'brisa-product-detail__brand-image', loading: 'lazy', widths: '300,600', alt: section.settings.brand_image.alt | default: section.settings.brand_heading }}
-        {% endif %}
+        <div class="brisa-product-detail__brand-media">
+          {% if section.settings.brand_image != blank %}
+            {{ section.settings.brand_image | image_url: width: 600 | image_tag: class: 'brisa-product-detail__brand-image', loading: 'lazy', widths: '300,600', alt: section.settings.brand_image.alt | default: section.settings.brand_heading }}
+          {% else %}
+            {% render 'brisa-media-placeholder', type: 'square', label: '' %}
+          {% endif %}
+        </div>
       </div>
     {% endif %}
 
@@ -461,43 +484,49 @@
           <h2 class="brisa-product-detail__how-heading">{{ section.settings.how_heading | escape }}</h2>
         {% endif %}
 
-        {% if how_video_src != blank or how_poster != blank %}
-          <div class="brisa-product-detail__how-video">
-            <div class="brisa-product-area-info__landscape">
-              {% if how_video_src != blank %}
-                <button
-                  type="button"
-                  class="brisa-product-area-info__landscape-trigger"
-                  data-brisa-video-src="{{ how_video_src | escape }}"
-                  data-brisa-video-type="{{ how_video_type }}"
-                  data-brisa-video-aspect="landscape"
-                  aria-label="{{ section.settings.how_video_label | escape }}"
-                >
-                  {% if how_poster != blank %}
-                    <img
-                      src="{{ how_poster | image_url: width: 1200 }}"
-                      alt="{{ how_poster.alt | default: section.settings.how_video_label | escape }}"
-                      class="brisa-product-area-info__landscape-image"
-                      loading="lazy"
-                      width="{{ how_poster.width }}"
-                      height="{{ how_poster.height }}"
-                    >
-                  {% endif %}
-                  <span class="brisa-product-area-info__play" aria-hidden="true"><span></span></span>
-                </button>
-              {% elsif how_poster != blank %}
-                <img
-                  src="{{ how_poster | image_url: width: 1200 }}"
-                  alt="{{ how_poster.alt | default: section.settings.how_heading | escape }}"
-                  class="brisa-product-area-info__landscape-image"
-                  loading="lazy"
-                  width="{{ how_poster.width }}"
-                  height="{{ how_poster.height }}"
-                >
-              {% endif %}
-            </div>
+        <div class="brisa-product-detail__how-video">
+          <div class="brisa-product-area-info__landscape">
+            {% if how_video_src != blank %}
+              <button
+                type="button"
+                class="brisa-product-area-info__landscape-trigger"
+                data-brisa-video-src="{{ how_video_src | escape }}"
+                data-brisa-video-type="{{ how_video_type }}"
+                data-brisa-video-aspect="landscape"
+                aria-label="{{ section.settings.how_video_label | escape }}"
+              >
+                {% if how_poster != blank %}
+                  <img
+                    src="{{ how_poster | image_url: width: 1200 }}"
+                    alt="{{ how_poster.alt | default: section.settings.how_video_label | escape }}"
+                    class="brisa-product-area-info__landscape-image"
+                    loading="lazy"
+                    width="{{ how_poster.width }}"
+                    height="{{ how_poster.height }}"
+                  >
+                {% else %}
+                  {% render 'brisa-media-placeholder', type: 'landscape' %}
+                {% endif %}
+                <span class="brisa-product-area-info__play" aria-hidden="true"><span></span></span>
+              </button>
+            {% else %}
+              <div class="brisa-product-area-info__landscape-static">
+                {% if how_poster != blank %}
+                  <img
+                    src="{{ how_poster | image_url: width: 1200 }}"
+                    alt="{{ how_poster.alt | default: section.settings.how_heading | escape }}"
+                    class="brisa-product-area-info__landscape-image"
+                    loading="lazy"
+                    width="{{ how_poster.width }}"
+                    height="{{ how_poster.height }}"
+                  >
+                {% else %}
+                  {% render 'brisa-media-placeholder', type: 'landscape' %}
+                {% endif %}
+              </div>
+            {% endif %}
           </div>
-        {% endif %}
+        </div>
 
         {% if step_blocks.size > 0 %}
           <ol class="brisa-product-detail__step-list">
@@ -525,11 +554,86 @@
           <h2 class="brisa-product-detail__results-heading">{{ section.settings.results_heading | escape }}</h2>
         {% endif %}
 
-        {% if section.settings.show_testimonials and total_testimonials > 0 %}
-          {% if section.settings.video_subheading != blank %}
-            <p class="brisa-product-detail__results-subheading">{{ section.settings.video_subheading | escape }}</p>
-          {% endif %}
+        {% if section.settings.video_subheading != blank %}
+          <p class="brisa-product-detail__results-subheading">{{ section.settings.video_subheading | escape }}</p>
+        {% endif %}
 
+        {% if video_blocks.size > 0 %}
+          <div class="brisa-product-testimonials__video-grid">
+            {% for block in video_blocks %}
+              {% liquid
+                assign video_src = ''
+                assign video_type = ''
+
+                if block.settings.video != blank
+                  assign local_video_source = block.settings.video.sources | where: 'format', 'mp4' | first
+                  if local_video_source == blank
+                    assign local_video_source = block.settings.video.sources | first
+                  endif
+                  assign video_src = local_video_source.url
+                  assign video_type = 'html5'
+                elsif block.settings.video_url.type == 'youtube'
+                  assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+                  assign video_type = 'iframe'
+                elsif block.settings.video_url.type == 'vimeo'
+                  assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+                  assign video_type = 'iframe'
+                endif
+              %}
+
+              {% if video_src != blank %}
+                <button
+                  type="button"
+                  class="brisa-product-testimonials__video-thumb"
+                  data-brisa-video-src="{{ video_src | escape }}"
+                  data-brisa-video-type="{{ video_type }}"
+                  data-brisa-video-aspect="portrait"
+                  aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {% if block.settings.thumbnail != blank %}
+                    <img
+                      src="{{ block.settings.thumbnail | image_url: width: 420 }}"
+                      alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
+                      loading="lazy"
+                      width="{{ block.settings.thumbnail.width }}"
+                      height="{{ block.settings.thumbnail.height }}"
+                    >
+                  {% else %}
+                    {% render 'brisa-media-placeholder', type: 'portrait', label: '' %}
+                  {% endif %}
+                  <span class="brisa-product-testimonials__video-play" aria-hidden="true"><span></span></span>
+                </button>
+              {% else %}
+                <div class="brisa-product-testimonials__video-thumb brisa-product-testimonials__video-thumb--static" {{ block.shopify_attributes }}>
+                  {% if block.settings.thumbnail != blank %}
+                    <img
+                      src="{{ block.settings.thumbnail | image_url: width: 420 }}"
+                      alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
+                      loading="lazy"
+                      width="{{ block.settings.thumbnail.width }}"
+                      height="{{ block.settings.thumbnail.height }}"
+                    >
+                  {% else %}
+                    {% render 'brisa-media-placeholder', type: 'portrait', label: '' %}
+                  {% endif %}
+                  <span class="brisa-product-testimonials__video-play" aria-hidden="true"><span></span></span>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% elsif section.settings.show_video_placeholders %}
+          <div class="brisa-product-testimonials__video-grid" aria-hidden="true">
+            {% for placeholder_index in (1..3) %}
+              <div class="brisa-product-testimonials__video-thumb brisa-product-testimonials__video-thumb--static">
+                {% render 'brisa-media-placeholder', type: 'portrait', label: '' %}
+                <span class="brisa-product-testimonials__video-play" aria-hidden="true"><span></span></span>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.show_testimonials and total_testimonials > 0 %}
           <brisa-product-testimonials
             class="brisa-product-testimonials"
             data-total-items="{{ total_testimonials }}"
@@ -589,63 +693,27 @@
           </brisa-product-testimonials>
         {% endif %}
 
-        {% if video_blocks.size > 0 %}
-          <div class="brisa-product-testimonials__video-grid">
-            {% for block in video_blocks %}
-              {% liquid
-                assign video_src = ''
-                assign video_type = ''
-
-                if block.settings.video != blank
-                  assign local_video_source = block.settings.video.sources | where: 'format', 'mp4' | first
-                  if local_video_source == blank
-                    assign local_video_source = block.settings.video.sources | first
-                  endif
-                  assign video_src = local_video_source.url
-                  assign video_type = 'html5'
-                elsif block.settings.video_url.type == 'youtube'
-                  assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
-                  assign video_type = 'iframe'
-                elsif block.settings.video_url.type == 'vimeo'
-                  assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
-                  assign video_type = 'iframe'
-                endif
-              %}
-
-              <button
-                type="button"
-                class="brisa-product-testimonials__video-thumb"
-                {% if video_src != blank %}data-brisa-video-src="{{ video_src | escape }}"{% endif %}
-                {% if video_type != blank %}data-brisa-video-type="{{ video_type }}"{% endif %}
-                aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
-                {{ block.shopify_attributes }}
-              >
-                {% if block.settings.thumbnail != blank %}
-                  <img
-                    src="{{ block.settings.thumbnail | image_url: width: 420 }}"
-                    alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
-                    loading="lazy"
-                    width="{{ block.settings.thumbnail.width }}"
-                    height="{{ block.settings.thumbnail.height }}"
-                  >
-                {% endif %}
-                <span class="brisa-product-testimonials__video-play" aria-hidden="true"><span></span></span>
-              </button>
-            {% endfor %}
-          </div>
+        {% if section.settings.customers_subheading != blank %}
+          <p class="brisa-product-detail__results-subheading">{{ section.settings.customers_subheading | escape }}</p>
         {% endif %}
 
         {% if photo_blocks.size > 0 %}
-          {% if section.settings.customers_subheading != blank %}
-            <p class="brisa-product-detail__results-subheading">{{ section.settings.customers_subheading | escape }}</p>
-          {% endif %}
-
           <div class="brisa-product-detail__photo-grid">
             {% for block in photo_blocks %}
-              <div class="brisa-product-detail__photo" {{ block.shopify_attributes }}>
+              <div class="brisa-product-detail__photo{% if block.settings.image == blank %} brisa-product-detail__photo--placeholder{% endif %}" {{ block.shopify_attributes }}>
                 {% if block.settings.image != blank %}
                   {{ block.settings.image | image_url: width: 420 | image_tag: loading: 'lazy', widths: '210,420', alt: block.settings.image.alt | default: 'Customer photo' }}
+                {% else %}
+                  {% render 'brisa-media-placeholder', type: 'square', label: '' %}
                 {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% elsif section.settings.show_photo_placeholders %}
+          <div class="brisa-product-detail__photo-grid" aria-hidden="true">
+            {% for placeholder_index in (1..6) %}
+              <div class="brisa-product-detail__photo brisa-product-detail__photo--placeholder">
+                {% render 'brisa-media-placeholder', type: 'square', label: '' %}
               </div>
             {% endfor %}
           </div>
@@ -864,6 +932,18 @@
       "type": "checkbox",
       "id": "show_testimonials",
       "label": "Show testimonial carousel",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video_placeholders",
+      "label": "Show video placeholders when empty",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_photo_placeholders",
+      "label": "Show customer photo placeholders when empty",
       "default": true
     },
     {
