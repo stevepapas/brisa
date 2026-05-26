@@ -3,6 +3,17 @@
   assign section_uid = section.id | replace: '-', '' | downcase
   assign active_kit_set = active_kit_set | strip | default: 'all'
 
+  assign starter_product = section.settings.starter_product
+  assign mates_product = section.settings.mates_product
+
+  if starter_product == blank and section.settings.starter_handle != blank
+    assign starter_product = all_products[section.settings.starter_handle]
+  endif
+
+  if mates_product == blank and section.settings.mates_handle != blank
+    assign mates_product = all_products[section.settings.mates_handle]
+  endif
+
   assign is_starter_active = false
   assign is_mates_active = false
 
