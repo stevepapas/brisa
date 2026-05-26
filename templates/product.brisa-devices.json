@@ -19,6 +19,8 @@
             "kit_set": "mates",
             "image": "shopify://shop_images/mates-pack-2.png",
             "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
             "title": "",
@@ -41,6 +43,8 @@
             "kit_set": "mates",
             "image": "shopify://shop_images/mates-pack-1.png",
             "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
             "title": "",
@@ -63,6 +67,8 @@
             "kit_set": "mates",
             "image": "shopify://shop_images/mates-pack-4.png",
             "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
             "title": "",
@@ -85,6 +91,8 @@
             "kit_set": "mates",
             "image": "shopify://shop_images/mates-pack-5.png",
             "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
             "title": "",
@@ -107,6 +115,8 @@
             "kit_set": "mates",
             "image": "shopify://shop_images/mates-pack-1.png",
             "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
             "title": "",
@@ -128,7 +138,10 @@
           "settings": {
             "kit_set": "starter",
             "image": "shopify://shop_images/device-slide-1.png",
+            "mobile_image": "shopify://shop_images/device-slide-1.png",
             "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
@@ -144,79 +157,14 @@
             "overlay_opacity": 30
           }
         },
-        "image_f69Nyc": {
+        "image_mYkP7b": {
           "type": "image",
-          "name": "sk2",
           "settings": {
             "kit_set": "starter",
-            "image": "shopify://shop_images/8249f761d4e59d329fbe964092d89ec530fd236cbaace786445346a64edc02e5.png",
+            "image": "shopify://shop_images/mates-pack-3.png",
             "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "image_HQUYeh": {
-          "type": "image",
-          "name": "sk3",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/cf38f8b01087b1a18b7da4276c7e7868232c1a3b8c44e8f77a6cb75d825e114a.png",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "image_enhjyK": {
-          "type": "image",
-          "name": "sk4",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/Untitled_Design_-_1.png",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        },
-        "image_RpGaXN": {
-          "type": "image",
-          "name": "sk5",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/3763ee5fbde47980c9e9624a21b68a9103cb258b3e5a9df4a436b3f8b70638ae.png",
-            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
             "title": "",
@@ -240,10 +188,7 @@
         "image_drDPHj",
         "image_mUiUVU",
         "image_BaBDEt",
-        "image_f69Nyc",
-        "image_HQUYeh",
-        "image_enhjyK",
-        "image_RpGaXN"
+        "image_mYkP7b"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
@@ -258,9 +203,6 @@
         "mates_product": "",
         "mates_handle": "brisa-mates-pack-ocean-starter-kit",
         "editor_preview_kit": "auto",
-        "desktop_layout": "square",
-        "desktop_max_width": 520,
-        "desktop_image_fit": "contain",
         "section_height": "small",
         "transition_type": "sweep",
         "show_initial_transition": false,
@@ -283,14 +225,14 @@
           "type": "feature",
           "settings": {
             "card": "starter",
-            "text": "1 \u00d7 Brisa Device (chosen colour)"
+            "text": "1 × Brisa Device (chosen colour)"
           }
         },
         "feature_CLDKnc": {
           "type": "feature",
           "settings": {
             "card": "starter",
-            "text": "9 \u00d7 Flavour Cores \u2014 3 to 5 weeks of ritual"
+            "text": "9 × Flavour Cores — 3 to 5 weeks of ritual"
           }
         },
         "feature_AbRWkm": {
@@ -311,28 +253,28 @@
           "type": "feature",
           "settings": {
             "card": "mates",
-            "text": "2 \u00d7 Brisa Devices"
+            "text": "2 × Brisa Devices"
           }
         },
         "feature_66kC4Y": {
           "type": "feature",
           "settings": {
             "card": "mates",
-            "text": "18 \u00d7 Flavour Cores \u2014 3-5 weeks per person of ritual each"
+            "text": "18 × Flavour Cores — 3-5 weeks per person of ritual each"
           }
         },
         "feature_f4LRLb": {
           "type": "feature",
           "settings": {
             "card": "mates",
-            "text": "2 \u00d7 Cleaning Kits + Carry Bags"
+            "text": "2 × Cleaning Kits + Carry Bags"
           }
         },
         "feature_FdTDcU": {
           "type": "feature",
           "settings": {
             "card": "mates",
-            "text": "2 \u00d7 FREE Watermelon Cores ($30 value)"
+            "text": "2 × FREE Watermelon Cores ($30 value)"
           }
         },
         "feature_tCEk8q": {
@@ -369,7 +311,7 @@
         "mates_product": "brisa-mates-pack-ocean-starter-kit",
         "mates_handle": "mates-pack",
         "show_hero": true,
-        "brand_prefix": "BRISA\u2122",
+        "brand_prefix": "BRISA™",
         "starter_kit_heading": "STARTER KIT",
         "mates_kit_heading": "MATES KIT",
         "highlight_icon_1": "shopify://shop_images/brisa_03.png",
@@ -567,14 +509,14 @@
           "type": "step",
           "settings": {
             "title": "Set your airflow",
-            "text": "Dial the base to find your perfect draw \u2014 tighter or looser, just like you're used to."
+            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "title": "Reach for it instead",
-            "text": "Every time you'd reach for your vape \u2014 reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
+            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
           }
         }
       },
@@ -600,10 +542,10 @@
         "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "show_promo": true,
         "promo_icon": "shopify://shop_images/gift.png",
-        "promo_text": "Order this week \u2014 FREE Watermelon core pack (valued at $15) included.",
+        "promo_text": "Order this week — FREE Watermelon core pack (valued at $15) included.",
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
-        "brand_text": "Brisa is built around the ritual \u2014 not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
+        "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
         "brand_image": "shopify://shop_images/DSC_2704_copy.jpg",
         "show_how_it_works": true,
         "how_heading": "How It Works",
@@ -787,7 +729,7 @@
           "type": "item",
           "settings": {
             "icon": "airflow",
-            "title": "Tuned airflow \u2014 matches a real vape draw.",
+            "title": "Tuned airflow — matches a real vape draw.",
             "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
           }
         },
