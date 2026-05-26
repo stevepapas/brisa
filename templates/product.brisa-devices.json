@@ -178,13 +178,6 @@
             "size_chart_page": ""
           }
         },
-        "liquid_DmN84X": {
-          "type": "liquid",
-          "name": "Brisa Gives",
-          "settings": {
-            "liquid": "<p><b>Brisa gives you something to reach for in the moments you nearly turn back. Everything you need to get started, including: </b></p>\n<ul>\n\n<li>The Brisa device</li>\n<li>Cleaning kit</li>\n<li>Storage bag</li>\n<li>9 mint cores, enough aroma cores for a complete month</li>\n</ul>"
-          }
-        },
         "liquid_zYKRxA": {
           "type": "liquid",
           "settings": {
@@ -218,7 +211,6 @@
         "description_mjgBLA",
         "g_combined_listings_swatch_widget_HGPpek",
         "variant_picker",
-        "liquid_DmN84X",
         "liquid_zYKRxA",
         "liquid_TU4fi4",
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
