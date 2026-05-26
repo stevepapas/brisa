@@ -1,36 +1,9 @@
-{%- liquid
-  assign active_kit_set = 'all'
+{%- capture active_kit_set -%}{%- render 'brisa-active-kit-set', product: product, section: section -%}{%- endcapture -%}
+{%- assign active_kit_set = active_kit_set | strip | default: 'all' -%}
 
-  assign starter_product = section.settings.starter_product
-  assign mates_product = section.settings.mates_product
-
-  if starter_product == blank and section.settings.starter_handle != blank
-    assign starter_product = all_products[section.settings.starter_handle]
-  endif
-
-  if mates_product == blank and section.settings.mates_handle != blank
-    assign mates_product = all_products[section.settings.mates_handle]
-  endif
-
-  if request.page_type == 'product' and product != blank
-    if mates_product != blank and product.id == mates_product.id
-      assign active_kit_set = 'mates'
-    elsif starter_product != blank and product.id == starter_product.id
-      assign active_kit_set = 'starter'
-    elsif mates_product != blank and product.handle == mates_product.handle
-      assign active_kit_set = 'mates'
-    elsif starter_product != blank and product.handle == starter_product.handle
-      assign active_kit_set = 'starter'
-    elsif starter_product != blank and product.handle == section.settings.starter_handle
-      assign active_kit_set = 'starter'
-    elsif mates_product != blank and product.handle == section.settings.mates_handle
-      assign active_kit_set = 'mates'
-    endif
-  endif
-
-  if request.design_mode and section.settings.editor_preview_kit != 'auto' and section.settings.editor_preview_kit != blank
-    assign active_kit_set = section.settings.editor_preview_kit
-  endif
+{%- if request.design_mode and section.settings.editor_preview_kit != 'auto' and section.settings.editor_preview_kit != blank -%}
+  {%- assign active_kit_set = section.settings.editor_preview_kit -%}
+{%- endif -%}
 
   assign visible_blocks_count = 0
   assign first_visible_block = blank
@@ -303,6 +276,32 @@
     }
   {%- endif -%}
 
+  @media screen and (max-width: 999px) {
+    #shopify-section-{{ section.id }} {
+      overflow-x: clip;
+      max-width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} slide-show.slideshow-brisa,
+    #shopify-section-{{ section.id }} .slideshow__slide-list,
+    #shopify-section-{{ section.id }} .slideshow__slide,
+    #shopify-section-{{ section.id }} .slideshow__slide-inner,
+    #shopify-section-{{ section.id }} .slideshow__image-wrapper,
+    #shopify-section-{{ section.id }} .slideshow__image {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow__slide-list {
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow__image {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
@@ -320,7 +319,13 @@
   }
 </style>
 
-<section class="section section--flush{% if section.settings.desktop_layout == 'square' %} slideshow-brisa-section--square-desktop{% endif %}" data-active-kit-set="{{ active_kit_set }}">
+<section
+  class="section section--flush{% if section.settings.desktop_layout == 'square' %} slideshow-brisa-section--square-desktop{% endif %}"
+  data-active-kit-set="{{ active_kit_set }}"
+  data-starter-handle-prefix="{{ section.settings.starter_handle_prefix | default: 'brisa-device-' | escape }}"
+  data-starter-handle="{{ section.settings.starter_handle | escape }}"
+  data-mates-handle="{{ section.settings.mates_handle | escape }}"
+>
   <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
     <div class="slideshow__slide-list">
       {%- assign visible_index = 0 -%}
@@ -562,7 +567,15 @@
       "type": "text",
       "id": "starter_handle",
       "label": "Starter Kit handle (fallback)",
-      "default": "brisa-device-black"
+      "default": "brisa-device-black",
+      "info": "Used if no product is selected above. Prefix rule below also matches colour variants."
+    },
+    {
+      "type": "text",
+      "id": "starter_handle_prefix",
+      "label": "Starter kit handle prefix",
+      "default": "brisa-device-",
+      "info": "Any product handle starting with this prefix shows Starter Kit slides (e.g. brisa-device-black, brisa-device-cyan, brisa-device-rose)."
     },
     {
       "type": "product",

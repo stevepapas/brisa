@@ -1,0 +1,38 @@
+{%- liquid
+  comment
+    Outputs: starter | mates | all
+    Detects kit set from current product (mates pack vs starter device colours).
+  endcomment
+
+  assign kit_set = 'all'
+  assign starter_prefix = section.settings.starter_handle_prefix | default: 'brisa-device-'
+  assign starter_product = section.settings.starter_product
+  assign mates_product = section.settings.mates_product
+
+  if starter_product == blank and section.settings.starter_handle != blank
+    assign starter_product = all_products[section.settings.starter_handle]
+  endif
+
+  if mates_product == blank and section.settings.mates_handle != blank
+    assign mates_product = all_products[section.settings.mates_handle]
+  endif
+
+  if product != blank
+    if mates_product != blank and product.id == mates_product.id
+      assign kit_set = 'mates'
+    elsif starter_product != blank and product.id == starter_product.id
+      assign kit_set = 'starter'
+    elsif mates_product != blank and product.handle == mates_product.handle
+      assign kit_set = 'mates'
+    elsif starter_product != blank and product.handle == starter_product.handle
+      assign kit_set = 'starter'
+    elsif mates_product != blank and product.handle == section.settings.mates_handle
+      assign kit_set = 'mates'
+    elsif starter_product != blank and product.handle == section.settings.starter_handle
+      assign kit_set = 'starter'
+    elsif starter_prefix != blank and product.handle contains starter_prefix
+      assign kit_set = 'starter'
+    endif
+  endif
+-%}
+{{- kit_set -}}

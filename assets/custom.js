@@ -551,8 +551,36 @@ function initSlideshowBrisaSection(section) {
   });
 }
 
+function detectSlideshowBrisaKitFromUrl(section) {
+  const match = window.location.pathname.match(/\/products\/([^/?#]+)/);
+  if (!match) return null;
+
+  const handle = match[1];
+  const matesHandle = section.dataset.matesHandle || '';
+  const starterHandle = section.dataset.starterHandle || '';
+  const starterPrefix = section.dataset.starterHandlePrefix || 'brisa-device-';
+
+  if (matesHandle && handle === matesHandle) return 'mates';
+  if (starterPrefix && handle.startsWith(starterPrefix)) return 'starter';
+  if (starterHandle && handle === starterHandle) return 'starter';
+
+  return null;
+}
+
+function syncSlideshowBrisaKitFromPage(section) {
+  const kitFromUrl = detectSlideshowBrisaKitFromUrl(section);
+  const kitSet = kitFromUrl || section.dataset.activeKitSet;
+
+  if (kitSet && kitSet !== 'all') {
+    applySlideshowBrisaKit(section, kitSet);
+  }
+}
+
 function initAllSlideshowBrisaSections(root = document) {
-  root.querySelectorAll('.shopify-section--slideshow-brisa').forEach(initSlideshowBrisaSection);
+  root.querySelectorAll('.shopify-section--slideshow-brisa').forEach((section) => {
+    initSlideshowBrisaSection(section);
+    syncSlideshowBrisaKitFromPage(section);
+  });
 }
 
 document.addEventListener('click', (event) => {

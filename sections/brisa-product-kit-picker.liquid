@@ -1,38 +1,15 @@
+{%- capture active_kit_set -%}{%- render 'brisa-active-kit-set', product: product, section: section -%}{%- endcapture -%}
 {% liquid
   assign section_uid = section.id | replace: '-', '' | downcase
-
-  assign starter_product = section.settings.starter_product
-  assign mates_product = section.settings.mates_product
-
-  if starter_product == blank
-    assign starter_product = all_products[section.settings.starter_handle]
-  endif
-
-  if mates_product == blank
-    assign mates_product = all_products[section.settings.mates_handle]
-  endif
+  assign active_kit_set = active_kit_set | strip | default: 'all'
 
   assign is_starter_active = false
   assign is_mates_active = false
 
-  if product != blank
-    if starter_product != blank and product.id == starter_product.id
-      assign is_starter_active = true
-    elsif mates_product != blank and product.id == mates_product.id
-      assign is_mates_active = true
-    elsif starter_product != blank and product.handle == starter_product.handle
-      assign is_starter_active = true
-    elsif mates_product != blank and product.handle == mates_product.handle
-      assign is_mates_active = true
-    endif
-  endif
-
-  if is_starter_active == false and is_mates_active == false and request.page_type == 'product'
-    if starter_product != blank and product.handle == section.settings.starter_handle
-      assign is_starter_active = true
-    elsif mates_product != blank and product.handle == section.settings.mates_handle
-      assign is_mates_active = true
-    endif
+  if active_kit_set == 'starter'
+    assign is_starter_active = true
+  elsif active_kit_set == 'mates'
+    assign is_mates_active = true
   endif
 
   if is_mates_active
@@ -138,15 +115,13 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: {{ section.settings.card_gap }}px;
-    align-items: stretch;
+    align-items: start;
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__card {
     display: flex;
     flex-direction: column;
-    min-height: 100%;
     padding: 0;
-    overflow: hidden;
     color: inherit;
     text-decoration: none;
     background: {{ section.settings.card_background }};
@@ -187,7 +162,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    min-height: 100%;
+    min-height: 0;
     padding: {{ section.settings.card_padding }}px;
   }
 
@@ -257,7 +232,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    flex: 1 1 auto;
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__feature {
@@ -285,16 +259,18 @@
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__note {
-    margin: 18px 0 0;
+    margin: 12px 0 0;
     color: {{ section.settings.text_color }};
     font-size: {{ section.settings.note_size }}px;
     font-weight: 400;
     line-height: 1.4;
+    flex-shrink: 0;
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__footer {
-    margin-top: auto;
-    padding-top: 24px;
+    margin-top: 16px;
+    padding-top: 0;
+    flex-shrink: 0;
     text-align: center;
   }
 
@@ -531,7 +507,14 @@
       "type": "text",
       "id": "starter_handle",
       "label": "Starter Kit handle (fallback)",
-      "default": "starter-kit"
+      "default": "brisa-device-black"
+    },
+    {
+      "type": "text",
+      "id": "starter_handle_prefix",
+      "label": "Starter kit handle prefix",
+      "default": "brisa-device-",
+      "info": "Matches all colour variants (black, cyan, rose, etc.)."
     },
     {
       "type": "product",
