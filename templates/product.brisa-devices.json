@@ -547,109 +547,29 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "title": "Pick your Better core",
-            "text": "Choose an Aroma core — slide it in. Your better ritual begins."
+            "title": "Unscrew the top",
+            "text": "Twist off the top cap and drop your aroma core inside. Takes seconds."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "Replace the reach",
-            "text": "Every time you'd reach for a vape, reach for Brisa instead. Same motion. Same relief. Zero chemicals."
+            "title": "Set your airflow",
+            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "title": "Break the cycle",
-            "text": "Within days, the chemical craving fades. The ritual stays — but now it's yours, not nicotine's."
-          }
-        },
-        "step_4": {
-          "type": "step",
-          "settings": {
-            "title": "Stepping away",
-            "text": "When the craving's gone, you walk away from Brisa too. Our mission isn't to keep you on us — it's to get you free."
-          }
-        },
-        "video_review_1": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-2.png",
-            "video": "shopify://files/videos/test2.MOV",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "video_review_2": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-3.png",
-            "video": "shopify://files/videos/test3.MOV",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "video_review_3": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-1.png",
-            "video": "shopify://files/videos/test-1.mov",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "customer_photo_1": {
-          "type": "customer_photo",
-          "settings": {
-            "image": "shopify://shop_images/sq-1.jpg"
-          }
-        },
-        "customer_photo_2": {
-          "type": "customer_photo",
-          "settings": {
-            "image": "shopify://shop_images/sq-2.jpg"
-          }
-        },
-        "customer_photo_3": {
-          "type": "customer_photo",
-          "settings": {
-            "image": "shopify://shop_images/sq-3.jpg"
-          }
-        },
-        "customer_photo_4": {
-          "type": "customer_photo",
-          "settings": {
-            "image": "shopify://shop_images/sq-4.jpg"
-          }
-        },
-        "customer_photo_5": {
-          "type": "customer_photo",
-          "settings": {
-            "image": "shopify://shop_images/sq-5.jpg"
-          }
-        },
-        "customer_photo_6": {
-          "type": "customer_photo",
-          "settings": {
-            "image": "shopify://shop_images/sq-6.jpg"
+            "title": "Reach for it instead",
+            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
           }
         }
       },
       "block_order": [
         "step_1",
         "step_2",
-        "step_3",
-        "step_4",
-        "video_review_1",
-        "video_review_2",
-        "video_review_3",
-        "customer_photo_1",
-        "customer_photo_2",
-        "customer_photo_3",
-        "customer_photo_4",
-        "customer_photo_5",
-        "customer_photo_6"
+        "step_3"
       ],
       "name": "Brisa product detail",
       "settings": {
@@ -669,18 +589,13 @@
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
         "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
-        "brand_image": "shopify://shop_images/DSC_2903.jpg",
         "show_how_it_works": true,
         "how_heading": "How It Works",
-        "how_image": "shopify://shop_images/4-steps-how-to.png",
-        "how_video": "shopify://files/videos/how to use, personal exp.mp4",
         "how_video_url": "",
         "how_video_label": "Play how it works video",
         "show_results": true,
         "results_heading": "Real Results",
-        "show_testimonials": false,
-        "show_video_placeholders": true,
-        "show_photo_placeholders": true,
+        "show_testimonials": true,
         "video_subheading": "Video testimonials",
         "customers_subheading": "Real customers",
         "show_arrows": true,
@@ -929,6 +844,34 @@
         "autoplay_speed": 5000
       }
     },
+    "whats_in_the_box_MiChAY": {
+      "type": "whats-in-the-box",
+      "name": "Whats in the box",
+      "settings": {
+        "heading": "WHATS IN THE BOX",
+        "subheading": "Everything you need to make the switch on day one.",
+        "image": "shopify://shop_images/mates-pack-3.png",
+        "placeholder_text": "Product image goes here",
+        "footer_text": "Everything in one box. Ships in 1-2 business days.",
+        "image_max_width": 560,
+        "image_radius": 16,
+        "image_fit": "cover",
+        "max_width": 800,
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "header_spacing": 32,
+        "footer_spacing": 24,
+        "heading_size": 48,
+        "subheading_size": 18,
+        "footer_size": 16,
+        "placeholder_text_size": 22,
+        "background": "#f4f4f4",
+        "heading_color": "#111111",
+        "text_color": "#111111",
+        "placeholder_background": "#5b9fd4",
+        "placeholder_text_color": "#ffffff"
+      }
+    },
     "device_questions_PFtKdK": {
       "type": "device-questions",
       "blocks": {
@@ -1012,11 +955,12 @@
     "brisa_product_kit_picker_cKf7EP",
     "main",
     "product-content",
-    "brisa_product_detail",
     "1772962804ca13e40e",
-    "engineered_switch_NniVXE",
+    "brisa_product_detail",
     "brisa_comparison_table_ntMxq4",
+    "engineered_switch_NniVXE",
     "brisa_product_reviews_zMjLwQ",
+    "whats_in_the_box_MiChAY",
     "device_questions_PFtKdK"
   ]
 }
