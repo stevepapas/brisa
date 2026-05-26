@@ -1,1 +1,75 @@
-{"type":"header","name":"Header group","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"message_yeyJkg":{"type":"message","settings":{"text":"100% NICOTINE-FREE, TOBACCO-FREE, NON-COMBUSTIBLE, SENSORY DEVICE ONLY","learn_more_text":"Learn more","title":"","content":"","button_text":"","button_link":""}}},"block_order":["message_yeyJkg"],"settings":{"announcement_bar_position":"non_sticky","announcement_text_size":"normal","autoplay":true,"cycle_speed":5,"background":"#1491d9","text_color":"#ffffff","button_background":"#282828","button_text_color":"#ffffff"}},"blocks_a4hzci":{"type":"_blocks","name":"Marquee","settings":{}},"header":{"type":"header","custom_css":[],"settings":{"enable_sticky_header":true,"logo":"shopify:\/\/shop_images\/blrisa-black.png","logo_max_width":95,"mobile_logo_max_width":100,"navigation_menu":"main-menu","sidebar_navigation_menu":"","header_layout":"logo_left_navigation_center","show_icons":true,"reduce_desktop_padding":false,"show_locale_selector":true,"show_country_selector":false,"enable_transparent_header":false,"transparent_header_text_color":"#ffffff","search_menu":""}}},"order":["announcement-bar","blocks_a4hzci","header"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "message_yeyJkg": {
+          "type": "message",
+          "settings": {
+            "text": "100% NICOTINE-FREE, TOBACCO-FREE, NON-COMBUSTIBLE, SENSORY DEVICE ONLY",
+            "learn_more_text": "Learn more",
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "message_yeyJkg"
+      ],
+      "settings": {
+        "announcement_bar_position": "non_sticky",
+        "announcement_text_size": "normal",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "#1491d9",
+        "text_color": "#ffffff",
+        "button_background": "#282828",
+        "button_text_color": "#ffffff"
+      }
+    },
+    "blocks_a4hzci": {
+      "type": "_blocks",
+      "name": "Marquee",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "enable_sticky_header": true,
+        "logo": "shopify://shop_images/blrisa-black.png",
+        "logo_max_width": 95,
+        "mobile_logo_max_width": 100,
+        "navigation_menu": "main-menu",
+        "sidebar_navigation_menu": "",
+        "header_layout": "logo_left_navigation_center",
+        "show_icons": true,
+        "reduce_desktop_padding": false,
+        "show_locale_selector": true,
+        "show_country_selector": false,
+        "enable_transparent_header": false,
+        "transparent_header_text_color": "#ffffff",
+        "search_menu": ""
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "blocks_a4hzci",
+    "header"
+  ]
+}

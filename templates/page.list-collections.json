@@ -76,6 +76,25 @@
     },
     "custom_liquid_bHK8wn": {
       "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [
+        ".product-card {border-left-color: #efefef !important; border-right-color: #efefef !important;}",
+        ".product-main-image {max-width: 90%;}"
+      ],
+      "name": "Devices",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"product-carousel-section\">\n{% assign featured_image = 'the-brisa.png' | file_url %}\n<img class=\"image_heading\" src=\"{{ featured_image }}\" alt=\"Featured Products\" style=\"max-width: 100%; height: auto; display: block;\" />\n{% assign collection = collections['brisas'] %}\n\n  <div class=\"carousel-container brisas\">\n<h3 class=\"tex\" style=\"margin: 0px auto; padding-top: 30px; text-align: center\">CHOOSE FROM {{ collection.products_count }} COLOURS</h3>\n    <button class=\"carousel-arrow carousel-arrow-left\"  aria-label=\"Previous\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"15 18 9 12 15 6\"></polyline>\n      </svg>\n    </button>\n\n    <div class=\"product-carousel\" id=\"productCarousel\">\n      \n      {% for product in collection.products limit: 8 %}\n      <a href=\"{{ product.url }}\" class=\"product-card product-{{ product.handle }}\">\n          <div class=\"product-image-wrapper no-padding\">\n            <div class=\"fruit-elements\">\n              {% if product.metafields.custom.sprout_image_1 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_1 | img_url: '150x150' }}\" alt=\"Sprout 1\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_2 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_2 | img_url: '150x150' }}\" alt=\"Sprout 2\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_3 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_3 | img_url: '150x150' }}\" alt=\"Sprout 3\">\n                </div>\n              {% endif %}\n              \n              {% if product.metafields.custom.sprout_image_4 %}\n                <div class=\"fruit-element\">\n                  <img src=\"{{ product.metafields.custom.sprout_image_4 | img_url: '150x150' }}\" alt=\"Sprout 4\">\n                </div>\n              {% endif %}\n            </div>\n\n            {% if product.metafields.custom.carousel_product_image %}\n              <img class=\"product-main-image\" src=\"{{ product.metafields.custom.carousel_product_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% else %}\n              <img class=\"product-main-image\" src=\"{{ product.featured_image | img_url: '500x500' }}\" alt=\"{{ product.title }}\">\n            {% endif %}\n          </div>\n\n          <div class=\"product-info\">\n            <h3 class=\"product-title\">{{ product.title }}</h3>\n            <p class=\"product-price\">{{ product.price | money }}</p>\n          </div>\n      </a>  \n      {% endfor %}\n    </div>\n\n    <button class=\"carousel-arrow carousel-arrow-right\" aria-label=\"Next\">\n      <svg viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <polyline points=\"9 18 15 12 9 6\"></polyline>\n      </svg>\n    </button>\n  </div>\n</div>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "custom_liquid_HmmB3z": {
+      "type": "custom-liquid",
+      "disabled": true,
       "custom_css": [
         ".product-card {border-left-color: #efefef !important; border-right-color: #efefef !important;}",
         ".product-main-image {max-width: 90%;}"
@@ -150,8 +169,69 @@
         "flavour_size": 22
       }
     },
+    "product_slider_c3K7bi": {
+      "type": "product-slider",
+      "name": "Core  Slider",
+      "settings": {
+        "collection": "cores",
+        "heading": "Choose your Brisa",
+        "subheading": "Select your colour",
+        "product_limit": 8,
+        "show_product_name": true,
+        "show_slide_product_name": true,
+        "use_swatch_nav": true,
+        "swatch_color_source": "carousel_swatch_colour",
+        "swatch_color_metafield_namespace": "custom",
+        "swatch_color_metafield_key": "carousel_swatch_colour",
+        "swatch_label_source": "carousel_swatch_colour",
+        "swatch_label_metafield_namespace": "custom",
+        "swatch_label_metafield_key": "flavour",
+        "swatch_size": 32,
+        "swatch_text_size": 12,
+        "swatch_label_width": 80,
+        "button_text": "Shop starter kit",
+        "button_link": "",
+        "button_background": "#38b6ff",
+        "button_text_color": "#ffffff",
+        "button_radius": 15,
+        "button_size": 16,
+        "button_spacing": 20,
+        "max_width": 1200,
+        "slider_spacing": 20,
+        "pagination_spacing": 24,
+        "slider_border_radius": 0,
+        "nav_gap": 12,
+        "card_height": 420,
+        "mobile_card_height": 220,
+        "image_padding": 40,
+        "image_width": 70,
+        "image_max_height": 300,
+        "mobile_image_max_height": 150,
+        "sprout_size": 80,
+        "arrow_size": 44,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 28,
+        "background": "#ffffff",
+        "card_background": "#38b6ff",
+        "slide_background_image": "shopify://shop_images/sky-background.png",
+        "heading_color": "#000000",
+        "text_color": "#111111",
+        "flavour_color": "#ffffff",
+        "arrow_background": "#ffffff",
+        "arrow_color": "#000000",
+        "dot_color": "#c7c7c7",
+        "active_nav_color": "#000000",
+        "heading_size": 32,
+        "subheading_size": 18,
+        "product_name_size": 18,
+        "flavour_size": 22
+      }
+    },
     "custom_liquid_W4mPVT": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "Cores",
       "settings": {
         "subheading": "",
@@ -186,7 +266,9 @@
     "slideshow_QP3LKB",
     "custom_liquid_PmTrmi",
     "custom_liquid_bHK8wn",
+    "custom_liquid_HmmB3z",
     "product_slider_myLjW8",
+    "product_slider_c3K7bi",
     "custom_liquid_W4mPVT",
     "custom_liquid_kf7mBA"
   ]
