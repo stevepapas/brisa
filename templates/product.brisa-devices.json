@@ -36,6 +36,27 @@
             "overlay_opacity": 30
           }
         },
+        "image_dkr4kg": {
+          "type": "image",
+          "settings": {
+            "image_focal_point": "center_center",
+            "mobile_image_focal_point": "center_center",
+            "split_image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        },
         "image_f69Nyc": {
           "type": "image",
           "settings": {
@@ -135,6 +156,7 @@
       },
       "block_order": [
         "image_BaBDEt",
+        "image_dkr4kg",
         "image_f69Nyc",
         "image_HQUYeh",
         "image_enhjyK",
@@ -454,6 +476,7 @@
         "show_urgency": true,
         "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "show_promo": true,
+        "promo_icon": "shopify://shop_images/device-slide-1.png",
         "promo_text": "Order this week — FREE Watermelon core pack (valued at $15) included.",
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
@@ -474,7 +497,7 @@
         "cta_text": "START WITH BRISA",
         "cta_link": "shopify://products/starter-kit",
         "show_cost": true,
-        "cost_heading": "YOU'RE NOT BROKE.\nYOU JUST VAPE.",
+        "cost_heading": "YOU'RE NOT BROKE.YOU JUST VAPE.",
         "cost_amount_1": "$4,600",
         "cost_label_1": "a year",
         "cost_amount_2": "$20,000",
