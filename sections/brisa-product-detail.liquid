@@ -1,0 +1,1113 @@
+{% liquid
+  assign section_uid = section.id | replace: '-', '' | downcase
+  assign video_blocks = section.blocks | where: 'type', 'video_review'
+  assign photo_blocks = section.blocks | where: 'type', 'customer_photo'
+  assign step_blocks = section.blocks | where: 'type', 'step'
+  assign selected_testimonials = shop.metaobjects.testimonial.values
+  assign total_testimonials = selected_testimonials | size
+  assign mobile_slides = total_testimonials | plus: 1 | divided_by: 2
+  assign desktop_slides = total_testimonials | plus: 2 | divided_by: 3
+
+  assign how_video_src = ''
+  assign how_video_type = ''
+  assign how_poster = section.settings.how_image
+
+  if how_poster == blank and section.settings.how_video != blank
+    assign how_poster = section.settings.how_video.preview_image
+  endif
+
+  if section.settings.how_video != blank
+    assign how_local_source = section.settings.how_video.sources | where: 'format', 'mp4' | first
+    if how_local_source == blank
+      assign how_local_source = section.settings.how_video.sources | first
+    endif
+    assign how_video_src = how_local_source.url
+    assign how_video_type = 'html5'
+  elsif section.settings.how_video_url.type == 'youtube'
+    assign how_video_src = 'https://www.youtube.com/embed/' | append: section.settings.how_video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+    assign how_video_type = 'iframe'
+  elsif section.settings.how_video_url.type == 'vimeo'
+    assign how_video_src = 'https://player.vimeo.com/video/' | append: section.settings.how_video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+    assign how_video_type = 'iframe'
+  endif
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+  }
+
+  .brisa-product-detail-{{ section_uid }} {
+    color: #000000;
+    background: {{ section.settings.background }};
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    border-top: 1px solid {{ section.settings.top_border_color }};
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-area-info__guarantee {
+    position: relative;
+    max-width: 610px;
+    margin: 12px auto 16px;
+    padding: 14px 16px 12px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__guarantee-icon {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 8px;
+    color: #000000;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__guarantee-icon svg {
+    display: block;
+    width: 34px;
+    height: 34px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-area-info__trust-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 720px;
+    gap: 12px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 680px;
+    margin: 0 auto 18px;
+    padding: 14px 16px;
+    color: {{ section.settings.promo_text_color }};
+    background: {{ section.settings.promo_background }};
+    border: 3px solid {{ section.settings.promo_border_color }};
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo p {
+    margin: 0;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    color: {{ section.settings.promo_icon_color }};
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo-icon svg,
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 34%);
+    gap: 20px;
+    align-items: center;
+    padding: 28px 32px;
+    color: {{ section.settings.brand_text_color }};
+    background: {{ section.settings.brand_background }};
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand-heading {
+    margin: 0 0 12px;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand-text {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how {
+    padding: 34px 32px 30px;
+    border-bottom: 1px solid #7f7f7f;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how-heading {
+    margin: 0 0 18px;
+    font-size: 33px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how-video {
+    margin-bottom: 22px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how-video .brisa-product-area-info__landscape {
+    margin-top: 0;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how-video .brisa-product-area-info__landscape-trigger,
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how-video .brisa-product-area-info__landscape > .brisa-product-area-info__landscape-image {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__step {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__step-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    color: #ffffff;
+    background: {{ section.settings.step_number_background }};
+    border-radius: 50%;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__step-title {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__step-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results {
+    padding: 34px 24px 38px;
+    background: {{ section.settings.results_background }};
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results-heading {
+    margin: 0 0 6px;
+    font-size: 33px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results-subheading {
+    margin: 0 0 18px;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results .brisa-product-testimonials {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results .brisa-product-testimonials__heading {
+    display: none;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #d8f6ff;
+    border-radius: 8px;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .brisa-product-detail-{{ section_uid }} .brisa-product-detail__cta {
+    display: block;
+    max-width: 620px;
+    margin: 28px auto 0;
+    padding: 17px 24px;
+    color: {{ section.settings.cta_text_color }} !important;
+    background: {{ section.settings.cta_background }};
+    border-radius: 999px;
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brisa-product-detail-{{ section_uid }} .brisa-product-area-info__trust-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__brand {
+      grid-template-columns: 1fr;
+      padding: 24px 20px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how,
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results {
+      padding: 26px 20px 28px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__how-heading,
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__results-heading {
+      font-size: 24px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__promo {
+      font-size: 13px;
+    }
+
+    .brisa-product-detail-{{ section_uid }} .brisa-product-detail__photo-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<section class="brisa-product-detail brisa-product-detail-{{ section_uid }}" {{ section.shopify_attributes }}>
+  <div class="brisa-product-detail__inner">
+    {% if section.settings.show_guarantee %}
+      <div class="brisa-product-area-info__guarantee">
+        <span class="brisa-product-detail__guarantee-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" focusable="false">
+            <path d="M24 5 9 11v11c0 9.5 6.4 18.3 15 21 8.6-2.7 15-11.5 15-21V11L24 5Z" fill="currentColor"/>
+            <path d="m17 24 5 5 9-11" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <strong>{{ section.settings.guarantee_heading | escape }}</strong>
+        <span>{{ section.settings.guarantee_text | escape }}</span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_trust_bar %}
+      <div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M7 30h25l6-9h3a4 4 0 0 1 4 4v5h-5" />
+              <path d="M7 30V18h23v12" />
+              <path d="M15 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM36 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_1 | escape }}</span>
+        </div>
+
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <rect x="11" y="21" width="26" height="19" rx="3" />
+              <path d="M17 21v-6a7 7 0 0 1 14 0v6" />
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_2 | escape }}</span>
+        </div>
+
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M8 20c5-7 11-7 16 0 5-7 11-7 16 0" />
+              <path d="M8 29c5-7 11-7 16 0 5-7 11-7 16 0" />
+              <circle cx="12" cy="37" r="3" />
+              <circle cx="24" cy="37" r="3" />
+              <circle cx="36" cy="37" r="3" />
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_3 | escape }}</span>
+        </div>
+
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="m12 34 3.1-6.3L8 22l6.9-1L24 12l9.1 9 6.9 1-7.1 5.7L32 34l-8-4.2L12 34Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_4 | escape }}</span>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_urgency and section.settings.urgency_text != blank %}
+      <div class="brisa-product-area-info__sellout">{{ section.settings.urgency_text | escape }}</div>
+    {% endif %}
+
+    {% if section.settings.show_promo and section.settings.promo_text != blank %}
+      <div class="brisa-product-detail__promo">
+        <span class="brisa-product-detail__promo-icon" aria-hidden="true">
+          {% if section.settings.promo_icon != blank %}
+            {{ section.settings.promo_icon | image_url: width: 68 | image_tag: loading: 'lazy', widths: '34,68', alt: '' }}
+          {% else %}
+            <svg viewBox="0 0 48 48" fill="none" focusable="false">
+              <path d="M8 20h32v6H8zM10 26h28v14H10z" fill="currentColor"/>
+              <path d="M24 8v8M18 12l6-4 6 4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          {% endif %}
+        </span>
+        <p>{{ section.settings.promo_text | escape }}</p>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_brand %}
+      <div class="brisa-product-detail__brand">
+        <div class="brisa-product-detail__brand-copy">
+          {% if section.settings.brand_heading != blank %}
+            <h2 class="brisa-product-detail__brand-heading">{{ section.settings.brand_heading | escape }}</h2>
+          {% endif %}
+          {% if section.settings.brand_text != blank %}
+            <p class="brisa-product-detail__brand-text">{{ section.settings.brand_text | escape }}</p>
+          {% endif %}
+        </div>
+
+        {% if section.settings.brand_image != blank %}
+          {{ section.settings.brand_image | image_url: width: 600 | image_tag: class: 'brisa-product-detail__brand-image', loading: 'lazy', widths: '300,600', alt: section.settings.brand_image.alt | default: section.settings.brand_heading }}
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_how_it_works %}
+      <div class="brisa-product-detail__how">
+        {% if section.settings.how_heading != blank %}
+          <h2 class="brisa-product-detail__how-heading">{{ section.settings.how_heading | escape }}</h2>
+        {% endif %}
+
+        {% if how_video_src != blank or how_poster != blank %}
+          <div class="brisa-product-detail__how-video">
+            <div class="brisa-product-area-info__landscape">
+              {% if how_video_src != blank %}
+                <button
+                  type="button"
+                  class="brisa-product-area-info__landscape-trigger"
+                  data-brisa-video-src="{{ how_video_src | escape }}"
+                  data-brisa-video-type="{{ how_video_type }}"
+                  data-brisa-video-aspect="landscape"
+                  aria-label="{{ section.settings.how_video_label | escape }}"
+                >
+                  {% if how_poster != blank %}
+                    <img
+                      src="{{ how_poster | image_url: width: 1200 }}"
+                      alt="{{ how_poster.alt | default: section.settings.how_video_label | escape }}"
+                      class="brisa-product-area-info__landscape-image"
+                      loading="lazy"
+                      width="{{ how_poster.width }}"
+                      height="{{ how_poster.height }}"
+                    >
+                  {% endif %}
+                  <span class="brisa-product-area-info__play" aria-hidden="true"><span></span></span>
+                </button>
+              {% elsif how_poster != blank %}
+                <img
+                  src="{{ how_poster | image_url: width: 1200 }}"
+                  alt="{{ how_poster.alt | default: section.settings.how_heading | escape }}"
+                  class="brisa-product-area-info__landscape-image"
+                  loading="lazy"
+                  width="{{ how_poster.width }}"
+                  height="{{ how_poster.height }}"
+                >
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if step_blocks.size > 0 %}
+          <ol class="brisa-product-detail__step-list">
+            {% for block in step_blocks %}
+              <li class="brisa-product-detail__step" {{ block.shopify_attributes }}>
+                <span class="brisa-product-detail__step-index">{{ forloop.index }}</span>
+                <div>
+                  {% if block.settings.title != blank %}
+                    <strong class="brisa-product-detail__step-title">{{ block.settings.title | escape }}</strong>
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <p class="brisa-product-detail__step-text">{{ block.settings.text | escape }}</p>
+                  {% endif %}
+                </div>
+              </li>
+            {% endfor %}
+          </ol>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_results %}
+      <div class="brisa-product-detail__results">
+        {% if section.settings.results_heading != blank %}
+          <h2 class="brisa-product-detail__results-heading">{{ section.settings.results_heading | escape }}</h2>
+        {% endif %}
+
+        {% if section.settings.show_testimonials and total_testimonials > 0 %}
+          {% if section.settings.video_subheading != blank %}
+            <p class="brisa-product-detail__results-subheading">{{ section.settings.video_subheading | escape }}</p>
+          {% endif %}
+
+          <brisa-product-testimonials
+            class="brisa-product-testimonials"
+            data-total-items="{{ total_testimonials }}"
+            data-mobile-page-size="2"
+            data-desktop-page-size="3"
+            data-mobile-slides="{{ mobile_slides }}"
+            data-desktop-slides="{{ desktop_slides }}"
+            data-autoplay="{{ section.settings.autoplay }}"
+            data-autoplay-speed="{{ section.settings.autoplay_speed }}"
+          >
+            <div class="brisa-product-testimonials__viewport">
+              <div class="brisa-product-testimonials__track">
+                {% for testimonial in selected_testimonials %}
+                  {% liquid
+                    assign author = testimonial.author.value | default: testimonial.name.value | default: testimonial.customer_name.value | default: testimonial.title.value
+                    assign initial = testimonial.initial.value | default: author | strip | slice: 0, 1
+                    assign quote = testimonial.quote.value | default: testimonial.review.value | default: testimonial.content.value | default: testimonial.testimonial.value
+                    assign rating = testimonial.rating.value | default: 5 | plus: 0
+                  %}
+
+                  <article class="brisa-product-testimonials__card">
+                    <div class="brisa-product-testimonials__avatar" aria-hidden="true">{{ initial | escape }}</div>
+                    <div class="brisa-product-testimonials__copy">
+                      {% if author != blank %}
+                        <h3 class="brisa-product-testimonials__author">{{ author | escape }}</h3>
+                      {% endif %}
+                      <div class="brisa-product-testimonials__stars" aria-label="{{ rating }} out of 5 stars">
+                        {% for star in (1..5) %}
+                          <span class="brisa-product-testimonials__star {% if star > rating %}brisa-product-testimonials__star--empty{% endif %}" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" focusable="false">
+                              <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
+                            </svg>
+                          </span>
+                        {% endfor %}
+                      </div>
+                      {% if quote != blank %}
+                        <p class="brisa-product-testimonials__quote">"{{ quote | strip_html | truncatewords: 30 | escape }}"</p>
+                      {% endif %}
+                    </div>
+                  </article>
+                {% endfor %}
+              </div>
+
+              {% if total_testimonials > 2 and section.settings.show_arrows %}
+                <button class="brisa-product-testimonials__nav brisa-product-testimonials__nav--prev" type="button" aria-label="Previous testimonials">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="m15 5-7 7 7 7" /></svg>
+                </button>
+                <button class="brisa-product-testimonials__nav brisa-product-testimonials__nav--next" type="button" aria-label="Next testimonials">
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="m9 5 7 7-7 7" /></svg>
+                </button>
+              {% endif %}
+            </div>
+
+            {% if total_testimonials > 2 and section.settings.show_dots %}
+              <div class="brisa-product-testimonials__dots" aria-label="Testimonials navigation"></div>
+            {% endif %}
+          </brisa-product-testimonials>
+        {% endif %}
+
+        {% if video_blocks.size > 0 %}
+          <div class="brisa-product-testimonials__video-grid">
+            {% for block in video_blocks %}
+              {% liquid
+                assign video_src = ''
+                assign video_type = ''
+
+                if block.settings.video != blank
+                  assign local_video_source = block.settings.video.sources | where: 'format', 'mp4' | first
+                  if local_video_source == blank
+                    assign local_video_source = block.settings.video.sources | first
+                  endif
+                  assign video_src = local_video_source.url
+                  assign video_type = 'html5'
+                elsif block.settings.video_url.type == 'youtube'
+                  assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+                  assign video_type = 'iframe'
+                elsif block.settings.video_url.type == 'vimeo'
+                  assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+                  assign video_type = 'iframe'
+                endif
+              %}
+
+              <button
+                type="button"
+                class="brisa-product-testimonials__video-thumb"
+                {% if video_src != blank %}data-brisa-video-src="{{ video_src | escape }}"{% endif %}
+                {% if video_type != blank %}data-brisa-video-type="{{ video_type }}"{% endif %}
+                aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
+                {{ block.shopify_attributes }}
+              >
+                {% if block.settings.thumbnail != blank %}
+                  <img
+                    src="{{ block.settings.thumbnail | image_url: width: 420 }}"
+                    alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.thumbnail.width }}"
+                    height="{{ block.settings.thumbnail.height }}"
+                  >
+                {% endif %}
+                <span class="brisa-product-testimonials__video-play" aria-hidden="true"><span></span></span>
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if photo_blocks.size > 0 %}
+          {% if section.settings.customers_subheading != blank %}
+            <p class="brisa-product-detail__results-subheading">{{ section.settings.customers_subheading | escape }}</p>
+          {% endif %}
+
+          <div class="brisa-product-detail__photo-grid">
+            {% for block in photo_blocks %}
+              <div class="brisa-product-detail__photo" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 420 | image_tag: loading: 'lazy', widths: '210,420', alt: block.settings.image.alt | default: 'Customer photo' }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.cta_text != blank and section.settings.cta_link != blank %}
+          <a href="{{ section.settings.cta_link }}" class="brisa-product-detail__cta">{{ section.settings.cta_text | escape }}</a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_cost %}
+      <div class="brisa-product-area-info__cost">
+        <h2 class="brisa-product-area-info__heading">{{ section.settings.cost_heading | newline_to_br }}</h2>
+
+        <div class="brisa-product-area-info__rows">
+          <div class="brisa-product-area-info__row">
+            <span class="brisa-product-area-info__amount">{{ section.settings.cost_amount_1 | escape }}</span>
+            <span class="brisa-product-area-info__label">{{ section.settings.cost_label_1 | escape }}</span>
+          </div>
+          <div class="brisa-product-area-info__row">
+            <span class="brisa-product-area-info__amount">{{ section.settings.cost_amount_2 | escape }}</span>
+            <span class="brisa-product-area-info__label">{{ section.settings.cost_label_2 | escape }}</span>
+          </div>
+          <div class="brisa-product-area-info__row">
+            <span class="brisa-product-area-info__amount brisa-product-area-info__amount--highlight">{{ section.settings.cost_amount_3 | escape }}</span>
+            <span class="brisa-product-area-info__label">{{ section.settings.cost_label_3 | escape }}</span>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa product detail",
+  "class": "shopify-section--brisa-product-detail",
+  "tag": "section",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Guarantee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Heading",
+      "default": "30-DAY SUCCESS GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Text",
+      "default": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "header",
+      "content": "Trust bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show trust bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust item 1",
+      "default": "Free shipping AUS & NZ wide"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust item 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust item 3",
+      "default": "1,000+ AUSSIES ON BRISA"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust item 4",
+      "default": "163 reviews 4.7 stars"
+    },
+    {
+      "type": "header",
+      "content": "Urgency"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency",
+      "label": "Show urgency bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Urgency text",
+      "default": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+    },
+    {
+      "type": "header",
+      "content": "Promo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo",
+      "label": "Show promo box",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_icon",
+      "label": "Promo icon"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "Order this week — FREE Watermelon core pack (valued at $15) included."
+    },
+    {
+      "type": "header",
+      "content": "Brand message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand",
+      "label": "Show brand message",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "brand_heading",
+      "label": "Heading",
+      "default": "THIS IS BIGGER THAN MONEY"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_text",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "How it works"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_how_it_works",
+      "label": "Show how it works",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "how_heading",
+      "label": "Heading",
+      "default": "How It Works"
+    },
+    {
+      "type": "image_picker",
+      "id": "how_image",
+      "label": "Video poster"
+    },
+    {
+      "type": "video",
+      "id": "how_video",
+      "label": "Local video"
+    },
+    {
+      "type": "video_url",
+      "id": "how_video_url",
+      "label": "External video",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "how_video_label",
+      "label": "Video accessibility label",
+      "default": "Play how it works video"
+    },
+    {
+      "type": "header",
+      "content": "Real results"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_results",
+      "label": "Show real results",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "results_heading",
+      "label": "Heading",
+      "default": "Real Results"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonials",
+      "label": "Show testimonial carousel",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "video_subheading",
+      "label": "Video subheading",
+      "default": "Video testimonials"
+    },
+    {
+      "type": "text",
+      "id": "customers_subheading",
+      "label": "Customers subheading",
+      "default": "Real customers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show testimonial arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show testimonial dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Testimonial autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed",
+      "min": 3000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "START WITH BRISA"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Cost comparison"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cost",
+      "label": "Show cost comparison",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cost_heading",
+      "label": "Heading",
+      "default": "YOU'RE NOT BROKE.\nYOU JUST VAPE."
+    },
+    {
+      "type": "text",
+      "id": "cost_amount_1",
+      "label": "Amount 1",
+      "default": "$4,600"
+    },
+    {
+      "type": "text",
+      "id": "cost_label_1",
+      "label": "Label 1",
+      "default": "a year"
+    },
+    {
+      "type": "text",
+      "id": "cost_amount_2",
+      "label": "Amount 2",
+      "default": "$20,000"
+    },
+    {
+      "type": "text",
+      "id": "cost_label_2",
+      "label": "Label 2",
+      "default": "by 2030"
+    },
+    {
+      "type": "text",
+      "id": "cost_amount_3",
+      "label": "Amount 3",
+      "default": "$130"
+    },
+    {
+      "type": "text",
+      "id": "cost_label_3",
+      "label": "Label 3",
+      "default": "to start with Brisa"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 700,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "top_border_color",
+      "label": "Top border",
+      "default": "#23aee8"
+    },
+    {
+      "type": "color",
+      "id": "promo_background",
+      "label": "Promo background",
+      "default": "#e8f5fc"
+    },
+    {
+      "type": "color",
+      "id": "promo_border_color",
+      "label": "Promo border",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "promo_text_color",
+      "label": "Promo text",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "promo_icon_color",
+      "label": "Promo icon",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "brand_background",
+      "label": "Brand background",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "brand_text_color",
+      "label": "Brand text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "step_number_background",
+      "label": "Step number background",
+      "default": "#2cb2ed"
+    },
+    {
+      "type": "color",
+      "id": "results_background",
+      "label": "Results background",
+      "default": "#e9f4ff"
+    },
+    {
+      "type": "color",
+      "id": "cta_background",
+      "label": "CTA background",
+      "default": "#2eb8f4"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "CTA text",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "How it works step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Step title"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Step description"
+        }
+      ]
+    },
+    {
+      "type": "video_review",
+      "name": "Video testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Thumbnail"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Local video"
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "External video",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Accessibility label",
+          "default": "customer video review"
+        }
+      ]
+    },
+    {
+      "type": "customer_photo",
+      "name": "Customer photo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa product detail",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Unscrew the top",
+            "text": "Twist off the top cap and drop your aroma core inside. Takes seconds."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Set your airflow",
+            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Reach for it instead",
+            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

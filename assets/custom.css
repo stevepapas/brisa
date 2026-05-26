@@ -1019,9 +1019,19 @@ display: none;
   }
 }
 
-.shopify-section--brisa-product-area-info {
+.shopify-section--brisa-product-area-info,
+.shopify-section--brisa-product-detail {
   background: #ffffff;
   padding: 0;
+}
+
+.shopify-section--brisa-product-detail .brisa-product-detail__results .brisa-product-testimonials__video-grid {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.shopify-section--brisa-product-detail .brisa-product-detail__results .brisa-product-testimonials__card {
+  background: #ffffff;
 }
 
 .brisa-product-area-info {

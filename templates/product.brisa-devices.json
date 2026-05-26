@@ -692,6 +692,42 @@
       "type": "product-content",
       "settings": {}
     },
+    "brisa_product_detail": {
+      "type": "brisa-product-detail",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Unscrew the top",
+            "text": "Twist off the top cap and drop your aroma core inside. Takes seconds."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Set your airflow",
+            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Reach for it instead",
+            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "name": "Brisa product detail",
+      "settings": {
+        "cta_link": "shopify://products/starter-kit",
+        "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks."
+      }
+    },
     "1772962804ca13e40e": {
       "type": "apps",
       "settings": {
@@ -994,6 +1030,7 @@
     "main",
     "brisa_product_kit_picker",
     "product-content",
+    "brisa_product_detail",
     "1772962804ca13e40e",
     "engineered_switch_NniVXE",
     "brisa_comparison_table_ntMxq4",
