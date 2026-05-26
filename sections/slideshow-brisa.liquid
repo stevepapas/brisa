@@ -26,6 +26,13 @@
   endfor
 
   assign progress_block = first_visible_block | default: section.blocks.first
+
+  assign slideshow_product_gallery = false
+  if template.name == 'product'
+    if template.suffix == 'brisa-devices' or template.suffix == 'brisa-cores'
+      assign slideshow_product_gallery = true
+    endif
+  endif
 -%}
 
 <style>
@@ -277,31 +284,33 @@
     }
   {%- endif -%}
 
-  @media screen and (max-width: 999px) {
-    #shopify-section-{{ section.id }} {
-      overflow-x: clip;
-      max-width: 100%;
-    }
+  {%- if slideshow_product_gallery -%}
+    @media screen and (max-width: 999px) {
+      #shopify-section-{{ section.id }} {
+        overflow-x: clip;
+        max-width: 100%;
+      }
 
-    #shopify-section-{{ section.id }} slide-show.slideshow-brisa,
-    #shopify-section-{{ section.id }} .slideshow__slide-list,
-    #shopify-section-{{ section.id }} .slideshow__slide,
-    #shopify-section-{{ section.id }} .slideshow__slide-inner,
-    #shopify-section-{{ section.id }} .slideshow__image-wrapper,
-    #shopify-section-{{ section.id }} .slideshow__image {
-      width: 100%;
-      max-width: 100%;
-    }
+      #shopify-section-{{ section.id }} slide-show.slideshow-brisa,
+      #shopify-section-{{ section.id }} .slideshow__slide-list,
+      #shopify-section-{{ section.id }} .slideshow__slide,
+      #shopify-section-{{ section.id }} .slideshow__slide-inner,
+      #shopify-section-{{ section.id }} .slideshow__image-wrapper,
+      #shopify-section-{{ section.id }} .slideshow__image {
+        width: 100%;
+        max-width: 100%;
+      }
 
-    #shopify-section-{{ section.id }} .slideshow__slide-list {
-      overflow: hidden;
-    }
+      #shopify-section-{{ section.id }} .slideshow__slide-list {
+        overflow: hidden;
+      }
 
-    #shopify-section-{{ section.id }} .slideshow__image {
-      object-fit: contain;
-      object-position: center;
+      #shopify-section-{{ section.id }} .slideshow__image {
+        object-fit: contain;
+        object-position: center;
+      }
     }
-  }
+  {%- endif -%}
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
