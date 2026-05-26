@@ -116,6 +116,16 @@
     object-fit: contain;
   }
 
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__highlight-icon--custom {
+    background: transparent;
+  }
+
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__highlight-icon--custom img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
   .product-kit-picker-{{ section_uid }} .product-kit-picker__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -318,16 +328,35 @@
         </h2>
 
         <ul class="product-kit-picker__highlights">
-          {% assign highlight_count = 0 %}
-          {% for block in section.blocks %}
-            {% if block.type == 'highlight' %}
-              {% assign highlight_count = highlight_count | plus: 1 %}
-              <li class="product-kit-picker__highlight" {{ block.shopify_attributes }}>
-                <span class="product-kit-picker__highlight-icon" aria-hidden="true">
-                  {% if block.settings.icon_image != blank %}
-                    {{ block.settings.icon_image | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+          {% for i in (1..4) %}
+            {% liquid
+              case i
+                when 1
+                  assign highlight_icon = section.settings.highlight_icon_1
+                  assign highlight_label = section.settings.highlight_label_1
+                  assign highlight_fallback = 'ritual'
+                when 2
+                  assign highlight_icon = section.settings.highlight_icon_2
+                  assign highlight_label = section.settings.highlight_label_2
+                  assign highlight_fallback = 'sparkles'
+                when 3
+                  assign highlight_icon = section.settings.highlight_icon_3
+                  assign highlight_label = section.settings.highlight_label_3
+                  assign highlight_fallback = 'no_smoke'
+                else
+                  assign highlight_icon = section.settings.highlight_icon_4
+                  assign highlight_label = section.settings.highlight_label_4
+                  assign highlight_fallback = 'no_nicotine'
+              endcase
+            %}
+
+            {% if highlight_label != blank %}
+              <li class="product-kit-picker__highlight">
+                <span class="product-kit-picker__highlight-icon{% if highlight_icon != blank %} product-kit-picker__highlight-icon--custom{% endif %}" aria-hidden="true">
+                  {% if highlight_icon != blank %}
+                    {{ highlight_icon | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80,160', alt: '' }}
                   {% else %}
-                    {% case block.settings.icon %}
+                    {% case highlight_fallback %}
                       {% when 'sparkles' %}
                         <svg viewBox="0 0 48 48" fill="none" focusable="false">
                           <path d="M16 7 18.7 14.3 26 17 18.7 19.7 16 27 13.3 19.7 6 17 13.3 14.3 16 7Z" fill="currentColor"/>
@@ -356,49 +385,10 @@
                     {% endcase %}
                   {% endif %}
                 </span>
-                <span>{{ block.settings.label | escape }}</span>
+                <span>{{ highlight_label | escape }}</span>
               </li>
             {% endif %}
           {% endfor %}
-
-          {% if highlight_count == 0 %}
-            {% assign default_highlights = 'ritual|Satisfies the ritual,sparkles|Throat sensation,no_smoke|No smoke No vapour,no_nicotine|No Nicotine' | split: ',' %}
-            {% for highlight_pair in default_highlights %}
-              {% assign highlight_parts = highlight_pair | split: '|' %}
-              <li class="product-kit-picker__highlight">
-                <span class="product-kit-picker__highlight-icon" aria-hidden="true">
-                  {% case highlight_parts[0] %}
-                    {% when 'sparkles' %}
-                      <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                        <path d="M16 7 18.7 14.3 26 17 18.7 19.7 16 27 13.3 19.7 6 17 13.3 14.3 16 7Z" fill="currentColor"/>
-                        <path d="M32 18 34.6 25.4 42 28 34.6 30.6 32 38 29.4 30.6 22 28 29.4 25.4 32 18Z" fill="currentColor"/>
-                        <path d="M17 30 18.6 34.4 23 36 18.6 37.6 17 42 15.4 37.6 11 36 15.4 34.4 17 30Z" fill="currentColor"/>
-                      </svg>
-                    {% when 'no_smoke' %}
-                      <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                        <path d="M10 30c4-8 10-12 18-12 4 0 7 1 10 4" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
-                        <path d="M8 34h28" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
-                        <path d="m11 37 26-26" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-                      </svg>
-                    {% when 'no_nicotine' %}
-                      <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                        <circle cx="16" cy="16" r="4" stroke="currentColor" stroke-width="2.8"/>
-                        <circle cx="32" cy="16" r="4" stroke="currentColor" stroke-width="2.8"/>
-                        <circle cx="24" cy="32" r="4" stroke="currentColor" stroke-width="2.8"/>
-                        <path d="M19 19l10 10M29 19 19 29" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>
-                        <path d="m10 38 28-28" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/>
-                      </svg>
-                    {% else %}
-                      <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                        <path d="M34 14a12 12 0 1 0-12 12" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
-                        <path d="M34 14 22 26M34 14v8h-8" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                  {% endcase %}
-                </span>
-                <span>{{ highlight_parts[1] | escape }}</span>
-              </li>
-            {% endfor %}
-          {% endif %}
         </ul>
       </div>
     {% endif %}
@@ -552,6 +542,54 @@
       "id": "mates_kit_heading",
       "label": "Mates Kit heading",
       "default": "MATES KIT"
+    },
+    {
+      "type": "header",
+      "content": "Hero icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_1",
+      "label": "Icon 1 image"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_1",
+      "label": "Icon 1 label",
+      "default": "Satisfies the ritual"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_2",
+      "label": "Icon 2 image"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_2",
+      "label": "Icon 2 label",
+      "default": "Throat sensation"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_3",
+      "label": "Icon 3 image"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_3",
+      "label": "Icon 3 label",
+      "default": "No smoke No vapour"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_4",
+      "label": "Icon 4 image"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_4",
+      "label": "Icon 4 label",
+      "default": "No Nicotine"
     },
     {
       "type": "header",
@@ -979,36 +1017,6 @@
   ],
   "blocks": [
     {
-      "type": "highlight",
-      "name": "Highlight",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "icon_image",
-          "label": "Icon image",
-          "info": "Optional. Replaces the built-in icon."
-        },
-        {
-          "type": "select",
-          "id": "icon",
-          "label": "Icon",
-          "default": "ritual",
-          "options": [
-            { "value": "ritual", "label": "Ritual" },
-            { "value": "sparkles", "label": "Sparkles" },
-            { "value": "no_smoke", "label": "No smoke" },
-            { "value": "no_nicotine", "label": "No nicotine" }
-          ]
-        },
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "Satisfies the ritual"
-        }
-      ]
-    },
-    {
       "type": "feature",
       "name": "Card feature",
       "settings": [
@@ -1036,34 +1044,6 @@
       "name": "Product kit picker",
       "category": "Brisa",
       "blocks": [
-        {
-          "type": "highlight",
-          "settings": {
-            "icon": "ritual",
-            "label": "Satisfies the ritual"
-          }
-        },
-        {
-          "type": "highlight",
-          "settings": {
-            "icon": "sparkles",
-            "label": "Throat sensation"
-          }
-        },
-        {
-          "type": "highlight",
-          "settings": {
-            "icon": "no_smoke",
-            "label": "No smoke No vapour"
-          }
-        },
-        {
-          "type": "highlight",
-          "settings": {
-            "icon": "no_nicotine",
-            "label": "No Nicotine"
-          }
-        },
         {
           "type": "feature",
           "settings": {
