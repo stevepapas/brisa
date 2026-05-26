@@ -88,6 +88,25 @@
     flex-direction: column;
   }
 
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide-list {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[hidden] {
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide:not([hidden]) {
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar page-dots.slideshow-brisa__dots {
+    display: flex;
+    visibility: visible;
+  }
+
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb {
     position: relative;
     display: block;
@@ -108,14 +127,18 @@
     background: #e8e8e8;
     cursor: pointer;
     box-sizing: border-box;
-    transition: border-color 0.2s ease, opacity 0.2s ease;
+    transition: border-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb-media {
-    position: absolute;
-    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     border-radius: inherit;
+    line-height: 0;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb:before {
@@ -152,9 +175,12 @@
     width: 100%;
     height: 100%;
     max-width: none;
+    min-height: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: center;
+    opacity: 1;
+    visibility: visible;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb-placeholder {
@@ -360,9 +386,15 @@
 
         <page-dots align-selected {% if section.settings.autoplay %}animation-timer{% endif %} class="slideshow-brisa__dots">
           {%- for block in section.blocks -%}
-            {%- assign thumb_image = block.settings.image -%}
+            {%- assign thumb_image = block.settings.thumbnail_image -%}
+            {%- if thumb_image == blank -%}
+              {%- assign thumb_image = block.settings.image -%}
+            {%- endif -%}
             {%- if thumb_image == blank -%}
               {%- assign thumb_image = block.settings.mobile_image -%}
+            {%- endif -%}
+            {%- if thumb_image == blank -%}
+              {%- assign thumb_image = block.settings.split_image -%}
             {%- endif -%}
 
             <button
@@ -371,11 +403,25 @@
               aria-controls="block-{{ section.id }}-{{ block.id }}"
               {% if forloop.first %}aria-current="true"{% endif %}
             >
-              <span class="slideshow-brisa__thumb-media" aria-hidden="true">
+              <span class="slideshow-brisa__thumb-media">
                 {%- if thumb_image != blank -%}
-                  {{ thumb_image | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', class: 'slideshow-brisa__thumb-image', widths: '80,120,160', sizes: '80px', width: 160, height: 160, alt: '' }}
+                  {%- if forloop.index <= 3 -%}
+                    {%- assign thumb_loading = 'eager' -%}
+                  {%- else -%}
+                    {%- assign thumb_loading = 'lazy' -%}
+                  {%- endif -%}
+                  {{
+                    thumb_image
+                    | image_url: width: 200, height: 200, crop: 'center'
+                    | image_tag:
+                      loading: thumb_loading,
+                      class: 'slideshow-brisa__thumb-image',
+                      widths: '80,120,160,200',
+                      sizes: '80px',
+                      alt: ''
+                  }}
                 {%- else -%}
-                  <span class="slideshow-brisa__thumb-placeholder"></span>
+                  <span class="slideshow-brisa__thumb-placeholder" aria-hidden="true"></span>
                 {%- endif -%}
               </span>
               <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
@@ -550,6 +596,12 @@
           "id": "mobile_image",
           "label": "Mobile image",
           "info": "1000 x 1400px .jpg recommended. If none is set, desktop image will be used."
+        },
+        {
+          "type": "image_picker",
+          "id": "thumbnail_image",
+          "label": "Thumbnail image",
+          "info": "Optional. Used in pagination. Falls back to slide image if empty."
         },
         {
           "type": "select",
