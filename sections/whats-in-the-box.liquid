@@ -373,7 +373,7 @@
 
       {%- assign has_media_blocks = false -%}
       {%- for block in section.blocks -%}
-        {%- if block.type == 'box_image' and block.settings.media_image != blank -%}
+        {%- if block.type == 'extra_image' and block.settings.media_image != blank -%}
           {%- assign has_media_blocks = true -%}
         {%- endif -%}
       {%- endfor -%}
@@ -381,7 +381,7 @@
       {%- if has_media_blocks -%}
         <div class="whats-in-the-box__media-gallery" role="list" aria-label="Additional media">
           {%- for block in section.blocks -%}
-            {%- if block.type == 'box_image' and block.settings.media_image != blank -%}
+            {%- if block.type == 'extra_image' and block.settings.media_image != blank -%}
               {%- assign media_alt = block.settings.media_image.alt | default: section.settings.heading | escape -%}
               <div class="whats-in-the-box__media-item" role="listitem" {{ block.shopify_attributes }}>
                 {{
@@ -408,7 +408,7 @@
 
 {% schema %}
 {
-  "name": "Whats in the box",
+  "name": "Brisa - Whats in the box",
   "class": "shopify-section--whats-in-the-box",
   "max_blocks": 12,
   "settings": [
@@ -829,8 +829,8 @@
       ]
     },
     {
-      "type": "box_image",
-      "name": "Media",
+      "type": "extra_image",
+      "name": "Extra image",
       "settings": [
         {
           "type": "image_picker",
@@ -842,7 +842,7 @@
   ],
   "presets": [
     {
-      "name": "Whats in the box",
+      "name": "Brisa - Whats in the box",
       "category": "Brisa",
       "blocks": [
         {

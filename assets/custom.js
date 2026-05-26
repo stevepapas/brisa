@@ -463,11 +463,59 @@ document.addEventListener('keydown', (event) => {
   document.documentElement.style.overflow = '';
 });
 
+function getSlideshowBrisaFromNav(navBar) {
+  const section = navBar.closest('.shopify-section--slideshow-brisa, [id^="shopify-section-"]');
+  return section?.querySelector('slide-show.slideshow-brisa') ?? null;
+}
+
+function initSlideshowBrisaSection(section) {
+  if (section.dataset.slideshowBrisaInit === 'true') return;
+
+  const slideshow = section.querySelector('slide-show.slideshow-brisa');
+  const pageDots = section.querySelector('page-dots.slideshow-brisa__dots');
+  if (!slideshow || !pageDots) return;
+
+  section.dataset.slideshowBrisaInit = 'true';
+
+  pageDots.addEventListener('page-dots:changed', (event) => {
+    if (typeof slideshow.select === 'function') {
+      slideshow.select(event.detail.index, true);
+    }
+  });
+
+  const items = Array.from(slideshow.querySelectorAll('slide-show-item'));
+  const syncDots = () => {
+    const index = items.findIndex((item) => !item.hasAttribute('hidden'));
+    if (index >= 0 && pageDots.selectedIndex !== index) {
+      pageDots.selectedIndex = index;
+    }
+  };
+
+  items.forEach((item) => {
+    new MutationObserver(syncDots).observe(item, {
+      attributes: true,
+      attributeFilter: ['hidden'],
+    });
+  });
+}
+
+function initAllSlideshowBrisaSections(root = document) {
+  root.querySelectorAll('.shopify-section--slideshow-brisa').forEach(initSlideshowBrisaSection);
+}
+
+document.addEventListener('DOMContentLoaded', () => initAllSlideshowBrisaSections());
+document.addEventListener('shopify:section:load', (event) => {
+  const section = event.target?.closest?.('.shopify-section--slideshow-brisa') ?? event.target;
+  if (section?.classList?.contains('shopify-section--slideshow-brisa')) {
+    initSlideshowBrisaSection(section);
+  }
+});
+
 document.addEventListener('prev-next:prev', (event) => {
   const navBar = event.target.closest('.slideshow-brisa__nav-bar');
   if (!navBar) return;
 
-  const slideshow = navBar.closest('slide-show.slideshow-brisa');
+  const slideshow = getSlideshowBrisaFromNav(navBar);
   if (slideshow && typeof slideshow.previous === 'function') {
     slideshow.previous();
   }
@@ -477,7 +525,7 @@ document.addEventListener('prev-next:next', (event) => {
   const navBar = event.target.closest('.slideshow-brisa__nav-bar');
   if (!navBar) return;
 
-  const slideshow = navBar.closest('slide-show.slideshow-brisa');
+  const slideshow = getSlideshowBrisaFromNav(navBar);
   if (slideshow && typeof slideshow.next === 'function') {
     slideshow.next();
   }

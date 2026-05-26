@@ -666,26 +666,23 @@ display: none;
   text-decoration: none !important;
 }
 
-.template-brisa-cores slide-show,
-.template-brisa-devices slide-show {
-  min-height: 110px;
+/* Product hero slideshow: cap slide area only — keep thumbnail nav visible below */
+.template-brisa-cores slide-show.slideshow-brisa,
+.template-brisa-devices slide-show.slideshow-brisa {
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+}
+
+.template-brisa-cores slide-show.slideshow-brisa .slideshow__slide-list,
+.template-brisa-devices slide-show.slideshow-brisa .slideshow__slide-list {
+  min-height: 300px;
   max-height: 320px;
   overflow: hidden;
 }
 
-.template-brisa-cores slide-show > *,
-.template-brisa-cores slide-show > * > *,
-.template-brisa-cores slide-show > * > * > *,
-.template-brisa-cores slide-show > * > * > * > *,
-.template-brisa-cores slide-show > * > * > * > * > *,
-.template-brisa-cores slide-show > * > * > * > * > * > *,
-.template-brisa-devices slide-show > *,
-.template-brisa-devices slide-show > * > *,
-.template-brisa-devices slide-show > * > * > *,
-.template-brisa-devices slide-show > * > * > * > *,
-.template-brisa-devices slide-show > * > * > * > * > *,
-.template-brisa-devices slide-show > * > * > * > * > * > * {
-  min-height: 300px;
+.template-brisa-cores slide-show.slideshow-brisa .slideshow__slide-list *,
+.template-brisa-devices slide-show.slideshow-brisa .slideshow__slide-list * {
   max-height: 320px;
 }
 
@@ -700,6 +697,12 @@ display: none;
 .template-brisa-cores .slideshow__image-wrapper:before,
 .template-brisa-devices .slideshow__image-wrapper:before {
   background: transparent;
+}
+
+.template-brisa-cores .slideshow-brisa__nav-bar,
+.template-brisa-devices .slideshow-brisa__nav-bar {
+  position: relative;
+  z-index: 3;
 }
 
 .shopify-section--brisa-testimonials-product-page {
