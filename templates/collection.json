@@ -1,1 +1,47 @@
-{"sections":{"collection-banner":{"type":"collection-banner","settings":{"show_collection_image":true,"show_collection_title":true,"show_collection_description":true,"text_width":"medium","section_height":"small","image_text_color":"#ffffff","image_overlay_color":"#000000","image_overlay_opacity":30,"quick_links":""}},"main":{"type":"main-collection","settings":{"show_sort_by":false,"products_per_page":8,"mobile_products_per_row":"1","desktop_products_per_row":3,"show_filters":false,"show_filter_group_name":false,"show_color_swatch":true,"open_first_filter_group":false,"filter_position":"always_visible","promotion_position":"top","promotion_height":"small"}},"slideshow_FwwizV":{"type":"slideshow","blocks":{"image_UBePEU":{"type":"image","settings":{"text_position":"middle_center","subheading":"Tell your story","title":"Slide 1","button_1_text":"","button_1_link":"","button_2_text":"","button_2_link":"","text_color":"#ffffff","button_background":"#ffffff","button_text_color":"#000000","overlay_color":"#000000","overlay_opacity":30}},"image_tPDraL":{"type":"image","settings":{"text_position":"middle_center","subheading":"Tell your story","title":"Slide 2","button_1_text":"","button_1_link":"","button_2_text":"","button_2_link":"","text_color":"#ffffff","button_background":"#ffffff","button_text_color":"#000000","overlay_color":"#000000","overlay_opacity":30}}},"block_order":["image_UBePEU","image_tPDraL"],"name":"Slideshow","settings":{"section_height":"auto","transition_type":"sweep","show_initial_transition":false,"autoplay":true,"cycle_speed":5,"background":"rgba(0,0,0,0)"}},"custom_liquid_faBL88":{"type":"custom-liquid","name":"Custom Liquid","settings":{"subheading":"Your subheading","title":"Your title","liquid":"<style>\n.product-carousel {\n  position: relative;\n  overflow: hidden;\n  padding: 20px 50px;\n}\n.carousel-container {\n  display: flex;\n  overflow-x: scroll;\n  scroll-behavior: smooth;\n  gap: 20px;\n  scrollbar-width: none;\n}\n.carousel-container::-webkit-scrollbar {\n  display: none;\n}\n.product-item {\n  min-width: 200px;\n  flex-shrink: 0;\n  text-align: center;\n}\n.product-item img {\n  width: 100%;\n  border-radius: 8px;\n  margin-bottom: 10px;\n}\n.product-item h3 {\n  font-size: 14px;\n  margin: 5px 0;\n}\n.product-item .price {\n  font-weight: bold;\n  color: #333;\n}\n.arrow {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  background: rgba(0,0,0,0.5);\n  color: white;\n  border: none;\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  cursor: pointer;\n  font-size: 20px;\n  z-index: 10;\n}\n.arrow:hover {\n  background: rgba(0,0,0,0.8);\n}\n.arrow-left { left: 10px; }\n.arrow-right { right: 10px; }\n<\/style>\n\n<div class=\"product-carousel\">\n  <button class=\"arrow arrow-left\" onclick=\"scrollCarousel(-1)\">‹<\/button>\n  <div class=\"carousel-container\" id=\"carousel\">\n    {% assign cores_collection = collections['cores'] %}\n    {% for product in cores_collection.products %}\n      <div class=\"product-item\">\n        <a href=\"{{ product.url }}\">\n          <img src=\"{{ product.featured_image | img_url: '300x300' }}\" alt=\"{{ product.title }}\">\n          <h3>{{ product.title }}<\/h3>\n          <p class=\"price\">{{ product.price | money }}<\/p>\n        <\/a>\n      <\/div>\n    {% endfor %}\n  <\/div>\n  <button class=\"arrow arrow-right\" onclick=\"scrollCarousel(1)\">›<\/button>\n<\/div>\n\n<script>\nfunction scrollCarousel(direction) {\n  const carousel = document.getElementById('carousel');\n  const scrollAmount = 220;\n  carousel.scrollLeft += direction * scrollAmount;\n}\n<\/script>","background_type":"full_width","add_vertical_spacing":true,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"}}},"order":["collection-banner","main","slideshow_FwwizV","custom_liquid_faBL88"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-banner": {
+      "type": "collection-banner",
+      "settings": {
+        "show_collection_image": true,
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "text_width": "medium",
+        "section_height": "small",
+        "image_text_color": "#ffffff",
+        "image_overlay_color": "#000000",
+        "image_overlay_opacity": 30,
+        "quick_links": ""
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "show_sort_by": false,
+        "products_per_page": 8,
+        "mobile_products_per_row": "1",
+        "desktop_products_per_row": 3,
+        "show_filters": false,
+        "show_filter_group_name": false,
+        "show_color_swatch": true,
+        "open_first_filter_group": false,
+        "filter_position": "always_visible",
+        "promotion_position": "top",
+        "promotion_height": "small"
+      }
+    }
+  },
+  "order": [
+    "collection-banner",
+    "main"
+  ]
+}
