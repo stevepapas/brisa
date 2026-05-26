@@ -753,6 +753,26 @@ display: none;
   z-index: 3;
 }
 
+/* Homepage hero: full-bleed cover (undo product-gallery slideshow layout) */
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero slide-show.slideshow-brisa,
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-list,
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide,
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-inner,
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__image-wrapper,
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__image {
+  width: 100%;
+  max-width: none;
+}
+
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-inner::before {
+  display: none;
+}
+
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__image {
+  object-fit: cover !important;
+  object-position: center;
+}
+
 /* Product slideshow only: full width + contain on mobile (not homepage hero) */
 @media screen and (max-width: 999px) {
   .template-brisa-cores .shopify-section--slideshow-brisa,

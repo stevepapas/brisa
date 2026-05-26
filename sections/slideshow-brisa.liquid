@@ -123,16 +123,32 @@
     display: none;
   }
 
-  #shopify-section-{{ section.id }} .slideshow-brisa {
-    display: flex;
-    flex-direction: column;
-  }
+  {%- if slideshow_product_gallery -%}
+    #shopify-section-{{ section.id }} .slideshow-brisa {
+      display: flex;
+      flex-direction: column;
+    }
 
-  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide-list {
-    position: relative;
-    flex: 0 0 auto;
-    width: 100%;
-  }
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide-list {
+      position: relative;
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  {%- else -%}
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide-list {
+      position: relative;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow__slide-inner::before {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow__image {
+      object-fit: cover;
+      object-position: center;
+    }
+  {%- endif -%}
 
   #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[hidden] {
     z-index: 0;
@@ -330,7 +346,7 @@
 </style>
 
 <section
-  class="section section--flush{% if section.settings.desktop_layout == 'square' %} slideshow-brisa-section--square-desktop{% endif %}"
+  class="section section--flush{% unless slideshow_product_gallery %} slideshow-brisa-section--hero{% endunless %}{% if section.settings.desktop_layout == 'square' %} slideshow-brisa-section--square-desktop{% endif %}"
   data-active-kit-set="{{ active_kit_set }}"
   data-starter-handle-prefix="{{ section.settings.starter_handle_prefix | default: 'brisa-device-' | escape }}"
   data-starter-handle="{{ section.settings.starter_handle | escape }}"
