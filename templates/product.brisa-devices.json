@@ -541,6 +541,13 @@
       "type": "product-content",
       "settings": {}
     },
+    "1772962804ca13e40e": {
+      "type": "apps",
+      "settings": {
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      }
+    },
     "brisa_product_detail": {
       "type": "brisa-product-detail",
       "blocks": {
@@ -589,13 +596,18 @@
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
         "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
+        "brand_image": "shopify://shop_images/DSC_2704_copy.jpg",
         "show_how_it_works": true,
         "how_heading": "How It Works",
+        "how_image": "shopify://shop_images/4-steps-how-to.png",
+        "how_video": "shopify://files/videos/how to use, personal exp.mp4",
         "how_video_url": "",
         "how_video_label": "Play how it works video",
         "show_results": true,
         "results_heading": "Real Results",
         "show_testimonials": true,
+        "show_video_placeholders": true,
+        "show_photo_placeholders": true,
         "video_subheading": "Video testimonials",
         "customers_subheading": "Real customers",
         "show_arrows": true,
@@ -625,86 +637,6 @@
         "results_background": "#e9f4ff",
         "cta_background": "#2eb8f4",
         "cta_text_color": "#ffffff"
-      }
-    },
-    "1772962804ca13e40e": {
-      "type": "apps",
-      "settings": {
-        "include_horizontal_margins": true,
-        "include_vertical_margins": true
-      }
-    },
-    "engineered_switch_NniVXE": {
-      "type": "engineered-switch",
-      "blocks": {
-        "item_hwzCAW": {
-          "type": "item",
-          "settings": {
-            "icon": "ruler",
-            "title": "Same weight. Same size. Same length.",
-            "text": "Your hand's muscle memory transfers the day you open the box. No awkward adjustment period."
-          }
-        },
-        "item_cFDtgF": {
-          "type": "item",
-          "settings": {
-            "icon": "airflow",
-            "title": "Tuned airflow — matches a real vape draw.",
-            "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
-          }
-        },
-        "item_YX9bzh": {
-          "type": "item",
-          "settings": {
-            "icon": "leaf",
-            "title": "Precision-formulated aroma cores.",
-            "text": "Food-grade formulations engineered for optimal aroma depth, throat feel, and the sensory feel that makes the ritual land."
-          }
-        },
-        "item_6aWWMh": {
-          "type": "item",
-          "settings": {
-            "icon": "cross",
-            "title": "Zero nicotine. Zero vapour. Zero chemicals.",
-            "text": "Every sensory cue of a vape. None of the 7,000 chemicals keeping you hooked."
-          }
-        }
-      },
-      "block_order": [
-        "item_hwzCAW",
-        "item_cFDtgF",
-        "item_YX9bzh",
-        "item_6aWWMh"
-      ],
-      "name": "Engineered for the switch",
-      "settings": {
-        "show_bar": false,
-        "bar_text": "We sold out fast last time - get in quick and order now",
-        "heading": "Engineered for the switch",
-        "subheading": "Built so your body doesn't know the difference.",
-        "max_width": 1100,
-        "content_width": 920,
-        "list_spacing": 36,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "mobile_padding_top": 36,
-        "mobile_padding_bottom": 36,
-        "item_gap": 26,
-        "heading_size": 26,
-        "subheading_size": 13,
-        "item_title_size": 13,
-        "item_text_size": 12,
-        "bar_font_size": 13,
-        "icon_size": 64,
-        "mobile_icon_size": 54,
-        "icon_svg_size": 70,
-        "background": "#f5f5f5",
-        "bar_background": "#e9f4ff",
-        "bar_text_color": "#003a72",
-        "heading_color": "#111111",
-        "text_color": "#2b2b2b",
-        "icon_background": "#008bdc",
-        "icon_color": "#ffffff"
       }
     },
     "brisa_comparison_table_ntMxq4": {
@@ -830,6 +762,79 @@
         "mobile_padding_top": 36,
         "mobile_padding_bottom": 36,
         "footnote": ""
+      }
+    },
+    "engineered_switch_NniVXE": {
+      "type": "engineered-switch",
+      "blocks": {
+        "item_hwzCAW": {
+          "type": "item",
+          "settings": {
+            "icon": "ruler",
+            "title": "Same weight. Same size. Same length.",
+            "text": "Your hand's muscle memory transfers the day you open the box. No awkward adjustment period."
+          }
+        },
+        "item_cFDtgF": {
+          "type": "item",
+          "settings": {
+            "icon": "airflow",
+            "title": "Tuned airflow — matches a real vape draw.",
+            "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
+          }
+        },
+        "item_YX9bzh": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Precision-formulated aroma cores.",
+            "text": "Food-grade formulations engineered for optimal aroma depth, throat feel, and the sensory feel that makes the ritual land."
+          }
+        },
+        "item_6aWWMh": {
+          "type": "item",
+          "settings": {
+            "icon": "cross",
+            "title": "Zero nicotine. Zero vapour. Zero chemicals.",
+            "text": "Every sensory cue of a vape. None of the 7,000 chemicals keeping you hooked."
+          }
+        }
+      },
+      "block_order": [
+        "item_hwzCAW",
+        "item_cFDtgF",
+        "item_YX9bzh",
+        "item_6aWWMh"
+      ],
+      "name": "Engineered for the switch",
+      "settings": {
+        "show_bar": false,
+        "bar_text": "We sold out fast last time - get in quick and order now",
+        "heading": "Engineered for the switch",
+        "subheading": "Built so your body doesn't know the difference.",
+        "max_width": 1100,
+        "content_width": 920,
+        "list_spacing": 36,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "item_gap": 26,
+        "heading_size": 26,
+        "subheading_size": 13,
+        "item_title_size": 13,
+        "item_text_size": 12,
+        "bar_font_size": 13,
+        "icon_size": 64,
+        "mobile_icon_size": 54,
+        "icon_svg_size": 70,
+        "background": "#f5f5f5",
+        "bar_background": "#e9f4ff",
+        "bar_text_color": "#003a72",
+        "heading_color": "#111111",
+        "text_color": "#2b2b2b",
+        "icon_background": "#008bdc",
+        "icon_color": "#ffffff"
       }
     },
     "brisa_product_reviews_zMjLwQ": {
