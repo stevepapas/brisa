@@ -1,6 +1,39 @@
+{%- liquid
+  assign active_kit_set = 'all'
+
+  if request.page_type == 'product' and product != blank
+    if section.settings.mates_handle != blank and product.handle == section.settings.mates_handle
+      assign active_kit_set = 'mates'
+    elsif section.settings.starter_handle != blank and product.handle == section.settings.starter_handle
+      assign active_kit_set = 'starter'
+    endif
+  endif
+
+  assign visible_blocks_count = 0
+  assign first_visible_block = blank
+
+  for block in section.blocks
+    assign block_kit_set = block.settings.kit_set | default: 'both'
+    assign block_matches = false
+
+    if active_kit_set == 'all' or block_kit_set == 'both' or block_kit_set == active_kit_set
+      assign block_matches = true
+    endif
+
+    if block_matches
+      assign visible_blocks_count = visible_blocks_count | plus: 1
+      if first_visible_block == blank
+        assign first_visible_block = block
+      endif
+    endif
+  endfor
+
+  assign progress_block = first_visible_block | default: section.blocks.first
+-%}
+
 <style>
   #shopify-section-{{ section.id }} {
-    --progress-bar-color: {{ section.blocks.first.settings.text_color.red }}, {{ section.blocks.first.settings.text_color.green }}, {{ section.blocks.first.settings.text_color.blue }};
+    --progress-bar-color: {{ progress_block.settings.text_color.red }}, {{ progress_block.settings.text_color.green }}, {{ progress_block.settings.text_color.blue }};
     --section-autoplay-duration: {% if section.settings.autoplay %}{{ section.settings.cycle_speed }}s{% else %}0s{% endif %};
     --section-animation-play-state: paused;
     --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size }}px;
@@ -208,7 +241,23 @@
 <section class="section section--flush">
   <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
     <div class="slideshow__slide-list">
+      {%- assign visible_index = 0 -%}
       {%- for block in section.blocks -%}
+        {%- liquid
+          assign block_kit_set = block.settings.kit_set | default: 'both'
+          assign block_matches = false
+
+          if active_kit_set == 'all' or block_kit_set == 'both' or block_kit_set == active_kit_set
+            assign block_matches = true
+          endif
+        -%}
+
+        {%- unless block_matches -%}
+          {%- continue -%}
+        {%- endunless -%}
+
+        {%- assign visible_index = visible_index | plus: 1 -%}
+        {%- assign is_first_visible = visible_index == 1 -%}
         {%- comment -%}
         ------------------------------------------------------------------------------------------------------------------
         IMAGE PART
@@ -230,14 +279,14 @@
           {%- assign image_aspect_ratio = image_aspect_ratio | times: 2.0 -%}
         {%- endif -%}
 
-        {%- if forloop.index > 2 -%}
+        {%- if visible_index > 2 -%}
           {%- assign loading_attribute_value = 'lazy' -%}
         {%- else -%}
           {%- assign loading_attribute_value = 'eager' -%}
         {%- endif -%}
 
         {%- capture slide_content -%}
-          <div class="slideshow__image-wrapper {% if mobile_image != blank %}hidden-pocket{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or forloop.first == false %}reveal-visibility{% endif %}>
+          <div class="slideshow__image-wrapper {% if mobile_image != blank %}hidden-pocket{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
             {%- if image != blank -%}
               {%- capture sizes_attributes -%}{% if split_image != blank %}(min-width: 1000px) 50vw{% else %}100vw{% endif %}{%- endcapture -%}
               {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: sizes_attributes, widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
@@ -249,13 +298,13 @@
 
           {%- comment -%}If a second image (split image) is uploaded, we use it. Note that we use the same ratio as the first image (to have equal column height){% endcomment %}
           {%- if image != blank and split_image != blank -%}
-            <div class="slideshow__image-wrapper slideshow__image-wrapper--secondary hidden-pocket" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or forloop.first == false %}reveal-visibility{% endif %}>
+            <div class="slideshow__image-wrapper slideshow__image-wrapper--secondary hidden-pocket" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
               {{- split_image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: '50vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
             </div>
           {%- endif -%}
 
           {%- if mobile_image != blank -%}
-            <div class="slideshow__image-wrapper hidden-lap-and-up" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or forloop.first == false %}reveal-visibility{% endif %}>
+            <div class="slideshow__image-wrapper hidden-lap-and-up" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
               {{- mobile_image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: '100vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
             </div>
           {%- endif -%}
@@ -275,19 +324,19 @@
           {%- capture section_content -%}
             {%- if slide_subheading != blank -%}
               <h2 class="heading heading--small">
-                <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>{{ block.settings.subheading | escape }}</split-lines>
+                <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or is_first_visible == false %}reveal{% endif %}>{{ block.settings.subheading | escape }}</split-lines>
               </h2>
             {%- endif -%}
 
             {%- if slide_title != blank -%}
               <h3 class="heading heading--large">
-                <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>{{ block.settings.title }}</split-lines>
+                <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or is_first_visible == false %}reveal{% endif %}>{{ block.settings.title }}</split-lines>
               </h3>
             {%- endif -%}
 
             {%- if slide_content != blank -%}
               <p class="content">
-                <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>{{ block.settings.content }}</split-lines>
+                <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or is_first_visible == false %}reveal{% endif %}>{{ block.settings.content }}</split-lines>
               </p>
             {%- endif -%}
 
@@ -302,13 +351,13 @@
             {%- endcapture -%}
 
             {%- if block.settings.button_1_text != blank and block.settings.button_2_text != blank -%}
-              <div class="button-group" {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>
+              <div class="button-group" {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or is_first_visible == false %}reveal{% endif %}>
                 <div class="button-group__wrapper">
                   {{- buttons -}}
                 </div>
               </div>
             {%- elsif buttons != blank -%}
-              <div class="button-wrapper" {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>
+              <div class="button-wrapper" {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or is_first_visible == false %}reveal{% endif %}>
                 {{- buttons -}}
               </div>
             {%- endif -%}
@@ -334,13 +383,13 @@
           {{ block.shopify_attributes }}
           id="block-{{ section.id }}-{{ block.id }}"
           class="slideshow__slide {% if split_image != blank %}slideshow__slide--split{% endif %} {% if section.settings.transition_type == 'sweep' %}slideshow__slide--sweep{% endif %}"
-          {% unless forloop.first %}hidden{% endunless %}
+          {% unless is_first_visible %}hidden{% endunless %}
           {% if section.settings.section_height == 'auto' %}
             style="--image-aspect-ratio: {{ image_aspect_ratio }}; --mobile-image-aspect-ratio: {{ mobile_image.aspect_ratio | default: image_aspect_ratio | default: 1 }};"
           {% endif %}
         {%- endcapture -%}
 
-        <slide-show-item {% if section.settings.transition_type != 'reveal' and section.settings.show_initial_transition or forloop.first == false %}reveal-visibility{% endif %} {{ slide_attributes }}>
+        <slide-show-item {% if section.settings.transition_type != 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %} {{ slide_attributes }}>
           {%- if block.settings.button_1_link != blank and block.settings.button_1_text == blank and block.settings.button_2_text == blank -%}
             <a class="slideshow__slide-inner" href="{{ block.settings.button_1_link }}">
               {{- slide_content -}}
@@ -355,14 +404,30 @@
     </div>
   </slide-show>
 
-  {%- if section.blocks.size > 1 -%}
+  {%- if visible_blocks_count > 1 -%}
     <div class="slideshow-brisa__nav-bar">
       <button type="button" class="slideshow-brisa__arrow slideshow-brisa__arrow--prev prev-next-button" is="prev-button" aria-label="{{ 'general.accessibility.previous' | t }}">
         {%- render 'icon' with 'nav-arrow-left', direction_aware: true -%}
       </button>
 
       <page-dots align-selected class="slideshow-brisa__dots" role="tablist">
+        {%- assign dot_index = -1 -%}
         {%- for block in section.blocks -%}
+          {%- liquid
+            assign block_kit_set = block.settings.kit_set | default: 'both'
+            assign block_matches = false
+
+            if active_kit_set == 'all' or block_kit_set == 'both' or block_kit_set == active_kit_set
+              assign block_matches = true
+            endif
+          -%}
+
+          {%- unless block_matches -%}
+            {%- continue -%}
+          {%- endunless -%}
+
+          {%- assign dot_index = dot_index | plus: 1 -%}
+
           {%- assign thumb_image = block.settings.thumbnail_image -%}
           {%- if thumb_image == blank -%}
             {%- assign thumb_image = block.settings.image -%}
@@ -378,9 +443,9 @@
             type="button"
             role="tab"
             class="slideshow-brisa__thumb"
-            data-slide-index="{{ forloop.index0 }}"
+            data-slide-index="{{ dot_index }}"
             aria-controls="block-{{ section.id }}-{{ block.id }}"
-            {% if forloop.first %}aria-current="true" aria-selected="true"{% else %}aria-selected="false"{% endif %}
+            {% if dot_index == 0 %}aria-current="true" aria-selected="true"{% else %}aria-selected="false"{% endif %}
           >
             {%- if thumb_image != blank -%}
               <img
@@ -391,12 +456,12 @@
                 width="160"
                 height="160"
                 alt=""
-                loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"
+                loading="{% if dot_index < 4 %}eager{% else %}lazy{% endif %}"
               >
             {%- else -%}
               <span class="slideshow-brisa__thumb-placeholder" aria-hidden="true"></span>
             {%- endif -%}
-            <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
+            <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: dot_index | plus: 1 }}</span>
           </button>
         {%- endfor -%}
       </page-dots>
@@ -417,6 +482,22 @@
   },
   "max_blocks": 12,
   "settings": [
+    {
+      "type": "header",
+      "content": "Kit sets"
+    },
+    {
+      "type": "text",
+      "id": "starter_handle",
+      "label": "Starter Kit product handle",
+      "default": "starter-kit"
+    },
+    {
+      "type": "text",
+      "id": "mates_handle",
+      "label": "Mates Pack product handle",
+      "default": "mates-pack"
+    },
     {
       "type": "select",
       "id": "section_height",
@@ -583,6 +664,17 @@
           "id": "thumbnail_image",
           "label": "Thumbnail image",
           "info": "Optional. Used in pagination. Falls back to slide image if empty."
+        },
+        {
+          "type": "select",
+          "id": "kit_set",
+          "label": "Kit set",
+          "default": "both",
+          "options": [
+            { "value": "both", "label": "Both" },
+            { "value": "starter", "label": "Starter Kit" },
+            { "value": "mates", "label": "Mates Pack" }
+          ]
         },
         {
           "type": "select",
