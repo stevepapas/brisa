@@ -257,23 +257,6 @@
         "include_vertical_margins": true
       }
     },
-    "custom_liquid_wKcMgG": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {background: #eee; padding: 50px 0px; border-radius: 40px;}",
-        "* {background: transparent;}"
-      ],
-      "name": "Why $130",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">WHY $130 IS THE SMARTEST MONEY YOU'LL SPEND THIS YEAR</h3>\n<p style=\"margin-bottom: 30px !important\"><b>YOU'RE ALREADY SPENDING MORE THAN THIS EVERY TWO WEEKS:</b><br>\nVapers spend $300+/month. Smokers spend $500+/month. $130 once to end it isn't an expense — it's the cheapest decision you'll make all year.\n</b></p><p style=\"margin-bottom: 30px !important\"><b>\nEVERYTHING INCLUDED FROM DAY ONE:</b><br>\nDevice, 9 aroma cores (27 days supply), cleaning kit, carry bag. Open the box and you're ready. Nothing else to buy.\n</b></p><p style=\"margin-bottom: 30px !important\"><b>\nONGOING COST:</b><br>\nLESS THAN $45/MONTH Every month you use Brisa instead of vaping you're saving $250+\n</b></p><p><b>\nTHE ONLY THING BUILT FOR THE REAL PROBLEM:</b><br>Patches replace nicotine. Gum replaces nicotine. Nothing else replaces the ritual. Brisa is the only thing built specifically for that.</b></p> \n  </div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "engineered_switch_NniVXE": {
       "type": "engineered-switch",
       "blocks": {
@@ -567,7 +550,6 @@
     "main",
     "product-content",
     "1772962804ca13e40e",
-    "custom_liquid_wKcMgG",
     "engineered_switch_NniVXE",
     "brisa_comparison_table_ntMxq4",
     "device_questions_PFtKdK",
