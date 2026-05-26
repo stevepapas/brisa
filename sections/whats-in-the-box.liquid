@@ -1,5 +1,7 @@
 {% liquid
   assign section_uid = section.id | replace: '-', '' | downcase
+  assign image_offset_x = section.settings.image_offset_x | minus: 30
+  assign image_offset_y = section.settings.image_offset_y | minus: 30
 %}
 
 <style>
@@ -106,7 +108,7 @@
     max-width: none;
     border-radius: 0;
     object-fit: {{ section.settings.image_fit }};
-    transform: translate({{ section.settings.image_offset_x }}%, {{ section.settings.image_offset_y }}%) scale({{ section.settings.image_zoom | divided_by: 100.0 }});
+    transform: translate({{ image_offset_x }}%, {{ image_offset_y }}%) scale({{ section.settings.image_zoom | divided_by: 100.0 }});
     transform-origin: center;
   }
 
@@ -317,9 +319,7 @@
         {% endif %}
 
         {% for block in section.blocks %}
-          {% unless block.type == 'callout' %}
-            {% continue %}
-          {% endunless %}
+          {% if block.type == 'callout' %}
           <div
             class="whats-in-the-box__callout whats-in-the-box__callout--position-{{ block.settings.position }}"
             {{ block.shopify_attributes }}
@@ -364,10 +364,11 @@
               {% endif %}
             </div>
           </div>
+          {% endif %}
         {% endfor %}
       </div>
 
-      {% assign media_blocks = section.blocks | where: 'type', 'media' %}
+      {% assign media_blocks = section.blocks | where: 'type', 'gallery_media' %}
       {% if media_blocks.size > 0 %}
         <div class="whats-in-the-box__media-gallery" role="list" aria-label="Additional media">
           {% for block in media_blocks %}
@@ -386,7 +387,7 @@
                 {{ block.settings.video | video_tag: image_size: '1200x', autoplay: false, loop: false, muted: true, controls: true, preload: 'metadata' }}
               {% elsif block.settings.video_url != blank %}
                 <div class="video-wrapper">
-                  {{ block.settings.video_url | video_tag: autoplay: false, loop: false, muted: true, controls: true }}
+                  {{ block.settings.video_url | external_video_tag: image_size: '1200x' }}
                 </div>
               {% endif %}
             </div>
@@ -403,12 +404,12 @@
 
 {% schema %}
 {
-  "name": "What's in the box",
+  "name": "Whats in the box",
   "class": "shopify-section--whats-in-the-box",
   "disabled_on": {
     "groups": ["header", "custom.overlay"]
   },
-  "max_blocks": 6,
+  "max_blocks": 12,
   "settings": [
     {
       "type": "text",
@@ -478,21 +479,21 @@
       "type": "range",
       "id": "image_offset_x",
       "label": "Image pan X",
-      "min": -30,
-      "max": 30,
+      "min": 0,
+      "max": 60,
       "step": 2,
       "unit": "%",
-      "default": 0
+      "default": 30
     },
     {
       "type": "range",
       "id": "image_offset_y",
       "label": "Image pan Y",
-      "min": -30,
-      "max": 30,
+      "min": 0,
+      "max": 60,
       "step": 2,
       "unit": "%",
-      "default": 0
+      "default": 30
     },
     {
       "type": "text",
@@ -827,7 +828,7 @@
       ]
     },
     {
-      "type": "media",
+      "type": "gallery_media",
       "name": "Media",
       "settings": [
         {
@@ -851,7 +852,7 @@
   ],
   "presets": [
     {
-      "name": "What's in the box",
+      "name": "Whats in the box",
       "category": "Brisa",
       "blocks": [
         {
