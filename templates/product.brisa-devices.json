@@ -238,6 +238,108 @@
         "transition_effect": "slide"
       }
     },
+    "brisa_product_kit_picker": {
+      "type": "brisa-product-kit-picker",
+      "blocks": {
+        "starter_feature_1": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "1 × Brisa Device (chosen colour)"
+          }
+        },
+        "starter_feature_2": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "9 × Flavour Cores — 3 to 5 weeks of ritual"
+          }
+        },
+        "starter_feature_3": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "Cleaning Kit + Carry Bag"
+          }
+        },
+        "starter_feature_4": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "FREE Watermelon Core ($15 value)"
+          }
+        },
+        "mates_feature_1": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "2 × Brisa Devices"
+          }
+        },
+        "mates_feature_2": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "18 × Flavour Cores — 3-5 weeks per person of ritual each"
+          }
+        },
+        "mates_feature_3": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "2 × Cleaning Kits + Carry Bags"
+          }
+        },
+        "mates_feature_4": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "2 × FREE Watermelon Cores ($30 value)"
+          }
+        },
+        "mates_feature_5": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "Ship to two addresses"
+          }
+        },
+        "mates_feature_6": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "Covers both 30-Day Guarantees"
+          }
+        }
+      },
+      "block_order": [
+        "starter_feature_1",
+        "starter_feature_2",
+        "starter_feature_3",
+        "starter_feature_4",
+        "mates_feature_1",
+        "mates_feature_2",
+        "mates_feature_3",
+        "mates_feature_4",
+        "mates_feature_5",
+        "mates_feature_6"
+      ],
+      "name": "Product kit picker",
+      "settings": {
+        "starter_handle": "starter-kit",
+        "mates_handle": "mates-pack",
+        "starter_title": "Starter Kit",
+        "starter_subtitle": "For your first switch",
+        "starter_header_price": "$130",
+        "starter_price": "$130",
+        "starter_compare_price": "$145",
+        "mates_banner": "Best value. Save $40",
+        "mates_title": "Mates Pack",
+        "mates_note": "Tackle it with a mate or loved one who also needs to quit.",
+        "mates_price": "$220",
+        "mates_compare_price": "$260"
+      }
+    },
     "product-content": {
       "type": "product-content",
       "settings": {}
@@ -540,6 +642,7 @@
   "order": [
     "slideshow_brisa_LPC6iL",
     "main",
+    "brisa_product_kit_picker",
     "product-content",
     "1772962804ca13e40e",
     "engineered_switch_NniVXE",
