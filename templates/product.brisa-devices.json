@@ -289,6 +289,137 @@
         "banner_text_color": "#ffffff"
       }
     },
+    "brisa_product_kit_picker_cKf7EP": {
+      "type": "brisa-product-kit-picker",
+      "blocks": {
+        "feature_UbngGP": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "1 × Brisa Device (chosen colour)"
+          }
+        },
+        "feature_CLDKnc": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "9 × Flavour Cores — 3 to 5 weeks of ritual"
+          }
+        },
+        "feature_AbRWkm": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "Cleaning Kit + Carry Bag"
+          }
+        },
+        "feature_tcNgaW": {
+          "type": "feature",
+          "settings": {
+            "card": "starter",
+            "text": "FREE Watermelon Core ($15 value)"
+          }
+        },
+        "feature_TpwBJE": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "2 × Brisa Devices"
+          }
+        },
+        "feature_66kC4Y": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "18 × Flavour Cores — 3-5 weeks per person of ritual each"
+          }
+        },
+        "feature_f4LRLb": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "2 × Cleaning Kits + Carry Bags"
+          }
+        },
+        "feature_FdTDcU": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "2 × FREE Watermelon Cores ($30 value)"
+          }
+        },
+        "feature_tCEk8q": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "Ship to two addresses"
+          }
+        },
+        "feature_JxJPmG": {
+          "type": "feature",
+          "settings": {
+            "card": "mates",
+            "text": "Covers both 30-Day Guarantees"
+          }
+        }
+      },
+      "block_order": [
+        "feature_UbngGP",
+        "feature_CLDKnc",
+        "feature_AbRWkm",
+        "feature_tcNgaW",
+        "feature_TpwBJE",
+        "feature_66kC4Y",
+        "feature_f4LRLb",
+        "feature_FdTDcU",
+        "feature_tCEk8q",
+        "feature_JxJPmG"
+      ],
+      "name": "Product kit picker",
+      "settings": {
+        "starter_product": "brisa-device-black",
+        "starter_handle": "starter-kit",
+        "mates_product": "brisa-mates-pack-ocean-starter-kit",
+        "mates_handle": "mates-pack",
+        "starter_title": "Starter Kit",
+        "starter_subtitle": "For your first switch",
+        "starter_header_price": "$130",
+        "starter_price": "$130",
+        "starter_compare_price": "$145",
+        "mates_banner": "Best value. Save $40",
+        "mates_title": "Mates Pack",
+        "mates_note": "Tackle it with a mate or loved one who also needs to quit.",
+        "mates_price": "$220",
+        "mates_compare_price": "$260",
+        "max_width": 1100,
+        "card_gap": 18,
+        "border_width": 2,
+        "border_radius": 14,
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "title_size": 28,
+        "mobile_title_size": 24,
+        "subtitle_size": 16,
+        "header_price_size": 18,
+        "feature_size": 15,
+        "note_size": 14,
+        "price_size": 42,
+        "mobile_price_size": 36,
+        "compare_size": 16,
+        "background": "#ffffff",
+        "card_background": "#ffffff",
+        "active_background": "#e9f4ff",
+        "border_color": "#008bdc",
+        "heading_color": "#111111",
+        "text_color": "#1a1a1a",
+        "check_color": "#111111",
+        "compare_color": "#8a8a8a",
+        "banner_background": "#008bdc",
+        "banner_text_color": "#ffffff"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -803,6 +934,7 @@
   "order": [
     "slideshow_brisa_LPC6iL",
     "brisa_product_kit_picker_EB6cNF",
+    "brisa_product_kit_picker_cKf7EP",
     "main",
     "brisa_product_kit_picker",
     "product-content",
