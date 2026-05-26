@@ -296,20 +296,26 @@
           ----------------------------------------------------------------------------------------------------------------
           {%- endcomment -%}
 
+          {%- liquid
+            assign slide_subheading = block.settings.subheading | strip_html | strip
+            assign slide_title = block.settings.title | strip_html | strip
+            assign slide_content = block.settings.content | strip_html | strip
+          -%}
+
           {%- capture section_content -%}
-            {%- if block.settings.subheading != blank -%}
+            {%- if slide_subheading != blank -%}
               <h2 class="heading heading--small">
                 <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>{{ block.settings.subheading | escape }}</split-lines>
               </h2>
             {%- endif -%}
 
-            {%- if block.settings.title != blank -%}
+            {%- if slide_title != blank -%}
               <h3 class="heading heading--large">
                 <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>{{ block.settings.title }}</split-lines>
               </h3>
             {%- endif -%}
 
-            {%- if block.settings.content != blank -%}
+            {%- if slide_content != blank -%}
               <p class="content">
                 <split-lines {% if section.settings.transition_type != 'fade' and section.settings.show_initial_transition or forloop.first == false %}reveal{% endif %}>{{ block.settings.content }}</split-lines>
               </p>
@@ -707,20 +713,17 @@
         {
           "type": "html",
           "id": "subheading",
-          "label": "Subheading",
-          "default": "Tell your story"
+          "label": "Subheading"
         },
         {
           "type": "html",
           "id": "title",
-          "label": "Heading",
-          "default": "Slide title"
+          "label": "Heading"
         },
         {
           "type": "html",
           "id": "content",
-          "label": "Content",
-          "default": "Slide title"
+          "label": "Content"
         },
         {
           "type": "text",
@@ -789,16 +792,10 @@
       "name": "Slideshow Brisa",
       "blocks": [
         {
-          "type": "image",
-          "settings": {
-            "title": "Slide 1"
-          }
+          "type": "image"
         },
         {
-          "type": "image",
-          "settings": {
-            "title": "Slide 2"
-          }
+          "type": "image"
         }
       ]
     }
