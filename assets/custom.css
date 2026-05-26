@@ -666,15 +666,62 @@ display: none;
   text-decoration: none !important;
 }
 
-/* Product hero slideshow: cap slide area only — keep thumbnail nav visible below */
-.template-brisa-cores slide-show.slideshow-brisa,
-.template-brisa-devices slide-show.slideshow-brisa {
-  min-height: 0;
-  max-height: none;
-  overflow: visible;
-}
+/* Product hero slideshow: square, centered on desktop (not full viewport width) */
+@media screen and (min-width: 1000px) {
+  .template-brisa-cores .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
+  .template-brisa-devices .shopify-section--slideshow-brisa slide-show.slideshow-brisa {
+    --slideshow-min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    overflow: visible;
+  }
 
-/* Square desktop layout is handled in slideshow-brisa.liquid (desktop_layout: square) */
+  .template-brisa-cores .shopify-section--slideshow-brisa,
+  .template-brisa-devices .shopify-section--slideshow-brisa {
+    --slideshow-brisa-desktop-size: 520px;
+  }
+
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-list {
+    position: relative;
+    flex: 0 0 auto;
+    width: min(var(--slideshow-brisa-desktop-size, 520px), 100%) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin-inline: auto;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide,
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-inner,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner {
+    min-height: 0;
+  }
+
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-inner::before,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner::before {
+    display: none;
+  }
+
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar {
+    width: min(var(--slideshow-brisa-desktop-size, 520px), 100%);
+    max-width: 100%;
+    margin-inline: auto;
+  }
+}
 
 .template-brisa-cores slide-show h2,
 .template-brisa-devices slide-show h2 {

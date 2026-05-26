@@ -16,7 +16,6 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/cores-group.png",
-            "mobile_image": "shopify://shop_images/cores-group.png",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
@@ -241,7 +240,7 @@
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">HOW IT WORKS</h3>\n<p style=\"margin-bottom: 30px !important\"><b>\n1. UNSCREW THE TOP </b><br>\nTwist off the top cap and drop your aroma core inside. Takes seconds.\n<br><br>\n<b>2. SET YOUR AIRFLOW</b><br>\nDial the base to find your perfect draw — tighter or looser, just like you're used to. \n<br><br><b>\n3. REACH FOR IT INSTEAD </b><br>\nEvery time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back.\n</p>\n  </div>\n  <div class=\"grid-column\">\n  </div>\n</div>",
+        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">HOW IT WORKS</h3>\n<p style=\"margin-bottom: 30px !important\"><b>\n1. UNSCREW THE TOP </b><br>\nTwist off the top cap and drop your aroma core inside. Takes seconds.\n<br><br>\n<b>2. SET YOUR AIRFLOW</b><br>\nDial the base to find your perfect draw \u2014 tighter or looser, just like you're used to. \n<br><br><b>\n3. REACH FOR IT INSTEAD </b><br>\nEvery time you'd reach for your vape \u2014 reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back.\n</p>\n  </div>\n  <div class=\"grid-column\">\n  </div>\n</div>",
         "background_type": "full_width",
         "add_vertical_spacing": true,
         "background": "rgba(0,0,0,0)",

@@ -66,20 +66,10 @@
   {%- for block in section.blocks -%}
     {%- assign text_position = block.settings.text_position | split: '_' | first -%}
     {%- assign image_focal = block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}
-    {%- assign mobile_image_focal = block.settings.mobile_image_focal_point | default: block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}
-    {%- assign split_image_focal = block.settings.split_image_focal_point | default: block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}
 
-    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper:not(.slideshow__image-wrapper--secondary):not(.hidden-lap-and-up) .slideshow__image,
-    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper:not(.slideshow__image-wrapper--secondary):not(.hidden-lap-and-up) .slideshow__image--placeholder {
+    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper .slideshow__image,
+    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper .slideshow__image--placeholder {
       object-position: {{ image_focal }};
-    }
-
-    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper.hidden-lap-and-up .slideshow__image {
-      object-position: {{ mobile_image_focal }};
-    }
-
-    #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper--secondary .slideshow__image {
-      object-position: {{ split_image_focal }};
     }
 
     {%- case text_position -%}
@@ -245,25 +235,31 @@
   }
 
   {%- if section.settings.desktop_layout == 'square' -%}
+    #shopify-section-{{ section.id }} {
+      --slideshow-brisa-desktop-size: {{ section.settings.desktop_max_width }}px;
+    }
+
     @media screen and (min-width: 1000px) {
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop slide-show.slideshow-brisa,
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-list,
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide,
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-inner {
-        min-height: 0;
+        min-height: 0 !important;
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop slide-show.slideshow-brisa {
+        --slideshow-min-height: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
+        height: auto;
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide-list {
         position: relative;
         flex: 0 0 auto;
-        width: min({{ section.settings.desktop_max_width }}px, 100%);
+        width: min(var(--slideshow-brisa-desktop-size, 520px), 100%) !important;
         max-width: 100%;
         margin-inline: auto;
         aspect-ratio: 1 / 1;
@@ -286,8 +282,9 @@
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__nav-bar {
-        width: min({{ section.settings.desktop_max_width }}px, 100%);
+        width: min(var(--slideshow-brisa-desktop-size, 520px), 100%);
         max-width: 100%;
+        margin-inline: auto;
       }
     }
   {%- endif -%}
@@ -339,19 +336,7 @@
         {%- endcomment -%}
 
         {%- assign image = block.settings.image -%}
-        {%- assign split_image = block.settings.split_image -%}
-        {%- assign mobile_image = block.settings.mobile_image -%}
-
-        {%- assign image_aspect_ratio = image.aspect_ratio | default: 2.63 -%}
-
-        {%- comment -%}
-        If the image is split and that we want to preserve the ratio, we have to multiply the ratio by 2 (as each image
-        only account for half the screen size)
-        {%- endcomment -%}
-
-        {%- if image != blank and split_image != blank and section.settings.section_height == 'auto' -%}
-          {%- assign image_aspect_ratio = image_aspect_ratio | times: 2.0 -%}
-        {%- endif -%}
+        {%- assign image_aspect_ratio = image.aspect_ratio | default: 1 -%}
 
         {%- if visible_index > 2 -%}
           {%- assign loading_attribute_value = 'lazy' -%}
@@ -359,29 +344,23 @@
           {%- assign loading_attribute_value = 'eager' -%}
         {%- endif -%}
 
+        {%- liquid
+          if section.settings.desktop_layout == 'square'
+            assign slide_image_sizes = '(min-width: 1000px) 520px, 100vw'
+          else
+            assign slide_image_sizes = '100vw'
+          endif
+        -%}
+
         {%- capture slide_content -%}
-          <div class="slideshow__image-wrapper {% if mobile_image != blank %}hidden-pocket{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
+          <div class="slideshow__image-wrapper" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
             {%- if image != blank -%}
-              {%- capture sizes_attributes -%}{% if split_image != blank %}(min-width: 1000px) 50vw{% else %}100vw{% endif %}{%- endcapture -%}
-              {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: sizes_attributes, widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
+              {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600,2000,2400,3000' -}}
             {%- else -%}
               {% capture image_name %}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
               {{- image_name | placeholder_svg_tag: 'slideshow__image slideshow__image--placeholder' -}}
             {%- endif -%}
           </div>
-
-          {%- comment -%}If a second image (split image) is uploaded, we use it. Note that we use the same ratio as the first image (to have equal column height){% endcomment %}
-          {%- if image != blank and split_image != blank -%}
-            <div class="slideshow__image-wrapper slideshow__image-wrapper--secondary hidden-pocket" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
-              {{- split_image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: '50vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
-            </div>
-          {%- endif -%}
-
-          {%- if mobile_image != blank -%}
-            <div class="slideshow__image-wrapper hidden-lap-and-up" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
-              {{- mobile_image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: '100vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' -}}
-            </div>
-          {%- endif -%}
 
           {%- comment -%}
           ----------------------------------------------------------------------------------------------------------------
@@ -456,11 +435,11 @@
         {%- capture slide_attributes -%}
           {{ block.shopify_attributes }}
           id="block-{{ section.id }}-{{ block.id }}"
-          class="slideshow__slide {% if split_image != blank %}slideshow__slide--split{% endif %} {% if section.settings.transition_type == 'sweep' %}slideshow__slide--sweep{% endif %}"
+          class="slideshow__slide {% if section.settings.transition_type == 'sweep' %}slideshow__slide--sweep{% endif %}"
           data-kit-set="{{ block_kit_set }}"
           {% unless is_first_visible %}hidden{% endunless %}
           {% if section.settings.section_height == 'auto' %}
-            style="--image-aspect-ratio: {{ image_aspect_ratio }}; --mobile-image-aspect-ratio: {{ mobile_image.aspect_ratio | default: image_aspect_ratio | default: 1 }};"
+            style="--image-aspect-ratio: {{ image_aspect_ratio }}; --mobile-image-aspect-ratio: {{ image_aspect_ratio }};"
           {% endif %}
         {%- endcapture -%}
 
@@ -506,12 +485,6 @@
           {%- assign thumb_image = block.settings.thumbnail_image -%}
           {%- if thumb_image == blank -%}
             {%- assign thumb_image = block.settings.image -%}
-          {%- endif -%}
-          {%- if thumb_image == blank -%}
-            {%- assign thumb_image = block.settings.mobile_image -%}
-          {%- endif -%}
-          {%- if thumb_image == blank -%}
-            {%- assign thumb_image = block.settings.split_image -%}
           {%- endif -%}
 
           <button
@@ -795,20 +768,8 @@
         {
           "type": "image_picker",
           "id": "image",
-          "info": "2160 x 1080px .jpg recommended, 1080 x 1080px .jpg recommended if split",
-          "label": "Image"
-        },
-        {
-          "type": "image_picker",
-          "id": "split_image",
-          "info": "1080 x 1080px .jpg recommended. Won't show up on mobile.",
-          "label": "Split image"
-        },
-        {
-          "type": "image_picker",
-          "id": "mobile_image",
-          "label": "Mobile image",
-          "info": "1000 x 1400px .jpg recommended. If none is set, desktop image will be used."
+          "label": "Image",
+          "info": "1080 x 1080px square .png or .jpg recommended. Same image is used on mobile and desktop."
         },
         {
           "type": "image_picker",
@@ -821,41 +782,6 @@
           "id": "image_focal_point",
           "label": "Image position",
           "info": "Controls which part of the image stays visible when cropped.",
-          "options": [
-            { "value": "top_left", "label": "Top left" },
-            { "value": "top_center", "label": "Top center" },
-            { "value": "top_right", "label": "Top right" },
-            { "value": "center_left", "label": "Center left" },
-            { "value": "center_center", "label": "Center" },
-            { "value": "center_right", "label": "Center right" },
-            { "value": "bottom_left", "label": "Bottom left" },
-            { "value": "bottom_center", "label": "Bottom center" },
-            { "value": "bottom_right", "label": "Bottom right" }
-          ],
-          "default": "center_center"
-        },
-        {
-          "type": "select",
-          "id": "mobile_image_focal_point",
-          "label": "Mobile image position",
-          "info": "Leave as center unless using a separate mobile image.",
-          "options": [
-            { "value": "top_left", "label": "Top left" },
-            { "value": "top_center", "label": "Top center" },
-            { "value": "top_right", "label": "Top right" },
-            { "value": "center_left", "label": "Center left" },
-            { "value": "center_center", "label": "Center" },
-            { "value": "center_right", "label": "Center right" },
-            { "value": "bottom_left", "label": "Bottom left" },
-            { "value": "bottom_center", "label": "Bottom center" },
-            { "value": "bottom_right", "label": "Bottom right" }
-          ],
-          "default": "center_center"
-        },
-        {
-          "type": "select",
-          "id": "split_image_focal_point",
-          "label": "Split image position",
           "options": [
             { "value": "top_left", "label": "Top left" },
             { "value": "top_center", "label": "Top center" },

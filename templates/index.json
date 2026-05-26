@@ -17,14 +17,11 @@
           "settings": {
             "kit_set": "both",
             "image": "shopify://shop_images/DSC_2245.jpg",
-            "mobile_image": "shopify://shop_images/DSC_2245.jpg",
             "image_focal_point": "center_center",
-            "mobile_image_focal_point": "center_center",
-            "split_image_focal_point": "center_center",
             "text_position": "middle_left",
             "subheading": "",
             "title": "",
-            "content": "<div class=\"three-column-grid\" style=\"font-weight: bold;\ncolor: white;\njustify-content: center;\ngap: 10px;\ngrid-template-columns: auto auto auto;\nalign-items: center; padding-bottom: 0px\">\n\n  <div class=\"grid-column\" style=\"font-weight: bold;\">\n<span class=\"ai-testimonials-carousel__stars-top\">\n<svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n          <svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n\n</span>\n</div>\n  <div class=\"grid-column\" style=\"font-size: 12px\">\n    Rated 4.7 (163)\n  </div>\n  <div class=\"grid-column\" align-content:=\"\" center=\"\">\n1,000+ Aussies\n    \n  </div>\n</div>\n\n\n<h2 style=\"color: white; text-align: left; line-height: 1.2; margin-top: 0px;\">KEEP THE RITUAL<br>DROP THE HABIT.\n</h2>\n<p style=\"font-weight: bold; text-align: left; font-size: 90%\">A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking. Snap in a core. Take the draw. Move on.</p>\n<a class=\"home_button\" href=\"/products/brisa-device-black\">Shop starter kit - $130</a>\n<div class=\"small\">Free shipping · 30-Day Success Guarantee · Ships in 1–2 days</div>\n<style>\n.ai-testimonials-carousel__stars-top {\n    gap: 4px;{\n  }\n .ai-testimonials-carousel__star-top {\n    width: 24px;\n    height: 24px;\n    fill: #008bdc;\n  }\n\n  .ai-testimonials-carousel__star-top--empty {\n    fill: #008bdc;\n  }\n</style>",
+            "content": "<div class=\"three-column-grid\" style=\"font-weight: bold;\ncolor: white;\njustify-content: center;\ngap: 10px;\ngrid-template-columns: auto auto auto;\nalign-items: center; padding-bottom: 0px\">\n\n  <div class=\"grid-column\" style=\"font-weight: bold;\">\n<span class=\"ai-testimonials-carousel__stars-top\">\n<svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n          <svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n\n</span>\n</div>\n  <div class=\"grid-column\" style=\"font-size: 12px\">\n    Rated 4.7 (163)\n  </div>\n  <div class=\"grid-column\" align-content:=\"\" center=\"\">\n1,000+ Aussies\n    \n  </div>\n</div>\n\n\n<h2 style=\"color: white; text-align: left; line-height: 1.2; margin-top: 0px;\">KEEP THE RITUAL<br>DROP THE HABIT.\n</h2>\n<p style=\"font-weight: bold; text-align: left; font-size: 90%\">A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking. Snap in a core. Take the draw. Move on.</p>\n<a class=\"home_button\" href=\"/products/brisa-device-black\">Shop starter kit - $130</a>\n<div class=\"small\">Free shipping \u00b7 30-Day Success Guarantee \u00b7 Ships in 1\u20132 days</div>\n<style>\n.ai-testimonials-carousel__stars-top {\n    gap: 4px;{\n  }\n .ai-testimonials-carousel__star-top {\n    width: 24px;\n    height: 24px;\n    fill: #008bdc;\n  }\n\n  .ai-testimonials-carousel__star-top--empty {\n    fill: #008bdc;\n  }\n</style>",
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -75,7 +72,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_03.png",
-            "icon_emoji": "🔄",
+            "icon_emoji": "\ud83d\udd04",
             "label": "Satisfies the ritual"
           }
         },
@@ -83,7 +80,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_05.png",
-            "icon_emoji": "🚭",
+            "icon_emoji": "\ud83d\udead",
             "label": "No smoke No vapour"
           }
         },
@@ -91,7 +88,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_09.png",
-            "icon_emoji": "✨",
+            "icon_emoji": "\u2728",
             "label": "Throat sensation"
           }
         },
@@ -99,7 +96,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_10.png",
-            "icon_emoji": "🚫",
+            "icon_emoji": "\ud83d\udeab",
             "label": "No Nicotine"
           }
         },
@@ -107,7 +104,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_20.png",
-            "icon_emoji": "🚚",
+            "icon_emoji": "\ud83d\ude9a",
             "text": "Free Shipping"
           }
         },
@@ -115,7 +112,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_14.png",
-            "icon_emoji": "🛡️",
+            "icon_emoji": "\ud83d\udee1\ufe0f",
             "text": "Secure Checkout"
           }
         },
@@ -123,7 +120,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_17.png",
-            "icon_emoji": "👥",
+            "icon_emoji": "\ud83d\udc65",
             "text": "1,000+ aussies"
           }
         }
@@ -153,7 +150,7 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Designed to feel familiar.<br>Built to move you on.",
-            "content": "<p>Brisa is Habit Replacment Device intentionally designed to look and feel close to what you’re used to, so the transition feels comfortable, not forced.</p><p>From the weight in your hand to airflow, draw pressure, flavour, and our effect layer, every detail is considered. without smoke, vapour, or nicotine.</p>",
+            "content": "<p>Brisa is Habit Replacment Device intentionally designed to look and feel close to what you\u2019re used to, so the transition feels comfortable, not forced.</p><p>From the weight in your hand to airflow, draw pressure, flavour, and our effect layer, every detail is considered. without smoke, vapour, or nicotine.</p>",
             "button_text": "",
             "button_link": ""
           }
@@ -216,7 +213,7 @@
         "swatch_size": 32,
         "swatch_text_size": 12,
         "swatch_label_width": 80,
-        "button_text": "SHOP STARTER KIT — $130 →",
+        "button_text": "SHOP STARTER KIT \u2014 $130 \u2192",
         "button_link": "",
         "button_background": "#38b6ff",
         "button_text_color": "#ffffff",
@@ -542,9 +539,9 @@
       "type": "blue-layout-3",
       "name": "Blue layout 3",
       "settings": {
-        "heading": "MATES PACK — 2 DEVICES, SAVE $40",
+        "heading": "MATES PACK \u2014 2 DEVICES, SAVE $40",
         "body": "$220. Two devices. Two starter kits. Built for doing it with a mate.",
-        "button_text": "GET THE MATES PACK→",
+        "button_text": "GET THE MATES PACK\u2192",
         "button_link": "",
         "content_width": 520,
         "padding_top": 0,
@@ -723,9 +720,9 @@
         "rating_text": "Rated 4.7 (163)",
         "rating_label": "Rated 4.7 out of 5 by 163 customers",
         "badge_text": "Happy customers",
-        "button_text": "ADD STARTER KIT →",
+        "button_text": "ADD STARTER KIT \u2192",
         "button_link": "",
-        "benefits": "Free shipping · 30-Day Success Guarantee · Ships in 1–2 days",
+        "benefits": "Free shipping \u00b7 30-Day Success Guarantee \u00b7 Ships in 1\u20132 days",
         "max_width": 900,
         "padding_top": 0,
         "padding_bottom": 20,
@@ -763,7 +760,7 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Why We Built Brisa",
-            "content": "<p>Brisa started with one friend trying to help another upgrade his life.<br/>Everything was improving, except he couldn’t quit vaping.<br/>So we built something for him.</p><p>Brisa has always come from a good heart. <br/>We know it’s hard.<br/>We know why it’s hard. <br/>Our mission is simple: make the switch feel easier, and make life better.</p><p>We’re here to bring products that genuinely improve people’s lives, with authenticity at the forefront and real products without the gimmicks. </p>",
+            "content": "<p>Brisa started with one friend trying to help another upgrade his life.<br/>Everything was improving, except he couldn\u2019t quit vaping.<br/>So we built something for him.</p><p>Brisa has always come from a good heart. <br/>We know it\u2019s hard.<br/>We know why it\u2019s hard. <br/>Our mission is simple: make the switch feel easier, and make life better.</p><p>We\u2019re here to bring products that genuinely improve people\u2019s lives, with authenticity at the forefront and real products without the gimmicks.\u00a0</p>",
             "button_text": "Our Story",
             "button_link": "shopify://pages/education"
           }
@@ -796,7 +793,7 @@
         "stack_items": false,
         "subheading": "",
         "title": "Subscribe and Stay Better",
-        "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month — so you never break your routine. </p>",
+        "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month \u2014 so you never break your routine.\u00a0</p>",
         "column_alignment": "center",
         "mobile_item_size": "medium",
         "desktop_item_size": "medium",
@@ -815,8 +812,8 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Subscribe & Stay Better",
-            "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month — so you never break your routine. </p><p>Benefits: <br/>• Save on every order <br/>• Pause or cancel anytime<br/>• Priority flavour access<br/>• Automatic monthly delivery </p>",
-            "button_text": "Start Subscription ",
+            "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month \u2014 so you never break your routine.\u00a0</p><p>Benefits: <br/>\u2022 Save on every order <br/>\u2022 Pause or cancel anytime<br/>\u2022 Priority flavour access<br/>\u2022 Automatic monthly delivery\u00a0</p>",
+            "button_text": "Start Subscription\u00a0",
             "button_link": "shopify://products/refills"
           }
         }
@@ -900,7 +897,7 @@
           "type": "question",
           "settings": {
             "title": "Does Brisa help with the habit?",
-            "answer": "<p>Brisa is designed for the “moment”, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It is designed as closely as possible to mimic the old habit, with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure, but without smoke, vapour, or nicotine.</p><p>If you use Brisa every time the urge hits, you are replacing the nicotine routine with a smoke-free, vapour-free, nicotine-free tool.</p>"
+            "answer": "<p>Brisa is designed for the \u201cmoment\u201d, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It is designed as closely as possible to mimic the old habit, with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure, but without smoke, vapour, or nicotine.</p><p>If you use Brisa every time the urge hits, you are replacing the nicotine routine with a smoke-free, vapour-free, nicotine-free tool.</p>"
           }
         },
         "question_RxQPLt": {
@@ -914,7 +911,7 @@
           "type": "question",
           "settings": {
             "title": "What's the 30 - day success guarantee?",
-            "answer": "<p>The 30-Day Success Guarantee is built around helping customers get the best result from Brisa.</p><p>After seeing over 1,000 people leave the old habit behind using Brisa, we have learned what works best for our customers. If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy using what we know.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p><p>To claim it, contact us through our contact section with your name, phone number or WhatsApp, and the message: “30 DAY SUCCESS GUARANTEE”.</p>"
+            "answer": "<p>The 30-Day Success Guarantee is built around helping customers get the best result from Brisa.</p><p>After seeing over 1,000 people leave the old habit behind using Brisa, we have learned what works best for our customers. If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy using what we know.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p><p>To claim it, contact us through our contact section with your name, phone number or WhatsApp, and the message: \u201c30 DAY SUCCESS GUARANTEE\u201d.</p>"
           }
         },
         "question_ezbiVT": {
