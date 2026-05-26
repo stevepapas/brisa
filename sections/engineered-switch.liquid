@@ -1,0 +1,524 @@
+{% liquid
+  assign ai_gen_id = section.id | replace: '-', '' | downcase
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .engineered-switch-{{ ai_gen_id }} {
+    font-family: inherit;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    color: {{ section.settings.bar_text_color }};
+    background: {{ section.settings.bar_background }};
+    font-size: {{ section.settings.bar_font_size }}px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__content {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__heading {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__subheading {
+    margin: 10px 0 0;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.subheading_size }}px;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__list {
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.item_gap }}px;
+    margin-top: {{ section.settings.list_spacing }}px;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__item {
+    display: grid;
+    grid-template-columns: {{ section.settings.icon_size }}px 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    color: {{ section.settings.icon_color }};
+    background: {{ section.settings.icon_background }};
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon svg {
+    display: block;
+    width: {{ section.settings.icon_svg_size }}%;
+    height: {{ section.settings.icon_svg_size }}%;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__item-title {
+    margin: 0;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.item_title_size }}px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__item-text {
+    margin: 2px 0 0;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.item_text_size }}px;
+    line-height: 1.32;
+  }
+
+  @media screen and (max-width: 749px) {
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__bar {
+      font-size: {{ section.settings.bar_font_size | times: 0.85 | round }}px;
+    }
+
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__inner {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__heading {
+      font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
+    }
+
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__item {
+      grid-template-columns: {{ section.settings.mobile_icon_size }}px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon {
+      width: {{ section.settings.mobile_icon_size }}px;
+      height: {{ section.settings.mobile_icon_size }}px;
+    }
+  }
+</style>
+
+<section class="engineered-switch engineered-switch-{{ ai_gen_id }}" {{ section.shopify_attributes }}>
+  {% if section.settings.show_bar and section.settings.bar_text != blank %}
+    <div class="engineered-switch__bar">{{ section.settings.bar_text | escape }}</div>
+  {% endif %}
+
+  <div class="engineered-switch__inner">
+    <div class="engineered-switch__content">
+      {% if section.settings.heading != blank %}
+        <h2 class="engineered-switch__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="engineered-switch__subheading">{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="engineered-switch__list">
+          {% for block in section.blocks %}
+            <div class="engineered-switch__item" {{ block.shopify_attributes }}>
+              <div class="engineered-switch__icon" aria-hidden="true">
+                {% case block.settings.icon %}
+                  {% when 'ruler' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M12 36h24a4 4 0 0 0 4-4V16a4 4 0 0 0-4-4H12a4 4 0 0 0-4 4v16a4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
+                      <path d="M16 16v6M20 16v4M24 16v6M28 16v4M32 16v6" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'airflow' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M7 18h24c4.5 0 6.5-5.5 3-8.2C31.6 8 28 8.9 27 12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                      <path d="M7 26h31c4.5 0 6.5 5.5 3 8.2C38.6 36 35 35.1 34 32" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                      <path d="M7 34h18" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'leaf' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M40 7C21.5 8.5 10.5 17.5 9 35.5C18.5 37 30.5 31 35.5 21.5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M9.5 36C15.5 25.5 23.5 19.5 35.5 16" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+                  {% when 'cross' %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
+                      <path d="M17 17 31 31M31 17 17 31" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                  {% else %}
+                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
+                      <path d="M16 24h16" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                {% endcase %}
+              </div>
+
+              <div class="engineered-switch__item-copy">
+                {% if block.settings.title != blank %}
+                  <h3 class="engineered-switch__item-title">{{ block.settings.title | escape }}</h3>
+                {% endif %}
+
+                {% if block.settings.text != blank %}
+                  <p class="engineered-switch__item-text">{{ block.settings.text | escape }}</p>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Engineered for the switch",
+  "class": "shopify-section--engineered-switch",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "label": "Show top bar",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "bar_text",
+      "label": "Top bar text",
+      "default": "We sold out fast last time - get in quick and order now"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Engineered for the switch"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Built so your body doesn't know the difference."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Section max width",
+      "min": 480,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "default": 1100
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 420,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 920
+    },
+    {
+      "type": "range",
+      "id": "list_spacing",
+      "label": "Space above items",
+      "min": 8,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Space between items",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 22,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "item_title_size",
+      "label": "Item title size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "item_text_size",
+      "label": "Item text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "bar_font_size",
+      "label": "Top bar font size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 44,
+      "max": 88,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "label": "Mobile icon size",
+      "min": 36,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "icon_svg_size",
+      "label": "Icon glyph size",
+      "min": 45,
+      "max": 90,
+      "step": 1,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bar_background",
+      "label": "Top bar background",
+      "default": "#e9f4ff"
+    },
+    {
+      "type": "color",
+      "id": "bar_text_color",
+      "label": "Top bar text",
+      "default": "#003a72"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#2b2b2b"
+    },
+    {
+      "type": "color",
+      "id": "icon_background",
+      "label": "Icon background",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "ruler",
+          "options": [
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "airflow", "label": "Airflow" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "cross", "label": "Cross" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Same weight. Same size. Same length."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Your hand's muscle memory transfers the day you open the box. No awkward adjustment period."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Engineered for the switch",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon": "ruler",
+            "title": "Same weight. Same size. Same length.",
+            "text": "Your hand's muscle memory transfers the day you open the box. No awkward adjustment period."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "airflow",
+            "title": "Tuned airflow — matches a real vape draw.",
+            "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "title": "Precision-formulated aroma cores.",
+            "text": "Food-grade formulations engineered for optimal aroma depth, throat feel, and the sensory feel that makes the ritual land."
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon": "cross",
+            "title": "Zero nicotine. Zero vapour. Zero chemicals.",
+            "text": "Every sensory cue of a vape. None of the 7,000 chemicals keeping you hooked."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
