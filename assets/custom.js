@@ -620,3 +620,364 @@ document.addEventListener('prev-next:next', (event) => {
     slideshow.next();
   }
 });
+
+/* ============================================
+   BRISA PREMIUM CART FUNCTIONALITY
+   Ajax cart updates, free gift management
+   ============================================ */
+
+(function() {
+  'use strict';
+
+  // TODO: ADMIN MUST CONFIGURE THESE VALUES
+  const FREE_GIFT_VARIANT_ID = 'REPLACE_ME'; // Replace with actual free gift variant ID from Shopify
+  const STARTER_KIT_PRODUCT_TYPE = 'Starter Kit';
+  
+  // Cart threshold constants (in cents)
+  const MATES_PACK_THRESHOLD = 22000; // $220
+  const FREE_SHIPPING_THRESHOLD = 13000; // $130
+
+  // Debounce helper to prevent rapid API calls
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // Check if cart has a Starter Kit product
+  function hasStarterKitInCart(cart) {
+    if (!cart || !cart.items) return false;
+    return cart.items.some(item => 
+      item.product_type === STARTER_KIT_PRODUCT_TYPE
+    );
+  }
+
+  // Check if free gift is already in cart
+  function hasFreeGiftInCart(cart) {
+    if (!cart || !cart.items) return false;
+    return cart.items.some(item => 
+      item.variant_id.toString() === FREE_GIFT_VARIANT_ID.toString() ||
+      (item.properties && item.properties._is_free_gift)
+    );
+  }
+
+  // Add free gift to cart
+  async function addFreeGift() {
+    if (FREE_GIFT_VARIANT_ID === 'REPLACE_ME') {
+      console.warn('BRISA CART: Free gift variant ID not configured. Please update custom.js');
+      return null;
+    }
+
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: [{
+            id: FREE_GIFT_VARIANT_ID,
+            quantity: 1,
+            properties: {
+              '_is_free_gift': 'true',
+              '_gift_message': 'Free with Starter Kit'
+            }
+          }]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to add free gift: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('BRISA CART: Error adding free gift:', error);
+      return null;
+    }
+  }
+
+  // Remove free gift from cart
+  async function removeFreeGift(cart) {
+    if (!cart || !cart.items) return null;
+
+    const freeGiftItem = cart.items.find(item => 
+      item.variant_id.toString() === FREE_GIFT_VARIANT_ID.toString() ||
+      (item.properties && item.properties._is_free_gift)
+    );
+
+    if (!freeGiftItem) return null;
+
+    try {
+      const response = await fetch('/cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: freeGiftItem.key,
+          quantity: 0
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to remove free gift: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('BRISA CART: Error removing free gift:', error);
+      return null;
+    }
+  }
+
+  // Sync free gift based on cart contents
+  async function syncFreeGift() {
+    try {
+      // Get current cart
+      const cartResponse = await fetch('/cart.js');
+      const cart = await cartResponse.json();
+
+      const hasStarterKit = hasStarterKitInCart(cart);
+      const hasFreeGift = hasFreeGiftInCart(cart);
+
+      // Add free gift if Starter Kit exists but no free gift
+      if (hasStarterKit && !hasFreeGift) {
+        await addFreeGift();
+        await refreshCart();
+        return;
+      }
+
+      // Remove free gift if no Starter Kit
+      if (!hasStarterKit && hasFreeGift) {
+        await removeFreeGift(cart);
+        await refreshCart();
+        return;
+      }
+
+    } catch (error) {
+      console.error('BRISA CART: Error syncing free gift:', error);
+    }
+  }
+
+  // Refresh cart display via Shopify's cart:refresh event
+  function refreshCart() {
+    document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+      bubbles: true
+    }));
+  }
+
+  // Update cart progress bars and messaging
+  async function updateCartProgress() {
+    try {
+      const cartResponse = await fetch('/cart.js');
+      const cart = await cartResponse.json();
+
+      const subtotal = cart.total_price;
+      const remainingForMates = MATES_PACK_THRESHOLD - subtotal;
+      const matesProgress = Math.min(subtotal / MATES_PACK_THRESHOLD, 1);
+
+      // Update progress bar
+      const progressBar = document.querySelector('.brisa-cart__progress-bar');
+      const progressText = document.querySelector('.brisa-cart__progress-text');
+
+      if (progressBar && progressText) {
+        progressBar.style.setProperty('--brisa-cart-progress', matesProgress);
+
+        if (subtotal >= MATES_PACK_THRESHOLD) {
+          progressBar.classList.add('brisa-cart__progress-bar--complete');
+          progressText.classList.add('brisa-cart__progress-text--complete');
+          progressText.textContent = '🎉 You\'ve unlocked Mates Pack savings';
+        } else {
+          progressBar.classList.remove('brisa-cart__progress-bar--complete');
+          progressText.classList.remove('brisa-cart__progress-text--complete');
+          
+          // Format remaining amount
+          const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: cart.currency || 'USD',
+            minimumFractionDigits: 0
+          });
+          const remainingText = formatter.format(remainingForMates / 100);
+          progressText.textContent = `${remainingText} away from saving $40 with the Mates Pack 🤝`;
+        }
+      }
+
+      // Update checkout button price
+      const checkoutPrice = document.querySelector('.brisa-cart__checkout-price');
+      if (checkoutPrice) {
+        const formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: cart.currency || 'USD',
+          minimumFractionDigits: 0
+        });
+        checkoutPrice.textContent = formatter.format(subtotal / 100);
+      }
+
+    } catch (error) {
+      console.error('BRISA CART: Error updating progress:', error);
+    }
+  }
+
+  // Handle quantity changes with Ajax
+  function setupAjaxQuantityUpdates() {
+    document.addEventListener('change', debounce(async function(event) {
+      const input = event.target;
+      
+      // Check if it's a quantity input in the cart
+      if (!input.matches('.quantity-selector__input[name="updates[]"]')) return;
+
+      const lineItem = input.closest('.brisa-cart__line-item');
+      if (!lineItem) return;
+
+      const newQuantity = parseInt(input.value, 10);
+      const lineKey = lineItem.dataset.lineKey;
+
+      if (!lineKey || isNaN(newQuantity)) return;
+
+      // Add loading state
+      lineItem.classList.add('updating');
+      const cartContent = document.querySelector('.brisa-cart__content');
+      if (cartContent) cartContent.classList.add('loading');
+
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: lineKey,
+            quantity: newQuantity
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update quantity');
+        }
+
+        await syncFreeGift();
+        await updateCartProgress();
+        refreshCart();
+
+      } catch (error) {
+        console.error('BRISA CART: Error updating quantity:', error);
+        // Revert input value on error
+        input.value = input.defaultValue;
+      } finally {
+        lineItem.classList.remove('updating');
+        if (cartContent) cartContent.classList.remove('loading');
+      }
+
+    }, 500));
+  }
+
+  // Handle item removal with Ajax
+  function setupAjaxRemoval() {
+    document.addEventListener('click', async function(event) {
+      const removeButton = event.target.closest('.line-item__remove-button[href*="url_to_remove"]');
+      if (!removeButton) return;
+
+      event.preventDefault();
+
+      const lineItem = removeButton.closest('.brisa-cart__line-item');
+      if (!lineItem) return;
+
+      const lineKey = lineItem.dataset.lineKey;
+      if (!lineKey) return;
+
+      // Add loading state
+      lineItem.classList.add('updating');
+      const cartContent = document.querySelector('.brisa-cart__content');
+      if (cartContent) cartContent.classList.add('loading');
+
+      try {
+        const response = await fetch('/cart/change.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: lineKey,
+            quantity: 0
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to remove item');
+        }
+
+        await syncFreeGift();
+        await updateCartProgress();
+        refreshCart();
+
+      } catch (error) {
+        console.error('BRISA CART: Error removing item:', error);
+      } finally {
+        lineItem.classList.remove('updating');
+        if (cartContent) cartContent.classList.remove('loading');
+      }
+    });
+  }
+
+  // Listen for cart updates from theme
+  document.addEventListener('cart:updated', async function(event) {
+    await syncFreeGift();
+    await updateCartProgress();
+  });
+
+  // Listen for variant added to cart
+  document.addEventListener('variant:added', async function(event) {
+    await syncFreeGift();
+    await updateCartProgress();
+  });
+
+  // Initialize on cart drawer open
+  document.addEventListener('DOMContentLoaded', function() {
+    setupAjaxQuantityUpdates();
+    setupAjaxRemoval();
+    
+    // Sync free gift on page load if cart is already open
+    const miniCart = document.getElementById('mini-cart');
+    if (miniCart && miniCart.hasAttribute('open')) {
+      syncFreeGift();
+      updateCartProgress();
+    }
+  });
+
+  // Sync when cart drawer opens
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'open') {
+        const miniCart = mutation.target;
+        if (miniCart.hasAttribute('open')) {
+          setTimeout(() => {
+            syncFreeGift();
+            updateCartProgress();
+          }, 100);
+        }
+      }
+    });
+  });
+
+  const miniCart = document.getElementById('mini-cart');
+  if (miniCart) {
+    observer.observe(miniCart, { attributes: true });
+  }
+
+  // Expose functions for debugging (remove in production)
+  window.BrisaCart = {
+    syncFreeGift,
+    addFreeGift,
+    removeFreeGift,
+    updateCartProgress,
+    refreshCart
+  };
+
+})();

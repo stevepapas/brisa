@@ -1,7 +1,7 @@
-<cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large">
+<cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart brisa-cart drawer drawer--large">
   <span class="drawer__overlay"></span>
 
-  <header class="drawer__header">
+  <header class="drawer__header brisa-cart__header">
     <p class="drawer__title heading h6">
       {%- case settings.cart_icon -%}
         {%- when 'shopping_bag' -%}
@@ -27,7 +27,7 @@
   </header>
 
   {%- if cart.item_count == 0 -%}
-    <div class="drawer__content drawer__content--center">
+    <div class="drawer__content drawer__content--center brisa-cart__empty">
       <p>{{ 'cart.general.empty' | t }}</p>
 
       <div class="button-wrapper">
@@ -35,65 +35,94 @@
       </div>
     </div>
   {%- else -%}
-    <div class="drawer__content">
-      {%- if settings.cart_show_free_shipping_threshold and settings.cart_free_shipping_threshold != '' and cart.requires_shipping -%}
-        {%- assign free_shipping_thresholds = settings.cart_free_shipping_threshold | remove: ' ' | split: ',' -%}
-        {%- assign has_found_matching_threshold = false -%}
+    {%- comment -%} BRISA CART: Urgency Banner (Top) {%- endcomment -%}
+    {%- if section.settings.show_urgency_banner and section.settings.urgency_banner_text != blank -%}
+      <div class="brisa-cart__urgency-banner">
+        <p>{{ section.settings.urgency_banner_text }}</p>
+      </div>
+    {%- endif -%}
 
-        {%- if free_shipping_thresholds.size > 1 -%}
-          {%- for threshold in free_shipping_thresholds -%}
-            {%- assign threshold_parts = threshold | split: ':' -%}
-            {%- assign currency_code = threshold_parts | first | upcase -%}
-
-            {%- if currency_code == cart.currency.iso_code -%}
-              {%- assign free_shipping_calculated_threshold = threshold_parts | last -%}
-              {%- assign has_found_matching_threshold = true -%}
-              {%- break -%}
-            {%- endif -%}
-          {%- endfor -%}
+    <div class="drawer__content brisa-cart__content">
+      {%- comment -%} 
+        BRISA CART: Mates Pack Progress Bar
+        Threshold: $220 = 22000 cents
+        Show progress toward Mates Pack savings
+      {%- endcomment -%}
+      {%- assign mates_pack_threshold = 22000 -%}
+      {%- assign cart_subtotal = cart.total_price -%}
+      {%- assign remaining_for_mates = mates_pack_threshold | minus: cart_subtotal -%}
+      {%- assign mates_progress = cart_subtotal | times: 1.0 | divided_by: mates_pack_threshold | at_most: 1.0 -%}
+      
+      <div class="brisa-cart__progress-wrapper">
+        {%- if cart_subtotal < mates_pack_threshold -%}
+          <div class="brisa-cart__progress-bar" style="--brisa-cart-progress: {{ mates_progress }}">
+            <div class="brisa-cart__progress-fill"></div>
+          </div>
+          <p class="brisa-cart__progress-text">
+            {{ remaining_for_mates | money }} away from saving $40 with the Mates Pack 🤝
+          </p>
         {%- else -%}
-          {%- assign free_shipping_calculated_threshold = free_shipping_thresholds | last -%}
-          {%- assign has_found_matching_threshold = true -%}
+          <div class="brisa-cart__progress-bar brisa-cart__progress-bar--complete" style="--brisa-cart-progress: 1">
+            <div class="brisa-cart__progress-fill"></div>
+          </div>
+          <p class="brisa-cart__progress-text brisa-cart__progress-text--complete">
+            🎉 You've unlocked Mates Pack savings
+          </p>
         {%- endif -%}
+      </div>
 
-        {%- if has_found_matching_threshold -%}
-          {%- assign threshold_in_cents = free_shipping_calculated_threshold | times: 100.0 -%}
-
-          {%- assign calculated_total_price = 0 -%}
-
-          {%- for line_item in cart.items -%}
-            {%- if line_item.requires_shipping -%}
-              {%- assign calculated_total_price = calculated_total_price | plus: line_item.final_line_price -%}
-            {%- endif -%}
-          {%- endfor -%}
-
-          {% comment %}We have to remove the cart level discount from the calculated amount{% endcomment %}
-          {%- assign total_cart_discount = 0 -%}
-
-          {%- for discount_application in cart.cart_level_discount_applications -%}
-            {%- assign total_cart_discount = total_cart_discount | plus: discount_application.total_allocated_amount -%}
-          {%- endfor -%}
-
-          {%- assign calculated_total_price = calculated_total_price | minus: total_cart_discount -%}
-
-          <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar" style="--progress: {{ calculated_total_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
-            {%- if calculated_total_price >= threshold_in_cents -%}
-              <span class="shipping-bar__text text--small">{{ 'cart.general.free_shipping' | t }}</span>
-            {%- else -%}
-              {%- capture remaining_amount -%}{{ calculated_total_price | minus: threshold_in_cents | abs | money }}{%- endcapture -%}
-              <span class="shipping-bar__text text--small">{{ 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount }}</span>
-            {%- endif -%}
-
-            <span class="shipping-bar__progress"></span>
-          </free-shipping-bar>
-        {%- endif -%}
+      {%- comment -%} BRISA CART: Free Shipping Progress (Optional) {%- endcomment -%}
+      {%- assign free_shipping_threshold = 13000 -%}
+      {%- assign remaining_for_shipping = free_shipping_threshold | minus: cart_subtotal -%}
+      {%- if cart.requires_shipping and cart_subtotal < free_shipping_threshold -%}
+        <div class="brisa-cart__shipping-progress">
+          <p class="brisa-cart__shipping-text text--xsmall">
+            {{ remaining_for_shipping | money }} away from free shipping 📦
+          </p>
+        </div>
       {%- endif -%}
 
-      <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
+      {%- comment -%}
+        BRISA CART: Free Gift Card
+        Show free gift if Starter Kit is in cart
+        TODO: Admin must configure FREE_GIFT_VARIANT_ID in custom.js
+      {%- endcomment -%}
+      {%- assign has_starter_kit = false -%}
+      {%- for item in cart.items -%}
+        {%- if item.product.type == 'Starter Kit' -%}
+          {%- assign has_starter_kit = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_starter_kit -%}
+        <div class="brisa-cart__free-gift" id="brisa-free-gift-card">
+          <div class="brisa-cart__free-gift-inner">
+            <div class="brisa-cart__free-gift-image">
+              <img src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/watermelon-core-placeholder.png?v=1" alt="Free Gift" loading="lazy" width="80" height="80">
+            </div>
+            <div class="brisa-cart__free-gift-details">
+              <span class="brisa-cart__free-gift-badge">FREE</span>
+              <p class="brisa-cart__free-gift-title">FREE Watermelon Core 3-pack</p>
+              <p class="brisa-cart__free-gift-value"><s>$15 value</s></p>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post" class="brisa-cart__form">
         <input type="hidden" name="checkout">
 
+        <div class="brisa-cart__items">
         {%- for line_item in cart.items -%}
-          <line-item class="line-item">
+          {%- comment -%} Skip free gift items in main list (will be shown separately) {%- endcomment -%}
+          {%- assign is_free_gift = false -%}
+          {%- if line_item.properties._is_free_gift -%}
+            {%- assign is_free_gift = true -%}
+          {%- endif -%}
+          
+          {%- unless is_free_gift -%}
+          <line-item class="line-item brisa-cart__line-item" data-line-key="{{ line_item.key }}">
             <div class="line-item__content-wrapper">
               <a href="{{ line_item.url }}" class="line-item__image-wrapper" tabindex="-1" aria-hidden="true">
                 <span class="line-item__loader" hidden>
@@ -279,7 +308,9 @@
               </div>
             </div>
           </line-item>
+          {%- endunless -%}
         {%- endfor -%}
+        </div>
       </form>
 
       {%- if section.settings.show_recommendations -%}
@@ -335,22 +366,53 @@
       {%- endif -%}
     </div>
 
-    <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">
+    <footer class="brisa-cart__footer drawer__footer drawer__footer--tight">
       {%- capture shipping_tax_note -%}{{ 'cart.general.shipping_tax_note_html' | t: link: shop.shipping_policy.url }}{%- endcapture -%}
 
       {%- if cart.cart_level_discount_applications != blank -%}
-        <ul class="mini-cart__discount-list list--unstyled" role="list">
+        <ul class="brisa-cart__discount-list list--unstyled" role="list">
           {%- for discount_application in cart.cart_level_discount_applications -%}
-            <li class="mini-cart__discount">
-              <span class="mini-cart__discount-badge discount-badge">{%- render 'icon' with 'discount-badge' -%}{{ discount_application.title }}</span>
-              <span class="mini-cart__discount-price text--xsmall text--subdued">-{{ discount_application.total_allocated_amount | money }}</span>
+            <li class="brisa-cart__discount">
+              <span class="brisa-cart__discount-badge discount-badge">{%- render 'icon' with 'discount-badge' -%}{{ discount_application.title }}</span>
+              <span class="brisa-cart__discount-price text--xsmall text--subdued">-{{ discount_application.total_allocated_amount | money }}</span>
             </li>
           {%- endfor -%}
         </ul>
       {%- endif -%}
 
+      {%- comment -%} BRISA CART: Bottom Urgency Message {%- endcomment -%}
+      {%- if section.settings.show_bottom_urgency and section.settings.bottom_urgency_text != blank -%}
+        <div class="brisa-cart__bottom-urgency">
+          <p>{{ section.settings.bottom_urgency_text }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} BRISA CART: Sticky Checkout Button {%- endcomment -%}
+      {%- if section.settings.show_checkout_button -%}
+        <button form="mini-cart-form" type="submit" class="brisa-cart__checkout-button button button--primary button--full" name="checkout">
+          <span class="brisa-cart__checkout-lock">🔒</span>
+          <span class="brisa-cart__checkout-text">SECURE CHECKOUT</span>
+          <span class="brisa-cart__checkout-separator">-</span>
+          <span class="brisa-cart__checkout-price">{{ cart.total_price | money }}</span>
+          <span class="brisa-cart__checkout-arrow">›</span>
+        </button>
+      {%- else -%}
+        <a href="{{ routes.cart_url }}" class="button button--primary button--full" data-no-instant>{{ 'cart.general.go_to_cart' | t }}</a>
+      {%- endif -%}
+
+      {%- comment -%} BRISA CART: Payment Icons {%- endcomment -%}
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <div class="brisa-cart__payment-icons">
+          <div class="payment-methods-list payment-methods-list--center">
+            {% for type in shop.enabled_payment_types limit: 6 %}
+              {{ type | payment_type_svg_tag }}
+            {% endfor %}
+          </div>
+        </div>
+      {%- endif -%}
+
       {%- if section.settings.show_order_note or shipping_tax_note != '' -%}
-        <div class="mini-cart__actions text--subdued text--xsmall">
+        <div class="brisa-cart__actions text--subdued text--xsmall">
           {%- if section.settings.show_order_note -%}
             <button type="button" is="toggle-button" id="order-note-toggle" class="link" data-action="toggle-order-note" aria-controls="mini-cart-note" aria-expanded="false">
               {%- if cart.note == blank -%}
@@ -365,18 +427,6 @@
             <span>{{ shipping_tax_note }}</span>
           {%- endif -%}
         </div>
-      {%- endif -%}
-
-      {%- if section.settings.show_checkout_button -%}
-        <button form="mini-cart-form" type="submit" class="checkout-button button button--primary button--full" name="checkout">
-          <span class="checkout-button__lock">{%- render 'icon' with 'lock' -%}</span>
-
-          {{- 'cart.general.checkout' | t -}}
-          <span class="square-separator"></span>
-          {{- cart.total_price | money_with_currency -}}
-        </button>
-      {%- else -%}
-        <a href="{{ routes.cart_url }}" class="button button--primary button--full" data-no-instant>{{ 'cart.general.go_to_cart' | t }}</a>
       {%- endif -%}
     </footer>
   {%- endif -%}
@@ -397,8 +447,40 @@
   "class": "shopify-section--mini-cart",
   "settings": [
     {
+      "type": "header",
+      "content": "Urgency & Messaging"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency_banner",
+      "label": "Show top urgency banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_banner_text",
+      "label": "Top banner text",
+      "default": "FREE SHIPPING ON ALL STARTER KITS AUS & NZ"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_urgency",
+      "label": "Show bottom urgency message",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bottom_urgency_text",
+      "label": "Bottom urgency text",
+      "default": "⚡WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+    },
+    {
+      "type": "header",
+      "content": "Cart Settings"
+    },
+    {
       "type": "paragraph",
-      "content": "Free shipping notice can be configured in global cart settings."
+      "content": "Mates Pack threshold is automatically set to $220. Configure free gift variant ID in custom.js."
     },
     {
       "type": "checkbox",
@@ -410,6 +492,12 @@
       "type": "checkbox",
       "id": "show_checkout_button",
       "label": "Show checkout button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment method icons",
       "default": true
     },
     {
