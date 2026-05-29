@@ -1,0 +1,436 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_brisa_LPC6iL": {
+      "type": "slideshow-brisa",
+      "blocks": {
+        "image_BaBDEt": {
+          "type": "image",
+          "settings": {
+            "kit_set": "both",
+            "image": "shopify://shop_images/cores-hero.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_left",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_BaBDEt"
+      ],
+      "custom_css": [
+        "h3 {margin-bottom: 0px; line-height: 1.3;}",
+        "@media (max-width: 767px) {h3 {font-size: 25px; } .slideshow__slide-inner {align-items: end; } .vertical-breather {padding-block: 0px; } .content-box--small, .content-box--medium, .container--flush .content-box--large {margin-inline-start: 0px; }}",
+        "@media screen and (min-width: 1000px) {.content-box--medium {width: 89%; }}",
+        "p {color: white; line-height: 1.2;}"
+      ],
+      "name": "Slideshow Brisa",
+      "settings": {
+        "starter_product": "",
+        "starter_handle": "brisa-device-black",
+        "starter_handle_prefix": "brisa-device-",
+        "mates_product": "",
+        "mates_handle": "brisa-mates-pack-ocean-starter-kit",
+        "editor_preview_kit": "auto",
+        "desktop_layout": "square",
+        "desktop_max_width": 520,
+        "desktop_image_fit": "contain",
+        "section_height": "small",
+        "transition_type": "sweep",
+        "show_initial_transition": false,
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)",
+        "nav_background": "#ffffff",
+        "thumbnail_gap": 8,
+        "thumbnail_size": 64,
+        "thumbnail_radius": 10,
+        "thumbnail_active_border": "#008bdc",
+        "arrow_background": "#f2f2f2",
+        "arrow_color": "#1a1a1a"
+      }
+    },
+    "brisa_device_header_cgyBnd": {
+      "type": "brisa-device-header",
+      "blocks": {
+        "feature_leaf": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Food-Grade Cores",
+            "text": "Natural aroma compounds only"
+          }
+        },
+        "feature_no_nicotine": {
+          "type": "feature",
+          "settings": {
+            "icon": "no_nicotine",
+            "title": "No Nicotine",
+            "text": ""
+          }
+        },
+        "feature_slot": {
+          "type": "feature",
+          "settings": {
+            "icon": "slot",
+            "title": "Slot-in Install",
+            "text": ""
+          }
+        },
+        "feature_sparkles": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Multiple aroma profiles",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_leaf",
+        "feature_no_nicotine",
+        "feature_slot",
+        "feature_sparkles"
+      ],
+      "name": "Brisa device header",
+      "settings": {
+        "intro": "Food-grade aroma cores for your Better Unit. Made to slot in, deliver the draw, and keep the moment yours.",
+        "show_rating": true,
+        "rating_text": "Rated 4.7 (163)",
+        "rating_label": "Rated 4.7 out of 5 by 163 customers",
+        "badge_text": "Happy customers",
+        "heading": "Better cores",
+        "background": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#111111",
+        "accent_color": "#38adf5",
+        "padding_top": 28,
+        "padding_bottom": 28,
+        "heading_size": 54
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "text_ibagWd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>HOW MUCH?</p>"
+          }
+        },
+        "description_mjgBLA": {
+          "type": "description",
+          "settings": {}
+        },
+        "g_combined_listings_swatch_widget_HGPpek": {
+          "type": "shopify://apps/g-combined-listings/blocks/swatch_widget/b3e63011-8382-4b7f-8929-7fe2b1aec125",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_mode": "block",
+            "color_mode": "swatch",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "liquid_DmN84X": {
+          "type": "liquid",
+          "name": "Brisa Gives",
+          "settings": {
+            "liquid": "<p><b>Brisa gives you something to reach for in the moments you nearly turn back. Everything you need to get started, including: </b></p>\n<ul>\n\n<li>The Brisa device</li>\n<li>Cleaning kit</li>\n<li>Storage bag</li>\n<li>9 mint cores, enough aroma cores for a complete month</li>\n</ul>"
+          }
+        },
+        "liquid_zYKRxA": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "<span class=\"tex bold\" style=\"font-size: 24px\">{{ product.price | money }}</span>"
+          }
+        },
+        "liquid_TU4fi4": {
+          "type": "liquid",
+          "name": "Reviews and shipping",
+          "settings": {
+            "liquid": "<p><img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/5-star.png?v=1775131594\" style=\"max-height: 30px\">\n(36 reviews)</p>\n<p><b>Free Shipping Australia-wide</b></p>"
+          }
+        },
+        "appstle_bundles_appstle_volume_discount_bundle_GLaHh3": {
+          "type": "shopify://apps/appstle-bundles/blocks/appstle-volume-discount-bundle/8909921b-2d24-4d68-9b12-9d045d3dcb0a",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "#282828",
+            "atc_button_text_color": "#ffffff",
+            "buy_now_button_background": "rgba(0,0,0,0)",
+            "buy_now_button_text_color": "rgba(0,0,0,0)"
+          }
+        }
+      },
+      "block_order": [
+        "text_ibagWd",
+        "description_mjgBLA",
+        "g_combined_listings_swatch_widget_HGPpek",
+        "variant_picker",
+        "liquid_DmN84X",
+        "liquid_zYKRxA",
+        "liquid_TU4fi4",
+        "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
+        "buy_buttons"
+      ],
+      "custom_css": [
+        ".product-meta__price-list-container {display: none;}",
+        ".product-meta {border-bottom-width: 0px; margin-bottom: 0px; padding-bottom: 0px;}",
+        ".heading {margin-bottom: 0px;}"
+      ],
+      "settings": {
+        "show_vendor": false,
+        "show_sku": false,
+        "show_badges": false,
+        "show_taxes_included": false,
+        "show_product_rating": false,
+        "show_sticky_add_to_cart": true,
+        "show_share_buttons": false,
+        "help_page": "",
+        "enable_video_autoplay": true,
+        "enable_video_looping": false,
+        "enable_image_zoom": true,
+        "show_thumbnails_on_mobile": false,
+        "desktop_thumbnails_position": "bottom",
+        "transition_effect": "slide"
+      }
+    },
+    "product-content": {
+      "type": "product-content",
+      "settings": {}
+    },
+    "1772962804ca13e40e": {
+      "type": "apps",
+      "settings": {
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      }
+    },
+    "brisa_product_area_info_t9x6TB": {
+      "type": "brisa-product-area-info",
+      "name": "Brisa product area info",
+      "settings": {
+        "landscape_image": "shopify://shop_images/4-steps-how-to.png",
+        "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
+        "landscape_video": "",
+        "landscape_video_label": "Play install video"
+      }
+    },
+    "custom_liquid_VxEmGV": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "section {padding: 20px 0px;}",
+        "* {background: transparent;}"
+      ],
+      "name": "How it Works",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">HOW IT WORKS</h3>\n<p style=\"margin-bottom: 30px !important\"><b>\n1. UNSCREW THE TOP </b><br>\nTwist off the top cap and drop your aroma core inside. Takes seconds.\n<br><br>\n<b>2. SET YOUR AIRFLOW</b><br>\nDial the base to find your perfect draw — tighter or looser, just like you're used to. \n<br><br><b>\n3. REACH FOR IT INSTEAD </b><br>\nEvery time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back.\n</p>\n  </div>\n  <div class=\"grid-column\">\n  </div>\n</div>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "brisa_comparison_table_ntMxq4": {
+      "type": "brisa-comparison-table",
+      "blocks": {
+        "row_H7WBdM": {
+          "type": "row",
+          "settings": {
+            "label": "Monthly cost",
+            "brisa_value_type": "text",
+            "brisa_text": "$45",
+            "column_2_value_type": "text",
+            "column_2_text": "$300+",
+            "column_3_value_type": "text",
+            "column_3_text": "$400+",
+            "column_4_value_type": "text",
+            "column_4_text": "$100+"
+          }
+        },
+        "row_izm7Ec": {
+          "type": "row",
+          "settings": {
+            "label": "Nicotine",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "check",
+            "column_4_text": ""
+          }
+        },
+        "row_Xbh3BT": {
+          "type": "row",
+          "settings": {
+            "label": "Chemicals",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "check",
+            "column_4_text": ""
+          }
+        },
+        "row_hGgG6N": {
+          "type": "row",
+          "settings": {
+            "label": "Ritual kept",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        },
+        "row_V4U8Tm": {
+          "type": "row",
+          "settings": {
+            "label": "Habit broken",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "cross",
+            "column_2_text": "",
+            "column_3_value_type": "cross",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        },
+        "row_t98cKz": {
+          "type": "row",
+          "settings": {
+            "label": "Sensory satisfaction",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_4_value_type": "cross",
+            "column_4_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_H7WBdM",
+        "row_izm7Ec",
+        "row_Xbh3BT",
+        "row_hGgG6N",
+        "row_V4U8Tm",
+        "row_t98cKz"
+      ],
+      "name": "Brisa comparison table",
+      "settings": {
+        "heading": "Brisa vs alternatives",
+        "subheading": "",
+        "table_label": "Brisa comparison table",
+        "brisa_heading": "Brisa Better",
+        "column_2_heading": "Vaping",
+        "column_3_heading": "Smoking",
+        "column_4_heading": "Nicorette",
+        "background": "#ffffff",
+        "text_color": "#111111",
+        "heading_color": "#111111",
+        "line_color": "#111111",
+        "line_width": 4,
+        "brisa_color": "#0798dc",
+        "brisa_text_color": "#ffffff",
+        "icon_color": "#2350a4",
+        "brisa_icon_color": "#ffffff",
+        "icon_size": 36,
+        "brisa_radius": 18,
+        "heading_size": 36,
+        "max_width": 900,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "footnote": ""
+      }
+    },
+    "brisa_testimonials_product_page_x4dyKh": {
+      "type": "brisa-testimonials-product-page",
+      "blocks": {
+        "testimonial_gDdDde": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Belinda C.",
+            "quote": "Absolutely love it. Got it 4 days ago and started straight away, haven't used the vape once. You guys are legends!",
+            "rating": 5
+          }
+        },
+        "testimonial_Pk4NAQ": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Tahlia R.",
+            "quote": "The mint ice feels exactly like what I was reaching for. First time I've felt like the habit was actually replaceable.",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_gDdDde",
+        "testimonial_Pk4NAQ"
+      ],
+      "name": "Brisa product reviews",
+      "settings": {
+        "heading": "Real Aussies. Real Reviews.",
+        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_arrows": true,
+        "show_dots": false,
+        "autoplay": false,
+        "autoplay_speed": 5000
+      }
+    }
+  },
+  "order": [
+    "slideshow_brisa_LPC6iL",
+    "brisa_device_header_cgyBnd",
+    "main",
+    "product-content",
+    "1772962804ca13e40e",
+    "brisa_product_area_info_t9x6TB",
+    "custom_liquid_VxEmGV",
+    "brisa_comparison_table_ntMxq4",
+    "brisa_testimonials_product_page_x4dyKh"
+  ]
+}
