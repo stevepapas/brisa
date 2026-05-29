@@ -1,3 +1,6 @@
+alert('test');
+
+
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
