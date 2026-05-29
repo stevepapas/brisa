@@ -456,7 +456,7 @@
         "liquid_zYKRxA": {
           "type": "liquid",
           "settings": {
-            "liquid": "<span class=\"tex bold\" style=\"font-size: 24px\">{{ product.price | money }}</span>"
+            "liquid": ""
           }
         },
         "liquid_TU4fi4": {
