@@ -277,25 +277,6 @@
         "arrow_color": "#1a1a1a"
       }
     },
-    "rich_text_zdKqcd": {
-      "type": "rich-text",
-      "name": "Rich text",
-      "settings": {
-        "subheading": "Subheading",
-        "title": "Talk about your brand",
-        "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-        "button_text": "",
-        "button_link": "",
-        "background_type": "full_width",
-        "text_width": "medium",
-        "text_position": "center",
-        "text_alignment": "center",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      }
-    },
     "brisa_product_kit_picker_cKf7EP": {
       "type": "brisa-product-kit-picker",
       "blocks": {
@@ -987,7 +968,6 @@
   },
   "order": [
     "slideshow_brisa_LPC6iL",
-    "rich_text_zdKqcd",
     "brisa_product_kit_picker_cKf7EP",
     "main",
     "product-content",
