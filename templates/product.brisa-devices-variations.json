@@ -255,6 +255,7 @@
       "settings": {
         "starter_product": "",
         "starter_handle": "brisa-device-black",
+        "starter_handle_prefix": "brisa-device-",
         "mates_product": "",
         "mates_handle": "brisa-mates-pack-ocean-starter-kit",
         "editor_preview_kit": "auto",
@@ -366,6 +367,7 @@
       "settings": {
         "starter_product": "brisa-device-black",
         "starter_handle": "starter-kit",
+        "starter_handle_prefix": "brisa-device-",
         "mates_product": "brisa-mates-pack-ocean-starter-kit",
         "mates_handle": "mates-pack",
         "show_hero": true,
@@ -447,6 +449,7 @@
         },
         "variant_picker": {
           "type": "variant_picker",
+          "disabled": true,
           "settings": {
             "hide_sold_out_variants": false,
             "selector_mode": "block",
