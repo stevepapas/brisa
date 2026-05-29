@@ -445,11 +445,11 @@
         },
         "g_combined_listings_swatch_widget_HGPpek": {
           "type": "shopify://apps/g-combined-listings/blocks/swatch_widget/b3e63011-8382-4b7f-8929-7fe2b1aec125",
+          "disabled": true,
           "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
-          "disabled": true,
           "settings": {
             "hide_sold_out_variants": false,
             "selector_mode": "block",
