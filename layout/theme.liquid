@@ -72,7 +72,9 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
 
     <script src="{{ 'vendor.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
-    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+
+
+    {% comment %}<script src="{{ 'custom.js' | asset_url }}" defer></script>{% endcomment %}
 
     {{ content_for_header }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
