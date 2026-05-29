@@ -2984,6 +2984,7 @@ var ProductLoader = class {
     }
     this.loadedProducts[productHandle] = new Promise(async (resolve) => {
       const response = await fetch(`${window.themeVariables.routes.rootUrlWithoutSlash}/products/${productHandle}.js`);
+      if (!response.ok) return resolve(null);
       const responseAsJson = await response.json();
       resolve(responseAsJson);
     });
