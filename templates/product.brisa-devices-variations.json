@@ -491,7 +491,6 @@
         "buy_buttons"
       ],
       "custom_css": [
-        ".product-meta__price-list-container {display: none;}",
         ".product-meta {border-bottom-width: 0px; margin-bottom: 0px; padding-bottom: 0px;}",
         ".heading {margin-bottom: 0px;}"
       ],
