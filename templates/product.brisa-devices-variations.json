@@ -448,7 +448,7 @@
           "settings": {
             "hide_sold_out_variants": false,
             "selector_mode": "dropdown",
-            "color_mode": "swatch",
+            "color_mode": "none",
             "variant_image_options": "",
             "size_chart_page": ""
           }
