@@ -7,11 +7,11 @@
 {%- endcomment -%}
 
 {%- liquid
-  if swatch.image != blank
+  if swatch.color != blank
+    assign color_swatch_style = 'background-color: ' | append: swatch.color
+  elsif swatch.image != blank
     assign color_swatch_image = swatch.image | image_url: width: 72
     assign color_swatch_style = 'background-image: url(' | append: color_swatch_image | append: ')'
-  elsif swatch.color != blank
-    assign color_swatch_style = 'background-color: ' | append: swatch.color
   else
     assign color_value_downcase = value | downcase
     assign color_swatch_style = 'background-color: ' | append: color_value_downcase
