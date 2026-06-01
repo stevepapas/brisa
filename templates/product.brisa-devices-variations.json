@@ -365,10 +365,10 @@
       ],
       "name": "Product kit picker",
       "settings": {
-        "starter_product": "brisa-device-black",
+        "starter_product": "brisa-starter-kit",
         "starter_handle": "starter-kit",
         "starter_handle_prefix": "brisa-device-",
-        "mates_product": "brisa-mates-pack-ocean-starter-kit",
+        "mates_product": "brisa-mates-pack",
         "mates_handle": "mates-pack",
         "show_hero": true,
         "brand_prefix": "BRISA™",
