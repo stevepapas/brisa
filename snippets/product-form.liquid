@@ -48,9 +48,9 @@
                 {%- assign selector_type = 'swatch' -%}
               {%- endif -%}
 
-              {% comment %} {%- if variant_image_options contains option_downcase -%}
+              {%- if variant_image_options contains option_downcase -%}
                 {%- assign selector_type = 'variant_image' -%}
-              {%- endif -%} {% endcomment %}
+              {%- endif -%}
 
               <div class="product-form__option-selector" data-selector-type="{{ selector_type | replace: '_', '-' | escape }}">
                 <div class="product-form__option-info">
