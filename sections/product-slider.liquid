@@ -1,5 +1,5 @@
 {% liquid
-  assign slider_collection = section.settings.collection
+  assign slider_product = section.settings.product
   assign section_key = section.id | replace: '-', '' | downcase
 %}
 
@@ -319,37 +319,38 @@
     </div>
   {% endif %}
 
-  {% if slider_collection != blank and slider_collection.products_count > 0 %}
+  {% if slider_product != blank and slider_product.variants.size > 0 %}
     <div class="product-slider__viewport" style="border-radius: {{ section.settings.slider_border_radius }}px;">
-      <button class="product-slider__arrow product-slider__arrow--prev" type="button" aria-label="Previous product" data-product-slider-prev>
+      <button class="product-slider__arrow product-slider__arrow--prev" type="button" aria-label="Previous variation" data-product-slider-prev>
         <svg viewBox="0 0 24 24" focusable="false">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
 
       <div class="product-slider__track" data-product-slider-track>
-        {% for product in slider_collection.products limit: section.settings.product_limit %}
+        {% for variant in slider_product.variants limit: section.settings.variant_limit %}
           {% liquid
-            assign card_image = product.metafields.custom.carousel_product_image.value | default: product.featured_image
+            assign card_image = variant.metafields.custom.carousel_product_image.value | default: slider_product.metafields.custom.carousel_product_image.value | default: variant.image
+            assign slide_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
           %}
 
           <div
             class="product-slider__card"
             data-product-slider-card
-            data-product-title="{{ product.title | escape }}"
+            data-product-title="{{ slide_label | escape }}"
             style="border-radius: {{ section.settings.slider_border_radius }}px;"
           >
-            <a class="product-slider__link" href="{{ product.url }}">
+            <a class="product-slider__link" href="{{ variant.url }}">
               <div class="product-slider__image-wrapper">
                 {% if section.settings.show_slide_product_name %}
-                  <div class="product-slider__flavour">{{ product.title | escape }}</div>
+                  <div class="product-slider__flavour">{{ slide_label | escape }}</div>
                 {% endif %}
 
                 <div class="product-slider__sprouts">
                   {% for i in (1..4) %}
                     {% liquid
                       assign sprout_key = 'sprout_image_' | append: i
-                      assign sprout_image = product.metafields.custom[sprout_key].value
+                      assign sprout_image = variant.metafields.custom[sprout_key].value | default: slider_product.metafields.custom[sprout_key].value
                     %}
 
                     {% if sprout_image != blank %}
@@ -370,7 +371,7 @@
                   <img
                     class="product-slider__image"
                     src="{{ card_image | image_url: width: 700 }}"
-                    alt="{{ product.title | escape }}"
+                    alt="{{ slide_label | escape }}"
                     loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
                     width="{{ card_image.width }}"
                     height="{{ card_image.height }}"
@@ -382,7 +383,7 @@
         {% endfor %}
       </div>
 
-      <button class="product-slider__arrow product-slider__arrow--next" type="button" aria-label="Next product" data-product-slider-next>
+      <button class="product-slider__arrow product-slider__arrow--next" type="button" aria-label="Next variation" data-product-slider-next>
         <svg viewBox="0 0 24 24" focusable="false">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
@@ -391,47 +392,54 @@
 
     {% if section.settings.show_product_name %}
       <div class="product-slider__titles" aria-live="polite">
-        {% for product in slider_collection.products limit: section.settings.product_limit %}
+        {% for variant in slider_product.variants limit: section.settings.variant_limit %}
+          {% liquid
+            assign title_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
+          %}
           <div class="product-slider__active-title {% if forloop.first %}is-active{% endif %}" data-product-slider-title>
-            {{ product.title | escape }}
+            {{ title_label | escape }}
           </div>
         {% endfor %}
       </div>
     {% endif %}
 
     <div class="product-slider__pagination" data-product-slider-pagination>
-      {% for product in slider_collection.products limit: section.settings.product_limit %}
+      {% for variant in slider_product.variants limit: section.settings.variant_limit %}
         {% liquid
           assign swatch_color = section.settings.dot_color
           case section.settings.swatch_color_source
             when 'carousel_swatch_colour'
-              assign swatch_color = product.metafields.custom.carousel_swatch_colour.value | default: product.metafields.custom.carousel_swatch_colour | default: section.settings.dot_color
+              assign swatch_color = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour | default: section.settings.dot_color
             when 'carousel_background_colour'
-              assign swatch_color = product.metafields.custom.carousel_background_colour.value | default: product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
+              assign swatch_color = variant.metafields.custom.carousel_background_colour.value | default: variant.metafields.custom.carousel_background_colour | default: slider_product.metafields.custom.carousel_background_colour.value | default: slider_product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
             when 'custom_metafield'
               assign swatch_color_namespace = section.settings.swatch_color_metafield_namespace
               assign swatch_color_key = section.settings.swatch_color_metafield_key
-              assign swatch_color = product.metafields[swatch_color_namespace][swatch_color_key].value | default: product.metafields[swatch_color_namespace][swatch_color_key] | default: section.settings.dot_color
+              assign swatch_color = variant.metafields[swatch_color_namespace][swatch_color_key].value | default: variant.metafields[swatch_color_namespace][swatch_color_key] | default: slider_product.metafields[swatch_color_namespace][swatch_color_key].value | default: slider_product.metafields[swatch_color_namespace][swatch_color_key] | default: section.settings.dot_color
           endcase
 
           assign swatch_label = ''
 
           case section.settings.swatch_label_source
             when 'carousel_swatch_colour'
-              assign swatch_label = product.metafields.custom.carousel_swatch_colour.value | default: product.metafields.custom.carousel_swatch_colour
+              assign swatch_label = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour
+            when 'variant_title'
+              assign swatch_label = variant.title
             when 'product_title'
-              assign swatch_label = product.title
+              assign swatch_label = slider_product.title
             when 'flavour'
-              assign swatch_label = product.metafields.custom.flavour.value | default: product.metafields.custom.flavour | default: product.title
+              assign swatch_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
             when 'vendor'
-              assign swatch_label = product.vendor
+              assign swatch_label = slider_product.vendor
             when 'product_type'
-              assign swatch_label = product.type
+              assign swatch_label = slider_product.type
             when 'custom_metafield'
               assign metafield_namespace = section.settings.swatch_label_metafield_namespace
               assign metafield_key = section.settings.swatch_label_metafield_key
-              assign swatch_label = product.metafields[metafield_namespace][metafield_key].value | default: product.metafields[metafield_namespace][metafield_key]
+              assign swatch_label = variant.metafields[metafield_namespace][metafield_key].value | default: variant.metafields[metafield_namespace][metafield_key] | default: slider_product.metafields[metafield_namespace][metafield_key].value | default: slider_product.metafields[metafield_namespace][metafield_key]
           endcase
+
+          assign nav_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
         %}
 
         <button
@@ -439,7 +447,7 @@
           type="button"
           data-product-slider-nav
           data-index="{{ forloop.index0 }}"
-          aria-label="Go to {{ product.title | escape }}"
+          aria-label="Go to {{ nav_label | escape }}"
           {% if forloop.first %}aria-current="true"{% endif %}
         >
           {% if section.settings.use_swatch_nav %}
@@ -460,7 +468,7 @@
       </a>
     {% endif %}
   {% else %}
-    <p class="product-slider__subheading">Select a collection to show products.</p>
+    <p class="product-slider__subheading">Select a product to show its variations.</p>
   {% endif %}
 </section>
 
@@ -520,9 +528,9 @@
   "class": "shopify_section_product_slider",
   "settings": [
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
+      "type": "product",
+      "id": "product",
+      "label": "Product"
     },
     {
       "type": "text",
@@ -538,8 +546,8 @@
     },
     {
       "type": "range",
-      "id": "product_limit",
-      "label": "Products to show",
+      "id": "variant_limit",
+      "label": "Variations to show",
       "min": 2,
       "max": 24,
       "step": 1,
@@ -548,13 +556,13 @@
     {
       "type": "checkbox",
       "id": "show_product_name",
-      "label": "Show product name above pagination",
+      "label": "Show variation name above pagination",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_slide_product_name",
-      "label": "Show product name in slide",
+      "label": "Show variation name in slide",
       "default": true
     },
     {
@@ -571,15 +579,15 @@
       "options": [
         {
           "value": "carousel_swatch_colour",
-          "label": "Products Meta Field: Carousel Swatch Colour"
+          "label": "Variant meta field: Carousel Swatch Colour"
         },
         {
           "value": "carousel_background_colour",
-          "label": "Products Meta Field: Carousel Background Colour"
+          "label": "Variant meta field: Carousel Background Colour"
         },
         {
           "value": "custom_metafield",
-          "label": "Custom product metafield"
+          "label": "Custom variant metafield"
         },
         {
           "value": "fallback",
@@ -592,14 +600,14 @@
       "type": "text",
       "id": "swatch_color_metafield_namespace",
       "label": "Custom swatch colour metafield namespace",
-      "info": "Used when swatch colour source is set to custom product metafield.",
+      "info": "Used when swatch colour source is set to custom variant metafield. Falls back to the product metafield if empty on the variant.",
       "default": "custom"
     },
     {
       "type": "text",
       "id": "swatch_color_metafield_key",
       "label": "Custom swatch colour metafield key",
-      "info": "Used when swatch colour source is set to custom product metafield.",
+      "info": "Used when swatch colour source is set to custom variant metafield. Falls back to the product metafield if empty on the variant.",
       "default": "carousel_swatch_colour"
     },
     {
@@ -610,11 +618,15 @@
       "options": [
         {
           "value": "carousel_swatch_colour",
-          "label": "Products Meta Field: Carousel Swatch Colour"
+          "label": "Variant meta field: Carousel Swatch Colour"
         },
         {
           "value": "flavour",
           "label": "Flavour metafield"
+        },
+        {
+          "value": "variant_title",
+          "label": "Variant title"
         },
         {
           "value": "product_title",
@@ -643,14 +655,14 @@
       "type": "text",
       "id": "swatch_label_metafield_namespace",
       "label": "Custom swatch text metafield namespace",
-      "info": "Used when swatch navigation text is set to custom product metafield.",
+      "info": "Used when swatch navigation text is set to custom variant metafield. Falls back to the product metafield if empty on the variant.",
       "default": "custom"
     },
     {
       "type": "text",
       "id": "swatch_label_metafield_key",
       "label": "Custom swatch text metafield key",
-      "info": "Used when swatch navigation text is set to custom product metafield.",
+      "info": "Used when swatch navigation text is set to custom variant metafield. Falls back to the product metafield if empty on the variant.",
       "default": "flavour"
     },
     {
@@ -1004,7 +1016,7 @@
     {
       "type": "range",
       "id": "product_name_size",
-      "label": "Product name size",
+      "label": "Variation name size",
       "min": 12,
       "max": 32,
       "step": 1,
