@@ -92,7 +92,7 @@
       },
       "9685009021672784835": {
         "type": "shopify://apps/g-combined-listings/blocks/swatch_renderer/b3e63011-8382-4b7f-8929-7fe2b1aec125",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "enable_swatch_product_page": true,
           "enable_swatch_product_card_1": false,
