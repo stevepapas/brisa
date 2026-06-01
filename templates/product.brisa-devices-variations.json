@@ -255,9 +255,9 @@
       "settings": {
         "starter_product": "",
         "starter_handle": "brisa-device-black",
-        "starter_handle_prefix": "brisa-device-",
+        "starter_handle_prefix": "brisa-starter-",
         "mates_product": "",
-        "mates_handle": "brisa-mates-pack-ocean-starter-kit",
+        "mates_handle": "brisa-starter-kit",
         "editor_preview_kit": "auto",
         "desktop_layout": "default",
         "desktop_max_width": 520,
