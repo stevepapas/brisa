@@ -212,7 +212,7 @@
         "slide_image_source": "variant_metafield",
         "slide_image_metafield_namespace": "custom",
         "slide_image_metafield_key": "slider_image",
-        "swatch_color_source": "carousel_background_colour",
+        "swatch_color_source": "product_option",
         "swatch_color_metafield_namespace": "",
         "swatch_color_metafield_key": "",
         "swatch_label_source": "carousel_swatch_colour",
