@@ -201,7 +201,7 @@
       ],
       "name": "Choose Brisa",
       "settings": {
-        "product": "",
+        "product": "brisa-starter-kit",
         "option_name": "Color",
         "heading": "Choose your Brisa",
         "subheading": "Select your colour",
