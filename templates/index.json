@@ -570,7 +570,7 @@
       "type": "product-slider",
       "name": "Choose Core",
       "settings": {
-        "product": "brisa-core",
+        "product": "brisa-cores",
         "option_name": "Color",
         "heading": "BETTER CORES",
         "subheading": "Food-grade aroma cores made for the Brisa ritual.",
