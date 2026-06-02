@@ -1,0 +1,81 @@
+{% liquid
+  assign swatch_style = ''
+  assign swatch_label = ''
+  assign nav_label = variant.title
+
+  if option_value != blank
+    assign nav_label = option_value.name | default: variant.title
+  endif
+
+  case section.settings.swatch_label_source
+    when 'product_option'
+      if option_value != blank
+        assign swatch_label = option_value.name
+      else
+        assign swatch_label = nav_label
+      endif
+    when 'carousel_swatch_colour'
+      assign swatch_label = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour
+    when 'variant_title'
+      assign swatch_label = variant.title
+    when 'product_title'
+      assign swatch_label = slider_product.title
+    when 'flavour'
+      assign swatch_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
+    when 'vendor'
+      assign swatch_label = slider_product.vendor
+    when 'product_type'
+      assign swatch_label = slider_product.type
+    when 'custom_metafield'
+      assign metafield_namespace = section.settings.swatch_label_metafield_namespace
+      assign metafield_key = section.settings.swatch_label_metafield_key
+      assign swatch_label = variant.metafields[metafield_namespace][metafield_key].value | default: variant.metafields[metafield_namespace][metafield_key] | default: slider_product.metafields[metafield_namespace][metafield_key].value | default: slider_product.metafields[metafield_namespace][metafield_key]
+  endcase
+
+  case section.settings.swatch_color_source
+    when 'product_option'
+      if option_value != blank
+        capture swatch_style
+          render 'color-swatch-style', swatch: option_value.swatch, color_swatch_config: color_swatch_config, value: option_value
+        endcapture
+        assign swatch_style = swatch_style | strip
+      endif
+    when 'carousel_swatch_colour'
+      assign swatch_color = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour | default: section.settings.dot_color
+      assign swatch_style = 'background-color: ' | append: swatch_color
+    when 'carousel_background_colour'
+      assign swatch_color = variant.metafields.custom.carousel_background_colour.value | default: variant.metafields.custom.carousel_background_colour | default: slider_product.metafields.custom.carousel_background_colour.value | default: slider_product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
+      assign swatch_style = 'background-color: ' | append: swatch_color
+    when 'custom_metafield'
+      assign swatch_color_namespace = section.settings.swatch_color_metafield_namespace
+      assign swatch_color_key = section.settings.swatch_color_metafield_key
+      assign swatch_color = variant.metafields[swatch_color_namespace][swatch_color_key].value | default: variant.metafields[swatch_color_namespace][swatch_color_key] | default: slider_product.metafields[swatch_color_namespace][swatch_color_key].value | default: slider_product.metafields[swatch_color_namespace][swatch_color_key] | default: section.settings.dot_color
+      assign swatch_style = 'background-color: ' | append: swatch_color
+    else
+      assign swatch_style = 'background-color: ' | append: section.settings.dot_color
+  endcase
+
+  if swatch_style == blank
+    assign swatch_style = 'background-color: ' | append: section.settings.dot_color
+  endif
+%}
+
+{% unless variant == blank %}
+<button
+  class="product-slider__nav {% if nav_first %}is-active{% endif %}"
+  type="button"
+  data-product-slider-nav
+  data-index="{{ nav_index }}"
+  aria-label="Go to {{ nav_label | escape }}"
+  {% if nav_first %}aria-current="true"{% endif %}
+>
+  {% if section.settings.use_swatch_nav %}
+    <span class="product-slider__swatch" style="{{ swatch_style }}"></span>
+    {% if swatch_label != blank %}
+      <span class="product-slider__swatch-label">{{ swatch_label | escape }}</span>
+    {% endif %}
+  {% else %}
+    <span class="product-slider__dot"></span>
+  {% endif %}
+</button>
+{% endunless %}

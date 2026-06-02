@@ -1,0 +1,63 @@
+<div
+  class="product-slider__card"
+  data-product-slider-card
+  data-product-title="{{ slide_label | escape }}"
+  style="border-radius: {{ section.settings.slider_border_radius }}px;"
+>
+  <a class="product-slider__link" href="{{ variant.url }}">
+    <div class="product-slider__image-wrapper">
+      {% if section.settings.show_slide_product_name %}
+        <div class="product-slider__flavour">{{ slide_label | escape }}</div>
+      {% endif %}
+
+      <div class="product-slider__sprouts">
+        {% for i in (1..4) %}
+          {% liquid
+            assign sprout_key = 'sprout_image_' | append: i
+            assign sprout_image = variant.metafields.custom[sprout_key].value | default: slider_product.metafields.custom[sprout_key].value
+          %}
+
+          {% if sprout_image != blank %}
+            <div class="product-slider__sprout">
+              <img
+                src="{{ sprout_image | image_url: width: 160 }}"
+                alt=""
+                loading="lazy"
+                width="{{ sprout_image.width }}"
+                height="{{ sprout_image.height }}"
+              >
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% liquid
+        assign card_image = blank
+
+        case section.settings.slide_image_source
+          when 'variant_metafield'
+            assign ns = section.settings.slide_image_metafield_namespace
+            assign key = section.settings.slide_image_metafield_key
+            assign card_image = variant.metafields[ns][key].value | default: variant.metafields[ns][key]
+          when 'variant_image'
+            assign card_image = variant.image
+          when 'carousel_product_image'
+            assign card_image = variant.metafields.custom.carousel_product_image.value | default: variant.metafields.custom.carousel_product_image | default: slider_product.metafields.custom.carousel_product_image.value | default: slider_product.metafields.custom.carousel_product_image
+          else
+            assign card_image = variant.metafields.custom.carousel_product_image.value | default: variant.metafields.custom.carousel_product_image | default: slider_product.metafields.custom.carousel_product_image.value | default: slider_product.metafields.custom.carousel_product_image | default: variant.image
+        endcase
+      %}
+
+      {% if card_image != blank %}
+        <img
+          class="product-slider__image"
+          src="{{ card_image | image_url: width: 700 }}"
+          alt="{{ slide_label | escape }}"
+          loading="{% if eager_load %}eager{% else %}lazy{% endif %}"
+          width="{{ card_image.width }}"
+          height="{{ card_image.height }}"
+        >
+      {% endif %}
+    </div>
+  </a>
+</div>
