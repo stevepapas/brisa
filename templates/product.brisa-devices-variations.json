@@ -705,7 +705,7 @@
         "row_V4U8Tm": {
           "type": "row",
           "settings": {
-            "label": "Habit broken",
+            "label": "Designed for the switch",
             "brisa_value_type": "check",
             "brisa_text": "",
             "column_2_value_type": "cross",
@@ -747,7 +747,7 @@
         "brisa_heading": "Brisa Better",
         "column_2_heading": "Vaping",
         "column_3_heading": "Smoking",
-        "column_4_heading": "Nicorette",
+        "column_4_heading": "Gums/Others",
         "background": "#ffffff",
         "text_color": "#111111",
         "heading_color": "#111111",
