@@ -1202,7 +1202,7 @@ display: none;
 }
 
 .brisa-product-area-info__guarantee {
-  max-width: 610px;
+  max-width: 100%;
   margin: 12px auto 16px;
   padding: 10px 16px;
   background: #cce4f8;
