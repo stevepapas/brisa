@@ -1,12 +1,3 @@
-{%- comment -%}
-------------------------------------------------------------------------------------------------------------------------
-NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing this theme as much as we did for
-  developing it. We have put a lot of work to make this theme as developer friendly as possible by offering you
-  hooks to integrate into critical parts of the theme. You will find the complete technical documentation (including
-  all events, dependencies...) in the "custom.js" file, located in the Assets folder.
-------------------------------------------------------------------------------------------------------------------------
-{%- endcomment -%}
-
 <!doctype html>
 
 {%- assign direction = 'ltr' -%}
@@ -17,7 +8,6 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
 
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
   <head>
-    <meta name="facebook-domain-verification" content="6kcd94lxezqn7vt1tbzb7dvzgwf1qd" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="{{ settings.header_background }}">
@@ -34,7 +24,6 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
       <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}" type="image/png">
     {%- endif -%}
 
-    {%- comment -%}Few prefech to increase performance on commonly used third-parties{%- endcomment -%}
     <link rel="preconnect" href="https://cdn.shopify.com">
     <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
@@ -43,21 +32,13 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    {%- comment -%}Preload important resources{%- endcomment -%}
     <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
     <link rel="preload" as="script" href="{{ 'vendor.js' | asset_url }}">
     <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
 
-    {%- comment -%}
-      IMPLEMENTATION NOTE: for improving performance, Focal tries to preload images on known pages (such as blog page,
-      product or collection pages). In order to keep a main JS file size minimal, the theme also lazyloads non-essential
-      libraries (such as PhotoSwipe or Flickity) and only loads them on demand.
-    {%- endcomment -%}
     {%- if request.page_type == 'product' -%}
       {%- assign selected_media = product.selected_variant.featured_media | default: product.featured_media -%}
-
       <link rel="preload" as="fetch" href="{{ product.url }}.js" crossorigin>
-
       {%- if product.media.size > 1 -%}
         <link rel="preload" as="script" href="{{ 'flickity.js' | asset_url }}">
       {%- endif -%}
@@ -76,6 +57,7 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
 
     {{ content_for_header }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {{ 'brisa-kit-picker-panel.css' | asset_url | stylesheet_tag }}
   </head>
 
   {%- assign feature_classes = '' -%}
@@ -85,7 +67,6 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
   {%- endif -%}
 
   <body class="no-focus-outline {{ feature_classes }} template-{{ template.name }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}" data-instant-allow-query-string>
-    {%- comment -%}Common SVG definitions that we are re-using in several places{%- endcomment -%}
     <svg class="visually-hidden">
       <linearGradient id="rating-star-gradient-half">
         <stop offset="50%" stop-color="rgb(var(--product-star-rating))" />
@@ -106,11 +87,6 @@ NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing 
     {%- endif -%}
 
     <div id="main" role="main" class="anchor">
-      {%- comment -%}
-      IMPLEMENTATION NOTE: on collection and search page, the theme was designed to show on mobile the filter bar and/or sort
-        by at the very top of the page. However, due to the fact that sections are isolated, I had to move the code
-        here. Then, the collection section, based on the selected settings, will eventually hide those elements in CSS
-      {%- endcomment -%}
       {%- if request.page_type == 'collection' or request.page_type == 'search' -%}
         {%- assign active_filters_count = 0 -%}
 
