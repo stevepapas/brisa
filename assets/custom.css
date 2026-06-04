@@ -2283,3 +2283,16 @@ display: none;
   max-width: 680px !important;
   box-sizing: border-box !important;
 }
+
+/* Brand section: full-width background on desktop, content stays centred */
+@media screen and (min-width: 750px) {
+  .shopify-section--brisa-product-detail .brisa-product-detail__brand {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+    padding-left: max(32px, calc(50vw - 518px));
+    padding-right: max(32px, calc(50vw - 518px));
+  }
+}
