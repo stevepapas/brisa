@@ -2257,3 +2257,19 @@ display: none;
   background: #2eb8f4 !important;
   --primary-button-background: 46, 184, 244;
 }
+
+/* Kit picker: spread features to fill card height */
+.shopify-section--brisa-product-kit-picker .product-kit-picker__features {
+  flex: 1 !important;
+  justify-content: space-between !important;
+}
+
+/* brisa-product-detail: match kit picker max-width on desktop */
+@media screen and (min-width: 750px) {
+  .shopify-section--brisa-product-detail .brisa-product-detail__inner {
+    max-width: 1100px !important;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+}
