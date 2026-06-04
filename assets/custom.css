@@ -1205,6 +1205,7 @@ display: none;
   max-width: 610px;
   margin: 12px auto 16px;
   padding: 10px 16px;
+  background: #cce4f8;
   border: 4px solid #ff2c2c;
   border-radius: 10px;
   font-size: 15px;
@@ -2248,4 +2249,11 @@ display: none;
 
 .brisa-product-detail__photo--placeholder {
   display: block;
+}
+
+/* Product page ATC button - match brand blue */
+.shopify-section--main-product .button--primary,
+.product-sticky-form .button--primary {
+  background: #2eb8f4 !important;
+  --primary-button-background: 46, 184, 244;
 }
