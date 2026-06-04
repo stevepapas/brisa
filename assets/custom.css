@@ -2273,3 +2273,8 @@ display: none;
     box-sizing: border-box;
   }
 }
+
+/* Match guarantee box width to promo box */
+.shopify-section--brisa-product-detail .brisa-product-area-info__guarantee {
+  max-width: 680px !important;
+}
