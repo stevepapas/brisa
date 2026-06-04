@@ -2274,9 +2274,3 @@ display: none;
   }
 }
 
-/* Guarantee and promo boxes — identical outer dimensions */
-.shopify-section--brisa-product-detail .brisa-product-area-info__guarantee,
-.shopify-section--brisa-product-detail .brisa-product-detail__promo {
-  max-width: 680px !important;
-  box-sizing: border-box !important;
-}
