@@ -2296,3 +2296,16 @@ display: none;
     padding-right: max(32px, calc(50vw - 530px)) !important;
   }
 }
+
+/* Results section: full-width background on desktop, content aligned with panels */
+@media screen and (min-width: 750px) {
+  .shopify-section--brisa-product-detail .brisa-product-detail__results {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+    padding-left: max(24px, calc(50vw - 530px)) !important;
+    padding-right: max(24px, calc(50vw - 530px)) !important;
+  }
+}
