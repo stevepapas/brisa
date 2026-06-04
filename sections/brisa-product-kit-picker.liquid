@@ -39,6 +39,8 @@
   .product-kit-picker-{{ section_uid }} {
     --pkp-card-radius: {{ section.settings.border_radius }}px;
     --pkp-border-width: {{ section.settings.border_width }}px;
+    --pkp-border-active: {{ section.settings.border_color }};
+    --pkp-border-inactive: {{ section.settings.inactive_border_color }};
     color: {{ section.settings.text_color }};
   }
 
@@ -50,6 +52,47 @@
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__hero {
     margin-bottom: {{ section.settings.hero_spacing }}px;
+  }
+
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__stars {
+    display: inline-flex;
+    gap: 4px;
+    color: {{ section.settings.rating_star_color }};
+    line-height: 1;
+  }
+
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__star svg {
+    display: block;
+    width: 28px;
+    height: 28px;
+  }
+
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__rating-text {
+    color: {{ section.settings.heading_color }};
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .product-kit-picker-{{ section_uid }} .product-kit-picker__rating-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 4px 16px;
+    color: {{ section.settings.rating_badge_text_color }};
+    background: {{ section.settings.rating_badge_background }};
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.1;
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__hero-heading {
@@ -67,7 +110,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: {{ section.settings.highlight_gap }}px {{ section.settings.highlight_column_gap }}px;
     max-width: {{ section.settings.highlights_max_width }}px;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     list-style: none;
   }
@@ -137,17 +180,19 @@
     color: inherit;
     text-decoration: none;
     background: {{ section.settings.card_background }};
-    border: var(--pkp-border-width) solid {{ section.settings.border_color }};
+    border: var(--pkp-border-width) solid var(--pkp-border-inactive);
     border-radius: var(--pkp-card-radius);
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__card:hover {
+    border-color: var(--pkp-border-active);
     box-shadow: 0 10px 28px rgba(0, 139, 220, 0.14);
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__card.is-active {
     background: {{ section.settings.active_background }};
+    border-color: var(--pkp-border-active);
   }
 
   .product-kit-picker-{{ section_uid }} .product-kit-picker__card:focus-visible {
@@ -307,6 +352,33 @@
     text-decoration: line-through;
   }
 
+  @media screen and (min-width: 750px) {
+    .product-kit-picker-{{ section_uid }} .product-kit-picker__hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .product-kit-picker-{{ section_uid }} .product-kit-picker__rating {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .product-kit-picker-{{ section_uid }} .product-kit-picker__hero-heading {
+      width: 100%;
+      text-align: center;
+    }
+
+    .product-kit-picker-{{ section_uid }} .product-kit-picker__highlights {
+      width: 100%;
+      max-width: {{ section.settings.highlights_max_width }}px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-items: stretch;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
@@ -339,6 +411,26 @@
   <div class="product-kit-picker__inner">
     {% if section.settings.show_hero %}
       <div class="product-kit-picker__hero">
+        {% if section.settings.show_rating %}
+          <div class="product-kit-picker__rating">
+            <span class="product-kit-picker__stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                <span class="product-kit-picker__star">
+                  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                  </svg>
+                </span>
+              {%- endfor -%}
+            </span>
+            {% if section.settings.rating_text != blank %}
+              <span class="product-kit-picker__rating-text">{{ section.settings.rating_text | escape }}</span>
+            {% endif %}
+            {% if section.settings.rating_badge != blank %}
+              <span class="product-kit-picker__rating-badge">{{ section.settings.rating_badge | escape }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+
         <h2 class="product-kit-picker__hero-heading">
           {{ section.settings.brand_prefix | escape }} {{ kit_heading_suffix | escape }}
         </h2>
@@ -551,6 +643,42 @@
       "id": "show_hero",
       "label": "Show hero",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.7 (163)"
+    },
+    {
+      "type": "text",
+      "id": "rating_badge",
+      "label": "Rating badge",
+      "default": "Happy customers"
+    },
+    {
+      "type": "color",
+      "id": "rating_star_color",
+      "label": "Star colour",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "rating_badge_background",
+      "label": "Rating badge background",
+      "default": "#add5fe"
+    },
+    {
+      "type": "color",
+      "id": "rating_badge_text_color",
+      "label": "Rating badge text",
+      "default": "#1379dd"
     },
     {
       "type": "text",
@@ -1020,8 +1148,14 @@
     {
       "type": "color",
       "id": "border_color",
-      "label": "Border",
+      "label": "Active border",
       "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "inactive_border_color",
+      "label": "Inactive border",
+      "default": "#c5dcea"
     },
     {
       "type": "color",
