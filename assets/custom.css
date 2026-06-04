@@ -669,7 +669,9 @@ display: none;
 /* Product hero slideshow: square, centered on desktop (not full viewport width) */
 @media screen and (min-width: 1000px) {
   .template-brisa-cores .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
-  .template-brisa-devices .shopify-section--slideshow-brisa slide-show.slideshow-brisa {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
+  .template-brisa-devices .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa slide-show.slideshow-brisa {
     --slideshow-min-height: 0;
     display: flex;
     flex-direction: column;
@@ -681,12 +683,16 @@ display: none;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa,
-  .template-brisa-devices .shopify-section--slideshow-brisa {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa,
+  .template-brisa-devices .shopify-section--slideshow-brisa,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa {
     --slideshow-brisa-desktop-size: 520px;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-list,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-list {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-list {
     position: relative;
     flex: 0 0 auto;
     width: min(var(--slideshow-brisa-desktop-size, 520px), 100%) !important;
@@ -695,10 +701,13 @@ display: none;
     margin-inline: auto;
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    border-radius: 14px;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -707,7 +716,9 @@ display: none;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-inner,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide-inner,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-inner {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -716,18 +727,25 @@ display: none;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-inner::before,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner::before {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide-inner::before,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner::before,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-inner::before {
     display: none;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__image,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image {
     object-fit: contain;
     object-position: center;
+    border-radius: 14px;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar {
     width: min(var(--slideshow-brisa-desktop-size, 520px), 100%);
     max-width: 100%;
     margin-inline: auto;
@@ -735,20 +753,25 @@ display: none;
 }
 
 .template-brisa-cores slide-show h2,
-.template-brisa-devices slide-show h2 {
+.template-brisa-cores-variations slide-show h2,
+.template-brisa-devices slide-show h2,
+.template-brisa-devices-variations slide-show h2 {
   color: white;
   line-height: 1.3;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.56);
 }
 
-
 .template-brisa-cores .slideshow__image-wrapper:before,
-.template-brisa-devices .slideshow__image-wrapper:before {
+.template-brisa-cores-variations .slideshow__image-wrapper:before,
+.template-brisa-devices .slideshow__image-wrapper:before,
+.template-brisa-devices-variations .slideshow__image-wrapper:before {
   background: transparent;
 }
 
 .template-brisa-cores .slideshow-brisa__nav-bar,
-.template-brisa-devices .slideshow-brisa__nav-bar {
+.template-brisa-cores-variations .slideshow-brisa__nav-bar,
+.template-brisa-devices .slideshow-brisa__nav-bar,
+.template-brisa-devices-variations .slideshow-brisa__nav-bar {
   position: relative;
   z-index: 3;
 }
@@ -776,7 +799,9 @@ display: none;
 /* Product slideshow only: full width + contain on mobile (not homepage hero) */
 @media screen and (max-width: 999px) {
   .template-brisa-cores .shopify-section--slideshow-brisa,
-  .template-brisa-devices .shopify-section--slideshow-brisa {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa,
+  .template-brisa-devices .shopify-section--slideshow-brisa,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa {
     overflow-x: clip;
     max-width: 100%;
   }
@@ -787,29 +812,49 @@ display: none;
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-inner,
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__image-wrapper,
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide-inner,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image-wrapper,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image,
   .template-brisa-devices .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-list,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-inner,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image-wrapper,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image {
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-inner,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image-wrapper,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image {
     width: 100%;
     max-width: 100%;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__slide-list,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-list {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__slide-list,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-list {
     overflow: hidden;
+    border-radius: 14px;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow__image,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image {
     object-fit: contain;
     object-position: center;
+    border-radius: 14px;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
-  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar {
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
