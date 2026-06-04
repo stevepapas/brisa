@@ -1173,7 +1173,7 @@ display: none;
     border-bottom-width: 10px;
     border-left-width: 15px;
   }
-} 
+}
 
 .shopify-section--brisa-product-area-info,
 .shopify-section--brisa-product-detail {
@@ -1202,7 +1202,7 @@ display: none;
 }
 
 .brisa-product-area-info__guarantee {
-  max-width: 100%;
+  max-width: 610px;
   margin: 12px auto 16px;
   padding: 10px 16px;
   background: #cce4f8;
@@ -2258,10 +2258,9 @@ display: none;
   --primary-button-background: 46, 184, 244;
 }
 
-/* Kit picker: spread features to fill card height */
+/* Kit picker: fixed gap between feature items */
 .shopify-section--brisa-product-kit-picker .product-kit-picker__features {
-  flex: 1 !important;
-  justify-content: space-between !important;
+  gap: 14px !important;
 }
 
 /* brisa-product-detail: match kit picker max-width on desktop */
@@ -2274,3 +2273,9 @@ display: none;
   }
 }
 
+/* Guarantee and promo boxes — identical outer dimensions */
+.shopify-section--brisa-product-detail .brisa-product-area-info__guarantee,
+.shopify-section--brisa-product-detail .brisa-product-detail__promo {
+  max-width: 680px !important;
+  box-sizing: border-box !important;
+}
