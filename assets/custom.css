@@ -2258,8 +2258,12 @@ display: none;
   --primary-button-background: 46, 184, 244;
 }
 
-/* Kit picker: fixed gap between feature items */
-.shopify-section--brisa-product-kit-picker .product-kit-picker__features {
+/* Kit picker: starter card spreads items to fill height; mates card stays tight */
+.shopify-section--brisa-product-kit-picker .product-kit-picker__card--starter .product-kit-picker__features {
+  flex: 1 !important;
+  justify-content: space-evenly !important;
+}
+.shopify-section--brisa-product-kit-picker .product-kit-picker__card--mates .product-kit-picker__features {
   gap: 14px !important;
 }
 
