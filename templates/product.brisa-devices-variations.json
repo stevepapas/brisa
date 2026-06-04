@@ -130,9 +130,9 @@
             "image": "shopify://shop_images/sk-1.png",
             "image_focal_point": "center_center",
             "text_position": "middle_left",
-            "subheading": "",
-            "title": "",
-            "content": "",
+            "subheading": "1,000 + Aussies have switched",
+            "title": "THE ZERO-NICOTINE SENSORY DEVICE THAT REPLACES THE REACH.",
+            "content": "<p>NO SMOKE . NO VAPOUR . NO NICOTINE</p>",
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -371,6 +371,9 @@
         "mates_product": "brisa-mates-pack",
         "mates_handle": "mates-pack",
         "show_hero": true,
+        "show_rating": true,
+        "rating_text": "Rated 4.7 (163)",
+        "rating_badge": "Happy customers",
         "brand_prefix": "BRISA™",
         "starter_kit_heading": "STARTER KIT",
         "mates_kit_heading": "MATES KIT",
@@ -436,18 +439,42 @@
         "highlight_icon_color": "#ffffff"
       }
     },
+    "brisa_product_buy_zone": {
+      "type": "brisa-product-buy-zone",
+      "settings": {
+        "product": "",
+        "option_name": "Color",
+        "show_heading": true,
+        "image_metafield_namespace": "custom",
+        "image_metafield_key": "slider_image",
+        "value_line": "$130 one-time. Or $300/month + vaping. Your call.",
+        "show_rating": false,
+        "rating_text": "Rated 4.7 (163)"
+      }
+    },
+    "brisa_product_buy_trust": {
+      "type": "brisa-product-buy-trust",
+      "settings": {
+        "show_guarantee": true,
+        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
+        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "show_trust_bar": true,
+        "trust_1": "Free shipping AUS & NZ wide",
+        "trust_2": "Secure checkout",
+        "trust_3": "1,000+ AUSSIES ON BRISA",
+        "trust_4": "163 reviews 4.7 stars",
+        "show_urgency": true,
+        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
-        "description_mjgBLA": {
-          "type": "description",
-          "settings": {}
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
             "hide_sold_out_variants": false,
-            "selector_mode": "dropdown",
+            "selector_mode": "block",
             "color_mode": "swatch",
             "variant_image_options": "",
             "size_chart_page": ""
@@ -483,9 +510,7 @@
         }
       },
       "block_order": [
-        "description_mjgBLA",
         "variant_picker",
-        "liquid_zYKRxA",
         "liquid_TU4fi4",
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
         "buy_buttons"
@@ -584,16 +609,9 @@
       ],
       "name": "Brisa product detail",
       "settings": {
-        "show_guarantee": true,
-        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
-        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
-        "show_trust_bar": true,
-        "trust_1": "Free shipping AUS & NZ wide",
-        "trust_2": "Secure checkout",
-        "trust_3": "1,000+ AUSSIES ON BRISA",
-        "trust_4": "163 reviews 4.7 stars",
-        "show_urgency": true,
-        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
+        "show_guarantee": false,
+        "show_trust_bar": false,
+        "show_urgency": false,
         "show_promo": true,
         "promo_icon": "shopify://shop_images/gift.png",
         "promo_text": "Order this week — FREE Watermelon core pack (valued at $15) included.",
@@ -962,8 +980,9 @@
   "order": [
     "slideshow_brisa_LPC6iL",
     "brisa_product_kit_picker_cKf7EP",
+    "brisa_product_buy_zone",
     "main",
-    "product-content",
+    "brisa_product_buy_trust",
     "1772962804ca13e40e",
     "brisa_product_detail",
     "brisa_comparison_table_ntMxq4",

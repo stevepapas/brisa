@@ -1,0 +1,348 @@
+{% liquid
+  assign section_uid = section.id | replace: '-', '' | downcase
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__guarantee {
+    max-width: 610px;
+    margin: 0 auto 16px;
+    padding: 14px 16px 12px;
+    border: 4px solid {{ section.settings.guarantee_border_color }};
+    border-radius: 10px;
+    background: {{ section.settings.guarantee_background }};
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.18;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__guarantee strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 19px;
+    font-weight: 900;
+    line-height: 1.05;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-buy-trust__guarantee-icon {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 8px;
+    color: #000000;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-buy-trust__guarantee-icon svg {
+    display: block;
+    width: 34px;
+    height: 34px;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__trust-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto 16px;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.2;
+    text-align: center;
+    color: {{ section.settings.text_color }};
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__trust-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: {{ section.settings.trust_icon_color }};
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__trust-icon svg {
+    display: block;
+    width: 36px;
+    height: 36px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.4;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__trust-item:nth-child(4) .brisa-product-area-info__trust-icon svg {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__sellout {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 12px 20px;
+    color: {{ section.settings.urgency_text_color }};
+    background: {{ section.settings.urgency_background }};
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 749px) {
+    .brisa-buy-trust-{{ section_uid }} .brisa-product-area-info__trust-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 12px;
+    }
+  }
+</style>
+
+<section class="brisa-buy-trust brisa-buy-trust-{{ section_uid }}" {{ section.shopify_attributes }}>
+  <div class="brisa-buy-trust__inner">
+    {% if section.settings.show_guarantee %}
+      <div class="brisa-product-area-info__guarantee">
+        <span class="brisa-buy-trust__guarantee-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" focusable="false">
+            <path d="M24 5 9 11v11c0 9.5 6.4 18.3 15 21 8.6-2.7 15-11.5 15-21V11L24 5Z" fill="currentColor"/>
+            <path d="m17 24 5 5 9-11" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <strong>{{ section.settings.guarantee_heading | escape }}</strong>
+        <span>{{ section.settings.guarantee_text | escape }}</span>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_trust_bar %}
+      <div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M7 30h25l6-9h3a4 4 0 0 1 4 4v5h-5" />
+              <path d="M7 30V18h23v12" />
+              <path d="M15 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM36 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_1 | escape }}</span>
+        </div>
+
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <rect x="11" y="21" width="26" height="19" rx="3" />
+              <path d="M17 21v-6a7 7 0 0 1 14 0v6" />
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_2 | escape }}</span>
+        </div>
+
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="M8 20c5-7 11-7 16 0 5-7 11-7 16 0" />
+              <path d="M8 29c5-7 11-7 16 0 5-7 11-7 16 0" />
+              <circle cx="12" cy="37" r="3" />
+              <circle cx="24" cy="37" r="3" />
+              <circle cx="36" cy="37" r="3" />
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_3 | escape }}</span>
+        </div>
+
+        <div class="brisa-product-area-info__trust-item">
+          <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" focusable="false">
+              <path d="m12 34 3.1-6.3L8 22l6.9-1L24 12l9.1 9 6.9 1-7.1 5.7L32 34l-8-4.2L12 34Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span>{{ section.settings.trust_4 | escape }}</span>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_urgency and section.settings.urgency_text != blank %}
+      <div class="brisa-product-area-info__sellout">{{ section.settings.urgency_text | escape }}</div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa buy trust",
+  "class": "shopify-section--brisa-product-buy-trust",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Guarantee"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Heading",
+      "default": "30-DAY SUCCESS GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Text",
+      "default": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "color",
+      "id": "guarantee_background",
+      "label": "Guarantee background",
+      "default": "#e8f5fc"
+    },
+    {
+      "type": "color",
+      "id": "guarantee_border_color",
+      "label": "Guarantee border",
+      "default": "#ff2c2c"
+    },
+    {
+      "type": "header",
+      "content": "Trust bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show trust bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust item 1",
+      "default": "Free shipping AUS & NZ wide"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust item 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust item 3",
+      "default": "1,000+ AUSSIES ON BRISA"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust item 4",
+      "default": "163 reviews 4.7 stars"
+    },
+    {
+      "type": "color",
+      "id": "trust_icon_color",
+      "label": "Trust icon colour",
+      "default": "#008bdc"
+    },
+    {
+      "type": "header",
+      "content": "Urgency"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency",
+      "label": "Show urgency bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Urgency text",
+      "default": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+    },
+    {
+      "type": "color",
+      "id": "urgency_background",
+      "label": "Urgency background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "urgency_text_color",
+      "label": "Urgency text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 600,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa buy trust",
+      "category": "Brisa"
+    }
+  ]
+}
+{% endschema %}
