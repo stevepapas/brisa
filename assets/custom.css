@@ -2292,7 +2292,7 @@ display: none;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
     box-sizing: border-box;
-    padding-left: max(32px, calc(50vw - 518px));
-    padding-right: max(32px, calc(50vw - 518px));
+    padding-left: max(32px, calc(50vw - 530px)) !important;
+    padding-right: max(32px, calc(50vw - 530px)) !important;
   }
 }
