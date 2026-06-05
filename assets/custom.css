@@ -2468,3 +2468,55 @@ display: none;
     font-size: 15px !important;
   }
 }
+
+
+/* ============================================================
+   BRISA STARTER KIT PAGE — 4 VISUAL FIXES (brisa-devices-variations)
+   ============================================================ */
+
+/* Fix 1: Product image sits next to colour swatches on mobile */
+@media (max-width: 749px) {
+  .template-brisa-devices-variations .shopify-section--main-product .product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .template-brisa-devices-variations .shopify-section--main-product .product > * {
+    min-width: 0;
+  }
+}
+
+/* Fix 2: Active kit-picker card gets the blue background */
+.product-kit-picker__card.is-active {
+  background: #add5fe !important;
+}
+
+/* Fix 3: "$130 one-time..." pricing line — move to right after the colour swatches */
+.template-brisa-devices-variations .product-form {
+  display: flex;
+  flex-direction: column;
+}
+.template-brisa-devices-variations .product-form .product-form__variants {
+  order: 1;
+}
+.template-brisa-devices-variations .product-form .product-form__pricing-line {
+  order: 2;
+  font-weight: 700;
+  text-align: center;
+  margin: 4px 0;
+}
+.template-brisa-devices-variations .product-form .product-form__buy-buttons {
+  order: 10;
+}
+
+/* Fix 4: 30-day guarantee icon inline with title, not above it */
+.brisa-product-detail__guarantee-header {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 10px;
+}
+.brisa-product-area-info__guarantee strong {
+  display: inline;
+}
