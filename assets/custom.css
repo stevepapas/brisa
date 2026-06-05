@@ -1202,7 +1202,7 @@ display: none;
 }
 
 .brisa-product-area-info__guarantee {
-  max-width: 610px;
+  max-width: 915px;
   margin: 12px auto 16px;
   padding: 10px 16px;
   background: #cce4f8;
@@ -2280,7 +2280,7 @@ display: none;
 /* Guarantee and promo boxes — identical outer dimensions */
 .shopify-section--brisa-product-detail .brisa-product-area-info__guarantee,
 .shopify-section--brisa-product-detail .brisa-product-detail__promo {
-  max-width: 680px !important;
+  max-width: 915px !important;
   box-sizing: border-box !important;
 }
 
