@@ -75,10 +75,10 @@
 
 @media(max-width:749px) {
     .shopify-section--brisa-product-kit-picker .product-kit-picker__banner {
-        margin: 0 8px !important;
-        border-radius: 22px !important;
-        font-size: 22px !important;
-        padding: 12px 14px !important
+        margin: 0 4px!important;
+        border-radius: 22px!important;
+        font-size: 12px!important;
+        padding: 5px 14px!important;
     }
 
     .shopify-section--brisa-product-kit-picker .product-kit-picker__title {
@@ -110,7 +110,7 @@
 
 
     .shopify-section--brisa-product-kit-picker .product-kit-picker__header {
-        margin-bottom: 5px;
+        margin-bottom: 5px !important;
     }
 
     .shopify-section--brisa-product-kit-picker .product-kit-picker__note {
