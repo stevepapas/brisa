@@ -5,6 +5,13 @@
   assign desktop_slides = total_testimonials | plus: 2 | divided_by: 3
 %}
 
+<style>
+  #shopify-section-{{ section.id }} {
+    padding-bottom: 40px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+</style>
+
 <brisa-product-testimonials
   class="brisa-product-testimonials"
   data-total-items="{{ total_testimonials }}"
