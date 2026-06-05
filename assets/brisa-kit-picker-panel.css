@@ -104,6 +104,7 @@
 
     .shopify-section--brisa-product-kit-picker .product-kit-picker__card--mates .product-kit-picker__features {
         gap: 5px !important
+        line-height: 1.2 !important;
     }
 
 
