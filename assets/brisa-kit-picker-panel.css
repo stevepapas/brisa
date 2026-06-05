@@ -128,4 +128,8 @@
     .shopify-section--brisa-product-kit-picker .product-kit-picker__grid {
         padding: 12px 6px;
     }
+
+    .shopify-section--brisa-product-kit-picker .product-kit-picker__card-body {
+        padding: 12px 5px !important;
+    }
 }
