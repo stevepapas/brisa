@@ -96,6 +96,7 @@
     .shopify-section--brisa-product-kit-picker .product-kit-picker__feature {
         font-size: 11px!important;
         font-weight: bold !important;
+        gap: 0px !important;
     }
     .shopify-section--brisa-product-kit-picker .product-kit-picker__footer {
         padding-top: 2px !important;
