@@ -2403,3 +2403,68 @@ display: none;
     max-height: 80px;
   }
 }
+
+
+/* ============================================================
+   Add to Cart button — bright blue, rounded, bold
+   ============================================================ */
+.shopify-section--main-product .product-form__add-button {
+  background: #23aee8 !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  height: 56px !important;
+  border: none !important;
+}
+
+.shopify-section--main-product .product-form__add-button:hover {
+  background: #1a98d0 !important;
+}
+
+/* Pricing line above ATC button */
+.product-form__pricing-line {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   Kit picker — mobile text size & spacing fix
+   ============================================================ */
+@media screen and (max-width: 749px) {
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__feature {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__features {
+    gap: 10px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__card--starter .product-kit-picker__features {
+    gap: 10px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__card--mates .product-kit-picker__features {
+    gap: 10px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__banner {
+    font-size: 18px !important;
+    padding: 10px 14px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__title {
+    font-size: 28px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__subtitle {
+    font-size: 15px !important;
+  }
+}
