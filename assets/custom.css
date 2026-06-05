@@ -2469,12 +2469,11 @@ display: none;
   }
 }
 
-
 /* ============================================================
-   BRISA STARTER KIT PAGE — 4 VISUAL FIXES (brisa-devices-variations)
+   BRISA STARTER KIT PAGE — VISUAL FIXES (brisa-devices-variations)
    ============================================================ */
 
-/* Fix 1: Product image sits next to colour swatches on mobile */
+/* Fix 1: Colour swatches LEFT, product image RIGHT on mobile */
 @media (max-width: 749px) {
   .template-brisa-devices-variations .shopify-section--main-product .product {
     display: grid;
@@ -2482,20 +2481,28 @@ display: none;
     gap: 12px;
     align-items: start;
   }
+  /* product-media renders first (right col), product__info second — swap so info is on left */
+  .template-brisa-devices-variations .shopify-section--main-product .product__info {
+    order: -1;
+  }
   .template-brisa-devices-variations .shopify-section--main-product .product > * {
     min-width: 0;
   }
+  /* Stack colour circles vertically so they fit in the narrow column */
+  .template-brisa-devices-variations .mpg-swatch-circle-button.mpg-swatch__nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
 }
 
-/* Fix 2: Active kit-picker card gets the blue background */
+/* Fix 2: Active kit-picker card — blue background */
 .product-kit-picker__card.is-active {
   background: #add5fe !important;
 }
 
-/* Fix 3: "$130 one-time..." pricing line — move to right after the colour swatches */
-.template-brisa-devices-variations .product-form {
-  display: flex;
-  flex-direction: column;
+/* Fix 3: Reorder product form → swatches (1) → pricing line (2) → buy button (3) → rest (5) */
+.template-brisa-devices-variations .product-form > * {
+  order: 5;
 }
 .template-brisa-devices-variations .product-form .product-form__variants {
   order: 1;
@@ -2507,10 +2514,10 @@ display: none;
   margin: 4px 0;
 }
 .template-brisa-devices-variations .product-form .product-form__buy-buttons {
-  order: 10;
+  order: 3;
 }
 
-/* Fix 4: 30-day guarantee icon inline with title, not above it */
+/* Fix 4: 30-day guarantee icon inline with title, not stacked above it */
 .brisa-product-detail__guarantee-header {
   display: flex !important;
   flex-wrap: nowrap !important;
