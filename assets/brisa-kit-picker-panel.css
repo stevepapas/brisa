@@ -114,7 +114,8 @@
     }
 
     .shopify-section--brisa-product-kit-picker .product-kit-picker__note {
-        font-size: 16px !important
+        font-size: 12px !important
+        margin-top: 10px !important;
     }
 
     .shopify-section--brisa-product-kit-picker .product-kit-picker__price {
