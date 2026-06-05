@@ -2309,3 +2309,97 @@ display: none;
     padding-right: max(24px, calc(50vw - 530px)) !important;
   }
 }
+
+
+/* ============================================================
+   Variant swatch — circles with labels + inline variant image
+   ============================================================ */
+
+/* Hide the main product media gallery on product pages */
+.shopify-section--main-product .product__media {
+  display: none !important;
+}
+
+/* Two-column layout: swatches left, variant image right */
+.color-swatch-with-image {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Swatch list — auto columns based on count */
+.color-swatch-with-image .color-swatch-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  grid-template-columns: none;
+  flex-shrink: 0;
+}
+
+/* Each swatch wrapper — flex column for circle + label */
+.color-swatch-with-image .color-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Circular swatch */
+.color-swatch-with-image .color-swatch__item {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  border: 3px solid transparent !important;
+  box-shadow: 0 0 0 2px #d0d0d0;
+  cursor: pointer;
+  display: block;
+}
+
+/* Selected state ring */
+.color-swatch-with-image input.color-swatch__radio:checked + .color-swatch__item,
+.color-swatch-with-image .color-swatch__item.is-selected {
+  box-shadow: 0 0 0 2px #23aee8 !important;
+}
+
+/* Colour name label */
+.color-swatch__name {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #2b2b2b;
+  letter-spacing: 0.02em;
+}
+
+/* Variant image on the right */
+.color-swatch-variant-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.color-swatch-variant-img {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+@media screen and (max-width: 749px) {
+  .color-swatch-with-image {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .color-swatch-variant-image {
+    width: 100%;
+  }
+  
+  .color-swatch-variant-img {
+    max-height: 80px;
+  }
+}

@@ -97,6 +97,7 @@
                     </div>
 
                   {%- when 'swatch' -%}
+                    <div class="color-swatch-with-image">
                     <div class="color-swatch-list">
                       {%- assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />' -%}
 
@@ -113,14 +114,22 @@
                               <span class="visually-hidden">{{ value }}</span>
                             </a>
                           {%- else -%}
-                            <input class="color-swatch__radio visually-hidden" type="radio" data-option-position="{{ option.position }}" name="option{{ option.position }}" form="{{ product_form_id }}" id="{{ option_id }}-{{ forloop.index }}" value="{{ value.id }}" {% if value == option.selected_value %}checked="checked"{% endif %}>
+                            <input class="color-swatch__radio visually-hidden" type="radio" data-option-position="{{ option.position }}" name="option{{ option.position }}" form="{{ product_form_id }}" id="{{ option_id }}-{{ forloop.index }}" value="{{ value.id }}" {% if value == option.selected_value %}checked="checked"{% endif %} data-media-id="{{ value.variant.featured_media.id }}">
                             <label class="color-swatch__item" for="{{ option_id }}-{{ forloop.index }}" style="{% render 'color-swatch-style', swatch: value.swatch, color_swatch_config: color_swatch_config, value: value %}">
                               <span class="visually-hidden">{{ value }}</span>
                             </label>
+                            <span class="color-swatch__name">{{ value }}</span>
                           {%- endif -%}
                         </div>
                       {%- endfor -%}
                     </div>
+                    {%- assign selected_media = option.selected_value.variant.featured_media | default: product.selected_or_first_available_variant.featured_media -%}
+                    {%- if selected_media -%}
+                      <div class="color-swatch-variant-image" id="color-swatch-image-{{ option.position }}">
+                        <img src="{{ selected_media | image_url: width: 600 }}" alt="{{ product.title }}" class="color-swatch-variant-img" width="600" height="auto" loading="eager">
+                      </div>
+                    {%- endif -%}
+                  </div>
 
                   {%- when 'block' -%}
                     <div class="block-swatch-list">
@@ -557,3 +566,35 @@ IMPLEMENTATION NOTE: if during the iteration of the options we have found an opt
     </div>
   </popover-content>
 {%- endif -%}
+
+<script>
+  (function() {
+    function initSwatchImageSwap() {
+      var swatchInputs = document.querySelectorAll('.color-swatch__radio[data-media-id]');
+      swatchInputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+          var mediaId = this.getAttribute('data-media-id');
+          var optionPos = this.getAttribute('data-option-position');
+          var imgContainer = document.querySelector('#color-swatch-image-' + optionPos);
+          if (!imgContainer || !mediaId || mediaId === '') return;
+          
+          // Find the matching product media image
+          var mediaItem = document.querySelector('.product__media-item[data-media-id="' + mediaId + '"] img');
+          if (mediaItem) {
+            var currentImg = imgContainer.querySelector('.color-swatch-variant-img');
+            if (currentImg) currentImg.src = mediaItem.src;
+          }
+        });
+      });
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSwatchImageSwap);
+    } else {
+      initSwatchImageSwap();
+    }
+    
+    // Also handle re-render
+    document.addEventListener('variant:change', initSwatchImageSwap);
+  })();
+</script>
