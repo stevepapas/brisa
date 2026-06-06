@@ -2477,7 +2477,7 @@ display: none;
 @media (max-width: 749px) {
   .template-brisa-devices-variations .shopify-section--main-product .product {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 12px;
     align-items: start;
   }
