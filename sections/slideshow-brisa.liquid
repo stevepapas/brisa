@@ -72,6 +72,19 @@
       --section-blocks-overlay-color: {{ block.settings.overlay_color.red }}, {{ block.settings.overlay_color.green }}, {{ block.settings.overlay_color.blue }};
       --section-blocks-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
     }
+
+    {%- if block.settings.show_image_overlay -%}
+      #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper::before {
+        display: block !important;
+        background: rgba({{ block.settings.overlay_color.red }}, {{ block.settings.overlay_color.green }}, {{ block.settings.overlay_color.blue }}, {{ block.settings.overlay_opacity | divided_by: 100.0 }}) !important;
+        pointer-events: none;
+        z-index: 1;
+      }
+    {%- else -%}
+      #block-{{ section.id }}-{{ block.id }} .slideshow__image-wrapper::before {
+        display: none !important;
+      }
+    {%- endif -%}
   {%- endfor -%}
 
   #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
@@ -328,6 +341,12 @@
     }
   {%- endif -%}
 
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .slideshow__slide-inner .content-box {
+      margin-inline-start: 0;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
@@ -398,7 +417,7 @@
         -%}
 
         {%- capture slide_content -%}
-          <div class="slideshow__image-wrapper" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
+          <div class="slideshow__image-wrapper{% if block.settings.show_image_overlay %} slideshow__image-wrapper--has-overlay{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
             {%- if image != blank -%}
               {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600,2000,2400,3000' -}}
             {%- else -%}
@@ -955,20 +974,28 @@
           "default": "#000000"
         },
         {
+          "type": "checkbox",
+          "id": "show_image_overlay",
+          "label": "Show color overlay on image",
+          "default": false
+        },
+        {
           "type": "color",
           "id": "overlay_color",
-          "label": "Overlay",
-          "default": "#000000"
+          "label": "Image overlay color",
+          "default": "#000000",
+          "visible_if": "{{ block.settings.show_image_overlay }}"
         },
         {
           "type": "range",
           "id": "overlay_opacity",
-          "label": "Overlay opacity",
+          "label": "Image overlay opacity",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "%",
-          "default": 30
+          "default": 30,
+          "visible_if": "{{ block.settings.show_image_overlay }}"
         }
       ]
     }

@@ -768,11 +768,11 @@ display: none;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.56);
 }
 
-.template-brisa-cores .slideshow__image-wrapper:before,
-.template-brisa-cores-variations .slideshow__image-wrapper:before,
-.template-brisa-devices .slideshow__image-wrapper:before,
-.template-brisa-devices-variations .slideshow__image-wrapper:before {
-  background: transparent;
+.template-brisa-cores .shopify-section--slideshow-brisa .slideshow__image-wrapper:not(.slideshow__image-wrapper--has-overlay)::before,
+.template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image-wrapper:not(.slideshow__image-wrapper--has-overlay)::before,
+.template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image-wrapper:not(.slideshow__image-wrapper--has-overlay)::before,
+.template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image-wrapper:not(.slideshow__image-wrapper--has-overlay)::before {
+  background: transparent !important;
 }
 
 .template-brisa-cores .slideshow-brisa__nav-bar,
