@@ -14,6 +14,13 @@
     width: 70%;
     margin: 0 auto;
   }
+  .template-product product,
+  .template-product nav {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 1100px !important;
+    margin: 0 auto;
+  }
 }
 
 .product-sticky-form { display: none; }
@@ -2495,12 +2502,7 @@ display: none;
   }
 }
 
-/* Fix 2: Active kit-picker card — blue background */
-.product-kit-picker__card.is-active {
-  background: #add5fe !important;
-}
-
-/* Fix 3: Reorder product form → swatches (1) → pricing line (2) → buy button (3) → rest (5) */
+/* Fix 2: Reorder product form → swatches (1) → pricing line (2) → buy button (3) → rest (5) */
 .template-brisa-devices-variations .product-form > * {
   order: 5;
 }

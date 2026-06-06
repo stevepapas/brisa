@@ -6,13 +6,7 @@
     background: white !important
 }
 
-.shopify-section--brisa-product-kit-picker .product-kit-picker__card--starter,
-.shopify-section--brisa-product-kit-picker .product-kit-picker__card--starter.is-active {
-    background: white !important
-}
-
-.shopify-section--brisa-product-kit-picker .product-kit-picker__card--mates,
-.shopify-section--brisa-product-kit-picker .product-kit-picker__card--mates.is-active {
+.shopify-section--brisa-product-kit-picker .product-kit-picker__card.is-active {
     background: rgb(174, 214, 255) !important
 }
 
