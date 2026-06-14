@@ -2411,6 +2411,12 @@ display: none;
   }
 }
 
+.color-swatch.is-disabled .color-swatch__name::before {
+  content: "SOLD OUT";
+  font-weight: bold;
+  color: red;
+}
+
 
 /* ============================================================
    Add to Cart button — bright blue, rounded, bold
