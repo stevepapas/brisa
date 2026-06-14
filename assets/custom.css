@@ -2418,6 +2418,10 @@ display: none;
   color: red;
   line-height: 1;
 }
+background: linear-gradient(to bottom right,transparent calc(50% - 1px),
+ #ff0000 calc(50% - 1px),
+ #ff0000 calc(50% + 1px),
+ transparent calc(50% + 1px)) no-repeat;
 
 
 /* ============================================================
