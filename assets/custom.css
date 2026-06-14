@@ -2418,11 +2418,13 @@ display: none;
   color: red;
   line-height: 1;
 }
+
+.color-swatch.is-disabled .color-swatch__item:before {
 background: linear-gradient(to bottom right,transparent calc(50% - 1px),
  #ff0000 calc(50% - 1px),
  #ff0000 calc(50% + 1px),
  transparent calc(50% + 1px)) no-repeat;
-
+}
 
 /* ============================================================
    Add to Cart button — bright blue, rounded, bold
