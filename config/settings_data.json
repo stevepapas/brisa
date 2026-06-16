@@ -272,7 +272,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".heading {text-transform: capitalize;}"
+      ".heading {text-transform: capitalize;}",
+      "/* Hide \"Shipping & taxes calculated at checkout\" when free shipping is already qualified */#mini-cart:has(free-shipping-bar[style*=\"--progress: 1\"]) .mini-cart__actions > span {display: none;}"
     ]
   }
 }
