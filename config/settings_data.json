@@ -273,7 +273,8 @@
   "platform_customizations": {
     "custom_css": [
       ".heading {text-transform: capitalize;}",
-      "/* Hide \"Shipping & taxes calculated at checkout\" when free shipping is already qualified */#mini-cart:has(free-shipping-bar[style*=\"--progress: 1\"]) .mini-cart__actions > span {display: none;}"
+      " /* Hide \"Shipping & taxes calculated at checkout\" when free shipping is already qualified */#mini-cart:has(free-shipping-bar[style*=\"--progress: 1\"]) .mini-cart__actions > span {display: none;}",
+      "/* Cart page - hide shipping text when free shipping is qualified */.container--medium:has(free-shipping-bar[style*=\"--progress: 1\"]) .cart__tax-note {display: none; }"
     ]
   }
 }
