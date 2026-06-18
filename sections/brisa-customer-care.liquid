@@ -1,0 +1,1149 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --bcc-max-width: {{ section.settings.content_max_width }}px;
+    --bcc-ribbon-bg: {{ section.settings.ribbon_background }};
+    --bcc-ribbon-text: {{ section.settings.ribbon_text_color }};
+    --bcc-hero-bg: {{ section.settings.hero_panel_background }};
+    --bcc-hero-text: {{ section.settings.hero_panel_text_color }};
+    --bcc-page-bg: {{ section.settings.page_background }};
+    --bcc-panel-bg: {{ section.settings.claim_panel_background }};
+    --bcc-button-bg: {{ section.settings.button_background }};
+    --bcc-button-text: {{ section.settings.button_text_color }};
+    --bcc-guarantee-border: {{ section.settings.guarantee_border_color }};
+    --bcc-guarantee-bg: {{ section.settings.guarantee_background }};
+    --bcc-card-bg: {{ section.settings.card_background }};
+    --bcc-text: {{ section.settings.text_color }};
+    --bcc-muted: {{ section.settings.muted_text_color }};
+    --bcc-input-border: {{ section.settings.input_border_color }};
+    --bcc-warning-bg: {{ section.settings.warning_background }};
+    background: var(--bcc-page-bg);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care {
+    color: var(--bcc-text);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__ribbon {
+    padding: 16px 20px;
+    color: var(--bcc-ribbon-text);
+    background: var(--bcc-ribbon-bg);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__hero-panel {
+    padding: 48px 20px 40px;
+    color: var(--bcc-hero-text);
+    background: var(--bcc-hero-bg);
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__hero-heading {
+    margin: 0 0 16px;
+    font-size: clamp(28px, 7vw, 36px);
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__hero-text {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__inner {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__section-heading {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__section-subtext {
+    margin: 0 0 24px;
+    color: var(--bcc-muted);
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__field {
+    margin-bottom: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__input,
+  #shopify-section-{{ section.id }} .brisa-customer-care__textarea {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    color: var(--bcc-text);
+    background: #ffffff;
+    border: 1px solid var(--bcc-input-border);
+    border-radius: 10px;
+    font: inherit;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__input::placeholder,
+  #shopify-section-{{ section.id }} .brisa-customer-care__textarea::placeholder {
+    color: var(--bcc-muted);
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 52px;
+    margin-top: 8px;
+    padding: 14px 20px;
+    color: var(--bcc-button-text) !important;
+    background: var(--bcc-button-bg);
+    border: 0;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__privacy {
+    margin: 12px 0 0;
+    color: var(--bcc-muted);
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 28px;
+    padding: 18px 16px;
+    background: var(--bcc-guarantee-bg);
+    border: 2px solid var(--bcc-guarantee-border);
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    color: var(--bcc-text);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-heading {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__claim-panel {
+    padding: 36px 20px 40px;
+    background: var(--bcc-panel-bg);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__claim-inner {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__claim-heading {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__claim-intro {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__method-card {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding: 16px;
+    background: var(--bcc-card-bg);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__method-icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #ffffff;
+    background: var(--bcc-button-bg);
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__method-title {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__method-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__steps {
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__step-number {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+    background: var(--bcc-button-bg);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__step-title {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__step-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quote {
+    margin: 24px 0 0;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-hero {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 36px 20px 8px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-heading {
+    margin: 0;
+    font-size: clamp(26px, 6.5vw, 34px);
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-intro,
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency {
+    margin: 16px 0 0;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step {
+    margin-bottom: 20px;
+    overflow: hidden;
+    background: var(--bcc-card-bg);
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-body {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-number {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    background: var(--bcc-button-bg);
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-title {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 8px;
+    padding: 16px;
+    background: var(--bcc-warning-bg);
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning-mark {
+    flex-shrink: 0;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning-heading {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__help {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 36px 20px 48px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-heading {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-text {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-link {
+    display: inline-block;
+    margin: 0 10px 8px;
+    color: var(--bcc-text);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__form-banner {
+    margin-bottom: 20px;
+  }
+</style>
+
+<section class="brisa-customer-care" {{ section.shopify_attributes }}>
+  <div class="brisa-customer-care__ribbon">{{ section.settings.ribbon_contact | escape }}</div>
+
+  <div class="brisa-customer-care__hero-panel">
+    <h1 class="brisa-customer-care__hero-heading">{{ section.settings.hero_heading | escape }}</h1>
+    {%- if section.settings.hero_text != blank -%}
+      <p class="brisa-customer-care__hero-text">{{ section.settings.hero_text | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="brisa-customer-care__inner" id="brisa-contact-form">
+    <h2 class="brisa-customer-care__section-heading">{{ section.settings.form_heading | escape }}</h2>
+    {%- if section.settings.form_subtext != blank -%}
+      <p class="brisa-customer-care__section-subtext">{{ section.settings.form_subtext | escape }}</p>
+    {%- endif -%}
+
+    {%- form 'contact', class: 'brisa-customer-care__form' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="banner banner--success form__banner brisa-customer-care__form-banner">
+          <span class="banner__ribbon">{% render 'icon' with 'form-success' %}</span>
+          <p class="banner__content">{{ section.settings.form_success_message | escape }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <div class="form__banner banner banner--error brisa-customer-care__form-banner">
+          <span class="banner__ribbon">{% render 'icon' with 'form-error' %}</span>
+          <div class="banner__content">{{ form.errors | default_errors }}</div>
+        </div>
+      {%- endif -%}
+
+      <div class="brisa-customer-care__field">
+        <label class="brisa-customer-care__label" for="brisa-contact-name-{{ section.id }}">{{ section.settings.label_name | escape }}</label>
+        <input
+          id="brisa-contact-name-{{ section.id }}"
+          class="brisa-customer-care__input"
+          type="text"
+          name="contact[name]"
+          placeholder="{{ section.settings.placeholder_name | escape }}"
+          required
+          {% if customer %}value="{{ customer.name }}"{% endif %}
+        >
+      </div>
+
+      <div class="brisa-customer-care__field">
+        <label class="brisa-customer-care__label" for="brisa-contact-email-{{ section.id }}">{{ section.settings.label_email | escape }}</label>
+        <input
+          id="brisa-contact-email-{{ section.id }}"
+          class="brisa-customer-care__input"
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.placeholder_email | escape }}"
+          required
+          {% if customer %}value="{{ customer.email }}"{% endif %}
+        >
+      </div>
+
+      <div class="brisa-customer-care__field">
+        <label class="brisa-customer-care__label" for="brisa-contact-order-{{ section.id }}">{{ section.settings.label_order | escape }}</label>
+        <input
+          id="brisa-contact-order-{{ section.id }}"
+          class="brisa-customer-care__input"
+          type="text"
+          name="contact[Order Number]"
+          placeholder="{{ section.settings.placeholder_order | escape }}"
+        >
+      </div>
+
+      <div class="brisa-customer-care__field">
+        <label class="brisa-customer-care__label" for="brisa-contact-message-{{ section.id }}">{{ section.settings.label_message | escape }}</label>
+        <textarea
+          id="brisa-contact-message-{{ section.id }}"
+          class="brisa-customer-care__textarea"
+          name="contact[body]"
+          placeholder="{{ section.settings.placeholder_message | escape }}"
+          required
+        ></textarea>
+      </div>
+
+      <button is="loader-button" type="submit" class="brisa-customer-care__submit">
+        {{ section.settings.submit_label | escape }}
+      </button>
+
+      {%- if section.settings.privacy_text != blank -%}
+        <p class="brisa-customer-care__privacy">{{ section.settings.privacy_text | escape }}</p>
+      {%- endif -%}
+    {%- endform -%}
+
+    {%- if section.settings.guarantee_heading != blank or section.settings.guarantee_text != blank -%}
+      <div class="brisa-customer-care__guarantee">
+        <span class="brisa-customer-care__guarantee-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+            <path d="M12 2 4 5v6c0 5.25 3.4 10.15 8 11 4.6-.85 8-5.75 8-11V5l-8-3Z" stroke="currentColor" stroke-width="1.75"/>
+            <path d="m8.5 12 2.5 2.5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <div>
+          {%- if section.settings.guarantee_heading != blank -%}
+            <p class="brisa-customer-care__guarantee-heading">{{ section.settings.guarantee_heading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.guarantee_text != blank -%}
+            <p class="brisa-customer-care__guarantee-text">{{ section.settings.guarantee_text | escape }}</p>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="brisa-customer-care__claim-panel">
+    <div class="brisa-customer-care__claim-inner">
+      <h2 class="brisa-customer-care__claim-heading">{{ section.settings.claim_heading | escape }}</h2>
+      {%- if section.settings.claim_intro != blank -%}
+        <p class="brisa-customer-care__claim-intro">{{ section.settings.claim_intro | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.method_1_title != blank -%}
+        <a class="brisa-customer-care__method-card" href="{{ section.settings.method_1_link | default: '#brisa-contact-form' }}">
+          <span class="brisa-customer-care__method-icon" aria-hidden="true">
+            {%- render 'icon' with 'picto-email', width: 20, height: 20 -%}
+          </span>
+          <span>
+            <p class="brisa-customer-care__method-title">{{ section.settings.method_1_title | escape }}</p>
+            {%- if section.settings.method_1_text != blank -%}
+              <p class="brisa-customer-care__method-text">{{ section.settings.method_1_text | escape }}</p>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.method_2_title != blank -%}
+        <a class="brisa-customer-care__method-card" href="{{ section.settings.method_2_link }}" target="_blank" rel="noopener">
+          <span class="brisa-customer-care__method-icon" aria-hidden="true">
+            {%- render 'icon' with 'instagram', width: 20, height: 20 -%}
+          </span>
+          <span>
+            <p class="brisa-customer-care__method-title">{{ section.settings.method_2_title | escape }}</p>
+            {%- if section.settings.method_2_text != blank -%}
+              <p class="brisa-customer-care__method-text">{{ section.settings.method_2_text | escape }}</p>
+            {%- endif -%}
+          </span>
+        </a>
+      {%- endif -%}
+
+      {%- assign claim_steps = section.blocks | where: 'type', 'claim_step' -%}
+      {%- if claim_steps.size > 0 -%}
+        <ol class="brisa-customer-care__steps">
+          {%- for block in claim_steps -%}
+            <li class="brisa-customer-care__step" {{ block.shopify_attributes }}>
+              <span class="brisa-customer-care__step-number">{{ forloop.index }}</span>
+              <span>
+                {%- if block.settings.title != blank -%}
+                  <p class="brisa-customer-care__step-title">{{ block.settings.title | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="brisa-customer-care__step-text">{{ block.settings.text | escape }}</p>
+                {%- endif -%}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.claim_quote != blank -%}
+        <p class="brisa-customer-care__quote">{{ section.settings.claim_quote | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="brisa-customer-care__ribbon">{{ section.settings.ribbon_care | escape }}</div>
+
+  <div class="brisa-customer-care__care-hero">
+    <h2 class="brisa-customer-care__care-heading">{{ section.settings.care_heading | escape }}</h2>
+    {%- if section.settings.care_intro != blank -%}
+      <p class="brisa-customer-care__care-intro">{{ section.settings.care_intro | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.care_frequency != blank -%}
+      <p class="brisa-customer-care__care-frequency">{{ section.settings.care_frequency | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="brisa-customer-care__inner">
+    {%- assign care_steps = section.blocks | where: 'type', 'care_step' -%}
+    {%- for block in care_steps -%}
+      <div class="brisa-customer-care__care-step" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{- block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'brisa-customer-care__care-step-image', sizes: '(max-width: 560px) 100vw, 560px', widths: '400,500,600,700,800' -}}
+        {%- endif -%}
+        <div class="brisa-customer-care__care-step-body">
+          <span class="brisa-customer-care__care-step-number">{{ forloop.index }}</span>
+          <span>
+            {%- if block.settings.title != blank -%}
+              <p class="brisa-customer-care__care-step-title">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="brisa-customer-care__care-step-text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </span>
+        </div>
+      </div>
+    {%- endfor -%}
+
+    {%- if section.settings.warning_heading != blank or section.settings.warning_text != blank -%}
+      <div class="brisa-customer-care__warning">
+        <span class="brisa-customer-care__warning-mark" aria-hidden="true">!</span>
+        <span>
+          {%- if section.settings.warning_heading != blank -%}
+            <p class="brisa-customer-care__warning-heading">{{ section.settings.warning_heading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.warning_text != blank -%}
+            <p class="brisa-customer-care__warning-text">{{ section.settings.warning_text | escape }}</p>
+          {%- endif -%}
+        </span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="brisa-customer-care__help">
+    {%- if section.settings.help_heading != blank -%}
+      <h2 class="brisa-customer-care__help-heading">{{ section.settings.help_heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.help_text != blank -%}
+      <p class="brisa-customer-care__help-text">{{ section.settings.help_text | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.show_policy_links -%}
+      {%- if shop.refund_policy -%}
+        <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
+      {%- endif -%}
+      {%- if shop.terms_of_service -%}
+        <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
+      {%- endif -%}
+      {%- if shop.shipping_policy -%}
+        <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
+      {%- endif -%}
+      {%- if shop.privacy_policy -%}
+        <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa customer care",
+  "class": "shopify-section--brisa-customer-care",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contact hero"
+    },
+    {
+      "type": "text",
+      "id": "ribbon_contact",
+      "label": "Ribbon text",
+      "default": "Customer Care"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Intro text",
+      "default": "Whether it's your order, your Better Unit, Better Cores, our 30 day guarantee, or a general question, we're here to help you get sorted. Drop us a message below and we'll get back to you within 1 business day."
+    },
+    {
+      "type": "header",
+      "content": "Contact form"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Form heading",
+      "default": "Send us a message."
+    },
+    {
+      "type": "text",
+      "id": "form_subtext",
+      "label": "Form subtext",
+      "default": "We typically reply within 1 business day."
+    },
+    {
+      "type": "text",
+      "id": "label_name",
+      "label": "Name label",
+      "default": "Name *"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_name",
+      "label": "Name placeholder",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Email label",
+      "default": "Email *"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_email",
+      "label": "Email placeholder",
+      "default": "you@email.com"
+    },
+    {
+      "type": "text",
+      "id": "label_order",
+      "label": "Order number label",
+      "default": "Order number (optional)"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_order",
+      "label": "Order number placeholder",
+      "default": "e.g #BR1234"
+    },
+    {
+      "type": "text",
+      "id": "label_message",
+      "label": "Message label",
+      "default": "Message *"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_message",
+      "label": "Message placeholder",
+      "default": "Tell us whats going on..."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit button",
+      "default": "Send message >"
+    },
+    {
+      "type": "text",
+      "id": "privacy_text",
+      "label": "Privacy note",
+      "default": "We respect your privacy - your details stay with us."
+    },
+    {
+      "type": "text",
+      "id": "form_success_message",
+      "label": "Success message",
+      "default": "Your message has been sent. We'll get back to you within 1 business day."
+    },
+    {
+      "type": "header",
+      "content": "30 day guarantee"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Heading",
+      "default": "30 Day Success Guarantee"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Text",
+      "default": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to help you get the most out of it. We don't leave you guessing."
+    },
+    {
+      "type": "header",
+      "content": "How to claim"
+    },
+    {
+      "type": "text",
+      "id": "claim_heading",
+      "label": "Heading",
+      "default": "How to claim your guarantee."
+    },
+    {
+      "type": "text",
+      "id": "claim_intro",
+      "label": "Intro",
+      "default": "Two ways to reach us:"
+    },
+    {
+      "type": "text",
+      "id": "method_1_title",
+      "label": "Method 1 title",
+      "default": "Submit through our website"
+    },
+    {
+      "type": "textarea",
+      "id": "method_1_text",
+      "label": "Method 1 text",
+      "default": "Drop us a message above with your order number and mention the 30 Day Success Guarantee."
+    },
+    {
+      "type": "url",
+      "id": "method_1_link",
+      "label": "Method 1 link"
+    },
+    {
+      "type": "text",
+      "id": "method_2_title",
+      "label": "Method 2 title",
+      "default": "Message us on Instagram"
+    },
+    {
+      "type": "textarea",
+      "id": "method_2_text",
+      "label": "Method 2 text",
+      "default": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number."
+    },
+    {
+      "type": "url",
+      "id": "method_2_link",
+      "label": "Method 2 link"
+    },
+    {
+      "type": "text",
+      "id": "claim_quote",
+      "label": "Closing quote",
+      "default": "\"That's the deal. We've got you.\""
+    },
+    {
+      "type": "header",
+      "content": "Product care"
+    },
+    {
+      "type": "text",
+      "id": "ribbon_care",
+      "label": "Ribbon text",
+      "default": "Product Care"
+    },
+    {
+      "type": "text",
+      "id": "care_heading",
+      "label": "Heading",
+      "default": "Keep your Brisa like new."
+    },
+    {
+      "type": "textarea",
+      "id": "care_intro",
+      "label": "Intro",
+      "default": "A 60-second routine keeps your Better Unit fresh, smooth on the draw, and working the way it should."
+    },
+    {
+      "type": "textarea",
+      "id": "care_frequency",
+      "label": "Frequency note",
+      "default": "Aim to clean your Better Unit at least every 3 days — sooner if you're using it daily."
+    },
+    {
+      "type": "text",
+      "id": "warning_heading",
+      "label": "Warning heading",
+      "default": "A small heads-up"
+    },
+    {
+      "type": "textarea",
+      "id": "warning_text",
+      "label": "Warning text",
+      "default": "Try to avoid getting dirt, dust, or loose debris down the barrel or into the bottom airflow dial. Keep it covered when it's not in use."
+    },
+    {
+      "type": "header",
+      "content": "Need more help"
+    },
+    {
+      "type": "text",
+      "id": "help_heading",
+      "label": "Heading",
+      "default": "Need more help?"
+    },
+    {
+      "type": "textarea",
+      "id": "help_text",
+      "label": "Text",
+      "default": "Got a faulty unit, or something doesn't feel right? Drop us a message and we'll sort it."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policy_links",
+      "label": "Show policy links",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "refund_link_label",
+      "label": "Refunds link label",
+      "default": "Refunds & Returns Policy"
+    },
+    {
+      "type": "text",
+      "id": "terms_link_label",
+      "label": "Terms link label",
+      "default": "Terms Of Service"
+    },
+    {
+      "type": "text",
+      "id": "shipping_link_label",
+      "label": "Shipping link label",
+      "default": "Shipping Policy"
+    },
+    {
+      "type": "text",
+      "id": "privacy_link_label",
+      "label": "Privacy link label",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 400,
+      "max": 640,
+      "step": 20,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "page_background",
+      "label": "Page background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "ribbon_background",
+      "label": "Ribbon background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "ribbon_text_color",
+      "label": "Ribbon text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_panel_background",
+      "label": "Hero panel background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "hero_panel_text_color",
+      "label": "Hero panel text",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#282828"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button and accents",
+      "default": "#5cb3e4"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "claim_panel_background",
+      "label": "Claim panel background",
+      "default": "#bee3f9"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "guarantee_background",
+      "label": "Guarantee box background",
+      "default": "#f8fbff"
+    },
+    {
+      "type": "color",
+      "id": "guarantee_border_color",
+      "label": "Guarantee box border",
+      "default": "#e74c3c"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#d4d4d4"
+    },
+    {
+      "type": "color",
+      "id": "warning_background",
+      "label": "Warning box background",
+      "default": "#eef7fd"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "claim_step",
+      "name": "Claim step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "You reach out"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Instagram or website, takes 30 seconds"
+        }
+      ]
+    },
+    {
+      "type": "care_step",
+      "name": "Care step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Remove the core."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Twist off the top section and lift the Better Core out before you start."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa customer care",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "claim_step",
+          "settings": {
+            "title": "You reach out",
+            "text": "Instagram or website, takes 30 seconds"
+          }
+        },
+        {
+          "type": "claim_step",
+          "settings": {
+            "title": "We book your 1-on-1 call",
+            "text": "15 minutes, we walk you through what to tweak"
+          }
+        },
+        {
+          "type": "claim_step",
+          "settings": {
+            "title": "We post your cores free",
+            "text": "3 weeks worth, sent same-week"
+          }
+        },
+        {
+          "type": "care_step",
+          "settings": {
+            "title": "Remove the core.",
+            "text": "Twist off the top section and lift the Better Core out before you start."
+          }
+        },
+        {
+          "type": "care_step",
+          "settings": {
+            "title": "Rinse & scrub the barrel.",
+            "text": "Run warm water through the centre barrel and gently scrub the inside with the cleaning tool."
+          }
+        },
+        {
+          "type": "care_step",
+          "settings": {
+            "title": "Work the airflow dial.",
+            "text": "Give the bottom dial a full twist while rinsing so water moves through the airflow channel."
+          }
+        },
+        {
+          "type": "care_step",
+          "settings": {
+            "title": "Stand it upside down to drain.",
+            "text": "Sit the device upside down so any remaining water drains cleanly out of the barrel. Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
