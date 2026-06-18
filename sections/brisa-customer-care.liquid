@@ -16,6 +16,7 @@
     --bcc-muted: {{ section.settings.muted_text_color }};
     --bcc-input-border: {{ section.settings.input_border_color }};
     --bcc-warning-bg: {{ section.settings.warning_background }};
+    --bcc-care-panel-bg: {{ section.settings.care_panel_background }};
     background: var(--bcc-page-bg);
   }
 
@@ -24,9 +25,12 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__ribbon {
+    display: block;
+    width: 100%;
     padding: 16px 20px;
-    color: var(--bcc-ribbon-text);
-    background: var(--bcc-ribbon-bg);
+    color: #ffffff;
+    background: #000000;
+    border-radius: 0;
     font-size: 14px;
     font-weight: 900;
     line-height: 1.25;
@@ -38,15 +42,17 @@
   #shopify-section-{{ section.id }} .brisa-customer-care__hero-panel {
     padding: 48px 20px 40px;
     color: var(--bcc-hero-text);
-    background: var(--bcc-hero-bg);
-    text-align: center;
+    background: #ffffff;
+    text-align: left;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__hero-heading {
-    margin: 0 0 16px;
+    max-width: var(--bcc-max-width);
+    margin: 0 auto 16px;
     font-size: clamp(28px, 7vw, 36px);
     font-weight: 900;
     line-height: 1.15;
+    text-align: center;
     text-transform: uppercase;
   }
 
@@ -55,6 +61,7 @@
     margin: 0 auto;
     font-size: 15px;
     line-height: 1.5;
+    text-align: left;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__inner {
@@ -288,6 +295,10 @@
     font-style: italic;
     line-height: 1.4;
     text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-section {
+    background: var(--bcc-care-panel-bg);
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-hero {
@@ -596,52 +607,54 @@
     </div>
   </div>
 
-  <div class="brisa-customer-care__ribbon">{{ section.settings.ribbon_care | escape }}</div>
+  <div class="brisa-customer-care__care-section">
+    <div class="brisa-customer-care__ribbon">{{ section.settings.ribbon_care | escape }}</div>
 
-  <div class="brisa-customer-care__care-hero">
-    <h2 class="brisa-customer-care__care-heading">{{ section.settings.care_heading | escape }}</h2>
-    {%- if section.settings.care_intro != blank -%}
-      <p class="brisa-customer-care__care-intro">{{ section.settings.care_intro | escape }}</p>
-    {%- endif -%}
-    {%- if section.settings.care_frequency != blank -%}
-      <p class="brisa-customer-care__care-frequency">{{ section.settings.care_frequency | escape }}</p>
-    {%- endif -%}
-  </div>
+    <div class="brisa-customer-care__care-hero">
+      <h2 class="brisa-customer-care__care-heading">{{ section.settings.care_heading | escape }}</h2>
+      {%- if section.settings.care_intro != blank -%}
+        <p class="brisa-customer-care__care-intro">{{ section.settings.care_intro | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.care_frequency != blank -%}
+        <p class="brisa-customer-care__care-frequency">{{ section.settings.care_frequency | escape }}</p>
+      {%- endif -%}
+    </div>
 
-  <div class="brisa-customer-care__inner">
-    {%- assign care_steps = section.blocks | where: 'type', 'care_step' -%}
-    {%- for block in care_steps -%}
-      <div class="brisa-customer-care__care-step" {{ block.shopify_attributes }}>
-        {%- if block.settings.image != blank -%}
-          {{- block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'brisa-customer-care__care-step-image', sizes: '(max-width: 560px) 100vw, 560px', widths: '400,500,600,700,800' -}}
-        {%- endif -%}
-        <div class="brisa-customer-care__care-step-body">
-          <span class="brisa-customer-care__care-step-number">{{ forloop.index }}</span>
+    <div class="brisa-customer-care__inner">
+      {%- assign care_steps = section.blocks | where: 'type', 'care_step' -%}
+      {%- for block in care_steps -%}
+        <div class="brisa-customer-care__care-step" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{- block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'brisa-customer-care__care-step-image', sizes: '(max-width: 560px) 100vw, 560px', widths: '400,500,600,700,800' -}}
+          {%- endif -%}
+          <div class="brisa-customer-care__care-step-body">
+            <span class="brisa-customer-care__care-step-number">{{ forloop.index }}</span>
+            <span>
+              {%- if block.settings.title != blank -%}
+                <p class="brisa-customer-care__care-step-title">{{ block.settings.title | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="brisa-customer-care__care-step-text">{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+            </span>
+          </div>
+        </div>
+      {%- endfor -%}
+
+      {%- if section.settings.warning_heading != blank or section.settings.warning_text != blank -%}
+        <div class="brisa-customer-care__warning">
+          <span class="brisa-customer-care__warning-mark" aria-hidden="true">!</span>
           <span>
-            {%- if block.settings.title != blank -%}
-              <p class="brisa-customer-care__care-step-title">{{ block.settings.title | escape }}</p>
+            {%- if section.settings.warning_heading != blank -%}
+              <p class="brisa-customer-care__warning-heading">{{ section.settings.warning_heading | escape }}</p>
             {%- endif -%}
-            {%- if block.settings.text != blank -%}
-              <p class="brisa-customer-care__care-step-text">{{ block.settings.text | escape }}</p>
+            {%- if section.settings.warning_text != blank -%}
+              <p class="brisa-customer-care__warning-text">{{ section.settings.warning_text | escape }}</p>
             {%- endif -%}
           </span>
         </div>
-      </div>
-    {%- endfor -%}
-
-    {%- if section.settings.warning_heading != blank or section.settings.warning_text != blank -%}
-      <div class="brisa-customer-care__warning">
-        <span class="brisa-customer-care__warning-mark" aria-hidden="true">!</span>
-        <span>
-          {%- if section.settings.warning_heading != blank -%}
-            <p class="brisa-customer-care__warning-heading">{{ section.settings.warning_heading | escape }}</p>
-          {%- endif -%}
-          {%- if section.settings.warning_text != blank -%}
-            <p class="brisa-customer-care__warning-text">{{ section.settings.warning_text | escape }}</p>
-          {%- endif -%}
-        </span>
-      </div>
-    {%- endif -%}
+      {%- endif -%}
+    </div>
   </div>
 
   <div class="brisa-customer-care__help">
@@ -1013,6 +1026,12 @@
       "id": "claim_panel_background",
       "label": "Claim panel background",
       "default": "#bee3f9"
+    },
+    {
+      "type": "color",
+      "id": "care_panel_background",
+      "label": "Product care panel background",
+      "default": "#ffffff"
     },
     {
       "type": "color",
