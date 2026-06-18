@@ -41,7 +41,20 @@
         assign swatch_style = swatch_style | strip
       endif
     when 'carousel_swatch_colour'
-      assign swatch_color = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour | default: section.settings.dot_color
+      assign swatch_color = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour
+      if swatch_color == blank
+        assign flavour_name = nav_label | downcase | strip
+        case flavour_name
+          when 'watermelon'
+            assign swatch_color = '#e9534f'
+          when 'mint ice'
+            assign swatch_color = '#6ec9b0'
+          when 'blackcurrant', 'black currant'
+            assign swatch_color = '#7b5ea7'
+          else
+            assign swatch_color = section.settings.dot_color
+        endcase
+      endif
       assign swatch_style = 'background-color: ' | append: swatch_color
     when 'carousel_background_colour'
       assign swatch_color = variant.metafields.custom.carousel_background_colour.value | default: variant.metafields.custom.carousel_background_colour | default: slider_product.metafields.custom.carousel_background_colour.value | default: slider_product.metafields.custom.carousel_background_colour | default: section.settings.dot_color

@@ -2514,6 +2514,11 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   display: none !important;
 }
 
+.template-brisa-cores .shopify-section--brisa-cores-picker .appstle-branding-wrapper,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .appstle-branding-wrapper {
+  display: none !important;
+}
+
 /* Pricing line above ATC button */
 .product-form__pricing-line {
   text-align: center;

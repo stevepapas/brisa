@@ -352,6 +352,14 @@
         updateGallery(cardIndex);
       }
     });
+
+    const popularName = {{ section.settings.popular_variant_name | downcase | json }};
+    let startIndex = 0;
+    if (popularName) {
+      const popularIndex = cards.findIndex((card) => (card.dataset.slideLabel || '').trim().toLowerCase() === popularName);
+      if (popularIndex >= 0) startIndex = popularIndex;
+    }
+    updateGallery(startIndex);
   })();
 </script>
 
