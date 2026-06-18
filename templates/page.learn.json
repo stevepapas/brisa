@@ -90,7 +90,7 @@
         "intro": "<p>I was at work trying to talk the boys off the vapes. I've always hated them. Watching mates I care about smoke chemicals nobody can pronounce never sat right with me.</p>",
         "quote": "It's not the nicotine, mate. It's the hand-to-mouth. Every time I try to stop, that's what pulls me back.",
         "body": "<p>That stuck. I went home, did the research, called Kaiden. We bought every product we could find, tested them all, and knew what was missing and what to produce.</p><p>They all missed the same things. Felt cheap in your hand. Looked out of place pulling out at the pub or on a worksite, or replaced bad stuff with more bad stuff. Nothing anyone actually wanted.</p><p>So we built our own option. Same motion. Same draw. Same moment. No chemicals, no nicotine, no vapour. Built solid. Looks the part. Flavours people actually know, with every aspect in mind.</p><p>Something Aussies are happy to be seen with.</p><p>That's Brisa. Still the two of us behind it.</p>",
-        "image": "shopify://shop_images/our_founders.png",
+        "image": "shopify://shop_images/founders.jpg",
         "signature": "— SAM & KAIDEN, CO-FOUNDERS",
         "button_text": "THE TRUTH ABOUT VAPING",
         "button_link": "#learn-questions",
@@ -161,7 +161,7 @@
         "heading": "THE BIT NO ONE'S\nTELLING YOU.",
         "subheading": "5 questions worth sitting with before your next hit.",
         "max_width": 520,
-        "background": "#f4f4f4",
+        "background": "#ffffff",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -182,7 +182,7 @@
           "settings": {
             "icon_image": "shopify://shop_images/brisa_09.png",
             "title": "Throat sensation",
-            "text": "A familiar draw without smoke, vapour, or nicotine."
+            "text": ""
           }
         },
         "feature_no_nic": {
@@ -198,7 +198,7 @@
           "settings": {
             "icon_image": "shopify://shop_images/brisa_05.png",
             "title": "No smoke No vapour",
-            "text": "Nothing to inhale. Nothing to hide. Nothing to charge."
+            "text": ""
           }
         }
       },
