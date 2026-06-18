@@ -2508,8 +2508,10 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 }
 
 .template-brisa-cores .shopify-section--brisa-cores-picker .product-meta__title,
-.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-meta__title {
-  display: none;
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-meta__title,
+.template-brisa-cores .breadcrumb,
+.template-brisa-cores-variations .breadcrumb {
+  display: none !important;
 }
 
 /* Pricing line above ATC button */
