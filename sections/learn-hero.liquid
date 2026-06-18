@@ -1,0 +1,341 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --learn-blue: #038bdd;
+    --learn-blue-dark: #1198dc;
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero {
+    position: relative;
+    color: #ffffff;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__media {
+    position: relative;
+    min-height: 520px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 72px 24px 120px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__badge {
+    display: inline-block;
+    margin: 0 0 20px;
+    padding: 8px 14px;
+    color: #2c579b;
+    background: #bee3f9;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__title {
+    margin: 0 0 16px;
+    color: #ffffff;
+    font-size: clamp(28px, 7vw, 42px);
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+    max-width: 340px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__subheading {
+    margin: 0 auto 24px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.45;
+    max-width: 320px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__scroll {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__scroll-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__icons {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    padding: 16px 12px 20px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__icon-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__trust {
+    background: var(--learn-blue);
+    padding: 12px 16px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__trust-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px 24px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .learn-hero__trust-item img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .learn-hero__media,
+    #shopify-section-{{ section.id }} .learn-hero__image {
+      min-height: 620px;
+    }
+
+    #shopify-section-{{ section.id }} .learn-hero__content {
+      padding-bottom: 140px;
+    }
+
+    #shopify-section-{{ section.id }} .learn-hero__icons {
+      max-width: 520px;
+      margin: 0 auto;
+      left: 50%;
+      transform: translateX(-50%);
+      background: none;
+    }
+  }
+</style>
+
+<section class="learn-hero" {{ section.shopify_attributes }}>
+  <div class="learn-hero__media">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'learn-hero__image', loading: 'eager', widths: '600,800,1000,1200,1600,2000', sizes: '100vw' }}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'learn-hero__image' }}
+    {%- endif -%}
+
+    <div class="learn-hero__overlay" aria-hidden="true"></div>
+
+    <div class="learn-hero__content">
+      {%- if section.settings.badge != blank -%}
+        <p class="learn-hero__badge">{{ section.settings.badge | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.title != blank -%}
+        <h1 class="learn-hero__title">{{ section.settings.title | escape }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="learn-hero__subheading">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.scroll_label != blank -%}
+        <a class="learn-hero__scroll" href="{{ section.settings.scroll_link | default: '#learn-founder-story' }}">
+          <span class="learn-hero__scroll-icon" aria-hidden="true">&#8595;</span>
+          <span>{{ section.settings.scroll_label | escape }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- assign hero_icons = section.blocks | where: 'type', 'hero_icon' -%}
+    {%- if hero_icons.size > 0 -%}
+      <div class="learn-hero__icons">
+        {%- for block in hero_icons -%}
+          <div class="learn-hero__icon-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon_image != blank -%}
+              {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-hero__icon-img', loading: 'lazy' }}
+            {%- endif -%}
+            <span>{{ block.settings.label | escape }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- assign trust_items = section.blocks | where: 'type', 'trust_item' -%}
+  {%- if trust_items.size > 0 -%}
+    <div class="learn-hero__trust">
+      <div class="learn-hero__trust-inner">
+        {%- for block in trust_items -%}
+          <div class="learn-hero__trust-item" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon_image != blank -%}
+              {{ block.settings.icon_image | image_url: width: 48 | image_tag: loading: 'lazy' }}
+            {%- endif -%}
+            <span>{{ block.settings.text | escape }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Learn hero",
+  "class": "shopify-section--learn-hero",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Image overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "THE BRISA LEARN PAGE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "READ THIS BEFORE YOUR NEXT HIT."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The truth, the science, and the device built to replace it. Made in Australia by two blokes who got sick of watching mates get stuck."
+    },
+    {
+      "type": "text",
+      "id": "scroll_label",
+      "label": "Scroll link label",
+      "default": "READ ON"
+    },
+    {
+      "type": "text",
+      "id": "scroll_link",
+      "label": "Scroll link",
+      "default": "#learn-founder-story"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_icon",
+      "name": "Hero icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Satisfies the ritual"
+        }
+      ]
+    },
+    {
+      "type": "trust_item",
+      "name": "Trust bar item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn hero"
+    }
+  ]
+}
+{% endschema %}

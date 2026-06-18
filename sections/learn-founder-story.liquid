@@ -1,0 +1,217 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: #111111;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__heading {
+    margin: 0 0 20px;
+    font-size: clamp(30px, 7vw, 40px);
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__intro,
+  #shopify-section-{{ section.id }} .learn-founder__body {
+    margin: 0 0 18px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__quote {
+    margin: 24px 0;
+    padding-left: 16px;
+    border-left: 4px solid #038bdd;
+    color: #038bdd;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: end;
+    margin-top: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__signature {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__image {
+    display: block;
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__cta-wrap {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__cta {
+    display: inline-block;
+    padding: 12px 22px;
+    color: #2c579b;
+    background: #bee3f9;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+</style>
+
+<section class="learn-founder" id="learn-founder-story" {{ section.shopify_attributes }}>
+  {%- if section.settings.heading != blank -%}
+    <h2 class="learn-founder__heading">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+
+  {%- if section.settings.intro != blank -%}
+    <div class="learn-founder__intro rte">{{ section.settings.intro }}</div>
+  {%- endif -%}
+
+  {%- if section.settings.quote != blank -%}
+    <blockquote class="learn-founder__quote">{{ section.settings.quote | escape }}</blockquote>
+  {%- endif -%}
+
+  {%- if section.settings.body != blank -%}
+    <div class="learn-founder__body rte">{{ section.settings.body }}</div>
+  {%- endif -%}
+
+  <div class="learn-founder__footer">
+    {%- if section.settings.signature != blank -%}
+      <p class="learn-founder__signature">{{ section.settings.signature | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 400 | image_tag: class: 'learn-founder__image', loading: 'lazy', widths: '120,240,400', sizes: '120px' }}
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.button_text != blank -%}
+    <div class="learn-founder__cta-wrap">
+      <a class="learn-founder__cta" href="{{ section.settings.button_link | default: '#learn-questions' }}">
+        {{ section.settings.button_text | escape }}
+      </a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Learn founder story",
+  "class": "shopify-section--learn-founder-story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "HOW BRISA STARTED."
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro",
+      "default": "<p>I was at work trying to talk the boys off the vapes. I've always hated them. Watching mates I care about smoke chemicals nobody can pronounce never sat right with me.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "It's not the nicotine, mate. It's the hand-to-mouth. Every time I try to stop, that's what pulls me back."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p>That stuck. I went home, did the research, called Kaiden. We bought every product we could find, tested them all, and knew what was missing and what to produce.</p><p>They all missed the same things. Felt cheap in your hand. Looked out of place pulling out at the pub or on a worksite, or replaced bad stuff with more bad stuff. Nothing anyone actually wanted.</p><p>So we built our own option. Same motion. Same draw. Same moment. No chemicals, no nicotine, no vapour. Built solid. Looks the part. Flavours people actually know, with every aspect in mind.</p><p>Something Aussies are happy to be seen with.</p><p>That's Brisa. Still the two of us behind it.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founders image"
+    },
+    {
+      "type": "text",
+      "id": "signature",
+      "label": "Signature",
+      "default": "— SAM & KAIDEN, CO-FOUNDERS"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "THE TRUTH ABOUT VAPING"
+    },
+    {
+      "type": "text",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "#learn-questions"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn founder story"
+    }
+  ]
+}
+{% endschema %}

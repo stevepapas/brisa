@@ -1,0 +1,244 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: #111111;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__eyebrow {
+    display: table;
+    margin: 0 auto 18px;
+    padding: 8px 16px;
+    color: #2c579b;
+    background: #bee3f9;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__heading {
+    margin: 0 0 28px;
+    font-size: clamp(28px, 6vw, 36px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__feature-icon {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__feature-title {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__feature-text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #444444;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__tagline {
+    margin: 0 0 24px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__button {
+    display: inline-block;
+    padding: 14px 28px;
+    color: #ffffff;
+    background: #038bdd;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .learn-pitch__features {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
+
+<section class="learn-pitch" id="learn-product-pitch" {{ section.shopify_attributes }}>
+  {%- if section.settings.eyebrow != blank -%}
+    <p class="learn-pitch__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+  {%- endif -%}
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="learn-pitch__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="learn-pitch__features">
+      {%- for block in section.blocks -%}
+        <div class="learn-pitch__feature" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon_image != blank -%}
+            {{ block.settings.icon_image | image_url: width: 104 | image_tag: class: 'learn-pitch__feature-icon', loading: 'lazy' }}
+          {%- endif -%}
+
+          {%- if block.settings.title != blank -%}
+            <p class="learn-pitch__feature-title">{{ block.settings.title | escape }}</p>
+          {%- endif -%}
+
+          {%- if block.settings.text != blank -%}
+            <p class="learn-pitch__feature-text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.tagline != blank -%}
+    <p class="learn-pitch__tagline">{{ section.settings.tagline | escape }}</p>
+  {%- endif -%}
+
+  {%- if section.settings.button_text != blank -%}
+    <a class="learn-pitch__button" href="{{ section.settings.button_link }}">
+      {{ section.settings.button_text | escape }}
+    </a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Learn product pitch",
+  "class": "shopify-section--learn-product-pitch",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "HOW BRISA REPLACES IT"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SAME MOTION.\nDIFFERENT STORY."
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Built to replace the ritual without replacing it with another problem."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Try the Brisa Unit"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Satisfies the ritual"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "Designed to recreate the familiar hand-to-mouth routine."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn product pitch"
+    }
+  ]
+}
+{% endschema %}

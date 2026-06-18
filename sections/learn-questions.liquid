@@ -1,0 +1,214 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: #111111;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__heading {
+    margin: 0 0 12px;
+    font-size: clamp(30px, 7vw, 40px);
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__subheading {
+    margin: 0 0 32px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__item {
+    padding-bottom: 28px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__label {
+    display: inline-block;
+    margin: 0 0 10px;
+    color: #038bdd;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__title {
+    margin: 0 0 12px;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__text {
+    margin: 0 0 14px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__quote {
+    margin: 0;
+    color: #038bdd;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+</style>
+
+<section class="learn-questions" id="learn-questions" {{ section.shopify_attributes }}>
+  {%- if section.settings.heading != blank -%}
+    <h2 class="learn-questions__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+  {%- endif -%}
+
+  {%- if section.settings.subheading != blank -%}
+    <p class="learn-questions__subheading">{{ section.settings.subheading | escape }}</p>
+  {%- endif -%}
+
+  <div class="learn-questions__list">
+    {%- for block in section.blocks -%}
+      <article class="learn-questions__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.label != blank -%}
+          <p class="learn-questions__label">{{ block.settings.label | escape }}</p>
+        {%- endif -%}
+
+        {%- if block.settings.title != blank -%}
+          <h3 class="learn-questions__title">{{ block.settings.title | escape }}</h3>
+        {%- endif -%}
+
+        {%- if block.settings.text != blank -%}
+          <div class="learn-questions__text rte">{{ block.settings.text }}</div>
+        {%- endif -%}
+
+        {%- if block.settings.quote != blank -%}
+          <p class="learn-questions__quote">&ldquo;{{ block.settings.quote | escape }}&rdquo;</p>
+        {%- endif -%}
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Learn questions",
+  "class": "shopify-section--learn-questions",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "THE BIT NO ONE'S\nTELLING YOU."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "5 questions worth sitting with before your next hit."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "01 - THE LOOP"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "It's not a choice anymore. It's a loop."
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Most people don't realise how much the vape starts running their day.</p>"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "If you can put it down whenever you want, why is it always in your hand?"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn questions",
+      "blocks": [
+        {
+          "type": "question",
+          "settings": {
+            "label": "01 - THE LOOP",
+            "title": "It's not a choice anymore. It's a loop."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
