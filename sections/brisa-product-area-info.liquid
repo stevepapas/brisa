@@ -1,9 +1,11 @@
 <section class="brisa-product-area-info" {{ section.shopify_attributes }}>
   <div class="brisa-product-area-info__inner">
-    <div class="brisa-product-area-info__guarantee">
-      <strong>30-DAY SUCCESS GUARANTEE</strong>
-      <span>If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.</span>
-    </div>
+    {% if section.settings.show_guarantee %}
+      <div class="brisa-product-area-info__guarantee">
+        <strong>{{ section.settings.guarantee_heading | escape }}</strong>
+        <span>{{ section.settings.guarantee_text | escape }}</span>
+      </div>
+    {% endif %}
 
     <div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
       <div class="brisa-product-area-info__trust-item">
@@ -15,7 +17,7 @@
             <path d="M11 16h14M8 21h10M5 25h10" />
           </svg>
         </span>
-        <span>Free shipping<br>PLUS ANY 2+U</span>
+        <span>{{ section.settings.trust_shipping | escape | newline_to_br }}</span>
       </div>
 
       <div class="brisa-product-area-info__trust-item">
@@ -26,7 +28,7 @@
             <path d="M24 29v5" />
           </svg>
         </span>
-        <span>Secure checkout</span>
+        <span>{{ section.settings.trust_checkout | escape }}</span>
       </div>
 
       <div class="brisa-product-area-info__trust-item">
@@ -39,11 +41,13 @@
             <circle cx="36" cy="37" r="3" />
           </svg>
         </span>
-        <span>1,000+ Aussies on<br>Brisa</span>
+        <span>{{ section.settings.trust_social | escape | newline_to_br }}</span>
       </div>
     </div>
 
-    <div class="brisa-product-area-info__sellout">WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW</div>
+    {% if section.settings.urgency_text != blank %}
+      <div class="brisa-product-area-info__sellout">{{ section.settings.urgency_text | escape }}</div>
+    {% endif %}
 
     <div class="brisa-product-area-info__panel brisa-product-area-info__panel--aroma">
       <h2 class="brisa-product-area-info__panel-heading">ENGINEERED FOR AROMA.</h2>
@@ -57,7 +61,7 @@
               <path d="M9.5 36C15.5 25.5 23.5 19.5 35.5 16" />
             </svg>
           </span>
-          <p><strong>Food-grade aroma compounds.</strong> Built from natural fibres and food-grade aroma. The same scent profile, clean hand to mouth ritual without vaping or smoke.</p>
+          <p><strong>Food-grade aroma compounds.</strong> Built from natural fibre and food-grade aroma — the same ingredient class used in food and drink products you trust.</p>
         </div>
 
         <div class="brisa-product-area-info__feature">
@@ -68,7 +72,7 @@
               <path d="M7 36h19" />
             </svg>
           </span>
-          <p><strong>Cool, clean draw.</strong> Delivers a familiar draw-like scent with zero hand-to-mouth separation. Just swap, pull, and satisfy. No smoke, no nicotine, no vapour.</p>
+          <p><strong>Cool, clean draw.</strong> Calibrated airflow gives the same hand-to-mouth sensation as a vape pull. Pure airflow, no smoke, no vapour.</p>
         </div>
 
         <div class="brisa-product-area-info__feature">
@@ -80,7 +84,7 @@
               <path d="M17 25 13.5 21.5a3 3 0 0 0-4.3 4.2l8.4 10.1A12 12 0 0 0 39 28v-8a3 3 0 0 0-6 0" />
             </svg>
           </span>
-          <p><strong>Full ritual replacement.</strong> Same motion. Same draw. Same throat sensation. The core does the sensory work - your hands do the rest.</p>
+          <p><strong>Full ritual replacement.</strong> Same motion, same draw, same throat sensation. The core does the sensory work — your hands do the rest.</p>
         </div>
 
         <div class="brisa-product-area-info__feature">
@@ -181,7 +185,7 @@
 
     <div class="brisa-product-area-info__starter">
       <h2>NEW TO BRISA?</h2>
-      <p>Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 3 mini-cores (30 days), a cleaning kit, a 30-day bag, all for $130.</p>
+      <p>Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 3 mint cores (30 days), a cleaning kit, and a carry bag, all for $130.</p>
       <a href="/products/starter-kit" class="brisa-product-area-info__button">GET THE STARTER KIT</a>
     </div>
 
@@ -211,6 +215,48 @@
   "name": "Brisa product area info",
   "class": "shopify-section--brisa-product-area-info",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show 30-day guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Guarantee heading",
+      "default": "30-DAY SUCCESS GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "textarea",
+      "id": "trust_shipping",
+      "label": "Trust item — shipping",
+      "default": "Free shipping AUS & NZ wide"
+    },
+    {
+      "type": "text",
+      "id": "trust_checkout",
+      "label": "Trust item — checkout",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_social",
+      "label": "Trust item — social proof",
+      "default": "1,000+ Aussies on Brisa"
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Urgency banner",
+      "default": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+    },
     {
       "type": "image_picker",
       "id": "landscape_image",

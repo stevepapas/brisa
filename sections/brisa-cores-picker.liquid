@@ -1,0 +1,949 @@
+{% liquid
+  assign section_uid = section.id | replace: '-', '' | downcase
+  assign color_swatch_config = settings.color_swatch_config | newline_to_br | split: '<br />'
+  assign selected_variant = product.selected_or_first_available_variant
+  assign selected_flavour = selected_variant.metafields.custom.flavour.value | default: selected_variant.metafields.custom.flavour | default: selected_variant.title
+%}
+
+{%- capture product_form_id -%}product-form-cores-{{ product.id }}-{{ section.id }}{%- endcapture -%}
+{%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    {%- if buy_buttons_block -%}
+      {%- if buy_buttons_block.settings.atc_button_background == 'rgba(0,0,0,0)' -%}
+        {%- assign primary_button_background = settings.primary_button_background -%}
+      {%- else -%}
+        {%- assign primary_button_background = buy_buttons_block.settings.atc_button_background -%}
+      {%- endif -%}
+
+      {%- if buy_buttons_block.settings.atc_button_text_color == 'rgba(0,0,0,0)' -%}
+        {%- assign primary_button_text_color = settings.primary_button_text_color -%}
+      {%- else -%}
+        {%- assign primary_button_text_color = buy_buttons_block.settings.atc_button_text_color -%}
+      {%- endif -%}
+
+      --primary-button-background: {{ primary_button_background.red }}, {{ primary_button_background.green }}, {{ primary_button_background.blue }};
+      --primary-button-text-color: {{ primary_button_text_color.red }}, {{ primary_button_text_color.green }}, {{ primary_button_text_color.blue }};
+    {%- endif -%}
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} {
+    color: {{ section.settings.text_color }};
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__aroma {
+    margin: 0 0 8px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.aroma_label_size }}px;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__aroma-desc {
+    margin: 0 0 {{ section.settings.gallery_spacing }}px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.aroma_text_size }}px;
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: {{ section.settings.nav_gap }}px;
+    margin-bottom: {{ section.settings.swatch_spacing }}px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__nav {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    color: {{ section.settings.text_color }};
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch {
+    display: block;
+    width: {{ section.settings.swatch_size }}px;
+    height: {{ section.settings.swatch_size }}px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__nav.is-active .product-slider__swatch {
+    border-color: {{ section.settings.active_nav_color }};
+    transform: scale(1.08);
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-label {
+    display: block;
+    max-width: {{ section.settings.swatch_label_width }}px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.swatch_text_size }}px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__viewport {
+    position: relative;
+    overflow: hidden;
+    background-color: {{ section.settings.card_background }};
+    {% if section.settings.slide_background_image != blank %}
+      background-image: url({{ section.settings.slide_background_image | image_url: width: 1600 }});
+    {% endif %}
+    background-position: center;
+    background-size: cover;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__track {
+    display: flex;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__card {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: {{ section.settings.card_height }}px;
+    padding: {{ section.settings.image_padding }}px 20px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image {
+    display: block;
+    width: auto;
+    max-width: {{ section.settings.image_width }}%;
+    max-height: {{ section.settings.image_max_height }}px;
+    object-fit: contain;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__caption {
+    display: none;
+    margin: 12px 0 0;
+    color: {{ section.settings.popular_color }};
+    font-size: {{ section.settings.popular_size }}px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__caption.is-active {
+    display: block;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__purchase {
+    margin-top: {{ section.settings.purchase_spacing }}px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__pack-heading {
+    margin: 0 0 6px;
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.pack_heading_size }}px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__pack-subheading {
+    margin: 0 0 18px;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.pack_subheading_size }}px;
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__value-line {
+    margin: 14px 0 0;
+    color: {{ section.settings.muted_color }};
+    font-size: {{ section.settings.value_line_size }}px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__guarantee {
+    margin-top: 20px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .product-form__option-selector[data-selector-type="swatch"] {
+    display: none !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .product-form__description,
+  .brisa-cores-picker-{{ section_uid }} .product-form__text .rte > p:first-child strong:empty {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image-wrapper {
+      min-height: {{ section.settings.mobile_card_height }}px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image {
+      max-height: {{ section.settings.mobile_image_max_height }}px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch {
+      width: {{ section.settings.swatch_size | times: 0.86 | round }}px;
+      height: {{ section.settings.swatch_size | times: 0.86 | round }}px;
+    }
+  }
+</style>
+
+<section class="brisa-cores-picker brisa-cores-picker-{{ section_uid }}" {{ section.shopify_attributes }}>
+  {% if section.settings.show_sticky_add_to_cart and product.available %}
+    {%- render 'product-sticky-form', product: product, product_form_id: product_form_id -%}
+  {% endif %}
+
+  <div class="brisa-cores-picker__inner">
+    <p class="brisa-cores-picker__aroma" data-brisa-cores-aroma-label>
+      {{ section.settings.aroma_prefix | escape }} {{ selected_flavour | upcase | escape }}
+    </p>
+
+    {% if section.settings.aroma_description != blank %}
+      <p class="brisa-cores-picker__aroma-desc">{{ section.settings.aroma_description | escape }}</p>
+    {% endif %}
+
+    {% render 'brisa-cores-gallery',
+      product: product,
+      section: section,
+      color_swatch_config: color_swatch_config
+    %}
+
+    <div class="brisa-cores-picker__purchase">
+      {% if section.settings.pack_heading != blank %}
+        <h2 class="brisa-cores-picker__pack-heading">{{ section.settings.pack_heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.pack_subheading != blank %}
+        <p class="brisa-cores-picker__pack-subheading">{{ section.settings.pack_subheading | escape }}</p>
+      {% endif %}
+
+      <product-rerender id="product-info-{{ product.id }}-{{ section.id }}" observe-form="{{ product_form_id }}" allow-partial-rerender>
+        {%- render 'product-form', product: product, product_form_id: product_form_id, update_url: true -%}
+      </product-rerender>
+
+      {% if section.settings.show_guarantee %}
+        <div class="brisa-product-area-info__guarantee">
+          <strong>{{ section.settings.guarantee_heading | escape }}</strong>
+          <span>{{ section.settings.guarantee_text | escape }}</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    const gallery = section.querySelector('[data-brisa-cores-gallery]');
+    if (!gallery) return;
+
+    const track = gallery.querySelector('[data-brisa-cores-track]');
+    const cards = Array.from(gallery.querySelectorAll('[data-brisa-cores-card]'));
+    const navItems = Array.from(gallery.querySelectorAll('[data-product-slider-nav]'));
+    const captions = Array.from(gallery.querySelectorAll('[data-brisa-cores-caption]'));
+    const aromaLabel = section.querySelector('[data-brisa-cores-aroma-label]');
+    const aromaPrefix = {{ section.settings.aroma_prefix | json }};
+    let currentIndex = 0;
+
+    function syncVariantPicker(index) {
+      const card = cards[index];
+      if (!card) return;
+
+      const slideLabel = (card.dataset.slideLabel || '').trim().toLowerCase();
+      const variantPicker = section.querySelector('variant-picker');
+      if (!variantPicker || !slideLabel) return;
+
+      const radios = variantPicker.querySelectorAll('.color-swatch__radio, .block-swatch__radio');
+      radios.forEach((radio) => {
+        const label = radio.labels && radio.labels[0] ? radio.labels[0].textContent.trim().toLowerCase() : '';
+        if (label === slideLabel && !radio.checked) {
+          radio.checked = true;
+          radio.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    }
+
+    function updateGallery(index) {
+      if (!track || cards.length === 0) return;
+
+      currentIndex = (index + cards.length) % cards.length;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      navItems.forEach((item, itemIndex) => {
+        const isActive = itemIndex === currentIndex;
+        item.classList.toggle('is-active', isActive);
+        if (isActive) {
+          item.setAttribute('aria-current', 'true');
+        } else {
+          item.removeAttribute('aria-current');
+        }
+      });
+
+      captions.forEach((caption, captionIndex) => {
+        caption.classList.toggle('is-active', captionIndex === currentIndex);
+      });
+
+      const card = cards[currentIndex];
+      if (!card) return;
+
+      if (aromaLabel) {
+        const label = card.dataset.slideLabel || '';
+        aromaLabel.textContent = `${aromaPrefix} ${label.toUpperCase()}`.trim();
+      }
+
+      syncVariantPicker(currentIndex);
+    }
+
+    navItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        updateGallery(parseInt(item.dataset.index, 10));
+      });
+    });
+
+    document.addEventListener('variant:change', (event) => {
+      if (!event.detail || !event.detail.variant) return;
+      const variantId = String(event.detail.variant.id);
+      const cardIndex = cards.findIndex((card) => card.dataset.variantId === variantId);
+      if (cardIndex >= 0 && cardIndex !== currentIndex) {
+        updateGallery(cardIndex);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brisa cores picker",
+  "class": "shopify-section--brisa-cores-picker",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Aroma"
+    },
+    {
+      "type": "text",
+      "id": "aroma_prefix",
+      "label": "Aroma label prefix",
+      "default": "Aroma —"
+    },
+    {
+      "type": "textarea",
+      "id": "aroma_description",
+      "label": "Aroma description",
+      "default": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety."
+    },
+    {
+      "type": "text",
+      "id": "option_name",
+      "label": "Color option name",
+      "default": "Color"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_swatch_nav",
+      "label": "Use colour swatches",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "swatch_color_source",
+      "label": "Swatch color source",
+      "options": [
+        {
+          "value": "carousel_swatch_colour",
+          "label": "carousel_swatch_colour metafield"
+        },
+        {
+          "value": "product_option",
+          "label": "Product option swatch"
+        }
+      ],
+      "default": "carousel_swatch_colour"
+    },
+    {
+      "type": "select",
+      "id": "swatch_label_source",
+      "label": "Swatch label source",
+      "options": [
+        {
+          "value": "product_option",
+          "label": "Product option"
+        },
+        {
+          "value": "flavour",
+          "label": "flavour metafield"
+        }
+      ],
+      "default": "product_option"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Fallback swatch color",
+      "default": "#c7c7c7"
+    },
+    {
+      "type": "text",
+      "id": "popular_variant_name",
+      "label": "Popular variant name",
+      "default": "Mint Ice"
+    },
+    {
+      "type": "text",
+      "id": "popular_suffix",
+      "label": "Popular suffix",
+      "default": "· MOST POPULAR"
+    },
+    {
+      "type": "header",
+      "content": "Gallery"
+    },
+    {
+      "type": "range",
+      "id": "variant_limit",
+      "label": "Variations to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "slide_image_source",
+      "label": "Slide image source",
+      "options": [
+        {
+          "value": "variant_metafield",
+          "label": "Variant metafield"
+        },
+        {
+          "value": "variant_image",
+          "label": "Variant image"
+        },
+        {
+          "value": "carousel_product_image",
+          "label": "Legacy carousel_product_image"
+        }
+      ],
+      "default": "variant_metafield"
+    },
+    {
+      "type": "text",
+      "id": "slide_image_metafield_namespace",
+      "label": "Slide image metafield namespace",
+      "default": "custom"
+    },
+    {
+      "type": "text",
+      "id": "slide_image_metafield_key",
+      "label": "Slide image metafield key",
+      "default": "slider_image"
+    },
+    {
+      "type": "image_picker",
+      "id": "slide_background_image",
+      "label": "Slide background image"
+    },
+    {
+      "type": "range",
+      "id": "slider_border_radius",
+      "label": "Gallery border radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "swatch_size",
+      "label": "Swatch size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "swatch_text_size",
+      "label": "Swatch label size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "swatch_label_width",
+      "label": "Swatch label max width",
+      "min": 60,
+      "max": 120,
+      "step": 4,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "label": "Swatch gap",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "active_nav_color",
+      "label": "Active swatch border",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Gallery height",
+      "min": 200,
+      "max": 520,
+      "step": 10,
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "mobile_card_height",
+      "label": "Gallery height (mobile)",
+      "min": 160,
+      "max": 360,
+      "step": 10,
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "image_padding",
+      "label": "Image padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width (%)",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "image_max_height",
+      "label": "Image max height",
+      "min": 120,
+      "max": 420,
+      "step": 10,
+      "default": 280
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_max_height",
+      "label": "Image max height (mobile)",
+      "min": 80,
+      "max": 280,
+      "step": 10,
+      "default": 180
+    },
+    {
+      "type": "color",
+      "id": "popular_color",
+      "label": "Popular label color",
+      "default": "#6ec9b0"
+    },
+    {
+      "type": "range",
+      "id": "popular_size",
+      "label": "Popular label size",
+      "min": 11,
+      "max": 18,
+      "step": 1,
+      "default": 13
+    },
+    {
+      "type": "header",
+      "content": "Purchase"
+    },
+    {
+      "type": "text",
+      "id": "pack_heading",
+      "label": "Pack heading",
+      "default": "HOW MUCH?"
+    },
+    {
+      "type": "text",
+      "id": "pack_subheading",
+      "label": "Pack subheading",
+      "default": "Stock up and save. Or grab a single pack to top up."
+    },
+    {
+      "type": "text",
+      "id": "value_line",
+      "label": "Value line",
+      "default": "LESS THAN $1 A DAY TO KEEP THE RITUAL YOURS. COMPARE THAT TO A VAPE"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show 30-day guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Guarantee heading",
+      "default": "30-DAY SUCCESS GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sticky_add_to_cart",
+      "label": "Show sticky add to cart",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 600,
+      "max": 900,
+      "step": 20,
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "gallery_spacing",
+      "label": "Space below aroma text",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "swatch_spacing",
+      "label": "Space below swatches",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "purchase_spacing",
+      "label": "Space above purchase block",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "aroma_label_size",
+      "label": "Aroma label size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "aroma_text_size",
+      "label": "Aroma description size",
+      "min": 13,
+      "max": 20,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "pack_heading_size",
+      "label": "Pack heading size",
+      "min": 20,
+      "max": 36,
+      "step": 1,
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "pack_subheading_size",
+      "label": "Pack subheading size",
+      "min": 13,
+      "max": 18,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "value_line_size",
+      "label": "Value line size",
+      "min": 10,
+      "max": 14,
+      "step": 1,
+      "default": 11
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Gallery background",
+      "default": "#38b6ff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#666666"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant picker",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "hide_sold_out_variants",
+          "label": "Hide sold out variants",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "selector_mode",
+          "label": "Selector type",
+          "options": [
+            {
+              "value": "block",
+              "label": "Block"
+            },
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            }
+          ],
+          "default": "block"
+        },
+        {
+          "type": "select",
+          "id": "color_mode",
+          "label": "Color selector type",
+          "options": [
+            {
+              "value": "swatch",
+              "label": "Swatch"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "swatch"
+        },
+        {
+          "type": "text",
+          "id": "variant_image_options",
+          "label": "Show variant image for options"
+        },
+        {
+          "type": "page",
+          "id": "size_chart_page",
+          "label": "Size chart page"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "liquid",
+          "label": "Liquid"
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_payment_button",
+          "label": "Show dynamic checkout button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_card_recipient",
+          "label": "Show gift card recipient",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "atc_button_background",
+          "label": "Add to cart background",
+          "default": "#23aee8"
+        },
+        {
+          "type": "color",
+          "id": "atc_button_text_color",
+          "label": "Add to cart text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "buy_now_button_background",
+          "label": "Buy now background",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "color",
+          "id": "buy_now_button_text_color",
+          "label": "Buy now text",
+          "default": "rgba(0,0,0,0)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa cores picker",
+      "category": "Brisa",
+      "blocks": [
+        {
+          "type": "variant_picker"
+        },
+        {
+          "type": "buy_buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

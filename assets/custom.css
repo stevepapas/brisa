@@ -2260,6 +2260,7 @@ display: none;
 
 /* Product page ATC button - match brand blue */
 .shopify-section--main-product .button--primary,
+.shopify-section--brisa-cores-picker .button--primary,
 .product-sticky-form .button--primary {
   background: #2eb8f4 !important;
   --primary-button-background: 46, 184, 244;
@@ -2430,7 +2431,8 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 /* ============================================================
    Add to Cart button — bright blue, rounded, bold
    ============================================================ */
-.shopify-section--main-product .product-form__add-button {
+.shopify-section--main-product .product-form__add-button,
+.shopify-section--brisa-cores-picker .product-form__add-button {
   background: #23aee8 !important;
   color: #ffffff !important;
   border-radius: 12px !important;
@@ -2442,8 +2444,72 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   border: none !important;
 }
 
-.shopify-section--main-product .product-form__add-button:hover {
+.shopify-section--main-product .product-form__add-button:hover,
+.shopify-section--brisa-cores-picker .product-form__add-button:hover {
   background: #1a98d0 !important;
+}
+
+.template-brisa-cores .product-form__pricing-line,
+.template-brisa-cores-variations .product-form__pricing-line {
+  display: none !important;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form__variants,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__variants {
+  order: 0;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .shopify-app-block,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .shopify-app-block,
+.template-brisa-cores .shopify-section--brisa-cores-picker [class*="appstle"],
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker [class*="appstle"] {
+  order: 1;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form__text,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__text {
+  order: 2;
+  margin: 14px 0 0;
+  text-align: center;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form__text p,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__text p {
+  margin: 0;
+  color: #666666;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form__buy-buttons,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__buy-buttons {
+  order: 3;
+  margin-top: 12px;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .shopify-payment-button,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .shopify-payment-button {
+  order: 4;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .brisa-product-area-info__guarantee,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .brisa-product-area-info__guarantee {
+  margin-top: 20px;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-meta__title,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-meta__title {
+  display: none;
 }
 
 /* Pricing line above ATC button */

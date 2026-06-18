@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "slideshow_brisa_LPC6iL": {
@@ -124,27 +115,13 @@
         "text_color": "#111111",
         "accent_color": "#38adf5",
         "padding_top": 28,
-        "padding_bottom": 28,
+        "padding_bottom": 12,
         "heading_size": 54
       }
     },
-    "main": {
-      "type": "main-product",
+    "brisa_cores_picker": {
+      "type": "brisa-cores-picker",
       "blocks": {
-        "text_ibagWd": {
-          "type": "text",
-          "settings": {
-            "text": "<p>HOW MUCH?</p>"
-          }
-        },
-        "description_mjgBLA": {
-          "type": "description",
-          "settings": {}
-        },
-        "g_combined_listings_swatch_widget_HGPpek": {
-          "type": "shopify://apps/g-combined-listings/blocks/swatch_widget/b3e63011-8382-4b7f-8929-7fe2b1aec125",
-          "settings": {}
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -155,36 +132,22 @@
             "size_chart_page": ""
           }
         },
-        "liquid_DmN84X": {
-          "type": "liquid",
-          "name": "Brisa Gives",
-          "settings": {
-            "liquid": "<p><b>Brisa gives you something to reach for in the moments you nearly turn back. Everything you need to get started, including: </b></p>\n<ul>\n\n<li>The Brisa device</li>\n<li>Cleaning kit</li>\n<li>Storage bag</li>\n<li>9 mint cores, enough aroma cores for a complete month</li>\n</ul>"
-          }
-        },
-        "liquid_zYKRxA": {
-          "type": "liquid",
-          "settings": {
-            "liquid": "<span class=\"tex bold\" style=\"font-size: 24px\">{{ product.price | money }}</span>"
-          }
-        },
-        "liquid_TU4fi4": {
-          "type": "liquid",
-          "name": "Reviews and shipping",
-          "settings": {
-            "liquid": "<p><img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/5-star.png?v=1775131594\" style=\"max-height: 30px\">\n(36 reviews)</p>\n<p><b>Free Shipping Australia-wide</b></p>"
-          }
-        },
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3": {
           "type": "shopify://apps/appstle-bundles/blocks/appstle-volume-discount-bundle/8909921b-2d24-4d68-9b12-9d045d3dcb0a",
           "settings": {}
+        },
+        "value_line_block": {
+          "type": "text",
+          "settings": {
+            "text": "<p>LESS THAN $1 A DAY TO KEEP THE RITUAL YOURS. COMPARE THAT TO A VAPE</p>"
+          }
         },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
             "show_payment_button": true,
             "show_gift_card_recipient": true,
-            "atc_button_background": "#282828",
+            "atc_button_background": "#23aee8",
             "atc_button_text_color": "#ffffff",
             "buy_now_button_background": "rgba(0,0,0,0)",
             "buy_now_button_text_color": "rgba(0,0,0,0)"
@@ -192,74 +155,83 @@
         }
       },
       "block_order": [
-        "text_ibagWd",
-        "description_mjgBLA",
-        "g_combined_listings_swatch_widget_HGPpek",
         "variant_picker",
-        "liquid_DmN84X",
-        "liquid_zYKRxA",
-        "liquid_TU4fi4",
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
+        "value_line_block",
         "buy_buttons"
       ],
-      "custom_css": [
-        ".product-meta__price-list-container {display: none;}",
-        ".product-meta {border-bottom-width: 0px; margin-bottom: 0px; padding-bottom: 0px;}",
-        ".heading {margin-bottom: 0px;}"
-      ],
+      "name": "Brisa cores picker",
       "settings": {
-        "show_vendor": false,
-        "show_sku": false,
-        "show_badges": false,
-        "show_taxes_included": false,
-        "show_product_rating": false,
+        "aroma_prefix": "Aroma —",
+        "aroma_description": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety.",
+        "option_name": "Color",
+        "use_swatch_nav": true,
+        "swatch_color_source": "carousel_swatch_colour",
+        "swatch_label_source": "product_option",
+        "dot_color": "#c7c7c7",
+        "popular_variant_name": "Mint Ice",
+        "popular_suffix": "· MOST POPULAR",
+        "variant_limit": 8,
+        "slide_image_source": "variant_metafield",
+        "slide_image_metafield_namespace": "custom",
+        "slide_image_metafield_key": "slider_image",
+        "slide_background_image": "shopify://shop_images/sky-background.png",
+        "slider_border_radius": 12,
+        "swatch_size": 32,
+        "swatch_text_size": 12,
+        "swatch_label_width": 80,
+        "nav_gap": 12,
+        "active_nav_color": "#000000",
+        "card_height": 320,
+        "mobile_card_height": 220,
+        "image_padding": 40,
+        "image_width": 70,
+        "image_max_height": 280,
+        "mobile_image_max_height": 180,
+        "popular_color": "#6ec9b0",
+        "popular_size": 13,
+        "pack_heading": "HOW MUCH?",
+        "pack_subheading": "Stock up and save. Or grab a single pack to top up.",
+        "value_line": "LESS THAN $1 A DAY TO KEEP THE RITUAL YOURS. COMPARE THAT TO A VAPE",
+        "show_guarantee": true,
+        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
+        "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
         "show_sticky_add_to_cart": true,
-        "show_share_buttons": false,
-        "help_page": "",
-        "enable_video_autoplay": true,
-        "enable_video_looping": false,
-        "enable_image_zoom": true,
-        "show_thumbnails_on_mobile": false,
-        "desktop_thumbnails_position": "bottom",
-        "transition_effect": "slide"
-      }
-    },
-    "product-content": {
-      "type": "product-content",
-      "settings": {}
-    },
-    "1772962804ca13e40e": {
-      "type": "apps",
-      "settings": {
-        "include_horizontal_margins": true,
-        "include_vertical_margins": true
+        "max_width": 760,
+        "gallery_spacing": 20,
+        "swatch_spacing": 16,
+        "purchase_spacing": 28,
+        "padding_top": 8,
+        "padding_bottom": 28,
+        "mobile_padding_top": 8,
+        "mobile_padding_bottom": 24,
+        "aroma_label_size": 16,
+        "aroma_text_size": 15,
+        "pack_heading_size": 28,
+        "pack_subheading_size": 15,
+        "value_line_size": 11,
+        "background": "#ffffff",
+        "card_background": "#38b6ff",
+        "heading_color": "#000000",
+        "text_color": "#111111",
+        "muted_color": "#666666"
       }
     },
     "brisa_product_area_info_t9x6TB": {
       "type": "brisa-product-area-info",
       "name": "Brisa product area info",
       "settings": {
+        "show_guarantee": false,
+        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
+        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "trust_shipping": "Free shipping AUS & NZ wide",
+        "trust_checkout": "Secure checkout",
+        "trust_social": "1,000+ Aussies on Brisa",
+        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "landscape_image": "shopify://shop_images/4-steps-how-to.png",
         "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
         "landscape_video": "",
         "landscape_video_label": "Play install video"
-      }
-    },
-    "custom_liquid_VxEmGV": {
-      "type": "custom-liquid",
-      "custom_css": [
-        "section {padding: 20px 0px;}",
-        "* {background: transparent;}"
-      ],
-      "name": "How it Works",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<style>\n\n\n  .grid-column {\n    padding: 0rem;\n    border-radius: 8px;\n  }\n\n\n\n  .grid-column p {\n    margin: 0;\n    line-height: 1.6;\n    color: #555;\n  }\n\n  @media (max-width: 768px) {\n    .two-column-grid {\n     \n      gap: 1.5rem;\n    }\n  }\n</style>\n\n<div class=\"two-column-grid\">\n  <div class=\"grid-column\">\n    \n    <h3 class=\"heading h2\">HOW IT WORKS</h3>\n<p style=\"margin-bottom: 30px !important\"><b>\n1. UNSCREW THE TOP </b><br>\nTwist off the top cap and drop your aroma core inside. Takes seconds.\n<br><br>\n<b>2. SET YOUR AIRFLOW</b><br>\nDial the base to find your perfect draw — tighter or looser, just like you're used to. \n<br><br><b>\n3. REACH FOR IT INSTEAD </b><br>\nEvery time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back.\n</p>\n  </div>\n  <div class=\"grid-column\">\n  </div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
       }
     },
     "brisa_comparison_table_ntMxq4": {
@@ -425,11 +397,8 @@
   "order": [
     "slideshow_brisa_LPC6iL",
     "brisa_device_header_cgyBnd",
-    "main",
-    "product-content",
-    "1772962804ca13e40e",
+    "brisa_cores_picker",
     "brisa_product_area_info_t9x6TB",
-    "custom_liquid_VxEmGV",
     "brisa_comparison_table_ntMxq4",
     "brisa_testimonials_product_page_x4dyKh"
   ]
