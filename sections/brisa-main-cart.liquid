@@ -1,70 +1,38 @@
 {% liquid
   assign section_uid = section.id | replace: '-', '' | downcase
-  assign gift_trigger_handles = section.settings.gift_trigger_handles | downcase | split: ','
+  assign kit_handles_setting = section.settings.kit_trigger_handles
+  if kit_handles_setting == blank
+    assign kit_handles_setting = section.settings.gift_trigger_handles
+  endif
+  if kit_handles_setting == blank
+    assign kit_handles_setting = 'brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack'
+  endif
+  assign kit_trigger_handles = kit_handles_setting | downcase | split: ','
+  assign has_kit_product = false
   assign show_gift_bonus = false
 
   for line_item in cart.items
     assign item_handle = line_item.product.handle | downcase
-    for trigger_handle in gift_trigger_handles
+    for trigger_handle in kit_trigger_handles
       assign trigger = trigger_handle | strip
       if trigger != blank and item_handle contains trigger
+        assign has_kit_product = true
         assign show_gift_bonus = true
         break
       endif
     endfor
-    if show_gift_bonus
+    if has_kit_product
       break
     endif
   endfor
 
-  assign shipping_is_free = false
-  if settings.cart_show_free_shipping_threshold and settings.cart_free_shipping_threshold != '' and cart.requires_shipping
-    assign free_shipping_thresholds = settings.cart_free_shipping_threshold | remove: ' ' | split: ','
-    assign has_found_matching_threshold = false
-
-    if free_shipping_thresholds.size > 1
-      for threshold in free_shipping_thresholds
-        assign threshold_parts = threshold | split: ':'
-        assign currency_code = threshold_parts | first | upcase
-        if currency_code == cart.currency.iso_code
-          assign free_shipping_calculated_threshold = threshold_parts | last
-          assign has_found_matching_threshold = true
-          break
-        endif
-      endfor
-    else
-      assign free_shipping_calculated_threshold = free_shipping_thresholds | last
-      assign has_found_matching_threshold = true
-    endif
-
-    if has_found_matching_threshold
-      assign threshold_in_cents = free_shipping_calculated_threshold | times: 100
-      assign calculated_total_price = cart.total_price
-      for line_item in cart.items
-        unless line_item.requires_shipping
-          assign calculated_total_price = calculated_total_price | minus: line_item.final_line_price
-        endunless
-      endfor
-      assign total_cart_discount = 0
-      for discount_application in cart.cart_level_discount_applications
-        assign total_cart_discount = total_cart_discount | plus: discount_application.total_allocated_amount
-      endfor
-      assign calculated_total_price = calculated_total_price | minus: total_cart_discount
-      if calculated_total_price >= threshold_in_cents
-        assign shipping_is_free = true
-      endif
-    endif
-  elsif cart.requires_shipping == false or section.settings.always_show_free_shipping
-    assign shipping_is_free = true
-  endif
+  assign shipping_is_free = has_kit_product
 
   assign progress_value = 0
-  if shipping_is_free and show_gift_bonus
+  if has_kit_product and show_gift_bonus
     assign progress_value = 1
-  elsif shipping_is_free
+  elsif has_kit_product
     assign progress_value = 0.55
-  elsif show_gift_bonus
-    assign progress_value = 1
   endif
 
   assign installment_amount = cart.total_price | divided_by: 4
@@ -87,10 +55,10 @@
 
         {%- if section.settings.show_shipping_message -%}
           <p class="brisa-cart__shipping-message">
-            {%- if shipping_is_free or section.settings.always_show_free_shipping -%}
+            {%- if has_kit_product -%}
               {{ section.settings.free_shipping_message }}
             {%- else -%}
-              {{ section.settings.shipping_progress_message }}
+              {{ section.settings.cores_shipping_message | default: 'Order a Brisa and get free shipping' }}
             {%- endif -%}
           </p>
 
@@ -272,7 +240,7 @@
           <div class="brisa-cart__summary-row">
             <span>{{ section.settings.shipping_label }}</span>
             <span class="brisa-cart__summary-free">
-              {%- if shipping_is_free or section.settings.always_show_free_shipping -%}
+              {%- if shipping_is_free -%}
                 {{ section.settings.free_shipping_label }}
               {%- else -%}
                 {{ section.settings.calculated_shipping_label }}
@@ -372,20 +340,14 @@
     {
       "type": "richtext",
       "id": "free_shipping_message",
-      "label": "Free shipping message",
+      "label": "Free shipping message (starter & mates pack)",
       "default": "<p>Congratulations you are eligible for <strong>FREE SHIPPING</strong> 🤝</p>"
     },
     {
       "type": "text",
-      "id": "shipping_progress_message",
-      "label": "Shipping progress message",
-      "default": "Spend more to unlock free shipping"
-    },
-    {
-      "type": "checkbox",
-      "id": "always_show_free_shipping",
-      "label": "Always show free shipping as eligible",
-      "default": true
+      "id": "cores_shipping_message",
+      "label": "Shipping message (cores only)",
+      "default": "Order a Brisa and get free shipping"
     },
     {
       "type": "text",
@@ -428,10 +390,17 @@
     },
     {
       "type": "text",
+      "id": "kit_trigger_handles",
+      "label": "Kit product handles",
+      "default": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+      "info": "Comma-separated handles for Starter Kit and Mates Pack. Used for free shipping and gift bonus."
+    },
+    {
+      "type": "text",
       "id": "gift_trigger_handles",
-      "label": "Trigger product handles",
-      "default": "brisa-starter-kit,starter-kit",
-      "info": "Comma-separated product handles. Gift row shows when any match."
+      "label": "Legacy kit handles (deprecated)",
+      "default": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+      "info": "Fallback if kit product handles is empty."
     },
     {
       "type": "text",
