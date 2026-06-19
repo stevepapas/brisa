@@ -489,12 +489,13 @@
   #shopify-section-{{ section.id }} .brisa-customer-care__help-panel {
     width: 100%;
     background: #ffffff;
+    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help {
     max-width: var(--bcc-max-width);
     margin: 0 auto;
-    padding: 36px 20px 48px;
+    padding: 36px 20px 24px;
     text-align: center;
   }
 
@@ -513,39 +514,41 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-policies {
+    position: relative;
+    left: 50%;
+    width: 100vw;
     margin: 0;
     padding: 0;
-    background: #f4f4f4;
-    border-top: 2px solid #000000;
-    border-bottom: 2px solid #000000;
     list-style: none;
+    background: transparent;
+    transform: translateX(-50%);
+    box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-policies li {
     margin: 0;
+    background: #f4f4f4;
+    border-top: 1px solid #000000;
     border-bottom: 1px solid #000000;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__help-policies li:last-child {
-    border-bottom: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-link {
     display: block;
     margin: 0;
-    padding: 14px 16px;
-    color: var(--bcc-text);
+    padding: 18px 24px;
+    color: #000000;
     background: transparent;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 700;
-    line-height: 1.4;
-    text-align: center;
-    text-decoration: none;
+    line-height: 1.35;
+    text-align: left;
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-link:hover {
+    color: #000000;
     text-decoration: underline;
-    text-underline-offset: 3px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__form-banner {
@@ -802,32 +805,32 @@
       {%- if section.settings.help_text != blank -%}
         <p class="brisa-customer-care__help-text">{{ section.settings.help_text | escape }}</p>
       {%- endif -%}
-
-      {%- if section.settings.show_policy_links -%}
-        <ul class="brisa-customer-care__help-policies" role="list" aria-label="Policies">
-          {%- if shop.refund_policy -%}
-            <li>
-              <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
-            </li>
-          {%- endif -%}
-          {%- if shop.terms_of_service -%}
-            <li>
-              <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
-            </li>
-          {%- endif -%}
-          {%- if shop.shipping_policy -%}
-            <li>
-              <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
-            </li>
-          {%- endif -%}
-          {%- if shop.privacy_policy -%}
-            <li>
-              <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
-            </li>
-          {%- endif -%}
-        </ul>
-      {%- endif -%}
     </div>
+
+    {%- if section.settings.show_policy_links -%}
+      <ul class="brisa-customer-care__help-policies" role="list" aria-label="Policies">
+        {%- if shop.refund_policy -%}
+          <li>
+            <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
+          </li>
+        {%- endif -%}
+        {%- if shop.terms_of_service -%}
+          <li>
+            <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
+          </li>
+        {%- endif -%}
+        {%- if shop.shipping_policy -%}
+          <li>
+            <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
+          </li>
+        {%- endif -%}
+        {%- if shop.privacy_policy -%}
+          <li>
+            <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
+          </li>
+        {%- endif -%}
+      </ul>
+    {%- endif -%}
   </div>
 </section>
 
