@@ -471,11 +471,13 @@
     border-radius: 10px;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__warning-mark {
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning-icon {
     flex-shrink: 0;
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 1;
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
+    object-fit: contain;
+    object-position: top;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__warning-heading {
@@ -794,8 +796,19 @@
       {%- endfor -%}
 
       {%- if section.settings.warning_heading != blank or section.settings.warning_text != blank -%}
+        {%- assign warning_icon = section.settings.warning_icon -%}
+        {%- if warning_icon == blank -%}
+          {%- assign warning_icon = 'small-heads-up.png' -%}
+        {%- endif -%}
         <div class="brisa-customer-care__warning">
-          <span class="brisa-customer-care__warning-mark" aria-hidden="true">!</span>
+          <img
+            class="brisa-customer-care__warning-icon"
+            src="{{ warning_icon | file_url }}"
+            alt=""
+            width="28"
+            height="28"
+            loading="lazy"
+          >
           <span>
             {%- if section.settings.warning_heading != blank -%}
               <p class="brisa-customer-care__warning-heading">{{ section.settings.warning_heading | escape }}</p>
@@ -1069,6 +1082,13 @@
       "id": "warning_heading",
       "label": "Warning heading",
       "default": "A small heads-up"
+    },
+    {
+      "type": "text",
+      "id": "warning_icon",
+      "label": "Warning icon filename",
+      "info": "Uploaded file in Settings → Files (e.g. small-heads-up.png)",
+      "default": "small-heads-up.png"
     },
     {
       "type": "textarea",
