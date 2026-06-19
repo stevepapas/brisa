@@ -17,6 +17,8 @@
     --bcc-input-border: {{ section.settings.input_border_color }};
     --bcc-warning-bg: {{ section.settings.warning_background }};
     --bcc-care-panel-bg: {{ section.settings.care_panel_background }};
+    --bcc-care-border: #008bdc;
+    --bcc-care-icon-column: 56px;
     background: var(--bcc-page-bg);
   }
 
@@ -381,6 +383,14 @@
     border-radius: 0;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-icon-column {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: var(--bcc-care-icon-column);
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency {
     display: flex;
     gap: 14px;
@@ -391,22 +401,16 @@
     line-height: 1.45;
     text-align: left;
     background: #ffffff;
-    border: 3px solid #2c579b;
+    border: 3px solid var(--bcc-care-border);
     border-radius: 10px;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon-wrap {
-    flex-shrink: 0;
-    width: 56px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
     display: block;
     width: 28px;
     height: 28px;
-    margin-top: 2px;
     object-fit: contain;
-    object-position: top left;
+    object-position: center center;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-text {
@@ -425,7 +429,7 @@
     margin-bottom: 16px;
     overflow: hidden;
     background: #ffffff;
-    border: 3px solid #2c579b;
+    border: 3px solid var(--bcc-care-border);
     border-radius: 10px;
     box-shadow: none;
   }
@@ -446,10 +450,30 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-icon {
-    flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    display: block;
+    width: var(--bcc-care-icon-column);
+    height: var(--bcc-care-icon-column);
     object-fit: contain;
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-top: 0;
+    padding: 16px;
+    background: var(--bcc-warning-bg);
+    border: 3px solid var(--bcc-care-border);
+    border-radius: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__warning-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    object-position: center center;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-title {
@@ -463,26 +487,6 @@
     margin: 0;
     font-size: 13px;
     line-height: 1.4;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__warning {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    margin-top: 0;
-    padding: 16px;
-    background: var(--bcc-warning-bg);
-    border: 3px solid #2c579b;
-    border-radius: 10px;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__warning-icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    margin-top: 2px;
-    object-fit: contain;
-    object-position: top;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__warning-heading {
@@ -765,7 +769,7 @@
             {%- assign care_frequency_icon = 'aim.png' -%}
           {%- endif -%}
           <div class="brisa-customer-care__care-frequency">
-            <span class="brisa-customer-care__care-frequency-icon-wrap">
+            <span class="brisa-customer-care__care-icon-column brisa-customer-care__care-frequency-icon-wrap">
               <img
                 class="brisa-customer-care__care-frequency-icon"
                 src="{{ care_frequency_icon | file_url }}"
@@ -785,14 +789,16 @@
         {%- capture care_step_image -%}like-new_0{{ forloop.index }}.png{%- endcapture -%}
         <div class="brisa-customer-care__care-step" {{ block.shopify_attributes }}>
           <div class="brisa-customer-care__care-step-body">
-            <img
-              class="brisa-customer-care__care-step-icon"
-              src="{{ care_step_image | file_url }}"
-              alt=""
-              width="56"
-              height="56"
-              loading="lazy"
-            >
+            <span class="brisa-customer-care__care-icon-column brisa-customer-care__care-step-icon-wrap">
+              <img
+                class="brisa-customer-care__care-step-icon"
+                src="{{ care_step_image | file_url }}"
+                alt=""
+                width="56"
+                height="56"
+                loading="lazy"
+              >
+            </span>
             <span>
               {%- if block.settings.title != blank -%}
                 <p class="brisa-customer-care__care-step-title">{{ block.settings.title | escape }}</p>
@@ -811,14 +817,16 @@
           {%- assign warning_icon = 'small-heads-up.png' -%}
         {%- endif -%}
         <div class="brisa-customer-care__warning">
-          <img
-            class="brisa-customer-care__warning-icon"
-            src="{{ warning_icon | file_url }}"
-            alt=""
-            width="28"
-            height="28"
-            loading="lazy"
-          >
+          <span class="brisa-customer-care__care-icon-column brisa-customer-care__warning-icon-wrap">
+            <img
+              class="brisa-customer-care__warning-icon"
+              src="{{ warning_icon | file_url }}"
+              alt=""
+              width="28"
+              height="28"
+              loading="lazy"
+            >
+          </span>
           <span>
             {%- if section.settings.warning_heading != blank -%}
               <p class="brisa-customer-care__warning-heading">{{ section.settings.warning_heading | escape }}</p>
