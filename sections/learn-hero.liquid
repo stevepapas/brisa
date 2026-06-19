@@ -9,6 +9,11 @@
     color: #ffffff;
   }
 
+  #shopify-section-{{ section.id }} .learn-hero__frame {
+    width: 100%;
+    margin: 0 auto;
+  }
+
   #shopify-section-{{ section.id }} .learn-hero__media {
     position: relative;
     min-height: 520px;
@@ -107,18 +112,22 @@
     right: 0;
     bottom: 0;
     left: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     gap: 8px;
-    padding: 16px 12px 20px;
+    padding: 20px 20px 24px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.28) 100%);
   }
 
   #shopify-section-{{ section.id }} .learn-hero__icon-item {
     display: flex;
+    flex: 1 1 0;
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    min-width: 0;
+    max-width: 25%;
     text-align: center;
     color: #ffffff;
     font-size: 10px;
@@ -141,16 +150,15 @@
 
   #shopify-section-{{ section.id }} .learn-hero__trust {
     background: var(--learn-blue);
-    padding: 12px 16px;
+    padding: 14px 20px;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__trust-inner {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 16px 24px;
-    max-width: 520px;
+    gap: 12px;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -171,36 +179,34 @@
   }
 
   @media screen and (min-width: 1000px) {
-    #shopify-section-{{ section.id }} .learn-hero__media {
+    #shopify-section-{{ section.id }} .learn-hero__frame {
       width: min(520px, 100%);
+    }
+
+    #shopify-section-{{ section.id }} .learn-hero__media {
       min-height: 0;
-      margin: 0 auto;
       aspect-ratio: 1 / 1;
-      border-radius: 14px;
+      border-radius: 14px 14px 0 0;
     }
 
     #shopify-section-{{ section.id }} .learn-hero__image {
       min-height: 0;
       height: 100%;
-      border-radius: 14px;
+      border-radius: 14px 14px 0 0;
     }
 
-    #shopify-section-{{ section.id }} .learn-hero__trust-inner {
-      max-width: 520px;
+    #shopify-section-{{ section.id }} .learn-hero__trust {
+      border-radius: 0 0 14px 14px;
     }
 
     #shopify-section-{{ section.id }} .learn-hero__icons {
-      max-width: 520px;
-      margin: 0 auto;
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.28) 100%);
+      padding: 20px 24px 24px;
     }
   }
 </style>
 
 <section class="learn-hero" {{ section.shopify_attributes }}>
+  <div class="learn-hero__frame">
   <div class="learn-hero__media">
     {%- if section.settings.image != blank -%}
       {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'learn-hero__image', loading: 'eager', widths: '600,800,1000,1200,1600,2000', sizes: '(min-width: 1000px) 520px, 100vw' }}
@@ -263,6 +269,7 @@
       </div>
     </div>
   {%- endif -%}
+  </div>
 </section>
 
 {% schema %}
