@@ -386,7 +386,7 @@
     gap: 14px;
     align-items: flex-start;
     margin: 0 0 16px;
-    padding: 14px 16px;
+    padding: 16px;
     font-size: 14px;
     line-height: 1.45;
     text-align: left;
@@ -395,13 +395,18 @@
     border-radius: 10px;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon-wrap {
     flex-shrink: 0;
+    width: 56px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
+    display: block;
     width: 28px;
     height: 28px;
     margin-top: 2px;
     object-fit: contain;
-    object-position: top;
+    object-position: top left;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-text {
@@ -757,14 +762,16 @@
             {%- assign care_frequency_icon = 'aim.png' -%}
           {%- endif -%}
           <div class="brisa-customer-care__care-frequency">
-            <img
-              class="brisa-customer-care__care-frequency-icon"
-              src="{{ care_frequency_icon | file_url }}"
-              alt=""
-              width="28"
-              height="28"
-              loading="lazy"
-            >
+            <span class="brisa-customer-care__care-frequency-icon-wrap">
+              <img
+                class="brisa-customer-care__care-frequency-icon"
+                src="{{ care_frequency_icon | file_url }}"
+                alt=""
+                width="28"
+                height="28"
+                loading="lazy"
+              >
+            </span>
             <p class="brisa-customer-care__care-frequency-text">{{ section.settings.care_frequency | escape }}</p>
           </div>
         {%- endif -%}
