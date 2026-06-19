@@ -2682,7 +2682,9 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   flex-shrink: 0;
 }
 
-.template-learn .learn-icon-circle img {
+.template-learn .learn-icon-circle img,
+.template-learn .learn-pitch__feature-icon,
+.template-learn .learn-details__icon {
   display: block;
   width: 44px;
   height: 44px;
