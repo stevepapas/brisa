@@ -1,0 +1,19 @@
+{%- comment -%}
+  Same Motion / learn feature icon from theme asset (title → handle.png).
+  Usage: {% render 'learn-feature-icon', title: block.settings.title %}
+{%- endcomment -%}
+{%- liquid
+  assign icon_asset = title | handle | append: '.png'
+-%}
+{%- if title != blank -%}
+  <span class="learn-feature-icon-wrap learn-icon-circle">
+    <img
+      src="{{ icon_asset | asset_url }}"
+      class="learn-feature-icon"
+      alt=""
+      loading="lazy"
+      width="44"
+      height="44"
+    >
+  </span>
+{%- endif -%}

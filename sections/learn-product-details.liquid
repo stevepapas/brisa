@@ -97,25 +97,7 @@
       {%- for block in section.blocks -%}
         {%- if block.type == 'detail' -%}
           <div class="learn-details__item" {{ block.shopify_attributes }}>
-            {%- liquid
-              assign icon_asset = block.settings.title | handle | append: '.png'
-            -%}
-            {%- if block.settings.title != blank -%}
-              <span class="learn-details__icon-wrap learn-icon-circle">
-                <img
-                  src="{{ icon_asset | asset_url }}"
-                  class="learn-details__icon"
-                  alt=""
-                  loading="lazy"
-                  width="44"
-                  height="44"
-                >
-              </span>
-            {%- elsif block.settings.icon_image != blank -%}
-              <span class="learn-details__icon-wrap learn-icon-circle">
-                {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-details__icon', loading: 'lazy', widths: '44,88', width: 44, height: 44 }}
-              </span>
-            {%- endif -%}
+            {% render 'learn-feature-icon', title: block.settings.title %}
             <div>
               {%- if block.settings.title != blank -%}
                 <p class="learn-details__title">{{ block.settings.title | escape }}</p>

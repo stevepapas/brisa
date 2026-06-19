@@ -109,25 +109,7 @@
     <div class="learn-pitch__features">
       {%- for block in section.blocks -%}
         <div class="learn-pitch__feature" {{ block.shopify_attributes }}>
-          {%- liquid
-            assign icon_asset = block.settings.title | handle | append: '.png'
-          -%}
-          {%- if block.settings.title != blank -%}
-            <span class="learn-pitch__feature-icon-wrap learn-icon-circle">
-              <img
-                src="{{ icon_asset | asset_url }}"
-                class="learn-pitch__feature-icon"
-                alt=""
-                loading="lazy"
-                width="44"
-                height="44"
-              >
-            </span>
-          {%- elsif block.settings.icon_image != blank -%}
-            <span class="learn-pitch__feature-icon-wrap learn-icon-circle">
-              {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-pitch__feature-icon', loading: 'lazy', widths: '44,88', width: 44, height: 44 }}
-            </span>
-          {%- endif -%}
+          {% render 'learn-feature-icon', title: block.settings.title %}
 
           <div class="learn-pitch__feature-copy">
             {%- if block.settings.title != blank -%}
