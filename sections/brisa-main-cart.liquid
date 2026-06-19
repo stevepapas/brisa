@@ -70,6 +70,9 @@
   assign installment_amount = cart.total_price | divided_by: 4
 %}
 
+{% capture cart_total_money %}{{ cart.total_price | money }}{% endcapture %}
+{% capture installment_money %}{{ installment_amount | money }}{% endcapture %}
+
 <section class="brisa-cart brisa-cart-{{ section_uid }}" data-section-id="{{ section.id }}">
   <div class="brisa-cart__inner">
     {%- if cart.item_count == 0 -%}
@@ -296,7 +299,7 @@
               {%- if section.settings.afterpay_logo != blank -%}
                 {{ section.settings.afterpay_logo | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', alt: 'Afterpay', class: 'brisa-cart__afterpay-logo' }}
               {%- endif -%}
-              <span>{{ section.settings.afterpay_text | replace: '[amount]', installment_amount | money }}</span>
+              <span>{{ section.settings.afterpay_text | replace: '[amount]', installment_money }}</span>
             </p>
           {%- endif -%}
         </div>
@@ -331,7 +334,7 @@
         <div class="brisa-cart__footer">
           <button type="submit" class="brisa-cart__checkout-button" name="checkout">
             <span class="brisa-cart__checkout-lock" aria-hidden="true">{% render 'icon' with 'lock' %}</span>
-            <span>{{ section.settings.checkout_button_text | replace: '[total]', cart.total_price | money }}</span>
+            <span>{{ section.settings.checkout_button_text | replace: '[total]', cart_total_money }}</span>
           </button>
 
           {%- if section.settings.show_payment_methods and shop.enabled_payment_types.size > 0 -%}
