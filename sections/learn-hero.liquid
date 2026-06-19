@@ -130,18 +130,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
     background: var(--learn-blue);
     border-radius: 50%;
     overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__icon-img {
-    width: 26px;
-    height: 26px;
     object-fit: contain;
-    mix-blend-mode: screen;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__trust {
@@ -242,7 +237,7 @@
         {%- for block in hero_icons -%}
           <div class="learn-hero__icon-item" {{ block.shopify_attributes }}>
             {%- if block.settings.icon_image != blank -%}
-              <span class="learn-hero__icon-circle">
+              <span class="learn-hero__icon-circle learn-icon-circle">
                 {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-hero__icon-img', loading: 'lazy' }}
               </span>
             {%- endif -%}

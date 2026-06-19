@@ -25,22 +25,7 @@
   }
 
   #shopify-section-{{ section.id }} .learn-details__icon-wrap {
-    flex: 0 0 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: var(--learn-blue);
-    border-radius: 50%;
-    overflow: hidden;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__icon {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
+    flex: 0 0 auto;
   }
 
   #shopify-section-{{ section.id }} .learn-details__title {
@@ -59,11 +44,6 @@
 
   #shopify-section-{{ section.id }} .learn-details__inside {
     margin-bottom: 40px;
-    padding: 20px;
-    color: #ffffff;
-    background: var(--learn-blue);
-    border: 2px solid #e53935;
-    border-radius: 14px;
   }
 
   #shopify-section-{{ section.id }} .learn-details__inside-heading {
@@ -72,25 +52,21 @@
     font-weight: 900;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #ffffff;
   }
 
   #shopify-section-{{ section.id }} .learn-details__inside-text {
     margin: 0;
     font-size: 15px;
     line-height: 1.45;
-    color: #ffffff;
   }
 
   #shopify-section-{{ section.id }} .learn-details__inside-text strong {
     font-weight: 900;
   }
 
-  #shopify-section-{{ section.id }} .learn-details__testimonials {
-    margin: 0 -24px;
-    padding: 32px 24px;
-    text-align: center;
-    background: #f4f4f4;
+  #shopify-section-{{ section.id }} .learn-details__testimonials-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
   }
 
   #shopify-section-{{ section.id }} .learn-details__badge {
@@ -181,7 +157,7 @@
         {%- if block.type == 'detail' -%}
           <div class="learn-details__item" {{ block.shopify_attributes }}>
             {%- if block.settings.icon_image != blank -%}
-              <span class="learn-details__icon-wrap">
+              <span class="learn-details__icon-wrap learn-icon-circle">
                 {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-details__icon', loading: 'lazy' }}
               </span>
             {%- endif -%}
@@ -200,7 +176,7 @@
   {%- endif -%}
 
   {%- if section.settings.inside_heading != blank or section.settings.inside_text != blank -%}
-    <div class="learn-details__inside">
+    <div class="learn-details__inside learn-highlight-box">
       {%- if section.settings.inside_heading != blank -%}
         <h3 class="learn-details__inside-heading">{{ section.settings.inside_heading | escape }}</h3>
       {%- endif -%}
@@ -211,6 +187,7 @@
   {%- endif -%}
 
   <div class="learn-details__testimonials">
+    <div class="learn-details__testimonials-inner">
     {%- if section.settings.badge != blank -%}
       <p class="learn-details__badge">{{ section.settings.badge | escape }}</p>
     {%- endif -%}
@@ -238,6 +215,7 @@
         <p class="learn-details__quote">&ldquo;{{ section.settings.testimonial_quote | escape }}&rdquo;</p>
       </div>
     {%- endif -%}
+    </div>
   </div>
 </section>
 

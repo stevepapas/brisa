@@ -2617,3 +2617,70 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 .brisa-product-area-info__guarantee strong {
   display: inline;
 }
+
+/* Learn page — shared icon circles (blue artwork on white PNG) */
+.template-learn .learn-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #038bdd;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.template-learn .learn-icon-circle img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.template-learn .learn-hero__icon-circle {
+  width: 44px;
+  height: 44px;
+}
+
+.template-learn .learn-hero__icon-circle img {
+  width: 30px;
+  height: 30px;
+}
+
+.template-learn .learn-hero__trust-item img {
+  mix-blend-mode: multiply;
+}
+
+/* Learn page — red border highlight boxes on blue */
+.template-learn .learn-highlight-box {
+  padding: 20px;
+  color: #ffffff;
+  background: #038bdd;
+  border: 2px solid #e53935;
+  border-radius: 14px;
+}
+
+.template-learn .learn-highlight-box h2,
+.template-learn .learn-highlight-box h3,
+.template-learn .learn-highlight-box p,
+.template-learn .learn-highlight-box strong {
+  color: #ffffff;
+}
+
+/* Learn page — full-width testimonials band */
+.template-learn .learn-details__testimonials {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin: 40px 0 0;
+  padding: 32px 24px 40px;
+  background: #f4f4f4;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.template-learn .shopify-section--learn-product-details {
+  overflow: hidden;
+}
