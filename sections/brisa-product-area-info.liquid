@@ -7,40 +7,16 @@
       </div>
     {% endif %}
 
-    <div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
-      <div class="brisa-product-area-info__trust-item">
-        <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
-          {% if section.settings.trust_icon_shipping != blank %}
-            {{ section.settings.trust_icon_shipping | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
-          {% else %}
-            <img src="{{ 'free-shipping.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
-          {% endif %}
-        </span>
-        <span>{{ section.settings.trust_shipping | escape | newline_to_br }}</span>
-      </div>
-
-      <div class="brisa-product-area-info__trust-item">
-        <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
-          {% if section.settings.trust_icon_checkout != blank %}
-            {{ section.settings.trust_icon_checkout | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
-          {% else %}
-            <img src="{{ 'secure.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
-          {% endif %}
-        </span>
-        <span>{{ section.settings.trust_checkout | escape }}</span>
-      </div>
-
-      <div class="brisa-product-area-info__trust-item">
-        <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
-          {% if section.settings.trust_icon_social != blank %}
-            {{ section.settings.trust_icon_social | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
-          {% else %}
-            <img src="{{ '1000s.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
-          {% endif %}
-        </span>
-        <span>{{ section.settings.trust_social | escape | newline_to_br }}</span>
-      </div>
-    </div>
+    {% if section.settings.show_trust_row %}
+      {% render 'brisa-trust-row',
+        trust_shipping: section.settings.trust_shipping,
+        trust_checkout: section.settings.trust_checkout,
+        trust_social: section.settings.trust_social,
+        trust_icon_shipping: section.settings.trust_icon_shipping,
+        trust_icon_checkout: section.settings.trust_icon_checkout,
+        trust_icon_social: section.settings.trust_icon_social
+      %}
+    {% endif %}
 
     {% if section.settings.urgency_text != blank %}
       <div class="brisa-product-area-info__sellout">{{ section.settings.urgency_text | escape }}</div>
@@ -229,6 +205,12 @@
       "id": "guarantee_text",
       "label": "Guarantee text",
       "default": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_row",
+      "label": "Show trust row",
+      "default": true
     },
     {
       "type": "textarea",

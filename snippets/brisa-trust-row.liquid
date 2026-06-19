@@ -1,0 +1,40 @@
+{% liquid
+  assign trust_shipping_text = trust_shipping | default: 'Free shipping AUS & NZ wide'
+  assign trust_checkout_text = trust_checkout | default: 'Secure checkout'
+  assign trust_social_text = trust_social | default: '1,000+ Aussies on Brisa'
+%}
+
+<div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
+  <div class="brisa-product-area-info__trust-item">
+    <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+      {% if trust_icon_shipping != blank %}
+        {{ trust_icon_shipping | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% else %}
+        <img src="{{ 'free-shipping.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
+      {% endif %}
+    </span>
+    <span>{{ trust_shipping_text | escape | newline_to_br }}</span>
+  </div>
+
+  <div class="brisa-product-area-info__trust-item">
+    <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+      {% if trust_icon_checkout != blank %}
+        {{ trust_icon_checkout | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% else %}
+        <img src="{{ 'secure.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
+      {% endif %}
+    </span>
+    <span>{{ trust_checkout_text | escape }}</span>
+  </div>
+
+  <div class="brisa-product-area-info__trust-item">
+    <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+      {% if trust_icon_social != blank %}
+        {{ trust_icon_social | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% else %}
+        <img src="{{ '1000s.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
+      {% endif %}
+    </span>
+    <span>{{ trust_social_text | escape | newline_to_br }}</span>
+  </div>
+</div>

@@ -202,6 +202,10 @@
     margin-top: 20px;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row {
+    margin-top: 16px;
+  }
+
   .brisa-cores-picker-{{ section_uid }} .product-form__option-selector[data-selector-type="swatch"] {
     display: none !important;
   }
@@ -270,6 +274,17 @@
           <strong>{{ section.settings.guarantee_heading | escape }}</strong>
           <span>{{ section.settings.guarantee_text | escape }}</span>
         </div>
+      {% endif %}
+
+      {% if section.settings.show_trust_row %}
+        {% render 'brisa-trust-row',
+          trust_shipping: section.settings.trust_shipping,
+          trust_checkout: section.settings.trust_checkout,
+          trust_social: section.settings.trust_social,
+          trust_icon_shipping: section.settings.trust_icon_shipping,
+          trust_icon_checkout: section.settings.trust_icon_checkout,
+          trust_icon_social: section.settings.trust_icon_social
+        %}
       {% endif %}
     </div>
   </div>
@@ -657,6 +672,45 @@
       "id": "guarantee_text",
       "label": "Guarantee text",
       "default": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_row",
+      "label": "Show trust row",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "trust_shipping",
+      "label": "Trust item — shipping",
+      "default": "Free shipping AUS & NZ wide"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_shipping",
+      "label": "Trust icon — shipping"
+    },
+    {
+      "type": "text",
+      "id": "trust_checkout",
+      "label": "Trust item — checkout",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_checkout",
+      "label": "Trust icon — checkout"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_social",
+      "label": "Trust item — social proof",
+      "default": "1,000+ Aussies on Brisa"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_social",
+      "label": "Trust icon — social proof"
     },
     {
       "type": "checkbox",
