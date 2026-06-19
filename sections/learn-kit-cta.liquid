@@ -1,0 +1,397 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --learn-blue: #038bdd;
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: #111111;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__tagline {
+    margin: 0 0 12px;
+    color: var(--learn-blue);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__heading {
+    margin: 0 0 28px;
+    font-size: clamp(28px, 6vw, 36px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card {
+    padding: 28px 24px;
+    text-align: left;
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--starter {
+    color: #ffffff;
+    background: var(--learn-blue);
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--mates {
+    color: #111111;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__badge {
+    display: inline-block;
+    margin: 0 0 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--starter .learn-kit__badge {
+    color: #2c579b;
+    background: #bee3f9;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--mates .learn-kit__badge {
+    color: #2c579b;
+    background: #bee3f9;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card-title {
+    margin: 0 0 16px;
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__list {
+    margin: 0 0 20px;
+    padding: 0 0 0 18px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__list li + li {
+    margin-top: 6px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__mates-desc {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #444444;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__price {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__compare {
+    font-size: 18px;
+    text-decoration: line-through;
+    opacity: 0.65;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--mates .learn-kit__compare {
+    color: #888888;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__button {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--starter .learn-kit__button {
+    color: var(--learn-blue);
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .learn-kit__card--mates .learn-kit__button {
+    color: #ffffff;
+    background: var(--learn-blue);
+  }
+</style>
+
+<section class="learn-kit" id="learn-build-kit" {{ section.shopify_attributes }}>
+  {%- if section.settings.tagline != blank -%}
+    <p class="learn-kit__tagline">{{ section.settings.tagline | escape }}</p>
+  {%- endif -%}
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="learn-kit__heading">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+
+  <div class="learn-kit__cards">
+    <div class="learn-kit__card learn-kit__card--starter">
+      {%- if section.settings.starter_badge != blank -%}
+        <span class="learn-kit__badge">{{ section.settings.starter_badge | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.starter_title != blank -%}
+        <h3 class="learn-kit__card-title">{{ section.settings.starter_title | escape }}</h3>
+      {%- endif -%}
+
+      {%- if section.settings.starter_features != blank -%}
+        <ul class="learn-kit__list">
+          {%- assign starter_lines = section.settings.starter_features | newline_to_br | split: '<br />' -%}
+          {%- for line in starter_lines -%}
+            {%- assign trimmed = line | strip -%}
+            {%- if trimmed != blank -%}
+              <li>{{ trimmed | escape }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="learn-kit__pricing">
+        {%- if section.settings.starter_price != blank -%}
+          <span class="learn-kit__price">{{ section.settings.starter_price | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.starter_compare_price != blank -%}
+          <span class="learn-kit__compare">{{ section.settings.starter_compare_price | escape }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.starter_button_text != blank -%}
+        <a class="learn-kit__button" href="{{ section.settings.starter_button_link }}">
+          {{ section.settings.starter_button_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="learn-kit__card learn-kit__card--mates">
+      {%- if section.settings.mates_badge != blank -%}
+        <span class="learn-kit__badge">{{ section.settings.mates_badge | escape }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.mates_title != blank -%}
+        <h3 class="learn-kit__card-title">{{ section.settings.mates_title | escape }}</h3>
+      {%- endif -%}
+
+      {%- if section.settings.mates_features != blank -%}
+        <ul class="learn-kit__list">
+          {%- assign mates_lines = section.settings.mates_features | newline_to_br | split: '<br />' -%}
+          {%- for line in mates_lines -%}
+            {%- assign trimmed = line | strip -%}
+            {%- if trimmed != blank -%}
+              <li>{{ trimmed | escape }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if section.settings.mates_description != blank -%}
+        <p class="learn-kit__mates-desc">{{ section.settings.mates_description | escape }}</p>
+      {%- endif -%}
+
+      <div class="learn-kit__pricing">
+        {%- if section.settings.mates_price != blank -%}
+          <span class="learn-kit__price">{{ section.settings.mates_price | escape }}</span>
+        {%- endif -%}
+        {%- if section.settings.mates_compare_price != blank -%}
+          <span class="learn-kit__compare">{{ section.settings.mates_compare_price | escape }}</span>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.mates_button_text != blank -%}
+        <a class="learn-kit__button" href="{{ section.settings.mates_button_link }}">
+          {{ section.settings.mates_button_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Learn kit CTA",
+  "class": "shopify-section--learn-kit-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Ready to drop the habit without giving up the moment?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BUILD YOUR KIT."
+    },
+    {
+      "type": "header",
+      "content": "Starter Kit"
+    },
+    {
+      "type": "text",
+      "id": "starter_badge",
+      "label": "Badge",
+      "default": "MOST POPULAR"
+    },
+    {
+      "type": "text",
+      "id": "starter_title",
+      "label": "Title",
+      "default": "STARTER KIT"
+    },
+    {
+      "type": "textarea",
+      "id": "starter_features",
+      "label": "Features (one per line)",
+      "default": "1 Device\n3 Mint Core Packs (30 days worth)\nCleaning Kit\nCarry Bag"
+    },
+    {
+      "type": "text",
+      "id": "starter_price",
+      "label": "Price",
+      "default": "$130"
+    },
+    {
+      "type": "text",
+      "id": "starter_compare_price",
+      "label": "Compare at price",
+      "default": "$145"
+    },
+    {
+      "type": "text",
+      "id": "starter_button_text",
+      "label": "Button text",
+      "default": "SHOP STARTER KIT >"
+    },
+    {
+      "type": "url",
+      "id": "starter_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Mates Pack"
+    },
+    {
+      "type": "text",
+      "id": "mates_badge",
+      "label": "Badge",
+      "default": "SAVE $40"
+    },
+    {
+      "type": "text",
+      "id": "mates_title",
+      "label": "Title",
+      "default": "MATES PACK"
+    },
+    {
+      "type": "textarea",
+      "id": "mates_features",
+      "label": "Features (one per line)",
+      "default": "2 Starter Kits\n$40 saving"
+    },
+    {
+      "type": "textarea",
+      "id": "mates_description",
+      "label": "Description",
+      "default": "One for you, one for someone you want to see move away from the habit. Start together, make it easier."
+    },
+    {
+      "type": "text",
+      "id": "mates_price",
+      "label": "Price",
+      "default": "$220"
+    },
+    {
+      "type": "text",
+      "id": "mates_compare_price",
+      "label": "Compare at price",
+      "default": "$260"
+    },
+    {
+      "type": "text",
+      "id": "mates_button_text",
+      "label": "Button text",
+      "default": "SHOP MATES PACK >"
+    },
+    {
+      "type": "url",
+      "id": "mates_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn kit CTA"
+    }
+  ]
+}
+{% endschema %}

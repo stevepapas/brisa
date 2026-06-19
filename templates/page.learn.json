@@ -144,7 +144,7 @@
           "settings": {
             "label": "05 - THE FUTURE",
             "title": "We don't know what 40 years of this looks like yet.",
-            "text": "<p>One vape can carry as much nicotine as 50 cigarettes. Cigarettes had friction — lighters, smell, a clear finish. Vapes removed all of it. Easier to hide, easier to hit constantly, and more frequent than anyone admits.</p>",
+            "text": "<p>One vape can carry as much nicotine as 50 cigarettes. Cigarettes had friction — lighters, smell, a clear finish. Vapes removed all of it. Easier to hide, easier to hit constantly, and more frequent than nicotine has ever been in human history.</p>",
             "quote": "What are lifelong vapers going to look like after decades of this?"
           }
         }
@@ -161,7 +161,7 @@
         "heading": "THE BIT NO ONE'S\nTELLING YOU.",
         "subheading": "5 questions worth sitting with before your next hit.",
         "max_width": 520,
-        "background": "#ffffff",
+        "background": "#f4f4f4",
         "padding_top": 48,
         "padding_bottom": 48
       }
@@ -177,20 +177,20 @@
             "text": "Designed to recreate the familiar hand-to-mouth routine."
           }
         },
-        "feature_throat": {
-          "type": "feature",
-          "settings": {
-            "icon_image": "shopify://shop_images/brisa_09.png",
-            "title": "Throat sensation",
-            "text": ""
-          }
-        },
         "feature_no_nic": {
           "type": "feature",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_10.png",
             "title": "No Nicotine",
             "text": "Zero nicotine, zero tobacco, zero addictive substance."
+          }
+        },
+        "feature_throat": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_09.png",
+            "title": "Throat sensation",
+            "text": ""
           }
         },
         "feature_no_smoke": {
@@ -204,8 +204,8 @@
       },
       "block_order": [
         "feature_ritual",
-        "feature_throat",
         "feature_no_nic",
+        "feature_throat",
         "feature_no_smoke"
       ],
       "name": "Learn product pitch",
@@ -213,12 +213,219 @@
         "eyebrow": "HOW BRISA REPLACES IT",
         "heading": "SAME MOTION.\nDIFFERENT STORY.",
         "tagline": "Built to replace the ritual without replacing it with another problem.",
-        "button_text": "Try the Brisa Unit",
-        "button_link": "shopify://products/brisa-starter-kit",
+        "hero_image": "shopify://shop_images/same_motion_different_story.jpg",
         "max_width": 520,
         "background": "#ffffff",
         "padding_top": 48,
-        "padding_bottom": 56
+        "padding_bottom": 40
+      }
+    },
+    "learn_product_details": {
+      "type": "learn-product-details",
+      "blocks": {
+        "detail_throat": {
+          "type": "detail",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_09.png",
+            "title": "Throat sensation",
+            "text": "Built for a cool, familiar draw and sensory feel."
+          }
+        },
+        "detail_no_smoke": {
+          "type": "detail",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_05.png",
+            "title": "No smoke No vapour",
+            "text": "Just air and aroma. No combustion, no clouds."
+          }
+        },
+        "detail_guarantee": {
+          "type": "detail",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_14.png",
+            "title": "30 Day Success Guarantee",
+            "text": "Need support? Book a call and we'll help you use it properly."
+          }
+        },
+        "detail_food_grade": {
+          "type": "detail",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_03.png",
+            "title": "Food-Grade Cores",
+            "text": "Made with food-grade aroma compounds inside the core."
+          }
+        },
+        "detail_reusable": {
+          "type": "detail",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_10.png",
+            "title": "Reusable Device",
+            "text": "One device. Simply replace the cores when needed."
+          }
+        },
+        "detail_aussie": {
+          "type": "detail",
+          "settings": {
+            "icon_image": "shopify://shop_images/brisa_17.png",
+            "title": "Australian Designed",
+            "text": "Designed in Australia for everyday use and real routines."
+          }
+        }
+      },
+      "block_order": [
+        "detail_throat",
+        "detail_no_smoke",
+        "detail_guarantee",
+        "detail_food_grade",
+        "detail_reusable",
+        "detail_aussie"
+      ],
+      "name": "Learn product details",
+      "settings": {
+        "inside_heading": "WHAT'S INSIDE.",
+        "inside_text": "<p>A PET fibre core, natural food-grade aroma compounds, and aromatherapy compounds - engineered together to deliver a clean, satisfying experience. <strong>No nicotine. No vapour. No combustion.</strong></p>",
+        "badge": "REAL RESULTS",
+        "social_heading": "FROM THE PEOPLE WHO'VE\nALREADY MADE THE SWITCH.",
+        "testimonial_initial": "B",
+        "testimonial_name": "BELINDA C.",
+        "testimonial_verified": "VERIFIED BUYER",
+        "testimonial_quote": "Absolutely love it. Got it 4 days ago and started straight away, haven't used the vape once. You guys are legends!",
+        "max_width": 520,
+        "background": "#ffffff",
+        "padding_top": 24,
+        "padding_bottom": 48
+      }
+    },
+    "learn_guarantee": {
+      "type": "learn-guarantee",
+      "blocks": {
+        "step_reach_out": {
+          "type": "step",
+          "settings": {
+            "title": "You reach out",
+            "text": "Instagram or website, takes 30 seconds"
+          }
+        },
+        "step_call": {
+          "type": "step",
+          "settings": {
+            "title": "We book your 1-on-1 call",
+            "text": "15 minutes, we walk you through what to tweak"
+          }
+        },
+        "step_cores": {
+          "type": "step",
+          "settings": {
+            "title": "We post your cores free",
+            "text": "3 weeks worth, sent same-week"
+          }
+        }
+      },
+      "block_order": [
+        "step_reach_out",
+        "step_call",
+        "step_cores"
+      ],
+      "name": "Learn guarantee",
+      "settings": {
+        "guarantee_heading": "30 DAY SUCCESS GUARANTEE",
+        "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to help you get the most out of it. We don't leave you guessing.",
+        "claim_heading": "HOW TO CLAIM\nYOUR GUARANTEE.",
+        "claim_intro": "No forms to chase. No fine print. Two ways to reach us:",
+        "method_1_title": "Message us on Instagram",
+        "method_1_text": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number.",
+        "method_2_title": "Submit through our website",
+        "method_2_text": "Head to our Contact page, select \"30 Day Guarantee Claim\" from the subject dropdown, and drop your order number in.",
+        "claim_quote": "\"That's the deal. We've got you.\"",
+        "max_width": 520,
+        "background": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 48
+      }
+    },
+    "learn_kit_cta": {
+      "type": "learn-kit-cta",
+      "name": "Learn kit CTA",
+      "settings": {
+        "tagline": "Ready to drop the habit without giving up the moment?",
+        "heading": "BUILD YOUR KIT.",
+        "starter_badge": "MOST POPULAR",
+        "starter_title": "STARTER KIT",
+        "starter_features": "1 Device\n3 Mint Core Packs (30 days worth)\nCleaning Kit\nCarry Bag",
+        "starter_price": "$130",
+        "starter_compare_price": "$145",
+        "starter_button_text": "SHOP STARTER KIT >",
+        "starter_button_link": "shopify://products/brisa-starter-kit",
+        "mates_badge": "SAVE $40",
+        "mates_title": "MATES PACK",
+        "mates_features": "2 Starter Kits\n$40 saving",
+        "mates_description": "One for you, one for someone you want to see move away from the habit. Start together, make it easier.",
+        "mates_price": "$220",
+        "mates_compare_price": "$260",
+        "mates_button_text": "SHOP MATES PACK >",
+        "mates_button_link": "shopify://products/brisa-mates-pack",
+        "max_width": 520,
+        "background": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "learn_faq": {
+      "type": "learn-faq",
+      "blocks": {
+        "faq_safe": {
+          "type": "question",
+          "settings": {
+            "question": "Is Brisa safe?",
+            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid.</p><p>It works through air pressure and aroma only. You breathe air through the aromatic core to create the sensory draw, without burning, vaporising, or consuming anything.</p>"
+          }
+        },
+        "faq_habit": {
+          "type": "question",
+          "settings": {
+            "question": "Will it actually help me drop the habit?",
+            "answer": "<p>Brisa is designed for the moment, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It mimics the old habit with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure — but without smoke, vapour, or nicotine.</p>"
+          }
+        },
+        "faq_cores": {
+          "type": "question",
+          "settings": {
+            "question": "How long do the cores last?",
+            "answer": "<p>Each core lasts 2.5 to 4 days depending on how often you reach for it and the aroma profile. The Starter Kit covers 3 to 5 weeks of ritual.</p>"
+          }
+        },
+        "faq_flavours": {
+          "type": "question",
+          "settings": {
+            "question": "What flavours do you have?",
+            "answer": "<p>Brisa cores come in familiar aroma profiles including Mint, and other food-grade aromatic options designed to feel natural and recognisable.</p>"
+          }
+        },
+        "faq_guarantee": {
+          "type": "question",
+          "settings": {
+            "question": "What's in the 30-day success guarantee?",
+            "answer": "<p>If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_safe",
+        "faq_habit",
+        "faq_cores",
+        "faq_flavours",
+        "faq_guarantee"
+      ],
+      "name": "Learn FAQ",
+      "settings": {
+        "badge": "MOST POPULAR",
+        "heading": "QUICK QUESTIONS.",
+        "show_footer": true,
+        "copyright": "© BRISA BETTER PTY LTD · AUSTRALIA",
+        "max_width": 520,
+        "background": "#f4f4f4",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     }
   },
@@ -226,6 +433,10 @@
     "learn_hero",
     "learn_founder_story",
     "learn_questions",
-    "learn_product_pitch"
+    "learn_product_pitch",
+    "learn_product_details",
+    "learn_guarantee",
+    "learn_kit_cta",
+    "learn_faq"
   ]
 }

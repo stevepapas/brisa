@@ -1,19 +1,18 @@
 <style>
   #shopify-section-{{ section.id }} {
     --learn-blue: #038bdd;
-    --learn-blue-dark: #1198dc;
     background: #ffffff;
   }
 
   #shopify-section-{{ section.id }} .learn-hero {
     position: relative;
     color: #ffffff;
-    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__media {
     position: relative;
     min-height: 520px;
+    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__image {
@@ -127,10 +126,22 @@
     line-height: 1.2;
   }
 
+  #shopify-section-{{ section.id }} .learn-hero__icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
   #shopify-section-{{ section.id }} .learn-hero__icon-img {
-    width: 40px;
-    height: 40px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
+    mix-blend-mode: screen;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__trust {
@@ -164,22 +175,32 @@
     object-fit: contain;
   }
 
-  @media screen and (min-width: 750px) {
-    #shopify-section-{{ section.id }} .learn-hero__media,
-    #shopify-section-{{ section.id }} .learn-hero__image {
-      min-height: 620px;
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} .learn-hero__media {
+      width: min(520px, 100%);
+      min-height: 0;
+      margin: 0 auto;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
     }
 
-    #shopify-section-{{ section.id }} .learn-hero__content {
-      padding-bottom: 140px;
+    #shopify-section-{{ section.id }} .learn-hero__image {
+      min-height: 0;
+      height: 100%;
+      border-radius: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .learn-hero__trust-inner {
+      max-width: 520px;
     }
 
     #shopify-section-{{ section.id }} .learn-hero__icons {
       max-width: 520px;
       margin: 0 auto;
       left: 50%;
+      right: auto;
       transform: translateX(-50%);
-      background: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
     }
   }
 </style>
@@ -187,7 +208,7 @@
 <section class="learn-hero" {{ section.shopify_attributes }}>
   <div class="learn-hero__media">
     {%- if section.settings.image != blank -%}
-      {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'learn-hero__image', loading: 'eager', widths: '600,800,1000,1200,1600,2000', sizes: '100vw' }}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'learn-hero__image', loading: 'eager', widths: '600,800,1000,1200,1600,2000', sizes: '(min-width: 1000px) 520px, 100vw' }}
     {%- else -%}
       {{ 'lifestyle-1' | placeholder_svg_tag: 'learn-hero__image' }}
     {%- endif -%}
@@ -221,7 +242,9 @@
         {%- for block in hero_icons -%}
           <div class="learn-hero__icon-item" {{ block.shopify_attributes }}>
             {%- if block.settings.icon_image != blank -%}
-              {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-hero__icon-img', loading: 'lazy' }}
+              <span class="learn-hero__icon-circle">
+                {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-hero__icon-img', loading: 'lazy' }}
+              </span>
             {%- endif -%}
             <span>{{ block.settings.label | escape }}</span>
           </div>

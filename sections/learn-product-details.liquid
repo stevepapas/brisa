@@ -1,0 +1,364 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --learn-blue: #038bdd;
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: #111111;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+    margin-bottom: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__icon-wrap {
+    flex: 0 0 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    mix-blend-mode: screen;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__title {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__text {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #444444;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__inside {
+    margin-bottom: 40px;
+    padding: 20px;
+    color: var(--learn-blue);
+    border: 2px solid var(--learn-blue);
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__inside-heading {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__inside-text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__inside-text strong {
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__testimonials {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__badge {
+    display: inline-block;
+    margin: 0 0 16px;
+    padding: 8px 16px;
+    color: #2c579b;
+    background: #bee3f9;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__social-heading {
+    margin: 0 0 24px;
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__card {
+    padding: 24px 20px;
+    text-align: left;
+    background: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: #ffffff;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__name {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__verified {
+    margin: 2px 0 0;
+    color: #666666;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__stars {
+    margin-bottom: 12px;
+    color: var(--learn-blue);
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__quote {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.45;
+  }
+</style>
+
+<section class="learn-details" {{ section.shopify_attributes }}>
+  {%- if section.blocks.size > 0 -%}
+    <div class="learn-details__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'detail' -%}
+          <div class="learn-details__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon_image != blank -%}
+              <span class="learn-details__icon-wrap">
+                {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-details__icon', loading: 'lazy' }}
+              </span>
+            {%- endif -%}
+            <div>
+              {%- if block.settings.title != blank -%}
+                <p class="learn-details__title">{{ block.settings.title | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="learn-details__text">{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.inside_heading != blank or section.settings.inside_text != blank -%}
+    <div class="learn-details__inside">
+      {%- if section.settings.inside_heading != blank -%}
+        <h3 class="learn-details__inside-heading">{{ section.settings.inside_heading | escape }}</h3>
+      {%- endif -%}
+      {%- if section.settings.inside_text != blank -%}
+        <div class="learn-details__inside-text rte">{{ section.settings.inside_text }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="learn-details__testimonials">
+    {%- if section.settings.badge != blank -%}
+      <p class="learn-details__badge">{{ section.settings.badge | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.social_heading != blank -%}
+      <h2 class="learn-details__social-heading">{{ section.settings.social_heading | escape | newline_to_br }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.testimonial_quote != blank -%}
+      <div class="learn-details__card">
+        <div class="learn-details__card-header">
+          {%- if section.settings.testimonial_initial != blank -%}
+            <span class="learn-details__avatar">{{ section.settings.testimonial_initial | escape }}</span>
+          {%- endif -%}
+          <div>
+            {%- if section.settings.testimonial_name != blank -%}
+              <p class="learn-details__name">{{ section.settings.testimonial_name | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.testimonial_verified != blank -%}
+              <p class="learn-details__verified">{{ section.settings.testimonial_verified | escape }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <p class="learn-details__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        <p class="learn-details__quote">&ldquo;{{ section.settings.testimonial_quote | escape }}&rdquo;</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Learn product details",
+  "class": "shopify-section--learn-product-details",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "inside_heading",
+      "label": "What's inside heading",
+      "default": "WHAT'S INSIDE."
+    },
+    {
+      "type": "richtext",
+      "id": "inside_text",
+      "label": "What's inside text",
+      "default": "<p>A PET fibre core, natural food-grade aroma compounds, and aromatherapy compounds - engineered together to deliver a clean, satisfying experience. <strong>No nicotine. No vapour. No combustion.</strong></p>"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Testimonial badge",
+      "default": "REAL RESULTS"
+    },
+    {
+      "type": "textarea",
+      "id": "social_heading",
+      "label": "Social proof heading",
+      "default": "FROM THE PEOPLE WHO'VE\nALREADY MADE THE SWITCH."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_initial",
+      "label": "Testimonial initial",
+      "default": "B"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_name",
+      "label": "Testimonial name",
+      "default": "BELINDA C."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_verified",
+      "label": "Testimonial verified label",
+      "default": "VERIFIED BUYER"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote",
+      "label": "Testimonial quote",
+      "default": "Absolutely love it. Got it 4 days ago and started straight away, haven't used the vape once. You guys are legends!"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Detail",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Throat sensation"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "Built for a cool, familiar draw and sensory feel."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn product details"
+    }
+  ]
+}
+{% endschema %}

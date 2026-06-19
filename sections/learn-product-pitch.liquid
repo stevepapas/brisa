@@ -1,5 +1,6 @@
 <style>
   #shopify-section-{{ section.id }} {
+    --learn-blue: #038bdd;
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
   }
@@ -25,36 +26,66 @@
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__heading {
-    margin: 0 0 28px;
+    margin: 0 0 16px;
     font-size: clamp(28px, 6vw, 36px);
     font-weight: 900;
     line-height: 1.1;
     text-transform: uppercase;
   }
 
+  #shopify-section-{{ section.id }} .learn-pitch__tagline {
+    margin: 0 0 24px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__hero {
+    display: block;
+    width: 100%;
+    margin: 0 0 28px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
   #shopify-section-{{ section.id }} .learn-pitch__features {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px 16px;
-    margin-bottom: 28px;
-    text-align: center;
+    text-align: left;
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__feature {
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__feature-icon-wrap {
+    flex: 0 0 44px;
+    display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__feature-icon {
-    width: 52px;
-    height: 52px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
+    mix-blend-mode: screen;
+  }
+
+  #shopify-section-{{ section.id }} .learn-pitch__feature-copy {
+    min-width: 0;
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__feature-title {
-    margin: 0;
+    margin: 0 0 4px;
     font-size: 13px;
     font-weight: 900;
     line-height: 1.2;
@@ -65,32 +96,6 @@
     font-size: 13px;
     line-height: 1.35;
     color: #444444;
-  }
-
-  #shopify-section-{{ section.id }} .learn-pitch__tagline {
-    margin: 0 0 24px;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  #shopify-section-{{ section.id }} .learn-pitch__button {
-    display: inline-block;
-    padding: 14px 28px;
-    color: #ffffff;
-    background: #038bdd;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 900;
-    letter-spacing: 0.03em;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-
-  @media screen and (min-width: 750px) {
-    #shopify-section-{{ section.id }} .learn-pitch__features {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
   }
 </style>
 
@@ -103,34 +108,36 @@
     <h2 class="learn-pitch__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
   {%- endif -%}
 
+  {%- if section.settings.tagline != blank -%}
+    <p class="learn-pitch__tagline">{{ section.settings.tagline | escape }}</p>
+  {%- endif -%}
+
+  {%- if section.settings.hero_image != blank -%}
+    {{ section.settings.hero_image | image_url: width: 1200 | image_tag: class: 'learn-pitch__hero', loading: 'lazy', widths: '400,600,800,1000,1200', sizes: '(min-width: 520px) 520px, 100vw' }}
+  {%- endif -%}
+
   {%- if section.blocks.size > 0 -%}
     <div class="learn-pitch__features">
       {%- for block in section.blocks -%}
         <div class="learn-pitch__feature" {{ block.shopify_attributes }}>
           {%- if block.settings.icon_image != blank -%}
-            {{ block.settings.icon_image | image_url: width: 104 | image_tag: class: 'learn-pitch__feature-icon', loading: 'lazy' }}
+            <span class="learn-pitch__feature-icon-wrap">
+              {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-pitch__feature-icon', loading: 'lazy' }}
+            </span>
           {%- endif -%}
 
-          {%- if block.settings.title != blank -%}
-            <p class="learn-pitch__feature-title">{{ block.settings.title | escape }}</p>
-          {%- endif -%}
+          <div class="learn-pitch__feature-copy">
+            {%- if block.settings.title != blank -%}
+              <p class="learn-pitch__feature-title">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
 
-          {%- if block.settings.text != blank -%}
-            <p class="learn-pitch__feature-text">{{ block.settings.text | escape }}</p>
-          {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="learn-pitch__feature-text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </div>
         </div>
       {%- endfor -%}
     </div>
-  {%- endif -%}
-
-  {%- if section.settings.tagline != blank -%}
-    <p class="learn-pitch__tagline">{{ section.settings.tagline | escape }}</p>
-  {%- endif -%}
-
-  {%- if section.settings.button_text != blank -%}
-    <a class="learn-pitch__button" href="{{ section.settings.button_link }}">
-      {{ section.settings.button_text | escape }}
-    </a>
   {%- endif -%}
 </section>
 
@@ -159,15 +166,9 @@
       "default": "Built to replace the ritual without replacing it with another problem."
     },
     {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "Try the Brisa Unit"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
     },
     {
       "type": "header",
@@ -207,7 +208,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 56
+      "default": 40
     }
   ],
   "blocks": [

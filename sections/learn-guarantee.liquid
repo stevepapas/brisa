@@ -1,0 +1,347 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --learn-blue: #038bdd;
+    background: {{ section.settings.background }};
+    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    color: #111111;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__box {
+    margin-bottom: 32px;
+    padding: 20px;
+    border: 2px solid #e53935;
+    border-radius: 14px;
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__box-heading {
+    margin: 0 0 12px;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__box-text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__panel {
+    padding: 28px 20px;
+    background: #e8f6fc;
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__heading {
+    margin: 0 0 8px;
+    font-size: clamp(22px, 5vw, 28px);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__intro {
+    margin: 0 0 20px;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__method {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__method-icon {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #ffffff;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__method-title {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__method-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #444444;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__step-num {
+    flex: 0 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+    background: var(--learn-blue);
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__step-title {
+    margin: 0 0 2px;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__step-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.35;
+    color: #444444;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__quote {
+    margin: 0;
+    color: var(--learn-blue);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: center;
+  }
+</style>
+
+<section class="learn-guarantee" id="learn-guarantee" {{ section.shopify_attributes }}>
+  <div class="learn-guarantee__box">
+    {%- if section.settings.guarantee_heading != blank -%}
+      <h2 class="learn-guarantee__box-heading">{{ section.settings.guarantee_heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.guarantee_text != blank -%}
+      <p class="learn-guarantee__box-text">{{ section.settings.guarantee_text | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  <div class="learn-guarantee__panel">
+    {%- if section.settings.claim_heading != blank -%}
+      <h3 class="learn-guarantee__heading">{{ section.settings.claim_heading | escape | newline_to_br }}</h3>
+    {%- endif -%}
+
+    {%- if section.settings.claim_intro != blank -%}
+      <p class="learn-guarantee__intro">{{ section.settings.claim_intro | escape }}</p>
+    {%- endif -%}
+
+    <div class="learn-guarantee__methods">
+      {%- if section.settings.method_1_title != blank -%}
+        <div class="learn-guarantee__method">
+          <span class="learn-guarantee__method-icon" aria-hidden="true">@</span>
+          <div>
+            <p class="learn-guarantee__method-title">{{ section.settings.method_1_title | escape }}</p>
+            <p class="learn-guarantee__method-text">{{ section.settings.method_1_text | escape }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.method_2_title != blank -%}
+        <div class="learn-guarantee__method">
+          <span class="learn-guarantee__method-icon" aria-hidden="true">&#9993;</span>
+          <div>
+            <p class="learn-guarantee__method-title">{{ section.settings.method_2_title | escape }}</p>
+            <p class="learn-guarantee__method-text">{{ section.settings.method_2_text | escape }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="learn-guarantee__steps">
+      {%- for block in section.blocks -%}
+        <div class="learn-guarantee__step" {{ block.shopify_attributes }}>
+          <span class="learn-guarantee__step-num">{{ forloop.index }}</span>
+          <div>
+            {%- if block.settings.title != blank -%}
+              <p class="learn-guarantee__step-title">{{ block.settings.title | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="learn-guarantee__step-text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.claim_quote != blank -%}
+      <p class="learn-guarantee__quote">{{ section.settings.claim_quote | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Learn guarantee",
+  "class": "shopify-section--learn-guarantee",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Guarantee heading",
+      "default": "30 DAY SUCCESS GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to help you get the most out of it. We don't leave you guessing."
+    },
+    {
+      "type": "textarea",
+      "id": "claim_heading",
+      "label": "Claim heading",
+      "default": "HOW TO CLAIM\nYOUR GUARANTEE."
+    },
+    {
+      "type": "text",
+      "id": "claim_intro",
+      "label": "Claim intro",
+      "default": "No forms to chase. No fine print. Two ways to reach us:"
+    },
+    {
+      "type": "text",
+      "id": "method_1_title",
+      "label": "Method 1 title",
+      "default": "Message us on Instagram"
+    },
+    {
+      "type": "textarea",
+      "id": "method_1_text",
+      "label": "Method 1 text",
+      "default": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number."
+    },
+    {
+      "type": "text",
+      "id": "method_2_title",
+      "label": "Method 2 title",
+      "default": "Submit through our website"
+    },
+    {
+      "type": "textarea",
+      "id": "method_2_text",
+      "label": "Method 2 text",
+      "default": "Head to our Contact page, select \"30 Day Guarantee Claim\" from the subject dropdown, and drop your order number in."
+    },
+    {
+      "type": "text",
+      "id": "claim_quote",
+      "label": "Closing quote",
+      "default": "\"That's the deal. We've got you.\""
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "You reach out"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "Instagram or website, takes 30 seconds"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Learn guarantee",
+      "blocks": [
+        { "type": "step", "settings": { "title": "You reach out", "text": "Instagram or website, takes 30 seconds" } },
+        { "type": "step", "settings": { "title": "We book your 1-on-1 call", "text": "15 minutes, we walk you through what to tweak" } },
+        { "type": "step", "settings": { "title": "We post your cores free", "text": "3 weeks worth, sent same-week" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

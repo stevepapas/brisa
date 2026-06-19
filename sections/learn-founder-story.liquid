@@ -24,28 +24,41 @@
     line-height: 1.5;
   }
 
+  #shopify-section-{{ section.id }} .learn-founder__quote {
+    margin: 0 0 24px;
+    padding-left: 16px;
+    border-left: 4px solid #038bdd;
+    color: #038bdd;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
   #shopify-section-{{ section.id }} .learn-founder__body-panel {
-    margin-top: 8px;
     overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__image-wrap {
+    float: right;
+    width: 42%;
+    max-width: 180px;
+    margin: 0 0 12px 16px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    object-fit: cover;
   }
 
   #shopify-section-{{ section.id }} .learn-founder__body {
     margin: 0;
     font-size: 16px;
     line-height: 1.5;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__image {
-    display: block;
-    width: 130px;
-    height: auto;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__image--float {
-    float: right;
-    margin: 0 0 12px 16px;
   }
 
   #shopify-section-{{ section.id }} .learn-founder__signature-wrap {
@@ -61,21 +74,6 @@
     font-weight: 900;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__quote {
-    margin: 24px 0;
-    padding-left: 16px;
-    border-left: 4px solid #038bdd;
-    color: #038bdd;
-    font-size: 17px;
-    font-style: italic;
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__footer {
-    display: none;
   }
 
   #shopify-section-{{ section.id }} .learn-founder__cta-wrap {
@@ -113,7 +111,9 @@
   {%- if section.settings.body != blank or section.settings.image != blank -%}
     <div class="learn-founder__body-panel">
       {%- if section.settings.image != blank -%}
-        {{ section.settings.image | image_url: width: 400 | image_tag: class: 'learn-founder__image learn-founder__image--float', loading: 'lazy', widths: '130,260,400', sizes: '130px' }}
+        <div class="learn-founder__image-wrap">
+          {{ section.settings.image | image_url: width: 400 | image_tag: class: 'learn-founder__image', loading: 'lazy', widths: '180,360,400', sizes: '(min-width: 520px) 180px, 42vw' }}
+        </div>
       {%- endif -%}
 
       {%- if section.settings.body != blank -%}
