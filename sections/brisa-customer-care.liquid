@@ -247,8 +247,8 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     color: #ffffff;
     background: #289adc;
     border-radius: 50%;
@@ -699,7 +699,7 @@
       {%- if section.settings.method_1_title != blank -%}
         <a class="brisa-customer-care__method-card" href="{{ section.settings.method_1_link | default: '#brisa-contact-form' }}">
           <span class="brisa-customer-care__method-icon" aria-hidden="true">
-            {%- render 'icon' with 'picto-email', width: 20, height: 20 -%}
+            {%- render 'icon' with 'picto-email', width: 24, height: 24 -%}
           </span>
           <span>
             <p class="brisa-customer-care__method-title">{{ section.settings.method_1_title | escape }}</p>
@@ -713,7 +713,7 @@
       {%- if section.settings.method_2_title != blank -%}
         <a class="brisa-customer-care__method-card" href="{{ section.settings.method_2_link }}" target="_blank" rel="noopener">
           <span class="brisa-customer-care__method-icon" aria-hidden="true">
-            {%- render 'icon' with 'instagram', width: 20, height: 20 -%}
+            {%- render 'icon' with 'instagram', width: 24, height: 24 -%}
           </span>
           <span>
             <p class="brisa-customer-care__method-title">{{ section.settings.method_2_title | escape }}</p>
