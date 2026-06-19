@@ -386,13 +386,14 @@
     gap: 14px;
     align-items: flex-start;
     margin: 0 0 16px;
-    padding: 14px 16px;
+    padding: 0 0 16px;
     font-size: 14px;
     line-height: 1.45;
     text-align: left;
-    background: #ffffff;
-    border: 1px solid var(--bcc-input-border);
-    border-radius: 10px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #d4d4d4;
+    border-radius: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
@@ -415,12 +416,17 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step {
-    margin-bottom: 20px;
-    overflow: hidden;
-    background: var(--bcc-card-bg);
-    border: 1px solid var(--bcc-input-border);
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 16px;
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step:not(:last-child) {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d4d4d4;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-image-wrap {
@@ -431,7 +437,7 @@
     display: flex;
     gap: 14px;
     align-items: flex-start;
-    padding: 16px;
+    padding: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-icon {
@@ -458,11 +464,12 @@
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    margin-top: 8px;
-    padding: 16px;
-    background: var(--bcc-warning-bg);
-    border: 1px solid var(--bcc-input-border);
-    border-radius: 12px;
+    margin-top: 16px;
+    padding: 16px 0 0;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #d4d4d4;
+    border-radius: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__warning-mark {
@@ -534,8 +541,9 @@
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-link {
     display: block;
-    margin: 0;
-    padding: 18px 24px;
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 18px 20px;
     color: #000000;
     background: transparent;
     font-size: 16px;
@@ -544,6 +552,13 @@
     text-align: left;
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-customer-care__help-link {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-link:hover {
@@ -738,7 +753,7 @@
         {%- if section.settings.care_frequency != blank -%}
           {%- assign care_frequency_icon = section.settings.care_frequency_icon -%}
           {%- if care_frequency_icon == blank -%}
-            {%- assign care_frequency_icon = 'like-new_00.png' -%}
+            {%- assign care_frequency_icon = 'aim.png' -%}
           {%- endif -%}
           <div class="brisa-customer-care__care-frequency">
             <img
@@ -1047,8 +1062,8 @@
       "type": "text",
       "id": "care_frequency_icon",
       "label": "Frequency icon filename",
-      "info": "Uploaded file in Settings → Files (e.g. like-new_00.png)",
-      "default": "like-new_00.png"
+      "info": "Uploaded file in Settings → Files (e.g. aim.png)",
+      "default": "aim.png"
     },
     {
       "type": "text",
