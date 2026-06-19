@@ -2618,7 +2618,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   display: inline;
 }
 
-/* Learn page — shared icon circles (blue artwork on white PNG) */
+/* Learn page — icon circles (white symbol on brand blue) */
 .template-learn .learn-icon-circle {
   display: inline-flex;
   align-items: center;
@@ -2632,10 +2632,10 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 }
 
 .template-learn .learn-icon-circle img {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
-  mix-blend-mode: multiply;
+  filter: brightness(0) invert(1);
 }
 
 .template-learn .learn-hero__icon-circle {
@@ -2644,19 +2644,37 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 }
 
 .template-learn .learn-hero__icon-circle img {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
 }
 
-.template-learn .learn-hero__trust-item img {
+/* Learn page — plain icons on white (no circle) */
+.template-learn .learn-icon-plain {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-learn .learn-icon-plain img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
   mix-blend-mode: multiply;
 }
 
-/* Learn page — red border highlight boxes on blue */
+.template-learn .learn-hero__trust-item img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+/* Learn page — light blue highlight boxes with red border */
 .template-learn .learn-highlight-box {
   padding: 20px;
-  color: #ffffff;
-  background: #038bdd;
+  color: #038bdd;
+  background: #e8f6fc;
   border: 2px solid #e53935;
   border-radius: 14px;
 }
@@ -2665,7 +2683,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 .template-learn .learn-highlight-box h3,
 .template-learn .learn-highlight-box p,
 .template-learn .learn-highlight-box strong {
-  color: #ffffff;
+  color: #038bdd;
 }
 
 /* Learn page — full-width testimonials band */
