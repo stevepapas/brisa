@@ -40,15 +40,33 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__hero-panel {
-    padding: 48px 20px 40px;
+    padding: 32px 20px 28px;
     color: var(--bcc-hero-text);
     background: #ffffff;
     text-align: left;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__hero-heading {
+  #shopify-section-{{ section.id }} .brisa-customer-care__hero-inner {
     max-width: var(--bcc-max-width);
-    margin: 0 auto 16px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__badge {
+    display: inline-block;
+    margin: 0 0 20px;
+    padding: 8px 14px;
+    color: #2c579b;
+    background: #bee3f9;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__hero-heading {
+    margin: 0 0 16px;
     font-size: clamp(28px, 7vw, 36px);
     font-weight: 900;
     line-height: 1.15;
@@ -57,11 +75,14 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__hero-text {
-    max-width: var(--bcc-max-width);
-    margin: 0 auto;
+    margin: 0;
     font-size: 15px;
     line-height: 1.5;
     text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__form-panel {
+    background: #ffffff;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__inner {
@@ -150,40 +171,28 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__guarantee {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
     margin-top: 28px;
-    padding: 18px 16px;
-    background: var(--bcc-guarantee-bg);
-    border: 2px solid var(--bcc-guarantee-border);
-    border-radius: 12px;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    color: var(--bcc-text);
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-icon svg {
-    display: block;
-    width: 100%;
-    height: 100%;
+    padding: 20px;
+    color: #ffffff;
+    background: #038bdd;
+    border: 2px solid #e53935;
+    border-radius: 14px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-heading {
-    margin: 0 0 8px;
-    font-size: 14px;
+    margin: 0 0 12px;
+    color: #ffffff;
+    font-size: 18px;
     font-weight: 900;
+    letter-spacing: 0.04em;
     line-height: 1.25;
     text-transform: uppercase;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__guarantee-text {
     margin: 0;
-    font-size: 14px;
+    color: #ffffff;
+    font-size: 16px;
     line-height: 1.45;
   }
 
@@ -327,6 +336,7 @@
     margin-bottom: 20px;
     overflow: hidden;
     background: var(--bcc-card-bg);
+    border: 1px solid var(--bcc-input-border);
     border-radius: 12px;
   }
 
@@ -403,6 +413,10 @@
     line-height: 1.4;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-panel {
+    background: #ffffff;
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__help {
     max-width: var(--bcc-max-width);
     margin: 0 auto;
@@ -424,9 +438,16 @@
     line-height: 1.45;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 24px;
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__help-link {
     display: inline-block;
-    margin: 0 10px 8px;
+    margin: 0;
     color: var(--bcc-text);
     font-size: 13px;
     font-weight: 700;
@@ -440,15 +461,19 @@
 </style>
 
 <section class="brisa-customer-care" {{ section.shopify_attributes }}>
-  <div class="brisa-customer-care__ribbon">{{ section.settings.ribbon_contact | escape }}</div>
-
   <div class="brisa-customer-care__hero-panel">
-    <h1 class="brisa-customer-care__hero-heading">{{ section.settings.hero_heading | escape }}</h1>
-    {%- if section.settings.hero_text != blank -%}
-      <p class="brisa-customer-care__hero-text">{{ section.settings.hero_text | escape }}</p>
-    {%- endif -%}
+    <div class="brisa-customer-care__hero-inner">
+      {%- if section.settings.ribbon_contact != blank -%}
+        <p class="brisa-customer-care__badge">{{ section.settings.ribbon_contact | escape }}</p>
+      {%- endif -%}
+      <h1 class="brisa-customer-care__hero-heading">{{ section.settings.hero_heading | escape }}</h1>
+      {%- if section.settings.hero_text != blank -%}
+        <p class="brisa-customer-care__hero-text">{{ section.settings.hero_text | escape }}</p>
+      {%- endif -%}
+    </div>
   </div>
 
+  <div class="brisa-customer-care__form-panel">
   <div class="brisa-customer-care__inner" id="brisa-contact-form">
     <h2 class="brisa-customer-care__section-heading">{{ section.settings.form_heading | escape }}</h2>
     {%- if section.settings.form_subtext != blank -%}
@@ -528,23 +553,16 @@
     {%- endform -%}
 
     {%- if section.settings.guarantee_heading != blank or section.settings.guarantee_text != blank -%}
-      <div class="brisa-customer-care__guarantee">
-        <span class="brisa-customer-care__guarantee-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" focusable="false">
-            <path d="M12 2 4 5v6c0 5.25 3.4 10.15 8 11 4.6-.85 8-5.75 8-11V5l-8-3Z" stroke="currentColor" stroke-width="1.75"/>
-            <path d="m8.5 12 2.5 2.5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
-        <div>
-          {%- if section.settings.guarantee_heading != blank -%}
-            <p class="brisa-customer-care__guarantee-heading">{{ section.settings.guarantee_heading | escape }}</p>
-          {%- endif -%}
-          {%- if section.settings.guarantee_text != blank -%}
-            <p class="brisa-customer-care__guarantee-text">{{ section.settings.guarantee_text | escape }}</p>
-          {%- endif -%}
-        </div>
+      <div class="brisa-customer-care__guarantee learn-highlight-box">
+        {%- if section.settings.guarantee_heading != blank -%}
+          <h2 class="brisa-customer-care__guarantee-heading">{{ section.settings.guarantee_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.guarantee_text != blank -%}
+          <p class="brisa-customer-care__guarantee-text">{{ section.settings.guarantee_text | escape }}</p>
+        {%- endif -%}
       </div>
     {%- endif -%}
+  </div>
   </div>
 
   <div class="brisa-customer-care__claim-panel">
@@ -657,28 +675,32 @@
     </div>
   </div>
 
-  <div class="brisa-customer-care__help">
-    {%- if section.settings.help_heading != blank -%}
-      <h2 class="brisa-customer-care__help-heading">{{ section.settings.help_heading | escape }}</h2>
-    {%- endif -%}
-    {%- if section.settings.help_text != blank -%}
-      <p class="brisa-customer-care__help-text">{{ section.settings.help_text | escape }}</p>
-    {%- endif -%}
+  <div class="brisa-customer-care__help-panel">
+    <div class="brisa-customer-care__help">
+      {%- if section.settings.help_heading != blank -%}
+        <h2 class="brisa-customer-care__help-heading">{{ section.settings.help_heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.help_text != blank -%}
+        <p class="brisa-customer-care__help-text">{{ section.settings.help_text | escape }}</p>
+      {%- endif -%}
 
-    {%- if section.settings.show_policy_links -%}
-      {%- if shop.refund_policy -%}
-        <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
+      {%- if section.settings.show_policy_links -%}
+        <nav class="brisa-customer-care__help-links" aria-label="Policies">
+          {%- if shop.refund_policy -%}
+            <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
+          {%- endif -%}
+          {%- if shop.terms_of_service -%}
+            <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
+          {%- endif -%}
+          {%- if shop.shipping_policy -%}
+            <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
+          {%- endif -%}
+          {%- if shop.privacy_policy -%}
+            <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
+          {%- endif -%}
+        </nav>
       {%- endif -%}
-      {%- if shop.terms_of_service -%}
-        <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
-      {%- endif -%}
-      {%- if shop.shipping_policy -%}
-        <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
-      {%- endif -%}
-      {%- if shop.privacy_policy -%}
-        <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
-      {%- endif -%}
-    {%- endif -%}
+    </div>
   </div>
 </section>
 
