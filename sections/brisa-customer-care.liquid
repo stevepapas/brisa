@@ -376,9 +376,9 @@
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-panel {
     margin-top: 16px;
-    padding: 16px;
-    border: 3px solid #2c579b;
-    border-radius: 12px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency {
@@ -386,14 +386,13 @@
     gap: 14px;
     align-items: flex-start;
     margin: 0 0 16px;
-    padding: 0 0 16px;
+    padding: 14px 16px;
     font-size: 14px;
     line-height: 1.45;
     text-align: left;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid #d4d4d4;
-    border-radius: 0;
+    background: #ffffff;
+    border: 3px solid #2c579b;
+    border-radius: 10px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
@@ -417,16 +416,15 @@
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step {
     margin-bottom: 16px;
-    overflow: visible;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border: 3px solid #2c579b;
+    border-radius: 10px;
     box-shadow: none;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step:not(:last-child) {
-    padding-bottom: 16px;
-    border-bottom: 1px solid #d4d4d4;
+    padding-bottom: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-image-wrap {
@@ -437,7 +435,7 @@
     display: flex;
     gap: 14px;
     align-items: flex-start;
-    padding: 0;
+    padding: 16px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-icon {
@@ -464,12 +462,11 @@
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    margin-top: 16px;
-    padding: 16px 0 0;
-    background: transparent;
-    border: 0;
-    border-top: 1px solid #d4d4d4;
-    border-radius: 0;
+    margin-top: 0;
+    padding: 16px;
+    background: var(--bcc-warning-bg);
+    border: 3px solid #2c579b;
+    border-radius: 10px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__warning-mark {
