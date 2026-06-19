@@ -58,7 +58,14 @@
           "type": "care_step",
           "settings": {
             "title": "Stand it upside down to drain.",
-            "text": "Sit the device upside down so any remaining water drains cleanly out of the barrel. Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
+            "text": "Sit the device upside down so any remaining water drains cleanly out of the barrel."
+          }
+        },
+        "care_step_5": {
+          "type": "care_step",
+          "settings": {
+            "title": "Let it dry, then reload.",
+            "text": "Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
           }
         }
       },
@@ -69,7 +76,8 @@
         "care_step_1",
         "care_step_2",
         "care_step_3",
-        "care_step_4"
+        "care_step_4",
+        "care_step_5"
       ],
       "settings": {
         "ribbon_contact": "Customer Care",

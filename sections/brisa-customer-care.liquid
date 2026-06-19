@@ -92,6 +92,13 @@
     padding: 32px 20px;
   }
 
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-customer-care__inner {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__section-heading {
     margin: 0 0 8px;
     font-size: 20px;
@@ -241,7 +248,7 @@
     width: 40px;
     height: 40px;
     color: #ffffff;
-    background: var(--bcc-button-bg);
+    background: #289adc;
     border-radius: 50%;
   }
 
@@ -279,7 +286,7 @@
     width: 32px;
     height: 32px;
     color: #ffffff;
-    background: var(--bcc-button-bg);
+    background: #289adc;
     border-radius: 50%;
     font-size: 14px;
     font-weight: 900;
@@ -312,21 +319,23 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-ribbon-wrap {
-    width: 100%;
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 36px 20px 0;
+    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-ribbon {
-    display: block;
-    width: 100%;
-    padding: 16px 20px;
-    color: #ffffff;
-    background: #000000;
-    border-radius: 0;
-    font-size: 14px;
-    font-weight: 900;
+    display: inline-block;
+    margin: 0;
+    padding: 8px 14px;
+    color: #2c579b;
+    background: #bee3f9;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
     letter-spacing: 0.04em;
-    line-height: 1.25;
-    text-align: center;
+    line-height: 1;
     text-transform: uppercase;
   }
 
@@ -345,12 +354,22 @@
     text-transform: uppercase;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__care-intro,
-  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency {
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-intro {
     margin: 16px 0 0;
     font-size: 14px;
     line-height: 1.45;
     text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: left;
+    background: #ffffff;
+    border: 1px solid var(--bcc-input-border);
+    border-radius: 10px;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-inner {
@@ -369,36 +388,21 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-image-wrap {
-    background: #f4f4f4;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-body {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: flex-start;
     padding: 16px;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-number {
-    display: flex;
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-step-icon {
     flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    color: #ffffff;
-    background: var(--bcc-button-bg);
-    border-radius: 50%;
-    font-size: 13px;
-    font-weight: 900;
-    line-height: 1;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step-title {
@@ -472,44 +476,38 @@
     line-height: 1.45;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__help-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 8px 0;
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-policies {
     margin: 0;
     padding: 0;
+    background: #f4f4f4;
+    border-top: 2px solid #000000;
+    border-bottom: 2px solid #000000;
     list-style: none;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__help-links li {
-    display: inline-flex;
-    align-items: center;
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-policies li {
     margin: 0;
-    padding: 0;
-    background: transparent;
+    border-bottom: 1px solid #000000;
   }
 
-  #shopify-section-{{ section.id }} .brisa-customer-care__help-separator {
-    margin: 0 10px;
-    color: var(--bcc-muted);
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1;
-    user-select: none;
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-policies li:last-child {
+    border-bottom: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__help-link {
-    display: inline;
+    display: block;
     margin: 0;
-    padding: 0;
+    padding: 14px 16px;
     color: var(--bcc-text);
     background: transparent;
-    border: 0;
     font-size: 13px;
     font-weight: 700;
     line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__help-link:hover {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -702,14 +700,17 @@
     <div class="brisa-customer-care__care-inner">
       {%- assign care_steps = section.blocks | where: 'type', 'care_step' -%}
       {%- for block in care_steps -%}
+        {%- capture care_step_image -%}like-new_0{{ forloop.index }}.png{%- endcapture -%}
         <div class="brisa-customer-care__care-step" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <div class="brisa-customer-care__care-step-image-wrap">
-              {{- block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'brisa-customer-care__care-step-image', sizes: '(max-width: 560px) 100vw, 560px', widths: '400,500,600,700,800' -}}
-            </div>
-          {%- endif -%}
           <div class="brisa-customer-care__care-step-body">
-            <span class="brisa-customer-care__care-step-number">{{ forloop.index }}</span>
+            <img
+              class="brisa-customer-care__care-step-icon"
+              src="{{ care_step_image | file_url }}"
+              alt=""
+              width="56"
+              height="56"
+              loading="lazy"
+            >
             <span>
               {%- if block.settings.title != blank -%}
                 <p class="brisa-customer-care__care-step-title">{{ block.settings.title | escape }}</p>
@@ -748,31 +749,23 @@
       {%- endif -%}
 
       {%- if section.settings.show_policy_links -%}
-        <ul class="brisa-customer-care__help-links" role="list" aria-label="Policies">
-          {%- assign policy_link_count = 0 -%}
+        <ul class="brisa-customer-care__help-policies" role="list" aria-label="Policies">
           {%- if shop.refund_policy -%}
-            {%- if policy_link_count > 0 -%}<li><span class="brisa-customer-care__help-separator" aria-hidden="true">|</span></li>{%- endif -%}
             <li>
               <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
             </li>
-            {%- assign policy_link_count = policy_link_count | plus: 1 -%}
           {%- endif -%}
           {%- if shop.terms_of_service -%}
-            {%- if policy_link_count > 0 -%}<li><span class="brisa-customer-care__help-separator" aria-hidden="true">|</span></li>{%- endif -%}
             <li>
               <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
             </li>
-            {%- assign policy_link_count = policy_link_count | plus: 1 -%}
           {%- endif -%}
           {%- if shop.shipping_policy -%}
-            {%- if policy_link_count > 0 -%}<li><span class="brisa-customer-care__help-separator" aria-hidden="true">|</span></li>{%- endif -%}
             <li>
               <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
             </li>
-            {%- assign policy_link_count = policy_link_count | plus: 1 -%}
           {%- endif -%}
           {%- if shop.privacy_policy -%}
-            {%- if policy_link_count > 0 -%}<li><span class="brisa-customer-care__help-separator" aria-hidden="true">|</span></li>{%- endif -%}
             <li>
               <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
             </li>
@@ -1259,7 +1252,14 @@
           "type": "care_step",
           "settings": {
             "title": "Stand it upside down to drain.",
-            "text": "Sit the device upside down so any remaining water drains cleanly out of the barrel. Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
+            "text": "Sit the device upside down so any remaining water drains cleanly out of the barrel."
+          }
+        },
+        {
+          "type": "care_step",
+          "settings": {
+            "title": "Let it dry, then reload.",
+            "text": "Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
           }
         }
       ]
