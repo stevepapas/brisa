@@ -2809,3 +2809,418 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 .template-learn .shopify-section--learn-product-details {
   overflow: hidden;
 }
+
+/* ============================================================
+   Brisa cart page
+   ============================================================ */
+.shopify-section--brisa-main-cart {
+  background: #ffffff;
+  padding: 0;
+}
+
+.brisa-cart {
+  color: #000000;
+  background: #ffffff;
+}
+
+.brisa-cart__inner {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+}
+
+.brisa-cart__title {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.brisa-cart__shipping-message {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.brisa-cart__shipping-message p {
+  margin: 0;
+}
+
+.brisa-cart__progress {
+  margin-bottom: 22px;
+}
+
+.brisa-cart__progress-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8e8e8;
+  overflow: visible;
+}
+
+.brisa-cart__progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--progress, 0) * 100%);
+  border-radius: inherit;
+  background: #23aee8;
+}
+
+.brisa-cart__progress-icon {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #23aee8;
+  transform: translate(-50%, -50%);
+}
+
+.brisa-cart__progress-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.brisa-cart__progress-icon--shipping {
+  left: 42%;
+}
+
+.brisa-cart__progress-icon--gift {
+  left: 100%;
+}
+
+.brisa-cart__item {
+  padding: 18px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.brisa-cart__item-main {
+  display: flex;
+  gap: 14px;
+}
+
+.brisa-cart__item-image {
+  flex: 0 0 80px;
+  width: 80px;
+}
+
+.brisa-cart__item-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.brisa-cart__item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.brisa-cart__item-title {
+  display: block;
+  margin-bottom: 4px;
+  color: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.brisa-cart__item-subtitle {
+  margin: 0 0 8px;
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.brisa-cart__item-pricing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.brisa-cart__price--compare {
+  color: #888888;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: line-through;
+}
+
+.brisa-cart__price--current {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.brisa-cart__price--free {
+  color: #2e9e7b;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.brisa-cart__item-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.brisa-cart__quantity-selector {
+  min-width: 110px;
+}
+
+.brisa-cart__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #666666;
+  text-decoration: none;
+}
+
+.brisa-cart__item-discounts {
+  margin: 8px 0 0;
+  color: #666666;
+  font-size: 12px;
+}
+
+.brisa-cart__recommendations {
+  display: block;
+  padding: 18px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.brisa-cart__recommendations[hidden] {
+  display: none;
+}
+
+.brisa-cart__recommendations-heading {
+  margin: 0 0 12px;
+  color: #888888;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brisa-cart__recommendation {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.brisa-cart__recommendation-image {
+  flex: 0 0 72px;
+  width: 72px;
+}
+
+.brisa-cart__recommendation-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.brisa-cart__recommendation-title {
+  display: block;
+  margin-bottom: 2px;
+  color: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brisa-cart__recommendation-price {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.brisa-cart__recommendation-quick-view {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.brisa-cart__gift,
+.brisa-cart__summary {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f3f3f3;
+  border-radius: 12px;
+}
+
+.brisa-cart__gift {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brisa-cart__gift-text {
+  margin: 0;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.brisa-cart__gift-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.brisa-cart__summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.brisa-cart__summary-row--total {
+  margin-top: 12px;
+  margin-bottom: 0;
+  padding-top: 12px;
+  border-top: 1px solid #dddddd;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.brisa-cart__summary-free {
+  color: #2e9e7b;
+  font-weight: 800;
+}
+
+.brisa-cart__afterpay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.brisa-cart__afterpay-logo {
+  flex: 0 0 auto;
+  width: 64px;
+  height: auto;
+}
+
+.brisa-cart__guarantee {
+  margin-top: 18px !important;
+  text-align: left !important;
+}
+
+.brisa-cart__guarantee .brisa-product-detail__guarantee-header {
+  justify-content: flex-start;
+}
+
+.brisa-cart__trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  justify-content: center;
+  margin: 14px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.brisa-cart__trust-item {
+  white-space: nowrap;
+}
+
+.brisa-cart__urgency {
+  margin-top: 16px;
+}
+
+.brisa-cart__footer {
+  margin-top: 16px;
+}
+
+.brisa-cart__checkout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #23aee8 !important;
+  color: #ffffff !important;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brisa-cart__checkout-button:hover {
+  background: #1a98d0 !important;
+}
+
+.brisa-cart__checkout-lock {
+  display: inline-flex;
+  color: #ffe066;
+}
+
+.brisa-cart__checkout-lock svg {
+  width: 18px;
+  height: 18px;
+}
+
+.brisa-cart__payment-methods {
+  margin-top: 16px;
+}
+
+.brisa-cart__empty {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.brisa-cart__empty-text {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+@media screen and (min-width: 750px) {
+  .brisa-cart__inner {
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+
+  .brisa-cart__urgency {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+  }
+}
