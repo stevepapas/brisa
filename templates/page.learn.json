@@ -172,7 +172,6 @@
         "feature_ritual": {
           "type": "feature",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_03.png",
             "title": "Satisfies the ritual",
             "text": "Designed to recreate the familiar hand-to-mouth routine."
           }
@@ -180,7 +179,6 @@
         "feature_no_nic": {
           "type": "feature",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_10.png",
             "title": "No Nicotine",
             "text": "Zero nicotine, zero tobacco, zero addictive substance."
           }
@@ -208,7 +206,6 @@
         "detail_throat": {
           "type": "detail",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_09.png",
             "title": "Throat sensation",
             "text": "Built for a cool, familiar draw and sensory feel."
           }
@@ -216,7 +213,6 @@
         "detail_no_smoke": {
           "type": "detail",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_05.png",
             "title": "No smoke No vapour",
             "text": "Just air and aroma. No combustion, no clouds."
           }
@@ -224,7 +220,6 @@
         "detail_guarantee": {
           "type": "detail",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_14.png",
             "title": "30 Day Success Guarantee",
             "text": "Need support? Book a call and we'll help you use it properly."
           }
@@ -232,7 +227,6 @@
         "detail_food_grade": {
           "type": "detail",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_03.png",
             "title": "Food-Grade Cores",
             "text": "Made with food-grade aroma compounds inside the core."
           }
@@ -240,7 +234,6 @@
         "detail_reusable": {
           "type": "detail",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_10.png",
             "title": "Reusable Device",
             "text": "One device. Simply replace the cores when needed."
           }
@@ -248,7 +241,6 @@
         "detail_aussie": {
           "type": "detail",
           "settings": {
-            "icon_image": "shopify://shop_images/brisa_17.png",
             "title": "Australian Designed",
             "text": "Designed in Australia for everyday use and real routines."
           }

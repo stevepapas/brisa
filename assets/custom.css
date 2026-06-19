@@ -2669,6 +2669,24 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   display: inline;
 }
 
+/* Learn page — Same Motion feature grid spacing */
+.template-learn {
+  --learn-features-gap: 24px;
+}
+
+.template-learn .learn-pitch__features,
+.template-learn .learn-details__grid {
+  gap: var(--learn-features-gap);
+}
+
+.template-learn .shopify-section--learn-product-pitch .learn-pitch__features {
+  margin-bottom: var(--learn-features-gap);
+}
+
+.template-learn .shopify-section--learn-product-details {
+  padding-top: 0;
+}
+
 /* Learn page — icon circles (pre-rendered blue circle + white symbol PNGs) */
 .template-learn .learn-icon-circle {
   display: inline-flex;

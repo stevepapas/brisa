@@ -14,7 +14,7 @@
   #shopify-section-{{ section.id }} .learn-details__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px 16px;
+    gap: var(--learn-features-gap, 24px);
     margin-bottom: 32px;
   }
 
@@ -100,11 +100,7 @@
             {%- liquid
               assign icon_asset = block.settings.title | handle | append: '.png'
             -%}
-            {%- if block.settings.icon_image != blank -%}
-              <span class="learn-details__icon-wrap learn-icon-circle">
-                {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-details__icon', loading: 'lazy', widths: '44,88', width: 44, height: 44 }}
-              </span>
-            {%- elsif icon_asset != blank -%}
+            {%- if block.settings.title != blank -%}
               <span class="learn-details__icon-wrap learn-icon-circle">
                 <img
                   src="{{ icon_asset | asset_url }}"
@@ -114,6 +110,10 @@
                   width="44"
                   height="44"
                 >
+              </span>
+            {%- elsif block.settings.icon_image != blank -%}
+              <span class="learn-details__icon-wrap learn-icon-circle">
+                {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'learn-details__icon', loading: 'lazy', widths: '44,88', width: 44, height: 44 }}
               </span>
             {%- endif -%}
             <div>
