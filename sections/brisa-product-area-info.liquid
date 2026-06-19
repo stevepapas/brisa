@@ -13,12 +13,7 @@
           {% if section.settings.trust_icon_shipping != blank %}
             {{ section.settings.trust_icon_shipping | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
           {% else %}
-            <svg viewBox="0 0 48 48" focusable="false">
-              <path d="M7 30h25l6-9h3a4 4 0 0 1 4 4v5h-5" />
-              <path d="M7 30V18h23v12" />
-              <path d="M15 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM36 35a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
-              <path d="M11 16h14M8 21h10M5 25h10" />
-            </svg>
+            <img src="{{ 'free-shipping.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
           {% endif %}
         </span>
         <span>{{ section.settings.trust_shipping | escape | newline_to_br }}</span>
@@ -29,11 +24,7 @@
           {% if section.settings.trust_icon_checkout != blank %}
             {{ section.settings.trust_icon_checkout | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
           {% else %}
-            <svg viewBox="0 0 48 48" focusable="false">
-              <rect x="11" y="21" width="26" height="19" rx="3" />
-              <path d="M17 21v-6a7 7 0 0 1 14 0v6" />
-              <path d="M24 29v5" />
-            </svg>
+            <img src="{{ 'secure.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
           {% endif %}
         </span>
         <span>{{ section.settings.trust_checkout | escape }}</span>
@@ -44,13 +35,7 @@
           {% if section.settings.trust_icon_social != blank %}
             {{ section.settings.trust_icon_social | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
           {% else %}
-            <svg viewBox="0 0 48 48" focusable="false">
-              <path d="M8 20c5-7 11-7 16 0 5-7 11-7 16 0" />
-              <path d="M8 29c5-7 11-7 16 0 5-7 11-7 16 0" />
-              <circle cx="12" cy="37" r="3" />
-              <circle cx="24" cy="37" r="3" />
-              <circle cx="36" cy="37" r="3" />
-            </svg>
+            <img src="{{ '1000s.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
           {% endif %}
         </span>
         <span>{{ section.settings.trust_social | escape | newline_to_br }}</span>
