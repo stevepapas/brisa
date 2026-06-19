@@ -1448,7 +1448,8 @@ display: none;
 
 @media screen and (min-width: 750px) {
   .brisa-product-area-info__sellout,
-  .brisa-product-area-info__panel.brisa-product-area-info__panel--aroma {
+  .brisa-product-area-info__panel.brisa-product-area-info__panel--aroma,
+  .brisa-product-area-info__starter {
     width: 100vw;
     margin-left: calc(50% - 50vw);
     box-sizing: border-box;
@@ -1462,6 +1463,11 @@ display: none;
   .brisa-product-area-info__panel.brisa-product-area-info__panel--aroma {
     padding-left: calc(50vw - 50% + 64px);
     padding-right: calc(50vw - 50% + 64px);
+  }
+
+  .brisa-product-area-info__starter {
+    padding-left: calc(50vw - 50% + 52px);
+    padding-right: calc(50vw - 50% + 52px);
   }
 }
 
