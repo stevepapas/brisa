@@ -252,6 +252,33 @@
             "title": "Australian Designed",
             "text": "Designed in Australia for everyday use and real routines."
           }
+        },
+        "video_review_1": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-2.png",
+            "video": "shopify://files/videos/test2.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_2": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-3.png",
+            "video": "shopify://files/videos/test3.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_3": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-1.png",
+            "video": "shopify://files/videos/test-1.mov",
+            "video_url": "",
+            "label": "customer video review"
+          }
         }
       },
       "block_order": [
@@ -260,7 +287,10 @@
         "detail_guarantee",
         "detail_food_grade",
         "detail_reusable",
-        "detail_aussie"
+        "detail_aussie",
+        "video_review_1",
+        "video_review_2",
+        "video_review_3"
       ],
       "name": "Learn product details",
       "settings": {
@@ -268,10 +298,11 @@
         "inside_text": "<p>A PET fibre core, natural food-grade aroma compounds, and aromatherapy compounds - engineered together to deliver a clean, satisfying experience. <strong>No nicotine. No vapour. No combustion.</strong></p>",
         "badge": "REAL RESULTS",
         "social_heading": "FROM THE PEOPLE WHO'VE\nALREADY MADE THE SWITCH.",
-        "testimonial_initial": "B",
-        "testimonial_name": "BELINDA C.",
-        "testimonial_verified": "VERIFIED BUYER",
-        "testimonial_quote": "Absolutely love it. Got it 4 days ago and started straight away, haven't used the vape once. You guys are legends!",
+        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_arrows": true,
+        "show_dots": false,
+        "autoplay": false,
+        "autoplay_speed": 5000,
         "max_width": 520,
         "background": "#ffffff",
         "padding_top": 24,

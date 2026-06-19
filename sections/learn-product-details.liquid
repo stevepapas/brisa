@@ -89,65 +89,6 @@
     line-height: 1.1;
     text-transform: uppercase;
   }
-
-  #shopify-section-{{ section.id }} .learn-details__card {
-    padding: 24px 20px;
-    text-align: left;
-    background: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 14px;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__card-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    color: #ffffff;
-    background: var(--learn-blue);
-    border-radius: 50%;
-    font-size: 18px;
-    font-weight: 900;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__name {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__verified {
-    margin: 2px 0 0;
-    color: #666666;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__stars {
-    margin-bottom: 12px;
-    color: var(--learn-blue);
-    font-size: 16px;
-    letter-spacing: 2px;
-  }
-
-  #shopify-section-{{ section.id }} .learn-details__quote {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 16px;
-    font-style: italic;
-    line-height: 1.45;
-  }
 </style>
 
 <section class="learn-details" {{ section.shopify_attributes }}>
@@ -196,25 +137,12 @@
       <h2 class="learn-details__social-heading">{{ section.settings.social_heading | escape | newline_to_br }}</h2>
     {%- endif -%}
 
-    {%- if section.settings.testimonial_quote != blank -%}
-      <div class="learn-details__card">
-        <div class="learn-details__card-header">
-          {%- if section.settings.testimonial_initial != blank -%}
-            <span class="learn-details__avatar">{{ section.settings.testimonial_initial | escape }}</span>
-          {%- endif -%}
-          <div>
-            {%- if section.settings.testimonial_name != blank -%}
-              <p class="learn-details__name">{{ section.settings.testimonial_name | escape }}</p>
-            {%- endif -%}
-            {%- if section.settings.testimonial_verified != blank -%}
-              <p class="learn-details__verified">{{ section.settings.testimonial_verified | escape }}</p>
-            {%- endif -%}
-          </div>
-        </div>
-        <p class="learn-details__stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-        <p class="learn-details__quote">&ldquo;{{ section.settings.testimonial_quote | escape }}&rdquo;</p>
-      </div>
-    {%- endif -%}
+    {% render 'brisa-product-testimonials-slider',
+      section: section,
+      show_heading: false,
+      desktop_page_size: 1,
+      mobile_page_size: 1
+    %}
     </div>
   </div>
 </section>
@@ -223,7 +151,7 @@
 {
   "name": "Learn product details",
   "class": "shopify-section--learn-product-details",
-  "max_blocks": 8,
+  "max_blocks": 12,
   "settings": [
     {
       "type": "text",
@@ -250,28 +178,38 @@
       "default": "FROM THE PEOPLE WHO'VE\nALREADY MADE THE SWITCH."
     },
     {
-      "type": "text",
-      "id": "testimonial_initial",
-      "label": "Testimonial initial",
-      "default": "B"
-    },
-    {
-      "type": "text",
-      "id": "testimonial_name",
-      "label": "Testimonial name",
-      "default": "BELINDA C."
-    },
-    {
-      "type": "text",
-      "id": "testimonial_verified",
-      "label": "Testimonial verified label",
-      "default": "VERIFIED BUYER"
-    },
-    {
       "type": "textarea",
-      "id": "testimonial_quote",
-      "label": "Testimonial quote",
-      "default": "Absolutely love it. Got it 4 days ago and started straight away, haven't used the vape once. You guys are legends!"
+      "id": "disclaimer",
+      "label": "Reviews disclaimer",
+      "default": "Customer experiences vary. Brisa is not a medical device or smoking cessation product."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show review arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show review dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable review autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Review autoplay speed",
+      "min": 3000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
     },
     {
       "type": "header",
@@ -335,6 +273,35 @@
           "id": "text",
           "label": "Description",
           "default": "Built for a cool, familiar draw and sensory feel."
+        }
+      ]
+    },
+    {
+      "type": "video_review",
+      "name": "Video review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "thumbnail",
+          "label": "Person thumbnail"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Local video",
+          "info": "Replaces the external video if both are set."
+        },
+        {
+          "type": "video_url",
+          "id": "video_url",
+          "label": "External video",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Accessibility label",
+          "default": "customer video review"
         }
       ]
     }

@@ -2747,6 +2747,39 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   text-align: center;
 }
 
+.template-learn .learn-details__testimonials .brisa-product-testimonials {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__viewport {
+  max-width: 100%;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__track {
+  display: flex;
+  grid-auto-columns: unset;
+  grid-auto-flow: unset;
+  grid-template-rows: unset;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__card {
+  flex: 0 0 100%;
+  text-align: left;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__disclaimer {
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__video-grid {
+  margin-top: 24px;
+}
+
 .template-learn .shopify-section--learn-product-details {
   overflow: hidden;
 }

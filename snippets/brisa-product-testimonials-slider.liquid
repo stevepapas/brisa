@@ -1,0 +1,135 @@
+{% liquid
+  assign selected_testimonials = shop.metaobjects.testimonial.values
+  assign total_testimonials = selected_testimonials | size
+  assign mobile_page_size = mobile_page_size | default: 2
+  assign desktop_page_size = desktop_page_size | default: 3
+  assign mobile_slides = total_testimonials | plus: mobile_page_size | minus: 1 | divided_by: mobile_page_size
+  assign desktop_slides = total_testimonials | plus: desktop_page_size | minus: 1 | divided_by: desktop_page_size
+  assign show_heading = show_heading | default: true
+%}
+
+<brisa-product-testimonials
+  class="brisa-product-testimonials"
+  data-total-items="{{ total_testimonials }}"
+  data-mobile-page-size="{{ mobile_page_size }}"
+  data-desktop-page-size="{{ desktop_page_size }}"
+  data-mobile-slides="{{ mobile_slides }}"
+  data-desktop-slides="{{ desktop_slides }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-autoplay-speed="{{ section.settings.autoplay_speed }}"
+>
+  {% if show_heading and section.settings.heading != blank %}
+    <h2 class="brisa-product-testimonials__heading">{{ section.settings.heading | escape }}</h2>
+  {% endif %}
+
+  {% if total_testimonials > 0 %}
+    <div class="brisa-product-testimonials__viewport">
+      <div class="brisa-product-testimonials__track">
+        {% for testimonial in selected_testimonials %}
+          {% liquid
+            assign author = testimonial.author.value | default: testimonial.name.value | default: testimonial.customer_name.value | default: testimonial.title.value
+            assign initial = testimonial.initial.value | default: author | strip | slice: 0, 1
+            assign quote = testimonial.quote.value | default: testimonial.review.value | default: testimonial.content.value | default: testimonial.testimonial.value
+            assign rating = testimonial.rating.value | default: 5 | plus: 0
+          %}
+
+          <article class="brisa-product-testimonials__card">
+            <div class="brisa-product-testimonials__avatar" aria-hidden="true">{{ initial | escape }}</div>
+
+            <div class="brisa-product-testimonials__copy">
+              {% if author != blank %}
+                <h3 class="brisa-product-testimonials__author">{{ author | escape }}</h3>
+              {% endif %}
+
+              <div class="brisa-product-testimonials__stars" aria-label="{{ rating }} out of 5 stars">
+                {% for star in (1..5) %}
+                  <span class="brisa-product-testimonials__star {% if star > rating %}brisa-product-testimonials__star--empty{% endif %}" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
+                    </svg>
+                  </span>
+                {% endfor %}
+              </div>
+
+              {% if quote != blank %}
+                <p class="brisa-product-testimonials__quote">"{{ quote | strip_html | truncatewords: 30 | escape }}"</p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      {% if total_testimonials > mobile_page_size and section.settings.show_arrows %}
+        <button class="brisa-product-testimonials__nav brisa-product-testimonials__nav--prev" type="button" aria-label="Previous testimonials">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="m15 5-7 7 7 7" />
+          </svg>
+        </button>
+
+        <button class="brisa-product-testimonials__nav brisa-product-testimonials__nav--next" type="button" aria-label="Next testimonials">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="m9 5 7 7-7 7" />
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+
+    {% if total_testimonials > mobile_page_size and section.settings.show_dots %}
+      <div class="brisa-product-testimonials__dots" aria-label="Testimonials navigation"></div>
+    {% endif %}
+  {% endif %}
+
+  {% if section.settings.disclaimer != blank %}
+    <p class="brisa-product-testimonials__disclaimer">{{ section.settings.disclaimer | escape }}</p>
+  {% endif %}
+
+  {% assign video_blocks = section.blocks | where: 'type', 'video_review' %}
+  {% if video_blocks.size > 0 %}
+    <div class="brisa-product-testimonials__video-grid">
+      {% for block in video_blocks %}
+        {% liquid
+          assign video_src = ''
+          assign video_type = ''
+
+          if block.settings.video != blank
+            assign local_video_source = block.settings.video.sources | where: 'format', 'mp4' | first
+            if local_video_source == blank
+              assign local_video_source = block.settings.video.sources | first
+            endif
+            assign video_src = local_video_source.url
+            assign video_type = 'html5'
+          elsif block.settings.video_url.type == 'youtube'
+            assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+            assign video_type = 'iframe'
+          elsif block.settings.video_url.type == 'vimeo'
+            assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+            assign video_type = 'iframe'
+          endif
+        %}
+
+        <button
+          type="button"
+          class="brisa-product-testimonials__video-thumb"
+          {% if video_src != blank %}data-brisa-video-src="{{ video_src | escape }}"{% endif %}
+          {% if video_type != blank %}data-brisa-video-type="{{ video_type }}"{% endif %}
+          aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.thumbnail != blank %}
+            <img
+              src="{{ block.settings.thumbnail | image_url: width: 420 }}"
+              alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
+              loading="lazy"
+              width="{{ block.settings.thumbnail.width }}"
+              height="{{ block.settings.thumbnail.height }}"
+            >
+          {% endif %}
+
+          <span class="brisa-product-testimonials__video-play" aria-hidden="true">
+            <span></span>
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</brisa-product-testimonials>
