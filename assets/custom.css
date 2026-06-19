@@ -1814,6 +1814,11 @@ display: none;
     height: 40px;
   }
 
+  .brisa-product-area-info__feature-icon--image img {
+    width: 40px;
+    height: 40px;
+  }
+
   .brisa-product-area-info__feature p,
   .brisa-product-area-info__step p,
   .brisa-product-area-info__starter p {
