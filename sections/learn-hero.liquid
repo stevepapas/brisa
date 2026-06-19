@@ -139,12 +139,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--learn-blue);
+    background: transparent;
     border-radius: 50%;
-    overflow: hidden;
+    overflow: visible;
   }
 
   #shopify-section-{{ section.id }} .learn-hero__icon-img {
+    display: block;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
   }
 

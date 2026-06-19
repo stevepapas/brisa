@@ -2618,34 +2618,35 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   display: inline;
 }
 
-/* Learn page — icon circles (white symbol on brand blue) */
+/* Learn page — icon circles (pre-rendered blue circle + white symbol PNGs) */
 .template-learn .learn-icon-circle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: #038bdd;
+  width: 44px;
+  height: 44px;
+  background: transparent;
   border-radius: 50%;
-  overflow: hidden;
+  overflow: visible;
   flex-shrink: 0;
 }
 
 .template-learn .learn-icon-circle img {
-  width: 30px;
-  height: 30px;
+  display: block;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
 }
 
 .template-learn .learn-hero__icon-circle {
   width: 44px;
   height: 44px;
+  background: transparent;
 }
 
 .template-learn .learn-hero__icon-circle img {
-  width: 26px;
-  height: 26px;
+  width: 44px;
+  height: 44px;
 }
 
 /* Learn page — plain icons on white (no circle) */
@@ -2667,7 +2668,6 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   width: 22px;
   height: 22px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
 }
 
 /* Learn page — light blue highlight boxes with red border */
