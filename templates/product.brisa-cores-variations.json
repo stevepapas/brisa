@@ -84,7 +84,7 @@
         "feature_no_nicotine": {
           "type": "feature",
           "settings": {
-            "icon_image": "shopify://shop_images/no-nicotine-icon-png.png",
+            "icon_image": "shopify://shop_images/no-nicotine-icon.png",
             "icon": "no_nicotine",
             "title": "No Nicotine",
             "text": ""

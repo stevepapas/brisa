@@ -296,11 +296,47 @@
                   assign feature_title = 'Multiple aroma profiles'
               endcase
             endif
+
+            assign feature_icon_file = blank
+            assign feature_title_key = feature_title | downcase | strip
+
+            case feature_icon
+              when 'leaf'
+                assign feature_icon_file = 'food-grade.png'
+              when 'no_nicotine'
+                assign feature_icon_file = 'no-nicotine-icon.png'
+              when 'slot'
+                assign feature_icon_file = 'slot-in-install.png'
+              when 'sparkles'
+                assign feature_icon_file = 'multiple-aroma-profiles.png'
+            endcase
+
+            if feature_icon_file == blank
+              case feature_title_key
+                when 'food-grade cores'
+                  assign feature_icon_file = 'food-grade.png'
+                when 'no nicotine'
+                  assign feature_icon_file = 'no-nicotine-icon.png'
+                when 'slot-in install'
+                  assign feature_icon_file = 'slot-in-install.png'
+                when 'multiple aroma profiles'
+                  assign feature_icon_file = 'multiple-aroma-profiles.png'
+              endcase
+            endif
           %}
 
           <div class="brisa-device-header__feature"{% if section.blocks.size > 0 %} {{ block.shopify_attributes }}{% endif %}>
-            <div class="brisa-device-header__icon{% if feature_icon_image != blank %} brisa-device-header__icon--has-image{% endif %}" aria-hidden="true">
-              {% if feature_icon_image != blank %}
+            <div class="brisa-device-header__icon{% if feature_icon_file != blank or feature_icon_image != blank %} brisa-device-header__icon--has-image{% endif %}" aria-hidden="true">
+              {% if feature_icon_file != blank %}
+                <img
+                  class="brisa-device-header__icon-image"
+                  src="{{ feature_icon_file | file_url }}"
+                  alt=""
+                  loading="lazy"
+                  width="72"
+                  height="72"
+                >
+              {% elsif feature_icon_image != blank %}
                 <img
                   class="brisa-device-header__icon-image"
                   src="{{ feature_icon_image | image_url: width: 120 }}"
