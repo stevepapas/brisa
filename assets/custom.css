@@ -2521,14 +2521,9 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   display: none !important;
 }
 
-.template-brisa-cores .shopify-section--brisa-product-area-info .brisa-product-area-info__trust-row,
-.template-brisa-cores-variations .shopify-section--brisa-product-area-info .brisa-product-area-info__trust-row {
+.template-brisa-cores .shopify-section--brisa-cores-picker:has(.brisa-product-area-info__trust-row) + .shopify-section--brisa-product-area-info .brisa-product-area-info__trust-row,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker:has(.brisa-product-area-info__trust-row) + .shopify-section--brisa-product-area-info .brisa-product-area-info__trust-row {
   display: none !important;
-}
-
-.template-brisa-cores .shopify-section--brisa-cores-picker .brisa-product-area-info__trust-row,
-.template-brisa-cores-variations .shopify-section--brisa-cores-picker .brisa-product-area-info__trust-row {
-  display: grid !important;
 }
 
 /* Pricing line above ATC button */
