@@ -346,6 +346,19 @@
     text-align: center;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-panel-wrap {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-customer-care__care-panel-wrap {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__care-heading {
     margin: 0;
     font-size: clamp(26px, 6.5vw, 34px);
@@ -361,8 +374,18 @@
     text-align: left;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-panel {
+    margin-top: 16px;
+    padding: 16px;
+    border: 3px solid #2c579b;
+    border-radius: 12px;
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency {
-    margin: 16px 0 0;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin: 0 0 16px;
     padding: 14px 16px;
     font-size: 14px;
     line-height: 1.45;
@@ -372,10 +395,23 @@
     border-radius: 10px;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__care-inner {
-    max-width: var(--bcc-max-width);
-    margin: 0 auto;
-    padding: 8px 20px 40px;
+    max-width: none;
+    margin: 0;
+    padding: 0;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-step {
@@ -692,12 +728,29 @@
       {%- if section.settings.care_intro != blank -%}
         <p class="brisa-customer-care__care-intro">{{ section.settings.care_intro | escape }}</p>
       {%- endif -%}
-      {%- if section.settings.care_frequency != blank -%}
-        <p class="brisa-customer-care__care-frequency">{{ section.settings.care_frequency | escape }}</p>
-      {%- endif -%}
     </div>
 
-    <div class="brisa-customer-care__care-inner">
+    <div class="brisa-customer-care__care-panel-wrap">
+      <div class="brisa-customer-care__care-panel">
+        {%- if section.settings.care_frequency != blank -%}
+          {%- assign care_frequency_icon = section.settings.care_frequency_icon -%}
+          {%- if care_frequency_icon == blank -%}
+            {%- assign care_frequency_icon = 'like-new_00.png' -%}
+          {%- endif -%}
+          <div class="brisa-customer-care__care-frequency">
+            <img
+              class="brisa-customer-care__care-frequency-icon"
+              src="{{ care_frequency_icon | file_url }}"
+              alt=""
+              width="56"
+              height="56"
+              loading="lazy"
+            >
+            <p class="brisa-customer-care__care-frequency-text">{{ section.settings.care_frequency | escape }}</p>
+          </div>
+        {%- endif -%}
+
+        <div class="brisa-customer-care__care-inner">
       {%- assign care_steps = section.blocks | where: 'type', 'care_step' -%}
       {%- for block in care_steps -%}
         {%- capture care_step_image -%}like-new_0{{ forloop.index }}.png{%- endcapture -%}
@@ -736,6 +789,8 @@
           </span>
         </div>
       {%- endif -%}
+        </div>
+      </div>
     </div>
   </div>
 
@@ -984,6 +1039,13 @@
       "id": "care_frequency",
       "label": "Frequency note",
       "default": "Aim to clean your Better Unit at least every 3 days — sooner if you're using it daily."
+    },
+    {
+      "type": "text",
+      "id": "care_frequency_icon",
+      "label": "Frequency icon filename",
+      "info": "Uploaded file in Settings → Files (e.g. like-new_00.png)",
+      "default": "like-new_00.png"
     },
     {
       "type": "text",
