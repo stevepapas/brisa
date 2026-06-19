@@ -10,40 +10,39 @@
 {
   "sections": {
     "main": {
-      "type": "main-cart",
-      "blocks": {
-        "totals": {
-          "type": "totals",
-          "settings": {}
-        },
-        "order_note": {
-          "type": "order_note",
-          "settings": {
-            "open_by_default": false
-          }
-        }
-      },
-      "block_order": [
-        "totals",
-        "order_note"
-      ],
-      "custom_css": [],
+      "type": "brisa-main-cart",
       "settings": {
+        "title": "Your Cart ([count])",
+        "show_shipping_message": true,
+        "free_shipping_message": "<p>Congratulations you are eligible for <strong>FREE SHIPPING</strong> 🤝</p>",
+        "always_show_free_shipping": true,
+        "default_line_subtitle": "9 cores · 3 to 5 weeks of ritual",
+        "show_recommendations": true,
+        "recommendations_title": "You May Also Like",
+        "quick_view_label": "QUICK VIEW",
+        "show_gift_bonus": true,
+        "gift_trigger_handles": "brisa-starter-kit,starter-kit",
+        "gift_text": "🎁 FREE Watermelon Core 3-pack — $15 value · auto-included with your kit",
+        "gift_value": "$15",
+        "gift_price_label": "Free",
+        "show_afterpay": true,
+        "afterpay_text": "4 payments of [amount] with Afterpay",
+        "show_guarantee": true,
+        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
+        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "show_trust_bar": true,
+        "trust_reviews": "⭐ 4.7/5 (163 reviews)",
+        "trust_social": "🇦🇺 1,000+ Aussies on Brisa",
+        "trust_checkout": "🔒 Secure Checkout",
+        "show_urgency": true,
+        "urgency_text": "⚡️ WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
+        "checkout_button_text": "SECURE CHECKOUT - [total] >",
         "show_payment_methods": true,
-        "show_shipping_estimator": true,
-        "shipping_estimator_default_country": "United States",
         "empty_button_link": "shopify://pages/shop"
-      }
-    },
-    "cart-recommendations": {
-      "type": "cart-recommendations",
-      "settings": {
-        "title": "You may also like"
       }
     }
   },
   "order": [
-    "main",
-    "cart-recommendations"
+    "main"
   ]
 }

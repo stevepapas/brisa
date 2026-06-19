@@ -1,0 +1,586 @@
+{% liquid
+  assign section_uid = section.id | replace: '-', '' | downcase
+  assign gift_trigger_handles = section.settings.gift_trigger_handles | downcase | split: ','
+  assign show_gift_bonus = false
+
+  for line_item in cart.items
+    assign item_handle = line_item.product.handle | downcase
+    for trigger_handle in gift_trigger_handles
+      assign trigger = trigger_handle | strip
+      if trigger != blank and item_handle contains trigger
+        assign show_gift_bonus = true
+        break
+      endif
+    endfor
+    if show_gift_bonus
+      break
+    endif
+  endfor
+
+  assign shipping_is_free = false
+  if settings.cart_show_free_shipping_threshold and settings.cart_free_shipping_threshold != '' and cart.requires_shipping
+    assign free_shipping_thresholds = settings.cart_free_shipping_threshold | remove: ' ' | split: ','
+    assign has_found_matching_threshold = false
+
+    if free_shipping_thresholds.size > 1
+      for threshold in free_shipping_thresholds
+        assign threshold_parts = threshold | split: ':'
+        assign currency_code = threshold_parts | first | upcase
+        if currency_code == cart.currency.iso_code
+          assign free_shipping_calculated_threshold = threshold_parts | last
+          assign has_found_matching_threshold = true
+          break
+        endif
+      endfor
+    else
+      assign free_shipping_calculated_threshold = free_shipping_thresholds | last
+      assign has_found_matching_threshold = true
+    endif
+
+    if has_found_matching_threshold
+      assign threshold_in_cents = free_shipping_calculated_threshold | times: 100
+      assign calculated_total_price = cart.total_price
+      for line_item in cart.items
+        unless line_item.requires_shipping
+          assign calculated_total_price = calculated_total_price | minus: line_item.final_line_price
+        endunless
+      endfor
+      assign total_cart_discount = 0
+      for discount_application in cart.cart_level_discount_applications
+        assign total_cart_discount = total_cart_discount | plus: discount_application.total_allocated_amount
+      endfor
+      assign calculated_total_price = calculated_total_price | minus: total_cart_discount
+      if calculated_total_price >= threshold_in_cents
+        assign shipping_is_free = true
+      endif
+    endif
+  elsif cart.requires_shipping == false or section.settings.always_show_free_shipping
+    assign shipping_is_free = true
+  endif
+
+  assign progress_value = 0
+  if shipping_is_free and show_gift_bonus
+    assign progress_value = 1
+  elsif shipping_is_free
+    assign progress_value = 0.55
+  elsif show_gift_bonus
+    assign progress_value = 1
+  endif
+
+  assign installment_amount = cart.total_price | divided_by: 4
+%}
+
+<section class="brisa-cart brisa-cart-{{ section_uid }}" data-section-id="{{ section.id }}">
+  <div class="brisa-cart__inner">
+    {%- if cart.item_count == 0 -%}
+      <div class="brisa-cart__empty">
+        <h1 class="brisa-cart__title">{{ section.settings.empty_title | default: 'Your Cart' }}</h1>
+        <p class="brisa-cart__empty-text">{{ 'cart.general.empty' | t }}</p>
+        <a href="{{ section.settings.empty_button_link }}" class="brisa-cart__checkout-button">{{ 'cart.general.start_shopping' | t }}</a>
+      </div>
+    {%- else -%}
+      <header class="brisa-cart__header">
+        <h1 class="brisa-cart__title">{{ section.settings.title | replace: '[count]', cart.item_count }}</h1>
+
+        {%- if section.settings.show_shipping_message -%}
+          <p class="brisa-cart__shipping-message">
+            {%- if shipping_is_free or section.settings.always_show_free_shipping -%}
+              {{ section.settings.free_shipping_message }}
+            {%- else -%}
+              {{ section.settings.shipping_progress_message }}
+            {%- endif -%}
+          </p>
+
+          <div class="brisa-cart__progress" style="--progress: {{ progress_value }};" aria-hidden="true">
+            <div class="brisa-cart__progress-track">
+              <div class="brisa-cart__progress-fill"></div>
+              <span class="brisa-cart__progress-icon brisa-cart__progress-icon--shipping">
+                {% render 'icon' with 'picto-delivery-truck' %}
+              </span>
+              <span class="brisa-cart__progress-icon brisa-cart__progress-icon--gift">
+                {% render 'icon' with 'picto-gift' %}
+              </span>
+            </div>
+          </div>
+        {%- endif -%}
+      </header>
+
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="brisa-cart__form" id="brisa-cart-form">
+        <input type="hidden" name="checkout">
+
+        <div class="brisa-cart__items">
+          {%- for line_item in cart.items -%}
+            {% liquid
+              assign max_quantity = ''
+              assign variant = line_item.variant
+
+              if variant.inventory_management != blank and variant.inventory_policy == 'deny'
+                assign current_quantity_for_variant = cart | item_count_for_variant: variant.id
+                assign max_quantity = variant.inventory_quantity | minus: current_quantity_for_variant | plus: line_item.quantity
+              endif
+
+              if variant.quantity_rule.max != nil
+                assign max_quantity = max_quantity | default: 999999 | at_most: variant.quantity_rule.max
+              endif
+
+              assign line_subtitle = line_item.product.metafields.custom.cart_subtitle.value
+              if line_subtitle == blank
+                assign line_subtitle = section.settings.default_line_subtitle
+              endif
+
+              assign display_title = line_item.product.title
+              unless line_item.product.has_only_default_variant
+                assign display_title = display_title | append: ' · ' | append: line_item.variant.title
+              endunless
+            %}
+
+            <article class="brisa-cart__item">
+              <div class="brisa-cart__item-main">
+                {%- if line_item.image != blank -%}
+                  <a href="{{ line_item.url }}" class="brisa-cart__item-image" tabindex="-1" aria-hidden="true">
+                    {{- line_item.image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80,120,160', sizes: '80px', alt: line_item.product.title -}}
+                  </a>
+                {%- endif -%}
+
+                <div class="brisa-cart__item-info">
+                  <a href="{{ line_item.url }}" class="brisa-cart__item-title">{{ display_title }}</a>
+                  {%- if line_subtitle != blank -%}
+                    <p class="brisa-cart__item-subtitle">{{ line_subtitle }}</p>
+                  {%- endif -%}
+
+                  <div class="brisa-cart__item-pricing">
+                    {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
+                      <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.variant.compare_at_price | times: line_item.quantity | money }}</span>
+                    {%- elsif line_item.original_line_price > line_item.final_line_price -%}
+                      <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.original_line_price | money }}</span>
+                    {%- endif -%}
+                    <span class="brisa-cart__price brisa-cart__price--current">
+                      {%- if line_item.final_line_price == 0 -%}
+                        {{ 'cart.general.free' | t }}
+                      {%- else -%}
+                        {{ line_item.final_line_price | money }}
+                      {%- endif -%}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="brisa-cart__item-actions">
+                <line-item-quantity class="brisa-cart__quantity">
+                  <div class="quantity-selector quantity-selector--small brisa-cart__quantity-selector">
+                    <a href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment | at_least: line_item.variant.quantity_rule.min }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.decrease_quantity' | t | escape }}" data-no-instant>{% render 'icon' with 'minus' %}</a>
+                    <input is="input-number" class="quantity-selector__input text--xsmall" value="{{ line_item.quantity }}" name="updates[]" data-line="{{ forloop.index }}" {% if max_quantity != '' %}max="{{ max_quantity }}"{% endif %} aria-label="{{ 'cart.general.change_quantity' | t | escape }}">
+                    {%- if max_quantity == blank or line_item.quantity < max_quantity -%}
+                      {% assign increment = line_item.quantity | plus: line_item.variant.quantity_rule.increment %}
+                      {%- if line_item.variant.quantity_rule.max != nil -%}
+                        {%- assign increment = increment | at_most: line_item.variant.quantity_rule.max -%}
+                      {%- endif -%}
+                      <a href="{{ routes.cart_change_url }}?quantity={{ increment }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.increase_quantity' | t | escape }}" data-no-instant>{% render 'icon' with 'plus' %}</a>
+                    {%- else -%}
+                      <span class="quantity-selector__button" aria-hidden="true">{% render 'icon' with 'plus' %}</span>
+                    {%- endif -%}
+                  </div>
+                </line-item-quantity>
+
+                <a href="{{ line_item.url_to_remove }}" class="brisa-cart__remove" aria-label="{{ 'cart.general.remove' | t | escape }}" data-no-instant>
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                    <path d="M9 3h6l1 2h5v2H4V5h5l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v9H7V9Z" fill="currentColor"/>
+                  </svg>
+                </a>
+              </div>
+
+              {%- if line_item.line_level_discount_allocations != blank -%}
+                <ul class="brisa-cart__item-discounts list--unstyled" role="list">
+                  {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                    <li class="brisa-cart__item-discount">{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_recommendations -%}
+          <product-recommendations section-id="{{ section.id }}" intent="related" product-id="{{ cart.items.first.product_id }}" recommendations-count="6" class="brisa-cart__recommendations" hidden>
+            {%- assign acceptable_recommendations_count = 0 -%}
+            {%- for product in recommendations.products -%}
+              {%- assign matching_product = cart.items | where: 'product_id', product.id | first -%}
+              {%- if matching_product == blank -%}
+                {%- assign acceptable_recommendations_count = acceptable_recommendations_count | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if recommendations.performed and acceptable_recommendations_count > 0 -%}
+              <div class="brisa-cart__recommendations-inner">
+                <p class="brisa-cart__recommendations-heading">{{ section.settings.recommendations_title }}</p>
+                {%- assign shown_products_count = 0 -%}
+                {%- for product in recommendations.products -%}
+                  {%- if shown_products_count >= 1 -%}
+                    {%- break -%}
+                  {%- endif -%}
+                  {%- assign matching_product = cart.items | where: 'product_id', product.id -%}
+                  {%- if matching_product.size == 0 -%}
+                    {%- assign shown_products_count = shown_products_count | plus: 1 -%}
+                    <div class="brisa-cart__recommendation">
+                      <a href="{{ product.url }}" class="brisa-cart__recommendation-image" tabindex="-1" aria-hidden="true">
+                        {%- if product.featured_media -%}
+                          {{- product.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,90,120', sizes: '60px', alt: product.title -}}
+                        {%- endif -%}
+                      </a>
+                      <div class="brisa-cart__recommendation-info">
+                        <a href="{{ product.url }}" class="brisa-cart__recommendation-title">{{ product.title }}</a>
+                        <p class="brisa-cart__recommendation-price">
+                          {%- if product.price_varies -%}
+                            From {{ product.price_min | money }}
+                          {%- else -%}
+                            {{ product.price | money }}
+                          {%- endif -%}
+                        </p>
+                        <button type="button" is="toggle-button" loader aria-controls="brisa-cart-quick-buy-{{ section.id }}-{{ product.id }}" aria-expanded="false" class="brisa-cart__recommendation-quick-view hidden-phone">{{ section.settings.quick_view_label }}</button>
+                        <button type="button" is="toggle-button" loader aria-controls="brisa-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" aria-expanded="false" class="brisa-cart__recommendation-quick-view hidden-tablet-and-up">{{ section.settings.quick_view_label }}</button>
+                        <quick-buy-drawer id="brisa-cart-quick-buy-{{ section.id }}-{{ product.id }}" href="{{ product.url }}?view=quick-buy-drawer" class="drawer drawer--large drawer--quick-buy hidden-phone"></quick-buy-drawer>
+                        <quick-buy-popover id="brisa-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" href="{{ product.url }}?view=quick-buy-popover" class="popover popover--quick-buy hidden-tablet-and-up"></quick-buy-popover>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </product-recommendations>
+        {%- endif -%}
+
+        {%- if show_gift_bonus and section.settings.show_gift_bonus -%}
+          <div class="brisa-cart__gift">
+            <p class="brisa-cart__gift-text">{{ section.settings.gift_text }}</p>
+            <div class="brisa-cart__gift-pricing">
+              {%- if section.settings.gift_value != blank -%}
+                <span class="brisa-cart__price brisa-cart__price--compare">{{ section.settings.gift_value }}</span>
+              {%- endif -%}
+              <span class="brisa-cart__price brisa-cart__price--free">{{ section.settings.gift_price_label }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="brisa-cart__summary">
+          <div class="brisa-cart__summary-row">
+            <span>{{ section.settings.subtotal_label }}</span>
+            <span>{{ cart.items_subtotal_price | money }}</span>
+          </div>
+          <div class="brisa-cart__summary-row">
+            <span>{{ section.settings.shipping_label }}</span>
+            <span class="brisa-cart__summary-free">
+              {%- if shipping_is_free or section.settings.always_show_free_shipping -%}
+                {{ section.settings.free_shipping_label }}
+              {%- else -%}
+                {{ section.settings.calculated_shipping_label }}
+              {%- endif -%}
+            </span>
+          </div>
+
+          {%- if cart.cart_level_discount_applications != blank -%}
+            {%- for discount_application in cart.cart_level_discount_applications -%}
+              <div class="brisa-cart__summary-row brisa-cart__summary-row--discount">
+                <span>{{ discount_application.title }}</span>
+                <span>-{{ discount_application.total_allocated_amount | money }}</span>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+
+          <div class="brisa-cart__summary-row brisa-cart__summary-row--total">
+            <span>{{ section.settings.total_label }}</span>
+            <span>{{ cart.total_price | money_with_currency }}</span>
+          </div>
+
+          {%- if section.settings.show_afterpay and cart.total_price > 0 -%}
+            <p class="brisa-cart__afterpay">
+              {%- if section.settings.afterpay_logo != blank -%}
+                {{ section.settings.afterpay_logo | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', alt: 'Afterpay', class: 'brisa-cart__afterpay-logo' }}
+              {%- endif -%}
+              <span>{{ section.settings.afterpay_text | replace: '[amount]', installment_amount | money }}</span>
+            </p>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_guarantee -%}
+          <div class="brisa-product-area-info__guarantee brisa-cart__guarantee">
+            <div class="brisa-product-detail__guarantee-header">
+              <span class="brisa-product-detail__guarantee-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                  <path d="M24 5 9 11v11c0 9.5 6.4 18.3 15 21 8.6-2.7 15-11.5 15-21V11L24 5Z" fill="currentColor"/>
+                  <path d="m17 24 5 5 9-11" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <strong>{{ section.settings.guarantee_heading | escape }}</strong>
+            </div>
+            <span>{{ section.settings.guarantee_text | escape }}</span>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_trust_bar -%}
+          <div class="brisa-cart__trust-bar" aria-label="Store benefits">
+            <span class="brisa-cart__trust-item">{{ section.settings.trust_reviews }}</span>
+            <span class="brisa-cart__trust-item">{{ section.settings.trust_social }}</span>
+            <span class="brisa-cart__trust-item">{{ section.settings.trust_checkout }}</span>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_urgency and section.settings.urgency_text != blank -%}
+          <div class="brisa-product-area-info__sellout brisa-cart__urgency">{{ section.settings.urgency_text | escape }}</div>
+        {%- endif -%}
+
+        <div class="brisa-cart__footer">
+          <button type="submit" class="brisa-cart__checkout-button" name="checkout">
+            <span class="brisa-cart__checkout-lock" aria-hidden="true">{% render 'icon' with 'lock' %}</span>
+            <span>{{ section.settings.checkout_button_text | replace: '[total]', cart.total_price | money }}</span>
+          </button>
+
+          {%- if section.settings.show_payment_methods and shop.enabled_payment_types.size > 0 -%}
+            <div class="brisa-cart__payment-methods">
+              <div class="payment-methods-list payment-methods-list--center">
+                {% for type in shop.enabled_payment_types %}
+                  {{ type | payment_type_svg_tag }}
+                {% endfor %}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa cart",
+  "class": "shopify-section--brisa-main-cart",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your Cart ([count])"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_message",
+      "label": "Show shipping progress",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "free_shipping_message",
+      "label": "Free shipping message",
+      "default": "<p>Congratulations you are eligible for <strong>FREE SHIPPING</strong> 🤝</p>"
+    },
+    {
+      "type": "text",
+      "id": "shipping_progress_message",
+      "label": "Shipping progress message",
+      "default": "Spend more to unlock free shipping"
+    },
+    {
+      "type": "checkbox",
+      "id": "always_show_free_shipping",
+      "label": "Always show free shipping as eligible",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "default_line_subtitle",
+      "label": "Default line item subtitle",
+      "default": "9 cores · 3 to 5 weeks of ritual",
+      "info": "Used when product metafield custom.cart_subtitle is empty."
+    },
+    {
+      "type": "header",
+      "content": "Recommendations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_recommendations",
+      "label": "Show recommendations",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "recommendations_title",
+      "label": "Recommendations heading",
+      "default": "You May Also Like"
+    },
+    {
+      "type": "text",
+      "id": "quick_view_label",
+      "label": "Quick view label",
+      "default": "QUICK VIEW"
+    },
+    {
+      "type": "header",
+      "content": "Gift bonus"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_bonus",
+      "label": "Show gift bonus row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "gift_trigger_handles",
+      "label": "Trigger product handles",
+      "default": "brisa-starter-kit,starter-kit",
+      "info": "Comma-separated product handles. Gift row shows when any match."
+    },
+    {
+      "type": "text",
+      "id": "gift_text",
+      "label": "Gift text",
+      "default": "🎁 FREE Watermelon Core 3-pack — $15 value · auto-included with your kit"
+    },
+    {
+      "type": "text",
+      "id": "gift_value",
+      "label": "Gift compare value",
+      "default": "$15"
+    },
+    {
+      "type": "text",
+      "id": "gift_price_label",
+      "label": "Gift price label",
+      "default": "Free"
+    },
+    {
+      "type": "header",
+      "content": "Order summary"
+    },
+    {
+      "type": "text",
+      "id": "subtotal_label",
+      "label": "Subtotal label",
+      "default": "Subtotal"
+    },
+    {
+      "type": "text",
+      "id": "shipping_label",
+      "label": "Shipping label",
+      "default": "Shipping"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_label",
+      "label": "Free shipping label",
+      "default": "FREE"
+    },
+    {
+      "type": "text",
+      "id": "calculated_shipping_label",
+      "label": "Calculated shipping label",
+      "default": "Calculated at checkout"
+    },
+    {
+      "type": "text",
+      "id": "total_label",
+      "label": "Total label",
+      "default": "Total"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_afterpay",
+      "label": "Show Afterpay message",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "afterpay_text",
+      "label": "Afterpay text",
+      "default": "4 payments of [amount] with Afterpay"
+    },
+    {
+      "type": "image_picker",
+      "id": "afterpay_logo",
+      "label": "Afterpay logo"
+    },
+    {
+      "type": "header",
+      "content": "Guarantee & trust"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee",
+      "label": "Show guarantee",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_heading",
+      "label": "Guarantee heading",
+      "default": "30-DAY SUCCESS GUARANTEE"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Show trust bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_reviews",
+      "label": "Trust — reviews",
+      "default": "⭐ 4.7/5 (163 reviews)"
+    },
+    {
+      "type": "text",
+      "id": "trust_social",
+      "label": "Trust — social proof",
+      "default": "🇦🇺 1,000+ Aussies on Brisa"
+    },
+    {
+      "type": "text",
+      "id": "trust_checkout",
+      "label": "Trust — checkout",
+      "default": "🔒 Secure Checkout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_urgency",
+      "label": "Show urgency banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Urgency text",
+      "default": "⚡️ WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW"
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_text",
+      "label": "Checkout button text",
+      "default": "SECURE CHECKOUT - [total] >"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_methods",
+      "label": "Show payment methods",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "empty_button_link",
+      "label": "Empty cart button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "empty_title",
+      "label": "Empty cart title",
+      "default": "Your Cart"
+    }
+  ]
+}
+{% endschema %}
