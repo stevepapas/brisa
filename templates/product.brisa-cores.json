@@ -66,6 +66,7 @@
         "feature_leaf": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/food-grade.png",
             "icon": "leaf",
             "title": "Food-Grade Cores",
             "text": "Natural aroma compounds only"
@@ -74,6 +75,7 @@
         "feature_no_nicotine": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/no-nicotine.png",
             "icon": "no_nicotine",
             "title": "No Nicotine",
             "text": ""
@@ -82,6 +84,7 @@
         "feature_slot": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/slot-in-install.png",
             "icon": "slot",
             "title": "Slot-in Install",
             "text": ""
@@ -90,6 +93,7 @@
         "feature_sparkles": {
           "type": "feature",
           "settings": {
+            "icon_image": "shopify://shop_images/multiple-aroma-profiles.png",
             "icon": "sparkles",
             "title": "Multiple aroma profiles",
             "text": ""

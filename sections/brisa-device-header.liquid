@@ -127,10 +127,22 @@
     height: 78%;
   }
 
+  .brisa-device-header-{{ section_id }} .brisa-device-header__icon--has-image {
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+  }
+
   .brisa-device-header-{{ section_id }} .brisa-device-header__icon-image {
     display: block;
     width: 58%;
     height: 58%;
+    object-fit: contain;
+  }
+
+  .brisa-device-header-{{ section_id }} .brisa-device-header__icon--has-image .brisa-device-header__icon-image {
+    width: 72px;
+    height: 72px;
     object-fit: contain;
   }
 
@@ -287,7 +299,7 @@
           %}
 
           <div class="brisa-device-header__feature"{% if section.blocks.size > 0 %} {{ block.shopify_attributes }}{% endif %}>
-            <div class="brisa-device-header__icon" aria-hidden="true">
+            <div class="brisa-device-header__icon{% if feature_icon_image != blank %} brisa-device-header__icon--has-image{% endif %}" aria-hidden="true">
               {% if feature_icon_image != blank %}
                 <img
                   class="brisa-device-header__icon-image"
