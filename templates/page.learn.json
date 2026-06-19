@@ -184,29 +184,11 @@
             "title": "No Nicotine",
             "text": "Zero nicotine, zero tobacco, zero addictive substance."
           }
-        },
-        "feature_throat": {
-          "type": "feature",
-          "settings": {
-            "icon_image": "shopify://shop_images/brisa_09.png",
-            "title": "Throat sensation",
-            "text": ""
-          }
-        },
-        "feature_no_smoke": {
-          "type": "feature",
-          "settings": {
-            "icon_image": "shopify://shop_images/brisa_05.png",
-            "title": "No smoke No vapour",
-            "text": ""
-          }
         }
       },
       "block_order": [
         "feature_ritual",
-        "feature_no_nic",
-        "feature_throat",
-        "feature_no_smoke"
+        "feature_no_nic"
       ],
       "name": "Learn product pitch",
       "settings": {
