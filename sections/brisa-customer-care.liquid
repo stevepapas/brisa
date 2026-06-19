@@ -397,9 +397,11 @@
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-icon {
     flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
     object-fit: contain;
+    object-position: top;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__care-frequency-text {
@@ -757,8 +759,8 @@
               class="brisa-customer-care__care-frequency-icon"
               src="{{ care_frequency_icon | file_url }}"
               alt=""
-              width="56"
-              height="56"
+              width="28"
+              height="28"
               loading="lazy"
             >
             <p class="brisa-customer-care__care-frequency-text">{{ section.settings.care_frequency | escape }}</p>
