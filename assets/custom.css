@@ -1413,10 +1413,12 @@ display: none;
 }
 
 .brisa-product-area-info__trust-icon svg,
+.brisa-product-area-info__trust-icon img,
 .brisa-product-area-info__feature-icon svg {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -2642,11 +2644,14 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   width: 44px;
   height: 44px;
   background: transparent;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .template-learn .learn-hero__icon-circle img {
   width: 44px;
   height: 44px;
+  border-radius: 50%;
 }
 
 /* Learn page — plain icons on white (no circle) */

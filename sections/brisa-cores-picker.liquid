@@ -163,6 +163,8 @@
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__purchase {
     margin-top: {{ section.settings.purchase_spacing }}px;
+    padding-top: {{ section.settings.purchase_border_padding }}px;
+    border-top: 1px solid {{ section.settings.purchase_border_color }};
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__pack-heading {
@@ -701,6 +703,21 @@
       "max": 48,
       "step": 2,
       "default": 28
+    },
+    {
+      "type": "range",
+      "id": "purchase_border_padding",
+      "label": "Padding below divider line",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "purchase_border_color",
+      "label": "Divider line color",
+      "default": "#d4d4d4"
     },
     {
       "type": "range",

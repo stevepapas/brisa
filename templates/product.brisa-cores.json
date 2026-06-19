@@ -84,7 +84,7 @@
         "feature_no_nicotine": {
           "type": "feature",
           "settings": {
-            "icon_image": "shopify://shop_images/no-nicotine.png",
+            "icon_image": "shopify://shop_images/no-nicotine-icon-png.png",
             "icon": "no_nicotine",
             "title": "No Nicotine",
             "text": ""
@@ -214,6 +214,8 @@
         "gallery_spacing": 20,
         "swatch_spacing": 16,
         "purchase_spacing": 28,
+        "purchase_border_padding": 24,
+        "purchase_border_color": "#d4d4d4",
         "padding_top": 8,
         "padding_bottom": 28,
         "mobile_padding_top": 8,
@@ -238,8 +240,11 @@
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
         "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
         "trust_shipping": "Free shipping AUS & NZ wide",
+        "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
         "trust_checkout": "Secure checkout",
+        "trust_icon_checkout": "shopify://shop_images/secure.png",
         "trust_social": "1,000+ Aussies on Brisa",
+        "trust_icon_social": "shopify://shop_images/1000s.png",
         "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "landscape_image": "shopify://shop_images/4-steps-how-to.png",
         "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
