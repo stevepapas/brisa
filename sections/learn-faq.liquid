@@ -37,7 +37,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 32px;
   }
 
   #shopify-section-{{ section.id }} .learn-faq__item {
@@ -98,39 +97,6 @@
   #shopify-section-{{ section.id }} .learn-faq__answer p + p {
     margin-top: 10px;
   }
-
-  #shopify-section-{{ section.id }} .learn-faq__footer {
-    padding: 32px 20px;
-    color: #ffffff;
-    background: #111111;
-    border-radius: 12px;
-    text-align: center;
-  }
-
-  #shopify-section-{{ section.id }} .learn-faq__logo {
-    margin: 0 0 12px;
-    font-size: 28px;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    line-height: 1;
-  }
-
-  #shopify-section-{{ section.id }} .learn-faq__logo-sub {
-    display: block;
-    margin-top: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-  }
-
-  #shopify-section-{{ section.id }} .learn-faq__copyright {
-    margin: 0;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    opacity: 0.8;
-  }
 </style>
 
 <section class="learn-faq" id="learn-faq" {{ section.shopify_attributes }}>
@@ -157,18 +123,6 @@
       {%- endfor -%}
     </div>
   {%- endif -%}
-
-  {%- if section.settings.show_footer -%}
-    <div class="learn-faq__footer">
-      <p class="learn-faq__logo">
-        BRISA
-        <span class="learn-faq__logo-sub">BETTER</span>
-      </p>
-      {%- if section.settings.copyright != blank -%}
-        <p class="learn-faq__copyright">{{ section.settings.copyright | escape }}</p>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
 </section>
 
 {% schema %}
@@ -188,18 +142,6 @@
       "id": "heading",
       "label": "Heading",
       "default": "QUICK QUESTIONS."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_footer",
-      "label": "Show footer strip",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "copyright",
-      "label": "Copyright",
-      "default": "© BRISA BETTER PTY LTD · AUSTRALIA"
     },
     {
       "type": "header",

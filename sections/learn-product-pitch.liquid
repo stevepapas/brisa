@@ -3,6 +3,7 @@
     --learn-blue: #038bdd;
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+    border-top: 2px solid #999999;
   }
 
   #shopify-section-{{ section.id }} .learn-pitch {
@@ -45,7 +46,9 @@
     width: 100%;
     margin: 0 0 28px;
     border-radius: 12px;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
+    object-position: center;
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__features {
@@ -62,22 +65,22 @@
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__feature-icon-wrap {
-    flex: 0 0 44px;
+    flex: 0 0 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     background: var(--learn-blue);
     border-radius: 50%;
     overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__feature-icon {
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     object-fit: contain;
-    mix-blend-mode: screen;
+    filter: brightness(0) invert(1);
   }
 
   #shopify-section-{{ section.id }} .learn-pitch__feature-copy {

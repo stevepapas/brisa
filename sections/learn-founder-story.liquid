@@ -37,6 +37,20 @@
   }
 
   #shopify-section-{{ section.id }} .learn-founder__body-panel {
+    margin-bottom: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__body {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .learn-founder__signoff {
+    position: relative;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #cccccc;
     overflow: hidden;
   }
 
@@ -44,7 +58,7 @@
     float: right;
     width: 42%;
     max-width: 180px;
-    margin: 0 0 12px 16px;
+    margin: -72px 0 8px 16px;
   }
 
   #shopify-section-{{ section.id }} .learn-founder__image {
@@ -55,43 +69,19 @@
     object-fit: cover;
   }
 
-  #shopify-section-{{ section.id }} .learn-founder__body {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__signature-wrap {
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid #dddddd;
+  #shopify-section-{{ section.id }} .learn-founder__signature {
+    margin: 0 0 16px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     clear: both;
   }
 
-  #shopify-section-{{ section.id }} .learn-founder__signature {
+  #shopify-section-{{ section.id }} .learn-founder__signature-rule {
     margin: 0;
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__cta-wrap {
-    margin-top: 32px;
-    text-align: center;
-  }
-
-  #shopify-section-{{ section.id }} .learn-founder__cta {
-    display: inline-block;
-    padding: 12px 22px;
-    color: #2c579b;
-    background: #bee3f9;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    text-transform: uppercase;
+    border: 0;
+    border-top: 1px solid #cccccc;
   }
 </style>
 
@@ -108,31 +98,24 @@
     <blockquote class="learn-founder__quote">{{ section.settings.quote | escape }}</blockquote>
   {%- endif -%}
 
-  {%- if section.settings.body != blank or section.settings.image != blank -%}
+  {%- if section.settings.body != blank -%}
     <div class="learn-founder__body-panel">
+      <div class="learn-founder__body rte">{{ section.settings.body }}</div>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.signature != blank or section.settings.image != blank -%}
+    <div class="learn-founder__signoff">
       {%- if section.settings.image != blank -%}
         <div class="learn-founder__image-wrap">
           {{ section.settings.image | image_url: width: 400 | image_tag: class: 'learn-founder__image', loading: 'lazy', widths: '180,360,400', sizes: '(min-width: 520px) 180px, 42vw' }}
         </div>
       {%- endif -%}
 
-      {%- if section.settings.body != blank -%}
-        <div class="learn-founder__body rte">{{ section.settings.body }}</div>
+      {%- if section.settings.signature != blank -%}
+        <p class="learn-founder__signature">{{ section.settings.signature | escape }}</p>
+        <hr class="learn-founder__signature-rule" aria-hidden="true">
       {%- endif -%}
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.signature != blank -%}
-    <div class="learn-founder__signature-wrap">
-      <p class="learn-founder__signature">{{ section.settings.signature | escape }}</p>
-    </div>
-  {%- endif -%}
-
-  {%- if section.settings.button_text != blank -%}
-    <div class="learn-founder__cta-wrap">
-      <a class="learn-founder__cta" href="{{ section.settings.button_link | default: '#learn-questions' }}">
-        {{ section.settings.button_text | escape }}
-      </a>
     </div>
   {%- endif -%}
 </section>
@@ -176,18 +159,6 @@
       "id": "signature",
       "label": "Signature",
       "default": "— SAM & KAIDEN, CO-FOUNDERS"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "THE TRUTH ABOUT VAPING"
-    },
-    {
-      "type": "text",
-      "id": "button_link",
-      "label": "Button link",
-      "default": "#learn-questions"
     },
     {
       "type": "header",
