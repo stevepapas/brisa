@@ -302,8 +302,12 @@
       {%- when 'liquid' -%}
         <div data-block-type="liquid" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
           {% if block.settings.liquid != blank %}
+            {%- assign custom_liquid = block.settings.liquid -%}
+            {%- unless custom_liquid contains '#real_reviews' -%}
+              {%- assign custom_liquid = custom_liquid | replace: '(163 reviews)', '<a href="#real_reviews">(163 reviews)</a>' -%}
+            {%- endunless -%}
             <div class="product-form__custom-liquid">
-              {{- block.settings.liquid -}}
+              {{- custom_liquid -}}
             </div>
           {%- endif -%}
         </div>
