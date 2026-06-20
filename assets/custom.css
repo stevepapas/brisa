@@ -2495,6 +2495,16 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   background: #1a98d0 !important;
 }
 
+.shopify-section--main-product shopify-accelerated-checkout,
+.shopify-section--brisa-cores-picker shopify-accelerated-checkout {
+  --shopify-accelerated-checkout-button-border-radius: 12px;
+}
+
+.shopify-section--main-product .shopify-payment-button__button,
+.shopify-section--brisa-cores-picker .shopify-payment-button__button {
+  border-radius: 12px !important;
+}
+
 .template-brisa-cores .product-form__pricing-line,
 .template-brisa-cores-variations .product-form__pricing-line {
   display: none !important;
