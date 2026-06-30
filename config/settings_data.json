@@ -59,7 +59,7 @@
         "settings": {
           "show_order_note": true,
           "show_checkout_button": true,
-          "empty_button_link": "shopify://pages/shop",
+          "empty_button_link": "shopify://products/brisa-starter-kit",
           "show_recommendations": true,
           "recommendations_title": "You may also like"
         }
@@ -274,7 +274,7 @@
     "custom_css": [
       ".heading {text-transform: capitalize;}",
       " /* Hide \"Shipping & taxes calculated at checkout\" when free shipping is already qualified */#mini-cart:has(free-shipping-bar[style*=\"--progress: 1\"]) .mini-cart__actions > span {display: none;}",
-      "/* Cart page - hide shipping text when free shipping is qualified */.container--medium:has(free-shipping-bar[style*=\"--progress: 1\"]) .cart__tax-note {display: none; }"
+      " /* Cart page - hide shipping text when free shipping is qualified */.container--medium:has(free-shipping-bar[style*=\"--progress: 1\"]) .cart__tax-note {display: none;}"
     ]
   }
 }
