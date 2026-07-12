@@ -2,7 +2,8 @@
   #shopify-section-{{ section.id }} {
     --learn-blue: #038bdd;
     background: {{ section.settings.background }};
-    padding: {{ section.settings.padding_top }}px 24px {{ section.settings.padding_bottom }}px;
+    padding: {{ section.settings.padding_top }}px 24px 0;
+    overflow-x: clip;
   }
 
   #shopify-section-{{ section.id }} .learn-guarantee {
@@ -30,9 +31,20 @@
   }
 
   #shopify-section-{{ section.id }} .learn-guarantee__panel {
-    padding: 28px 20px;
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    margin: 0;
+    padding: 28px 24px {{ section.settings.padding_bottom }}px;
     background: #e8f6fc;
     border-bottom: 3px solid #2c579b;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .learn-guarantee__panel-inner {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
   }
 
   #shopify-section-{{ section.id }} .learn-guarantee__heading {
@@ -157,55 +169,57 @@
   </div>
 
   <div class="learn-guarantee__panel">
-    {%- if section.settings.claim_heading != blank -%}
-      <h3 class="learn-guarantee__heading">{{ section.settings.claim_heading | escape | newline_to_br }}</h3>
-    {%- endif -%}
-
-    {%- if section.settings.claim_intro != blank -%}
-      <p class="learn-guarantee__intro">{{ section.settings.claim_intro | escape }}</p>
-    {%- endif -%}
-
-    <div class="learn-guarantee__methods">
-      {%- if section.settings.method_1_title != blank -%}
-        <div class="learn-guarantee__method">
-          <span class="learn-guarantee__method-icon" aria-hidden="true">@</span>
-          <div>
-            <p class="learn-guarantee__method-title">{{ section.settings.method_1_title | escape }}</p>
-            <p class="learn-guarantee__method-text">{{ section.settings.method_1_text | escape }}</p>
-          </div>
-        </div>
+    <div class="learn-guarantee__panel-inner">
+      {%- if section.settings.claim_heading != blank -%}
+        <h3 class="learn-guarantee__heading">{{ section.settings.claim_heading | escape | newline_to_br }}</h3>
       {%- endif -%}
 
-      {%- if section.settings.method_2_title != blank -%}
-        <div class="learn-guarantee__method">
-          <span class="learn-guarantee__method-icon" aria-hidden="true">&#9993;</span>
-          <div>
-            <p class="learn-guarantee__method-title">{{ section.settings.method_2_title | escape }}</p>
-            <p class="learn-guarantee__method-text">{{ section.settings.method_2_text | escape }}</p>
+      {%- if section.settings.claim_intro != blank -%}
+        <p class="learn-guarantee__intro">{{ section.settings.claim_intro | escape }}</p>
+      {%- endif -%}
+
+      <div class="learn-guarantee__methods">
+        {%- if section.settings.method_1_title != blank -%}
+          <div class="learn-guarantee__method">
+            <span class="learn-guarantee__method-icon" aria-hidden="true">@</span>
+            <div>
+              <p class="learn-guarantee__method-title">{{ section.settings.method_1_title | escape }}</p>
+              <p class="learn-guarantee__method-text">{{ section.settings.method_1_text | escape }}</p>
+            </div>
           </div>
-        </div>
+        {%- endif -%}
+
+        {%- if section.settings.method_2_title != blank -%}
+          <div class="learn-guarantee__method">
+            <span class="learn-guarantee__method-icon" aria-hidden="true">&#9993;</span>
+            <div>
+              <p class="learn-guarantee__method-title">{{ section.settings.method_2_title | escape }}</p>
+              <p class="learn-guarantee__method-text">{{ section.settings.method_2_text | escape }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="learn-guarantee__steps">
+        {%- for block in section.blocks -%}
+          <div class="learn-guarantee__step" {{ block.shopify_attributes }}>
+            <span class="learn-guarantee__step-num">{{ forloop.index }}</span>
+            <div>
+              {%- if block.settings.title != blank -%}
+                <p class="learn-guarantee__step-title">{{ block.settings.title | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="learn-guarantee__step-text">{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.claim_quote != blank -%}
+        <p class="learn-guarantee__quote">{{ section.settings.claim_quote | escape }}</p>
       {%- endif -%}
     </div>
-
-    <div class="learn-guarantee__steps">
-      {%- for block in section.blocks -%}
-        <div class="learn-guarantee__step" {{ block.shopify_attributes }}>
-          <span class="learn-guarantee__step-num">{{ forloop.index }}</span>
-          <div>
-            {%- if block.settings.title != blank -%}
-              <p class="learn-guarantee__step-title">{{ block.settings.title | escape }}</p>
-            {%- endif -%}
-            {%- if block.settings.text != blank -%}
-              <p class="learn-guarantee__step-text">{{ block.settings.text | escape }}</p>
-            {%- endif -%}
-          </div>
-        </div>
-      {%- endfor -%}
-    </div>
-
-    {%- if section.settings.claim_quote != blank -%}
-      <p class="learn-guarantee__quote">{{ section.settings.claim_quote | escape }}</p>
-    {%- endif -%}
   </div>
 </section>
 
