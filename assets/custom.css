@@ -17,7 +17,8 @@
 .black-ribbon-blue-box__button,
 .learn-kit__button,
 .learn-questions__cta,
-.brisa-customer-care__submit {
+.brisa-customer-care__submit,
+.dq-final-cta__btn {
   border-radius: 50% !important;
 }
 
