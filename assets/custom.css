@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=TeX+Gyre+Bonum:wght@400;700&display=swap');
 
+/* All CTA buttons — pill shape */
+.button:not(.button--text),
+.shopify-challenge__button,
+#shopify-product-reviews .spr-summary-actions-newreview,
+#shopify-product-reviews .spr-button,
+.shopify-payment-button__button,
+.brisa-buy-button,
+.sticky-call-to-action,
+.brisa-product-area-info__button,
+.brisa-product-detail__cta,
+.brisa-cart__checkout-button,
+.product-form__add-button,
+.product-slider__button,
+.blue-layout-3__button,
+.black-ribbon-blue-box__button,
+.learn-kit__button,
+.learn-questions__cta,
+.brisa-customer-care__submit {
+  border-radius: 50% !important;
+}
+
+shopify-accelerated-checkout {
+  --shopify-accelerated-checkout-button-border-radius: 50%;
+}
 
 @media (max-width: 768px) {
   .mobile_hide {
@@ -245,7 +269,7 @@ img {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  border-radius: 10px;
+  border-radius: 50%;
   border: 2px solid #000;
   background: #fff;
   color: #000;
@@ -1704,7 +1728,7 @@ display: none;
   padding: 17px 24px;
   color: #ffffff !important;
   background: #2eb8f4;
-  border-radius: 999px;
+  border-radius: 50%;
   font-size: 19px;
   font-weight: 900;
   line-height: 1;
@@ -2481,7 +2505,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 .shopify-section--brisa-cores-picker .product-form__add-button {
   background: #23aee8 !important;
   color: #ffffff !important;
-  border-radius: 12px !important;
+  border-radius: 50% !important;
   font-size: 16px !important;
   font-weight: 800 !important;
   letter-spacing: 0.05em !important;
@@ -2497,12 +2521,12 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 
 .shopify-section--main-product shopify-accelerated-checkout,
 .shopify-section--brisa-cores-picker shopify-accelerated-checkout {
-  --shopify-accelerated-checkout-button-border-radius: 12px;
+  --shopify-accelerated-checkout-button-border-radius: 50%;
 }
 
 .shopify-section--main-product .shopify-payment-button__button,
 .shopify-section--brisa-cores-picker .shopify-payment-button__button {
-  border-radius: 12px !important;
+  border-radius: 50% !important;
 }
 
 .template-brisa-cores .product-form__pricing-line,
@@ -3252,7 +3276,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   min-height: 56px;
   padding: 14px 18px;
   border: 0;
-  border-radius: 12px;
+  border-radius: 50%;
   background: #23aee8 !important;
   color: #ffffff !important;
   font-size: 15px;
