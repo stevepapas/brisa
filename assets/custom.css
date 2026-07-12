@@ -2778,26 +2778,18 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 }
 
 .template-learn .learn-details__grid .learn-details__item:nth-child(1) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
-  background: url(//brisabetter.com/cdn/shop/t/7/assets/throat-sensation.png) center / contain no-repeat;
-}
-
-.template-learn .learn-details__grid .learn-details__item:nth-child(2) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
-  background: url(//brisabetter.com/cdn/shop/t/7/assets/no-smoke-no-vapour.png) center / contain no-repeat;
-}
-
-.template-learn .learn-details__grid .learn-details__item:nth-child(3) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
   background: url(//brisabetter.com/cdn/shop/t/7/assets/30-day-success-guarantee.png) center / contain no-repeat;
 }
 
-.template-learn .learn-details__grid .learn-details__item:nth-child(4) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+.template-learn .learn-details__grid .learn-details__item:nth-child(2) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
   background: url(//brisabetter.com/cdn/shop/t/7/assets/food-grade-cores.png) center / contain no-repeat;
 }
 
-.template-learn .learn-details__grid .learn-details__item:nth-child(5) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+.template-learn .learn-details__grid .learn-details__item:nth-child(3) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
   background: url(//brisabetter.com/cdn/shop/t/7/assets/reusable-device.png) center / contain no-repeat;
 }
 
-.template-learn .learn-details__grid .learn-details__item:nth-child(6) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+.template-learn .learn-details__grid .learn-details__item:nth-child(4) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
   background: url(//brisabetter.com/cdn/shop/t/7/assets/australian-designed.png) center / contain no-repeat;
 }
 

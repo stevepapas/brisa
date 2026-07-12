@@ -67,12 +67,22 @@
   }
 
   #shopify-section-{{ section.id }} .learn-questions__label {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin: 0 0 10px;
     font-size: 12px;
     font-weight: 900;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-questions__label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.45;
   }
 
   #shopify-section-{{ section.id }} .learn-questions__item--blue .learn-questions__label {
