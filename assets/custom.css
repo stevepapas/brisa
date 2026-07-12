@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=TeX+Gyre+Bonum:wght@400;700&display=swap');
 
+html {
+  scroll-behavior: smooth;
+}
+
+#choose-device-colour {
+  scroll-margin-top: calc(
+    var(--header-height, 0px) * var(--enable-sticky-header, 0)
+    + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)
+    + 16px
+  );
+}
+
 /* All CTA buttons — pill ends (not elliptical 50%) */
 .button:not(.button--text),
 .shopify-challenge__button,

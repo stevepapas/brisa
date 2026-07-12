@@ -755,8 +755,8 @@
           </div>
         {% endif %}
 
-        {% if section.settings.cta_text != blank and section.settings.cta_link != blank %}
-          <a href="{{ section.settings.cta_link }}" class="brisa-product-detail__cta">{{ section.settings.cta_text | escape }}</a>
+        {% if section.settings.cta_text != blank %}
+          <a href="#choose-device-colour" class="brisa-product-detail__cta">{{ section.settings.cta_text | escape }}</a>
         {% endif %}
       </div>
     {% endif %}
@@ -1046,7 +1046,8 @@
       "type": "text",
       "id": "cta_text",
       "label": "CTA text",
-      "default": "START WITH BRISA"
+      "default": "START WITH BRISA",
+      "info": "Scrolls up to the device colour options."
     },
     {
       "type": "url",
