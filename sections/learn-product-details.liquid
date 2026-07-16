@@ -42,26 +42,48 @@
     color: #444444;
   }
 
-  #shopify-section-{{ section.id }} .learn-details__inside {
+  #shopify-section-{{ section.id }} .learn-details__core {
     margin-bottom: 40px;
+    text-align: center;
   }
 
-  #shopify-section-{{ section.id }} .learn-details__inside-heading {
+  #shopify-section-{{ section.id }} .learn-details__core-label {
     margin: 0 0 10px;
-    font-size: 18px;
+    color: var(--learn-blue);
+    font-size: 13px;
     font-weight: 900;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
-  #shopify-section-{{ section.id }} .learn-details__inside-text {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.45;
+  #shopify-section-{{ section.id }} .learn-details__core-subhead {
+    margin: 0 0 28px;
+    font-size: clamp(22px, 5vw, 28px);
+    font-weight: 900;
+    line-height: 1.15;
   }
 
-  #shopify-section-{{ section.id }} .learn-details__inside-text strong {
+  #shopify-section-{{ section.id }} .learn-details__story {
+    margin-bottom: 20px;
+    padding: 22px 20px;
+    text-align: left;
+    background: #e8f6fc;
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__story-heading {
+    margin: 0 0 10px;
+    color: #111111;
+    font-size: 18px;
     font-weight: 900;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .learn-details__story-text {
+    margin: 0;
+    color: #333333;
+    font-size: 15px;
+    line-height: 1.45;
   }
 
   #shopify-section-{{ section.id }} .learn-details__testimonials-inner {
@@ -112,13 +134,35 @@
     </div>
   {%- endif -%}
 
-  {%- if section.settings.inside_heading != blank or section.settings.inside_text != blank -%}
-    <div class="learn-details__inside learn-highlight-box">
-      {%- if section.settings.inside_heading != blank -%}
-        <h3 class="learn-details__inside-heading">{{ section.settings.inside_heading | escape }}</h3>
+  {%- if section.settings.core_label != blank or section.settings.core_subhead != blank or section.settings.flavour_heading != blank or section.settings.formula_heading != blank -%}
+    <div class="learn-details__core">
+      {%- if section.settings.core_label != blank -%}
+        <p class="learn-details__core-label">{{ section.settings.core_label | escape }}</p>
       {%- endif -%}
-      {%- if section.settings.inside_text != blank -%}
-        <div class="learn-details__inside-text rte">{{ section.settings.inside_text }}</div>
+      {%- if section.settings.core_subhead != blank -%}
+        <h3 class="learn-details__core-subhead">{{ section.settings.core_subhead | escape }}</h3>
+      {%- endif -%}
+
+      {%- if section.settings.flavour_heading != blank or section.settings.flavour_text != blank -%}
+        <div class="learn-details__story">
+          {%- if section.settings.flavour_heading != blank -%}
+            <p class="learn-details__story-heading">{{ section.settings.flavour_heading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.flavour_text != blank -%}
+            <p class="learn-details__story-text">{{ section.settings.flavour_text | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.formula_heading != blank or section.settings.formula_text != blank -%}
+        <div class="learn-details__story">
+          {%- if section.settings.formula_heading != blank -%}
+            <p class="learn-details__story-heading">{{ section.settings.formula_heading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.formula_text != blank -%}
+            <p class="learn-details__story-text">{{ section.settings.formula_text | escape }}</p>
+          {%- endif -%}
+        </div>
       {%- endif -%}
     </div>
   {%- endif -%}
@@ -150,16 +194,48 @@
   "max_blocks": 12,
   "settings": [
     {
-      "type": "text",
-      "id": "inside_heading",
-      "label": "What's inside heading",
-      "default": "WHAT'S INSIDE."
+      "type": "header",
+      "content": "Inside the Brisa core"
     },
     {
-      "type": "richtext",
-      "id": "inside_text",
-      "label": "What's inside text",
-      "default": "<p>A PET fibre core, natural food-grade aroma compounds, and aromatherapy compounds - engineered together to deliver a clean, satisfying experience. <strong>No nicotine. No vapour. No combustion.</strong></p>"
+      "type": "text",
+      "id": "core_label",
+      "label": "Core section label",
+      "default": "Inside the Brisa core"
+    },
+    {
+      "type": "text",
+      "id": "core_subhead",
+      "label": "Core section subhead",
+      "default": "The part everyone tries to copy... and no one's cracked."
+    },
+    {
+      "type": "text",
+      "id": "flavour_heading",
+      "label": "Flavour heading",
+      "default": "The flavours you actually chase 🍒"
+    },
+    {
+      "type": "textarea",
+      "id": "flavour_text",
+      "label": "Flavour text",
+      "default": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
+    },
+    {
+      "type": "text",
+      "id": "formula_heading",
+      "label": "Formula heading",
+      "default": "A formula we'll never share 🤫"
+    },
+    {
+      "type": "textarea",
+      "id": "formula_text",
+      "label": "Formula text",
+      "default": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience for our customers: a rush of flavour/aroma, a real throat sensation, and longevity in every core."
+    },
+    {
+      "type": "header",
+      "content": "Social proof"
     },
     {
       "type": "text",

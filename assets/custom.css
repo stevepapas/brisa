@@ -2762,11 +2762,11 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 
 /* Learn — Same Motion icons: override stale brisa_* shop images */
 .template-learn .learn-pitch__features .learn-pitch__feature:nth-child(1) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
-  background: url(//brisabetter.com/cdn/shop/t/7/assets/satisfies-the-ritual.png) center / contain no-repeat;
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/no-nicotine.png) center / contain no-repeat;
 }
 
 .template-learn .learn-pitch__features .learn-pitch__feature:nth-child(2) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
-  background: url(//brisabetter.com/cdn/shop/t/7/assets/no-nicotine.png) center / contain no-repeat;
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/satisfies-the-ritual.png) center / contain no-repeat;
 }
 
 .template-learn .learn-pitch__features .learn-pitch__feature:nth-child(3) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
@@ -2782,11 +2782,11 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 }
 
 .template-learn .learn-details__grid .learn-details__item:nth-child(2) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
-  background: url(//brisabetter.com/cdn/shop/t/7/assets/food-grade-cores.png) center / contain no-repeat;
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/reusable-device.png) center / contain no-repeat;
 }
 
 .template-learn .learn-details__grid .learn-details__item:nth-child(3) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
-  background: url(//brisabetter.com/cdn/shop/t/7/assets/reusable-device.png) center / contain no-repeat;
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/food-grade-cores.png) center / contain no-repeat;
 }
 
 .template-learn .learn-details__grid .learn-details__item:nth-child(4) .learn-details__icon-wrap:has(img[src*="brisa_"]) {

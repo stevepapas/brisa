@@ -58,7 +58,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_17.png",
-            "text": "1,000+ aussies"
+            "text": "2,000+ customers"
           }
         }
       },
@@ -91,7 +91,7 @@
         "quote": "It's not the nicotine, mate. It's the hand-to-mouth. Every time I try to stop, that's what pulls me back.",
         "body": "<p>That stuck. I went home, did the research, called Kaiden. We bought every product we could find, tested them all, and knew what was missing and what to produce.</p><p>They all missed the same things. Felt cheap in your hand. Looked out of place pulling out at the pub or on a worksite, or replaced bad stuff with more bad stuff. Nothing anyone actually wanted.</p><p>So we built our own option. Same motion. Same draw. Same moment. No chemicals, no nicotine, no vapour. Built solid. Looks the part. Flavours people actually know, with every aspect in mind.</p><p>Something Aussies are happy to be seen with.</p><p>That's Brisa. Still the two of us behind it.</p>",
         "image": "shopify://shop_images/founders.jpg",
-        "signature": "— SAM & KAIDEN, CO-FOUNDERS",
+        "signature": "\u2014 SAM & KAIDEN, CO-FOUNDERS",
         "max_width": 520,
         "background": "#ffffff",
         "padding_top": 40,
@@ -115,7 +115,7 @@
           "settings": {
             "label": "02 - THE STEAL",
             "title": "It's not just your lungs. It's your sleep, your mood, your training.",
-            "text": "<p>Vaping feels like it calms you down, but nicotine is still a stimulant. It's linked to trouble falling asleep, waking through the night, poorer recovery, and feeling more tired the next day. So it's not just stealing your breath — it's stealing your energy.</p>",
+            "text": "<p>Vaping feels like it calms you down, but nicotine is still a stimulant. It's linked to trouble falling asleep, waking through the night, poorer recovery, and feeling more tired the next day. So it's not just stealing your breath \u2014 it's stealing your energy.</p>",
             "quote": "How much of your energy, sleep and performance is it quietly stealing every day?"
           }
         },
@@ -124,7 +124,7 @@
           "settings": {
             "label": "03 - THE BILL",
             "title": "It's a weekly bill dressed up as a small expense.",
-            "text": "<p>Disposables, pods, coils, juice — none of it feels like much in the moment. But over months and years, it adds up fast. The worst part? You're not paying for something that builds your life. You're paying to stay stuck.</p>",
+            "text": "<p>Disposables, pods, coils, juice \u2014 none of it feels like much in the moment. But over months and years, it adds up fast. The worst part? You're not paying for something that builds your life. You're paying to stay stuck.</p>",
             "quote": "How much has this habit already cost you, and what could that money have built instead?"
           }
         },
@@ -133,7 +133,7 @@
           "settings": {
             "label": "04 - THE HIDE",
             "title": "It starts to make people feel weak.",
-            "text": "<p>Most people don't want to be the person ducking off for a hit, hiding it from family, or stressing when the vape's dead. It slowly becomes something you rely on — then something you're embarrassed by.</p>",
+            "text": "<p>Most people don't want to be the person ducking off for a hit, hiding it from family, or stressing when the vape's dead. It slowly becomes something you rely on \u2014 then something you're embarrassed by.</p>",
             "quote": "Why does it feel so good to imagine not needing it anymore?"
           }
         },
@@ -142,7 +142,7 @@
           "settings": {
             "label": "05 - THE FUTURE",
             "title": "We don't know what 40 years of this looks like yet.",
-            "text": "<p>One vape can carry as much nicotine as 50 cigarettes. Cigarettes had friction — lighters, smell, a clear finish. Vapes removed all of it. Easier to hide, easier to hit constantly, and more frequent than nicotine has ever been in human history.</p>",
+            "text": "<p>One vape can carry as much nicotine as 50 cigarettes. Cigarettes had friction \u2014 lighters, smell, a clear finish. Vapes removed all of it. Easier to hide, easier to hit constantly, and more frequent than nicotine has ever been in human history.</p>",
             "quote": "What are lifelong vapers going to look like after decades of this?"
           }
         }
@@ -169,18 +169,18 @@
     "learn_product_pitch": {
       "type": "learn-product-pitch",
       "blocks": {
-        "feature_ritual": {
-          "type": "feature",
-          "settings": {
-            "title": "Satisfies the ritual",
-            "text": "Designed to recreate the familiar hand-to-mouth routine."
-          }
-        },
         "feature_no_nic": {
           "type": "feature",
           "settings": {
             "title": "No Nicotine",
             "text": "Zero nicotine, zero tobacco, zero addictive substance."
+          }
+        },
+        "feature_ritual": {
+          "type": "feature",
+          "settings": {
+            "title": "Satisfies the ritual",
+            "text": "Designed to recreate the familiar hand-to-mouth routine."
           }
         },
         "feature_throat": {
@@ -199,8 +199,8 @@
         }
       },
       "block_order": [
-        "feature_ritual",
         "feature_no_nic",
+        "feature_ritual",
         "feature_throat",
         "feature_no_smoke"
       ],
@@ -223,14 +223,7 @@
           "type": "detail",
           "settings": {
             "title": "30 Day Success Guarantee",
-            "text": "Need support? Book a call and we'll help you use it properly."
-          }
-        },
-        "detail_food_grade": {
-          "type": "detail",
-          "settings": {
-            "title": "Food-Grade Cores",
-            "text": "Made with food-grade aroma compounds inside the core."
+            "text": "Need support? Contact us today via our Instagram or through Contact Us."
           }
         },
         "detail_reusable": {
@@ -238,6 +231,13 @@
           "settings": {
             "title": "Reusable Device",
             "text": "One device. Simply replace the cores when needed."
+          }
+        },
+        "detail_food_grade": {
+          "type": "detail",
+          "settings": {
+            "title": "Food-Grade Cores",
+            "text": "Made with food-grade aroma compounds inside the core."
           }
         },
         "detail_aussie": {
@@ -277,8 +277,8 @@
       },
       "block_order": [
         "detail_guarantee",
-        "detail_food_grade",
         "detail_reusable",
+        "detail_food_grade",
         "detail_aussie",
         "video_review_1",
         "video_review_2",
@@ -286,10 +286,8 @@
       ],
       "name": "Learn product details",
       "settings": {
-        "inside_heading": "WHAT'S INSIDE.",
-        "inside_text": "<p>A PET fibre core, natural food-grade aroma compounds, and aromatherapy compounds - engineered together to deliver a clean, satisfying experience. <strong>No nicotine. No vapour. No combustion.</strong></p>",
         "badge": "REAL RESULTS",
-        "social_heading": "FROM THE PEOPLE WHO'VE\nALREADY MADE THE SWITCH.",
+        "social_heading": "",
         "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
         "show_arrows": true,
         "show_dots": false,
@@ -298,7 +296,13 @@
         "max_width": 520,
         "background": "#ffffff",
         "padding_top": 0,
-        "padding_bottom": 48
+        "padding_bottom": 48,
+        "core_label": "Inside the Brisa core",
+        "core_subhead": "The part everyone tries to copy... and no one's cracked.",
+        "flavour_heading": "The flavours you actually chase \ud83c\udf52",
+        "flavour_text": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know.",
+        "formula_heading": "A formula we'll never share \ud83e\udd2b",
+        "formula_text": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience for our customers: a rush of flavour/aroma, a real throat sensation, and longevity in every core."
       }
     },
     "learn_guarantee": {
@@ -308,39 +312,39 @@
           "type": "step",
           "settings": {
             "title": "You reach out",
-            "text": "Instagram or website, takes 30 seconds"
+            "text": "Your order number + what's not landing (flavour, days used, what feels off). Takes 30 seconds."
           }
         },
-        "step_call": {
+        "step_fix": {
           "type": "step",
           "settings": {
-            "title": "We book your 1-on-1 call",
-            "text": "15 minutes, we walk you through what to tweak"
+            "title": "We fix it with you",
+            "text": "Your Brisa Strategy Guide + the exact tweak to try, sent straight back."
           }
         },
         "step_cores": {
           "type": "step",
           "settings": {
             "title": "We post your cores free",
-            "text": "3 weeks worth, sent same-week"
+            "text": "6 cores (2 packs), sent that same week."
           }
         }
       },
       "block_order": [
         "step_reach_out",
-        "step_call",
+        "step_fix",
         "step_cores"
       ],
       "name": "Learn guarantee",
       "settings": {
-        "guarantee_heading": "30 DAY SUCCESS GUARANTEE",
-        "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to help you get the most out of it. We don't leave you guessing.",
-        "claim_heading": "HOW TO CLAIM\nYOUR GUARANTEE.",
-        "claim_intro": "No forms to chase. No fine print. Two ways to reach us:",
-        "method_1_title": "Message us on Instagram",
-        "method_1_text": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number.",
-        "method_2_title": "Submit through our website",
-        "method_2_text": "Head to our Contact page, select \"30 Day Guarantee Claim\" from the subject dropdown, and drop your order number in.",
+        "guarantee_heading": "",
+        "guarantee_text": "",
+        "claim_heading": "HOW TO CLAIM OUR 30 DAY GUARANTEE.",
+        "claim_intro": "Two ways to reach us:",
+        "method_1_title": "Submit through our website",
+        "method_1_text": "Message us on the form above with your order number, and mention 'the 30 Day Guarantee' in your message",
+        "method_2_title": "Message us on Instagram",
+        "method_2_text": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number.",
         "claim_quote": "\"That's the deal. We've got you.\"",
         "max_width": 520,
         "background": "#ffffff",
@@ -352,7 +356,7 @@
       "type": "learn-kit-cta",
       "name": "Learn kit CTA",
       "settings": {
-        "tagline": "Ready to drop the habit without giving up the moment?",
+        "tagline": "",
         "heading": "BUILD YOUR KIT.",
         "starter_badge": "MOST POPULAR",
         "starter_title": "STARTER KIT",
@@ -378,48 +382,72 @@
     "learn_faq": {
       "type": "learn-faq",
       "blocks": {
-        "faq_safe": {
+        "faq_satisfy": {
           "type": "question",
           "settings": {
-            "question": "Is Brisa safe?",
-            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid.</p><p>It works through air pressure and aroma only. You breathe air through the aromatic core to create the sensory draw, without burning, vaporising, or consuming anything.</p>"
+            "question": "Be honest... will it actually satisfy me?",
+            "answer": "<p>Brisa is built for the moment the urge hits \u2014 familiar weight, size, hand-to-mouth feel, draw pressure, and aroma \u2014 without nicotine, smoke, or vapour. It replaces the ritual action, not with another nicotine product.</p>"
           }
         },
-        "faq_habit": {
+        "faq_vape": {
           "type": "question",
           "settings": {
-            "question": "Will it actually help me drop the habit?",
-            "answer": "<p>Brisa is designed for the moment, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It mimics the old habit with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure — but without smoke, vapour, or nicotine.</p>"
+            "question": "Isn't it just a vape without the nicotine?",
+            "answer": "<p>No. There is no heating, no battery, no e-liquid, and no vapour. You draw air through a food-grade aroma core. Same ritual cues \u2014 completely different mechanism.</p>"
           }
         },
-        "faq_cores": {
+        "faq_pens": {
           "type": "question",
           "settings": {
-            "question": "How long do the cores last?",
-            "answer": "<p>Each core lasts 2.5 to 4 days depending on how often you reach for it and the aroma profile. The Starter Kit covers 3 to 5 weeks of ritual.</p>"
+            "question": "Isn't it like those wooden pens that just blow air?",
+            "answer": "<p>Those miss what makes the ritual land. Brisa is built around weight, size, look, calibrated airflow, throat sensation, and aroma profiles people actually recognise \u2014 not just empty air through a stick.</p>"
           }
         },
-        "faq_flavours": {
+        "faq_gums": {
           "type": "question",
           "settings": {
-            "question": "What flavours do you have?",
-            "answer": "<p>Brisa cores come in familiar aroma profiles including Mint, and other food-grade aromatic options designed to feel natural and recognisable.</p>"
+            "question": "I've tried gums and patches, how is this different?",
+            "answer": "<p>Gums and patches address nicotine chemically. Brisa targets the hand-to-mouth ritual itself \u2014 the reach, the draw, the sensory pause \u2014 so you have something to do in the moment without going back to nicotine.</p>"
           }
         },
-        "faq_guarantee": {
+        "faq_inhale": {
           "type": "question",
           "settings": {
-            "question": "What's in the 30-day success guarantee?",
-            "answer": "<p>If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p>"
+            "question": "Is it actually safe to inhale? What am I breathing in?",
+            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid. You breathe air through a PET fibre core with food-grade aroma compounds \u2014 no burning and no vaporising.</p>"
+          }
+        },
+        "faq_cost": {
+          "type": "question",
+          "settings": {
+            "question": "Won't the cores run out and cost me forever?",
+            "answer": "<p>Each core lasts about 2.5 to 4 days depending on use and aroma. The Starter Kit covers roughly 3 to 5 weeks of ritual. Compared with ongoing vape spend, cores are a fraction of the monthly bill.</p>"
+          }
+        },
+        "faq_work": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it at work and around people?",
+            "answer": "<p>Yes. There is no smoke, no vapour, and no lingering smell like cigarettes or disposables. It is designed for everyday routines \u2014 work, pubs, worksites \u2014 without the social friction of vaping.</p>"
+          }
+        },
+        "faq_gimmick": {
+          "type": "question",
+          "settings": {
+            "question": "Is this just a gimmick \u2014 will it really work?",
+            "answer": "<p>Brisa is designed for the urge moment: same motion, different story. If it is not landing in your first 30 days, claim the Success Guarantee \u2014 we send a Brisa Strategy Guide with the exact tweak to try, plus 6 free cores (2 packs) the same week.</p>"
           }
         }
       },
       "block_order": [
-        "faq_safe",
-        "faq_habit",
-        "faq_cores",
-        "faq_flavours",
-        "faq_guarantee"
+        "faq_satisfy",
+        "faq_vape",
+        "faq_pens",
+        "faq_gums",
+        "faq_inhale",
+        "faq_cost",
+        "faq_work",
+        "faq_gimmick"
       ],
       "name": "Learn FAQ",
       "settings": {
@@ -428,7 +456,8 @@
         "max_width": 520,
         "background": "#f4f4f4",
         "padding_top": 48,
-        "padding_bottom": 48
+        "padding_bottom": 48,
+        "subheading": "Frequently Asked Questions Answered"
       }
     }
   },

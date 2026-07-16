@@ -25,12 +25,20 @@
   }
 
   #shopify-section-{{ section.id }} .learn-faq__heading {
-    margin: 0 0 24px;
+    margin: 0 0 10px;
     font-size: clamp(28px, 6vw, 36px);
     font-weight: 900;
     line-height: 1.1;
     text-align: center;
     text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .learn-faq__subheading {
+    margin: 0 0 24px;
+    color: #444444;
+    font-size: 15px;
+    line-height: 1.4;
+    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .learn-faq__list {
@@ -42,8 +50,13 @@
   #shopify-section-{{ section.id }} .learn-faq__item {
     background: #ffffff;
     border: 1px solid #dddddd;
-    border-radius: 12px;
+    border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .learn-faq__item[open] {
+    border-radius: 24px;
   }
 
   #shopify-section-{{ section.id }} .learn-faq__question {
@@ -108,6 +121,10 @@
     <h2 class="learn-faq__heading">{{ section.settings.heading | escape }}</h2>
   {%- endif -%}
 
+  {%- if section.settings.subheading != blank -%}
+    <p class="learn-faq__subheading">{{ section.settings.subheading | escape }}</p>
+  {%- endif -%}
+
   {%- if section.blocks.size > 0 -%}
     <div class="learn-faq__list" itemscope itemtype="https://schema.org/FAQPage">
       {%- for block in section.blocks -%}
@@ -129,7 +146,7 @@
 {
   "name": "Learn FAQ",
   "class": "shopify-section--learn-faq",
-  "max_blocks": 10,
+  "max_blocks": 12,
   "settings": [
     {
       "type": "text",
@@ -142,6 +159,12 @@
       "id": "heading",
       "label": "Heading",
       "default": "QUICK QUESTIONS."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Frequently Asked Questions Answered"
     },
     {
       "type": "header",
