@@ -29,7 +29,7 @@
 
   assign slideshow_product_gallery = false
   if template.name == 'product'
-    if template.suffix == 'brisa-devices' or template.suffix == 'brisa-cores'
+    if template.suffix == 'brisa-devices' or template.suffix == 'brisa-devices-variations' or template.suffix == 'brisa-cores' or template.suffix == 'brisa-cores-variations'
       assign slideshow_product_gallery = true
     endif
   endif
@@ -184,7 +184,7 @@
     padding: 0;
     overflow: hidden;
     border: 2px solid #e0e0e0;
-    border-radius: {{ section.settings.thumbnail_radius }}px;
+    border-radius: 50%;
     background-color: #ececec;
     cursor: pointer;
     box-sizing: border-box;
@@ -362,6 +362,82 @@
       height: 38px;
     }
   }
+
+  /* Canva-style next-slide peek */
+  #shopify-section-{{ section.id }} .slideshow-brisa__stage {
+    --slideshow-brisa-peek-size: 18px;
+    --slideshow-brisa-peek-opacity: 1;
+    --slideshow-brisa-slide-radius: 18px;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: calc(100% - var(--slideshow-brisa-peek-size) - 8px) !important;
+    max-width: calc(100% - var(--slideshow-brisa-peek-size) - 8px);
+    border-radius: var(--slideshow-brisa-slide-radius);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek {
+    flex: 0 0 var(--slideshow-brisa-peek-size);
+    width: var(--slideshow-brisa-peek-size);
+    min-width: var(--slideshow-brisa-peek-size);
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--slideshow-brisa-slide-radius) 0 0 var(--slideshow-brisa-slide-radius);
+    opacity: var(--slideshow-brisa-peek-opacity);
+    background: #0b3a66;
+    cursor: pointer;
+    align-self: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek[hidden] {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek-image {
+    display: block;
+    width: 220%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    pointer-events: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .slideshow-brisa__stage {
+      --slideshow-brisa-peek-size: 28px;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} .slideshow-brisa__stage {
+      /* Desktop: more of the next slide, 90% transparent */
+      --slideshow-brisa-peek-size: 84px;
+      --slideshow-brisa-peek-opacity: 0.1;
+      --slideshow-brisa-slide-radius: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__stage {
+      width: min(calc(var(--slideshow-brisa-desktop-size, 520px) + var(--slideshow-brisa-peek-size) + 12px), 100%);
+      margin-inline: auto;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__stage .slideshow__slide-list {
+      width: min(var(--slideshow-brisa-desktop-size, 520px), calc(100% - var(--slideshow-brisa-peek-size) - 12px)) !important;
+      max-width: min(var(--slideshow-brisa-desktop-size, 520px), calc(100% - var(--slideshow-brisa-peek-size) - 12px));
+      margin-inline: 0;
+    }
+  }
 </style>
 
 <section
@@ -372,6 +448,7 @@
   data-mates-handle="{{ section.settings.mates_handle | escape }}"
 >
   <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
+    <div class="slideshow-brisa__stage">
     <div class="slideshow__slide-list">
       {%- assign visible_index = 0 -%}
       {%- for block in section.blocks -%}
@@ -399,8 +476,11 @@
         ------------------------------------------------------------------------------------------------------------------
         {%- endcomment -%}
 
-        {%- assign image = block.settings.image -%}
-        {%- assign image_aspect_ratio = image.aspect_ratio | default: 1 -%}
+        {%- liquid
+          assign image = block.settings.image
+          assign image_asset = block.settings.image_asset | strip
+          assign image_aspect_ratio = image.aspect_ratio | default: 1
+        -%}
 
         {%- if visible_index > 2 -%}
           {%- assign loading_attribute_value = 'lazy' -%}
@@ -418,7 +498,18 @@
 
         {%- capture slide_content -%}
           <div class="slideshow__image-wrapper{% if block.settings.show_image_overlay %} slideshow__image-wrapper--has-overlay{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
-            {%- if image != blank -%}
+            {%- if image_asset != blank -%}
+              <img
+                class="slideshow__image"
+                src="{{ image_asset | asset_url }}"
+                alt=""
+                loading="{{ loading_attribute_value }}"
+                draggable="false"
+                sizes="{{ slide_image_sizes }}"
+                width="1000"
+                height="1000"
+              >
+            {%- elsif image != blank -%}
               {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600,2000,2400,3000' -}}
             {%- else -%}
               {% capture image_name %}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
@@ -520,6 +611,12 @@
         </slide-show-item>
       {%- endfor -%}
     </div>
+    {%- if visible_blocks_count > 1 -%}
+      <button type="button" class="slideshow-brisa__peek" data-slideshow-brisa-peek aria-label="{{ 'general.accessibility.next' | t }}">
+        <img class="slideshow-brisa__peek-image" data-slideshow-brisa-peek-image alt="" width="200" height="400" decoding="async">
+      </button>
+    {%- endif -%}
+    </div>
   </slide-show>
 
   {%- if visible_blocks_count > 1 -%}
@@ -550,6 +647,7 @@
           {%- if thumb_image == blank -%}
             {%- assign thumb_image = block.settings.image -%}
           {%- endif -%}
+          {%- assign thumb_asset = block.settings.image_asset | strip -%}
 
           <button
             type="button"
@@ -560,7 +658,16 @@
             aria-controls="block-{{ section.id }}-{{ block.id }}"
             {% if dot_index == 0 %}aria-current="true" aria-selected="true"{% else %}aria-selected="false"{% endif %}
           >
-            {%- if thumb_image != blank -%}
+            {%- if thumb_asset != blank -%}
+              <img
+                class="slideshow-brisa__thumb-image"
+                src="{{ thumb_asset | asset_url }}"
+                width="160"
+                height="160"
+                alt=""
+                loading="{% if dot_index < 4 %}eager{% else %}lazy{% endif %}"
+              >
+            {%- elsif thumb_image != blank -%}
               <img
                 class="slideshow-brisa__thumb-image"
                 src="{{ thumb_image | image_url: width: 160, height: 160, crop: 'center' }}"
@@ -842,6 +949,12 @@
           "id": "image",
           "label": "Image",
           "info": "1080 x 1080px square .png or .jpg recommended. Same image is used on mobile and desktop."
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Theme asset filename (optional)",
+          "info": "If set (e.g. brisa-slider-hero-1.jpg), this theme asset is used instead of the image picker."
         },
         {
           "type": "image_picker",

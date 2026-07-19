@@ -465,11 +465,21 @@
   cursor: pointer;
   padding: 0;
   background: #ccc;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.bkp__swatch:focus,
+.bkp__swatch:focus-visible {
+  outline: none;
 }
 
 .bkp__swatch.is-selected {
-  outline: 2px solid var(--bkp-blue);
-  outline-offset: 2px;
+  border-color: var(--bkp-blue);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 0 0 2px #fff,
+    0 0 0 4px var(--bkp-blue);
 }
 
 .bkp__swatch-name {
@@ -487,6 +497,9 @@
 }
 
 .bkp__atc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 54px;
   border: 0;
@@ -496,6 +509,7 @@
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 0.03em;
+  text-align: center;
   text-transform: uppercase;
   cursor: pointer;
   transition: opacity 0.15s ease, transform 0.15s ease;
