@@ -287,172 +287,6 @@
         "arrow_color": "#1a1a1a"
       }
     },
-    "brisa_product_kit_picker_cKf7EP": {
-      "type": "brisa-product-kit-picker",
-      "blocks": {
-        "feature_UbngGP": {
-          "type": "feature",
-          "settings": {
-            "card": "starter",
-            "text": "1 × Brisa Device (chosen colour)"
-          }
-        },
-        "feature_CLDKnc": {
-          "type": "feature",
-          "settings": {
-            "card": "starter",
-            "text": "9 × Aroma Cores — 3 to 5 weeks of ritual"
-          }
-        },
-        "feature_AbRWkm": {
-          "type": "feature",
-          "settings": {
-            "card": "starter",
-            "text": "Cleaning Kit + Carry Bag"
-          }
-        },
-        "feature_tcNgaW": {
-          "type": "feature",
-          "settings": {
-            "card": "starter",
-            "text": "FREE Watermelon Core ($15 value)"
-          }
-        },
-        "feature_TpwBJE": {
-          "type": "feature",
-          "settings": {
-            "card": "mates",
-            "text": "2 × Brisa Devices"
-          }
-        },
-        "feature_66kC4Y": {
-          "type": "feature",
-          "settings": {
-            "card": "mates",
-            "text": "18 × Aroma Cores — 3-5 weeks per person of ritual each"
-          }
-        },
-        "feature_f4LRLb": {
-          "type": "feature",
-          "settings": {
-            "card": "mates",
-            "text": "2 × Cleaning Kits + Carry Bags"
-          }
-        },
-        "feature_FdTDcU": {
-          "type": "feature",
-          "settings": {
-            "card": "mates",
-            "text": "2 × FREE Watermelon Cores ($30 value)"
-          }
-        },
-        "feature_tCEk8q": {
-          "type": "feature",
-          "settings": {
-            "card": "mates",
-            "text": "Ship to two addresses"
-          }
-        },
-        "feature_JxJPmG": {
-          "type": "feature",
-          "settings": {
-            "card": "mates",
-            "text": "Covers both 30-Day Guarantees"
-          }
-        }
-      },
-      "block_order": [
-        "feature_UbngGP",
-        "feature_CLDKnc",
-        "feature_AbRWkm",
-        "feature_tcNgaW",
-        "feature_TpwBJE",
-        "feature_66kC4Y",
-        "feature_f4LRLb",
-        "feature_FdTDcU",
-        "feature_tCEk8q",
-        "feature_JxJPmG"
-      ],
-      "name": "Product kit picker",
-      "settings": {
-        "starter_product": "brisa-starter-kit",
-        "starter_handle": "starter-kit",
-        "starter_handle_prefix": "brisa-device-",
-        "mates_product": "brisa-mates-pack",
-        "mates_handle": "mates-pack",
-        "show_hero": true,
-        "show_rating": true,
-        "rating_text": "Rated 4.7 (163)",
-        "rating_badge": "Happy customers",
-        "rating_star_color": "#008bdc",
-        "rating_badge_background": "#add5fe",
-        "rating_badge_text_color": "#1379dd",
-        "brand_prefix": "BRISA™",
-        "starter_kit_heading": "STARTER KIT",
-        "mates_kit_heading": "MATES KIT",
-        "highlight_icon_1": "shopify://shop_images/brisa_03.png",
-        "highlight_label_1": "Satisfies the ritual",
-        "highlight_icon_2": "shopify://shop_images/brisa_09.png",
-        "highlight_label_2": "Throat sensation",
-        "highlight_icon_3": "shopify://shop_images/brisa_05.png",
-        "highlight_label_3": "No smoke No vapour",
-        "highlight_icon_4": "shopify://shop_images/brisa_10.png",
-        "highlight_label_4": "No Nicotine",
-        "starter_title": "Starter Kit",
-        "starter_subtitle": "For your first switch",
-        "starter_header_price": "",
-        "starter_price": "$130",
-        "starter_compare_price": "$145",
-        "mates_banner": "Best value. Save $40",
-        "mates_title": "Mates Pack",
-        "mates_note": "Tackle it with a mate or loved one who also needs to quit.",
-        "mates_price": "$220",
-        "mates_compare_price": "$260",
-        "max_width": 1100,
-        "hero_heading_size": 42,
-        "mobile_hero_heading_size": 28,
-        "hero_spacing": 24,
-        "hero_heading_spacing": 20,
-        "highlights_max_width": 720,
-        "highlight_gap": 20,
-        "highlight_column_gap": 40,
-        "highlight_icon_size": 56,
-        "highlight_icon_svg_size": 60,
-        "highlight_text_size": 15,
-        "mobile_highlight_text_size": 13,
-        "card_gap": 18,
-        "card_padding": 26,
-        "mobile_card_padding": 12,
-        "border_width": 2,
-        "border_radius": 14,
-        "padding_top": 28,
-        "padding_bottom": 28,
-        "mobile_padding_top": 20,
-        "mobile_padding_bottom": 20,
-        "title_size": 28,
-        "mobile_title_size": 24,
-        "subtitle_size": 13,
-        "header_price_size": 18,
-        "feature_size": 12,
-        "note_size": 12,
-        "price_size": 28,
-        "mobile_price_size": 30,
-        "compare_size": 16,
-        "background": "#ffffff",
-        "card_background": "#ffffff",
-        "active_background": "#add5fe",
-        "border_color": "#008bdc",
-        "inactive_border_color": "#c5dcea",
-        "heading_color": "#111111",
-        "text_color": "#1a1a1a",
-        "check_color": "#111111",
-        "compare_color": "#8a8a8a",
-        "banner_background": "#008bdc",
-        "banner_text_color": "#ffffff",
-        "highlight_icon_background": "#38adf5",
-        "highlight_icon_color": "#ffffff"
-      }
-    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -508,8 +342,8 @@
         "buy_buttons"
       ],
       "custom_css": [
-        ".product-meta {border-bottom-width: 0px; margin-bottom: 0px; padding-bottom: 0px;}",
-        ".heading {margin-bottom: 0px;}"
+        ".product-form, .product-meta, .product-gallery, .product__info {display:none !important;}",
+        ".product {min-height:0;}"
       ],
       "settings": {
         "show_vendor": false,
@@ -517,7 +351,7 @@
         "show_badges": false,
         "show_taxes_included": false,
         "show_product_rating": false,
-        "show_sticky_add_to_cart": true,
+        "show_sticky_add_to_cart": false,
         "show_share_buttons": false,
         "help_page": "",
         "enable_video_autoplay": true,
@@ -580,14 +414,14 @@
           "type": "step",
           "settings": {
             "title": "Set your airflow",
-            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
+            "text": "Dial the base to find your perfect draw \u2014 tighter or looser, just like you're used to."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "title": "Reach for it instead",
-            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
+            "text": "Every time you'd reach for your vape \u2014 reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
           }
         }
       },
@@ -617,10 +451,10 @@
         "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "show_promo": true,
         "promo_icon": "shopify://shop_images/gift.png",
-        "promo_text": "Order this week — FREE Watermelon core pack (valued at $15) included.",
+        "promo_text": "Order this week \u2014 FREE Watermelon core pack (valued at $15) included.",
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
-        "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
+        "brand_text": "Brisa is built around the ritual \u2014 not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
         "brand_image": "shopify://shop_images/DSC_2704_copy.jpg",
         "show_how_it_works": true,
         "how_heading": "How It Works",
@@ -804,7 +638,7 @@
           "type": "item",
           "settings": {
             "icon": "airflow",
-            "title": "Tuned airflow — matches a real vape draw.",
+            "title": "Tuned airflow \u2014 matches a real vape draw.",
             "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
           }
         },
@@ -978,11 +812,240 @@
         "border_color": "#7eb8e0",
         "divider_color": "#7eb8e0"
       }
+    },
+    "brisa_kit_purchase_main": {
+      "type": "brisa-kit-purchase",
+      "blocks": {
+        "f_try_1": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "1x Brisa device",
+            "bonus": false
+          }
+        },
+        "f_try_2": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "9 cores (3 Cherry Pom, 3 Mint Ice, 3 Raspberry Lime)",
+            "bonus": false
+          }
+        },
+        "f_try_3": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "Cleaning kit + carry bag",
+            "bonus": false
+          }
+        },
+        "f_try_4": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "bonus": true
+          }
+        },
+        "f_com_1": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "1x Brisa device",
+            "bonus": false
+          }
+        },
+        "f_com_2": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "27 cores (9 Cherry Pom, 9 Mint Ice, 9 Raspberry Lime)",
+            "bonus": false
+          }
+        },
+        "f_com_3": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "Cleaning kit + carry bag",
+            "bonus": false
+          }
+        },
+        "f_com_4": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "bonus": true
+          }
+        },
+        "f_mat_1": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "2x Brisa device",
+            "bonus": false
+          }
+        },
+        "f_mat_2": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "18 cores (6 Cherry Pom, 6 Mint Ice, 6 Raspberry Lime)",
+            "bonus": false
+          }
+        },
+        "f_mat_3": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "2x Cleaning kit + carry bag",
+            "bonus": false
+          }
+        },
+        "f_mat_4": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "bonus": true
+          }
+        },
+        "g1": {
+          "type": "gift",
+          "settings": {
+            "image": "",
+            "title": "Raspberry lime core",
+            "tag": "FREE $15",
+            "text": "FREE 3 Raspberry lime cores with every kit."
+          }
+        },
+        "g2": {
+          "type": "gift",
+          "settings": {
+            "image": "",
+            "title": "Free Shipping",
+            "tag": "FREE $22",
+            "text": "Fast, FREE delivery on every brisa kit."
+          }
+        },
+        "c_black": {
+          "type": "colour",
+          "settings": {
+            "label": "Black",
+            "hex": "#1a1a1a",
+            "device_product": ""
+          }
+        },
+        "c_ocean": {
+          "type": "colour",
+          "settings": {
+            "label": "Ocean",
+            "hex": "#1A7A8A",
+            "device_product": ""
+          }
+        },
+        "c_rose": {
+          "type": "colour",
+          "settings": {
+            "label": "Rose",
+            "hex": "#E8A0A0",
+            "device_product": ""
+          }
+        }
+      },
+      "block_order": [
+        "f_try_1",
+        "f_try_2",
+        "f_try_3",
+        "f_try_4",
+        "f_com_1",
+        "f_com_2",
+        "f_com_3",
+        "f_com_4",
+        "f_mat_1",
+        "f_mat_2",
+        "f_mat_3",
+        "f_mat_4",
+        "g1",
+        "g2",
+        "c_black",
+        "c_ocean",
+        "c_rose"
+      ],
+      "name": "Brisa kit purchase",
+      "settings": {
+        "eyebrow": "SENSORY HABIT DEVICE",
+        "title": "BRISA\u2122 STARTER KIT",
+        "show_rating": true,
+        "rating_text": "Rated 4.7 2,000 +",
+        "rating_badge": "Happy customers",
+        "highlight_label_1": "Hand-to-mouth draw",
+        "highlight_icon_1": "shopify://shop_images/brisa_03.png",
+        "highlight_label_2": "Real throat hit",
+        "highlight_icon_2": "shopify://shop_images/brisa_09.png",
+        "highlight_label_3": "Bold familiar flavour",
+        "highlight_icon_3": "shopify://shop_images/brisa_05.png",
+        "highlight_label_4": "No Nicotine, No Vapour, No Smoke",
+        "highlight_icon_4": "shopify://shop_images/brisa_10.png",
+        "choose_heading": "Choose your kit",
+        "choose_sub": "One-time purchase \u00b7 30 day guarantee on every kit",
+        "try_product": "",
+        "try_handle": "brisa-starter-kit",
+        "try_title": "Try Brisa First",
+        "try_price": "$130",
+        "try_compare": "$145",
+        "try_save": "SAVE $15",
+        "try_banner": "",
+        "try_price_cents": 13000,
+        "try_image": "",
+        "commitment_product": "",
+        "commitment_handle": "brisa-commitment-kit",
+        "commitment_title": "The Commitment Kit",
+        "commitment_price": "$165",
+        "commitment_compare": "$205",
+        "commitment_save": "SAVE $40",
+        "commitment_banner": "\u2605 MOST POPULAR \u00b7 SAVE $40",
+        "commitment_price_cents": 16500,
+        "commitment_image": "",
+        "mates_product": "",
+        "mates_handle": "brisa-mates-pack",
+        "mates_title": "Mates pack",
+        "mates_price": "$220",
+        "mates_compare": "$260",
+        "mates_save": "SAVE $40",
+        "mates_banner": "",
+        "mates_price_cents": 22000,
+        "mates_image": "",
+        "gifts_heading": "INCLUDED GIFTS (WORTH $37)",
+        "colour_label_yours": "Your colour",
+        "colour_label_mates": "Mate's colour",
+        "show_addon": true,
+        "addon_product": "",
+        "addon_handle": "monthly-better-box",
+        "addon_tab": "ADD ON",
+        "addon_title": "Monthly Better Box",
+        "addon_price": "$44/mo",
+        "addon_compare": "$72",
+        "addon_save": "SAVE $28",
+        "addon_meta": "12 cores every 4 weeks \u00b7 $3.67/core \u00b7 free shipping",
+        "addon_bonus": "FREE A Free Cherry Pom in every box",
+        "addon_action": "ADD",
+        "addon_price_cents": 4400,
+        "show_trust": true,
+        "trust_1": "Ships Next Day",
+        "trust_2": "Secure checkout",
+        "trust_3": "FREE SHIPPING",
+        "trust_4": "Australian Customer service",
+        "trust_5": "4.7 (163)",
+        "trust_6": "30 Day Guarantee"
+      }
     }
   },
   "order": [
     "slideshow_brisa_LPC6iL",
-    "brisa_product_kit_picker_cKf7EP",
+    "brisa_kit_purchase_main",
     "main",
     "product-content",
     "1772962804ca13e40e",

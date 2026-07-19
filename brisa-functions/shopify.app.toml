@@ -1,0 +1,19 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "cef6195b5cd24817378ad5b601eefd1b"
+name = "Brisa Kit Bundle"
+application_url = "https://shopify.dev/apps/default-app-home"
+embedded = true
+
+[webhooks]
+api_version = "2026-10"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_cart_transforms,write_cart_transforms,write_products"
+
+[auth]
+redirect_urls = [ "https://shopify.dev/apps/default-app-home/api/auth" ]
+
+[build]
+automatically_update_urls_on_dev = true

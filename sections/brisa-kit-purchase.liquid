@@ -1,0 +1,921 @@
+{{ 'brisa-kit-purchase.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'brisa-kit-purchase.js' | asset_url }}" defer></script>
+
+{%- liquid
+  assign try_product = section.settings.try_product
+  assign commitment_product = section.settings.commitment_product
+  assign mates_product = section.settings.mates_product
+  assign addon_product = section.settings.addon_product
+
+  if try_product == blank and section.settings.try_handle != blank
+    assign try_product = all_products[section.settings.try_handle]
+  endif
+  if commitment_product == blank and section.settings.commitment_handle != blank
+    assign commitment_product = all_products[section.settings.commitment_handle]
+  endif
+  if mates_product == blank and section.settings.mates_handle != blank
+    assign mates_product = all_products[section.settings.mates_handle]
+  endif
+  if addon_product == blank and section.settings.addon_handle != blank
+    assign addon_product = all_products[section.settings.addon_handle]
+  endif
+
+  assign active_key = 'commitment'
+  if mates_product != blank and product.id == mates_product.id
+    assign active_key = 'mates'
+  elsif try_product != blank and product.id == try_product.id
+    assign active_key = 'try'
+  elsif commitment_product != blank and product.id == commitment_product.id
+    assign active_key = 'commitment'
+  elsif product.handle contains 'mates'
+    assign active_key = 'mates'
+  endif
+
+  assign addon_variant = addon_product.selected_or_first_available_variant
+  assign addon_price_cents = section.settings.addon_price_cents | default: 4400
+  if addon_variant != blank
+    assign addon_price_cents = addon_variant.price
+  endif
+
+  assign colour_blocks = section.blocks | where: 'type', 'colour'
+-%}
+
+<brisa-kit-purchase
+  class="bkp"
+  data-devices="1"
+  data-addon-price-cents="{{ addon_price_cents }}"
+  {% if addon_variant != blank %}data-addon-variant-id="{{ addon_variant.id }}"{% endif %}
+  {{ section.shopify_attributes }}
+>
+  <div class="bkp__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="bkp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+
+    <h2 class="bkp__title">
+      {{ section.settings.title | default: 'BRISA™ STARTER KIT' | escape }}
+    </h2>
+
+    {% if section.settings.show_rating %}
+      <div class="bkp__rating">
+        <span class="bkp__stars" aria-hidden="true">
+          {%- for i in (1..5) -%}
+            <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          {%- endfor -%}
+        </span>
+        {% if section.settings.rating_text != blank %}
+          <span class="bkp__rating-text">{{ section.settings.rating_text | escape }}</span>
+        {% endif %}
+        {% if section.settings.rating_badge != blank %}
+          <span class="bkp__rating-badge">{{ section.settings.rating_badge | escape }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <ul class="bkp__highlights">
+      {% for i in (1..4) %}
+        {% liquid
+          case i
+            when 1
+              assign hi_icon = section.settings.highlight_icon_1
+              assign hi_label = section.settings.highlight_label_1
+            when 2
+              assign hi_icon = section.settings.highlight_icon_2
+              assign hi_label = section.settings.highlight_label_2
+            when 3
+              assign hi_icon = section.settings.highlight_icon_3
+              assign hi_label = section.settings.highlight_label_3
+            else
+              assign hi_icon = section.settings.highlight_icon_4
+              assign hi_label = section.settings.highlight_label_4
+          endcase
+        %}
+        {% if hi_label != blank %}
+          <li class="bkp__highlight">
+            <span class="bkp__highlight-icon{% if hi_icon != blank %} bkp__highlight-icon--custom{% endif %}" aria-hidden="true">
+              {% if hi_icon != blank %}
+                {{ hi_icon | image_url: width: 96 | image_tag: loading: 'lazy', widths: '48,96', alt: '' }}
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="none" focusable="false"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/></svg>
+              {% endif %}
+            </span>
+            <span>{{ hi_label | escape }}</span>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <h3 class="bkp__choose-heading">{{ section.settings.choose_heading | default: 'Choose your kit' | escape }}</h3>
+    {% if section.settings.choose_sub != blank %}
+      <p class="bkp__choose-sub">{{ section.settings.choose_sub | escape }}</p>
+    {% endif %}
+
+    <div class="bkp__kits" role="radiogroup" aria-label="{{ section.settings.choose_heading | default: 'Choose your kit' | escape }}">
+      {% assign kit_defs = 'try,commitment,mates' | split: ',' %}
+      {% for key in kit_defs %}
+        {% liquid
+          assign kit_product = blank
+          assign kit_title = ''
+          assign kit_price = ''
+          assign kit_compare = ''
+          assign kit_save = ''
+          assign kit_banner = ''
+          assign kit_devices = 1
+          assign kit_image = blank
+          assign price_cents = 0
+          assign variant_id = ''
+
+          case key
+            when 'try'
+              assign kit_product = try_product
+              assign kit_title = section.settings.try_title
+              assign kit_price = section.settings.try_price
+              assign kit_compare = section.settings.try_compare
+              assign kit_save = section.settings.try_save
+              assign kit_banner = section.settings.try_banner
+              assign kit_devices = 1
+              assign kit_image = section.settings.try_image
+              assign price_cents = section.settings.try_price_cents | default: 13000
+            when 'commitment'
+              assign kit_product = commitment_product
+              assign kit_title = section.settings.commitment_title
+              assign kit_price = section.settings.commitment_price
+              assign kit_compare = section.settings.commitment_compare
+              assign kit_save = section.settings.commitment_save
+              assign kit_banner = section.settings.commitment_banner
+              assign kit_devices = 1
+              assign kit_image = section.settings.commitment_image
+              assign price_cents = section.settings.commitment_price_cents | default: 16500
+            when 'mates'
+              assign kit_product = mates_product
+              assign kit_title = section.settings.mates_title
+              assign kit_price = section.settings.mates_price
+              assign kit_compare = section.settings.mates_compare
+              assign kit_save = section.settings.mates_save
+              assign kit_banner = section.settings.mates_banner
+              assign kit_devices = 2
+              assign kit_image = section.settings.mates_image
+              assign price_cents = section.settings.mates_price_cents | default: 22000
+          endcase
+
+          if kit_product != blank
+            assign kit_variant = kit_product.selected_or_first_available_variant
+            assign variant_id = kit_variant.id
+            assign price_cents = kit_variant.price
+            if kit_image == blank
+              assign kit_image = kit_product.featured_image
+            endif
+            if kit_price == blank
+              assign kit_price = kit_variant.price | money_without_trailing_zeros
+            endif
+          endif
+
+          assign is_selected = false
+          if active_key == key
+            assign is_selected = true
+          endif
+        %}
+
+        <label
+          class="bkp__kit{% if is_selected %} is-selected{% endif %}"
+          data-bkp-kit
+          data-kit-key="{{ key }}"
+          data-devices="{{ kit_devices }}"
+          data-variant-id="{{ variant_id }}"
+          data-price-cents="{{ price_cents }}"
+          data-title="{{ kit_title | escape }}"
+        >
+          <input type="radio" name="bkp-kit-{{ section.id }}" value="{{ key }}" {% if is_selected %}checked{% endif %}>
+          {% if kit_banner != blank %}
+            <span class="bkp__kit-banner">{{ kit_banner | escape }}</span>
+          {% endif %}
+
+          <div class="bkp__kit-main">
+            <div class="bkp__kit-top">
+              <h4 class="bkp__kit-title">{{ kit_title | escape }}</h4>
+              {% if kit_price != blank %}
+                <span class="bkp__kit-price">{{ kit_price | escape }}</span>
+              {% endif %}
+              {% if kit_compare != blank %}
+                <span class="bkp__kit-compare">{{ kit_compare | escape }}</span>
+              {% endif %}
+              {% if kit_save != blank %}
+                <span class="bkp__kit-save">{{ kit_save | escape }}</span>
+              {% endif %}
+            </div>
+
+            <ul class="bkp__kit-features">
+              {% for block in section.blocks %}
+                {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
+                  <li class="bkp__kit-feature{% if block.settings.bonus %} bkp__kit-feature--bonus{% endif %}" {{ block.shopify_attributes }}>
+                    {{ block.settings.text | escape }}
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="bkp__kit-side">
+            <span class="bkp__kit-radio" aria-hidden="true"></span>
+            {% if kit_image != blank %}
+              {{ kit_image | image_url: width: 160 | image_tag: class: 'bkp__kit-thumb', loading: 'lazy', widths: '80,112,160', alt: kit_title }}
+            {% endif %}
+          </div>
+        </label>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.gifts_heading != blank %}
+      <p class="bkp__gifts-heading">{{ section.settings.gifts_heading | escape }}</p>
+    {% endif %}
+    <div class="bkp__gifts">
+      {% for block in section.blocks %}
+        {% if block.type == 'gift' %}
+          <div class="bkp__gift" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 120 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '60,120', alt: block.settings.title }}
+            {% else %}
+              <span class="bkp__gift-media" aria-hidden="true"></span>
+            {% endif %}
+            <div class="bkp__gift-body">
+              <div class="bkp__gift-title-row">
+                {% if block.settings.title != blank %}
+                  <h4 class="bkp__gift-title">{{ block.settings.title | escape }}</h4>
+                {% endif %}
+                {% if block.settings.tag != blank %}
+                  <span class="bkp__gift-tag">{{ block.settings.tag | escape }}</span>
+                {% endif %}
+              </div>
+              {% if block.settings.text != blank %}
+                <p class="bkp__gift-text">{{ block.settings.text | escape }}</p>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_addon %}
+      <div class="bkp__addon">
+        <span class="bkp__addon-tab">{{ section.settings.addon_tab | default: 'ADD ON' | escape }}</span>
+        <div class="bkp__addon-row">
+          <input class="bkp__addon-check" type="checkbox" data-bkp-addon-check id="bkp-addon-{{ section.id }}" {% unless addon_variant %}disabled{% endunless %}>
+          <div>
+            <h4 class="bkp__addon-title">
+              <label for="bkp-addon-{{ section.id }}">{{ section.settings.addon_title | escape }}</label>
+            </h4>
+            <div class="bkp__addon-price">
+              {{ section.settings.addon_price | escape }}
+              {% if section.settings.addon_compare != blank %}
+                <span class="bkp__addon-compare">{{ section.settings.addon_compare | escape }}</span>
+              {% endif %}
+              {% if section.settings.addon_save != blank %}
+                <span class="bkp__addon-save">{{ section.settings.addon_save | escape }}</span>
+              {% endif %}
+            </div>
+            {% if section.settings.addon_meta != blank %}
+              <p class="bkp__addon-meta">{{ section.settings.addon_meta | escape }}</p>
+            {% endif %}
+          </div>
+          <button type="button" class="bkp__addon-action" data-bkp-addon-toggle>{{ section.settings.addon_action | default: 'ADD' | escape }}</button>
+        </div>
+        {% if section.settings.addon_bonus != blank %}
+          <p class="bkp__addon-bonus">{{ section.settings.addon_bonus | escape }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="bkp__colours bkp__colours--dual" data-bkp-colours>
+      <div class="bkp__colour-group" data-role="yours">
+        <p class="bkp__colour-label">{{ section.settings.colour_label_yours | default: 'Your colour' | escape }}</p>
+        <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Your colour' | escape }}">
+          {% for block in colour_blocks %}
+            {% liquid
+              assign colour_product = block.settings.device_product
+              assign colour_variant_id = ''
+              if colour_product != blank
+                assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+              endif
+              assign swatch_style = block.settings.hex | default: '#cccccc'
+              assign is_first = forloop.first
+            %}
+            <button
+              type="button"
+              class="bkp__swatch{% if is_first %} is-selected{% endif %}"
+              style="background-color: {{ swatch_style }};"
+              data-bkp-swatch
+              data-role="yours"
+              data-label="{{ block.settings.label | escape }}"
+              data-variant-id="{{ colour_variant_id }}"
+              aria-label="{{ block.settings.label | escape }}"
+              {{ block.shopify_attributes }}
+            ></button>
+          {% endfor %}
+        </div>
+        <p class="bkp__swatch-name" data-bkp-colour-name="yours">
+          {% if colour_blocks.size > 0 %}{{ colour_blocks.first.settings.label | escape }}{% endif %}
+        </p>
+      </div>
+
+      <div class="bkp__colour-group" data-role="mates">
+        <p class="bkp__colour-label">{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}</p>
+        <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}">
+          {% for block in colour_blocks %}
+            {% liquid
+              assign colour_product = block.settings.device_product
+              assign colour_variant_id = ''
+              if colour_product != blank
+                assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+              endif
+              assign swatch_style = block.settings.hex | default: '#cccccc'
+              assign is_first = forloop.first
+            %}
+            <button
+              type="button"
+              class="bkp__swatch{% if is_first %} is-selected{% endif %}"
+              style="background-color: {{ swatch_style }};"
+              data-bkp-swatch
+              data-role="mates"
+              data-label="{{ block.settings.label | escape }}"
+              data-variant-id="{{ colour_variant_id }}"
+              aria-label="{{ block.settings.label | escape }}"
+            ></button>
+          {% endfor %}
+        </div>
+        <p class="bkp__swatch-name" data-bkp-colour-name="mates">
+          {% if colour_blocks.size > 0 %}{{ colour_blocks.first.settings.label | escape }}{% endif %}
+        </p>
+      </div>
+    </div>
+
+    <button type="button" class="bkp__atc" data-bkp-atc>
+      <span data-bkp-atc-label>ADD TO CART</span>
+    </button>
+    <p class="bkp__error" data-bkp-error role="status" aria-live="polite"></p>
+
+    {% if section.settings.show_trust %}
+      <ul class="bkp__trust">
+        {% for i in (1..6) %}
+          {% liquid
+            case i
+              when 1
+                assign t_label = section.settings.trust_1
+              when 2
+                assign t_label = section.settings.trust_2
+              when 3
+                assign t_label = section.settings.trust_3
+              when 4
+                assign t_label = section.settings.trust_4
+              when 5
+                assign t_label = section.settings.trust_5
+              else
+                assign t_label = section.settings.trust_6
+            endcase
+          %}
+          {% if t_label != blank %}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon" aria-hidden="true">
+                {% case i %}
+                  {% when 1 %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M3 7h13v10H3V7Zm13 3h3l2 3v4h-5V10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="18.5" r="1.5" fill="currentColor"/><circle cx="17" cy="18.5" r="1.5" fill="currentColor"/></svg>
+                  {% when 2 %}
+                    <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
+                  {% when 3 %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16v11H4V8Z" stroke="currentColor" stroke-width="1.8"/><path d="M4 8l8-4 8 4" stroke="currentColor" stroke-width="1.8"/></svg>
+                  {% when 4 %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 18c2-7 5-10 12-11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 20h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  {% when 5 %}
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5.2L20 8.2l-4 4.1.9 5.7L12 15.6 7.1 18l.9-5.7-4-4.1 5.6-1L12 2z"/></svg>
+                  {% else %}
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 12 2.2 2.2L15.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                {% endcase %}
+              </span>
+              <span>{{ t_label | escape }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</brisa-kit-purchase>
+
+{% schema %}
+{
+  "name": "Brisa kit purchase",
+  "tag": "section",
+  "class": "shopify-section--brisa-kit-purchase",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "SENSORY HABIT DEVICE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "BRISA™ STARTER KIT"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.7 2,000 +"
+    },
+    {
+      "type": "text",
+      "id": "rating_badge",
+      "label": "Rating badge",
+      "default": "Happy customers"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_1",
+      "label": "Highlight 1",
+      "default": "Hand-to-mouth draw"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_1",
+      "label": "Highlight icon 1"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_2",
+      "label": "Highlight 2",
+      "default": "Real throat hit"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_2",
+      "label": "Highlight icon 2"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_3",
+      "label": "Highlight 3",
+      "default": "Bold familiar flavour"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_3",
+      "label": "Highlight icon 3"
+    },
+    {
+      "type": "text",
+      "id": "highlight_label_4",
+      "label": "Highlight 4",
+      "default": "No Nicotine, No Vapour, No Smoke"
+    },
+    {
+      "type": "image_picker",
+      "id": "highlight_icon_4",
+      "label": "Highlight icon 4"
+    },
+    {
+      "type": "header",
+      "content": "Kit picker"
+    },
+    {
+      "type": "text",
+      "id": "choose_heading",
+      "label": "Choose heading",
+      "default": "Choose your kit"
+    },
+    {
+      "type": "text",
+      "id": "choose_sub",
+      "label": "Choose subheading",
+      "default": "One-time purchase · 30 day guarantee on every kit"
+    },
+    {
+      "type": "header",
+      "content": "Try Brisa First"
+    },
+    {
+      "type": "product",
+      "id": "try_product",
+      "label": "Try product"
+    },
+    {
+      "type": "text",
+      "id": "try_handle",
+      "label": "Try handle fallback",
+      "default": "brisa-starter-kit"
+    },
+    {
+      "type": "text",
+      "id": "try_title",
+      "label": "Try title",
+      "default": "Try Brisa First"
+    },
+    {
+      "type": "text",
+      "id": "try_price",
+      "label": "Try price label",
+      "default": "$130"
+    },
+    {
+      "type": "text",
+      "id": "try_compare",
+      "label": "Try compare label",
+      "default": "$145"
+    },
+    {
+      "type": "text",
+      "id": "try_save",
+      "label": "Try save label",
+      "default": "SAVE $15"
+    },
+    {
+      "type": "text",
+      "id": "try_banner",
+      "label": "Try banner"
+    },
+    {
+      "type": "number",
+      "id": "try_price_cents",
+      "label": "Try price (cents fallback)",
+      "default": 13000
+    },
+    {
+      "type": "image_picker",
+      "id": "try_image",
+      "label": "Try image"
+    },
+    {
+      "type": "header",
+      "content": "Commitment Kit"
+    },
+    {
+      "type": "product",
+      "id": "commitment_product",
+      "label": "Commitment product"
+    },
+    {
+      "type": "text",
+      "id": "commitment_handle",
+      "label": "Commitment handle fallback",
+      "default": "brisa-commitment-kit"
+    },
+    {
+      "type": "text",
+      "id": "commitment_title",
+      "label": "Commitment title",
+      "default": "The Commitment Kit"
+    },
+    {
+      "type": "text",
+      "id": "commitment_price",
+      "label": "Commitment price label",
+      "default": "$165"
+    },
+    {
+      "type": "text",
+      "id": "commitment_compare",
+      "label": "Commitment compare label",
+      "default": "$205"
+    },
+    {
+      "type": "text",
+      "id": "commitment_save",
+      "label": "Commitment save label",
+      "default": "SAVE $40"
+    },
+    {
+      "type": "text",
+      "id": "commitment_banner",
+      "label": "Commitment banner",
+      "default": "★ MOST POPULAR · SAVE $40"
+    },
+    {
+      "type": "number",
+      "id": "commitment_price_cents",
+      "label": "Commitment price (cents fallback)",
+      "default": 16500
+    },
+    {
+      "type": "image_picker",
+      "id": "commitment_image",
+      "label": "Commitment image"
+    },
+    {
+      "type": "header",
+      "content": "Mates Pack"
+    },
+    {
+      "type": "product",
+      "id": "mates_product",
+      "label": "Mates product"
+    },
+    {
+      "type": "text",
+      "id": "mates_handle",
+      "label": "Mates handle fallback",
+      "default": "brisa-mates-pack"
+    },
+    {
+      "type": "text",
+      "id": "mates_title",
+      "label": "Mates title",
+      "default": "Mates pack"
+    },
+    {
+      "type": "text",
+      "id": "mates_price",
+      "label": "Mates price label",
+      "default": "$220"
+    },
+    {
+      "type": "text",
+      "id": "mates_compare",
+      "label": "Mates compare label",
+      "default": "$260"
+    },
+    {
+      "type": "text",
+      "id": "mates_save",
+      "label": "Mates save label",
+      "default": "SAVE $40"
+    },
+    {
+      "type": "text",
+      "id": "mates_banner",
+      "label": "Mates banner"
+    },
+    {
+      "type": "number",
+      "id": "mates_price_cents",
+      "label": "Mates price (cents fallback)",
+      "default": 22000
+    },
+    {
+      "type": "image_picker",
+      "id": "mates_image",
+      "label": "Mates image"
+    },
+    {
+      "type": "header",
+      "content": "Gifts & colours"
+    },
+    {
+      "type": "text",
+      "id": "gifts_heading",
+      "label": "Gifts heading",
+      "default": "INCLUDED GIFTS (WORTH $37)"
+    },
+    {
+      "type": "text",
+      "id": "colour_label_yours",
+      "label": "Your colour label",
+      "default": "Your colour"
+    },
+    {
+      "type": "text",
+      "id": "colour_label_mates",
+      "label": "Mate colour label",
+      "default": "Mate's colour"
+    },
+    {
+      "type": "header",
+      "content": "Add-on"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_addon",
+      "label": "Show Monthly Better Box add-on",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "addon_product",
+      "label": "Add-on product"
+    },
+    {
+      "type": "text",
+      "id": "addon_handle",
+      "label": "Add-on handle fallback",
+      "default": "monthly-better-box"
+    },
+    {
+      "type": "text",
+      "id": "addon_tab",
+      "label": "Add-on tab",
+      "default": "ADD ON"
+    },
+    {
+      "type": "text",
+      "id": "addon_title",
+      "label": "Add-on title",
+      "default": "Monthly Better Box"
+    },
+    {
+      "type": "text",
+      "id": "addon_price",
+      "label": "Add-on price label",
+      "default": "$44/mo"
+    },
+    {
+      "type": "text",
+      "id": "addon_compare",
+      "label": "Add-on compare label",
+      "default": "$72"
+    },
+    {
+      "type": "text",
+      "id": "addon_save",
+      "label": "Add-on save badge",
+      "default": "SAVE $28"
+    },
+    {
+      "type": "text",
+      "id": "addon_meta",
+      "label": "Add-on meta",
+      "default": "12 cores every 4 weeks · $3.67/core · free shipping"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus",
+      "label": "Add-on bonus",
+      "default": "FREE A Free Cherry Pom in every box"
+    },
+    {
+      "type": "text",
+      "id": "addon_action",
+      "label": "Add-on action text",
+      "default": "ADD"
+    },
+    {
+      "type": "number",
+      "id": "addon_price_cents",
+      "label": "Add-on price (cents fallback)",
+      "default": 4400
+    },
+    {
+      "type": "header",
+      "content": "Trust row"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust 1",
+      "default": "Ships Next Day"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust 3",
+      "default": "FREE SHIPPING"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust 4",
+      "default": "Australian Customer service"
+    },
+    {
+      "type": "text",
+      "id": "trust_5",
+      "label": "Trust 5",
+      "default": "4.7 (163)"
+    },
+    {
+      "type": "text",
+      "id": "trust_6",
+      "label": "Trust 6",
+      "default": "30 Day Guarantee"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Kit feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "kit",
+          "label": "Kit",
+          "options": [
+            { "value": "try", "label": "Try Brisa First" },
+            { "value": "commitment", "label": "Commitment Kit" },
+            { "value": "mates", "label": "Mates pack" }
+          ],
+          "default": "try"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "1x Brisa device"
+        },
+        {
+          "type": "checkbox",
+          "id": "bonus",
+          "label": "Bonus / green style",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "gift",
+      "name": "Included gift",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Raspberry lime core"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "default": "FREE $15"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "FREE 3 Raspberry lime cores with every kit."
+        }
+      ]
+    },
+    {
+      "type": "colour",
+      "name": "Device colour",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Black"
+        },
+        {
+          "type": "text",
+          "id": "hex",
+          "label": "Swatch hex",
+          "default": "#000000"
+        },
+        {
+          "type": "product",
+          "id": "device_product",
+          "label": "Device colour product",
+          "info": "Used for Option A Cart Transform (_device_*_variant_id)."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa kit purchase",
+      "blocks": [
+        { "type": "feature", "settings": { "kit": "try", "text": "1x Brisa device" } },
+        { "type": "feature", "settings": { "kit": "try", "text": "9 cores (3 Cherry Pom, 3 Mint Ice, 3 Raspberry Lime)" } },
+        { "type": "feature", "settings": { "kit": "try", "text": "Cleaning kit + carry bag" } },
+        { "type": "feature", "settings": { "kit": "try", "text": "FREE 3 x Raspberry lime cores (worth $15)", "bonus": true } },
+        { "type": "feature", "settings": { "kit": "commitment", "text": "1x Brisa device" } },
+        { "type": "feature", "settings": { "kit": "commitment", "text": "27 cores (9 Cherry Pom, 9 Mint Ice, 9 Raspberry Lime)" } },
+        { "type": "feature", "settings": { "kit": "commitment", "text": "Cleaning kit + carry bag" } },
+        { "type": "feature", "settings": { "kit": "commitment", "text": "FREE 3 x Raspberry lime cores (worth $15)", "bonus": true } },
+        { "type": "feature", "settings": { "kit": "mates", "text": "2x Brisa device" } },
+        { "type": "feature", "settings": { "kit": "mates", "text": "18 cores (6 Cherry Pom, 6 Mint Ice, 6 Raspberry Lime)" } },
+        { "type": "feature", "settings": { "kit": "mates", "text": "2x Cleaning kit + carry bag" } },
+        { "type": "feature", "settings": { "kit": "mates", "text": "FREE 3 x Raspberry lime cores (worth $15)", "bonus": true } },
+        { "type": "gift", "settings": { "title": "Raspberry lime core", "tag": "FREE $15", "text": "FREE 3 Raspberry lime cores with every kit." } },
+        { "type": "gift", "settings": { "title": "Free Shipping", "tag": "FREE $22", "text": "Fast, FREE delivery on every brisa kit." } },
+        { "type": "colour", "settings": { "label": "Black", "hex": "#1a1a1a" } },
+        { "type": "colour", "settings": { "label": "Ocean", "hex": "#1A7A8A" } },
+        { "type": "colour", "settings": { "label": "Rose", "hex": "#E8A0A0" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

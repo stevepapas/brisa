@@ -1,0 +1,43 @@
+query RunInput {
+  presentmentCurrencyRate
+  cart {
+    lines {
+      id
+      quantity
+      cost {
+        amountPerQuantity {
+          amount
+          currencyCode
+        }
+      }
+      device1: attribute(key: "_device_1_variant_id") {
+        value
+      }
+      device2: attribute(key: "_device_2_variant_id") {
+        value
+      }
+      kitKey: attribute(key: "_kit_key") {
+        value
+      }
+      yourColour: attribute(key: "Your colour") {
+        value
+      }
+      matesColour: attribute(key: "Mate's colour") {
+        value
+      }
+      kitLabel: attribute(key: "Kit") {
+        value
+      }
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          title
+          product {
+            title
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,2 +1,7 @@
  
 .DS_Store
+
+# Shopify functions app
+brisa-functions/**/node_modules/
+brisa-functions/.shopify/
+brisa-functions/**/dist/

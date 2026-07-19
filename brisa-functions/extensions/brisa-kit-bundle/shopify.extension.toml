@@ -1,0 +1,21 @@
+api_version = "2026-07"
+uid = "aa004183-1133-4295-5f3c-53f6c1c8d57eaed44718"
+
+[[extensions]]
+name = "Brisa Kit Bundle"
+handle = "brisa-kit-bundle"
+type = "function"
+description = "Expands Brisa kit cart lines into coloured device components (Option A mix-and-match)."
+
+  [[extensions.targeting]]
+  target = "cart.transform.run"
+  input_query = "src/run.graphql"
+  export = "cart-transform-run"
+
+  [extensions.build]
+  command = ""
+  path = "dist/function.wasm"
+
+  [extensions.ui.paths]
+  create = "/"
+  details = "/"

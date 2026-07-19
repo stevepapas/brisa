@@ -1,0 +1,39 @@
+{
+  "name": "brisa-kit-bundle",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "shopify": "npm exec -- shopify",
+    "typegen": "npm exec -- shopify app function typegen",
+    "build": "npm exec -- shopify app function build",
+    "preview": "npm exec -- shopify app function run",
+    "test": "vitest run"
+  },
+  "codegen": {
+    "schema": "schema.graphql",
+    "documents": "src/*.graphql",
+    "generates": {
+      "./generated/api.ts": {
+        "plugins": [
+          "typescript",
+          "typescript-operations"
+        ]
+      }
+    },
+    "config": {
+      "omitOperationSuffix": true
+    },
+    "hooks": {},
+    "concurrency": 1
+  },
+  "dependencies": {
+    "@shopify/shopify_function": "~1.0.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.0",
+    "vitest": "^2.1.0"
+  }
+}

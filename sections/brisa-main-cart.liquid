@@ -119,6 +119,33 @@
                     <p class="brisa-cart__item-subtitle">{{ line_subtitle }}</p>
                   {%- endif -%}
 
+                  {%- if line_item.item_components != blank and line_item.item_components.size > 0 -%}
+                    <ul class="brisa-cart__components list--unstyled">
+                      {%- for component in line_item.item_components -%}
+                        {%- unless component.properties['_brisa_component'] == 'pack' -%}
+                          {%- assign component_role = component.properties['Role'] -%}
+                          {%- assign component_colour = component.properties['Colour'] -%}
+                          <li class="brisa-cart__component">
+                            {%- if component_role != blank -%}
+                              {{ component_role }}{% if component_colour != blank %} — {{ component_colour }}{% endif %}
+                            {%- elsif component_colour != blank -%}
+                              {{ component_colour }}
+                            {%- else -%}
+                              {{ component.title }}
+                            {%- endif -%}
+                          </li>
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- else -%}
+                    {%- if line_item.properties['Your colour'] != blank -%}
+                      <p class="brisa-cart__component">Your colour — {{ line_item.properties['Your colour'] }}</p>
+                    {%- endif -%}
+                    {%- if line_item.properties["Mate's colour"] != blank -%}
+                      <p class="brisa-cart__component">Mate's colour — {{ line_item.properties["Mate's colour"] }}</p>
+                    {%- endif -%}
+                  {%- endif -%}
+
                   <div class="brisa-cart__item-pricing">
                     {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
                       <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.variant.compare_at_price | times: line_item.quantity | money }}</span>
