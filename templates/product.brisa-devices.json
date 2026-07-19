@@ -147,8 +147,7 @@
             "button_text_color": "#000000",
             "show_image_overlay": false,
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "image_asset": "brisa-slider-hero-1.jpg"
+            "overlay_opacity": 0
           }
         },
         "image_mYkP7b": {
@@ -171,8 +170,7 @@
             "button_text_color": "#000000",
             "show_image_overlay": false,
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "image_asset": "brisa-slider-starter-2.jpg"
+            "overlay_opacity": 0
           }
         },
         "image_xhxFVK": {
@@ -195,8 +193,7 @@
             "button_text_color": "#000000",
             "show_image_overlay": false,
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "image_asset": "brisa-slider-starter-3.jpg"
+            "overlay_opacity": 0
           }
         },
         "image_EP4RCp": {
@@ -219,8 +216,7 @@
             "button_text_color": "#000000",
             "show_image_overlay": false,
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "image_asset": "brisa-slider-starter-4.jpg"
+            "overlay_opacity": 0
           }
         },
         "image_MLC3tp": {
@@ -243,8 +239,7 @@
             "button_text_color": "#000000",
             "show_image_overlay": false,
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "image_asset": "brisa-slider-starter-5.jpg"
+            "overlay_opacity": 0
           }
         }
       },

@@ -506,7 +506,6 @@
 
         {%- liquid
           assign image = block.settings.image
-          assign image_asset = block.settings.image_asset | strip
           assign image_aspect_ratio = image.aspect_ratio | default: 1
         -%}
 
@@ -526,18 +525,7 @@
 
         {%- capture slide_content -%}
           <div class="slideshow__image-wrapper{% if block.settings.show_image_overlay %} slideshow__image-wrapper--has-overlay{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
-            {%- if image_asset != blank -%}
-              <img
-                class="slideshow__image"
-                src="{{ image_asset | asset_url }}"
-                alt=""
-                loading="{{ loading_attribute_value }}"
-                draggable="false"
-                sizes="{{ slide_image_sizes }}"
-                width="1000"
-                height="1000"
-              >
-            {%- elsif image != blank -%}
+            {%- if image != blank -%}
               {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600,2000,2400,3000' -}}
             {%- else -%}
               {% capture image_name %}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
@@ -675,7 +663,6 @@
           {%- if thumb_image == blank -%}
             {%- assign thumb_image = block.settings.image -%}
           {%- endif -%}
-          {%- assign thumb_asset = block.settings.image_asset | strip -%}
 
           <button
             type="button"
@@ -686,16 +673,7 @@
             aria-controls="block-{{ section.id }}-{{ block.id }}"
             {% if dot_index == 0 %}aria-current="true" aria-selected="true"{% else %}aria-selected="false"{% endif %}
           >
-            {%- if thumb_asset != blank -%}
-              <img
-                class="slideshow-brisa__thumb-image"
-                src="{{ thumb_asset | asset_url }}"
-                width="160"
-                height="160"
-                alt=""
-                loading="{% if dot_index < 4 %}eager{% else %}lazy{% endif %}"
-              >
-            {%- elsif thumb_image != blank -%}
+            {%- if thumb_image != blank -%}
               <img
                 class="slideshow-brisa__thumb-image"
                 src="{{ thumb_image | image_url: width: 160, height: 160, crop: 'center' }}"
@@ -976,13 +954,7 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "1080 x 1080px square .png or .jpg recommended. Same image is used on mobile and desktop."
-        },
-        {
-          "type": "text",
-          "id": "image_asset",
-          "label": "Theme asset filename (optional)",
-          "info": "If set (e.g. brisa-slider-hero-1.jpg), this theme asset is used instead of the image picker."
+          "info": "Change this in the theme editor anytime. Square ~1080×1080px recommended; cover crop is used."
         },
         {
           "type": "image_picker",
