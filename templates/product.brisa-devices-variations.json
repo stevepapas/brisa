@@ -276,7 +276,7 @@
         "editor_preview_kit": "auto",
         "desktop_layout": "square",
         "desktop_max_width": 520,
-        "desktop_image_fit": "contain",
+        "desktop_image_fit": "cover",
         "section_height": "small",
         "transition_type": "sweep",
         "show_initial_transition": false,

@@ -515,10 +515,11 @@ function applySlideshowBrisaKit(section, kitSet) {
     navBar.hidden = visibleItems.length <= 1;
   }
 
-  const peek = section.querySelector('[data-slideshow-brisa-peek]');
-  if (peek) {
-    peek.hidden = visibleItems.length <= 1;
-  }
+  const peekPrev = section.querySelector('[data-slideshow-brisa-peek-prev]');
+  const peekNext = section.querySelector('[data-slideshow-brisa-peek-next]');
+  const hidePeeks = visibleItems.length <= 1;
+  if (peekPrev) peekPrev.hidden = hidePeeks;
+  if (peekNext) peekNext.hidden = hidePeeks;
 
   if (pageDots && pageDots.selectedIndex !== 0) {
     pageDots.selectedIndex = 0;
@@ -541,35 +542,45 @@ function initSlideshowBrisaSection(section) {
   });
 
   const items = Array.from(slideshow.querySelectorAll('slide-show-item'));
-  const peek = section.querySelector('[data-slideshow-brisa-peek]');
-  const peekImage = section.querySelector('[data-slideshow-brisa-peek-image]');
+  const peekPrev = section.querySelector('[data-slideshow-brisa-peek-prev]');
+  const peekNext = section.querySelector('[data-slideshow-brisa-peek-next]');
+  const peekPrevImage = section.querySelector('[data-slideshow-brisa-peek-prev-image]');
+  const peekNextImage = section.querySelector('[data-slideshow-brisa-peek-next-image]');
 
-  const syncPeek = () => {
-    if (!peek || !peekImage || items.length < 2) {
-      if (peek) peek.hidden = true;
-      return;
-    }
-
-    const kitSet = section.dataset.activeKitSet || 'all';
-    const kitItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
-    if (kitItems.length < 2) {
-      peek.hidden = true;
-      return;
-    }
-
-    const index = kitItems.findIndex((item) => !item.hasAttribute('hidden'));
-    if (index < 0) return;
-
-    const next = kitItems[(index + 1) % kitItems.length];
-    const nextImg = next?.querySelector('.slideshow__image');
-    const src = nextImg?.currentSrc || nextImg?.getAttribute('src') || '';
-
+  const setPeekImage = (peek, peekImage, slide) => {
+    if (!peek || !peekImage) return;
+    const img = slide?.querySelector('.slideshow__image');
+    const src = img?.currentSrc || img?.getAttribute('src') || '';
     if (src) {
       peekImage.src = src;
       peek.hidden = false;
     } else {
       peek.hidden = true;
     }
+  };
+
+  const syncPeek = () => {
+    if (items.length < 2) {
+      if (peekPrev) peekPrev.hidden = true;
+      if (peekNext) peekNext.hidden = true;
+      return;
+    }
+
+    const kitSet = section.dataset.activeKitSet || 'all';
+    const kitItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
+    if (kitItems.length < 2) {
+      if (peekPrev) peekPrev.hidden = true;
+      if (peekNext) peekNext.hidden = true;
+      return;
+    }
+
+    const index = kitItems.findIndex((item) => !item.hasAttribute('hidden'));
+    if (index < 0) return;
+
+    const prev = kitItems[(index - 1 + kitItems.length) % kitItems.length];
+    const next = kitItems[(index + 1) % kitItems.length];
+    setPeekImage(peekPrev, peekPrevImage, prev);
+    setPeekImage(peekNext, peekNextImage, next);
   };
 
   const syncDots = () => {
@@ -587,8 +598,14 @@ function initSlideshowBrisaSection(section) {
     });
   });
 
-  if (peek) {
-    peek.addEventListener('click', () => {
+  if (peekPrev) {
+    peekPrev.addEventListener('click', () => {
+      if (typeof slideshow.previous === 'function') slideshow.previous();
+    });
+  }
+
+  if (peekNext) {
+    peekNext.addEventListener('click', () => {
       if (typeof slideshow.next === 'function') slideshow.next();
     });
   }

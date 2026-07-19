@@ -781,7 +781,7 @@ display: none;
   .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image,
   .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     border-radius: 14px;
   }
@@ -890,7 +890,7 @@ display: none;
   .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow__image,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow__image,
   .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__image {
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     border-radius: 14px;
   }

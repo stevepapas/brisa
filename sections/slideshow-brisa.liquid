@@ -335,7 +335,7 @@
       }
 
       #shopify-section-{{ section.id }} .slideshow__image {
-        object-fit: contain;
+        object-fit: cover;
         object-position: center;
       }
     }
@@ -363,14 +363,15 @@
     }
   }
 
-  /* Canva-style next-slide peek */
+  /* Canva-style adjacent-slide peeks (prev left / next right) */
   #shopify-section-{{ section.id }} .slideshow-brisa__stage {
     --slideshow-brisa-peek-size: 18px;
+    --slideshow-brisa-peek-gap: 8px;
     --slideshow-brisa-peek-opacity: 1;
     --slideshow-brisa-slide-radius: 18px;
     display: flex;
     align-items: stretch;
-    gap: 8px;
+    gap: var(--slideshow-brisa-peek-gap);
     width: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -380,8 +381,8 @@
   #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
     flex: 1 1 auto;
     min-width: 0;
-    width: calc(100% - var(--slideshow-brisa-peek-size) - 8px) !important;
-    max-width: calc(100% - var(--slideshow-brisa-peek-size) - 8px);
+    width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap))) !important;
+    max-width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap)));
     border-radius: var(--slideshow-brisa-slide-radius);
     overflow: hidden;
   }
@@ -392,11 +393,20 @@
     min-width: var(--slideshow-brisa-peek-size);
     position: relative;
     overflow: hidden;
-    border-radius: var(--slideshow-brisa-slide-radius) 0 0 var(--slideshow-brisa-slide-radius);
     opacity: var(--slideshow-brisa-peek-opacity);
     background: #0b3a66;
     cursor: pointer;
     align-self: stretch;
+    padding: 0;
+    border: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek--prev {
+    border-radius: 0 var(--slideshow-brisa-slide-radius) var(--slideshow-brisa-slide-radius) 0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek--next {
+    border-radius: var(--slideshow-brisa-slide-radius) 0 0 var(--slideshow-brisa-slide-radius);
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__peek[hidden] {
@@ -409,8 +419,20 @@
     max-width: none;
     height: 100%;
     object-fit: cover;
-    object-position: left center;
     pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek--prev .slideshow-brisa__peek-image {
+    object-position: right center;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek--next .slideshow-brisa__peek-image {
+    object-position: left center;
   }
 
   @media screen and (min-width: 750px) {
@@ -421,20 +443,21 @@
 
   @media screen and (min-width: 1000px) {
     #shopify-section-{{ section.id }} .slideshow-brisa__stage {
-      /* Desktop: more of the next slide, 90% transparent */
+      /* Desktop: more of adjacent slides, 90% transparent */
       --slideshow-brisa-peek-size: 84px;
+      --slideshow-brisa-peek-gap: 12px;
       --slideshow-brisa-peek-opacity: 0.1;
       --slideshow-brisa-slide-radius: 20px;
     }
 
     #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__stage {
-      width: min(calc(var(--slideshow-brisa-desktop-size, 520px) + var(--slideshow-brisa-peek-size) + 12px), 100%);
+      width: min(calc(var(--slideshow-brisa-desktop-size, 520px) + (2 * var(--slideshow-brisa-peek-size)) + (2 * var(--slideshow-brisa-peek-gap))), 100%);
       margin-inline: auto;
     }
 
     #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__stage .slideshow__slide-list {
-      width: min(var(--slideshow-brisa-desktop-size, 520px), calc(100% - var(--slideshow-brisa-peek-size) - 12px)) !important;
-      max-width: min(var(--slideshow-brisa-desktop-size, 520px), calc(100% - var(--slideshow-brisa-peek-size) - 12px));
+      width: min(var(--slideshow-brisa-desktop-size, 520px), calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap)))) !important;
+      max-width: min(var(--slideshow-brisa-desktop-size, 520px), calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap))));
       margin-inline: 0;
     }
   }
@@ -449,6 +472,11 @@
 >
   <slide-show {% if section.settings.show_initial_transition %}reveal-on-scroll{% endif %} {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow-brisa slideshow--{{ section.settings.section_height }}">
     <div class="slideshow-brisa__stage">
+    {%- if visible_blocks_count > 1 -%}
+      <button type="button" class="slideshow-brisa__peek slideshow-brisa__peek--prev" data-slideshow-brisa-peek-prev aria-label="{{ 'general.accessibility.previous' | t }}">
+        <img class="slideshow-brisa__peek-image" data-slideshow-brisa-peek-prev-image alt="" width="200" height="400" decoding="async">
+      </button>
+    {%- endif -%}
     <div class="slideshow__slide-list">
       {%- assign visible_index = 0 -%}
       {%- for block in section.blocks -%}
@@ -612,8 +640,8 @@
       {%- endfor -%}
     </div>
     {%- if visible_blocks_count > 1 -%}
-      <button type="button" class="slideshow-brisa__peek" data-slideshow-brisa-peek aria-label="{{ 'general.accessibility.next' | t }}">
-        <img class="slideshow-brisa__peek-image" data-slideshow-brisa-peek-image alt="" width="200" height="400" decoding="async">
+      <button type="button" class="slideshow-brisa__peek slideshow-brisa__peek--next" data-slideshow-brisa-peek-next aria-label="{{ 'general.accessibility.next' | t }}">
+        <img class="slideshow-brisa__peek-image" data-slideshow-brisa-peek-next-image alt="" width="200" height="400" decoding="async">
       </button>
     {%- endif -%}
     </div>
@@ -782,7 +810,7 @@
       "type": "select",
       "id": "desktop_image_fit",
       "label": "Desktop image fit",
-      "default": "contain",
+      "default": "cover",
       "options": [
         { "value": "contain", "label": "Show full image (no crop)" },
         { "value": "cover", "label": "Fill square (may crop)" }
