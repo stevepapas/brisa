@@ -14,10 +14,10 @@
       "blocks": {
         "image_Ng4pBr": {
           "type": "image",
-          "name": "mp1",
+          "name": "device-1",
           "settings": {
-            "kit_set": "mates",
-            "image": "shopify://shop_images/mates-1.png",
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-1.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -37,10 +37,10 @@
         },
         "image_8JzWqj": {
           "type": "image",
-          "name": "mp2",
+          "name": "device-2",
           "settings": {
-            "kit_set": "mates",
-            "image": "shopify://shop_images/mates-2.png",
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-2.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -60,10 +60,10 @@
         },
         "image_fqhXJ3": {
           "type": "image",
-          "name": "mp3",
+          "name": "device-3",
           "settings": {
-            "kit_set": "mates",
-            "image": "shopify://shop_images/mates-3.png",
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-3.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -83,10 +83,10 @@
         },
         "image_drDPHj": {
           "type": "image",
-          "name": "mp4",
+          "name": "device-4",
           "settings": {
-            "kit_set": "mates",
-            "image": "shopify://shop_images/mates-4.png",
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-4.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -106,125 +106,10 @@
         },
         "image_mUiUVU": {
           "type": "image",
-          "name": "mp5",
+          "name": "device-5",
           "settings": {
-            "kit_set": "mates",
-            "image": "shopify://shop_images/mates-5.png",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "show_image_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        },
-        "image_BaBDEt": {
-          "type": "image",
-          "name": "sk1",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/DSC_2245.jpg",
-            "image_focal_point": "center_center",
-            "text_position": "middle_left",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "show_image_overlay": true,
-            "overlay_color": "#000000",
-            "overlay_opacity": 20
-          }
-        },
-        "image_mYkP7b": {
-          "type": "image",
-          "name": "sk2",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/sk-2.png",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "show_image_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        },
-        "image_xhxFVK": {
-          "type": "image",
-          "name": "sk3",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/sk-3.png",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "show_image_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        },
-        "image_EP4RCp": {
-          "type": "image",
-          "name": "sk4",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/sk-4.png",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "show_image_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        },
-        "image_MLC3tp": {
-          "type": "image",
-          "name": "sk5",
-          "settings": {
-            "kit_set": "starter",
-            "image": "shopify://shop_images/sk-5.png",
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-5.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -248,12 +133,7 @@
         "image_8JzWqj",
         "image_fqhXJ3",
         "image_drDPHj",
-        "image_mUiUVU",
-        "image_BaBDEt",
-        "image_mYkP7b",
-        "image_xhxFVK",
-        "image_EP4RCp",
-        "image_MLC3tp"
+        "image_mUiUVU"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
