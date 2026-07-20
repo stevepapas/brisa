@@ -487,29 +487,31 @@ function applySlideshowBrisaKit(section, kitSet) {
   const thumbs = pageDots ? Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb')) : [];
   const visibleItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
   const visibleThumbs = thumbs.filter((thumb) => slideMatchesKitSet(thumb, kitSet));
+  const firstItem = visibleItems[0] || null;
+  const firstThumb = visibleThumbs[0] || null;
+  const firstItemIndex = firstItem ? items.indexOf(firstItem) : -1;
+  const firstThumbIndex = firstThumb ? thumbs.indexOf(firstThumb) : -1;
 
-  items.forEach((item) => item.setAttribute('hidden', ''));
-  thumbs.forEach((thumb) => {
-    thumb.hidden = true;
-    thumb.setAttribute('aria-selected', 'false');
-    thumb.removeAttribute('aria-current');
-  });
-
-  visibleItems.forEach((item, index) => {
-    if (index === 0) {
+  // Never blank the gallery: keep the first matching slide visible while hiding the rest.
+  items.forEach((item) => {
+    if (item === firstItem) {
       item.removeAttribute('hidden');
     } else {
       item.setAttribute('hidden', '');
     }
   });
 
-  visibleThumbs.forEach((thumb, index) => {
-    thumb.hidden = false;
-    thumb.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-    if (index === 0) {
-      thumb.setAttribute('aria-current', 'true');
-    }
+  thumbs.forEach((thumb) => {
+    const matches = slideMatchesKitSet(thumb, kitSet);
+    thumb.hidden = !matches;
+    thumb.setAttribute('aria-selected', 'false');
+    thumb.removeAttribute('aria-current');
   });
+
+  if (firstThumb) {
+    firstThumb.setAttribute('aria-selected', 'true');
+    firstThumb.setAttribute('aria-current', 'true');
+  }
 
   if (navBar) {
     navBar.hidden = visibleItems.length <= 1;
@@ -521,8 +523,13 @@ function applySlideshowBrisaKit(section, kitSet) {
   if (peekPrev) peekPrev.hidden = hidePeeks;
   if (peekNext) peekNext.hidden = hidePeeks;
 
-  if (pageDots && pageDots.selectedIndex !== 0) {
-    pageDots.selectedIndex = 0;
+  if (pageDots && firstThumbIndex >= 0 && pageDots.selectedIndex !== firstThumbIndex) {
+    pageDots.selectedIndex = firstThumbIndex;
+  }
+
+  // Re-assert first slide through the Slideshow API after kit filtering.
+  if (firstItemIndex >= 0 && typeof slideshow.select === 'function' && slideshow.selectedIndex !== firstItemIndex) {
+    slideshow.select(firstItemIndex, false);
   }
 }
 
@@ -549,7 +556,11 @@ function initSlideshowBrisaSection(section) {
 
   const setPeekImage = (peek, peekImage, slide) => {
     if (!peek || !peekImage) return;
-    const img = slide?.querySelector('.slideshow__image');
+    if (!slide) {
+      peek.hidden = true;
+      return;
+    }
+    const img = slide.querySelector('.slideshow__image');
     const src = img?.currentSrc || img?.getAttribute('src') || '';
     if (src) {
       peekImage.src = src;
@@ -577,16 +588,24 @@ function initSlideshowBrisaSection(section) {
     const index = kitItems.findIndex((item) => !item.hasAttribute('hidden'));
     if (index < 0) return;
 
-    const prev = kitItems[(index - 1 + kitItems.length) % kitItems.length];
-    const next = kitItems[(index + 1) % kitItems.length];
+    // No wrap at ends — keeps slide 1 reading as the true start (no slide 5 peek on the left).
+    const prev = index > 0 ? kitItems[index - 1] : null;
+    const next = index < kitItems.length - 1 ? kitItems[index + 1] : null;
     setPeekImage(peekPrev, peekPrevImage, prev);
     setPeekImage(peekNext, peekNextImage, next);
   };
 
   const syncDots = () => {
-    const index = items.findIndex((item) => !item.hasAttribute('hidden'));
-    if (index >= 0 && pageDots.selectedIndex !== index) {
-      pageDots.selectedIndex = index;
+    const kitSet = section.dataset.activeKitSet || 'all';
+    const thumbs = Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb'));
+    const visibleIndex = items.findIndex((item) => !item.hasAttribute('hidden') && slideMatchesKitSet(item, kitSet));
+    if (visibleIndex >= 0) {
+      const activeItem = items[visibleIndex];
+      const thumbIndex = thumbs.findIndex((thumb) => thumb.getAttribute('aria-controls') === activeItem.id);
+      const selectedIndex = thumbIndex >= 0 ? thumbIndex : visibleIndex;
+      if (pageDots.selectedIndex !== selectedIndex) {
+        pageDots.selectedIndex = selectedIndex;
+      }
     }
     syncPeek();
   };

@@ -144,8 +144,8 @@
       "name": "Slideshow Brisa",
       "settings": {
         "starter_product": "",
-        "starter_handle": "brisa-device-black",
-        "starter_handle_prefix": "brisa-device-",
+        "starter_handle": "brisa-starter-kit",
+        "starter_handle_prefix": "brisa-starter-",
         "mates_product": "",
         "mates_handle": "brisa-mates-pack-ocean-starter-kit",
         "editor_preview_kit": "auto",
@@ -161,7 +161,7 @@
         "nav_background": "#ffffff",
         "thumbnail_gap": 8,
         "thumbnail_size": 56,
-        "thumbnail_radius": 24,
+        "thumbnail_radius": 15,
         "thumbnail_active_border": "#008bdc",
         "arrow_background": "#ffffff",
         "arrow_color": "#1a1a1a"
