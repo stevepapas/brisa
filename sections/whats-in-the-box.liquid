@@ -48,7 +48,7 @@
     width: 100%;
     max-width: {{ section.settings.image_max_width }}px;
     margin: 0 auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: {{ section.settings.image_aspect_ratio | default: '1 / 1' }};
     overflow: hidden;
     border-radius: {{ section.settings.image_radius }}px;
     background: {{ section.settings.placeholder_background }};
@@ -111,9 +111,13 @@
     {% endif %}
 
     <div class="whats-in-the-box__image-wrap">
-      {% if section.settings.image != blank %}
+      {% liquid
+        assign witb_image = section.settings.image
+        assign witb_asset = section.settings.image_asset | strip
+      %}
+      {% if witb_image != blank %}
         {{
-          section.settings.image
+          witb_image
           | image_url: width: 1600
           | image_tag:
             loading: 'lazy',
@@ -122,6 +126,16 @@
             sizes: image_sizes,
             alt: main_image_alt
         }}
+      {% elsif witb_asset != blank %}
+        <img
+          class="whats-in-the-box__image"
+          src="{{ witb_asset | asset_url }}"
+          alt="{{ main_image_alt }}"
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="1200"
+        >
       {% elsif section.settings.placeholder_text != blank %}
         <div class="whats-in-the-box__placeholder">
           <span>{{ section.settings.placeholder_text | escape }}</span>
@@ -157,7 +171,21 @@
       "type": "image_picker",
       "id": "image",
       "label": "Product image",
-      "info": "Square image recommended (e.g. 1200 x 1200px)."
+      "info": "Theme Editor image. Overrides theme asset fallback when set."
+    },
+    {
+      "type": "text",
+      "id": "image_asset",
+      "label": "Theme asset fallback",
+      "default": "brisa-what-comes-with.jpg",
+      "info": "Theme asset filename used when Product image is empty."
+    },
+    {
+      "type": "text",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "default": "1 / 1",
+      "info": "CSS aspect-ratio value, e.g. 1 / 1 or 4 / 3."
     },
     {
       "type": "text",

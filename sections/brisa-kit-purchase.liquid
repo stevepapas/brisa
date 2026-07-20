@@ -116,12 +116,14 @@
         {% liquid
           assign kit_product = blank
           assign kit_title = ''
+          assign kit_subtitle = ''
           assign kit_price = ''
           assign kit_compare = ''
           assign kit_save = ''
           assign kit_banner = ''
           assign kit_devices = 1
           assign kit_image = blank
+          assign kit_image_asset = ''
           assign price_cents = 0
           assign variant_id = ''
 
@@ -129,32 +131,38 @@
             when 'try'
               assign kit_product = try_product
               assign kit_title = section.settings.try_title
+              assign kit_subtitle = section.settings.try_subtitle
               assign kit_price = section.settings.try_price
               assign kit_compare = section.settings.try_compare
               assign kit_save = section.settings.try_save
               assign kit_banner = section.settings.try_banner
               assign kit_devices = 1
               assign kit_image = section.settings.try_image
+              assign kit_image_asset = section.settings.try_image_asset | default: 'brisa-kit-try.jpg' | strip
               assign price_cents = section.settings.try_price_cents | default: 13000
             when 'commitment'
               assign kit_product = commitment_product
               assign kit_title = section.settings.commitment_title
+              assign kit_subtitle = section.settings.commitment_subtitle
               assign kit_price = section.settings.commitment_price
               assign kit_compare = section.settings.commitment_compare
               assign kit_save = section.settings.commitment_save
               assign kit_banner = section.settings.commitment_banner
               assign kit_devices = 1
               assign kit_image = section.settings.commitment_image
+              assign kit_image_asset = section.settings.commitment_image_asset | default: 'brisa-kit-commitment.jpg' | strip
               assign price_cents = section.settings.commitment_price_cents | default: 16500
             when 'mates'
               assign kit_product = mates_product
               assign kit_title = section.settings.mates_title
+              assign kit_subtitle = section.settings.mates_subtitle
               assign kit_price = section.settings.mates_price
               assign kit_compare = section.settings.mates_compare
               assign kit_save = section.settings.mates_save
               assign kit_banner = section.settings.mates_banner
               assign kit_devices = 2
               assign kit_image = section.settings.mates_image
+              assign kit_image_asset = section.settings.mates_image_asset | default: 'brisa-kit-mates.jpg' | strip
               assign price_cents = section.settings.mates_price_cents | default: 22000
           endcase
 
@@ -191,8 +199,14 @@
           {% endif %}
 
           <div class="bkp__kit-main">
-            <div class="bkp__kit-top">
+            <div class="bkp__kit-heading">
               <h4 class="bkp__kit-title">{{ kit_title | escape }}</h4>
+              {% if kit_subtitle != blank %}
+                <p class="bkp__kit-subtitle">{{ kit_subtitle | escape }}</p>
+              {% endif %}
+            </div>
+
+            <div class="bkp__kit-pricing">
               {% if kit_price != blank %}
                 <span class="bkp__kit-price">{{ kit_price | escape }}</span>
               {% endif %}
@@ -208,7 +222,8 @@
               {% for block in section.blocks %}
                 {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
                   <li class="bkp__kit-feature{% if block.settings.bonus %} bkp__kit-feature--bonus{% endif %}" {{ block.shopify_attributes }}>
-                    {{ block.settings.text | escape }}
+                    <span class="bkp__kit-check" aria-hidden="true"></span>
+                    <span>{{ block.settings.text | escape }}</span>
                   </li>
                 {% endif %}
               {% endfor %}
@@ -218,7 +233,17 @@
           <div class="bkp__kit-side">
             <span class="bkp__kit-radio" aria-hidden="true"></span>
             {% if kit_image != blank %}
-              {{ kit_image | image_url: width: 160 | image_tag: class: 'bkp__kit-thumb', loading: 'lazy', widths: '80,112,160', alt: kit_title }}
+              {{ kit_image | image_url: width: 280 | image_tag: class: 'bkp__kit-thumb', loading: 'lazy', widths: '112,160,224,280', alt: kit_title }}
+            {% elsif kit_image_asset != blank %}
+              <img
+                class="bkp__kit-thumb"
+                src="{{ kit_image_asset | asset_url }}"
+                alt="{{ kit_title | escape }}"
+                width="140"
+                height="140"
+                loading="lazy"
+                decoding="async"
+              >
             {% endif %}
           </div>
         </label>
@@ -518,6 +543,12 @@
       "type": "text",
       "id": "try_title",
       "label": "Try title",
+      "default": "Starter Kit"
+    },
+    {
+      "type": "text",
+      "id": "try_subtitle",
+      "label": "Try subtitle",
       "default": "Try Brisa First"
     },
     {
@@ -552,7 +583,14 @@
     {
       "type": "image_picker",
       "id": "try_image",
-      "label": "Try image"
+      "label": "Try image",
+      "info": "Theme Editor image. Overrides theme asset fallback when set."
+    },
+    {
+      "type": "text",
+      "id": "try_image_asset",
+      "label": "Try image asset fallback",
+      "default": "brisa-kit-try.jpg"
     },
     {
       "type": "header",
@@ -577,6 +615,12 @@
     },
     {
       "type": "text",
+      "id": "commitment_subtitle",
+      "label": "Commitment subtitle",
+      "default": "Give it a real go - 2 months of ritual"
+    },
+    {
+      "type": "text",
       "id": "commitment_price",
       "label": "Commitment price label",
       "default": "$165"
@@ -597,7 +641,7 @@
       "type": "text",
       "id": "commitment_banner",
       "label": "Commitment banner",
-      "default": "★ MOST POPULAR · SAVE $40"
+      "default": "★MOST POPULAR - SAVE $40"
     },
     {
       "type": "number",
@@ -608,7 +652,14 @@
     {
       "type": "image_picker",
       "id": "commitment_image",
-      "label": "Commitment image"
+      "label": "Commitment image",
+      "info": "Theme Editor image. Overrides theme asset fallback when set."
+    },
+    {
+      "type": "text",
+      "id": "commitment_image_asset",
+      "label": "Commitment image asset fallback",
+      "default": "brisa-kit-commitment.jpg"
     },
     {
       "type": "header",
@@ -630,6 +681,12 @@
       "id": "mates_title",
       "label": "Mates title",
       "default": "Mates pack"
+    },
+    {
+      "type": "text",
+      "id": "mates_subtitle",
+      "label": "Mates subtitle",
+      "default": "For you and someone else"
     },
     {
       "type": "text",
@@ -663,7 +720,14 @@
     {
       "type": "image_picker",
       "id": "mates_image",
-      "label": "Mates image"
+      "label": "Mates image",
+      "info": "Theme Editor image. Overrides theme asset fallback when set."
+    },
+    {
+      "type": "text",
+      "id": "mates_image_asset",
+      "label": "Mates image asset fallback",
+      "default": "brisa-kit-mates.jpg"
     },
     {
       "type": "header",

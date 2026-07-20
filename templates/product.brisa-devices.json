@@ -593,14 +593,13 @@
       "type": "whats-in-the-box",
       "name": "Whats in the box",
       "settings": {
-        "heading": "WHATS IN THE BOX",
-        "subheading": "Everything you need to make the switch on day one.",
-        "image": "shopify://shop_images/mates-pack-3.png",
+        "heading": "",
+        "subheading": "",
         "placeholder_text": "Product image goes here",
-        "footer_text": "Everything in one box. Ships in 1-2 business days.",
-        "image_max_width": 560,
+        "footer_text": "",
+        "image_max_width": 720,
         "image_radius": 16,
-        "image_fit": "cover",
+        "image_fit": "contain",
         "max_width": 800,
         "padding_top": 56,
         "padding_bottom": 56,
@@ -610,11 +609,13 @@
         "subheading_size": 18,
         "footer_size": 16,
         "placeholder_text_size": 22,
-        "background": "#f4f4f4",
-        "heading_color": "#111111",
-        "text_color": "#111111",
-        "placeholder_background": "#5b9fd4",
-        "placeholder_text_color": "#ffffff"
+        "background": "#d7ebf7",
+        "heading_color": "#0b3a66",
+        "text_color": "#4a6a84",
+        "placeholder_background": "#d7ebf7",
+        "placeholder_text_color": "#ffffff",
+        "image_asset": "brisa-what-comes-with.jpg",
+        "image_aspect_ratio": "1 / 1"
       }
     },
     "device_questions_PFtKdK": {
@@ -697,102 +698,6 @@
     "brisa_kit_purchase_main": {
       "type": "brisa-kit-purchase",
       "blocks": {
-        "f_try_1": {
-          "type": "feature",
-          "settings": {
-            "kit": "try",
-            "text": "1x Brisa device",
-            "bonus": false
-          }
-        },
-        "f_try_2": {
-          "type": "feature",
-          "settings": {
-            "kit": "try",
-            "text": "9 cores (3 Cherry Pom, 3 Mint Ice, 3 Raspberry Lime)",
-            "bonus": false
-          }
-        },
-        "f_try_3": {
-          "type": "feature",
-          "settings": {
-            "kit": "try",
-            "text": "Cleaning kit + carry bag",
-            "bonus": false
-          }
-        },
-        "f_try_4": {
-          "type": "feature",
-          "settings": {
-            "kit": "try",
-            "text": "FREE 3 x Raspberry lime cores (worth $15)",
-            "bonus": true
-          }
-        },
-        "f_com_1": {
-          "type": "feature",
-          "settings": {
-            "kit": "commitment",
-            "text": "1x Brisa device",
-            "bonus": false
-          }
-        },
-        "f_com_2": {
-          "type": "feature",
-          "settings": {
-            "kit": "commitment",
-            "text": "27 cores (9 Cherry Pom, 9 Mint Ice, 9 Raspberry Lime)",
-            "bonus": false
-          }
-        },
-        "f_com_3": {
-          "type": "feature",
-          "settings": {
-            "kit": "commitment",
-            "text": "Cleaning kit + carry bag",
-            "bonus": false
-          }
-        },
-        "f_com_4": {
-          "type": "feature",
-          "settings": {
-            "kit": "commitment",
-            "text": "FREE 3 x Raspberry lime cores (worth $15)",
-            "bonus": true
-          }
-        },
-        "f_mat_1": {
-          "type": "feature",
-          "settings": {
-            "kit": "mates",
-            "text": "2x Brisa device",
-            "bonus": false
-          }
-        },
-        "f_mat_2": {
-          "type": "feature",
-          "settings": {
-            "kit": "mates",
-            "text": "18 cores (6 Cherry Pom, 6 Mint Ice, 6 Raspberry Lime)",
-            "bonus": false
-          }
-        },
-        "f_mat_3": {
-          "type": "feature",
-          "settings": {
-            "kit": "mates",
-            "text": "2x Cleaning kit + carry bag",
-            "bonus": false
-          }
-        },
-        "f_mat_4": {
-          "type": "feature",
-          "settings": {
-            "kit": "mates",
-            "text": "FREE 3 x Raspberry lime cores (worth $15)",
-            "bonus": true
-          }
-        },
         "g1": {
           "type": "gift",
           "settings": {
@@ -834,6 +739,126 @@
             "hex": "#E8A0A0",
             "device_product": ""
           }
+        },
+        "f_try_1": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "1 x Brisa device - 1 time purchase ( completely reusable )",
+            "bonus": false
+          }
+        },
+        "f_try_2": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "9 cores - Nearly a Months worth!",
+            "bonus": false
+          }
+        },
+        "f_try_3": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "3 Cherry Pom - 3 Mint Ice - 3 Raspberry Lime",
+            "bonus": false
+          }
+        },
+        "f_try_4": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "Cleaning kit + carry bag",
+            "bonus": false
+          }
+        },
+        "f_try_5": {
+          "type": "feature",
+          "settings": {
+            "kit": "try",
+            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "bonus": true
+          }
+        },
+        "f_com_1": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "1 x Brisa device - 1 time purchase ( completely reusable )",
+            "bonus": false
+          }
+        },
+        "f_com_2": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "27 cores - Roughly 10 weeks worth!",
+            "bonus": false
+          }
+        },
+        "f_com_3": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "9 Cherry Pom - 9 Mint Ice - 9 Raspberry Lime",
+            "bonus": false
+          }
+        },
+        "f_com_4": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "Cleaning kit + carry bag",
+            "bonus": false
+          }
+        },
+        "f_com_5": {
+          "type": "feature",
+          "settings": {
+            "kit": "commitment",
+            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "bonus": true
+          }
+        },
+        "f_mat_1": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "2 x Brisa device - 1 time purchase ( completely reusable )",
+            "bonus": false
+          }
+        },
+        "f_mat_2": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "18 cores - about 1 month each",
+            "bonus": false
+          }
+        },
+        "f_mat_3": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "6 Cherry Pom - 6 Mint Ice - 6 Raspberry Lime",
+            "bonus": false
+          }
+        },
+        "f_mat_4": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "2 x Cleaning kit + carry bag",
+            "bonus": false
+          }
+        },
+        "f_mat_5": {
+          "type": "feature",
+          "settings": {
+            "kit": "mates",
+            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "bonus": true
+          }
         }
       },
       "block_order": [
@@ -841,14 +866,17 @@
         "f_try_2",
         "f_try_3",
         "f_try_4",
+        "f_try_5",
         "f_com_1",
         "f_com_2",
         "f_com_3",
         "f_com_4",
+        "f_com_5",
         "f_mat_1",
         "f_mat_2",
         "f_mat_3",
         "f_mat_4",
+        "f_mat_5",
         "g1",
         "g2",
         "c_black",
@@ -874,22 +902,20 @@
         "choose_sub": "One-time purchase \u00b7 30 day guarantee on every kit",
         "try_product": "",
         "try_handle": "brisa-starter-kit",
-        "try_title": "Try Brisa First",
+        "try_title": "Starter Kit",
         "try_price": "$130",
         "try_compare": "$145",
         "try_save": "SAVE $15",
         "try_banner": "",
         "try_price_cents": 13000,
-        "try_image": "",
         "commitment_product": "",
         "commitment_handle": "brisa-commitment-kit",
         "commitment_title": "The Commitment Kit",
         "commitment_price": "$165",
         "commitment_compare": "$205",
         "commitment_save": "SAVE $40",
-        "commitment_banner": "\u2605 MOST POPULAR \u00b7 SAVE $40",
+        "commitment_banner": "\u2605MOST POPULAR - SAVE $40",
         "commitment_price_cents": 16500,
-        "commitment_image": "",
         "mates_product": "",
         "mates_handle": "brisa-mates-pack",
         "mates_title": "Mates pack",
@@ -898,7 +924,6 @@
         "mates_save": "SAVE $40",
         "mates_banner": "",
         "mates_price_cents": 22000,
-        "mates_image": "",
         "gifts_heading": "INCLUDED GIFTS (WORTH $37)",
         "colour_label_yours": "Your colour",
         "colour_label_mates": "Mate's colour",
@@ -920,7 +945,13 @@
         "trust_3": "FREE SHIPPING",
         "trust_4": "Australian Customer service",
         "trust_5": "4.7 (163)",
-        "trust_6": "30 Day Guarantee"
+        "trust_6": "30 Day Guarantee",
+        "try_subtitle": "Try Brisa First",
+        "try_image_asset": "brisa-kit-try.jpg",
+        "commitment_subtitle": "Give it a real go - 2 months of ritual",
+        "commitment_image_asset": "brisa-kit-commitment.jpg",
+        "mates_subtitle": "For you and someone else",
+        "mates_image_asset": "brisa-kit-mates.jpg"
       }
     }
   },
