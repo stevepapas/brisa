@@ -838,9 +838,24 @@ display: none;
   object-fit: cover;
 }
 
-/* Homepage hero: full-bleed cover (undo product-gallery slideshow layout) */
-.shopify-section--slideshow-brisa .slideshow-brisa-section--hero slide-show.slideshow-brisa,
-.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-list,
+/* Homepage hero: centred, match What is Brisa panel width (800px desktop) */
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow-brisa__stage {
+  display: block !important;
+  width: 100%;
+  max-width: 100%;
+  gap: 0 !important;
+  padding-inline: var(--container-gutter);
+  box-sizing: border-box;
+}
+
+.shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-list {
+  width: 100% !important;
+  max-width: 800px !important;
+  margin-inline: auto !important;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
 .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide,
 .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-inner,
 .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__image-wrapper,
@@ -856,6 +871,17 @@ display: none;
 .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__image {
   object-fit: cover !important;
   object-position: center;
+}
+
+@media screen and (min-width: 800px) {
+  .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow-brisa__stage {
+    padding-inline: 0;
+  }
+
+  .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-list {
+    width: min(800px, 100%) !important;
+    border-radius: 0;
+  }
 }
 
 /* Product slideshow only: full width + contain on mobile (not homepage hero) */
