@@ -161,7 +161,7 @@
         "nav_background": "#ffffff",
         "thumbnail_gap": 8,
         "thumbnail_size": 56,
-        "thumbnail_radius": 999,
+        "thumbnail_radius": 24,
         "thumbnail_active_border": "#008bdc",
         "arrow_background": "#ffffff",
         "arrow_color": "#1a1a1a"
