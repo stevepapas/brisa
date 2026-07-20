@@ -820,6 +820,24 @@ display: none;
   z-index: 3;
 }
 
+.template-brisa-cores .shopify-section--slideshow-brisa .slideshow-brisa__thumb,
+.template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow-brisa__thumb,
+.template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__thumb,
+.template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow-brisa__thumb {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  clip-path: circle(50%);
+}
+
+.template-brisa-cores .shopify-section--slideshow-brisa .slideshow-brisa__thumb img,
+.template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow-brisa__thumb img,
+.template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__thumb img,
+.template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow-brisa__thumb img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* Homepage hero: full-bleed cover (undo product-gallery slideshow layout) */
 .shopify-section--slideshow-brisa .slideshow-brisa-section--hero slide-show.slideshow-brisa,
 .shopify-section--slideshow-brisa .slideshow-brisa-section--hero .slideshow__slide-list,
