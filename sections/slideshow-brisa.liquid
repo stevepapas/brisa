@@ -178,13 +178,16 @@
     scroll-snap-align: center;
     width: var(--slideshow-brisa-thumb-size);
     min-width: var(--slideshow-brisa-thumb-size);
+    max-width: var(--slideshow-brisa-thumb-size);
     height: var(--slideshow-brisa-thumb-size);
     min-height: var(--slideshow-brisa-thumb-size);
+    max-height: var(--slideshow-brisa-thumb-size);
+    aspect-ratio: 1 / 1;
     margin: 0;
     padding: 0;
     overflow: hidden;
     border: 2px solid #e0e0e0;
-    border-radius: 50%;
+    border-radius: 50% !important;
     background-color: #ececec;
     cursor: pointer;
     box-sizing: border-box;
@@ -192,6 +195,7 @@
     -webkit-appearance: none;
     appearance: none;
     line-height: 0;
+    clip-path: circle(50%);
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb[aria-current="true"] {
@@ -207,6 +211,7 @@
     max-width: none;
     object-fit: cover;
     object-position: center;
+    border-radius: 50%;
     pointer-events: none;
   }
 
@@ -934,7 +939,8 @@
       "step": 2,
       "unit": "px",
       "label": "Thumbnail corner radius",
-      "default": 10
+      "default": 10,
+      "info": "Ignored — slideshow thumbnails are always circular."
     },
     {
       "type": "color",
