@@ -258,7 +258,7 @@
         {% if block.type == 'gift' %}
           <div class="bkp__gift" {{ block.shopify_attributes }}>
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 120 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '60,120', alt: block.settings.title }}
+              {{ block.settings.image | image_url: width: 160 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
             {% else %}
               <span class="bkp__gift-media" aria-hidden="true"></span>
             {% endif %}

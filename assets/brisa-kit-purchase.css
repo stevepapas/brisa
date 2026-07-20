@@ -356,7 +356,7 @@
 
 .bkp__gift {
   display: grid;
-  grid-template-columns: 52px 1fr;
+  grid-template-columns: 64px 1fr;
   gap: 12px;
   align-items: center;
   padding: 10px 12px;
@@ -365,11 +365,12 @@
 }
 
 .bkp__gift-media {
-  width: 52px;
-  height: 52px;
-  border-radius: 10px;
-  object-fit: cover;
-  background: #fff;
+  width: 64px;
+  height: 64px;
+  border-radius: 0;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
 }
 
 .bkp__gift-body {
