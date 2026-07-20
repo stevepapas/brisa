@@ -414,8 +414,22 @@
     border-radius: var(--slideshow-brisa-slide-radius) 0 0 var(--slideshow-brisa-slide-radius);
   }
 
+  /* Empty peek slots stay in the flex row (white gutter) so the main slide never shifts. */
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek.is-empty,
   #shopify-section-{{ section.id }} .slideshow-brisa__peek[hidden] {
-    display: none !important;
+    display: block !important;
+    visibility: visible;
+    pointer-events: none;
+    cursor: default;
+    opacity: 1;
+    background: #fff;
+    border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek.is-empty .slideshow-brisa__peek-image,
+  #shopify-section-{{ section.id }} .slideshow-brisa__peek[hidden] .slideshow-brisa__peek-image {
+    visibility: hidden;
+    opacity: 0;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__peek-image {

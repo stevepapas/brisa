@@ -520,8 +520,14 @@ function applySlideshowBrisaKit(section, kitSet) {
   const peekPrev = section.querySelector('[data-slideshow-brisa-peek-prev]');
   const peekNext = section.querySelector('[data-slideshow-brisa-peek-next]');
   const hidePeeks = visibleItems.length <= 1;
-  if (peekPrev) peekPrev.hidden = hidePeeks;
-  if (peekNext) peekNext.hidden = hidePeeks;
+  if (peekPrev) {
+    peekPrev.classList.toggle('is-empty', hidePeeks);
+    peekPrev.hidden = false;
+  }
+  if (peekNext) {
+    peekNext.classList.toggle('is-empty', hidePeeks);
+    peekNext.hidden = false;
+  }
 
   if (pageDots && firstThumbIndex >= 0 && pageDots.selectedIndex !== firstThumbIndex) {
     pageDots.selectedIndex = firstThumbIndex;
@@ -557,38 +563,47 @@ function initSlideshowBrisaSection(section) {
   const setPeekImage = (peek, peekImage, slide) => {
     if (!peek || !peekImage) return;
     if (!slide) {
-      peek.hidden = true;
+      peek.classList.add('is-empty');
+      peek.setAttribute('aria-hidden', 'true');
+      peek.tabIndex = -1;
+      peek.hidden = false;
       return;
     }
     const img = slide.querySelector('.slideshow__image');
     const src = img?.currentSrc || img?.getAttribute('src') || '';
     if (src) {
       peekImage.src = src;
+      peek.classList.remove('is-empty');
+      peek.removeAttribute('aria-hidden');
+      peek.tabIndex = 0;
       peek.hidden = false;
     } else {
-      peek.hidden = true;
+      peek.classList.add('is-empty');
+      peek.setAttribute('aria-hidden', 'true');
+      peek.tabIndex = -1;
+      peek.hidden = false;
     }
   };
 
   const syncPeek = () => {
     if (items.length < 2) {
-      if (peekPrev) peekPrev.hidden = true;
-      if (peekNext) peekNext.hidden = true;
+      setPeekImage(peekPrev, peekPrevImage, null);
+      setPeekImage(peekNext, peekNextImage, null);
       return;
     }
 
     const kitSet = section.dataset.activeKitSet || 'all';
     const kitItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
     if (kitItems.length < 2) {
-      if (peekPrev) peekPrev.hidden = true;
-      if (peekNext) peekNext.hidden = true;
+      setPeekImage(peekPrev, peekPrevImage, null);
+      setPeekImage(peekNext, peekNextImage, null);
       return;
     }
 
     const index = kitItems.findIndex((item) => !item.hasAttribute('hidden'));
     if (index < 0) return;
 
-    // No wrap at ends — keeps slide 1 reading as the true start (no slide 5 peek on the left).
+    // No wrap at ends — empty slots stay as white gutters so the main slide does not shift.
     const prev = index > 0 ? kitItems[index - 1] : null;
     const next = index < kitItems.length - 1 ? kitItems[index + 1] : null;
     setPeekImage(peekPrev, peekPrevImage, prev);
