@@ -790,9 +790,19 @@ display: none;
   .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
   .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar,
   .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow-brisa__nav-bar {
-    width: min(var(--slideshow-brisa-desktop-size, 520px), 100%);
-    max-width: 100%;
+    width: 100%;
+    max-width: min(calc(var(--slideshow-brisa-desktop-size, 520px) + 192px), 100%);
     margin-inline: auto;
+    overflow: visible;
+  }
+
+  .template-brisa-cores .shopify-section--slideshow-brisa .slideshow-brisa__dots,
+  .template-brisa-cores-variations .shopify-section--slideshow-brisa .slideshow-brisa__dots,
+  .template-brisa-devices .shopify-section--slideshow-brisa .slideshow-brisa__dots,
+  .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow-brisa__dots {
+    overflow: visible;
+    width: max-content;
+    max-width: 100%;
   }
 }
 

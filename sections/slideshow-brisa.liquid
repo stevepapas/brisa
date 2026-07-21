@@ -99,6 +99,8 @@
     flex: 0 0 auto;
     min-height: 0;
     width: 100%;
+    max-width: 100%;
+    overflow: visible;
     visibility: visible;
     opacity: 1;
   }
@@ -111,23 +113,23 @@
     inset: auto;
     min-height: 0;
     pointer-events: auto;
+    overflow: visible;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__dots {
     display: flex;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
     gap: {{ section.settings.thumbnail_gap }}px;
-    min-width: 0;
+    width: max-content;
     max-width: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: visible;
     -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
+    scroll-snap-type: none;
     scrollbar-width: none;
     list-style: none;
   }
@@ -350,8 +352,8 @@
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__nav-bar {
-        width: min(var(--slideshow-brisa-desktop-size, 520px), 100%);
-        max-width: 100%;
+        width: 100%;
+        max-width: min(calc(var(--slideshow-brisa-desktop-size, 520px) + (2 * var(--slideshow-brisa-peek-size, 84px)) + (2 * var(--slideshow-brisa-peek-gap, 12px))), 100%);
         margin-inline: auto;
       }
     }
@@ -385,7 +387,14 @@
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
-      --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
+      {%- if slideshow_product_gallery and visible_blocks_count > 0 -%}
+        --slideshow-brisa-thumb-size: min(
+          {{ section.settings.thumbnail_size | times: 0.78 | round }}px,
+          calc((100vw - 124px - {{ section.settings.thumbnail_gap | times: visible_blocks_count | minus: 1 }}px) / {{ visible_blocks_count }})
+        );
+      {%- else -%}
+        --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
+      {%- endif -%}
     }
 
     #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
@@ -736,7 +745,7 @@
         {%- render 'icon' with 'nav-arrow-left', direction_aware: true -%}
       </button>
 
-      <page-dots align-selected class="slideshow-brisa__dots" role="tablist">
+      <page-dots class="slideshow-brisa__dots" role="tablist">
         {%- assign dot_index = -1 -%}
         {%- for block in section.blocks -%}
           {%- liquid
