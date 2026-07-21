@@ -293,6 +293,7 @@
         "g1": {
           "type": "gift",
           "settings": {
+            "image": "shopify://shop_images/ras-lime.png",
             "title": "Raspberry lime core",
             "tag": "FREE $15",
             "text": "FREE 3 Raspberry lime cores with every kit."
@@ -301,6 +302,7 @@
         "g2": {
           "type": "gift",
           "settings": {
+            "image": "shopify://shop_images/fast-shipping.png",
             "title": "Free Shipping",
             "tag": "FREE $22",
             "text": "Fast, FREE delivery on every brisa kit."
@@ -379,6 +381,7 @@
         "try_save": "SAVE $15",
         "try_banner": "",
         "try_price_cents": 13000,
+        "try_image": "shopify://shop_images/try-brisa.png",
         "try_image_asset": "brisa-kit-try.jpg",
         "commitment_product": "",
         "commitment_handle": "brisa-commitment-kit",
@@ -389,6 +392,7 @@
         "commitment_save": "SAVE $40",
         "commitment_banner": "★MOST POPULAR - SAVE $40",
         "commitment_price_cents": 16500,
+        "commitment_image": "shopify://shop_images/commitment-pack.png",
         "commitment_image_asset": "brisa-kit-commitment.jpg",
         "mates_product": "",
         "mates_handle": "brisa-mates-pack",
@@ -399,6 +403,7 @@
         "mates_save": "SAVE $40",
         "mates_banner": "",
         "mates_price_cents": 22000,
+        "mates_image": "shopify://shop_images/mates-pack.png",
         "mates_image_asset": "brisa-kit-mates.jpg",
         "gifts_heading": "INCLUDED GIFTS (WORTH $37)",
         "colour_label_yours": "Your colour",
