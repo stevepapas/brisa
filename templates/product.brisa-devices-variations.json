@@ -483,6 +483,7 @@
         "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
         "buy_buttons"
       ],
+      "disabled": true,
       "custom_css": [
         ".product-form,.product-meta,.product-gallery,.product__info {display: none !important;}",
         ".product {min-height: 0;}"
@@ -575,6 +576,7 @@
         "step_2",
         "step_3"
       ],
+      "disabled": true,
       "name": "Brisa product detail",
       "settings": {
         "show_guarantee": true,

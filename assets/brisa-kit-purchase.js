@@ -39,10 +39,15 @@
         e.preventDefault();
         if (!this.addonCheck) return;
         this.addonCheck.checked = !this.addonCheck.checked;
+        this.syncAddonUi();
         this.updatePrice();
       });
 
-      this.addonCheck?.addEventListener('change', () => this.updatePrice());
+      this.addonCheck?.addEventListener('change', () => {
+        this.syncAddonUi();
+        this.updatePrice();
+      });
+      this.syncAddonUi();
       this.atc?.addEventListener('click', (e) => {
         e.preventDefault();
         this.addToCart();
@@ -85,6 +90,19 @@
 
     selectedSwatch(role) {
       return this.querySelector(`[data-bkp-swatch][data-role="${role}"].is-selected`);
+    }
+
+    syncAddonUi() {
+      const addon = this.querySelector('[data-bkp-addon]');
+      const action = this.querySelector('[data-bkp-addon-toggle]');
+      const on = Boolean(this.addonCheck?.checked);
+      if (addon) addon.classList.toggle('is-selected', on);
+      if (action) {
+        if (!action.dataset.defaultLabel) {
+          action.dataset.defaultLabel = action.textContent.trim() || 'ADD';
+        }
+        action.textContent = on ? 'ADDED' : action.dataset.defaultLabel;
+      }
     }
 
     updatePrice() {
