@@ -281,31 +281,98 @@
     </div>
 
     {% if section.settings.show_addon %}
-      <div class="bkp__addon">
+      {%- liquid
+        assign addon_image = section.settings.addon_image
+        if addon_image == blank and addon_product != blank
+          assign addon_image = addon_product.featured_image
+        endif
+        assign addon_image_asset = section.settings.addon_image_asset | strip
+        assign addon_bonus_image = section.settings.addon_bonus_image
+        assign addon_bonus_image_asset = section.settings.addon_bonus_image_asset | strip
+      -%}
+      <div class="bkp__addon" data-bkp-addon>
         <span class="bkp__addon-tab">{{ section.settings.addon_tab | default: 'ADD ON' | escape }}</span>
-        <div class="bkp__addon-row">
-          <input class="bkp__addon-check" type="checkbox" data-bkp-addon-check id="bkp-addon-{{ section.id }}" {% unless addon_variant %}disabled{% endunless %}>
-          <div>
+
+        <div class="bkp__addon-top">
+          <input
+            class="bkp__addon-check"
+            type="checkbox"
+            data-bkp-addon-check
+            id="bkp-addon-{{ section.id }}"
+            {% unless addon_variant %}disabled{% endunless %}
+          >
+          <div class="bkp__addon-heading">
             <h4 class="bkp__addon-title">
-              <label for="bkp-addon-{{ section.id }}">{{ section.settings.addon_title | escape }}</label>
+              <label for="bkp-addon-{{ section.id }}">{{ section.settings.addon_title | default: 'Monthly Better Box' | escape }}</label>
             </h4>
-            <div class="bkp__addon-price">
-              {{ section.settings.addon_price | escape }}
+            {% if section.settings.addon_save != blank %}
+              <span class="bkp__addon-save">{{ section.settings.addon_save | escape }}</span>
+            {% endif %}
+          </div>
+          <button type="button" class="bkp__addon-action" data-bkp-addon-toggle>
+            {{ section.settings.addon_action | default: 'ADD' | escape }}
+          </button>
+        </div>
+
+        {% if section.settings.addon_subtitle != blank %}
+          <p class="bkp__addon-subtitle">{{ section.settings.addon_subtitle | escape }}</p>
+        {% endif %}
+
+        <div class="bkp__addon-body">
+          <div class="bkp__addon-copy">
+            <div class="bkp__addon-price-row">
+              <span class="bkp__addon-price">{{ section.settings.addon_price | default: '$44/mo' | escape }}</span>
               {% if section.settings.addon_compare != blank %}
                 <span class="bkp__addon-compare">{{ section.settings.addon_compare | escape }}</span>
               {% endif %}
-              {% if section.settings.addon_save != blank %}
-                <span class="bkp__addon-save">{{ section.settings.addon_save | escape }}</span>
+              {% if section.settings.addon_price_meta != blank %}
+                <span class="bkp__addon-price-meta">{{ section.settings.addon_price_meta | escape }}</span>
               {% endif %}
             </div>
-            {% if section.settings.addon_meta != blank %}
-              <p class="bkp__addon-meta">{{ section.settings.addon_meta | escape }}</p>
+            {% if section.settings.addon_contents != blank %}
+              <p class="bkp__addon-contents">{{ section.settings.addon_contents | escape }}</p>
             {% endif %}
           </div>
-          <button type="button" class="bkp__addon-action" data-bkp-addon-toggle>{{ section.settings.addon_action | default: 'ADD' | escape }}</button>
+
+          {% if addon_image != blank %}
+            {{ addon_image | image_url: width: 280 | image_tag: class: 'bkp__addon-media', loading: 'lazy', widths: '120,180,240,280', alt: section.settings.addon_title }}
+          {% elsif addon_image_asset != blank %}
+            <img
+              class="bkp__addon-media"
+              src="{{ addon_image_asset | asset_url }}"
+              alt="{{ section.settings.addon_title | escape }}"
+              width="140"
+              height="140"
+              loading="lazy"
+              decoding="async"
+            >
+          {% endif %}
         </div>
-        {% if section.settings.addon_bonus != blank %}
-          <p class="bkp__addon-bonus">{{ section.settings.addon_bonus | escape }}</p>
+
+        {% if section.settings.addon_bonus != blank or section.settings.addon_bonus_text != blank %}
+          <div class="bkp__addon-bonus">
+            <span class="bkp__addon-bonus-tag">{{ section.settings.addon_bonus_tag | default: 'FREE' | escape }}</span>
+            <p class="bkp__addon-bonus-text">
+              {{ section.settings.addon_bonus_text | default: section.settings.addon_bonus | escape }}
+            </p>
+            {% if addon_bonus_image != blank %}
+              {{ addon_bonus_image | image_url: width: 96 | image_tag: class: 'bkp__addon-bonus-media', loading: 'lazy', widths: '48,72,96', alt: '' }}
+            {% elsif addon_bonus_image_asset != blank %}
+              <img
+                class="bkp__addon-bonus-media"
+                src="{{ addon_bonus_image_asset | asset_url }}"
+                alt=""
+                width="48"
+                height="48"
+                loading="lazy"
+                decoding="async"
+              >
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.addon_footer != blank %}
+          <p class="bkp__addon-footer">{{ section.settings.addon_footer | escape }}</p>
         {% endif %}
       </div>
     {% endif %}
@@ -786,6 +853,12 @@
     },
     {
       "type": "text",
+      "id": "addon_subtitle",
+      "label": "Add-on subtitle",
+      "default": "12 cores every 4 weeks - never run out while on your journey"
+    },
+    {
+      "type": "text",
       "id": "addon_price",
       "label": "Add-on price label",
       "default": "$44/mo"
@@ -804,15 +877,60 @@
     },
     {
       "type": "text",
-      "id": "addon_meta",
-      "label": "Add-on meta",
-      "default": "12 cores every 4 weeks · $3.67/core · free shipping"
+      "id": "addon_price_meta",
+      "label": "Add-on price meta",
+      "default": "$3.67/core - free shipping"
+    },
+    {
+      "type": "text",
+      "id": "addon_contents",
+      "label": "Add-on contents",
+      "default": "In every box: 1 Mint Ice - 1 Raspberry Lime - 1 Cherry Pomegranate"
+    },
+    {
+      "type": "image_picker",
+      "id": "addon_image",
+      "label": "Add-on image"
+    },
+    {
+      "type": "text",
+      "id": "addon_image_asset",
+      "label": "Add-on image asset fallback",
+      "info": "Optional theme asset filename if Image above is empty."
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus_tag",
+      "label": "Bonus tag",
+      "default": "FREE"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus_text",
+      "label": "Bonus text",
+      "default": "A Free Cherry Pom in every box"
     },
     {
       "type": "text",
       "id": "addon_bonus",
-      "label": "Add-on bonus",
-      "default": "FREE A Free Cherry Pom in every box"
+      "label": "Add-on bonus (legacy fallback)",
+      "default": "A Free Cherry Pom in every box"
+    },
+    {
+      "type": "image_picker",
+      "id": "addon_bonus_image",
+      "label": "Bonus image"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus_image_asset",
+      "label": "Bonus image asset fallback"
+    },
+    {
+      "type": "text",
+      "id": "addon_footer",
+      "label": "Add-on footer",
+      "default": "Ships 3 weeks after your kit. Cancel anytime."
     },
     {
       "type": "text",
