@@ -1,0 +1,493 @@
+{%- liquid
+  assign review_product = product
+  if section.settings.product != blank
+    assign review_product = section.settings.product
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --brisa-jdgm-bg: {{ section.settings.background }};
+    --brisa-jdgm-text: {{ section.settings.text_color }};
+    --brisa-jdgm-muted: {{ section.settings.muted_color }};
+    --brisa-jdgm-card-bg: {{ section.settings.card_background }};
+    --brisa-jdgm-star: {{ section.settings.star_color }};
+    --brisa-jdgm-border: {{ section.settings.border_color }};
+    --brisa-jdgm-max-width: {{ section.settings.max_width }}px;
+    --brisa-jdgm-pad-y: {{ section.settings.padding_top }}px;
+    --brisa-jdgm-pad-y-bottom: {{ section.settings.padding_bottom }}px;
+    --brisa-jdgm-pad-x: {{ section.settings.padding_horizontal }}px;
+    --brisa-jdgm-card-radius: {{ section.settings.card_radius }}px;
+    --brisa-jdgm-card-gap: {{ section.settings.card_gap }}px;
+
+    background: var(--brisa-jdgm-bg);
+    color: var(--brisa-jdgm-text);
+    padding: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-judgeme {
+    width: 100%;
+    padding: var(--brisa-jdgm-pad-y) var(--brisa-jdgm-pad-x) var(--brisa-jdgm-pad-y-bottom);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-judgeme__inner {
+    max-width: var(--brisa-jdgm-max-width);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-judgeme__heading {
+    margin: 0 0 28px;
+    color: var(--brisa-jdgm-text);
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 800;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  /* Judge.me theme tokens */
+  #shopify-section-{{ section.id }} {
+    --jdgm-primary-color: var(--brisa-jdgm-text);
+    --jdgm-secondary-color: var(--brisa-jdgm-muted);
+    --jdgm-star-color: var(--brisa-jdgm-star);
+    --jdgm-write-review-bg-color: transparent;
+    --jdgm-write-review-text-color: var(--brisa-jdgm-text);
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev-widg,
+  #shopify-section-{{ section.id }} .jdgm-widget {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    font-family: inherit !important;
+    color: var(--brisa-jdgm-text) !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__title,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__header .jdgm-rev-widg__title {
+    display: none !important;
+  }
+
+  /* Summary row: stars + score | filters */
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__header {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 16px !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary-inner,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary-stars {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-star,
+  #shopify-section-{{ section.id }} .jdgm-star:before {
+    color: var(--brisa-jdgm-star) !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary-average,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary-text,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary-average-number {
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-histogram,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__summary .jdgm-histogram {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-sort-dropdown,
+  #shopify-section-{{ section.id }} .jdgm-sort-dropdown-wrapper,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__filter-wrapper,
+  #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper {
+    margin: 0 !important;
+  }
+
+  /* Write a review — full-width outlined button */
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link,
+  #shopify-section-{{ section.id }} a.jdgm-write-rev-link,
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link.jdgm-btn,
+  #shopify-section-{{ section.id }} .jdgm-btn.jdgm-btn-light.jdgm-write-rev-link,
+  #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper .jdgm-write-rev-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box;
+    margin: 0 0 24px !important;
+    padding: 14px 20px !important;
+    border: 1.5px solid var(--brisa-jdgm-border) !important;
+    border-radius: 6px !important;
+    background: var(--brisa-jdgm-card-bg) !important;
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    line-height: 1.3 !important;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link:hover,
+  #shopify-section-{{ section.id }} a.jdgm-write-rev-link:hover {
+    background: #fafafa !important;
+    border-color: var(--brisa-jdgm-text) !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+  }
+
+  /* Review list as stacked cards */
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__body,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__reviews {
+    display: flex !important;
+    flex-direction: column;
+    gap: var(--brisa-jdgm-card-gap);
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev,
+  #shopify-section-{{ section.id }} .jdgm-rev.jdgm-divider-top {
+    display: block !important;
+    margin: 0 !important;
+    padding: 18px 18px 16px !important;
+    border: 0 !important;
+    border-radius: var(--brisa-jdgm-card-radius) !important;
+    background: var(--brisa-jdgm-card-bg) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__header,
+  #shopify-section-{{ section.id }} .jdgm-row-rating,
+  #shopify-section-{{ section.id }} .jdgm-rev__icon {
+    margin: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__author {
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__buyer-badge,
+  #shopify-section-{{ section.id }} .jdgm-rev__icon .jdgm-rev__buyer-badge,
+  #shopify-section-{{ section.id }} .jm-verified-buyer-badge,
+  #shopify-section-{{ section.id }} .jm-verified-buyer-badge__text {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 4px;
+    margin-left: 6px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__timestamp,
+  #shopify-section-{{ section.id }} .jdgm-rev__date {
+    display: block !important;
+    margin: 2px 0 8px !important;
+    color: var(--brisa-jdgm-muted) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__rating {
+    margin: 0 0 10px !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__rating .jdgm-star {
+    font-size: 14px !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__title {
+    margin: 0 0 6px !important;
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__body,
+  #shopify-section-{{ section.id }} .jdgm-rev__body p {
+    margin: 0 !important;
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__pics {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-img,
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link,
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-img img {
+    width: 64px !important;
+    height: 64px !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__custom-form,
+  #shopify-section-{{ section.id }} .jdgm-rev__prod-info,
+  #shopify-section-{{ section.id }} .jdgm-rev__product,
+  #shopify-section-{{ section.id }} .jdgm-rev__reply,
+  #shopify-section-{{ section.id }} .jdgm-rev__actions {
+    margin-top: 10px !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-paginate {
+    margin: 24px 0 0 !important;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-paginate__page {
+    color: var(--brisa-jdgm-text) !important;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-judgeme__fallback {
+    margin: 0;
+    padding: 28px 20px;
+    border: 1px dashed var(--brisa-jdgm-border);
+    border-radius: var(--brisa-jdgm-card-radius);
+    background: var(--brisa-jdgm-card-bg);
+    color: var(--brisa-jdgm-muted);
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-judgeme {
+      padding-top: calc(var(--brisa-jdgm-pad-y) * 0.75);
+      padding-bottom: calc(var(--brisa-jdgm-pad-y-bottom) * 0.75);
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-judgeme__heading {
+      font-size: calc({{ section.settings.heading_size }}px * 0.72);
+      margin-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .jdgm-rev,
+    #shopify-section-{{ section.id }} .jdgm-rev.jdgm-divider-top {
+      padding: 16px 14px 14px !important;
+    }
+  }
+</style>
+
+<section class="brisa-judgeme" id="judgeme_reviews" {{ section.shopify_attributes }}>
+  <div class="brisa-judgeme__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="brisa-judgeme__heading">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          {%- render block -%}
+        </div>
+      {%- endfor -%}
+    {%- elsif review_product != blank -%}
+      <!-- Start of Judge.me code -->
+      <div style="clear:both"></div>
+      <div
+        id="judgeme_product_reviews"
+        class="jdgm-widget jdgm-review-widget"
+        data-product-title="{{ review_product.title | escape }}"
+        data-id="{{ review_product.id }}"
+        data-auto-install="false"
+      >
+        {{ review_product.metafields.judgeme.widget }}
+      </div>
+      <!-- End of Judge.me code -->
+    {%- else -%}
+      <p class="brisa-judgeme__fallback">
+        Add the Judge.me Review Widget app block in the theme editor, or assign a product with Judge.me reviews.
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Judge.me reviews",
+  "tag": "section",
+  "class": "shopify-section--brisa-judgeme-reviews",
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Requires Judge.me installed with the app embed enabled. You can either use the built-in widget (product metafield) or add the Judge.me Review Widget app block below."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product for reviews",
+      "info": "Leave blank to use the current product page product."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 480,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Padding horizontal",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 22,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Stars",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Button border",
+      "default": "#111111"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Judge.me reviews"
+    }
+  ]
+}
+{% endschema %}
