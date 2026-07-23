@@ -358,7 +358,7 @@
       "name": "Brisa kit purchase",
       "settings": {
         "eyebrow": "SENSORY HABIT DEVICE",
-        "title": "BRISA\u2122 STARTER KIT",
+        "title": "BRISA™ STARTER KIT",
         "show_rating": true,
         "rating_text": "Rated 4.7 2,000 +",
         "rating_badge": "Happy customers",
@@ -371,7 +371,7 @@
         "highlight_label_4": "No Nicotine, No Vapour, No Smoke",
         "highlight_icon_4": "shopify://shop_images/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png",
         "choose_heading": "Choose your kit",
-        "choose_sub": "One-time purchase \u00b7 30 day guarantee on every kit",
+        "choose_sub": "One-time purchase · 30 day guarantee on every kit",
         "try_product": "brisa-starter-kit",
         "try_handle": "brisa-starter-kit",
         "try_title": "Starter Kit",
@@ -390,7 +390,7 @@
         "commitment_price": "$165",
         "commitment_compare": "$205",
         "commitment_save": "SAVE $40",
-        "commitment_banner": "\u2605MOST POPULAR - SAVE $40",
+        "commitment_banner": "★MOST POPULAR - SAVE $40",
         "commitment_price_cents": 16500,
         "commitment_image": "shopify://shop_images/commitment-pack.png",
         "commitment_image_asset": "brisa-kit-commitment.jpg",
@@ -419,18 +419,25 @@
         "addon_save": "SAVE $28",
         "addon_price_meta": "$3.67/core - free shipping",
         "addon_contents": "In every box: 1 Mint Ice - 1 Raspberry Lime - 1 Cherry Pomegranate",
+        "addon_image_asset": "",
         "addon_bonus_tag": "FREE",
         "addon_bonus_text": "A Free Cherry Pom in every box",
         "addon_bonus": "A Free Cherry Pom in every box",
+        "addon_bonus_image_asset": "",
         "addon_footer": "Ships 3 weeks after your kit. Cancel anytime.",
         "addon_action": "ADD",
         "addon_price_cents": 4400,
         "show_trust": true,
         "trust_1": "Ships Next Day",
+        "trust_icon_1": "shopify://shop_images/fast-shipping.png",
         "trust_2": "Secure checkout",
+        "trust_icon_2": "shopify://shop_images/secure.png",
         "trust_3": "FREE SHIPPING",
+        "trust_icon_3": "shopify://shop_images/free-shipping_16e46e82-0928-4947-bcbc-4e9103a79435.png",
         "trust_4": "Australian Customer service",
+        "trust_icon_4": "shopify://shop_images/aus-map_579772bc-921b-4837-b269-d90e09593d0c.png",
         "trust_5": "4.7 (163)",
+        "trust_icon_5": "shopify://shop_images/blue-star.png",
         "trust_6": "30 Day Guarantee"
       }
     },
@@ -464,10 +471,6 @@
             "liquid": "<p><img src=\"//cdn.shopify.com/s/files/1/0939/5752/1780/files/5-star.png?v=1775131594\" style=\"max-height: 30px\">\n<a href=\"#real_reviews\">(163 reviews)</a></p>\n<p><b>Free Shipping Australia-wide</b></p>"
           }
         },
-        "appstle_bundles_appstle_volume_discount_bundle_GLaHh3": {
-          "type": "shopify://apps/appstle-bundles/blocks/appstle-volume-discount-bundle/8909921b-2d24-4d68-9b12-9d045d3dcb0a",
-          "settings": {}
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -485,7 +488,6 @@
         "variant_picker",
         "liquid_zYKRxA",
         "liquid_TU4fi4",
-        "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
         "buy_buttons"
       ],
       "disabled": true,
@@ -562,14 +564,14 @@
           "type": "step",
           "settings": {
             "title": "Set your airflow",
-            "text": "Dial the base to find your perfect draw \u2014 tighter or looser, just like you're used to."
+            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "title": "Reach for it instead",
-            "text": "Every time you'd reach for your vape \u2014 reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
+            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
           }
         }
       },
@@ -600,10 +602,10 @@
         "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "show_promo": true,
         "promo_icon": "shopify://shop_images/gift.png",
-        "promo_text": "Order this week \u2014 FREE Watermelon core pack (valued at $15) included.",
+        "promo_text": "Order this week — FREE Watermelon core pack (valued at $15) included.",
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
-        "brand_text": "Brisa is built around the ritual \u2014 not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
+        "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
         "brand_image": "shopify://shop_images/DSC_2704_copy.jpg",
         "show_how_it_works": true,
         "how_heading": "How It Works",
@@ -787,7 +789,7 @@
           "type": "item",
           "settings": {
             "icon": "airflow",
-            "title": "Tuned airflow \u2014 matches a real vape draw.",
+            "title": "Tuned airflow — matches a real vape draw.",
             "text": "Calibrated resistance so the pull feels like what you already know. Not a straw. Not a toy."
           }
         },
