@@ -325,7 +325,8 @@
   #shopify-section-{{ section.id }} .jdgm-row-extra,
   #shopify-section-{{ section.id }} .jdgm-rev__br,
   #shopify-section-{{ section.id }} .jdgm-rev__actions,
-  #shopify-section-{{ section.id }} .jdgm-rev__transparency-badge-wrapper {
+  #shopify-section-{{ section.id }} .jdgm-rev__transparency-badge-wrapper,
+  #shopify-section-{{ section.id }} .jdgm-row-rating:empty {
     display: none !important;
   }
 
@@ -362,7 +363,7 @@
   }
 
   #shopify-section-{{ section.id }} .jdgm-row-rating {
-    display: contents !important;
+    display: none !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev__timestamp,
@@ -549,9 +550,33 @@
       return (Math.round(value * 10) / 10).toFixed(1);
     }
 
+    function formatAverageEl(widget) {
+      var averageEl = root.querySelector('.jdgm-rev-widg__summary-average');
+      if (!averageEl) return;
+      var fromWidget = (widget && widget.getAttribute('data-average-rating'))
+        || (root.querySelector('.jdgm-rev-widg') && root.querySelector('.jdgm-rev-widg').getAttribute('data-average-rating'));
+      var next = formatAverage(averageEl.textContent, formatAverage(fromWidget, '5.0'));
+      if (next && averageEl.textContent !== next) averageEl.textContent = next;
+    }
+
+    function reorderCards() {
+      root.querySelectorAll('.jdgm-rev').forEach(function (rev) {
+        if (rev.getAttribute('data-brisa-ordered') === '1') return;
+        var headerRow = rev.querySelector('.jdgm-rev__header');
+        if (!headerRow) return;
+        var profile = rev.querySelector('.jdgm-row-profile');
+        var timestamp = rev.querySelector('.jdgm-rev__timestamp');
+        var rating = rev.querySelector('.jdgm-rev__rating');
+        if (profile) headerRow.appendChild(profile);
+        if (timestamp) headerRow.appendChild(timestamp);
+        if (rating) headerRow.appendChild(rating);
+        rev.setAttribute('data-brisa-ordered', '1');
+      });
+    }
+
     function enhance() {
       var widget = root.querySelector('.jdgm-rev-widg, .jdgm-widget');
-      if (!widget) return false;
+      if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
 
       var header = root.querySelector('.jdgm-rev-widg__header');
       var summary = root.querySelector('.jdgm-rev-widg__summary');
@@ -561,11 +586,7 @@
       var writeLink = root.querySelector('.jdgm-write-rev-link');
       var sortWrap = root.querySelector('.jdgm-rev-widg__sort-wrapper');
 
-      if (averageEl) {
-        var fromWidget = widget.getAttribute('data-average-rating')
-          || (root.querySelector('.jdgm-rev-widg') && root.querySelector('.jdgm-rev-widg').getAttribute('data-average-rating'));
-        averageEl.textContent = formatAverage(averageEl.textContent, formatAverage(fromWidget, '5.0'));
-      }
+      formatAverageEl(widget);
 
       if (starsWrap && !starsWrap.closest('.brisa-jdgm-summary-trigger')) {
         var trigger = document.createElement('button');
@@ -579,6 +600,7 @@
         trigger.insertAdjacentHTML('beforeend', CHEVRON);
 
         trigger.addEventListener('click', function () {
+          histogram = root.querySelector('.jdgm-histogram');
           if (!histogram) return;
           var open = histogram.classList.contains('jdgm-temp-hidden') || histogram.hasAttribute('hidden');
           if (open) {
@@ -591,11 +613,15 @@
             trigger.setAttribute('aria-expanded', 'false');
           }
         });
+      } else if (averageEl && !root.querySelector('.brisa-jdgm-chevron')) {
+        var existingTrigger = root.querySelector('.brisa-jdgm-summary-trigger');
+        if (existingTrigger) existingTrigger.insertAdjacentHTML('beforeend', CHEVRON);
       }
 
-      if (histogram) {
+      if (histogram && !histogram.hasAttribute('data-brisa-init')) {
         histogram.classList.add('jdgm-temp-hidden');
         histogram.setAttribute('hidden', '');
+        histogram.setAttribute('data-brisa-init', '1');
       }
 
       if (header && !root.querySelector('.brisa-jdgm-filter')) {
@@ -615,12 +641,12 @@
         filterBtn.addEventListener('click', function () {
           var open = filterBtn.getAttribute('aria-expanded') === 'true';
           filterBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
-          if (sortWrap) {
+          sortWrap = root.querySelector('.jdgm-rev-widg__sort-wrapper');
+          if (sortWrap && sortWrap.children.length) {
             sortWrap.classList.toggle('is-open', !open);
             var sortSelect = sortWrap.querySelector('select, .jdgm-sort-dropdown, button, [role="button"]');
             if (!open && sortSelect) sortSelect.focus();
-          } else if (histogram) {
-            // Fallback: open rating breakdown if sort UI is unavailable
+          } else {
             var triggerBtn = root.querySelector('.brisa-jdgm-summary-trigger');
             if (triggerBtn) triggerBtn.click();
           }
@@ -628,38 +654,43 @@
       }
 
       if (writeLink) {
-        writeLink.style.display = '';
+        writeLink.style.setProperty('display', 'flex', 'important');
         writeLink.removeAttribute('hidden');
-        if (header && writeLink.closest('.jdgm-rev-widg__header') !== header) {
+        if (header && writeLink.parentElement !== header) {
           header.appendChild(writeLink);
         }
       }
 
-      // Move timestamp after author for Loox-like card order
-      root.querySelectorAll('.jdgm-rev').forEach(function (rev) {
-        var profile = rev.querySelector('.jdgm-row-profile');
-        var timestamp = rev.querySelector('.jdgm-rev__timestamp');
-        var rating = rev.querySelector('.jdgm-rev__rating');
-        var headerRow = rev.querySelector('.jdgm-rev__header');
-        if (!headerRow) return;
-        if (profile) headerRow.appendChild(profile);
-        if (timestamp) headerRow.appendChild(timestamp);
-        if (rating) headerRow.appendChild(rating);
-      });
-
+      reorderCards();
       return true;
     }
 
-    if (enhance()) return;
+    enhance();
 
     var tries = 0;
     var timer = setInterval(function () {
       tries += 1;
-      if (enhance() || tries > 40) clearInterval(timer);
+      enhance();
+      formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
+      if (tries > 40) clearInterval(timer);
     }, 250);
 
     document.addEventListener('jdgm.doneDoneSetup', enhance);
-    document.addEventListener('jdgm.doneLoadingReviews', enhance);
+    document.addEventListener('jdgm.doneLoadingReviews', function () {
+      enhance();
+      root.querySelectorAll('.jdgm-rev').forEach(function (rev) {
+        rev.removeAttribute('data-brisa-ordered');
+      });
+      reorderCards();
+    });
+
+    if (window.MutationObserver) {
+      var observer = new MutationObserver(function () {
+        formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
+        reorderCards();
+      });
+      observer.observe(root, { childList: true, subtree: true, characterData: true });
+    }
   })();
 </script>
 
