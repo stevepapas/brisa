@@ -325,8 +325,7 @@
   #shopify-section-{{ section.id }} .jdgm-row-extra,
   #shopify-section-{{ section.id }} .jdgm-rev__br,
   #shopify-section-{{ section.id }} .jdgm-rev__actions,
-  #shopify-section-{{ section.id }} .jdgm-rev__transparency-badge-wrapper,
-  #shopify-section-{{ section.id }} .jdgm-row-rating:empty {
+  #shopify-section-{{ section.id }} .jdgm-rev__transparency-badge-wrapper {
     display: none !important;
   }
 
@@ -362,24 +361,29 @@
     text-transform: none !important;
   }
 
+  /* Author → date → stars (Loox list order) */
   #shopify-section-{{ section.id }} .jdgm-row-rating {
-    display: none !important;
+    order: 2;
+    display: flex !important;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0 !important;
+    width: 100%;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev__timestamp,
   #shopify-section-{{ section.id }} .jdgm-rev__date {
-    order: 2;
     display: block !important;
-    margin: 2px 0 8px !important;
+    margin: 2px 0 0 !important;
     color: var(--brisa-jdgm-muted) !important;
     font-size: 12px !important;
     font-weight: 400 !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev__rating {
-    order: 3;
     display: inline-flex !important;
-    margin: 0 0 10px !important;
+    margin: 0 !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev__rating .jdgm-star {
@@ -561,16 +565,13 @@
 
     function reorderCards() {
       root.querySelectorAll('.jdgm-rev').forEach(function (rev) {
-        if (rev.getAttribute('data-brisa-ordered') === '1') return;
         var headerRow = rev.querySelector('.jdgm-rev__header');
         if (!headerRow) return;
         var profile = rev.querySelector('.jdgm-row-profile');
-        var timestamp = rev.querySelector('.jdgm-rev__timestamp');
-        var rating = rev.querySelector('.jdgm-rev__rating');
+        var ratingRow = rev.querySelector('.jdgm-row-rating');
+        // Keep author first, then rating/date block
         if (profile) headerRow.appendChild(profile);
-        if (timestamp) headerRow.appendChild(timestamp);
-        if (rating) headerRow.appendChild(rating);
-        rev.setAttribute('data-brisa-ordered', '1');
+        if (ratingRow) headerRow.appendChild(ratingRow);
       });
     }
 
@@ -678,9 +679,6 @@
     document.addEventListener('jdgm.doneDoneSetup', enhance);
     document.addEventListener('jdgm.doneLoadingReviews', function () {
       enhance();
-      root.querySelectorAll('.jdgm-rev').forEach(function (rev) {
-        rev.removeAttribute('data-brisa-ordered');
-      });
       reorderCards();
     });
 
