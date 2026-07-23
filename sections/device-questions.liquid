@@ -164,96 +164,6 @@
   </div>
 </section>
 
-{% if section.settings.show_cost_band %}
-  <style>
-    .device-questions-cost {
-      padding: 48px 40px 40px;
-      background: #ffffff;
-      text-align: left;
-      max-width: 980px;
-      margin: 0 auto;
-    }
-    .device-questions-cost__heading {
-      margin: 0 0 8px;
-      font-size: 36px;
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #111111;
-    }
-    .device-questions-cost__sub {
-      margin: 0;
-      font-size: 36px;
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      color: #111111;
-    }
-    .device-questions-cost__brisa {
-      display: block;
-      margin-top: 12px;
-      font-size: 28px;
-      font-weight: 900;
-      color: #008bdc;
-      text-transform: uppercase;
-    }
-    .dq-final-cta {
-      padding: 32px 40px 40px;
-      background: #ffffff;
-      max-width: 980px;
-      margin: 0 auto;
-    }
-    .dq-final-cta__stars {
-      font-size: 22px;
-      color: #1a73e8;
-      margin-bottom: 10px;
-    }
-    .dq-final-cta__stars span {
-      font-size: 16px;
-      font-weight: 800;
-      color: #111111;
-      vertical-align: middle;
-    }
-    .dq-final-cta__promo {
-      font-size: 15px;
-      font-weight: 700;
-      color: #008bdc;
-      margin: 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .dq-final-cta__promo-icon { flex-shrink: 0; }
-    @media screen and (max-width: 749px) {
-      .device-questions-cost,
-      .dq-final-cta { padding-left: 20px; padding-right: 20px; }
-      .device-questions-cost__heading,
-      .device-questions-cost__sub { font-size: 26px; }
-      .device-questions-cost__brisa { font-size: 22px; }
-    }
-  </style>
-
-  <div class="device-questions-cost">
-    <p class="device-questions-cost__heading">{{ section.settings.cost_heading | default: 'YOUR VAPE/ CIGARETTES COSTS YOU' | escape }}</p>
-    <p class="device-questions-cost__sub">{{ section.settings.cost_sub | default: '$300-$400 THIS MONTH.' | escape }}</p>
-    <span class="device-questions-cost__brisa">{{ section.settings.cost_brisa | default: 'BRISA COSTS YOU $130 - ONCE' | escape }}</span>
-  </div>
-
-  <div class="dq-final-cta">
-    <div class="dq-final-cta__stars">
-      &#9733;&#9733;&#9733;&#9733;&#9733; <span>{{ section.settings.rating_text | default: 'Rated 4.7 (163)' | escape }}</span>
-    </div>
-    {% if section.settings.promo_text != blank %}
-      <p class="dq-final-cta__promo">
-        <span class="dq-final-cta__promo-icon">&#127873;</span>
-        {{ section.settings.promo_text | escape }}
-      </p>
-    {% endif %}
-  </div>
-{% endif %}
-
 {% schema %}
 {
   "name": "Device questions",
@@ -374,59 +284,19 @@
       "type": "color",
       "id": "background",
       "label": "Outer background",
-      "default": "#4eb8ef"
+      "default": "#008bdc"
     },
     {
       "type": "color",
       "id": "panel_background",
       "label": "FAQ background",
-      "default": "#4eb8ef"
+      "default": "#008bdc"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text",
       "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": "Cost band below FAQ"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_cost_band",
-      "label": "Show cost band + promo",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "cost_heading",
-      "label": "Cost heading",
-      "default": "YOUR VAPE/ CIGARETTES COSTS YOU"
-    },
-    {
-      "type": "text",
-      "id": "cost_sub",
-      "label": "Cost subheading",
-      "default": "$300-$400 THIS MONTH."
-    },
-    {
-      "type": "text",
-      "id": "cost_brisa",
-      "label": "Brisa cost line",
-      "default": "BRISA COSTS YOU $130 - ONCE"
-    },
-    {
-      "type": "text",
-      "id": "rating_text",
-      "label": "Rating text",
-      "default": "Rated 4.7 (163)"
-    },
-    {
-      "type": "text",
-      "id": "promo_text",
-      "label": "Promo text",
-      "default": "Order this week - FREE watermelon core pack (valued at $15) included"
     }
   ],
   "blocks": [

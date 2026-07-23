@@ -732,15 +732,9 @@
         "heading_size": 42,
         "question_size": 18,
         "answer_size": 16,
-        "background": "#4eb8ef",
-        "panel_background": "#4eb8ef",
-        "text_color": "#ffffff",
-        "show_cost_band": true,
-        "cost_heading": "YOUR VAPE/ CIGARETTES COSTS YOU",
-        "cost_sub": "$300-$400 THIS MONTH.",
-        "cost_brisa": "BRISA COSTS YOU $130 - ONCE",
-        "rating_text": "Rated 4.7 (163)",
-        "promo_text": "Order this week - FREE watermelon core pack (valued at $15) included"
+        "background": "#008bdc",
+        "panel_background": "#008bdc",
+        "text_color": "#ffffff"
       }
     },
     "brisa_kit_purchase_main": {
