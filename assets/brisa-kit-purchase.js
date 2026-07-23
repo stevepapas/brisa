@@ -172,9 +172,16 @@
       ];
 
       if (this.addonCheck?.checked && this.dataset.addonVariantId) {
+        const sellingPlanId = Number(this.dataset.addonSellingPlanId || 0);
+        if (!sellingPlanId) {
+          this.setError('Monthly Better Box subscription is not available yet.');
+          return;
+        }
+
         items.push({
           id: Number(this.dataset.addonVariantId),
           quantity: 1,
+          selling_plan: sellingPlanId,
           properties: {
             _bundle: 'brisa-kit-addon',
             _parent_kit: properties._mates_pack || properties._kit_key,

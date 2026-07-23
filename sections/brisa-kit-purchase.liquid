@@ -33,8 +33,25 @@
 
   assign addon_variant = addon_product.selected_or_first_available_variant
   assign addon_price_cents = section.settings.addon_price_cents | default: 4400
+  assign addon_selling_plan_id = blank
   if addon_variant != blank
     assign addon_price_cents = addon_variant.price
+    for allocation in addon_variant.selling_plan_allocations
+      assign addon_selling_plan_id = allocation.selling_plan.id
+      assign addon_price_cents = allocation.price
+      break
+    endfor
+  endif
+  if addon_selling_plan_id == blank and addon_product != blank
+    for group in addon_product.selling_plan_groups
+      for plan in group.selling_plans
+        assign addon_selling_plan_id = plan.id
+        break
+      endfor
+      if addon_selling_plan_id != blank
+        break
+      endif
+    endfor
   endif
 
   assign colour_blocks = section.blocks | where: 'type', 'colour'
@@ -45,6 +62,7 @@
   data-devices="1"
   data-addon-price-cents="{{ addon_price_cents }}"
   {% if addon_variant != blank %}data-addon-variant-id="{{ addon_variant.id }}"{% endif %}
+  {% if addon_selling_plan_id != blank %}data-addon-selling-plan-id="{{ addon_selling_plan_id }}"{% endif %}
   {{ section.shopify_attributes }}
 >
   <div class="bkp__inner">
@@ -299,7 +317,7 @@
             type="checkbox"
             data-bkp-addon-check
             id="bkp-addon-{{ section.id }}"
-            {% unless addon_variant %}disabled{% endunless %}
+            {% unless addon_variant and addon_selling_plan_id %}disabled{% endunless %}
           >
 
           <div class="bkp__addon-main">
