@@ -1,6 +1,7 @@
 {%- comment -%}
-  Renders the kit purchase trust badge grid.
-  Accepts: settings (section.settings or a hash-like object with trust_* keys)
+  Trust badge grid for Brisa kit purchase.
+  Priority: Theme Editor image picker → theme asset filename → inline SVG.
+  Edit labels/icons in Brisa kit purchase → Trust row.
 {%- endcomment -%}
 <ul class="bkp__trust" data-bkp-trust-source>
   {% for i in (1..6) %}
@@ -9,43 +10,42 @@
         when 1
           assign t_label = settings.trust_1
           assign t_icon = settings.trust_icon_1
+          assign t_asset = settings.trust_icon_asset_1 | default: 'brisa-trust-ship.svg'
         when 2
           assign t_label = settings.trust_2
           assign t_icon = settings.trust_icon_2
+          assign t_asset = settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg'
         when 3
           assign t_label = settings.trust_3
           assign t_icon = settings.trust_icon_3
+          assign t_asset = settings.trust_icon_asset_3 | default: 'brisa-trust-box.svg'
         when 4
           assign t_label = settings.trust_4
           assign t_icon = settings.trust_icon_4
+          assign t_asset = settings.trust_icon_asset_4 | default: 'brisa-trust-aussie.svg'
         when 5
           assign t_label = settings.trust_5
           assign t_icon = settings.trust_icon_5
+          assign t_asset = settings.trust_icon_asset_5 | default: 'brisa-trust-star.svg'
         else
           assign t_label = settings.trust_6
           assign t_icon = settings.trust_icon_6
+          assign t_asset = settings.trust_icon_asset_6 | default: 'brisa-trust-shield.svg'
       endcase
     %}
     {% if t_label != blank %}
       <li class="bkp__trust-item">
-        <span class="bkp__trust-icon{% if t_icon != blank %} bkp__trust-icon--custom{% endif %}" aria-hidden="true">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
           {% if t_icon != blank %}
             {{ t_icon | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
-          {% else %}
-            {% case i %}
-              {% when 1 %}
-                <svg viewBox="0 0 24 24" fill="none"><path d="M3 7h13v10H3V7Zm13 3h3l2 3v4h-5V10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="18.5" r="1.5" fill="currentColor"/><circle cx="17" cy="18.5" r="1.5" fill="currentColor"/></svg>
-              {% when 2 %}
-                <svg viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
-              {% when 3 %}
-                <svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16v11H4V8Z" stroke="currentColor" stroke-width="1.8"/><path d="M4 8l8-4 8 4" stroke="currentColor" stroke-width="1.8"/></svg>
-              {% when 4 %}
-                <svg viewBox="0 0 24 24" fill="none"><path d="M5 18c2-7 5-10 12-11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 20h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              {% when 5 %}
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 5.2L20 8.2l-4 4.1.9 5.7L12 15.6 7.1 18l.9-5.7-4-4.1 5.6-1L12 2z"/></svg>
-              {% else %}
-                <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 12 2.2 2.2L15.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            {% endcase %}
+          {% elsif t_asset != blank %}
+            <img
+              src="{{ t_asset | asset_url }}"
+              alt=""
+              width="28"
+              height="28"
+              loading="lazy"
+            >
           {% endif %}
         </span>
         <span>{{ t_label | escape }}</span>
