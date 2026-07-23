@@ -14,29 +14,39 @@
     --brisa-comparison-icon-size: {{ section.settings.icon_size }}px;
     --brisa-comparison-icon-color: {{ section.settings.icon_color }};
     --brisa-comparison-brisa-icon-color: {{ section.settings.brisa_icon_color }};
+    --brisa-comparison-label-size: {{ section.settings.label_size }}px;
   }
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
     }
-
   }
 </style>
 
+{%- liquid
+  assign check_svg = '<svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="currentColor"/><path d="M11.5 20.5 17.2 26.2 28.8 13.8" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  assign check_brisa_svg = '<svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#fff"/><path d="M11.5 20.5 17.2 26.2 28.8 13.8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  assign empty_svg = '<svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>'
+-%}
+
 <section class="brisa-comparison" {{ section.shopify_attributes }}>
   <div class="brisa-comparison__container">
-    {% if section.settings.heading != blank or section.settings.subheading != blank %}
-      <div class="brisa-comparison__header">
+    <div class="brisa-comparison__header">
+      <h2 class="brisa-comparison__heading">
         {% if section.settings.heading != blank %}
-          <h2 class="brisa-comparison__heading">{{ section.settings.heading | escape }}</h2>
+          {{ section.settings.heading | escape }}
+        {% else %}
+          <span class="brisa-comparison__brand">{{ section.settings.heading_brand | default: 'BRISA' | escape }}</span>
+          <span class="brisa-comparison__vs">{{ section.settings.heading_vs | default: 'VS' | escape }}</span>
+          <span class="brisa-comparison__rest">{{ section.settings.heading_rest | default: 'THE REST.' | escape }}</span>
         {% endif %}
+      </h2>
 
-        {% if section.settings.subheading != blank %}
-          <div class="brisa-comparison__subheading rte">{{ section.settings.subheading }}</div>
-        {% endif %}
-      </div>
-    {% endif %}
+      {% if section.settings.subheading != blank %}
+        <div class="brisa-comparison__subheading rte">{{ section.settings.subheading }}</div>
+      {% endif %}
+    </div>
 
     <div class="brisa-comparison__scroll">
       <div class="brisa-comparison__table" role="table" aria-label="{{ section.settings.table_label | escape }}">
@@ -67,71 +77,125 @@
             if forloop.last
               assign is_last_row = true
             endif
+            assign row_icon = blank
+            if block.settings.icon != blank
+              assign row_icon = block.settings.icon | image_url: width: 96
+            elsif block.settings.icon_asset != blank
+              assign row_icon = block.settings.icon_asset | asset_url
+            endif
           %}
 
           <div class="brisa-comparison__cell brisa-comparison__cell--label" role="rowheader" {{ block.shopify_attributes }}>
-            {{ block.settings.label | escape }}
+            {% if row_icon != blank %}
+              <span class="brisa-comparison__row-icon" aria-hidden="true">
+                <img src="{{ row_icon }}" alt="" loading="lazy" width="40" height="40">
+              </span>
+            {% endif %}
+            <span class="brisa-comparison__row-label">{{ block.settings.label | escape }}</span>
           </div>
 
-          <div class="brisa-comparison__cell brisa-comparison__cell--brisa {% if is_last_row %}brisa-comparison__cell--brisa-last{% endif %}" role="cell">
+          {%- capture brisa_value -%}
             {% case block.settings.brisa_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="Yes">
-                  <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M10.5 20.5 17 27 30.5 13.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_brisa_svg | raw }}</span>
+              {% when 'empty' %}
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
               {% when 'cross' %}
                 <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
+              {% when 'cost' %}
+                <div class="brisa-comparison__cost brisa-comparison__cost--brisa">
+                  {% if block.settings.brisa_text != blank %}
+                    <span class="brisa-comparison__cost-level">{{ block.settings.brisa_text | escape }}</span>
+                  {% endif %}
+                  {% if block.settings.brisa_subtext != blank %}
+                    <span class="brisa-comparison__cost-pill">{{ block.settings.brisa_subtext | escape }}</span>
+                  {% endif %}
+                </div>
               {% when 'text' %}
                 <span class="brisa-comparison__value">{{ block.settings.brisa_text | escape }}</span>
             {% endcase %}
-          </div>
+          {%- endcapture -%}
 
-          <div class="brisa-comparison__cell" role="cell">
+          {%- capture col2_value -%}
             {% case block.settings.column_2_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="Yes">
-                  <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M10.5 20.5 17 27 30.5 13.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_svg | raw }}</span>
+              {% when 'empty' %}
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
               {% when 'cross' %}
                 <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
+              {% when 'cost' %}
+                <div class="brisa-comparison__cost">
+                  {% if block.settings.column_2_text != blank %}
+                    <span class="brisa-comparison__cost-level">{{ block.settings.column_2_text | escape }}</span>
+                  {% endif %}
+                  {% if block.settings.column_2_subtext != blank %}
+                    <span class="brisa-comparison__cost-pill">{{ block.settings.column_2_subtext | escape }}</span>
+                  {% endif %}
+                </div>
               {% when 'text' %}
                 <span class="brisa-comparison__value">{{ block.settings.column_2_text | escape }}</span>
             {% endcase %}
-          </div>
+          {%- endcapture -%}
 
-          <div class="brisa-comparison__cell" role="cell">
+          {%- capture col3_value -%}
             {% case block.settings.column_3_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="Yes">
-                  <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M10.5 20.5 17 27 30.5 13.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_svg | raw }}</span>
+              {% when 'empty' %}
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
               {% when 'cross' %}
                 <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
+              {% when 'cost' %}
+                <div class="brisa-comparison__cost">
+                  {% if block.settings.column_3_text != blank %}
+                    <span class="brisa-comparison__cost-level">{{ block.settings.column_3_text | escape }}</span>
+                  {% endif %}
+                  {% if block.settings.column_3_subtext != blank %}
+                    <span class="brisa-comparison__cost-pill">{{ block.settings.column_3_subtext | escape }}</span>
+                  {% endif %}
+                </div>
               {% when 'text' %}
                 <span class="brisa-comparison__value">{{ block.settings.column_3_text | escape }}</span>
             {% endcase %}
-          </div>
+          {%- endcapture -%}
 
-          <div class="brisa-comparison__cell" role="cell">
+          {%- capture col4_value -%}
             {% case block.settings.column_4_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="Yes">
-                  <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M10.5 20.5 17 27 30.5 13.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_svg | raw }}</span>
+              {% when 'empty' %}
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
               {% when 'cross' %}
                 <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
+              {% when 'cost' %}
+                <div class="brisa-comparison__cost">
+                  {% if block.settings.column_4_text != blank %}
+                    <span class="brisa-comparison__cost-level">{{ block.settings.column_4_text | escape }}</span>
+                  {% endif %}
+                  {% if block.settings.column_4_subtext != blank %}
+                    <span class="brisa-comparison__cost-pill">{{ block.settings.column_4_subtext | escape }}</span>
+                  {% endif %}
+                </div>
               {% when 'text' %}
                 <span class="brisa-comparison__value">{{ block.settings.column_4_text | escape }}</span>
             {% endcase %}
+          {%- endcapture -%}
+
+          <div class="brisa-comparison__cell brisa-comparison__cell--brisa {% if is_last_row %}brisa-comparison__cell--brisa-last{% endif %}" role="cell">
+            {{ brisa_value }}
           </div>
+          <div class="brisa-comparison__cell" role="cell">{{ col2_value }}</div>
+          <div class="brisa-comparison__cell" role="cell">{{ col3_value }}</div>
+          <div class="brisa-comparison__cell" role="cell">{{ col4_value }}</div>
         {% endfor %}
       </div>
     </div>
@@ -151,13 +215,32 @@
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "Brisa vs alternatives"
+      "label": "Custom heading (overrides styled title)",
+      "info": "Leave blank to use Brand / VS / Rest fields below."
+    },
+    {
+      "type": "text",
+      "id": "heading_brand",
+      "label": "Heading brand",
+      "default": "BRISA"
+    },
+    {
+      "type": "text",
+      "id": "heading_vs",
+      "label": "Heading VS",
+      "default": "VS"
+    },
+    {
+      "type": "text",
+      "id": "heading_rest",
+      "label": "Heading rest",
+      "default": "THE REST."
     },
     {
       "type": "richtext",
       "id": "subheading",
-      "label": "Subheading"
+      "label": "Subheading",
+      "default": "<p>Everything you love about the habit. None of what it costs you.</p>"
     },
     {
       "type": "text",
@@ -196,7 +279,7 @@
       "type": "text",
       "id": "column_4_heading",
       "label": "Column 4 heading",
-      "default": "Nicorette"
+      "default": "Gums/Patches"
     },
     {
       "type": "header",
@@ -224,7 +307,7 @@
       "type": "color",
       "id": "line_color",
       "label": "Row lines",
-      "default": "#111111"
+      "default": "#d9d9d9"
     },
     {
       "type": "range",
@@ -234,13 +317,13 @@
       "max": 6,
       "step": 1,
       "unit": "px",
-      "default": 4
+      "default": 1
     },
     {
       "type": "color",
       "id": "brisa_color",
       "label": "Brisa column background",
-      "default": "#0798dc"
+      "default": "#4eb8ef"
     },
     {
       "type": "color",
@@ -252,43 +335,53 @@
       "type": "color",
       "id": "icon_color",
       "label": "Competitor icons",
-      "default": "#2350a4"
+      "default": "#4eb8ef"
     },
     {
       "type": "color",
       "id": "brisa_icon_color",
-      "label": "Brisa icons",
-      "default": "#ffffff"
+      "label": "Brisa check accent",
+      "default": "#4eb8ef"
     },
     {
       "type": "range",
       "id": "icon_size",
-      "label": "Icon size",
+      "label": "Check icon size",
       "min": 24,
       "max": 48,
       "step": 2,
       "unit": "px",
-      "default": 36
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Row label size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
     },
     {
       "type": "range",
       "id": "brisa_radius",
       "label": "Brisa column corner radius",
       "min": 0,
-      "max": 32,
+      "max": 40,
       "step": 2,
       "unit": "px",
-      "default": 18
+      "default": 28
     },
     {
       "type": "range",
       "id": "heading_size",
       "label": "Heading size",
       "min": 22,
-      "max": 56,
+      "max": 64,
       "step": 2,
       "unit": "px",
-      "default": 36
+      "default": 44
     },
     {
       "type": "range",
@@ -298,7 +391,7 @@
       "max": 1200,
       "step": 20,
       "unit": "px",
-      "default": 900
+      "default": 920
     },
     {
       "type": "header",
@@ -359,7 +452,18 @@
           "type": "text",
           "id": "label",
           "label": "Row label",
-          "default": "Nicotine"
+          "default": "Hand to mouth ritual"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Row icon"
+        },
+        {
+          "type": "text",
+          "id": "icon_asset",
+          "label": "Theme asset filename",
+          "info": "Optional fallback, e.g. brisa-compare-hand.png"
         },
         {
           "type": "header",
@@ -371,7 +475,9 @@
           "label": "Value type",
           "options": [
             { "value": "check", "label": "Check" },
+            { "value": "empty", "label": "Empty circle" },
             { "value": "cross", "label": "Cross" },
+            { "value": "cost", "label": "Cost (level + pill)" },
             { "value": "text", "label": "Text" },
             { "value": "blank", "label": "Blank" }
           ],
@@ -380,7 +486,14 @@
         {
           "type": "text",
           "id": "brisa_text",
-          "label": "Text value"
+          "label": "Text / cost level",
+          "info": "For cost rows: Low / High"
+        },
+        {
+          "type": "text",
+          "id": "brisa_subtext",
+          "label": "Cost pill",
+          "info": "e.g. $45 / month*"
         },
         {
           "type": "header",
@@ -392,7 +505,9 @@
           "label": "Value type",
           "options": [
             { "value": "check", "label": "Check" },
+            { "value": "empty", "label": "Empty circle" },
             { "value": "cross", "label": "Cross" },
+            { "value": "cost", "label": "Cost (level + pill)" },
             { "value": "text", "label": "Text" },
             { "value": "blank", "label": "Blank" }
           ],
@@ -401,7 +516,12 @@
         {
           "type": "text",
           "id": "column_2_text",
-          "label": "Text value"
+          "label": "Text / cost level"
+        },
+        {
+          "type": "text",
+          "id": "column_2_subtext",
+          "label": "Cost pill"
         },
         {
           "type": "header",
@@ -413,7 +533,9 @@
           "label": "Value type",
           "options": [
             { "value": "check", "label": "Check" },
+            { "value": "empty", "label": "Empty circle" },
             { "value": "cross", "label": "Cross" },
+            { "value": "cost", "label": "Cost (level + pill)" },
             { "value": "text", "label": "Text" },
             { "value": "blank", "label": "Blank" }
           ],
@@ -422,7 +544,12 @@
         {
           "type": "text",
           "id": "column_3_text",
-          "label": "Text value"
+          "label": "Text / cost level"
+        },
+        {
+          "type": "text",
+          "id": "column_3_subtext",
+          "label": "Cost pill"
         },
         {
           "type": "header",
@@ -434,7 +561,9 @@
           "label": "Value type",
           "options": [
             { "value": "check", "label": "Check" },
+            { "value": "empty", "label": "Empty circle" },
             { "value": "cross", "label": "Cross" },
+            { "value": "cost", "label": "Cost (level + pill)" },
             { "value": "text", "label": "Text" },
             { "value": "blank", "label": "Blank" }
           ],
@@ -443,80 +572,19 @@
         {
           "type": "text",
           "id": "column_4_text",
-          "label": "Text value"
+          "label": "Text / cost level"
+        },
+        {
+          "type": "text",
+          "id": "column_4_subtext",
+          "label": "Cost pill"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Brisa comparison table",
-      "blocks": [
-        {
-          "type": "row",
-          "settings": {
-            "label": "Monthly cost",
-            "brisa_value_type": "text",
-            "brisa_text": "$45",
-            "column_2_value_type": "text",
-            "column_2_text": "$300+",
-            "column_3_value_type": "text",
-            "column_3_text": "$400+",
-            "column_4_value_type": "text",
-            "column_4_text": "$100+"
-          }
-        },
-        {
-          "type": "row",
-          "settings": {
-            "label": "Nicotine",
-            "brisa_value_type": "cross",
-            "column_2_value_type": "check",
-            "column_3_value_type": "check",
-            "column_4_value_type": "check"
-          }
-        },
-        {
-          "type": "row",
-          "settings": {
-            "label": "Chemicals",
-            "brisa_value_type": "cross",
-            "column_2_value_type": "check",
-            "column_3_value_type": "check",
-            "column_4_value_type": "check"
-          }
-        },
-        {
-          "type": "row",
-          "settings": {
-            "label": "Ritual kept",
-            "brisa_value_type": "check",
-            "column_2_value_type": "check",
-            "column_3_value_type": "check",
-            "column_4_value_type": "cross"
-          }
-        },
-        {
-          "type": "row",
-          "settings": {
-            "label": "Habit broken",
-            "brisa_value_type": "check",
-            "column_2_value_type": "cross",
-            "column_3_value_type": "cross",
-            "column_4_value_type": "cross"
-          }
-        },
-        {
-          "type": "row",
-          "settings": {
-            "label": "Sensory satisfaction",
-            "brisa_value_type": "check",
-            "column_2_value_type": "check",
-            "column_3_value_type": "check",
-            "column_4_value_type": "cross"
-          }
-        }
-      ]
+      "name": "Brisa comparison table"
     }
   ]
 }
