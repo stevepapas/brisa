@@ -337,7 +337,8 @@
           "settings": {
             "title": "Description",
             "icon_style": "description",
-            "content": "<p>Brisa is a reusable sensory habit device for the hand-to-mouth moment — same weight, draw, and ritual as a vape, with zero nicotine, vapour, or smoke.</p>"
+            "icon": "shopify://shop_images/accordion-desc.png",
+            "content": "<p>Brisa is a non-electronic sensory habit device with replaceable aroma cores — the hand-tomouth ritual you know, minus the nicotine.</p><p>Here's how it works: <br/>snap an aroma core into the device, twist the base to set your airflow — tighter or looser, however you like to draw. </p><p>Then reach for it in the moment you'd normally reach for your old habit. </p><p>Same size, same weight, same motion. No charging, no e-liquid, no buttons. </p><p>Here's the honest part: Brisa doesn't do the work for you — there's nothing in it but food-grade aroma compounds.</p><p>It's simply the thing your hand reaches for instead, and every time it does, that's a moment that went to Brisa and not to nicotine. </p><p>What you build from there is yours <em>(same idea as reaching for water instead of a snack out of habit — the water's not magic, the swap is)</em>. </p><p>No nicotine, no vapour, no smoke. </p>"
           }
         },
         "acc_ingredients": {
@@ -345,7 +346,8 @@
           "settings": {
             "title": "Ingredients",
             "icon_style": "ingredients",
-            "content": "<p>Food-grade aroma cores only. No nicotine. No chemicals. No vapour. No combustion.</p>"
+            "icon": "shopify://shop_images/accordion-ingred.png",
+            "content": "<p>Each core is packed with food-grade aroma compounds — the same kind used in premium scent and sensory products for decades — layered with a real cooling compound that creates that crisp, cool sensation at the back of the throat.</p><p>As you draw, air pulls through the core, activating the aroma and delivering flavour and throat feel instantly — the result of meticulous hours of R&D to nail the exact sensation you're chasing. </p><p>No nicotine, no vapour, no smoke, no combustion — just the sensory hit.</p><p>Each core lasts 2–3 days. </p>"
           }
         },
         "acc_subscription": {
@@ -353,6 +355,7 @@
           "settings": {
             "title": "Subscription",
             "icon_style": "subscription",
+            "icon": "shopify://shop_images/accordion-sub.png",
             "content": "<p>Add the Monthly Better Box for 12 cores every 4 weeks so you never run out. Ships about 3 weeks after your kit. Cancel anytime from your account.</p>"
           }
         },
@@ -361,6 +364,7 @@
           "settings": {
             "title": "Shipping, returns & guarantee",
             "icon_style": "shipping",
+            "icon": "shopify://shop_images/accordion-ship.png",
             "content": "<p>Free shipping Australia-wide on every kit. Covered by our 30-Day Success Guarantee — if Brisa doesn’t work for you in 30 days, we’ll send you 3 weeks of cores FREE and book a 1-on-1 call.</p>"
           }
         }
