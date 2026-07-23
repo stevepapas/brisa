@@ -762,6 +762,10 @@
   margin-top: 18px;
 }
 
+.bkp-bottom__trust:empty {
+  display: none;
+}
+
 .bkp__accordions {
   margin: 18px 0 0;
   border-top: 1px solid #e6e6e6;
@@ -803,6 +807,7 @@
   height: 100%;
   display: block;
   object-fit: contain;
+  border-radius: 0 !important;
 }
 
 .bkp__accordion-title {
