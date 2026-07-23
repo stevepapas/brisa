@@ -337,7 +337,6 @@
           "settings": {
             "title": "Description",
             "icon_style": "description",
-            "icon": "shopify://shop_images/accordion-desc.png",
             "content": "<p>Brisa is a reusable sensory habit device for the hand-to-mouth moment — same weight, draw, and ritual as a vape, with zero nicotine, vapour, or smoke.</p>"
           }
         },
@@ -346,7 +345,6 @@
           "settings": {
             "title": "Ingredients",
             "icon_style": "ingredients",
-            "icon": "shopify://shop_images/accordion-ingred.png",
             "content": "<p>Food-grade aroma cores only. No nicotine. No chemicals. No vapour. No combustion.</p>"
           }
         },
@@ -355,7 +353,6 @@
           "settings": {
             "title": "Subscription",
             "icon_style": "subscription",
-            "icon": "shopify://shop_images/accordion-sub.png",
             "content": "<p>Add the Monthly Better Box for 12 cores every 4 weeks so you never run out. Ships about 3 weeks after your kit. Cancel anytime from your account.</p>"
           }
         },
@@ -364,7 +361,6 @@
           "settings": {
             "title": "Shipping, returns & guarantee",
             "icon_style": "shipping",
-            "icon": "shopify://shop_images/accordion-ship.png",
             "content": "<p>Free shipping Australia-wide on every kit. Covered by our 30-Day Success Guarantee — if Brisa doesn’t work for you in 30 days, we’ll send you 3 weeks of cores FREE and book a 1-on-1 call.</p>"
           }
         }
@@ -459,22 +455,17 @@
         "addon_save": "SAVE $28",
         "addon_price_meta": "$3.67/core - free shipping",
         "addon_contents": "In every box: 1 Mint Ice - 1 Raspberry Lime - 1 Cherry Pomegranate",
-        "addon_image_asset": "",
         "addon_bonus_tag": "FREE",
         "addon_bonus_text": "A Free Cherry Pom in every box",
         "addon_bonus": "A Free Cherry Pom in every box",
-        "addon_bonus_image_asset": "",
         "addon_footer": "Ships 3 weeks after your kit. Cancel anytime.",
         "addon_action": "ADD",
         "addon_price_cents": 4400,
         "show_trust": true,
         "trust_1": "Ships Next Day",
-        "trust_icon_1": "shopify://shop_images/free-shipping.png",
         "trust_2": "Secure checkout",
         "trust_3": "FREE SHIPPING",
-        "trust_icon_3": "shopify://shop_images/free-shipping_16e46e82-0928-4947-bcbc-4e9103a79435.png",
         "trust_4": "Australian Customer service",
-        "trust_icon_4": "shopify://shop_images/aus-map_579772bc-921b-4837-b269-d90e09593d0c.png",
         "trust_5": "4.7 (163)",
         "trust_6": "30 Day Guarantee"
       }
@@ -1057,9 +1048,7 @@
     },
     "brisa_kit_bottom_cta": {
       "type": "brisa-kit-bottom-cta",
-      "settings": {
-        "show_trust": true
-      }
+      "settings": {}
     }
   },
   "order": [

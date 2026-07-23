@@ -134,8 +134,12 @@
       this._syncBound = true;
 
       this.mirrorTrustIcons();
+      document.addEventListener('DOMContentLoaded', () => this.mirrorTrustIcons());
+      window.addEventListener('load', () => this.mirrorTrustIcons());
 
       document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
+        if (btn.dataset.bkpSyncBound) return;
+        btn.dataset.bkpSyncBound = '1';
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           this.scrollToAtc();
@@ -144,11 +148,15 @@
     }
 
     mirrorTrustIcons() {
-      const source = this.querySelector('.bkp__trust');
+      const source =
+        this.querySelector('[data-bkp-trust-source]') ||
+        document.querySelector('brisa-kit-purchase [data-bkp-trust-source], brisa-kit-purchase .bkp__trust');
       if (!source) return;
 
       document.querySelectorAll('[data-bkp-mirror-trust]').forEach((host) => {
-        host.replaceChildren(source.cloneNode(true));
+        const clone = source.cloneNode(true);
+        clone.removeAttribute('data-bkp-trust-source');
+        host.replaceChildren(clone);
       });
     }
 

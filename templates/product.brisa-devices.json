@@ -1039,9 +1039,7 @@
     },
     "brisa_kit_bottom_cta": {
       "type": "brisa-kit-bottom-cta",
-      "settings": {
-        "show_trust": true
-      }
+      "settings": {}
     }
   },
   "order": [
