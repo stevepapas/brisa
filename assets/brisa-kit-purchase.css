@@ -742,6 +742,7 @@
   height: 100%;
   display: block;
   object-fit: contain;
+  border-radius: 0;
 }
 
 .bkp__trust-icon--custom {
