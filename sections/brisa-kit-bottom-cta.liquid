@@ -1,0 +1,100 @@
+{{ 'brisa-kit-purchase.css' | asset_url | stylesheet_tag }}
+
+<section class="bkp-bottom" {{ section.shopify_attributes }}>
+  <div class="bkp-bottom__inner">
+    <button type="button" class="bkp__atc" data-bkp-sync-atc>
+      <span data-bkp-sync-atc-label>ADD TO CART</span>
+    </button>
+
+    {% if section.settings.show_trust %}
+      {% render 'brisa-kit-trust', settings: section.settings %}
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa kit bottom CTA",
+  "tag": "section",
+  "class": "shopify-section--brisa-kit-bottom-cta",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust 1",
+      "default": "Ships Next Day"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_1",
+      "label": "Trust icon 1"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_2",
+      "label": "Trust icon 2"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust 3",
+      "default": "FREE SHIPPING"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_3",
+      "label": "Trust icon 3"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust 4",
+      "default": "Australian Customer service"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_4",
+      "label": "Trust icon 4"
+    },
+    {
+      "type": "text",
+      "id": "trust_5",
+      "label": "Trust 5",
+      "default": "4.7 (163)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_5",
+      "label": "Trust icon 5"
+    },
+    {
+      "type": "text",
+      "id": "trust_6",
+      "label": "Trust 6",
+      "default": "30 Day Guarantee"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_6",
+      "label": "Trust icon 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa kit bottom CTA"
+    }
+  ]
+}
+{% endschema %}

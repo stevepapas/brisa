@@ -57,6 +57,7 @@
         this.kits.find((k) => k.classList.contains('is-selected'))?.dataset.kitKey ||
         this.kits[0]?.dataset.kitKey;
       if (initial) this.selectKit(initial);
+      this.bindSyncAtc();
     }
 
     selectedKit() {
@@ -107,15 +108,42 @@
 
     updatePrice() {
       const kit = this.selectedKit();
-      if (!kit || !this.atcLabel) return;
+      if (!kit) return;
 
       let cents = Number(kit.dataset.priceCents || 0);
       if (this.addonCheck?.checked) {
         cents += Number(this.dataset.addonPriceCents || 0);
       }
 
-      this.atcLabel.textContent = `ADD TO CART - ${formatMoney(cents)}`;
-      this.atc.disabled = !kit.dataset.variantId;
+      const label = `ADD TO CART - ${formatMoney(cents)}`;
+      const disabled = !kit.dataset.variantId;
+
+      if (this.atcLabel) this.atcLabel.textContent = label;
+      if (this.atc) this.atc.disabled = disabled;
+
+      document.querySelectorAll('[data-bkp-sync-atc-label]').forEach((el) => {
+        el.textContent = label;
+      });
+      document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
+        btn.disabled = disabled;
+      });
+    }
+
+    bindSyncAtc() {
+      if (this._syncBound) return;
+      this._syncBound = true;
+
+      document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (this.atc?.disabled) {
+            this.setError('Please choose your kit options above.');
+            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+          this.addToCart();
+        });
+      });
     }
 
     clearError() {

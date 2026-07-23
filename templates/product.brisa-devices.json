@@ -984,6 +984,18 @@
         "trust_5": "4.7 (163)",
         "trust_6": "30 Day Guarantee"
       }
+    },
+    "brisa_kit_bottom_cta": {
+      "type": "brisa-kit-bottom-cta",
+      "settings": {
+        "show_trust": true,
+        "trust_1": "Ships Next Day",
+        "trust_2": "Secure checkout",
+        "trust_3": "FREE SHIPPING",
+        "trust_4": "Australian Customer service",
+        "trust_5": "4.7 (163)",
+        "trust_6": "30 Day Guarantee"
+      }
     }
   },
   "order": [
@@ -997,6 +1009,7 @@
     "engineered_switch_NniVXE",
     "brisa_product_reviews_zMjLwQ",
     "whats_in_the_box_MiChAY",
-    "device_questions_PFtKdK"
+    "device_questions_PFtKdK",
+    "brisa_kit_bottom_cta"
   ]
 }

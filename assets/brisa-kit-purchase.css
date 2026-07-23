@@ -748,6 +748,20 @@
   color: inherit;
 }
 
+.bkp-bottom {
+  background: #fff;
+  padding: 28px 16px 36px;
+}
+
+.bkp-bottom__inner {
+  width: min(100%, 640px);
+  margin: 0 auto;
+}
+
+.bkp-bottom .bkp__trust {
+  margin-top: 18px;
+}
+
 .bkp__accordions {
   margin: 18px 0 0;
   border-top: 1px solid #e6e6e6;
