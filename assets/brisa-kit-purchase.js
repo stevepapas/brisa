@@ -125,7 +125,7 @@
         el.textContent = label;
       });
       document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
-        btn.disabled = disabled;
+        btn.disabled = false;
       });
     }
 
@@ -133,17 +133,35 @@
       if (this._syncBound) return;
       this._syncBound = true;
 
+      this.mirrorTrustIcons();
+
       document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
-          if (this.atc?.disabled) {
-            this.setError('Please choose your kit options above.');
-            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return;
-          }
-          this.addToCart();
+          this.scrollToAtc();
         });
       });
+    }
+
+    mirrorTrustIcons() {
+      const source = this.querySelector('.bkp__trust');
+      if (!source) return;
+
+      document.querySelectorAll('[data-bkp-mirror-trust]').forEach((host) => {
+        host.replaceChildren(source.cloneNode(true));
+      });
+    }
+
+    scrollToAtc() {
+      const target = this.atc || this;
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      window.setTimeout(() => {
+        try {
+          target.focus({ preventScroll: true });
+        } catch (err) {
+          /* ignore */
+        }
+      }, 400);
     }
 
     clearError() {
