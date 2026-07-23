@@ -445,7 +445,7 @@
         "colour_label_yours": "Your colour",
         "colour_label_mates": "Mate's colour",
         "show_addon": true,
-        "addon_product": "monthly-better-box",
+        "addon_product": "",
         "addon_handle": "monthly-better-box",
         "addon_tab": "ADD ON",
         "addon_title": "Monthly Better Box",
@@ -455,23 +455,17 @@
         "addon_save": "SAVE $28",
         "addon_price_meta": "$3.67/core - free shipping",
         "addon_contents": "In every box: 1 Mint Ice - 1 Raspberry Lime - 1 Cherry Pomegranate",
-        "addon_image_asset": "",
         "addon_bonus_tag": "FREE",
         "addon_bonus_text": "A Free Cherry Pom in every box",
         "addon_bonus": "A Free Cherry Pom in every box",
-        "addon_bonus_image": "shopify://shop_images/cher-pom.png",
-        "addon_bonus_image_asset": "",
         "addon_footer": "Ships 3 weeks after your kit. Cancel anytime.",
         "addon_action": "ADD",
         "addon_price_cents": 4400,
         "show_trust": true,
         "trust_1": "Ships Next Day",
-        "trust_icon_1": "shopify://shop_images/delivery.png",
         "trust_2": "Secure checkout",
         "trust_3": "FREE SHIPPING",
-        "trust_icon_3": "shopify://shop_images/free-shipping_16e46e82-0928-4947-bcbc-4e9103a79435.png",
         "trust_4": "Australian Customer service",
-        "trust_icon_4": "shopify://shop_images/aus-map_579772bc-921b-4837-b269-d90e09593d0c.png",
         "trust_5": "4.7 (163)",
         "trust_6": "30 Day Guarantee"
       }
@@ -691,8 +685,7 @@
           "type": "row",
           "settings": {
             "label": "Hand to mouth ritual",
-            "icon": "shopify://shop_images/hand-to-mouth_4a2143fa-d0a8-4aa9-bbe7-14ba2e902eae.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-hand.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -711,8 +704,7 @@
           "type": "row",
           "settings": {
             "label": "Real throat hit",
-            "icon": "shopify://shop_images/throat.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-throat.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -731,8 +723,7 @@
           "type": "row",
           "settings": {
             "label": "Bold, real flavour",
-            "icon": "shopify://shop_images/bold-real-flavour.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-flavour.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -751,8 +742,7 @@
           "type": "row",
           "settings": {
             "label": "Nicotine - free",
-            "icon": "shopify://shop_images/nicotine-free.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-leaf.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -771,8 +761,7 @@
           "type": "row",
           "settings": {
             "label": "No smoke, vapour or smell",
-            "icon": "shopify://shop_images/no-smoke_eb454cc9-640d-4c96-821b-2c805c6bc5c7.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-cloud.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -791,8 +780,7 @@
           "type": "row",
           "settings": {
             "label": "Discreet - use it anywhere",
-            "icon": "shopify://shop_images/discreet.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-lock.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -811,8 +799,7 @@
           "type": "row",
           "settings": {
             "label": "Buy once - no endless refills",
-            "icon": "shopify://shop_images/buy-once.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-wallet.png",
             "brisa_value_type": "check",
             "brisa_text": "",
             "brisa_subtext": "",
@@ -831,20 +818,19 @@
           "type": "row",
           "settings": {
             "label": "Monthly cost",
-            "icon": "shopify://shop_images/monthly-cost.png",
-            "icon_asset": "",
+            "icon_asset": "brisa-compare-cost.png",
             "brisa_value_type": "cost",
             "brisa_text": "Low",
-            "brisa_subtext": "",
+            "brisa_subtext": "$45 / month*",
             "column_2_value_type": "cost",
             "column_2_text": "High",
-            "column_2_subtext": "",
+            "column_2_subtext": "$300+ / month*",
             "column_3_value_type": "cost",
             "column_3_text": "High",
-            "column_3_subtext": "",
+            "column_3_subtext": "$400+ / month*",
             "column_4_value_type": "cost",
             "column_4_text": "High",
-            "column_4_subtext": ""
+            "column_4_subtext": "$100+ / month*"
           }
         }
       },
@@ -1085,13 +1071,7 @@
     "brisa_kit_bottom_cta": {
       "type": "brisa-kit-bottom-cta",
       "settings": {
-        "show_trust": true,
-        "trust_1": "Ships Next Day",
-        "trust_2": "Secure checkout",
-        "trust_3": "FREE SHIPPING",
-        "trust_4": "Australian Customer service",
-        "trust_5": "4.7 (163)",
-        "trust_6": "30 Day Guarantee"
+        "show_trust": true
       }
     }
   },

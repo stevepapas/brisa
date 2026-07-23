@@ -376,112 +376,152 @@
           "type": "row",
           "settings": {
             "label": "Hand to mouth ritual",
+            "icon_asset": "brisa-compare-hand.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "check",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "check",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "empty",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_throat": {
           "type": "row",
           "settings": {
             "label": "Real throat hit",
+            "icon_asset": "brisa-compare-throat.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "check",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "check",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "empty",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_flavour": {
           "type": "row",
           "settings": {
             "label": "Bold, real flavour",
+            "icon_asset": "brisa-compare-flavour.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "check",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "empty",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "empty",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_nicotine": {
           "type": "row",
           "settings": {
             "label": "Nicotine - free",
+            "icon_asset": "brisa-compare-leaf.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "empty",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "empty",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "empty",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_smoke": {
           "type": "row",
           "settings": {
             "label": "No smoke, vapour or smell",
+            "icon_asset": "brisa-compare-cloud.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "empty",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "empty",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "check",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_discreet": {
           "type": "row",
           "settings": {
             "label": "Discreet - use it anywhere",
+            "icon_asset": "brisa-compare-lock.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "empty",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "empty",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "check",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_buyonce": {
           "type": "row",
           "settings": {
             "label": "Buy once - no endless refills",
+            "icon_asset": "brisa-compare-wallet.png",
             "brisa_value_type": "check",
             "brisa_text": "",
+            "brisa_subtext": "",
             "column_2_value_type": "empty",
             "column_2_text": "",
+            "column_2_subtext": "",
             "column_3_value_type": "empty",
             "column_3_text": "",
+            "column_3_subtext": "",
             "column_4_value_type": "empty",
-            "column_4_text": ""
+            "column_4_text": "",
+            "column_4_subtext": ""
           }
         },
         "row_cost": {
           "type": "row",
           "settings": {
             "label": "Monthly cost",
+            "icon_asset": "brisa-compare-cost.png",
             "brisa_value_type": "cost",
             "brisa_text": "Low",
+            "brisa_subtext": "$45 / month*",
             "column_2_value_type": "cost",
             "column_2_text": "High",
+            "column_2_subtext": "$300+ / month*",
             "column_3_value_type": "cost",
             "column_3_text": "High",
+            "column_3_subtext": "$400+ / month*",
             "column_4_value_type": "cost",
-            "column_4_text": "High"
+            "column_4_text": "High",
+            "column_4_subtext": "$100+ / month*"
           }
         }
       },
@@ -498,6 +538,9 @@
       "name": "Brisa comparison table",
       "settings": {
         "heading": "",
+        "heading_brand": "BRISA",
+        "heading_vs": "VS",
+        "heading_rest": "THE REST.",
         "subheading": "<p>Everything you love about the habit. None of what it costs you.</p>",
         "table_label": "Brisa comparison table",
         "brisa_heading": "Brisa Better",
@@ -514,6 +557,7 @@
         "icon_color": "#4eb8ef",
         "brisa_icon_color": "#4eb8ef",
         "icon_size": 34,
+        "label_size": 15,
         "brisa_radius": 28,
         "heading_size": 44,
         "max_width": 920,
@@ -1018,13 +1062,7 @@
     "brisa_kit_bottom_cta": {
       "type": "brisa-kit-bottom-cta",
       "settings": {
-        "show_trust": true,
-        "trust_1": "Ships Next Day",
-        "trust_2": "Secure checkout",
-        "trust_3": "FREE SHIPPING",
-        "trust_4": "Australian Customer service",
-        "trust_5": "4.7 (163)",
-        "trust_6": "30 Day Guarantee"
+        "show_trust": true
       }
     }
   },
