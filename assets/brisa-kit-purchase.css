@@ -748,6 +748,99 @@
   color: inherit;
 }
 
+.bkp__accordions {
+  margin: 18px 0 0;
+  border-top: 1px solid #e6e6e6;
+}
+
+.bkp__accordion {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.bkp__accordion-summary {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 2px;
+  list-style: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.bkp__accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.bkp__accordion-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--bkp-blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bkp__accordion-icon svg,
+.bkp__accordion-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.bkp__accordion-title {
+  line-height: 1.3;
+}
+
+.bkp__accordion-toggle {
+  width: 14px;
+  height: 14px;
+  position: relative;
+}
+
+.bkp__accordion-toggle::before,
+.bkp__accordion-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #1a1a1a;
+  transform: translate(-50%, -50%);
+}
+
+.bkp__accordion-toggle::before {
+  width: 14px;
+  height: 2px;
+}
+
+.bkp__accordion-toggle::after {
+  width: 2px;
+  height: 14px;
+  transition: opacity 0.15s ease;
+}
+
+.bkp__accordion[open] .bkp__accordion-toggle::after {
+  opacity: 0;
+}
+
+.bkp__accordion-body {
+  padding: 0 2px 14px 36px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+}
+
+.bkp__accordion-body > *:first-child {
+  margin-top: 0;
+}
+
+.bkp__accordion-body > *:last-child {
+  margin-bottom: 0;
+}
+
 @media (min-width: 750px) {
   .bkp__inner {
     max-width: 640px;

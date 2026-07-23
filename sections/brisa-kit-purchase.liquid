@@ -520,6 +520,40 @@
         {% endfor %}
       </ul>
     {% endif %}
+
+    {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
+    {% if accordion_blocks.size > 0 %}
+      <div class="bkp__accordions">
+        {% for block in accordion_blocks %}
+          {% if block.settings.title == blank %}{% continue %}{% endif %}
+          <details class="bkp__accordion" {{ block.shopify_attributes }}>
+            <summary class="bkp__accordion-summary">
+              <span class="bkp__accordion-icon" aria-hidden="true">
+                {% if block.settings.icon != blank %}
+                  {{ block.settings.icon | image_url: width: 72 | image_tag: loading: 'lazy', widths: '24,48,72', alt: '' }}
+                {% else %}
+                  {% case block.settings.icon_style %}
+                    {% when 'ingredients' %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M8 4h8l1 4H7l1-4Z" stroke="currentColor" stroke-width="1.8"/><path d="M7 8h10v11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8Z" stroke="currentColor" stroke-width="1.8"/><path d="M10 12h4M10 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    {% when 'subscription' %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4v5h-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {% when 'shipping' %}
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M3 7h13v10H3V7Zm13 3h3l2 3v4h-5V10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7" cy="18.5" r="1.5" fill="currentColor"/><circle cx="17" cy="18.5" r="1.5" fill="currentColor"/><path d="M1 10h2M1 13h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    {% else %}
+                      <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h8M8 12h8M8 15h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  {% endcase %}
+                {% endif %}
+              </span>
+              <span class="bkp__accordion-title">{{ block.settings.title | escape }}</span>
+              <span class="bkp__accordion-toggle" aria-hidden="true"></span>
+            </summary>
+            {% if block.settings.content != blank %}
+              <div class="bkp__accordion-body rte">{{ block.settings.content }}</div>
+            {% endif %}
+          </details>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </brisa-kit-purchase>
 
@@ -1139,6 +1173,41 @@
           "id": "device_product",
           "label": "Device colour product",
           "info": "Used for Option A Cart Transform (_device_*_variant_id)."
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Description"
+        },
+        {
+          "type": "select",
+          "id": "icon_style",
+          "label": "Icon",
+          "options": [
+            { "value": "description", "label": "Description" },
+            { "value": "ingredients", "label": "Ingredients" },
+            { "value": "subscription", "label": "Subscription" },
+            { "value": "shipping", "label": "Shipping" }
+          ],
+          "default": "description"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom icon"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add accordion content here.</p>"
         }
       ]
     }
