@@ -1,25 +1,17 @@
 <style>
   #shopify-section-{{ section.id }} {
     background: {{ section.settings.background }};
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    padding: 0;
   }
 
   #shopify-section-{{ section.id }} .device-questions {
     width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  #shopify-section-{{ section.id }} .device-questions__box {
-    padding: {{ section.settings.box_padding_vertical }}px {{ section.settings.box_padding_horizontal }}px;
     color: {{ section.settings.text_color }};
     background: {{ section.settings.panel_background }};
-    border: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
-    border-radius: {{ section.settings.border_radius }}px;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.box_padding_horizontal }}px {{ section.settings.padding_bottom }}px;
   }
 
-  #shopify-section-{{ section.id }} .device-questions__box-inner {
+  #shopify-section-{{ section.id }} .device-questions__inner {
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
   }
@@ -28,42 +20,80 @@
     margin: 0 0 {{ section.settings.heading_spacing }}px;
     color: {{ section.settings.text_color }};
     font-size: {{ section.settings.heading_size }}px;
-    font-weight: 900;
-    line-height: 1.1;
+    font-weight: 800;
+    line-height: 1.15;
+    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .device-questions__list {
     display: flex;
     flex-direction: column;
+    gap: {{ section.settings.item_padding_vertical }}px;
   }
 
   #shopify-section-{{ section.id }} .device-questions__item {
-    padding: {{ section.settings.item_padding_vertical }}px 0;
-    border-top: {{ section.settings.divider_width }}px solid {{ section.settings.divider_color }};
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
   }
 
-  #shopify-section-{{ section.id }} .device-questions__item:first-child {
-    padding-top: 0;
-    border-top: 0;
-  }
-
-  #shopify-section-{{ section.id }} .device-questions__item:last-child {
-    padding-bottom: 0;
-  }
-
-  #shopify-section-{{ section.id }} .device-questions__question {
-    margin: 0 0 10px;
+  #shopify-section-{{ section.id }} .device-questions__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 16px;
+    list-style: none;
+    cursor: pointer;
     color: {{ section.settings.text_color }};
     font-size: {{ section.settings.question_size }}px;
-    font-weight: 900;
-    line-height: 1.25;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__toggle {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__toggle::before,
+  #shopify-section-{{ section.id }} .device-questions__toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: {{ section.settings.text_color }};
+    transform: translate(-50%, -50%);
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__toggle::before {
+    width: 14px;
+    height: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__toggle::after {
+    width: 2px;
+    height: 14px;
+    transition: opacity 0.15s ease;
+  }
+
+  #shopify-section-{{ section.id }} .device-questions__item[open] .device-questions__toggle::after {
+    opacity: 0;
   }
 
   #shopify-section-{{ section.id }} .device-questions__answer {
+    padding: 12px 32px 0 0;
     color: {{ section.settings.text_color }};
     font-size: {{ section.settings.answer_size }}px;
     font-weight: 400;
-    line-height: 1.35;
+    line-height: 1.45;
+    opacity: 0.92;
   }
 
   #shopify-section-{{ section.id }} .device-questions__answer p {
@@ -74,160 +104,155 @@
     margin-top: 10px;
   }
 
+  #shopify-section-{{ section.id }} .device-questions__answer img {
+    border-radius: 0 !important;
+  }
+
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .device-questions {
+      padding: {{ section.settings.padding_top | times: 0.8 | round }}px 20px {{ section.settings.padding_bottom | times: 0.8 | round }}px;
+    }
+
     #shopify-section-{{ section.id }} .device-questions__heading {
-      font-size: {{ section.settings.heading_size | times: 0.82 | round }}px;
+      font-size: {{ section.settings.heading_size | times: 0.72 | round }}px;
     }
 
-    #shopify-section-{{ section.id }} .device-questions__question {
-      font-size: {{ section.settings.question_size | times: 0.92 | round }}px;
-    }
-
-    #shopify-section-{{ section.id }} .device-questions__answer {
-      font-size: {{ section.settings.answer_size | times: 0.95 | round }}px;
-    }
-
-    #shopify-section-{{ section.id }} .device-questions__box {
-      padding: {{ section.settings.box_padding_vertical | times: 0.75 | round }}px {{ section.settings.box_padding_horizontal | times: 0.75 | round }}px;
+    #shopify-section-{{ section.id }} .device-questions__summary {
+      font-size: {{ section.settings.question_size | times: 0.95 | round }}px;
+      gap: 12px;
     }
   }
 </style>
 
 <section class="device-questions" {{ section.shopify_attributes }}>
-  <div class="device-questions__box">
-    <div class="device-questions__box-inner">
-      {% if section.settings.heading != blank %}
-        <h2 class="device-questions__heading">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
+  <div class="device-questions__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="device-questions__heading">{{ section.settings.heading | newline_to_br }}</h2>
+    {% endif %}
 
-      {% if section.blocks.size > 0 %}
-        <div class="device-questions__list" itemscope itemtype="https://schema.org/FAQPage">
-          {% for block in section.blocks %}
-            {% if block.type == 'question' %}
-              <div class="device-questions__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
-                {% if block.settings.question != blank %}
-                  <h3 class="device-questions__question" itemprop="name">{{ block.settings.question | escape }}</h3>
-                {% endif %}
+    {% if section.blocks.size > 0 %}
+      <div class="device-questions__list" itemscope itemtype="https://schema.org/FAQPage">
+        {% for block in section.blocks %}
+          {% if block.type == 'question' and block.settings.question != blank %}
+            <details
+              class="device-questions__item"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+              {{ block.shopify_attributes }}
+            >
+              <summary class="device-questions__summary">
+                <span itemprop="name">{{ block.settings.question | escape }}</span>
+                <span class="device-questions__toggle" aria-hidden="true"></span>
+              </summary>
 
-                {% if block.settings.answer != blank %}
-                  <div class="device-questions__answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                    <div itemprop="text">{{ block.settings.answer }}</div>
-                  </div>
-                {% endif %}
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
+              {% if block.settings.answer != blank %}
+                <div
+                  class="device-questions__answer"
+                  itemscope
+                  itemprop="acceptedAnswer"
+                  itemtype="https://schema.org/Answer"
+                >
+                  <div itemprop="text">{{ block.settings.answer }}</div>
+                </div>
+              {% endif %}
+            </details>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </section>
 
-<style>
-  .device-questions-cost {
-    padding: 48px 40px 40px;
-    background: #ffffff;
-    text-align: left;
-    max-width: 980px;
-    margin: 0 auto;
-  }
-  .device-questions-cost__heading {
-    margin: 0 0 8px;
-    font-size: 36px;
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: #111111;
-  }
-  .device-questions-cost__sub {
-    margin: 0;
-    font-size: 36px;
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: #111111;
-  }
-  .device-questions-cost__brisa {
-    display: block;
-    margin-top: 12px;
-    font-size: 28px;
-    font-weight: 900;
-    color: #008bdc;
-    text-transform: uppercase;
-  }
-  .dq-final-cta {
-    padding: 32px 40px 40px;
-    background: #ffffff;
-    max-width: 980px;
-    margin: 0 auto;
-  }
-  .dq-final-cta__stars {
-    font-size: 22px;
-    color: #1a73e8;
-    margin-bottom: 10px;
-  }
-  .dq-final-cta__stars span {
-    font-size: 16px;
-    font-weight: 800;
-    color: #111111;
-    vertical-align: middle;
-  }
-  .dq-final-cta__promo {
-    font-size: 15px;
-    font-weight: 700;
-    color: #008bdc;
-    margin: 0 0 18px;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .dq-final-cta__promo-icon { flex-shrink: 0; }
-  .dq-final-cta__btn {
-    display: block;
-    width: 100%;
-    padding: 18px 24px;
-    background: #2eb8f4;
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 900;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    border-radius: 999px;
-    box-sizing: border-box;
-    margin-bottom: 14px;
-  }
-  .dq-final-cta__trust {
-    font-size: 13px;
-    color: #555555;
-    text-align: center;
-    margin: 0;
-  }
-  @media screen and (max-width: 749px) {
-    .device-questions-cost__heading,
-    .device-questions-cost__sub { font-size: 26px; }
-    .device-questions-cost__brisa { font-size: 22px; }
-  }
-</style>
+{% if section.settings.show_cost_band %}
+  <style>
+    .device-questions-cost {
+      padding: 48px 40px 40px;
+      background: #ffffff;
+      text-align: left;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .device-questions-cost__heading {
+      margin: 0 0 8px;
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #111111;
+    }
+    .device-questions-cost__sub {
+      margin: 0;
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #111111;
+    }
+    .device-questions-cost__brisa {
+      display: block;
+      margin-top: 12px;
+      font-size: 28px;
+      font-weight: 900;
+      color: #008bdc;
+      text-transform: uppercase;
+    }
+    .dq-final-cta {
+      padding: 32px 40px 40px;
+      background: #ffffff;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .dq-final-cta__stars {
+      font-size: 22px;
+      color: #1a73e8;
+      margin-bottom: 10px;
+    }
+    .dq-final-cta__stars span {
+      font-size: 16px;
+      font-weight: 800;
+      color: #111111;
+      vertical-align: middle;
+    }
+    .dq-final-cta__promo {
+      font-size: 15px;
+      font-weight: 700;
+      color: #008bdc;
+      margin: 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .dq-final-cta__promo-icon { flex-shrink: 0; }
+    @media screen and (max-width: 749px) {
+      .device-questions-cost,
+      .dq-final-cta { padding-left: 20px; padding-right: 20px; }
+      .device-questions-cost__heading,
+      .device-questions-cost__sub { font-size: 26px; }
+      .device-questions-cost__brisa { font-size: 22px; }
+    }
+  </style>
 
-<div class="device-questions-cost">
-  <p class="device-questions-cost__heading">YOUR VAPE/ CIGARETTES COSTS YOU</p>
-  <p class="device-questions-cost__sub">$300-$400 THIS MONTH.</p>
-  <span class="device-questions-cost__brisa">BRISA COSTS YOU $130 - ONCE</span>
-</div>
-
-<div class="dq-final-cta">
-  <div class="dq-final-cta__stars">
-    &#9733;&#9733;&#9733;&#9733;&#9733; <span>Rated 4.7 (163)</span>
+  <div class="device-questions-cost">
+    <p class="device-questions-cost__heading">{{ section.settings.cost_heading | default: 'YOUR VAPE/ CIGARETTES COSTS YOU' | escape }}</p>
+    <p class="device-questions-cost__sub">{{ section.settings.cost_sub | default: '$300-$400 THIS MONTH.' | escape }}</p>
+    <span class="device-questions-cost__brisa">{{ section.settings.cost_brisa | default: 'BRISA COSTS YOU $130 - ONCE' | escape }}</span>
   </div>
-  <p class="dq-final-cta__promo">
-    <span class="dq-final-cta__promo-icon">&#127873;</span>
-    Order this week - FREE watermelon core pack (valued at $15) included
-  </p>
-</div>
+
+  <div class="dq-final-cta">
+    <div class="dq-final-cta__stars">
+      &#9733;&#9733;&#9733;&#9733;&#9733; <span>{{ section.settings.rating_text | default: 'Rated 4.7 (163)' | escape }}</span>
+    </div>
+    {% if section.settings.promo_text != blank %}
+      <p class="dq-final-cta__promo">
+        <span class="dq-final-cta__promo-icon">&#127873;</span>
+        {{ section.settings.promo_text | escape }}
+      </p>
+    {% endif %}
+  </div>
+{% endif %}
 
 {% schema %}
 {
@@ -238,10 +263,10 @@
   },
   "settings": [
     {
-      "type": "text",
+      "type": "textarea",
       "id": "heading",
       "label": "Heading",
-      "default": "Questions"
+      "default": "Frequently Asked Questions Answered"
     },
     {
       "type": "header",
@@ -255,7 +280,7 @@
       "max": 1200,
       "step": 20,
       "unit": "px",
-      "default": 900
+      "default": 760
     },
     {
       "type": "range",
@@ -265,7 +290,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 40
+      "default": 64
     },
     {
       "type": "range",
@@ -275,22 +300,12 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "box_padding_vertical",
-      "label": "Box padding vertical",
-      "min": 16,
-      "max": 80,
-      "step": 2,
-      "unit": "px",
-      "default": 36
+      "default": 64
     },
     {
       "type": "range",
       "id": "box_padding_horizontal",
-      "label": "Box padding horizontal",
+      "label": "Side padding",
       "min": 16,
       "max": 80,
       "step": 2,
@@ -302,10 +317,10 @@
       "id": "heading_spacing",
       "label": "Space below heading",
       "min": 8,
-      "max": 48,
+      "max": 64,
       "step": 2,
       "unit": "px",
-      "default": 24
+      "default": 36
     },
     {
       "type": "range",
@@ -315,37 +330,7 @@
       "max": 48,
       "step": 2,
       "unit": "px",
-      "default": 22
-    },
-    {
-      "type": "range",
-      "id": "border_width",
-      "label": "Border width",
-      "min": 1,
-      "max": 6,
-      "step": 1,
-      "unit": "px",
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "divider_width",
-      "label": "Divider width",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "unit": "px",
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "label": "Corner radius",
-      "min": 0,
-      "max": 24,
-      "step": 2,
-      "unit": "px",
-      "default": 0
+      "default": 28
     },
     {
       "type": "header",
@@ -356,10 +341,10 @@
       "id": "heading_size",
       "label": "Heading size",
       "min": 24,
-      "max": 56,
+      "max": 64,
       "step": 2,
       "unit": "px",
-      "default": 40
+      "default": 42
     },
     {
       "type": "range",
@@ -388,32 +373,60 @@
     {
       "type": "color",
       "id": "background",
-      "label": "Section background",
-      "default": "#ffffff"
+      "label": "Outer background",
+      "default": "#4eb8ef"
     },
     {
       "type": "color",
       "id": "panel_background",
-      "label": "Box background",
-      "default": "#d9efff"
+      "label": "FAQ background",
+      "default": "#4eb8ef"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text",
-      "default": "#2c4e8a"
+      "default": "#ffffff"
     },
     {
-      "type": "color",
-      "id": "border_color",
-      "label": "Box border",
-      "default": "#7eb8e0"
+      "type": "header",
+      "content": "Cost band below FAQ"
     },
     {
-      "type": "color",
-      "id": "divider_color",
-      "label": "Divider",
-      "default": "#7eb8e0"
+      "type": "checkbox",
+      "id": "show_cost_band",
+      "label": "Show cost band + promo",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cost_heading",
+      "label": "Cost heading",
+      "default": "YOUR VAPE/ CIGARETTES COSTS YOU"
+    },
+    {
+      "type": "text",
+      "id": "cost_sub",
+      "label": "Cost subheading",
+      "default": "$300-$400 THIS MONTH."
+    },
+    {
+      "type": "text",
+      "id": "cost_brisa",
+      "label": "Brisa cost line",
+      "default": "BRISA COSTS YOU $130 - ONCE"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.7 (163)"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "Order this week - FREE watermelon core pack (valued at $15) included"
     }
   ],
   "blocks": [
@@ -425,13 +438,13 @@
           "type": "text",
           "id": "question",
           "label": "Question",
-          "default": "How does Brisa work?"
+          "default": "Be honest... will it actually satisfy me?"
         },
         {
           "type": "richtext",
           "id": "answer",
           "label": "Answer",
-          "default": "<p>Brisa uses aroma cores and a tactile ritual to replace the hand-to-mouth habit of vaping. You inhale clean air through a familiar motion, tricking your brain without the nicotine.</p>"
+          "default": "<p>Brisa is built for the hand-to-mouth ritual — same weight, draw, and sensory cues — without nicotine, vapour, or smoke.</p>"
         }
       ]
     }
@@ -444,43 +457,29 @@
         {
           "type": "question",
           "settings": {
-            "question": "How does Brisa work?",
-            "answer": "<p>Brisa uses aroma cores and a tactile ritual to replace the hand-to-mouth habit of vaping. You inhale clean air through a familiar motion, tricking your brain without the nicotine.</p>"
+            "question": "Be honest... will it actually satisfy me?",
+            "answer": "<p>Brisa is built for the hand-to-mouth ritual — same weight, draw, and sensory cues — without nicotine, vapour, or smoke.</p>"
           }
         },
         {
           "type": "question",
           "settings": {
-            "question": "Is there nicotine in Brisa?",
-            "answer": "<p>No nicotine. No vapour. No combustion. Just food-grade flavour cores and the ritual your hands already know.</p>"
+            "question": "Isn't it just a vape without the nicotine?",
+            "answer": "<p>No. There's no vapour, no coil, and no chemicals. It's a sensory habit device that keeps the ritual, not a nicotine product.</p>"
           }
         },
         {
           "type": "question",
           "settings": {
-            "question": "How long does each core last?",
-            "answer": "<p>Each core lasts 2.5 to 4 days depending on how often you reach for it and the aroma profile. The Starter Kit (9 cores) covers 3 to 5 weeks of ritual. The Mates Pack covers 3 to 5 weeks per person - 18 cores total, split across both devices.</p>"
+            "question": "Isn't it like those wooden pens that just blow air?",
+            "answer": "<p>No. Brisa uses precision-formulated aroma cores and tuned airflow so the draw and throat feel land like the habit you know.</p>"
           }
         },
         {
           "type": "question",
           "settings": {
-            "question": "What if it doesn't work?",
-            "answer": "<p>Every device is covered by the 30-Day Success Guarantee. If Brisa doesn't work in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call. We don't stop until you've kicked the habit.</p>"
-          }
-        },
-        {
-          "type": "question",
-          "settings": {
-            "question": "Can the Mates Pack ship to two addresses?",
-            "answer": "<p>Yes. At checkout you'll enter two separate shipping addresses. Both devices are delivered independently.</p>"
-          }
-        },
-        {
-          "type": "question",
-          "settings": {
-            "question": "Is Brisa available outside Australia?",
-            "answer": "<p>Currently we ship Australia-wide only, with free standard shipping on every order.</p>"
+            "question": "I've tried gums and patches, how is this different?",
+            "answer": "<p>Gums and patches skip the ritual. Brisa keeps the hand-to-mouth moment your body reaches for — so the switch feels familiar, not empty.</p>"
           }
         }
       ]

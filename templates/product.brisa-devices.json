@@ -685,78 +685,62 @@
     "device_questions_PFtKdK": {
       "type": "device-questions",
       "blocks": {
-        "question_hw4pbt": {
+        "q1": {
           "type": "question",
           "settings": {
-            "question": "How does Brisa work?",
-            "answer": "<p>Brisa uses aroma cores and a tactile ritual to replace the hand-to-mouth habit of vaping. You inhale clean air through a familiar motion, tricking your brain without the nicotine.</p>"
+            "question": "Be honest... will it actually satisfy me?",
+            "answer": "<p>Brisa is built for the hand-to-mouth ritual — same weight, draw, and sensory cues — without nicotine, vapour, or smoke.</p>"
           }
         },
-        "question_MA3EtX": {
+        "q2": {
           "type": "question",
           "settings": {
-            "question": "Is there nicotine in Brisa?",
-            "answer": "<p>No nicotine. No vapour. No combustion. Just food-grade flavour cores and the ritual your hands already know.</p>"
+            "question": "Isn't it just a vape without the nicotine?",
+            "answer": "<p>No. There's no vapour, no coil, and no chemicals. It's a sensory habit device that keeps the ritual, not a nicotine product.</p>"
           }
         },
-        "question_BWYAAp": {
+        "q3": {
           "type": "question",
           "settings": {
-            "question": "How long does each core last?",
-            "answer": "<p>Each core lasts 2.5 to 4 days depending on how often you reach for it and the aroma profile. The Starter Kit (9 cores) covers 3 to 5 weeks of ritual. The Mates Pack covers 3 to 5 weeks per person - 18 cores total, split across both devices.</p>"
+            "question": "Isn't it like those wooden pens that just blow air?",
+            "answer": "<p>No. Brisa uses precision-formulated aroma cores and tuned airflow so the draw and throat feel land like the habit you know.</p>"
           }
         },
-        "question_YAKgfd": {
+        "q4": {
           "type": "question",
           "settings": {
-            "question": "What if it doesn't work?",
-            "answer": "<p>Every device is covered by the 30-Day Success Guarantee. If Brisa doesn't work in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call. We don't stop until you've kicked the habit.</p>"
-          }
-        },
-        "question_xtD9Vi": {
-          "type": "question",
-          "settings": {
-            "question": "Can the Mates Pack ship to two addresses?",
-            "answer": "<p>Yes. At checkout you'll enter two separate shipping addresses. Both devices are delivered independently.</p>"
-          }
-        },
-        "question_m8ApTb": {
-          "type": "question",
-          "settings": {
-            "question": "Is Brisa available outside Australia?",
-            "answer": "<p>Currently we ship Australia-wide only, with free standard shipping on every order.</p>"
+            "question": "I've tried gums and patches, how is this different?",
+            "answer": "<p>Gums and patches skip the ritual. Brisa keeps the hand-to-mouth moment your body reaches for — so the switch feels familiar, not empty.</p>"
           }
         }
       },
       "block_order": [
-        "question_hw4pbt",
-        "question_MA3EtX",
-        "question_BWYAAp",
-        "question_YAKgfd",
-        "question_xtD9Vi",
-        "question_m8ApTb"
+        "q1",
+        "q2",
+        "q3",
+        "q4"
       ],
       "name": "Device questions",
       "settings": {
-        "heading": "Questions",
-        "max_width": 900,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "box_padding_vertical": 36,
+        "heading": "Frequently Asked Questions Answered",
+        "max_width": 760,
+        "padding_top": 64,
+        "padding_bottom": 64,
         "box_padding_horizontal": 40,
-        "heading_spacing": 24,
-        "item_padding_vertical": 22,
-        "border_width": 2,
-        "divider_width": 2,
-        "border_radius": 0,
-        "heading_size": 40,
+        "heading_spacing": 36,
+        "item_padding_vertical": 28,
+        "heading_size": 42,
         "question_size": 18,
         "answer_size": 16,
-        "background": "#ffffff",
-        "panel_background": "#d9efff",
-        "text_color": "#2c4e8a",
-        "border_color": "#7eb8e0",
-        "divider_color": "#7eb8e0"
+        "background": "#4eb8ef",
+        "panel_background": "#4eb8ef",
+        "text_color": "#ffffff",
+        "show_cost_band": true,
+        "cost_heading": "YOUR VAPE/ CIGARETTES COSTS YOU",
+        "cost_sub": "$300-$400 THIS MONTH.",
+        "cost_brisa": "BRISA COSTS YOU $130 - ONCE",
+        "rating_text": "Rated 4.7 (163)",
+        "promo_text": "Order this week - FREE watermelon core pack (valued at $15) included"
       }
     },
     "brisa_kit_purchase_main": {
