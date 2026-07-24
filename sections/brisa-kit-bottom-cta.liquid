@@ -5,6 +5,45 @@
     <button type="button" class="bkp__atc" data-bkp-sync-atc>
       <span data-bkp-sync-atc-label>ADD TO CART</span>
     </button>
+
+    <ul class="bkp__trust">
+      <li class="bkp__trust-item">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+          <img src="{{ 'brisa-trust-ship.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+        </span>
+        <span>Ships Next Day</span>
+      </li>
+      <li class="bkp__trust-item">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+          <img src="{{ 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+        </span>
+        <span>Secure checkout</span>
+      </li>
+      <li class="bkp__trust-item">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+          <img src="{{ 'brisa-trust-box.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+        </span>
+        <span>FREE SHIPPING</span>
+      </li>
+      <li class="bkp__trust-item">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+          <img src="{{ 'brisa-trust-aussie.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+        </span>
+        <span>Australian Customer service</span>
+      </li>
+      <li class="bkp__trust-item">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+          <img src="{{ 'brisa-trust-star.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+        </span>
+        <span>4.7 (163)</span>
+      </li>
+      <li class="bkp__trust-item">
+        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+          <img src="{{ 'brisa-trust-shield.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+        </span>
+        <span>30 Day Guarantee</span>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -13,120 +52,7 @@
   "name": "Brisa kit bottom CTA",
   "tag": "section",
   "class": "shopify-section--brisa-kit-bottom-cta",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_trust",
-      "label": "Show trust badges",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "trust_1",
-      "label": "Trust 1",
-      "default": "Ships Next Day"
-    },
-    {
-      "type": "image_picker",
-      "id": "trust_icon_1",
-      "label": "Trust icon 1 (optional override)"
-    },
-    {
-      "type": "text",
-      "id": "trust_icon_asset_1",
-      "label": "Trust icon 1 asset filename",
-      "default": "brisa-trust-ship.svg"
-    },
-    {
-      "type": "text",
-      "id": "trust_2",
-      "label": "Trust 2",
-      "default": "Secure checkout"
-    },
-    {
-      "type": "image_picker",
-      "id": "trust_icon_2",
-      "label": "Trust icon 2 (optional override)"
-    },
-    {
-      "type": "text",
-      "id": "trust_icon_asset_2",
-      "label": "Trust icon 2 asset filename",
-      "default": "brisa-trust-lock.svg"
-    },
-    {
-      "type": "text",
-      "id": "trust_3",
-      "label": "Trust 3",
-      "default": "FREE SHIPPING"
-    },
-    {
-      "type": "image_picker",
-      "id": "trust_icon_3",
-      "label": "Trust icon 3 (optional override)"
-    },
-    {
-      "type": "text",
-      "id": "trust_icon_asset_3",
-      "label": "Trust icon 3 asset filename",
-      "default": "brisa-trust-box.svg"
-    },
-    {
-      "type": "text",
-      "id": "trust_4",
-      "label": "Trust 4",
-      "default": "Australian Customer service"
-    },
-    {
-      "type": "image_picker",
-      "id": "trust_icon_4",
-      "label": "Trust icon 4 (optional override)"
-    },
-    {
-      "type": "text",
-      "id": "trust_icon_asset_4",
-      "label": "Trust icon 4 asset filename",
-      "default": "brisa-trust-aussie.svg"
-    },
-    {
-      "type": "text",
-      "id": "trust_5",
-      "label": "Trust 5",
-      "default": "4.7 (163)"
-    },
-    {
-      "type": "image_picker",
-      "id": "trust_icon_5",
-      "label": "Trust icon 5 (optional override)"
-    },
-    {
-      "type": "text",
-      "id": "trust_icon_asset_5",
-      "label": "Trust icon 5 asset filename",
-      "default": "brisa-trust-star.svg"
-    },
-    {
-      "type": "text",
-      "id": "trust_6",
-      "label": "Trust 6",
-      "default": "30 Day Guarantee"
-    },
-    {
-      "type": "image_picker",
-      "id": "trust_icon_6",
-      "label": "Trust icon 6 (optional override)"
-    },
-    {
-      "type": "text",
-      "id": "trust_icon_asset_6",
-      "label": "Trust icon 6 asset filename",
-      "default": "brisa-trust-shield.svg"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Brisa kit bottom CTA"
-    }
-  ]
+  "settings": [],
+  "presets": [{ "name": "Brisa kit bottom CTA" }]
 }
 {% endschema %}
