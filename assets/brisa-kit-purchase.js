@@ -54,6 +54,7 @@
         e.preventDefault();
         if (!this.isAddonAvailable() || !this.addonCheck || this.addonCheck.disabled) return;
         this.addonCheck.checked = !this.addonCheck.checked;
+        this.clearError();
         this.syncAddonUi();
         this.updatePrice();
       });
@@ -62,6 +63,7 @@
         if (!this.isAddonAvailable()) {
           this.addonCheck.checked = false;
         }
+        this.clearError();
         this.syncAddonUi();
         this.updatePrice();
       });
@@ -388,6 +390,9 @@
         return 'Your session expired. Refresh the page, enter the store password if asked, then try again.';
       }
       if (/sold out|not available|cannot be added/i.test(text)) {
+        if (/monthly better box/i.test(text)) {
+          return 'Monthly Better Box can’t be added right now. Please uncheck it and try again, or refresh the page.';
+        }
         return text.length < 180 ? text : 'That item is sold out. Please remove it or choose another option.';
       }
       if (/insufficient/i.test(text)) {

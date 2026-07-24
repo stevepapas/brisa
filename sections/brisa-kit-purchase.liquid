@@ -37,9 +37,6 @@
   assign addon_available = false
   if addon_variant != blank
     assign addon_price_cents = addon_variant.price
-    if addon_variant.available
-      assign addon_available = true
-    endif
     for allocation in addon_variant.selling_plan_allocations
       assign addon_selling_plan_id = allocation.selling_plan.id
       assign addon_price_cents = allocation.price
@@ -57,9 +54,34 @@
       endif
     endfor
   endif
-  # Require a sellable variant + selling plan; product.available catches fully sold-out MBB.
-  if addon_product == blank or addon_product.available == false or addon_variant == blank or addon_selling_plan_id == blank
-    assign addon_available = false
+
+  # MBB BOM = 1× Mint Ice + 1× Raspberry Lime + 1× Cherry Pom (each cores variant is a 3-pack).
+  # Shopify Fixed Bundles can't combine with Appstle selling plans, so gate on core stock.
+  assign addon_cores_product = all_products['brisa-cores']
+  assign addon_core_mint_ok = false
+  assign addon_core_raspberry_ok = false
+  assign addon_core_cherry_ok = false
+  if addon_cores_product != blank
+    for core_variant in addon_cores_product.variants
+      assign core_title = core_variant.title | downcase | strip
+      if core_variant.available
+        if core_title == 'mint ice'
+          assign addon_core_mint_ok = true
+        elsif core_title == 'raspberry lime'
+          assign addon_core_raspberry_ok = true
+        elsif core_title == 'cherry pomegranate'
+          assign addon_core_cherry_ok = true
+        endif
+      endif
+    endfor
+  endif
+  assign addon_cores_ok = false
+  if addon_core_mint_ok and addon_core_raspberry_ok and addon_core_cherry_ok
+    assign addon_cores_ok = true
+  endif
+
+  if addon_product != blank and addon_variant != blank and addon_selling_plan_id != blank and addon_cores_ok
+    assign addon_available = true
   endif
 
   assign colour_blocks = section.blocks | where: 'type', 'colour'
