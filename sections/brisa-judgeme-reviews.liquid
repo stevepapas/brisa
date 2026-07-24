@@ -569,9 +569,16 @@
         if (!headerRow) return;
         var profile = rev.querySelector('.jdgm-row-profile');
         var ratingRow = rev.querySelector('.jdgm-row-rating');
-        // Keep author first, then rating/date block
-        if (profile) headerRow.appendChild(profile);
-        if (ratingRow) headerRow.appendChild(ratingRow);
+        // Keep author first, then rating/date block — only move when order is wrong.
+        // Unconditional appendChild reorders on every pass and infinite-loops the MutationObserver.
+        if (profile && headerRow.firstElementChild !== profile) {
+          headerRow.insertBefore(profile, headerRow.firstElementChild);
+        }
+        if (ratingRow && profile && profile.nextElementSibling !== ratingRow) {
+          headerRow.insertBefore(ratingRow, profile.nextSibling);
+        } else if (ratingRow && !profile && headerRow.firstElementChild !== ratingRow) {
+          headerRow.insertBefore(ratingRow, headerRow.firstElementChild);
+        }
       });
     }
 
@@ -683,11 +690,19 @@
     });
 
     if (window.MutationObserver) {
+      var syncing = false;
       var observer = new MutationObserver(function () {
-        formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
-        reorderCards();
+        if (syncing) return;
+        syncing = true;
+        try {
+          formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
+          reorderCards();
+        } finally {
+          syncing = false;
+        }
       });
-      observer.observe(root, { childList: true, subtree: true, characterData: true });
+      // childList only — characterData would re-fire when formatAverageEl writes textContent.
+      observer.observe(root, { childList: true, subtree: true });
     }
   })();
 </script>
