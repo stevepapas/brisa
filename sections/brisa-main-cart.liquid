@@ -66,6 +66,9 @@
             <div class="brisa-cart__progress-track">
               <div class="brisa-cart__progress-fill"></div>
             </div>
+            {%- if progress_value > 0 -%}
+              <span class="brisa-cart__progress-thumb"></span>
+            {%- endif -%}
             <div class="brisa-cart__progress-markers">
               <span class="brisa-cart__progress-icon brisa-cart__progress-icon--shipping">
                 {% render 'icon' with 'picto-delivery-truck' %}

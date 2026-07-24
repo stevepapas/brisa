@@ -3157,6 +3157,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 }
 
 .brisa-cart__progress {
+  position: relative;
   margin-bottom: 22px;
   overflow: visible;
 }
@@ -3175,6 +3176,19 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   width: calc(var(--progress, 0) * 100%);
   border-radius: inherit;
   background: #23aee8;
+}
+
+.brisa-cart__progress-thumb {
+  position: absolute;
+  top: 4px;
+  left: calc(var(--progress, 0) * 100%);
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #23aee8;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .brisa-cart__progress-markers {
