@@ -324,7 +324,7 @@
       }
 
       // Prefer the kit colour variant that matches the selected swatch (Starter Kit
-      // is a Color product). Fall back to the kit card's default variant id.
+      // is a Color product: Black / Blue / Rose). Fall back to the kit card default.
       const colourMappedId = this.resolveColourVariantId(kit, yours);
       const variantId = colourMappedId || kit.dataset.variantId;
       if (!variantId) {
@@ -332,18 +332,27 @@
         return;
       }
 
+      // Cart Transform Option A only: separate $0 device products on the swatch.
+      // Never send the kit colour variant as _device_* — that expands the line into
+      // the same variant twice and Shopify rejects the add (e.g. Ocean → Blue).
+      const device1Id = yours.dataset.variantId || '';
+      const device2Id = devices > 1 ? mates.dataset.variantId || '' : '';
+
       const properties = {
         _bundle: 'brisa-kit',
         _kit_key: kit.dataset.kitKey || '',
         Kit: kit.dataset.title || '',
         'Your colour': yours.dataset.label || '',
-        _device_1_variant_id: yours.dataset.variantId || colourMappedId || '',
       };
+      if (device1Id && device1Id !== String(variantId)) {
+        properties._device_1_variant_id = device1Id;
+      }
 
       if (devices > 1) {
         properties["Mate's colour"] = mates.dataset.label || '';
-        properties._device_2_variant_id =
-          mates.dataset.variantId || this.resolveColourVariantId(kit, mates) || '';
+        if (device2Id && device2Id !== String(variantId) && device2Id !== device1Id) {
+          properties._device_2_variant_id = device2Id;
+        }
         properties._mates_pack = uid();
       }
 
