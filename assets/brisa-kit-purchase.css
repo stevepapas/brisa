@@ -823,7 +823,11 @@
 }
 
 .bkp-bottom .bkp__trust {
-  margin-top: 18px;
+  margin-top: 0;
+}
+
+.bkp-bottom__trust {
+  margin-top: 4px;
 }
 
 .bkp-bottom__trust:empty {

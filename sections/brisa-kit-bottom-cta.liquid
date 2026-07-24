@@ -6,49 +6,129 @@
       <span data-bkp-sync-atc-label>ADD TO CART</span>
     </button>
 
-    {%- comment -%}
-      Trust badges are cloned from Brisa kit purchase → Trust row.
-      Edit icons/labels only in that section.
-    {%- endcomment -%}
-    <div class="bkp-bottom__trust" data-bkp-mirror-trust></div>
+    {%- if section.settings.show_trust -%}
+      <div class="bkp-bottom__trust">
+        {% render 'brisa-kit-trust', settings: section.settings %}
+      </div>
+    {%- endif -%}
   </div>
 </section>
-
-<script>
-  (() => {
-    const fillTrust = () => {
-      const source = document.querySelector(
-        'brisa-kit-purchase [data-bkp-trust-source], brisa-kit-purchase .bkp__trust'
-      );
-      if (!source) return false;
-
-      document.querySelectorAll('[data-bkp-mirror-trust]').forEach((host) => {
-        if (host.childElementCount) return;
-        const clone = source.cloneNode(true);
-        clone.removeAttribute('data-bkp-trust-source');
-        host.replaceChildren(clone);
-      });
-      return true;
-    };
-
-    if (!fillTrust()) {
-      document.addEventListener('DOMContentLoaded', fillTrust);
-      window.addEventListener('load', fillTrust);
-    }
-
-    const kit = document.querySelector('brisa-kit-purchase');
-    if (kit && typeof kit.mirrorTrustIcons === 'function') {
-      kit.mirrorTrustIcons();
-    }
-  })();
-</script>
 
 {% schema %}
 {
   "name": "Brisa kit bottom CTA",
   "tag": "section",
   "class": "shopify-section--brisa-kit-bottom-cta",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust 1",
+      "default": "Ships Next Day"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_1",
+      "label": "Trust icon 1 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_1",
+      "label": "Trust icon 1 asset filename",
+      "default": "brisa-trust-ship.svg"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_2",
+      "label": "Trust icon 2 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_2",
+      "label": "Trust icon 2 asset filename",
+      "default": "brisa-trust-lock.svg"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust 3",
+      "default": "FREE SHIPPING"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_3",
+      "label": "Trust icon 3 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_3",
+      "label": "Trust icon 3 asset filename",
+      "default": "brisa-trust-box.svg"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust 4",
+      "default": "Australian Customer service"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_4",
+      "label": "Trust icon 4 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_4",
+      "label": "Trust icon 4 asset filename",
+      "default": "brisa-trust-aussie.svg"
+    },
+    {
+      "type": "text",
+      "id": "trust_5",
+      "label": "Trust 5",
+      "default": "4.7 (163)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_5",
+      "label": "Trust icon 5 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_5",
+      "label": "Trust icon 5 asset filename",
+      "default": "brisa-trust-star.svg"
+    },
+    {
+      "type": "text",
+      "id": "trust_6",
+      "label": "Trust 6",
+      "default": "30 Day Guarantee"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_6",
+      "label": "Trust icon 6 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_6",
+      "label": "Trust icon 6 asset filename",
+      "default": "brisa-trust-shield.svg"
+    }
+  ],
   "presets": [
     {
       "name": "Brisa kit bottom CTA"

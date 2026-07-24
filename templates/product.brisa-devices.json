@@ -1054,7 +1054,24 @@
     },
     "brisa_kit_bottom_cta": {
       "type": "brisa-kit-bottom-cta",
-      "settings": {}
+      "settings": {
+        "show_trust": true,
+        "trust_1": "Ships Next Day",
+        "trust_2": "Secure checkout",
+        "trust_3": "FREE SHIPPING",
+        "trust_4": "Australian Customer service",
+        "trust_5": "4.7 (163)",
+        "trust_6": "30 Day Guarantee",
+        "trust_icon_1": "shopify://shop_images/free-shipping.png",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
+        "trust_icon_3": "shopify://shop_images/free-shipping_16e46e82-0928-4947-bcbc-4e9103a79435.png",
+        "trust_icon_asset_3": "brisa-trust-box.svg",
+        "trust_icon_4": "shopify://shop_images/aus-map_579772bc-921b-4837-b269-d90e09593d0c.png",
+        "trust_icon_asset_4": "brisa-trust-aussie.svg",
+        "trust_icon_asset_5": "brisa-trust-star.svg",
+        "trust_icon_asset_6": "brisa-trust-shield.svg"
+      }
     },
     "brisa_judgeme_reviews": {
       "type": "brisa-judgeme-reviews",
