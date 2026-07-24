@@ -17,10 +17,11 @@
     --bic-dot-active: {{ section.settings.dot_active_color }};
     --bic-dot-inactive: {{ section.settings.dot_inactive_color }};
     --bic-shadow: {{ section.settings.card_shadow_color }};
-    --bic-gap: {{ section.settings.card_gap }}px;
+    --bic-gap: max(24px, {{ section.settings.card_gap }}px);
     --bic-peek: {{ section.settings.card_peek }}px;
     --bic-radius: {{ section.settings.card_radius }}px;
     --bic-image-radius: {{ section.settings.image_radius }}px;
+    --bic-card-pad: min(10px, {{ section.settings.card_padding }}px);
     font-family: inherit;
   }
 
@@ -79,7 +80,7 @@
     scroll-snap-align: center;
     scroll-snap-stop: always;
     box-sizing: border-box;
-    padding: {{ section.settings.card_padding }}px;
+    padding: var(--bic-card-pad);
     background: var(--bic-card);
     border-radius: var(--bic-radius);
     box-shadow:
@@ -87,20 +88,40 @@
       0 2px 10px rgba(0, 139, 220, 0.08);
   }
 
+  .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__media {
+    display: block;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: var(--bic-image-radius);
+    background: #e8f4ff;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
+  }
+
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__image {
     display: block;
     width: 100%;
     aspect-ratio: 1200 / 646;
     object-fit: cover;
-    border-radius: var(--bic-image-radius);
-    background: #e8f4ff;
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    filter: none;
+    border-radius: 0;
+    background: transparent;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__image-placeholder {
     display: block;
     width: 100%;
     aspect-ratio: 1200 / 646;
-    border-radius: var(--bic-image-radius);
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    filter: none;
+    border-radius: 0;
     background: linear-gradient(160deg, #e8f4ff 0%, #d6ebf8 100%);
   }
 
@@ -221,19 +242,21 @@
               endif
             %}
             <article class="brisa-inside-cores__card" role="listitem" {{ block.shopify_attributes }}>
-              {% if card_image_url != blank %}
-                <img
-                  class="brisa-inside-cores__image"
-                  src="{{ card_image_url }}"
-                  alt="{{ card_image_alt }}"
-                  width="1200"
-                  height="646"
-                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                  {% if forloop.first %}fetchpriority="high"{% endif %}
-                >
-              {% else %}
-                <span class="brisa-inside-cores__image-placeholder" aria-hidden="true"></span>
-              {% endif %}
+              <div class="brisa-inside-cores__media">
+                {% if card_image_url != blank %}
+                  <img
+                    class="brisa-inside-cores__image"
+                    src="{{ card_image_url }}"
+                    alt="{{ card_image_alt }}"
+                    width="1200"
+                    height="646"
+                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                    {% if forloop.first %}fetchpriority="high"{% endif %}
+                  >
+                {% else %}
+                  <span class="brisa-inside-cores__image-placeholder" aria-hidden="true"></span>
+                {% endif %}
+              </div>
 
               {% if block.settings.heading != blank %}
                 <h3 class="brisa-inside-cores__card-heading">{{ block.settings.heading | escape }}</h3>
@@ -400,20 +423,20 @@
       "id": "card_gap",
       "label": "Card gap",
       "min": 8,
-      "max": 32,
+      "max": 40,
       "step": 2,
       "unit": "px",
-      "default": 14
+      "default": 24
     },
     {
       "type": "range",
       "id": "card_padding",
       "label": "Card padding",
-      "min": 12,
+      "min": 8,
       "max": 36,
       "step": 2,
       "unit": "px",
-      "default": 18
+      "default": 10
     },
     {
       "type": "range",
