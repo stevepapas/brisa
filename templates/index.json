@@ -900,9 +900,9 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
-    "brisa_home_hero_v3": {
-      "type": "brisa-home-hero",
-      "name": "Brisa home hero",
+    "brisa_home_hero_v4": {
+      "type": "brisa-home-hero-v4",
+      "name": "Brisa home hero v4",
       "settings": {
         "eyebrow": "WORLD FIRST - AUSTRALIAN DESIGNED",
         "heading_line_1": "KEEP THE RITUAL",
@@ -927,7 +927,7 @@
     }
   },
   "order": [
-    "brisa_home_hero_v3",
+    "brisa_home_hero_v4",
     "social_proof_testimonials_gAi9fg",
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",

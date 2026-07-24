@@ -1,0 +1,106 @@
+/* Brisa home hero — brief layout (product fans peek only above CTAs) */
+.shopify-section--brisa-home-hero .brisa-home-hero__ctas,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__ctas {
+  position: relative !important;
+  z-index: 3 !important;
+  display: flex !important;
+  gap: 12px !important;
+  width: min(560px, calc(100% - 32px)) !important;
+  margin: 52px auto -28px !important;
+  padding-top: 44px !important;
+  transform: none !important;
+  left: auto !important;
+  top: auto !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art {
+  position: absolute !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  line-height: 0 !important;
+  bottom: calc(100% - 14px) !important;
+  top: auto !important;
+  width: 78% !important;
+  max-width: 128px !important;
+  max-height: 58px !important;
+  overflow: hidden !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta-art--devices,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art--devices {
+  left: -4% !important;
+  right: auto !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta-art--cores,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art--cores {
+  right: -2% !important;
+  left: auto !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta-art img,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art img {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: 58px !important;
+  object-fit: contain !important;
+  object-position: bottom center !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__rating-badge,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__rating-badge {
+  color: #ffffff !important;
+  background: #008bdc !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__title-accent,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__title-accent {
+  font-family: 'TeX Gyre Bonum', Georgia, 'Times New Roman', serif !important;
+  font-style: italic !important;
+  text-transform: uppercase !important;
+}
+
+@media screen and (min-width: 750px) {
+  .shopify-section--brisa-home-hero .brisa-home-hero__ctas,
+  .shopify-section--brisa-home-hero-v4 .brisa-home-hero__ctas {
+    gap: 16px !important;
+    width: min(620px, calc(100% - 48px)) !important;
+    margin: 60px auto -34px !important;
+    padding-top: 52px !important;
+  }
+
+  .shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
+  .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art {
+    max-width: 160px !important;
+    max-height: 72px !important;
+    bottom: calc(100% - 16px) !important;
+    width: 82% !important;
+  }
+
+  .shopify-section--brisa-home-hero .brisa-home-hero__cta-art img,
+  .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art img {
+    max-height: 72px !important;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .shopify-section--brisa-home-hero .brisa-home-hero__ctas,
+  .shopify-section--brisa-home-hero-v4 .brisa-home-hero__ctas {
+    margin-top: 40px !important;
+    margin-bottom: -24px !important;
+    padding-top: 36px !important;
+  }
+
+  .shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
+  .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art {
+    max-width: 100px !important;
+    max-height: 48px !important;
+  }
+
+  .shopify-section--brisa-home-hero .brisa-home-hero__cta-art img,
+  .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art img {
+    max-height: 48px !important;
+  }
+}
