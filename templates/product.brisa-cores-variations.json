@@ -267,10 +267,6 @@
             "size_chart_page": ""
           }
         },
-        "appstle_bundles_appstle_volume_discount_bundle_GLaHh3": {
-          "type": "shopify://apps/appstle-bundles/blocks/appstle-volume-discount-bundle/8909921b-2d24-4d68-9b12-9d045d3dcb0a",
-          "settings": {}
-        },
         "value_line_block": {
           "type": "text",
           "settings": {
@@ -291,13 +287,12 @@
       },
       "block_order": [
         "variant_picker",
-        "appstle_bundles_appstle_volume_discount_bundle_GLaHh3",
         "value_line_block",
         "buy_buttons"
       ],
       "name": "Brisa cores picker",
       "settings": {
-        "aroma_prefix": "Aroma \u2014",
+        "aroma_prefix": "Aroma —",
         "aroma_description": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety.",
         "option_name": "Color",
         "use_swatch_nav": true,
@@ -305,7 +300,7 @@
         "swatch_label_source": "product_option",
         "dot_color": "#c7c7c7",
         "popular_variant_name": "Mint Ice",
-        "popular_suffix": "\u00b7 MOST POPULAR",
+        "popular_suffix": "· MOST POPULAR",
         "variant_limit": 8,
         "slide_image_source": "variant_metafield",
         "slide_image_metafield_namespace": "custom",
@@ -366,9 +361,9 @@
       "name": "Brisa product area info",
       "settings": {
         "show_guarantee": false,
-        "show_trust_row": false,
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
         "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "show_trust_row": false,
         "trust_shipping": "Free shipping AUS & NZ wide",
         "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
         "trust_checkout": "Secure checkout",

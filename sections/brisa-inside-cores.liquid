@@ -55,6 +55,12 @@
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__carousel {
+    /* Width tokens live on the carousel (unpadded) so card % / side padding
+       do not circularly shrink against the track content box. */
+    --bic-edge: 24px;
+    --bic-card-max: {{ section.settings.card_max_width }}px;
+    --bic-card-w: min(var(--bic-card-max), calc(100% - var(--bic-edge) - var(--bic-peek)));
+    --bic-side: max(var(--bic-edge), calc((100% - var(--bic-card-w)) / 2));
     margin-top: {{ section.settings.carousel_spacing }}px;
   }
 
@@ -68,7 +74,8 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding: 8px 0 12px;
-    padding-inline: max(24px, calc((100% - min(100% - 24px - var(--bic-peek), {{ section.settings.card_max_width }}px)) / 2));
+    padding-inline: var(--bic-side);
+    scroll-padding-inline: var(--bic-side);
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__track::-webkit-scrollbar {
@@ -76,8 +83,9 @@
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card {
-    flex: 0 0 calc(100% - 24px - var(--bic-peek));
-    max-width: {{ section.settings.card_max_width }}px;
+    flex: 0 0 var(--bic-card-w);
+    width: var(--bic-card-w);
+    max-width: none;
     scroll-snap-align: center;
     scroll-snap-stop: always;
     box-sizing: border-box;
@@ -180,12 +188,9 @@
       --bic-gap: max(72px, {{ section.settings.card_gap }}px);
     }
 
-    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__track {
-      padding-inline: max(40px, calc((100% - min(100% - 40px - var(--bic-peek), {{ section.settings.card_max_width }}px)) / 2));
-    }
-
-    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card {
-      flex-basis: calc(100% - 40px - var(--bic-peek));
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__carousel {
+      --bic-edge: 40px;
+      --bic-card-max: {{ section.settings.card_max_width | plus: 50 }}px;
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-heading {
@@ -349,13 +354,17 @@
       });
     }
 
-    function scrollToIndex(index) {
+    function scrollToIndex(index, behavior) {
       var card = cards[index];
       if (!card) return;
       var trackRect = track.getBoundingClientRect();
       var cardRect = card.getBoundingClientRect();
       var delta = cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
-      track.scrollBy({ left: delta, behavior: 'smooth' });
+      if (Math.abs(delta) < 1) {
+        setActive(index);
+        return;
+      }
+      track.scrollBy({ left: delta, behavior: behavior || 'smooth' });
       setActive(index);
     }
 
@@ -366,8 +375,10 @@
       });
     });
 
-    window.addEventListener('resize', onScroll, { passive: true });
-    setActive(0);
+    window.addEventListener('resize', function () {
+      scrollToIndex(activeIndex, 'auto');
+    }, { passive: true });
+    scrollToIndex(0, 'auto');
   })();
 </script>
 
@@ -411,7 +422,8 @@
       "max": 560,
       "step": 10,
       "unit": "px",
-      "default": 420
+      "default": 420,
+      "info": "Desktop cards render 50px wider than this value."
     },
     {
       "type": "range",
