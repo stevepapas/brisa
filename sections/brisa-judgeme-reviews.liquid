@@ -483,12 +483,49 @@
     opacity: 1 !important;
   }
 
+  /* Kill Judge.me dividers (empty paginate often leaves a thin full-width line) */
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__footer,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg hr,
+  #shopify-section-{{ section.id }} .jdgm-widget hr,
+  #shopify-section-{{ section.id }} hr {
+    display: none !important;
+    border: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__body,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__reviews,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg,
+  #shopify-section-{{ section.id }} .jdgm-widget,
+  #shopify-section-{{ section.id }} .jdgm-paginate {
+    border: 0 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__body::before,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__body::after,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__reviews::before,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__reviews::after,
+  #shopify-section-{{ section.id }} .jdgm-paginate::before,
+  #shopify-section-{{ section.id }} .jdgm-paginate::after {
+    content: none !important;
+    display: none !important;
+    border: 0 !important;
+  }
+
   /* Show more (Loox-style) instead of page numbers */
   #shopify-section-{{ section.id }} .jdgm-paginate {
     display: flex !important;
     justify-content: center;
     margin: 18px 0 0 !important;
     padding: 0 !important;
+    border: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-paginate:empty,
+  #shopify-section-{{ section.id }} .jdgm-paginate:not(:has(.jdgm-paginate__next-page)) {
+    display: none !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-paginate__page {
