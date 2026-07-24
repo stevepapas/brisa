@@ -180,15 +180,30 @@
       if (this.errorEl) this.errorEl.textContent = msg;
     }
 
+    colourVariantMap(kit) {
+      try {
+        return JSON.parse(kit?.dataset?.colourVariants || '{}');
+      } catch (err) {
+        return {};
+      }
+    }
+
+    resolveColourVariantId(kit, swatch) {
+      if (!swatch) return '';
+      if (swatch.dataset.variantId) return swatch.dataset.variantId;
+      const label = (swatch.dataset.label || '').trim().toLowerCase();
+      if (!label) return '';
+      const map = this.colourVariantMap(kit);
+      if (map[label]) return String(map[label]);
+      // Ocean swatch ↔ Blue kit variant naming mismatch
+      if (label === 'ocean' && map.blue) return String(map.blue);
+      if (label === 'blue' && map.ocean) return String(map.ocean);
+      return '';
+    }
+
     async addToCart() {
       const kit = this.selectedKit();
       if (!kit) return;
-
-      const variantId = kit.dataset.variantId;
-      if (!variantId) {
-        this.setError('This kit is not available yet.');
-        return;
-      }
 
       const devices = Number(kit.dataset.devices || 1);
       const yours = this.selectedSwatch('yours');
@@ -203,17 +218,27 @@
         return;
       }
 
+      // Prefer the kit colour variant that matches the selected swatch (Starter Kit
+      // is a Color product). Fall back to the kit card's default variant id.
+      const colourMappedId = this.resolveColourVariantId(kit, yours);
+      const variantId = colourMappedId || kit.dataset.variantId;
+      if (!variantId) {
+        this.setError('This kit is not available yet.');
+        return;
+      }
+
       const properties = {
         _bundle: 'brisa-kit',
         _kit_key: kit.dataset.kitKey || '',
         'Kit': kit.dataset.title || '',
         'Your colour': yours.dataset.label || '',
-        _device_1_variant_id: yours.dataset.variantId || '',
+        _device_1_variant_id: yours.dataset.variantId || colourMappedId || '',
       };
 
       if (devices > 1) {
         properties["Mate's colour"] = mates.dataset.label || '';
-        properties._device_2_variant_id = mates.dataset.variantId || '';
+        properties._device_2_variant_id =
+          mates.dataset.variantId || this.resolveColourVariantId(kit, mates) || '';
         properties._mates_pack = uid();
       }
 
@@ -258,7 +283,11 @@
 
         if (!res.ok) {
           const err = await res.json().catch(() => ({}));
-          throw new Error(err.description || err.message || 'Could not add to cart.');
+          const detail = err.description || err.message || '';
+          if (/sold out|not available|insufficient/i.test(detail)) {
+            throw new Error(detail || 'This kit is sold out.');
+          }
+          throw new Error(detail || 'Could not add to cart.');
         }
 
         document.documentElement.dispatchEvent(

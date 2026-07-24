@@ -196,6 +196,22 @@
             endif
           endif
 
+          assign colour_variants_json = '{'
+          if kit_product != blank
+            assign colour_pair_index = 0
+            for colour_variant in kit_product.variants
+              assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+              if colour_name != blank
+                if colour_pair_index > 0
+                  assign colour_variants_json = colour_variants_json | append: ','
+                endif
+                assign colour_variants_json = colour_variants_json | append: '"' | append: colour_name | append: '":' | append: colour_variant.id
+                assign colour_pair_index = colour_pair_index | plus: 1
+              endif
+            endfor
+          endif
+          assign colour_variants_json = colour_variants_json | append: '}'
+
           assign is_selected = false
           if active_key == key
             assign is_selected = true
@@ -208,6 +224,7 @@
           data-kit-key="{{ key }}"
           data-devices="{{ kit_devices }}"
           data-variant-id="{{ variant_id }}"
+          data-colour-variants='{{ colour_variants_json }}'
           data-price-cents="{{ price_cents }}"
           data-title="{{ kit_title | escape }}"
         >
