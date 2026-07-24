@@ -893,6 +893,44 @@
         "footnote": "<p>*Approximate typical spend. Actual costs vary.</p>"
       }
     },
+    "brisa_product_reviews_zMjLwQ": {
+      "type": "brisa-product-reviews",
+      "name": "Brisa product reviews",
+      "settings": {
+        "heading": "Real Aussies. Real Reviews.",
+        "subheading": "",
+        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_text_testimonials": true,
+        "show_arrows": true,
+        "show_dots": false,
+        "autoplay": false,
+        "autoplay_speed": 5000
+      }
+    },
+    "brisa_kit_bottom_cta": {
+      "type": "brisa-kit-bottom-cta",
+      "settings": {
+        "show_trust": false,
+        "show_trust_1": true,
+        "trust_1": "Ships Next Day",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
+        "show_trust_2": true,
+        "trust_2": "Secure checkout",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
+        "show_trust_3": true,
+        "trust_3": "FREE SHIPPING",
+        "trust_icon_asset_3": "brisa-trust-box.svg",
+        "show_trust_4": true,
+        "trust_4": "Australian Customer service",
+        "trust_icon_asset_4": "brisa-trust-aussie.svg",
+        "show_trust_5": true,
+        "trust_5": "4.7 (163)",
+        "trust_icon_asset_5": "brisa-trust-star.svg",
+        "show_trust_6": true,
+        "trust_6": "30 Day Guarantee",
+        "trust_icon_asset_6": "brisa-trust-shield.svg"
+      }
+    },
     "engineered_switch_NniVXE": {
       "type": "engineered-switch",
       "blocks": {
@@ -964,18 +1002,6 @@
         "text_color": "#6b6b6b",
         "icon_background": "#008bdc",
         "icon_color": "#ffffff"
-      }
-    },
-    "brisa_product_reviews_zMjLwQ": {
-      "type": "brisa-product-reviews",
-      "name": "Brisa product reviews",
-      "settings": {
-        "heading": "Real Aussies. Real Reviews.",
-        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
-        "show_arrows": true,
-        "show_dots": false,
-        "autoplay": false,
-        "autoplay_speed": 5000
       }
     },
     "whats_in_the_box_MiChAY": {
@@ -1094,15 +1120,12 @@
         "text_color": "#ffffff"
       }
     },
-    "brisa_kit_bottom_cta": {
-      "type": "brisa-kit-bottom-cta",
-      "settings": {}
-    },
     "brisa_judgeme_reviews": {
       "type": "brisa-judgeme-reviews",
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
+        "product": "",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,
@@ -1119,6 +1142,30 @@
         "border_color": "#111111",
         "soft_border_color": "#e8e8e8"
       }
+    },
+    "brisa_kit_bottom_cta_rRdpx9": {
+      "type": "brisa-kit-bottom-cta",
+      "settings": {
+        "show_trust": true,
+        "show_trust_1": true,
+        "trust_1": "Ships Next Day",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
+        "show_trust_2": true,
+        "trust_2": "Secure checkout",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
+        "show_trust_3": true,
+        "trust_3": "FREE SHIPPING",
+        "trust_icon_asset_3": "brisa-trust-box.svg",
+        "show_trust_4": true,
+        "trust_4": "Australian Customer service",
+        "trust_icon_asset_4": "brisa-trust-aussie.svg",
+        "show_trust_5": true,
+        "trust_5": "4.7 (163)",
+        "trust_icon_asset_5": "brisa-trust-star.svg",
+        "show_trust_6": true,
+        "trust_6": "30 Day Guarantee",
+        "trust_icon_asset_6": "brisa-trust-shield.svg"
+      }
     }
   },
   "order": [
@@ -1134,6 +1181,7 @@
     "engineered_switch_NniVXE",
     "whats_in_the_box_MiChAY",
     "device_questions_PFtKdK",
-    "brisa_judgeme_reviews"
+    "brisa_judgeme_reviews",
+    "brisa_kit_bottom_cta_rRdpx9"
   ]
 }
