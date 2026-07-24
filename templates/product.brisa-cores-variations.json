@@ -12,13 +12,14 @@
     "slideshow_brisa_LPC6iL": {
       "type": "slideshow-brisa",
       "blocks": {
-        "image_BaBDEt": {
+        "image_cores01": {
           "type": "image",
+          "name": "cores-1",
           "settings": {
             "kit_set": "both",
-            "image": "shopify://shop_images/cores-hero.png",
+            "image_asset": "brisa-cores-slide-1.jpg",
             "image_focal_point": "center_center",
-            "text_position": "middle_left",
+            "text_position": "middle_center",
             "subheading": "",
             "title": "",
             "content": "",
@@ -29,13 +30,134 @@
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores02": {
+          "type": "image",
+          "name": "cores-2",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-2.jpg",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores03": {
+          "type": "image",
+          "name": "cores-3",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-3.jpg",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores04": {
+          "type": "image",
+          "name": "cores-4",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-4.jpg",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores05": {
+          "type": "image",
+          "name": "cores-5",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-5.jpg",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores06": {
+          "type": "image",
+          "name": "cores-6",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-6.jpg",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
             "overlay_color": "#000000",
             "overlay_opacity": 0
           }
         }
       },
       "block_order": [
-        "image_BaBDEt"
+        "image_cores01",
+        "image_cores02",
+        "image_cores03",
+        "image_cores04",
+        "image_cores05",
+        "image_cores06"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
@@ -53,8 +175,8 @@
         "editor_preview_kit": "auto",
         "desktop_layout": "square",
         "desktop_max_width": 520,
-        "desktop_image_fit": "contain",
-        "section_height": "small",
+        "desktop_image_fit": "cover",
+        "section_height": "auto",
         "transition_type": "sweep",
         "show_initial_transition": false,
         "autoplay": true,
@@ -62,10 +184,10 @@
         "background": "rgba(0,0,0,0)",
         "nav_background": "#ffffff",
         "thumbnail_gap": 8,
-        "thumbnail_size": 64,
-        "thumbnail_radius": 10,
+        "thumbnail_size": 56,
+        "thumbnail_radius": 15,
         "thumbnail_active_border": "#008bdc",
-        "arrow_background": "#f2f2f2",
+        "arrow_background": "#ffffff",
         "arrow_color": "#1a1a1a"
       }
     },
@@ -175,7 +297,7 @@
       ],
       "name": "Brisa cores picker",
       "settings": {
-        "aroma_prefix": "Aroma —",
+        "aroma_prefix": "Aroma \u2014",
         "aroma_description": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety.",
         "option_name": "Color",
         "use_swatch_nav": true,
@@ -183,7 +305,7 @@
         "swatch_label_source": "product_option",
         "dot_color": "#c7c7c7",
         "popular_variant_name": "Mint Ice",
-        "popular_suffix": "· MOST POPULAR",
+        "popular_suffix": "\u00b7 MOST POPULAR",
         "variant_limit": 8,
         "slide_image_source": "variant_metafield",
         "slide_image_metafield_namespace": "custom",
