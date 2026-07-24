@@ -249,7 +249,8 @@
 
     resolveColourVariantId(kit, swatch) {
       if (!swatch) return '';
-      if (swatch.dataset.variantId) return swatch.dataset.variantId;
+      // Prefer kit colour variant baked onto the swatch (Ocean → Blue on Starter Kit).
+      if (swatch.dataset.kitVariantId) return swatch.dataset.kitVariantId;
       const entry = this.colourEntry(this.colourVariantMap(kit), swatch.dataset.label);
       return this.colourEntryId(entry);
     }
@@ -290,13 +291,22 @@
       });
     }
 
-    friendlyCartError(detail) {
+    friendlyCartError(detail, status) {
       const text = String(detail || '').trim();
+      if (/password|verify|connection needs/i.test(text) || status === 401 || status === 403) {
+        return 'Your session expired. Refresh the page, enter the store password if asked, then try again.';
+      }
       if (/sold out|not available|insufficient/i.test(text)) {
         return 'This option is sold out. Please choose another kit or colour.';
       }
-      if (text && text.length < 140 && !/^[A-Z_]+$/.test(text)) {
+      if (/bundle|selling.plan|cannot be added/i.test(text)) {
+        return text.length < 160 ? text : 'That product couldn’t be added with the current cart. Clear your cart and try again.';
+      }
+      if (text && text.length < 160 && !/^[A-Z_]+$/.test(text) && !/^</.test(text)) {
         return text;
+      }
+      if (status) {
+        return `Sorry, we couldn't add that to your bag (error ${status}). Please clear your cart, refresh, and try again.`;
       }
       return FALLBACK_ATC_ERROR;
     }
@@ -323,8 +333,8 @@
         return;
       }
 
-      // Prefer the kit colour variant that matches the selected swatch (Starter Kit
-      // is a Color product: Black / Blue / Rose). Fall back to the kit card default.
+      // Starter Kit colour variants live on the kit product (Black/Blue/Rose).
+      // Ocean swatch is aliased to Blue via data-kit-variant-id.
       const colourMappedId = this.resolveColourVariantId(kit, yours);
       const variantId = colourMappedId || kit.dataset.variantId;
       if (!variantId) {
@@ -388,6 +398,7 @@
       try {
         const res = await fetch(window.themeVariables?.routes?.cartAddUrl || '/cart/add.js', {
           method: 'POST',
+          credentials: 'same-origin',
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -395,9 +406,23 @@
           body: JSON.stringify({ items }),
         });
 
+        const raw = await res.text();
+        let payload = {};
+        try {
+          payload = raw ? JSON.parse(raw) : {};
+        } catch (err) {
+          payload = { message: raw.slice(0, 180) };
+        }
+
         if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          throw new Error(this.friendlyCartError(err.description || err.message));
+          console.warn('[brisa-kit] cart/add failed', res.status, raw.slice(0, 500), {
+            variantId,
+            colourMappedId,
+            items,
+          });
+          throw new Error(
+            this.friendlyCartError(payload.description || payload.message || raw, res.status)
+          );
         }
 
         document.documentElement.dispatchEvent(

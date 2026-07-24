@@ -116,6 +116,9 @@
         endif
         assign shared_colour_variants_json = shared_colour_variants_json | append: '"' | append: colour_name | append: '":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
         assign shared_colour_pair_index = shared_colour_pair_index | plus: 1
+        if colour_name == 'blue'
+          assign shared_colour_variants_json = shared_colour_variants_json | append: ',"ocean":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
+        endif
       endif
     endfor
   endif
@@ -287,6 +290,9 @@
                 endif
                 assign colour_variants_json = colour_variants_json | append: '"' | append: colour_name | append: '":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
                 assign colour_pair_index = colour_pair_index | plus: 1
+                if colour_name == 'blue'
+                  assign colour_variants_json = colour_variants_json | append: ',"ocean":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
+                endif
               endif
             endfor
           endif
@@ -511,8 +517,22 @@
             {% liquid
               assign colour_product = block.settings.device_product
               assign colour_variant_id = ''
+              assign kit_colour_variant_id = ''
+              assign colour_label_key = block.settings.label | downcase | strip
               if colour_product != blank
                 assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+              endif
+              if try_product != blank
+                for colour_variant in try_product.variants
+                  assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+                  if colour_name == colour_label_key
+                    assign kit_colour_variant_id = colour_variant.id
+                  elsif colour_label_key == 'ocean' and colour_name == 'blue'
+                    assign kit_colour_variant_id = colour_variant.id
+                  elsif colour_label_key == 'blue' and colour_name == 'ocean'
+                    assign kit_colour_variant_id = colour_variant.id
+                  endif
+                endfor
               endif
               assign swatch_style = block.settings.hex | default: '#cccccc'
               assign is_first = forloop.first
@@ -525,6 +545,7 @@
               data-role="yours"
               data-label="{{ block.settings.label | escape }}"
               data-variant-id="{{ colour_variant_id }}"
+              data-kit-variant-id="{{ kit_colour_variant_id }}"
               aria-label="{{ block.settings.label | escape }}"
               {{ block.shopify_attributes }}
             ></button>
@@ -542,8 +563,22 @@
             {% liquid
               assign colour_product = block.settings.device_product
               assign colour_variant_id = ''
+              assign kit_colour_variant_id = ''
+              assign colour_label_key = block.settings.label | downcase | strip
               if colour_product != blank
                 assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+              endif
+              if try_product != blank
+                for colour_variant in try_product.variants
+                  assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+                  if colour_name == colour_label_key
+                    assign kit_colour_variant_id = colour_variant.id
+                  elsif colour_label_key == 'ocean' and colour_name == 'blue'
+                    assign kit_colour_variant_id = colour_variant.id
+                  elsif colour_label_key == 'blue' and colour_name == 'ocean'
+                    assign kit_colour_variant_id = colour_variant.id
+                  endif
+                endfor
               endif
               assign swatch_style = block.settings.hex | default: '#cccccc'
               assign is_first = forloop.first
@@ -556,6 +591,7 @@
               data-role="mates"
               data-label="{{ block.settings.label | escape }}"
               data-variant-id="{{ colour_variant_id }}"
+              data-kit-variant-id="{{ kit_colour_variant_id }}"
               aria-label="{{ block.settings.label | escape }}"
             ></button>
           {% endfor %}
