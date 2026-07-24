@@ -518,6 +518,7 @@
               assign colour_product = block.settings.device_product
               assign colour_variant_id = ''
               assign kit_colour_variant_id = ''
+              assign kit_colour_available = true
               assign colour_label_key = block.settings.label | downcase | strip
               if colour_product != blank
                 assign colour_variant_id = colour_product.selected_or_first_available_variant.id
@@ -527,25 +528,34 @@
                   assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
                   if colour_name == colour_label_key
                     assign kit_colour_variant_id = colour_variant.id
+                    assign kit_colour_available = colour_variant.available
                   elsif colour_label_key == 'ocean' and colour_name == 'blue'
                     assign kit_colour_variant_id = colour_variant.id
+                    assign kit_colour_available = colour_variant.available
                   elsif colour_label_key == 'blue' and colour_name == 'ocean'
                     assign kit_colour_variant_id = colour_variant.id
+                    assign kit_colour_available = colour_variant.available
                   endif
                 endfor
               endif
               assign swatch_style = block.settings.hex | default: '#cccccc'
               assign is_first = forloop.first
+              assign swatch_sold_out = false
+              if kit_colour_variant_id != blank and kit_colour_available == false
+                assign swatch_sold_out = true
+              endif
             %}
             <button
               type="button"
-              class="bkp__swatch{% if is_first %} is-selected{% endif %}"
+              class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
               style="background-color: {{ swatch_style }};"
               data-bkp-swatch
               data-role="yours"
               data-label="{{ block.settings.label | escape }}"
               data-variant-id="{{ colour_variant_id }}"
               data-kit-variant-id="{{ kit_colour_variant_id }}"
+              data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
+              {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
               aria-label="{{ block.settings.label | escape }}"
               {{ block.shopify_attributes }}
             ></button>
@@ -564,6 +574,7 @@
               assign colour_product = block.settings.device_product
               assign colour_variant_id = ''
               assign kit_colour_variant_id = ''
+              assign kit_colour_available = true
               assign colour_label_key = block.settings.label | downcase | strip
               if colour_product != blank
                 assign colour_variant_id = colour_product.selected_or_first_available_variant.id
@@ -573,25 +584,34 @@
                   assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
                   if colour_name == colour_label_key
                     assign kit_colour_variant_id = colour_variant.id
+                    assign kit_colour_available = colour_variant.available
                   elsif colour_label_key == 'ocean' and colour_name == 'blue'
                     assign kit_colour_variant_id = colour_variant.id
+                    assign kit_colour_available = colour_variant.available
                   elsif colour_label_key == 'blue' and colour_name == 'ocean'
                     assign kit_colour_variant_id = colour_variant.id
+                    assign kit_colour_available = colour_variant.available
                   endif
                 endfor
               endif
               assign swatch_style = block.settings.hex | default: '#cccccc'
               assign is_first = forloop.first
+              assign swatch_sold_out = false
+              if kit_colour_variant_id != blank and kit_colour_available == false
+                assign swatch_sold_out = true
+              endif
             %}
             <button
               type="button"
-              class="bkp__swatch{% if is_first %} is-selected{% endif %}"
+              class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
               style="background-color: {{ swatch_style }};"
               data-bkp-swatch
               data-role="mates"
               data-label="{{ block.settings.label | escape }}"
               data-variant-id="{{ colour_variant_id }}"
               data-kit-variant-id="{{ kit_colour_variant_id }}"
+              data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
+              {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
               aria-label="{{ block.settings.label | escape }}"
             ></button>
           {% endfor %}

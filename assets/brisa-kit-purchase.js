@@ -267,7 +267,9 @@
 
         roleSwatches.forEach((swatch) => {
           const entry = this.colourEntry(map, swatch.dataset.label);
-          const soldOut = hasMappedColours && entry != null && !this.colourEntryAvailable(entry);
+          const soldOutFromMap = hasMappedColours && entry != null && !this.colourEntryAvailable(entry);
+          const soldOutFromAttr = swatch.dataset.available === 'false';
+          const soldOut = soldOutFromAttr || soldOutFromMap;
           swatch.classList.toggle('is-sold-out', soldOut);
           swatch.disabled = soldOut;
           swatch.setAttribute('aria-disabled', soldOut ? 'true' : 'false');
@@ -296,11 +298,16 @@
       if (/password|verify|connection needs/i.test(text) || status === 401 || status === 403) {
         return 'Your session expired. Refresh the page, enter the store password if asked, then try again.';
       }
-      if (/sold out|not available|insufficient/i.test(text)) {
+      if (/sold out/i.test(text)) {
         return 'This option is sold out. Please choose another kit or colour.';
       }
-      if (/bundle|selling.plan|cannot be added/i.test(text)) {
-        return text.length < 160 ? text : 'That product couldn’t be added with the current cart. Clear your cart and try again.';
+      if (/insufficient/i.test(text)) {
+        return 'There isn’t enough stock for that colour. Please choose another.';
+      }
+      if (/bundle|selling.plan|cannot be added|not available/i.test(text)) {
+        return text.length < 180
+          ? text
+          : 'That item couldn’t be added to your bag. Clear your cart, refresh, and try again.';
       }
       if (text && text.length < 160 && !/^[A-Z_]+$/.test(text) && !/^</.test(text)) {
         return text;
@@ -333,20 +340,25 @@
         return;
       }
 
-      // Starter Kit colour variants live on the kit product (Black/Blue/Rose).
-      // Ocean swatch is aliased to Blue via data-kit-variant-id.
+      // Starter Kit colour variants live on the kit product (Black/Ocean/Rose).
       const colourMappedId = this.resolveColourVariantId(kit, yours);
-      const variantId = colourMappedId || kit.dataset.variantId;
-      if (!variantId) {
-        this.setError('This kit is not available yet.');
+      const variantId = String(colourMappedId || kit.dataset.variantId || '').trim();
+      if (!variantId || !/^\d+$/.test(variantId)) {
+        this.setError('This colour isn’t available yet. Please choose another.');
+        console.warn('[brisa-kit] missing/invalid variant id', {
+          colourMappedId,
+          kitVariantId: yours.dataset.kitVariantId,
+          kitDefault: kit.dataset.variantId,
+          label: yours.dataset.label,
+        });
         return;
       }
 
       // Cart Transform Option A only: separate $0 device products on the swatch.
       // Never send the kit colour variant as _device_* — that expands the line into
-      // the same variant twice and Shopify rejects the add (e.g. Ocean → Blue).
-      const device1Id = yours.dataset.variantId || '';
-      const device2Id = devices > 1 ? mates.dataset.variantId || '' : '';
+      // the same variant twice and Shopify rejects the add.
+      const device1Id = String(yours.dataset.variantId || '').trim();
+      const device2Id = devices > 1 ? String(mates.dataset.variantId || '').trim() : '';
 
       const properties = {
         _bundle: 'brisa-kit',
@@ -354,13 +366,13 @@
         Kit: kit.dataset.title || '',
         'Your colour': yours.dataset.label || '',
       };
-      if (device1Id && device1Id !== String(variantId)) {
+      if (device1Id && /^\d+$/.test(device1Id) && device1Id !== variantId) {
         properties._device_1_variant_id = device1Id;
       }
 
       if (devices > 1) {
         properties["Mate's colour"] = mates.dataset.label || '';
-        if (device2Id && device2Id !== String(variantId) && device2Id !== device1Id) {
+        if (device2Id && /^\d+$/.test(device2Id) && device2Id !== variantId && device2Id !== device1Id) {
           properties._device_2_variant_id = device2Id;
         }
         properties._mates_pack = uid();
@@ -368,21 +380,21 @@
 
       const items = [
         {
-          id: Number(variantId),
+          id: variantId,
           quantity: 1,
           properties,
         },
       ];
 
       if (this.addonCheck?.checked && this.dataset.addonVariantId) {
-        const sellingPlanId = Number(this.dataset.addonSellingPlanId || 0);
+        const sellingPlanId = String(this.dataset.addonSellingPlanId || '').trim();
         if (!sellingPlanId) {
           this.setError('Monthly Better Box is not available right now. Please try again later.');
           return;
         }
 
         items.push({
-          id: Number(this.dataset.addonVariantId),
+          id: String(this.dataset.addonVariantId),
           quantity: 1,
           selling_plan: sellingPlanId,
           properties: {
@@ -418,6 +430,7 @@
           console.warn('[brisa-kit] cart/add failed', res.status, raw.slice(0, 500), {
             variantId,
             colourMappedId,
+            label: yours.dataset.label,
             items,
           });
           throw new Error(
