@@ -196,16 +196,26 @@
             endif
           endif
 
+          assign kit_available = false
+          if kit_product != blank and kit_product.available
+            assign kit_available = true
+          endif
+
           assign colour_variants_json = '{'
           if kit_product != blank
             assign colour_pair_index = 0
             for colour_variant in kit_product.variants
               assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-              if colour_name != blank
+              if colour_name != blank and colour_name != 'default title'
                 if colour_pair_index > 0
                   assign colour_variants_json = colour_variants_json | append: ','
                 endif
-                assign colour_variants_json = colour_variants_json | append: '"' | append: colour_name | append: '":' | append: colour_variant.id
+                if colour_variant.available
+                  assign colour_avail_flag = 'true'
+                else
+                  assign colour_avail_flag = 'false'
+                endif
+                assign colour_variants_json = colour_variants_json | append: '"' | append: colour_name | append: '":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
                 assign colour_pair_index = colour_pair_index | plus: 1
               endif
             endfor
@@ -213,24 +223,28 @@
           assign colour_variants_json = colour_variants_json | append: '}'
 
           assign is_selected = false
-          if active_key == key
+          if active_key == key and kit_available
             assign is_selected = true
           endif
         %}
 
         <label
-          class="bkp__kit{% if is_selected %} is-selected{% endif %}"
+          class="bkp__kit{% if is_selected %} is-selected{% endif %}{% unless kit_available %} is-sold-out{% endunless %}"
           data-bkp-kit
           data-kit-key="{{ key }}"
           data-devices="{{ kit_devices }}"
           data-variant-id="{{ variant_id }}"
+          data-available="{% if kit_available %}true{% else %}false{% endif %}"
           data-colour-variants='{{ colour_variants_json }}'
           data-price-cents="{{ price_cents }}"
           data-title="{{ kit_title | escape }}"
+          {% unless kit_available %}aria-disabled="true"{% endunless %}
         >
-          <input type="radio" name="bkp-kit-{{ section.id }}" value="{{ key }}" {% if is_selected %}checked{% endif %}>
-          {% if kit_banner != blank %}
+          <input type="radio" name="bkp-kit-{{ section.id }}" value="{{ key }}" {% if is_selected %}checked{% endif %} {% unless kit_available %}disabled{% endunless %}>
+          {% if kit_available and kit_banner != blank %}
             <span class="bkp__kit-banner">{{ kit_banner | escape }}</span>
+          {% elsif kit_available == false %}
+            <span class="bkp__kit-banner bkp__kit-banner--sold-out">Sold out</span>
           {% endif %}
 
           <div class="bkp__kit-main">
