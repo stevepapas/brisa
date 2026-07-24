@@ -338,7 +338,7 @@
             "title": "Description",
             "icon_style": "description",
             "icon": "shopify://shop_images/accordion-desc.png",
-            "content": "<p>Brisa is a non-electronic sensory habit device with replaceable aroma cores \u2014 the hand-tomouth ritual you know, minus the nicotine. Here's how it works: snap an aroma core into the device, twist the base to set your airflow \u2014 tighter or looser, however you like to draw. Then reach for it in the moment you'd normally reach for your old habit. Same size, same weight, same motion. No charging, no e-liquid, no buttons. Here's the honest part: Brisa doesn't do the work for you \u2014 there's nothing in it but food-grade aroma compounds. It's simply the thing your hand reaches for instead, and every time it does, that's a moment that went to Brisa and not to nicotine. What you build from there is yours <em>(same idea as reaching for water instead of a snack out of habit \u2014 the water's not magic, the swap is)</em>. No nicotine, no vapour, no smoke.\u00a0</p>"
+            "content": "<p>Brisa is a non-electronic sensory habit device with replaceable aroma cores — the hand-tomouth ritual you know, minus the nicotine. Here's how it works: snap an aroma core into the device, twist the base to set your airflow — tighter or looser, however you like to draw. Then reach for it in the moment you'd normally reach for your old habit. Same size, same weight, same motion. No charging, no e-liquid, no buttons. Here's the honest part: Brisa doesn't do the work for you — there's nothing in it but food-grade aroma compounds. It's simply the thing your hand reaches for instead, and every time it does, that's a moment that went to Brisa and not to nicotine. What you build from there is yours <em>(same idea as reaching for water instead of a snack out of habit — the water's not magic, the swap is)</em>. No nicotine, no vapour, no smoke. </p>"
           }
         },
         "acc_ingredients": {
@@ -347,7 +347,7 @@
             "title": "Ingredients",
             "icon_style": "ingredients",
             "icon": "shopify://shop_images/accordion-ingred.png",
-            "content": "<p>Each core is packed with food-grade aroma compounds \u2014 the same kind used in premium scent and sensory products for decades \u2014 layered with a real cooling compound that creates that crisp, cool sensation at the back of the throat. As you draw, air pulls through the core, activating the aroma and delivering flavour and throat feel instantly \u2014 the result of meticulous hours of R&D to nail the exact sensation you're chasing. No nicotine, no vapour, no smoke, no combustion \u2014 just the sensory hit. Each core lasts 2\u20133 days.\u00a0</p>"
+            "content": "<p>Each core is packed with food-grade aroma compounds — the same kind used in premium scent and sensory products for decades — layered with a real cooling compound that creates that crisp, cool sensation at the back of the throat. As you draw, air pulls through the core, activating the aroma and delivering flavour and throat feel instantly — the result of meticulous hours of R&D to nail the exact sensation you're chasing. No nicotine, no vapour, no smoke, no combustion — just the sensory hit. Each core lasts 2–3 days. </p>"
           }
         },
         "acc_subscription": {
@@ -356,7 +356,7 @@
             "title": "Subscription",
             "icon_style": "subscription",
             "icon": "shopify://shop_images/accordion-sub.png",
-            "content": "<p>Never run out. The Monthly Better Box sends 12 cores every 4 weeks for $44/mo with free shipping \u2014 a fresh mix of our signature flavours (Mint Ice, Raspberry Lime, Cherry Pom) plus a free Cherry Pom pack in every box. It's optional and separate from your device \u2014 add it at checkout or start it anytime you're running low. You're in full control: skip, pause or cancel anytime, no lock-in, no minimum.\u00a0</p>"
+            "content": "<p>Never run out. The Monthly Better Box sends 12 cores every 4 weeks for $44/mo with free shipping — a fresh mix of our signature flavours (Mint Ice, Raspberry Lime, Cherry Pom) plus a free Cherry Pom pack in every box. It's optional and separate from your device — add it at checkout or start it anytime you're running low. You're in full control: skip, pause or cancel anytime, no lock-in, no minimum. </p>"
           }
         },
         "acc_shipping": {
@@ -365,7 +365,7 @@
             "title": "Shipping, returns & guarantee",
             "icon_style": "shipping",
             "icon": "shopify://shop_images/accordion-ship.png",
-            "content": "<p>Free shipping, dispatched in 1\u20132 business days. Try Brisa with total confidence \u2014 you're covered: <br/>\u2022 Not clicking? Email us in your first 30 days \u2014 free pack of cores + our Ritual Playbook, and we'll personally dial in your flavour and airflow until it lands. <br/>\u2022 Faulty or not as described? Replaced or refunded, always. <br/>\u2022 Changed your mind? Unopened kits, full refund within 30 days. </p><p><em>(Opened devices can't be returned for hygiene reasons \u2014 the standard for every aroma and mouth-contact product.)\u00a0</em></p>"
+            "content": "<p>Free shipping, dispatched in 1–2 business days. Try Brisa with total confidence — you're covered: <br/>• Not clicking? Email us in your first 30 days — free pack of cores + our Ritual Playbook, and we'll personally dial in your flavour and airflow until it lands. <br/>• Faulty or not as described? Replaced or refunded, always. <br/>• Changed your mind? Unopened kits, full refund within 30 days. </p><p><em>(Opened devices can't be returned for hygiene reasons — the standard for every aroma and mouth-contact product.) </em></p>"
           }
         }
       },
@@ -398,7 +398,7 @@
       "name": "Brisa kit purchase",
       "settings": {
         "eyebrow": "SENSORY HABIT DEVICE",
-        "title": "BRISA\u2122 STARTER KIT",
+        "title": "BRISA™ STARTER KIT",
         "show_rating": true,
         "rating_text": "Rated 4.7 2,000 +",
         "rating_badge": "Happy customers",
@@ -411,7 +411,7 @@
         "highlight_label_4": "No Nicotine, No Vapour, No Smoke",
         "highlight_icon_4": "shopify://shop_images/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png",
         "choose_heading": "Choose your kit",
-        "choose_sub": "One-time purchase \u00b7 30 day guarantee on every kit",
+        "choose_sub": "One-time purchase · 30 day guarantee on every kit",
         "try_product": "brisa-starter-kit",
         "try_handle": "brisa-starter-kit",
         "try_title": "Starter Kit",
@@ -430,7 +430,7 @@
         "commitment_price": "$165",
         "commitment_compare": "$205",
         "commitment_save": "SAVE $40",
-        "commitment_banner": "\u2605MOST POPULAR - SAVE $40",
+        "commitment_banner": "★MOST POPULAR - SAVE $40",
         "commitment_price_cents": 16500,
         "commitment_image": "shopify://shop_images/commitment-pack.png",
         "commitment_image_asset": "brisa-kit-commitment.jpg",
@@ -609,14 +609,14 @@
           "type": "step",
           "settings": {
             "title": "Set your airflow",
-            "text": "Dial the base to find your perfect draw \u2014 tighter or looser, just like you're used to."
+            "text": "Dial the base to find your perfect draw — tighter or looser, just like you're used to."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "title": "Reach for it instead",
-            "text": "Every time you'd reach for your vape \u2014 reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
+            "text": "Every time you'd reach for your vape — reach for Brisa. Same size. Same draw. Same exhale. No nicotine. No going back."
           }
         }
       },
@@ -647,10 +647,10 @@
         "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "show_promo": true,
         "promo_icon": "shopify://shop_images/gift.png",
-        "promo_text": "Order this week \u2014 FREE Watermelon core pack (valued at $15) included.",
+        "promo_text": "Order this week — FREE Watermelon core pack (valued at $15) included.",
         "show_brand": true,
         "brand_heading": "THIS IS BIGGER THAN MONEY",
-        "brand_text": "Brisa is built around the ritual \u2014 not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
+        "brand_text": "Brisa is built around the ritual — not willpower alone. Same reach. Same draw. A cleaner switch that actually sticks.",
         "brand_image": "shopify://shop_images/DSC_2704_copy.jpg",
         "show_how_it_works": true,
         "how_heading": "How It Works",
@@ -1014,56 +1014,56 @@
           "type": "question",
           "settings": {
             "question": "Be honest... will it actually satisfy me?",
-            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw, the same hand-tomouth moment you know, minus the nicotine. It's not a wooden pen or a puff of air. It's engineered to feel like the real thing.\u00a0</p>"
+            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw, the same hand-tomouth moment you know, minus the nicotine. It's not a wooden pen or a puff of air. It's engineered to feel like the real thing. </p>"
           }
         },
         "q2": {
           "type": "question",
           "settings": {
             "question": "Isn't it just a vape without the nicotine?",
-            "answer": "<p>No. No battery, no e-liquid, no heating, no vapour, nothing is powered or produced. Brisa is a non-electronic device with a replaceable aroma core. You get the draw, the throat hit and the flavour through pure airflow, not a cloud. A completely different thing.\u00a0</p>"
+            "answer": "<p>No. No battery, no e-liquid, no heating, no vapour, nothing is powered or produced. Brisa is a non-electronic device with a replaceable aroma core. You get the draw, the throat hit and the flavour through pure airflow, not a cloud. A completely different thing. </p>"
           }
         },
         "q3": {
           "type": "question",
           "settings": {
             "question": "Isn't it like those wooden pens that just blow air?",
-            "answer": "<p>Not even close. A plain air inhaler gives you the motion and nothing else, no throat hit, no real flavour. Brisa's secret aroma and cooling formula delivers a genuine hit at the back of the throat and bold flavour the second you draw. That's the entire reason we exist.\u00a0</p>"
+            "answer": "<p>Not even close. A plain air inhaler gives you the motion and nothing else, no throat hit, no real flavour. Brisa's secret aroma and cooling formula delivers a genuine hit at the back of the throat and bold flavour the second you draw. That's the entire reason we exist. </p>"
           }
         },
         "q4": {
           "type": "question",
           "settings": {
             "question": "I've tried gums and patches, how is this different?",
-            "answer": "<p>Gums and patches miss the one thing running the habit: the hand-to-mouth ritual. They still put nicotine in your body and give your hands nothing to do. Brisa is the opposite, zero nicotine, and it's the exact thing your hand reaches for, with the throat hit and flavour to match.\u00a0</p>"
+            "answer": "<p>Gums and patches miss the one thing running the habit: the hand-to-mouth ritual. They still put nicotine in your body and give your hands nothing to do. Brisa is the opposite, zero nicotine, and it's the exact thing your hand reaches for, with the throat hit and flavour to match. </p>"
           }
         },
         "question_7QFghX": {
           "type": "question",
           "settings": {
             "question": "Is it actually safe to inhale? What am I breathing in?",
-            "answer": "<p>No nicotine, no tobacco, no smoke, no vapour, and nothing burned or heated, just food-grade aroma and cooling compounds in a food-grade core. You're drawing air through aroma, not a chemical cloud.\u00a0</p>"
+            "answer": "<p>No nicotine, no tobacco, no smoke, no vapour, and nothing burned or heated, just food-grade aroma and cooling compounds in a food-grade core. You're drawing air through aroma, not a chemical cloud. </p>"
           }
         },
         "question_DXhh7a": {
           "type": "question",
           "settings": {
             "question": "Won't the cores run out and cost me forever?",
-            "answer": "<p>Good news first: there's no nicotine in Brisa, so there's nothing keeping you tied to it, use it for as long as it serves you. Each core lasts 2-3 days (around $1.70 a day). Top up with a core pack, or set the Monthly Better Box to turn up automatically, cancel anytime. And the real difference: a vape is a bill that never stops. Brisa, you buy once.\u00a0</p>"
+            "answer": "<p>Good news first: there's no nicotine in Brisa, so there's nothing keeping you tied to it, use it for as long as it serves you. Each core lasts 2-3 days (around $1.70 a day). Top up with a core pack, or set the Monthly Better Box to turn up automatically, cancel anytime. And the real difference: a vape is a bill that never stops. Brisa, you buy once. </p>"
           }
         },
         "question_yzU3fM": {
           "type": "question",
           "settings": {
             "question": "Can I use it at work and around people?",
-            "answer": "<p>Yes. No smoke, no vapour, no lingering smell, nothing to step outside for, nothing that fills a room. It's not a vape. Reach for it at your desk, in the car, or out with mates, wherever the moment hits.\u00a0</p>"
+            "answer": "<p>Yes. No smoke, no vapour, no lingering smell, nothing to step outside for, nothing that fills a room. It's not a vape. Reach for it at your desk, in the car, or out with mates, wherever the moment hits. </p>"
           }
         },
         "question_rMCimq": {
           "type": "question",
           "settings": {
-            "question": "Is this just a gimmick\u2026 will it really work?",
-            "answer": "<p>It's almost a year of R&D and a world-first aroma formula no one in our category has cracked. Thousands reach for it every day in the moment they'd normally reach for a vape. One draw and the skepticism usually disappears.\u00a0</p>"
+            "question": "Is this just a gimmick… will it really work?",
+            "answer": "<p>It's almost a year of R&D and a world-first aroma formula no one in our category has cracked. Thousands reach for it every day in the moment they'd normally reach for a vape. One draw and the skepticism usually disappears. </p>"
           }
         }
       },
@@ -1096,24 +1096,7 @@
     },
     "brisa_kit_bottom_cta": {
       "type": "brisa-kit-bottom-cta",
-      "settings": {
-        "show_trust": false,
-        "trust_1": "Ships Next Day",
-        "trust_2": "Secure checkout",
-        "trust_3": "FREE SHIPPING",
-        "trust_4": "Australian Customer service",
-        "trust_5": "4.7 (163)",
-        "trust_6": "30 Day Guarantee",
-        "trust_icon_1": "shopify://shop_images/free-shipping.png",
-        "trust_icon_asset_1": "brisa-trust-ship.svg",
-        "trust_icon_asset_2": "brisa-trust-lock.svg",
-        "trust_icon_3": "shopify://shop_images/free-shipping_16e46e82-0928-4947-bcbc-4e9103a79435.png",
-        "trust_icon_asset_3": "brisa-trust-box.svg",
-        "trust_icon_4": "shopify://shop_images/aus-map_579772bc-921b-4837-b269-d90e09593d0c.png",
-        "trust_icon_asset_4": "brisa-trust-aussie.svg",
-        "trust_icon_asset_5": "brisa-trust-star.svg",
-        "trust_icon_asset_6": "brisa-trust-shield.svg"
-      }
+      "settings": {}
     },
     "brisa_judgeme_reviews": {
       "type": "brisa-judgeme-reviews",
@@ -1148,8 +1131,8 @@
     "brisa_comparison_table_ntMxq4",
     "brisa_product_reviews_zMjLwQ",
     "whats_in_the_box_MiChAY",
-    "engineered_switch_NniVXE",
     "brisa_kit_bottom_cta",
+    "engineered_switch_NniVXE",
     "device_questions_PFtKdK",
     "brisa_judgeme_reviews"
   ]
