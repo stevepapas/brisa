@@ -3162,7 +3162,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   height: 8px;
   border-radius: 999px;
   background: #e8e8e8;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .brisa-cart__progress-fill {
@@ -3173,27 +3173,34 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   background: #23aee8;
 }
 
+.brisa-cart__progress-markers {
+  position: relative;
+  height: 36px;
+  margin-top: 10px;
+}
+
 .brisa-cart__progress-icon {
   position: absolute;
-  top: 50%;
+  top: 0;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #23aee8;
   border-radius: 50%;
-  color: #ffffff;
-  background: #23aee8;
-  transform: translate(-50%, -50%);
+  color: #23aee8;
+  background: #ffffff;
+  transform: translateX(-50%);
 }
 
 .brisa-cart__progress-icon svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.5;
 }
 
 .brisa-cart__progress-icon--shipping {
