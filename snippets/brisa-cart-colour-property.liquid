@@ -1,0 +1,30 @@
+{%- comment -%}
+  Renders a kit colour line-item property with the value tinted to the swatch colour.
+  Accepts: property_key, property_value
+{%- endcomment -%}
+{%- liquid
+  assign colour_key = property_key | strip
+  assign colour_value = property_value | strip
+  assign colour_name = colour_value | downcase | strip
+  assign colour_hex = blank
+  assign colour_label = colour_key
+  assign colour_key_norm = colour_key | downcase | replace: '’', "'" | replace: '‘', "'"
+
+  if colour_key_norm == 'your colour'
+    assign colour_label = 'Device Colour'
+  endif
+
+  if colour_name == 'black'
+    assign colour_hex = '#1a1a1a'
+  elsif colour_name == 'ocean' or colour_name == 'blue'
+    assign colour_hex = '#1A7A8A'
+  elsif colour_name == 'rose'
+    # Darker than swatch #E8A0A0 so cart text stays readable on white / subdued.
+    assign colour_hex = '#C97878'
+  endif
+-%}
+{%- if colour_hex != blank -%}
+  <li class="brisa-cart-colour-property">{{ colour_label }}: <span class="brisa-cart-colour-property__value" style="color: {{ colour_hex }} !important;">{{ colour_value }}</span></li>
+{%- else -%}
+  <li>{{ colour_label }}: {{ colour_value }}</li>
+{%- endif -%}

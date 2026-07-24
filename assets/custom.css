@@ -3517,6 +3517,17 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   height: 18px;
 }
 
+.brisa-cart-colour-property__value {
+  font-weight: 600;
+}
+
+/* Beat .text--subdued on cart property lists */
+.product-item-meta__property .brisa-cart-colour-property__value,
+.product-item-meta__property-list .brisa-cart-colour-property__value,
+.brisa-cart__component .brisa-cart-colour-property__value {
+  opacity: 1;
+}
+
 .brisa-cart__payment-methods {
   margin-top: 16px;
 }

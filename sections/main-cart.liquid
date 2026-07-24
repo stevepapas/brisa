@@ -181,7 +181,8 @@
                                       {%- continue -%}
                                     {%- endif -%}
 
-                                    {%- if property.first == 'Your colour' or property.first == "Mate's colour" -%}
+                                    {%- assign prop_key_norm = property.first | downcase | replace: '’', "'" | replace: '‘', "'" -%}
+                                    {%- if prop_key_norm == 'your colour' or prop_key_norm == "mate's colour" -%}
                                       {% render 'brisa-cart-colour-property', property_key: property.first, property_value: property.last %}
                                     {%- else -%}
                                       <li class="line-item__property">{{ property.first }}: {{ property.last }}</li>
