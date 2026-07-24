@@ -3259,7 +3259,8 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   aspect-ratio: 1;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
+  background: #ffffff;
 }
 
 .brisa-cart__item-badge {
