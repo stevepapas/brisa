@@ -473,6 +473,20 @@ function slideMatchesKitSet(element, kitSet) {
   return kitSet === 'all' || slideKit === 'both' || slideKit === kitSet;
 }
 
+function withSlideshowBrisaSyncLock(section, fn) {
+  if (!section) return;
+  if (section._brisaSlideshowSyncing) return;
+  section._brisaSlideshowSyncing = true;
+  try {
+    fn();
+  } finally {
+    // Release after the current stack so nested MutationObserver / select callbacks stay locked.
+    queueMicrotask(() => {
+      section._brisaSlideshowSyncing = false;
+    });
+  }
+}
+
 function applySlideshowBrisaKit(section, kitSet) {
   if (!section || !kitSet) return;
 
@@ -481,62 +495,64 @@ function applySlideshowBrisaKit(section, kitSet) {
   const navBar = section.querySelector('.slideshow-brisa__nav-bar');
   if (!slideshow) return;
 
-  section.dataset.activeKitSet = kitSet;
+  withSlideshowBrisaSyncLock(section, () => {
+    section.dataset.activeKitSet = kitSet;
 
-  const items = Array.from(slideshow.querySelectorAll('slide-show-item'));
-  const thumbs = pageDots ? Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb')) : [];
-  const visibleItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
-  const visibleThumbs = thumbs.filter((thumb) => slideMatchesKitSet(thumb, kitSet));
-  const firstItem = visibleItems[0] || null;
-  const firstThumb = visibleThumbs[0] || null;
-  const firstItemIndex = firstItem ? items.indexOf(firstItem) : -1;
-  const firstThumbIndex = firstThumb ? thumbs.indexOf(firstThumb) : -1;
+    const items = Array.from(slideshow.querySelectorAll('slide-show-item'));
+    const thumbs = pageDots ? Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb')) : [];
+    const visibleItems = items.filter((item) => slideMatchesKitSet(item, kitSet));
+    const visibleThumbs = thumbs.filter((thumb) => slideMatchesKitSet(thumb, kitSet));
+    const firstItem = visibleItems[0] || null;
+    const firstThumb = visibleThumbs[0] || null;
+    const firstItemIndex = firstItem ? items.indexOf(firstItem) : -1;
+    const firstThumbIndex = firstThumb ? thumbs.indexOf(firstThumb) : -1;
 
-  // Never blank the gallery: keep the first matching slide visible while hiding the rest.
-  items.forEach((item) => {
-    if (item === firstItem) {
-      item.removeAttribute('hidden');
-    } else {
-      item.setAttribute('hidden', '');
+    // Never blank the gallery: keep the first matching slide visible while hiding the rest.
+    items.forEach((item) => {
+      if (item === firstItem) {
+        item.removeAttribute('hidden');
+      } else {
+        item.setAttribute('hidden', '');
+      }
+    });
+
+    thumbs.forEach((thumb) => {
+      const matches = slideMatchesKitSet(thumb, kitSet);
+      thumb.hidden = !matches;
+      thumb.setAttribute('aria-selected', 'false');
+      thumb.removeAttribute('aria-current');
+    });
+
+    if (firstThumb) {
+      firstThumb.setAttribute('aria-selected', 'true');
+      firstThumb.setAttribute('aria-current', 'true');
+    }
+
+    if (navBar) {
+      navBar.hidden = visibleItems.length <= 1;
+    }
+
+    const peekPrev = section.querySelector('[data-slideshow-brisa-peek-prev]');
+    const peekNext = section.querySelector('[data-slideshow-brisa-peek-next]');
+    const hidePeeks = visibleItems.length <= 1;
+    if (peekPrev) {
+      peekPrev.classList.toggle('is-empty', hidePeeks);
+      peekPrev.hidden = false;
+    }
+    if (peekNext) {
+      peekNext.classList.toggle('is-empty', hidePeeks);
+      peekNext.hidden = false;
+    }
+
+    if (pageDots && firstThumbIndex >= 0 && pageDots.selectedIndex !== firstThumbIndex) {
+      pageDots.selectedIndex = firstThumbIndex;
+    }
+
+    // Re-assert first slide through the Slideshow API after kit filtering.
+    if (firstItemIndex >= 0 && typeof slideshow.select === 'function' && slideshow.selectedIndex !== firstItemIndex) {
+      slideshow.select(firstItemIndex, false);
     }
   });
-
-  thumbs.forEach((thumb) => {
-    const matches = slideMatchesKitSet(thumb, kitSet);
-    thumb.hidden = !matches;
-    thumb.setAttribute('aria-selected', 'false');
-    thumb.removeAttribute('aria-current');
-  });
-
-  if (firstThumb) {
-    firstThumb.setAttribute('aria-selected', 'true');
-    firstThumb.setAttribute('aria-current', 'true');
-  }
-
-  if (navBar) {
-    navBar.hidden = visibleItems.length <= 1;
-  }
-
-  const peekPrev = section.querySelector('[data-slideshow-brisa-peek-prev]');
-  const peekNext = section.querySelector('[data-slideshow-brisa-peek-next]');
-  const hidePeeks = visibleItems.length <= 1;
-  if (peekPrev) {
-    peekPrev.classList.toggle('is-empty', hidePeeks);
-    peekPrev.hidden = false;
-  }
-  if (peekNext) {
-    peekNext.classList.toggle('is-empty', hidePeeks);
-    peekNext.hidden = false;
-  }
-
-  if (pageDots && firstThumbIndex >= 0 && pageDots.selectedIndex !== firstThumbIndex) {
-    pageDots.selectedIndex = firstThumbIndex;
-  }
-
-  // Re-assert first slide through the Slideshow API after kit filtering.
-  if (firstItemIndex >= 0 && typeof slideshow.select === 'function' && slideshow.selectedIndex !== firstItemIndex) {
-    slideshow.select(firstItemIndex, false);
-  }
 }
 
 function initSlideshowBrisaSection(section) {
@@ -611,18 +627,24 @@ function initSlideshowBrisaSection(section) {
   };
 
   const syncDots = () => {
-    const kitSet = section.dataset.activeKitSet || 'all';
-    const thumbs = Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb'));
-    const visibleIndex = items.findIndex((item) => !item.hasAttribute('hidden') && slideMatchesKitSet(item, kitSet));
-    if (visibleIndex >= 0) {
-      const activeItem = items[visibleIndex];
-      const thumbIndex = thumbs.findIndex((thumb) => thumb.getAttribute('aria-controls') === activeItem.id);
-      const selectedIndex = thumbIndex >= 0 ? thumbIndex : visibleIndex;
-      if (pageDots.selectedIndex !== selectedIndex) {
-        pageDots.selectedIndex = selectedIndex;
+    // Guard against infinite loops: slideshow.select() toggles `hidden`, which
+    // re-enters this observer and can freeze the page on load.
+    if (section._brisaSlideshowSyncing) return;
+
+    withSlideshowBrisaSyncLock(section, () => {
+      const kitSet = section.dataset.activeKitSet || 'all';
+      const thumbs = Array.from(pageDots.querySelectorAll('.slideshow-brisa__thumb'));
+      const visibleIndex = items.findIndex((item) => !item.hasAttribute('hidden') && slideMatchesKitSet(item, kitSet));
+      if (visibleIndex >= 0) {
+        const activeItem = items[visibleIndex];
+        const thumbIndex = thumbs.findIndex((thumb) => thumb.getAttribute('aria-controls') === activeItem.id);
+        const selectedIndex = thumbIndex >= 0 ? thumbIndex : visibleIndex;
+        if (pageDots.selectedIndex !== selectedIndex) {
+          pageDots.selectedIndex = selectedIndex;
+        }
       }
-    }
-    syncPeek();
+      syncPeek();
+    });
   };
 
   items.forEach((item) => {
