@@ -1,7 +1,5 @@
 {%- comment -%}
-  Trust badge grid for Brisa kit purchase.
-  Priority: Theme Editor image picker → theme asset filename → inline SVG.
-  Edit labels/icons in Brisa kit purchase → Trust row.
+  Trust badge grid — labels/icons come from Brisa kit purchase section settings.
   Pass: {% render 'brisa-kit-trust', settings: section.settings %}
 {%- endcomment -%}
 <ul class="bkp__trust" data-bkp-trust-source>
@@ -35,7 +33,7 @@
       endcase
     %}
     {% if t_label != blank %}
-      <li class="bkp__trust-item">
+      <li class="bkp__trust-item" data-bkp-trust-index="{{ i }}">
         <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
           {% if t_icon != blank %}
             {{ t_icon | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}

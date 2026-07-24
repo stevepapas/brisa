@@ -220,8 +220,27 @@
       if (!source) return;
 
       document.querySelectorAll('[data-bkp-mirror-trust]').forEach((host) => {
+        const section = host.closest('[data-bkp-bottom]');
+        if (section && section.dataset.showTrust !== 'true') {
+          host.replaceChildren();
+          return;
+        }
+
         const clone = source.cloneNode(true);
         clone.removeAttribute('data-bkp-trust-source');
+
+        if (section) {
+          clone.querySelectorAll('[data-bkp-trust-index]').forEach((item) => {
+            const index = item.getAttribute('data-bkp-trust-index');
+            if (section.dataset[`showTrust${index}`] !== 'true') item.remove();
+          });
+        }
+
+        if (!clone.querySelector('.bkp__trust-item')) {
+          host.replaceChildren();
+          return;
+        }
+
         host.replaceChildren(clone);
       });
     }
