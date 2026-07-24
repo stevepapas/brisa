@@ -824,10 +824,12 @@
 
 .bkp-bottom .bkp__trust {
   margin-top: 0;
+  display: grid;
 }
 
 .bkp-bottom__trust {
   margin-top: 4px;
+  display: block;
 }
 
 .bkp-bottom__trust:empty {

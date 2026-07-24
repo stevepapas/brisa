@@ -1032,7 +1032,7 @@
         "addon_footer": "Ships 3 weeks after your kit. Cancel anytime.",
         "addon_action": "ADD",
         "addon_price_cents": 4400,
-        "show_trust": true,
+        "show_trust": false,
         "trust_1": "Ships Next Day",
         "trust_2": "Secure checkout",
         "trust_3": "FREE SHIPPING",

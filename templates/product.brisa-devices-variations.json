@@ -468,7 +468,7 @@
         "addon_footer": "Ships 3 weeks after your kit. Cancel anytime.",
         "addon_action": "ADD",
         "addon_price_cents": 4400,
-        "show_trust": true,
+        "show_trust": false,
         "trust_1": "Ships Next Day",
         "trust_icon_1": "shopify://shop_images/free-shipping.png",
         "trust_icon_asset_1": "brisa-trust-ship.svg",
