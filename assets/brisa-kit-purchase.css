@@ -1,5 +1,6 @@
 /* Brisa kit purchase — Canva product-page purchase block */
-.bkp {
+.bkp,
+.bkp-bottom {
   --bkp-blue: #008bdc;
   --bkp-blue-soft: #add5fe;
   --bkp-blue-mid: #38adf5;
@@ -8,6 +9,9 @@
   --bkp-muted: #6b6b6b;
   --bkp-border: #d7e3ec;
   --bkp-radius: 14px;
+}
+
+.bkp {
   color: var(--bkp-ink);
   background: #fff;
   padding: 24px 0 28px;
@@ -734,7 +738,7 @@
   min-height: 54px;
   border: 0;
   border-radius: 999px;
-  background: var(--bkp-blue);
+  background: var(--bkp-blue, #008bdc);
   color: #fff;
   font-size: 16px;
   font-weight: 800;
@@ -743,6 +747,11 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.bkp-bottom .bkp__atc {
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .bkp__atc:disabled {
