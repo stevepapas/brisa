@@ -914,13 +914,13 @@
     {
       "type": "range",
       "id": "frame_height_percent",
-      "min": 100,
+      "min": 80,
       "max": 140,
-      "step": 5,
+      "step": 1,
       "unit": "%",
       "label": "Frame height",
       "default": 100,
-      "info": "100% is square. Raise to make the frame taller (e.g. 115 = 15% taller).",
+      "info": "100% is square. Below 100 is wider-than-tall (e.g. 93 ≈ 1024×955). Above 100 makes the frame taller.",
       "visible_if": "{{ section.settings.desktop_layout == 'square' }}"
     },
     {
