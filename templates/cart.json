@@ -28,7 +28,7 @@
         "gift_text": "🎁 FREE Watermelon Core 3-pack — $15 value · auto-included with your kit",
         "gift_value": "$15",
         "gift_price_label": "Free",
-        "show_afterpay": true,
+        "show_afterpay": false,
         "afterpay_text": "4 payments of [amount] with Afterpay",
         "show_guarantee": false,
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
@@ -39,7 +39,7 @@
         "trust_checkout": "🔒 Secure Checkout",
         "show_urgency": false,
         "urgency_text": "⚡️ WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
-        "checkout_button_text": "SECURE CHECKOUT - [total] >",
+        "checkout_button_text": "SECURE CHECKOUT",
         "show_payment_methods": true,
         "empty_button_link": "shopify://pages/shop"
       }
