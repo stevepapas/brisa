@@ -1,7 +1,10 @@
 {% liquid
   assign accent = section.settings.accent_color | default: '#008bdc'
   assign button_bg = section.settings.button_background | default: '#35adff'
-  assign hero_alt = section.settings.image.alt | default: section.settings.heading_line_1
+  assign hero_alt = section.settings.heading_line_1
+  if section.settings.image != blank and section.settings.image.alt != blank
+    assign hero_alt = section.settings.image.alt
+  endif
 %}
 
 <style>
