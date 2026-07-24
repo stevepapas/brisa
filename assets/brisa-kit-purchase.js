@@ -257,6 +257,10 @@
 
     resolveColourVariantId(kit, swatch) {
       if (!swatch) return '';
+      // Only Starter Kit (`try`) uses colour variants on the kit product itself.
+      // Commitment / Mates always add the pack parent; colour is property text.
+      if (kit?.dataset?.kitKey !== 'try') return '';
+
       // Prefer kit colour variant baked onto the swatch (Ocean → Blue on Starter Kit).
       if (swatch.dataset.kitVariantId && /^\d+$/.test(swatch.dataset.kitVariantId)) {
         return swatch.dataset.kitVariantId;
@@ -266,7 +270,7 @@
       if (fromMap && /^\d+$/.test(fromMap)) return fromMap;
 
       const label = String(swatch.dataset.label || '').trim().toLowerCase();
-      if (kit?.dataset?.kitKey === 'try' && BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label]) {
+      if (BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label]) {
         return BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label];
       }
       return '';
@@ -351,12 +355,18 @@
         return;
       }
 
-      // Starter Kit colour variants live on the kit product (Black/Blue/Rose).
-      const colourMappedId = this.resolveColourVariantId(kit, yours);
-      const variantId = String(colourMappedId || kit.dataset.variantId || '').trim();
+      // Starter Kit: line item IS the colour variant (Black/Ocean/Rose).
+      // Commitment / Mates: line item is the pack product; colour is property text only.
+      const kitKey = kit.dataset.kitKey || '';
+      const isStarterKit = kitKey === 'try';
+      const colourMappedId = isStarterKit ? this.resolveColourVariantId(kit, yours) : '';
+      const variantId = String(
+        (isStarterKit ? colourMappedId : '') || kit.dataset.variantId || ''
+      ).trim();
       if (!variantId || !/^\d+$/.test(variantId)) {
         this.setError('This colour isn’t available yet. Please choose another.');
         console.warn('[brisa-kit] missing/invalid variant id', {
+          kitKey,
           colourMappedId,
           kitVariantId: yours.dataset.kitVariantId,
           kitDefault: kit.dataset.variantId,
@@ -365,32 +375,24 @@
         return;
       }
 
-      // Only attach Cart Transform device IDs when swatches point at SEPARATE device
-      // products. Starter Kit colours already ARE the line item — sending them as
-      // _device_* makes the function expand Blue+Blue and Shopify rejects the add.
+      // Cart Transform Option A: only when swatches link SEPARATE device products
+      // (data-variant-id from colour block device_product), not starter kit colours.
       const device1Id = String(yours.dataset.variantId || '').trim();
       const device2Id = devices > 1 ? String(mates.dataset.variantId || '').trim() : '';
-      const usesKitColourVariant = Boolean(yours.dataset.kitVariantId) || kit.dataset.kitKey === 'try';
       const canExpand =
-        !usesKitColourVariant &&
+        !isStarterKit &&
         device1Id &&
         /^\d+$/.test(device1Id) &&
         device1Id !== variantId;
 
       const properties = {
+        _bundle: 'brisa-kit',
+        _kit_key: kitKey,
         Kit: kit.dataset.title || '',
         'Your colour': yours.dataset.label || '',
       };
 
-      // Keep transform keys off starter colour adds entirely.
-      if (!usesKitColourVariant) {
-        properties._bundle = 'brisa-kit';
-        properties._kit_key = kit.dataset.kitKey || '';
-      }
-
       if (canExpand) {
-        properties._bundle = 'brisa-kit';
-        properties._kit_key = kit.dataset.kitKey || '';
         properties._device_1_variant_id = device1Id;
       }
 
@@ -429,7 +431,7 @@
           selling_plan: sellingPlanId,
           properties: {
             _bundle: 'brisa-kit-addon',
-            _parent_kit: properties._mates_pack || properties._kit_key || kit.dataset.kitKey || '',
+            _parent_kit: properties._mates_pack || properties._kit_key || kitKey,
           },
         });
       }
@@ -460,13 +462,12 @@
           console.warn('[brisa-kit] cart/add failed', res.status, raw.slice(0, 500), {
             variantId,
             colourMappedId,
+            kitKey,
             label: yours.dataset.label,
-            usesKitColourVariant,
             items,
           });
-          // If first attempt fails for a colour-mapped starter variant, retry once
-          // with a bare variant id (no properties) to bypass transform/app hooks.
-          if (usesKitColourVariant && items.length === 1) {
+          // Starter only: retry bare once to bypass transform/app hooks on colour variants.
+          if (isStarterKit && items.length === 1) {
             const retry = await fetch(window.themeVariables?.routes?.cartAddUrl || '/cart/add.js', {
               method: 'POST',
               credentials: 'same-origin',
@@ -474,7 +475,18 @@
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
               },
-              body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] }),
+              body: JSON.stringify({
+                items: [
+                  {
+                    id: variantId,
+                    quantity: 1,
+                    properties: {
+                      Kit: kit.dataset.title || '',
+                      'Your colour': yours.dataset.label || '',
+                    },
+                  },
+                ],
+              }),
             });
             const retryRaw = await retry.text();
             if (retry.ok) {
@@ -486,7 +498,7 @@
               );
               return;
             }
-            console.warn('[brisa-kit] bare retry failed', retry.status, retryRaw.slice(0, 300));
+            console.warn('[brisa-kit] starter retry failed', retry.status, retryRaw.slice(0, 300));
             let retryPayload = {};
             try {
               retryPayload = retryRaw ? JSON.parse(retryRaw) : {};
@@ -495,7 +507,11 @@
             }
             throw new Error(
               this.friendlyCartError(
-                retryPayload.description || retryPayload.message || payload.description || payload.message || retryRaw,
+                retryPayload.description ||
+                  retryPayload.message ||
+                  payload.description ||
+                  payload.message ||
+                  retryRaw,
                 retry.status || res.status
               )
             );
