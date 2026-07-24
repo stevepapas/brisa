@@ -292,7 +292,20 @@
     #shopify-section-{{ section.id }} .jdgm-rev-widg__reviews {
       display: grid !important;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: start;
+      align-items: stretch;
+    }
+
+    #shopify-section-{{ section.id }} .jdgm-rev,
+    #shopify-section-{{ section.id }} .jdgm-rev.jdgm-divider-top {
+      height: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .jdgm-rev__content {
+      flex: 1 1 auto;
+    }
+
+    #shopify-section-{{ section.id }} .jdgm-rev__pics {
+      margin-top: auto !important;
     }
   }
 
