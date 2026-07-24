@@ -446,7 +446,7 @@
         "mates_image": "shopify://shop_images/mates-pack.png",
         "mates_image_asset": "brisa-kit-mates.jpg",
         "gifts_heading": "INCLUDED GIFTS (WORTH $37)",
-        "colour_label_yours": "Your colour",
+        "colour_label_yours": "Device Colour",
         "colour_label_mates": "Mate's colour",
         "show_addon": true,
         "addon_product": "monthly-better-box",
@@ -1104,6 +1104,7 @@
       "settings": {
         "heading": "",
         "max_width": 720,
+        "list_max_height": 720,
         "padding_top": 48,
         "padding_bottom": 56,
         "padding_horizontal": 20,
@@ -1115,7 +1116,8 @@
         "text_color": "#111111",
         "muted_color": "#6b6b6b",
         "star_color": "#111111",
-        "border_color": "#111111"
+        "border_color": "#111111",
+        "soft_border_color": "#e8e8e8"
       }
     }
   },

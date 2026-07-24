@@ -511,8 +511,8 @@
 
     <div class="bkp__colours bkp__colours--dual" data-bkp-colours>
       <div class="bkp__colour-group" data-role="yours">
-        <p class="bkp__colour-label">{{ section.settings.colour_label_yours | default: 'Your colour' | escape }}</p>
-        <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Your colour' | escape }}">
+        <p class="bkp__colour-label">{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}</p>
+        <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}">
           {% for block in colour_blocks %}
             {% liquid
               assign colour_product = block.settings.device_product
@@ -985,8 +985,8 @@
     {
       "type": "text",
       "id": "colour_label_yours",
-      "label": "Your colour label",
-      "default": "Your colour"
+      "label": "Device colour label",
+      "default": "Device Colour"
     },
     {
       "type": "text",
