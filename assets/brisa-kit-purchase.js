@@ -232,7 +232,8 @@
         if (section) {
           clone.querySelectorAll('[data-bkp-trust-index]').forEach((item) => {
             const index = item.getAttribute('data-bkp-trust-index');
-            if (section.dataset[`showTrust${index}`] !== 'true') item.remove();
+            // data-show-trust-1 maps to dataset['showTrust-1'], not showTrust1
+            if (section.getAttribute(`data-show-trust-${index}`) !== 'true') item.remove();
           });
         }
 
