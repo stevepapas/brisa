@@ -676,9 +676,67 @@
     </button>
     <p class="bkp__error" data-bkp-error role="status" aria-live="polite"></p>
 
-    {% if section.settings.show_trust %}
-      {% render 'brisa-kit-trust', settings: section.settings %}
-    {% endif %}
+    {%- comment -%} Trust badges under main ATC (always from this section's settings). {%- endcomment -%}
+    {%- unless section.settings.show_trust == false -%}
+      <ul class="bkp__trust" data-bkp-trust-source>
+        {%- liquid
+          assign t1 = section.settings.trust_1 | default: 'Ships Next Day'
+          assign t2 = section.settings.trust_2 | default: 'Secure checkout'
+          assign t3 = section.settings.trust_3 | default: 'FREE SHIPPING'
+          assign t4 = section.settings.trust_4 | default: 'Australian Customer service'
+          assign t5 = section.settings.trust_5 | default: '4.7 (163)'
+          assign t6 = section.settings.trust_6 | default: '30 Day Guarantee'
+          assign a1 = section.settings.trust_icon_asset_1 | default: 'brisa-trust-ship.svg'
+          assign a2 = section.settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg'
+          assign a3 = section.settings.trust_icon_asset_3 | default: 'brisa-trust-box.svg'
+          assign a4 = section.settings.trust_icon_asset_4 | default: 'brisa-trust-aussie.svg'
+          assign a5 = section.settings.trust_icon_asset_5 | default: 'brisa-trust-star.svg'
+          assign a6 = section.settings.trust_icon_asset_6 | default: 'brisa-trust-shield.svg'
+        -%}
+        {%- for i in (1..6) -%}
+          {%- liquid
+            case i
+              when 1
+                assign t_label = t1
+                assign t_icon = section.settings.trust_icon_1
+                assign t_asset = a1
+              when 2
+                assign t_label = t2
+                assign t_icon = section.settings.trust_icon_2
+                assign t_asset = a2
+              when 3
+                assign t_label = t3
+                assign t_icon = section.settings.trust_icon_3
+                assign t_asset = a3
+              when 4
+                assign t_label = t4
+                assign t_icon = section.settings.trust_icon_4
+                assign t_asset = a4
+              when 5
+                assign t_label = t5
+                assign t_icon = section.settings.trust_icon_5
+                assign t_asset = a5
+              else
+                assign t_label = t6
+                assign t_icon = section.settings.trust_icon_6
+                assign t_asset = a6
+            endcase
+          -%}
+          {%- if t_label != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if t_icon != blank -%}
+                  {{ t_icon | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- elsif t_asset != blank -%}
+                  <img src="{{ t_asset | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ t_label | escape }}</span>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endunless -%}
 
     {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
     {% if accordion_blocks.size > 0 %}
