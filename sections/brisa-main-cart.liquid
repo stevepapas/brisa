@@ -111,26 +111,40 @@
             %}
 
             <article class="brisa-cart__item">
-              <div class="brisa-cart__item-main">
-                {%- if line_item.image != blank -%}
+              {%- if line_item.image != blank -%}
+                <div class="brisa-cart__item-media">
                   <a href="{{ line_item.url }}" class="brisa-cart__item-image" tabindex="-1" aria-hidden="true">
-                    {{- line_item.image | image_url: width: 160 | image_tag: loading: 'lazy', widths: '80,120,160', sizes: '80px', alt: line_item.product.title -}}
+                    {{- line_item.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: line_item.product.title -}}
                   </a>
-                {%- endif -%}
-
-                <div class="brisa-cart__item-info">
-                  <a href="{{ line_item.url }}" class="brisa-cart__item-title">{{ display_title }}</a>
-                  {%- if line_subtitle != blank -%}
-                    <p class="brisa-cart__item-subtitle">{{ line_subtitle }}</p>
+                  {%- if line_item.variant.compare_at_price > line_item.variant.price or line_item.original_line_price > line_item.final_line_price -%}
+                    {%- if section.settings.item_badge_text != blank -%}
+                      <span class="brisa-cart__item-badge">{{ section.settings.item_badge_text }}</span>
+                    {%- endif -%}
                   {%- endif -%}
+                </div>
+              {%- endif -%}
 
-                  {%- if line_item.item_components != blank and line_item.item_components.size > 0 -%}
-                    <ul class="brisa-cart__components list--unstyled">
+              <div class="brisa-cart__item-body">
+                <a href="{{ line_item.url }}" class="brisa-cart__item-title">{{ display_title }}</a>
+
+                <ul class="brisa-cart__item-details list--unstyled">
+                  {%- assign cart_bullets = line_item.product.metafields.custom.cart_bullets.value -%}
+                  {%- if cart_bullets != blank -%}
+                    {%- for bullet in cart_bullets -%}
+                      {%- if bullet != blank -%}
+                        <li>{{ bullet }}</li>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- else -%}
+                    {%- if line_subtitle != blank -%}
+                      <li>{{ line_subtitle }}</li>
+                    {%- endif -%}
+                    {%- if line_item.item_components != blank and line_item.item_components.size > 0 -%}
                       {%- for component in line_item.item_components -%}
                         {%- unless component.properties['_brisa_component'] == 'pack' -%}
                           {%- assign component_role = component.properties['Role'] -%}
                           {%- assign component_colour = component.properties['Colour'] -%}
-                          <li class="brisa-cart__component">
+                          <li>
                             {%- if component_role != blank -%}
                               {{ component_role }}{% if component_colour != blank %} — {{ component_colour }}{% endif %}
                             {%- elsif component_colour != blank -%}
@@ -141,70 +155,53 @@
                           </li>
                         {%- endunless -%}
                       {%- endfor -%}
-                    </ul>
-                  {%- else -%}
-                    {%- if line_item.properties['Your colour'] != blank -%}
-                      <p class="brisa-cart__component">
-                        Device Colour —
-                        {%- assign _colour = line_item.properties['Your colour'] | strip -%}
-                        {%- assign _colour_key = _colour | downcase | strip -%}
-                        {%- if _colour_key == 'black' -%}
-                          <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
-                        {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
-                          <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
-                        {%- elsif _colour_key == 'rose' -%}
-                          <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
-                        {%- else -%}
-                          {{ _colour }}
-                        {%- endif -%}
-                      </p>
-                    {%- endif -%}
-                    {%- assign mates_colour_value = line_item.properties["Mate's colour"] -%}
-                    {%- if mates_colour_value == blank -%}
-                      {%- for _prop in line_item.properties -%}
-                        {%- assign _pk = _prop.first | downcase | replace: '’', "'" | replace: '‘', "'" -%}
-                        {%- if _pk == "mate's colour" -%}
-                          {%- assign mates_colour_value = _prop.last -%}
-                          {%- break -%}
-                        {%- endif -%}
-                      {%- endfor -%}
-                    {%- endif -%}
-                    {%- if mates_colour_value != blank -%}
-                      <p class="brisa-cart__component">
-                        Mate's colour —
-                        {%- assign _colour = mates_colour_value | strip -%}
-                        {%- assign _colour_key = _colour | downcase | strip -%}
-                        {%- if _colour_key == 'black' -%}
-                          <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
-                        {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
-                          <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
-                        {%- elsif _colour_key == 'rose' -%}
-                          <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
-                        {%- else -%}
-                          {{ _colour }}
-                        {%- endif -%}
-                      </p>
+                    {%- else -%}
+                      {%- if line_item.properties['Your colour'] != blank -%}
+                        <li>
+                          Device Colour —
+                          {%- assign _colour = line_item.properties['Your colour'] | strip -%}
+                          {%- assign _colour_key = _colour | downcase | strip -%}
+                          {%- if _colour_key == 'black' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                          {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                          {%- elsif _colour_key == 'rose' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
+                          {%- else -%}
+                            {{ _colour }}
+                          {%- endif -%}
+                        </li>
+                      {%- endif -%}
+                      {%- assign mates_colour_value = line_item.properties["Mate's colour"] -%}
+                      {%- if mates_colour_value == blank -%}
+                        {%- for _prop in line_item.properties -%}
+                          {%- assign _pk = _prop.first | downcase | replace: '’', "'" | replace: '‘', "'" -%}
+                          {%- if _pk == "mate's colour" -%}
+                            {%- assign mates_colour_value = _prop.last -%}
+                            {%- break -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      {%- endif -%}
+                      {%- if mates_colour_value != blank -%}
+                        <li>
+                          Mate's colour —
+                          {%- assign _colour = mates_colour_value | strip -%}
+                          {%- assign _colour_key = _colour | downcase | strip -%}
+                          {%- if _colour_key == 'black' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                          {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                          {%- elsif _colour_key == 'rose' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
+                          {%- else -%}
+                            {{ _colour }}
+                          {%- endif -%}
+                        </li>
+                      {%- endif -%}
                     {%- endif -%}
                   {%- endif -%}
+                </ul>
 
-                  <div class="brisa-cart__item-pricing">
-                    {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
-                      <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.variant.compare_at_price | times: line_item.quantity | money }}</span>
-                    {%- elsif line_item.original_line_price > line_item.final_line_price -%}
-                      <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.original_line_price | money }}</span>
-                    {%- endif -%}
-                    <span class="brisa-cart__price brisa-cart__price--current">
-                      {%- if line_item.final_line_price == 0 -%}
-                        {{ 'cart.general.free' | t }}
-                      {%- else -%}
-                        {{ line_item.final_line_price | money }}
-                      {%- endif -%}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="brisa-cart__item-actions">
                 <line-item-quantity class="brisa-cart__quantity">
                   <div class="quantity-selector quantity-selector--small brisa-cart__quantity-selector">
                     <a href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment | at_least: line_item.variant.quantity_rule.min }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.decrease_quantity' | t | escape }}" data-no-instant>{% render 'icon' with 'minus' %}</a>
@@ -220,10 +217,30 @@
                     {%- endif -%}
                   </div>
                 </line-item-quantity>
+              </div>
+
+              <div class="brisa-cart__item-side">
+                <div class="brisa-cart__item-pricing">
+                  {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
+                    <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.variant.compare_at_price | times: line_item.quantity | money }}</span>
+                  {%- elsif line_item.original_line_price > line_item.final_line_price -%}
+                    <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.original_line_price | money }}</span>
+                  {%- endif -%}
+                  <span class="brisa-cart__price brisa-cart__price--current">
+                    {%- if line_item.final_line_price == 0 -%}
+                      {{ 'cart.general.free' | t }}
+                    {%- else -%}
+                      {{ line_item.final_line_price | money }}
+                    {%- endif -%}
+                  </span>
+                </div>
 
                 <a href="{{ line_item.url_to_remove }}" class="brisa-cart__remove" aria-label="{{ 'cart.general.remove' | t | escape }}" data-no-instant>
-                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-                    <path d="M9 3h6l1 2h5v2H4V5h5l1-2Zm1 6h2v9h-2V9Zm4 0h2v9h-2V9ZM7 9h2v9H7V9Z" fill="currentColor"/>
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 7h16"/>
+                    <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                    <path d="M7 7v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7"/>
+                    <path d="M10 11v6M14 11v6"/>
                   </svg>
                 </a>
               </div>
@@ -392,7 +409,14 @@
       "id": "default_line_subtitle",
       "label": "Default line item subtitle",
       "default": "9 cores · 3 to 5 weeks of ritual",
-      "info": "Used when product metafield custom.cart_subtitle is empty."
+      "info": "Used when product metafield custom.cart_subtitle is empty. Prefer custom.cart_bullets list metafield for multi-line details."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_text",
+      "label": "Discount badge on image",
+      "default": "Save 10% OFF & Free Shipping",
+      "info": "Shown on discounted line items. Leave blank to hide."
     },
     {
       "type": "header",
