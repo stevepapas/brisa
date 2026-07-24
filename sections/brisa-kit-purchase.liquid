@@ -677,7 +677,7 @@
     <p class="bkp__error" data-bkp-error role="status" aria-live="polite"></p>
 
     {% if section.settings.show_trust %}
-      {% render 'brisa-kit-trust', trust_settings: section.settings %}
+      {% render 'brisa-kit-trust', settings: section.settings %}
     {% endif %}
 
     {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
