@@ -6,10 +6,10 @@
   #shopify-section-{{ section.id }} {
     background: {{ section.settings.background }};
     color: {{ section.settings.text_color }};
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border-top: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top: none;
+    border-bottom: none;
   }
 
   .engineered-switch-{{ ai_gen_id }} {
@@ -62,15 +62,15 @@
   }
 
   .engineered-switch-{{ ai_gen_id }} .engineered-switch__list {
-    display: flex;
-    flex-direction: column;
-    gap: {{ section.settings.item_gap }}px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: {{ section.settings.item_gap }}px {{ section.settings.item_gap | plus: 8 }}px;
     margin-top: {{ section.settings.list_spacing }}px;
   }
 
   .engineered-switch-{{ ai_gen_id }} .engineered-switch__item {
     display: grid;
-    grid-template-columns: {{ section.settings.icon_size }}px 1fr;
+    grid-template-columns: {{ section.settings.icon_size }}px minmax(0, 1fr);
     gap: 14px;
     align-items: center;
   }
@@ -122,10 +122,15 @@
       font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
     }
 
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__list {
+      grid-template-columns: 1fr;
+      gap: {{ section.settings.item_gap | times: 0.85 | round }}px;
+    }
+
     .engineered-switch-{{ ai_gen_id }} .engineered-switch__item {
-      grid-template-columns: {{ section.settings.mobile_icon_size }}px 1fr;
+      grid-template-columns: {{ section.settings.mobile_icon_size }}px minmax(0, 1fr);
       gap: 12px;
-      align-items: start;
+      align-items: center;
     }
 
     .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon {
@@ -174,8 +179,10 @@
                     </svg>
                   {% when 'cross' %}
                     <svg viewBox="0 0 48 48" fill="none" focusable="false">
+                      <path d="M18 14h12v6c0 4.4-2.2 7.5-6 9.2V38" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M18 20h12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
                       <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
-                      <path d="M17 17 31 31M31 17 17 31" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M14 14 34 34" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
                     </svg>
                   {% else %}
                     <svg viewBox="0 0 48 48" fill="none" focusable="false">
