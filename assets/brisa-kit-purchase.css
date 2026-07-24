@@ -67,8 +67,8 @@
   align-items: center;
   padding: 4px 12px;
   border-radius: 999px;
-  background: var(--bkp-blue-soft);
-  color: #1379dd;
+  background: #40bafe;
+  color: #003f7b;
   font-size: 13px;
   font-weight: 700;
 }
