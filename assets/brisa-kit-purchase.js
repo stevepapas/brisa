@@ -247,12 +247,29 @@
       return true;
     }
 
+    // Hard aliases for Starter Kit colour labels → variant IDs (Ocean is "Blue" in Shopify).
+    static STARTER_COLOUR_VARIANTS = {
+      black: '54693535777140',
+      blue: '54693535809908',
+      ocean: '54693535809908',
+      rose: '54693535842676',
+    };
+
     resolveColourVariantId(kit, swatch) {
       if (!swatch) return '';
       // Prefer kit colour variant baked onto the swatch (Ocean → Blue on Starter Kit).
-      if (swatch.dataset.kitVariantId) return swatch.dataset.kitVariantId;
+      if (swatch.dataset.kitVariantId && /^\d+$/.test(swatch.dataset.kitVariantId)) {
+        return swatch.dataset.kitVariantId;
+      }
       const entry = this.colourEntry(this.colourVariantMap(kit), swatch.dataset.label);
-      return this.colourEntryId(entry);
+      const fromMap = this.colourEntryId(entry);
+      if (fromMap && /^\d+$/.test(fromMap)) return fromMap;
+
+      const label = String(swatch.dataset.label || '').trim().toLowerCase();
+      if (kit?.dataset?.kitKey === 'try' && BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label]) {
+        return BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label];
+      }
+      return '';
     }
 
     syncColourAvailability() {
@@ -263,7 +280,6 @@
 
       ['yours', 'mates'].forEach((role) => {
         const roleSwatches = swatches.filter((swatch) => (swatch.dataset.role || 'yours') === role);
-        let selected = roleSwatches.find((swatch) => swatch.classList.contains('is-selected'));
 
         roleSwatches.forEach((swatch) => {
           const entry = this.colourEntry(map, swatch.dataset.label);
@@ -281,7 +297,9 @@
           }
         });
 
-        selected = roleSwatches.find((swatch) => swatch.classList.contains('is-selected') && !swatch.classList.contains('is-sold-out'));
+        let selected = roleSwatches.find(
+          (swatch) => swatch.classList.contains('is-selected') && !swatch.classList.contains('is-sold-out')
+        );
         if (!selected) {
           selected = roleSwatches.find((swatch) => !swatch.classList.contains('is-sold-out'));
           if (selected) {
@@ -298,19 +316,12 @@
       if (/password|verify|connection needs/i.test(text) || status === 401 || status === 403) {
         return 'Your session expired. Refresh the page, enter the store password if asked, then try again.';
       }
-      if (/sold out/i.test(text)) {
-        return 'This option is sold out. Please choose another kit or colour.';
+      // Prefer Shopify's real message so we don't mislabel transform/channel errors as sold out.
+      if (text && text.length < 180 && !/^[A-Z_]+$/.test(text) && !/^</.test(text)) {
+        return text;
       }
       if (/insufficient/i.test(text)) {
         return 'There isn’t enough stock for that colour. Please choose another.';
-      }
-      if (/bundle|selling.plan|cannot be added|not available/i.test(text)) {
-        return text.length < 180
-          ? text
-          : 'That item couldn’t be added to your bag. Clear your cart, refresh, and try again.';
-      }
-      if (text && text.length < 160 && !/^[A-Z_]+$/.test(text) && !/^</.test(text)) {
-        return text;
       }
       if (status) {
         return `Sorry, we couldn't add that to your bag (error ${status}). Please clear your cart, refresh, and try again.`;
@@ -340,7 +351,7 @@
         return;
       }
 
-      // Starter Kit colour variants live on the kit product (Black/Ocean/Rose).
+      // Starter Kit colour variants live on the kit product (Black/Blue/Rose).
       const colourMappedId = this.resolveColourVariantId(kit, yours);
       const variantId = String(colourMappedId || kit.dataset.variantId || '').trim();
       if (!variantId || !/^\d+$/.test(variantId)) {
@@ -354,25 +365,44 @@
         return;
       }
 
-      // Cart Transform Option A only: separate $0 device products on the swatch.
-      // Never send the kit colour variant as _device_* — that expands the line into
-      // the same variant twice and Shopify rejects the add.
+      // Only attach Cart Transform device IDs when swatches point at SEPARATE device
+      // products. Starter Kit colours already ARE the line item — sending them as
+      // _device_* makes the function expand Blue+Blue and Shopify rejects the add.
       const device1Id = String(yours.dataset.variantId || '').trim();
       const device2Id = devices > 1 ? String(mates.dataset.variantId || '').trim() : '';
+      const usesKitColourVariant = Boolean(yours.dataset.kitVariantId) || kit.dataset.kitKey === 'try';
+      const canExpand =
+        !usesKitColourVariant &&
+        device1Id &&
+        /^\d+$/.test(device1Id) &&
+        device1Id !== variantId;
 
       const properties = {
-        _bundle: 'brisa-kit',
-        _kit_key: kit.dataset.kitKey || '',
         Kit: kit.dataset.title || '',
         'Your colour': yours.dataset.label || '',
       };
-      if (device1Id && /^\d+$/.test(device1Id) && device1Id !== variantId) {
+
+      // Keep transform keys off starter colour adds entirely.
+      if (!usesKitColourVariant) {
+        properties._bundle = 'brisa-kit';
+        properties._kit_key = kit.dataset.kitKey || '';
+      }
+
+      if (canExpand) {
+        properties._bundle = 'brisa-kit';
+        properties._kit_key = kit.dataset.kitKey || '';
         properties._device_1_variant_id = device1Id;
       }
 
       if (devices > 1) {
         properties["Mate's colour"] = mates.dataset.label || '';
-        if (device2Id && /^\d+$/.test(device2Id) && device2Id !== variantId && device2Id !== device1Id) {
+        if (
+          canExpand &&
+          device2Id &&
+          /^\d+$/.test(device2Id) &&
+          device2Id !== variantId &&
+          device2Id !== device1Id
+        ) {
           properties._device_2_variant_id = device2Id;
         }
         properties._mates_pack = uid();
@@ -399,7 +429,7 @@
           selling_plan: sellingPlanId,
           properties: {
             _bundle: 'brisa-kit-addon',
-            _parent_kit: properties._mates_pack || properties._kit_key,
+            _parent_kit: properties._mates_pack || properties._kit_key || kit.dataset.kitKey || '',
           },
         });
       }
@@ -431,8 +461,46 @@
             variantId,
             colourMappedId,
             label: yours.dataset.label,
+            usesKitColourVariant,
             items,
           });
+          // If first attempt fails for a colour-mapped starter variant, retry once
+          // with a bare variant id (no properties) to bypass transform/app hooks.
+          if (usesKitColourVariant && items.length === 1) {
+            const retry = await fetch(window.themeVariables?.routes?.cartAddUrl || '/cart/add.js', {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+              },
+              body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] }),
+            });
+            const retryRaw = await retry.text();
+            if (retry.ok) {
+              document.documentElement.dispatchEvent(
+                new CustomEvent('cart:refresh', { bubbles: true, detail: { open: true } })
+              );
+              document.documentElement.dispatchEvent(
+                new CustomEvent('cart:updated', { bubbles: true })
+              );
+              return;
+            }
+            console.warn('[brisa-kit] bare retry failed', retry.status, retryRaw.slice(0, 300));
+            let retryPayload = {};
+            try {
+              retryPayload = retryRaw ? JSON.parse(retryRaw) : {};
+            } catch (e) {
+              retryPayload = { message: retryRaw.slice(0, 180) };
+            }
+            throw new Error(
+              this.friendlyCartError(
+                retryPayload.description || retryPayload.message || payload.description || payload.message || retryRaw,
+                retry.status || res.status
+              )
+            );
+          }
+
           throw new Error(
             this.friendlyCartError(payload.description || payload.message || raw, res.status)
           );
