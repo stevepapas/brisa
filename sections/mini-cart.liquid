@@ -185,7 +185,11 @@
                             {%- continue -%}
                           {%- endif -%}
 
-                          <li>{{ property.first }}: {{ property.last }}</li>
+                          {%- if property.first == 'Your colour' or property.first == "Mate's colour" -%}
+                            {% render 'brisa-cart-colour-property', property_key: property.first, property_value: property.last %}
+                          {%- else -%}
+                            <li>{{ property.first }}: {{ property.last }}</li>
+                          {%- endif -%}
                         {%- endfor -%}
                       </ul>
                     {%- endunless -%}

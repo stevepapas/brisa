@@ -139,10 +139,38 @@
                     </ul>
                   {%- else -%}
                     {%- if line_item.properties['Your colour'] != blank -%}
-                      <p class="brisa-cart__component">Device Colour — {{ line_item.properties['Your colour'] }}</p>
+                      <p class="brisa-cart__component">
+                        Device Colour —
+                        {%- assign _colour = line_item.properties['Your colour'] | strip -%}
+                        {%- assign _colour_key = _colour | downcase -%}
+                        {%- case _colour_key -%}
+                          {%- when 'black' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                          {%- when 'ocean', 'blue' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                          {%- when 'rose' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #E8A0A0 !important;">{{ _colour }}</span>
+                          {%- else -%}
+                            {{ _colour }}
+                        {%- endcase -%}
+                      </p>
                     {%- endif -%}
                     {%- if line_item.properties["Mate's colour"] != blank -%}
-                      <p class="brisa-cart__component">Mate's colour — {{ line_item.properties["Mate's colour"] }}</p>
+                      <p class="brisa-cart__component">
+                        Mate's colour —
+                        {%- assign _colour = line_item.properties["Mate's colour"] | strip -%}
+                        {%- assign _colour_key = _colour | downcase -%}
+                        {%- case _colour_key -%}
+                          {%- when 'black' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                          {%- when 'ocean', 'blue' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                          {%- when 'rose' -%}
+                            <span class="brisa-cart-colour-property__value" style="color: #E8A0A0 !important;">{{ _colour }}</span>
+                          {%- else -%}
+                            {{ _colour }}
+                        {%- endcase -%}
+                      </p>
                     {%- endif -%}
                   {%- endif -%}
 
