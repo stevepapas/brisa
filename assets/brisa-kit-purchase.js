@@ -52,13 +52,16 @@
 
       this.querySelector('[data-bkp-addon-toggle]')?.addEventListener('click', (e) => {
         e.preventDefault();
-        if (!this.addonCheck) return;
+        if (!this.isAddonAvailable() || !this.addonCheck || this.addonCheck.disabled) return;
         this.addonCheck.checked = !this.addonCheck.checked;
         this.syncAddonUi();
         this.updatePrice();
       });
 
       this.addonCheck?.addEventListener('change', () => {
+        if (!this.isAddonAvailable()) {
+          this.addonCheck.checked = false;
+        }
         this.syncAddonUi();
         this.updatePrice();
       });
@@ -124,16 +127,39 @@
       return this.querySelector(`[data-bkp-swatch][data-role="${role}"].is-selected:not(.is-sold-out)`);
     }
 
+    isAddonAvailable() {
+      const addon = this.querySelector('[data-bkp-addon]');
+      if (addon?.dataset.available === 'false') return false;
+      if (this.dataset.addonAvailable === 'false') return false;
+      return Boolean(this.dataset.addonVariantId && this.dataset.addonSellingPlanId);
+    }
+
     syncAddonUi() {
       const addon = this.querySelector('[data-bkp-addon]');
       const action = this.querySelector('[data-bkp-addon-toggle]');
-      const on = Boolean(this.addonCheck?.checked);
-      if (addon) addon.classList.toggle('is-selected', on);
+      const available = this.isAddonAvailable();
+
+      if (!available && this.addonCheck) {
+        this.addonCheck.checked = false;
+        this.addonCheck.disabled = true;
+      }
+
+      const on = available && Boolean(this.addonCheck?.checked);
+      if (addon) {
+        addon.classList.toggle('is-selected', on);
+        addon.classList.toggle('is-sold-out', !available);
+        addon.setAttribute('aria-disabled', available ? 'false' : 'true');
+      }
       if (action) {
         if (!action.dataset.defaultLabel) {
-          action.dataset.defaultLabel = action.textContent.trim() || 'ADD';
+          action.dataset.defaultLabel = available
+            ? action.textContent.trim() || 'ADD'
+            : 'ADD';
         }
-        action.textContent = on ? 'ADDED' : action.dataset.defaultLabel;
+        action.disabled = !available;
+        action.classList.toggle('is-sold-out', !available);
+        action.setAttribute('aria-disabled', available ? 'false' : 'true');
+        action.textContent = available ? (on ? 'ADDED' : action.dataset.defaultLabel) : 'Sold out';
       }
     }
 
@@ -146,7 +172,7 @@
       const colourOk = Boolean(yours) && matesOk;
 
       let cents = Number(kit?.dataset.priceCents || 0);
-      if (this.addonCheck?.checked) {
+      if (this.addonCheck?.checked && this.isAddonAvailable()) {
         cents += Number(this.dataset.addonPriceCents || 0);
       }
 
@@ -315,17 +341,67 @@
       });
     }
 
+    extractCartErrorMessage(payload, raw) {
+      const normalizeCandidate = (candidate) => {
+        if (typeof candidate === 'string') {
+          const text = candidate.trim();
+          if (!text) return '';
+          if (/^cart error$/i.test(text)) return '';
+          return text;
+        }
+        if (candidate && typeof candidate === 'object') {
+          const parts = Object.values(candidate)
+            .flat()
+            .map((v) => String(v || '').trim())
+            .filter(Boolean);
+          return parts.join(' ');
+        }
+        return '';
+      };
+
+      if (payload && typeof payload === 'object') {
+        for (const key of ['description', 'errors', 'message']) {
+          const text = normalizeCandidate(payload[key]);
+          if (text) return text;
+        }
+      }
+
+      const rawText = String(raw || '').trim();
+      if (!rawText) return '';
+      if (rawText.startsWith('{') || rawText.startsWith('[')) {
+        try {
+          return this.extractCartErrorMessage(JSON.parse(rawText), '');
+        } catch (err) {
+          return '';
+        }
+      }
+      return rawText;
+    }
+
     friendlyCartError(detail, status) {
-      const text = String(detail || '').trim();
+      let text = String(detail || '').trim();
+      if (text.startsWith('{') || text.startsWith('[')) {
+        text = this.extractCartErrorMessage(null, text) || '';
+      }
+
       if (/password|verify|connection needs/i.test(text) || status === 401 || status === 403) {
         return 'Your session expired. Refresh the page, enter the store password if asked, then try again.';
       }
-      // Prefer Shopify's real message so we don't mislabel transform/channel errors as sold out.
-      if (text && text.length < 180 && !/^[A-Z_]+$/.test(text) && !/^</.test(text)) {
-        return text;
+      if (/sold out|not available|cannot be added/i.test(text)) {
+        return text.length < 180 ? text : 'That item is sold out. Please remove it or choose another option.';
       }
       if (/insufficient/i.test(text)) {
         return 'There isn’t enough stock for that colour. Please choose another.';
+      }
+      // Prefer Shopify's real message so we don't mislabel transform/channel errors as sold out.
+      if (
+        text &&
+        text.length < 180 &&
+        !/^[A-Z_]+$/.test(text) &&
+        !/^</.test(text) &&
+        !/^[{[]/.test(text)
+      ) {
+        return text;
       }
       if (status) {
         return `Sorry, we couldn't add that to your bag (error ${status}). Please clear your cart, refresh, and try again.`;
@@ -469,13 +545,16 @@
         },
       ];
 
-      if (this.addonCheck?.checked && this.dataset.addonVariantId) {
-        const sellingPlanId = String(this.dataset.addonSellingPlanId || '').trim();
-        if (!sellingPlanId) {
-          this.setError('Monthly Better Box is not available right now. Please try again later.');
+      if (this.addonCheck?.checked) {
+        if (!this.isAddonAvailable()) {
+          this.addonCheck.checked = false;
+          this.syncAddonUi();
+          this.updatePrice();
+          this.setError('Monthly Better Box is sold out right now.');
           return;
         }
 
+        const sellingPlanId = String(this.dataset.addonSellingPlanId || '').trim();
         items.push({
           id: String(this.dataset.addonVariantId),
           quantity: 1,
@@ -549,28 +628,25 @@
             try {
               retryPayload = retryRaw ? JSON.parse(retryRaw) : {};
             } catch (e) {
-              retryPayload = { message: retryRaw.slice(0, 180) };
+              retryPayload = {};
             }
             throw new Error(
               this.friendlyCartError(
-                retryPayload.description ||
-                  retryPayload.message ||
-                  payload.description ||
-                  payload.message ||
-                  retryRaw,
+                this.extractCartErrorMessage(retryPayload, retryRaw) ||
+                  this.extractCartErrorMessage(payload, raw),
                 retry.status || res.status
               )
             );
           }
 
           throw new Error(
-            this.friendlyCartError(payload.description || payload.message || raw, res.status)
+            this.friendlyCartError(this.extractCartErrorMessage(payload, raw), res.status)
           );
         }
 
         await this.notifyCartAdded();
       } catch (err) {
-        this.setError(this.friendlyCartError(err.message));
+        this.setError(this.friendlyCartError(err?.message || err));
       } finally {
         this.updatePrice();
       }

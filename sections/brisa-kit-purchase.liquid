@@ -34,8 +34,12 @@
   assign addon_variant = addon_product.selected_or_first_available_variant
   assign addon_price_cents = section.settings.addon_price_cents | default: 4400
   assign addon_selling_plan_id = blank
+  assign addon_available = false
   if addon_variant != blank
     assign addon_price_cents = addon_variant.price
+    if addon_variant.available
+      assign addon_available = true
+    endif
     for allocation in addon_variant.selling_plan_allocations
       assign addon_selling_plan_id = allocation.selling_plan.id
       assign addon_price_cents = allocation.price
@@ -52,6 +56,10 @@
         break
       endif
     endfor
+  endif
+  # Require a sellable variant + selling plan; product.available catches fully sold-out MBB.
+  if addon_product == blank or addon_product.available == false or addon_variant == blank or addon_selling_plan_id == blank
+    assign addon_available = false
   endif
 
   assign colour_blocks = section.blocks | where: 'type', 'colour'
@@ -130,6 +138,7 @@
   class="bkp"
   data-devices="1"
   data-addon-price-cents="{{ addon_price_cents }}"
+  data-addon-available="{% if addon_available %}true{% else %}false{% endif %}"
   {% if addon_variant != blank %}data-addon-variant-id="{{ addon_variant.id }}"{% endif %}
   {% if addon_selling_plan_id != blank %}data-addon-selling-plan-id="{{ addon_selling_plan_id }}"{% endif %}
   {{ section.shopify_attributes }}
@@ -418,8 +427,17 @@
         assign addon_bonus_image = section.settings.addon_bonus_image
         assign addon_bonus_image_asset = section.settings.addon_bonus_image_asset | strip
       -%}
-      <div class="bkp__addon" data-bkp-addon>
-        <span class="bkp__addon-tab">{{ section.settings.addon_tab | default: 'ADD ON' | escape }}</span>
+      <div
+        class="bkp__addon{% unless addon_available %} is-sold-out{% endunless %}"
+        data-bkp-addon
+        data-available="{% if addon_available %}true{% else %}false{% endif %}"
+        {% unless addon_available %}aria-disabled="true"{% endunless %}
+      >
+        {% if addon_available %}
+          <span class="bkp__addon-tab">{{ section.settings.addon_tab | default: 'ADD ON' | escape }}</span>
+        {% else %}
+          <span class="bkp__addon-tab bkp__addon-tab--sold-out">Sold out</span>
+        {% endif %}
 
         <div class="bkp__addon-layout">
           <input
@@ -427,7 +445,7 @@
             type="checkbox"
             data-bkp-addon-check
             id="bkp-addon-{{ section.id }}"
-            {% unless addon_variant and addon_selling_plan_id %}disabled{% endunless %}
+            {% unless addon_available %}disabled{% endunless %}
           >
 
           <div class="bkp__addon-main">
@@ -435,7 +453,7 @@
               <h4 class="bkp__addon-title">
                 <label for="bkp-addon-{{ section.id }}">{{ section.settings.addon_title | default: 'Monthly Better Box' | escape }}</label>
               </h4>
-              {% if section.settings.addon_save != blank %}
+              {% if addon_available and section.settings.addon_save != blank %}
                 <span class="bkp__addon-save">{{ section.settings.addon_save | escape }}</span>
               {% endif %}
             </div>
@@ -498,8 +516,17 @@
             {% endif %}
           </div>
 
-          <button type="button" class="bkp__addon-action" data-bkp-addon-toggle>
-            {{ section.settings.addon_action | default: 'ADD' | escape }}
+          <button
+            type="button"
+            class="bkp__addon-action{% unless addon_available %} is-sold-out{% endunless %}"
+            data-bkp-addon-toggle
+            {% unless addon_available %}disabled aria-disabled="true"{% endunless %}
+          >
+            {% if addon_available %}
+              {{ section.settings.addon_action | default: 'ADD' | escape }}
+            {% else %}
+              Sold out
+            {% endif %}
           </button>
         </div>
 
