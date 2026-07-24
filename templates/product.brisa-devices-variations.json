@@ -968,6 +968,40 @@
     },
     "brisa_product_reviews_zMjLwQ": {
       "type": "brisa-product-reviews",
+      "blocks": {
+        "video_review_BpGQM6": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-1.png",
+            "video": "shopify://files/videos/test-1.mov",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_y7izN4": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-3.png",
+            "video": "shopify://files/videos/test3.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_kyEj6q": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-2.png",
+            "video": "shopify://files/videos/test2.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        }
+      },
+      "block_order": [
+        "video_review_BpGQM6",
+        "video_review_y7izN4",
+        "video_review_kyEj6q"
+      ],
       "name": "Brisa product reviews",
       "settings": {
         "heading": "Real Aussies. Real Reviews.",
@@ -1094,15 +1128,12 @@
         "text_color": "#ffffff"
       }
     },
-    "brisa_kit_bottom_cta": {
-      "type": "brisa-kit-bottom-cta",
-      "settings": {}
-    },
     "brisa_judgeme_reviews": {
       "type": "brisa-judgeme-reviews",
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
+        "product": "",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,
@@ -1119,6 +1150,10 @@
         "border_color": "#111111",
         "soft_border_color": "#e8e8e8"
       }
+    },
+    "brisa_kit_bottom_cta": {
+      "type": "brisa-kit-bottom-cta",
+      "settings": {}
     }
   },
   "order": [
