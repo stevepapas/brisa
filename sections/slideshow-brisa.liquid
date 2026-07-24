@@ -26,6 +26,7 @@
   endfor
 
   assign progress_block = first_visible_block | default: section.blocks.first
+  assign frame_height_percent = section.settings.frame_height_percent | default: 100
 
   assign slideshow_product_gallery = false
   if template.name == 'product'
@@ -41,6 +42,7 @@
     --section-autoplay-duration: {% if section.settings.autoplay %}{{ section.settings.cycle_speed }}s{% else %}0s{% endif %};
     --section-animation-play-state: paused;
     --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size }}px;
+    --slideshow-brisa-frame-ratio: 100 / {{ frame_height_percent }};
     background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
   }
 
@@ -152,7 +154,7 @@
       position: relative;
       flex: 0 0 auto;
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: var(--slideshow-brisa-frame-ratio, 1 / 1);
       min-height: 0 !important;
       max-height: none !important;
       overflow: hidden;
@@ -316,7 +318,7 @@
         width: min(var(--slideshow-brisa-desktop-size, 520px), 100%) !important;
         max-width: 100%;
         margin-inline: auto;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: var(--slideshow-brisa-frame-ratio, 1 / 1);
         overflow: hidden;
       }
 
@@ -369,7 +371,7 @@
       #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
         width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap))) !important;
         max-width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap)));
-        aspect-ratio: 1 / 1;
+        aspect-ratio: var(--slideshow-brisa-frame-ratio, 1 / 1);
       }
 
       #shopify-section-{{ section.id }} .slideshow__image {
@@ -905,8 +907,20 @@
       "default": "cover",
       "options": [
         { "value": "contain", "label": "Show full image (no crop)" },
-        { "value": "cover", "label": "Fill square (may crop)" }
+        { "value": "cover", "label": "Fill frame (may crop)" }
       ],
+      "visible_if": "{{ section.settings.desktop_layout == 'square' }}"
+    },
+    {
+      "type": "range",
+      "id": "frame_height_percent",
+      "min": 100,
+      "max": 140,
+      "step": 5,
+      "unit": "%",
+      "label": "Frame height",
+      "default": 100,
+      "info": "100% is square. Raise to make the frame taller (e.g. 115 = 15% taller).",
       "visible_if": "{{ section.settings.desktop_layout == 'square' }}"
     },
     {
