@@ -5,23 +5,6 @@
 
 </style>
 
-{%- if section.blocks.size > 0 -%}
-  <div class="social-proof__icons">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'icon_item' -%}
-        <div class="social-proof__icon-item" {{ block.shopify_attributes }}>
-          {%- if block.settings.icon_image != blank -%}
-            {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'social-proof__icon-img', loading: 'lazy' }}
-          {%- else -%}
-            <span class="social-proof__icon-img" style="font-size:2rem;">{{ block.settings.icon_emoji }}</span>
-          {%- endif -%}
-          <span>{{ block.settings.label | escape }}</span>
-        </div>
-      {%- endif -%}
-    {%- endfor -%}
-  </div>
-{%- endif -%}
-
 <div class="trust-bar">
   <div class="trust-bar__inner">
     {%- for block in section.blocks -%}
@@ -38,6 +21,23 @@
     {%- endfor -%}
   </div>
 </div>
+
+{%- if section.blocks.size > 0 -%}
+  <div class="social-proof__icons">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'icon_item' -%}
+        <div class="social-proof__icon-item" {{ block.shopify_attributes }}>
+          {%- if block.settings.icon_image != blank -%}
+            {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'social-proof__icon-img', loading: 'lazy' }}
+          {%- else -%}
+            <span class="social-proof__icon-img" style="font-size:2rem;">{{ block.settings.icon_emoji }}</span>
+          {%- endif -%}
+          <span>{{ block.settings.label | escape }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
 
 {%- assign testimonials = shop.metaobjects.testimonial.values -%}
 {%- if testimonials.size > 0 -%}

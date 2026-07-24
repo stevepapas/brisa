@@ -1,0 +1,563 @@
+{% liquid
+  assign accent = section.settings.accent_color | default: '#008bdc'
+  assign button_bg = section.settings.button_background | default: '#35adff'
+  assign badge_bg = section.settings.rating_badge_background | default: '#9ad8f7'
+  assign badge_text = section.settings.rating_badge_text_color | default: '#1379dd'
+  assign hero_alt = section.settings.image.alt | default: section.settings.heading_line_1
+%}
+
+<style>
+  @font-face {
+    font-family: 'TeX Gyre Bonum';
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url({{ 'texgyrebonum-bolditalic.woff' | asset_url }}) format('woff');
+  }
+
+  #shopify-section-{{ section.id }} {
+    --bhh-accent: {{ accent }};
+    --bhh-button: {{ button_bg }};
+    --bhh-badge-bg: {{ badge_bg }};
+    --bhh-badge-text: {{ badge_text }};
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero {
+    color: #111111;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__intro {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 24px 8px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 18px;
+    padding: 8px 18px;
+    color: #ffffff;
+    background: var(--bhh-accent);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__title {
+    margin: 0 0 16px;
+    color: #111111;
+    font-size: clamp(34px, 7vw, 52px);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__title-accent {
+    display: block;
+    color: var(--bhh-accent);
+    font-family: 'TeX Gyre Bonum', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__text {
+    max-width: 560px;
+    margin: 0 auto 10px;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__offer {
+    max-width: 560px;
+    margin: 0 auto 16px;
+    color: #111111;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto 8px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__stars {
+    display: inline-flex;
+    gap: 4px;
+    color: var(--bhh-accent);
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__star {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__star svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-text {
+    color: #333333;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 4px 14px;
+    color: var(--bhh-badge-text);
+    background: var(--bhh-badge-bg);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__media {
+    position: relative;
+    margin-top: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    gap: 12px;
+    width: min(560px, calc(100% - 32px));
+    transform: translate(-50%, -42%);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 14px 18px;
+    color: #ffffff !important;
+    background: var(--bhh-button);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 139, 220, 0.22);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta-art {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--devices {
+    left: -18%;
+    bottom: 58%;
+    width: 78%;
+    max-width: 190px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores {
+    right: -16%;
+    bottom: 58%;
+    width: 72%;
+    max-width: 170px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__image-wrap {
+    overflow: hidden;
+    background: #e8eef3;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__image {
+    display: block;
+    width: 100%;
+    height: clamp(320px, 58vw, 620px);
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__intro {
+      padding-top: {{ section.settings.padding_top | plus: 12 }}px;
+      padding-bottom: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__eyebrow {
+      font-size: 13px;
+      padding: 9px 22px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__text {
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__offer {
+      font-size: 17px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__star {
+      width: 26px;
+      height: 26px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__rating-text {
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__rating-badge {
+      font-size: 16px;
+      min-height: 32px;
+      padding: 5px 18px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__media {
+      margin-top: 40px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+      gap: 18px;
+      width: min(640px, calc(100% - 48px));
+      transform: translate(-50%, -48%);
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta {
+      min-height: 68px;
+      border-radius: 18px;
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--devices {
+      left: -22%;
+      width: 92%;
+      max-width: 240px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores {
+      right: -20%;
+      width: 86%;
+      max-width: 220px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__intro {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-inline: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta {
+      min-height: 50px;
+      padding: 12px 10px;
+      font-size: 13px;
+      border-radius: 14px;
+    }
+  }
+</style>
+
+<section class="brisa-home-hero" {{ section.shopify_attributes }}>
+  <div class="brisa-home-hero__intro">
+    {% if section.settings.eyebrow != blank %}
+      <p class="brisa-home-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank %}
+      <h1 class="brisa-home-hero__title">
+        {% if section.settings.heading_line_1 != blank %}
+          <span class="brisa-home-hero__title-main">{{ section.settings.heading_line_1 | escape }}</span>
+        {% endif %}
+        {% if section.settings.heading_line_2 != blank %}
+          <span class="brisa-home-hero__title-accent">{{ section.settings.heading_line_2 | escape }}</span>
+        {% endif %}
+      </h1>
+    {% endif %}
+
+    {% if section.settings.text != blank %}
+      <p class="brisa-home-hero__text">{{ section.settings.text | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.offer != blank %}
+      <p class="brisa-home-hero__offer">{{ section.settings.offer | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.show_rating %}
+      <div class="brisa-home-hero__rating" aria-label="{{ section.settings.rating_label | escape }}">
+        <span class="brisa-home-hero__stars" aria-hidden="true">
+          {% for star in (1..5) %}
+            <span class="brisa-home-hero__star">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
+              </svg>
+            </span>
+          {% endfor %}
+        </span>
+
+        {% if section.settings.rating_text != blank %}
+          <span class="brisa-home-hero__rating-text">{{ section.settings.rating_text | escape }}</span>
+        {% endif %}
+
+        {% if section.settings.rating_badge != blank %}
+          <span class="brisa-home-hero__rating-badge">{{ section.settings.rating_badge | escape }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="brisa-home-hero__media">
+    <div class="brisa-home-hero__ctas">
+      {% if section.settings.button_1_text != blank %}
+        <a class="brisa-home-hero__cta brisa-home-hero__cta--devices" href="{{ section.settings.button_1_link | default: '/products/brisa-starter-kit' }}">
+          {% if section.settings.devices_image != blank %}
+            <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
+              {{ section.settings.devices_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '240,360,480' }}
+            </span>
+          {% else %}
+            <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
+              <img src="{{ 'brisa-home-hero-devices.png' | asset_url }}" alt="" width="240" height="194" loading="lazy">
+            </span>
+          {% endif %}
+          <span>{{ section.settings.button_1_text | escape }}</span>
+        </a>
+      {% endif %}
+
+      {% if section.settings.button_2_text != blank %}
+        <a class="brisa-home-hero__cta brisa-home-hero__cta--cores" href="{{ section.settings.button_2_link | default: '/products/brisa-cores' }}">
+          {% if section.settings.cores_image != blank %}
+            <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
+              {{ section.settings.cores_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '240,360,480' }}
+            </span>
+          {% else %}
+            <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
+              <img src="{{ 'brisa-home-hero-cores.png' | asset_url }}" alt="" width="220" height="165" loading="lazy">
+            </span>
+          {% endif %}
+          <span>{{ section.settings.button_2_text | escape }}</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="brisa-home-hero__image-wrap">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            class: 'brisa-home-hero__image',
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '600,900,1200,1600,2000',
+            sizes: '100vw',
+            alt: hero_alt
+        }}
+      {% else %}
+        <img
+          class="brisa-home-hero__image"
+          src="{{ 'brisa-home-hero.jpg' | asset_url }}"
+          alt="{{ section.settings.heading_line_1 | escape }}"
+          width="1651"
+          height="1981"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa home hero",
+  "tag": "section",
+  "class": "shopify-section--brisa-home-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow badge",
+      "default": "WORLD FIRST - AUSTRALIAN DESIGNED"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "KEEP THE RITUAL"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "DROP THE HABIT"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Supporting text",
+      "default": "A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking."
+    },
+    {
+      "type": "textarea",
+      "id": "offer",
+      "label": "Offer line",
+      "default": "Up to $70 Aud in free gifts + savings, plus FREE SHIPPING on all kits."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.7"
+    },
+    {
+      "type": "text",
+      "id": "rating_badge",
+      "label": "Rating badge",
+      "default": "Happy customers"
+    },
+    {
+      "type": "text",
+      "id": "rating_label",
+      "label": "Rating accessibility label",
+      "default": "Rated 4.7 out of 5 by happy customers"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Left button text",
+      "default": "THE BRISA"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Left button link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Right button text",
+      "default": "BRISA CORES"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Right button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image focal point",
+      "options": [
+        { "value": "center top", "label": "Top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "center 30%", "label": "Upper center" },
+        { "value": "center bottom", "label": "Bottom" }
+      ],
+      "default": "center 30%"
+    },
+    {
+      "type": "image_picker",
+      "id": "devices_image",
+      "label": "Devices decoration"
+    },
+    {
+      "type": "image_picker",
+      "id": "cores_image",
+      "label": "Cores decoration"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#35adff"
+    },
+    {
+      "type": "color",
+      "id": "rating_badge_background",
+      "label": "Rating badge background",
+      "default": "#9ad8f7"
+    },
+    {
+      "type": "color",
+      "id": "rating_badge_text_color",
+      "label": "Rating badge text",
+      "default": "#1379dd"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa home hero"
+    }
+  ]
+}
+{% endschema %}
