@@ -219,57 +219,57 @@
     "brisa_device_header_cgyBnd": {
       "type": "brisa-device-header",
       "blocks": {
-        "feature_leaf": {
+        "feature_world_first": {
           "type": "feature",
           "settings": {
-            "icon_image": "shopify://shop_images/food-grade.png",
+            "icon_image": "shopify://shop_images/world-first-formula.png",
+            "icon": "check",
+            "title": "World first formula",
+            "text": ""
+          }
+        },
+        "feature_throat": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/real-throat.png",
+            "icon": "sparkles",
+            "title": "Real throat hit",
+            "text": ""
+          }
+        },
+        "feature_flavour": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/bold-familiar-flavour.png",
             "icon": "leaf",
-            "title": "Food-Grade Cores",
-            "text": "Natural aroma compounds only"
+            "title": "Bold familiar flavour",
+            "text": ""
           }
         },
         "feature_no_nicotine": {
           "type": "feature",
           "settings": {
-            "icon_image": "shopify://shop_images/no-nicotine-icon.png",
+            "icon_image": "shopify://shop_images/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png",
             "icon": "no_nicotine",
-            "title": "No Nicotine",
-            "text": ""
-          }
-        },
-        "feature_slot": {
-          "type": "feature",
-          "settings": {
-            "icon_image": "shopify://shop_images/slot-in-install.png",
-            "icon": "slot",
-            "title": "Slot-in Install",
-            "text": ""
-          }
-        },
-        "feature_sparkles": {
-          "type": "feature",
-          "settings": {
-            "icon_image": "shopify://shop_images/multiple-aroma-profiles.png",
-            "icon": "sparkles",
-            "title": "Multiple aroma profiles",
+            "title": "No Nicotine, No Vapour, No Smoke",
             "text": ""
           }
         }
       },
       "block_order": [
-        "feature_leaf",
-        "feature_no_nicotine",
-        "feature_slot",
-        "feature_sparkles"
+        "feature_world_first",
+        "feature_throat",
+        "feature_flavour",
+        "feature_no_nicotine"
       ],
       "name": "Brisa device header",
       "settings": {
-        "intro": "Food-grade aroma cores for your Better Unit. Made to slot in, deliver the draw, and keep the moment yours.",
+        "intro": "SENSORY AROMA CORES",
         "show_rating": true,
         "rating_text": "Rated 4.7 (163)",
         "rating_label": "Rated 4.7 out of 5 by 163 customers",
         "badge_text": "Happy customers",
-        "heading": "Better cores",
+        "heading": "BETTER CORES",
         "background": "#ffffff",
         "heading_color": "#000000",
         "text_color": "#111111",

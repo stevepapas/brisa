@@ -232,6 +232,10 @@
         <p class="brisa-device-header__intro">{{ section.settings.intro | escape }}</p>
       {% endif %}
 
+      {% if section.settings.heading != blank %}
+        <h2 class="brisa-device-header__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
       {% if section.settings.show_rating %}
         <div class="brisa-device-header__rating" aria-label="{{ section.settings.rating_label | escape }}">
           <span class="brisa-device-header__stars" aria-hidden="true">
@@ -260,10 +264,6 @@
           assign feature_count = 4
         endif
       %}
-
-      {% if section.settings.heading != blank %}
-        <h2 class="brisa-device-header__heading">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
 
       <div class="brisa-device-header__features">
         {% for i in (1..feature_count) %}
@@ -327,16 +327,7 @@
 
           <div class="brisa-device-header__feature"{% if section.blocks.size > 0 %} {{ block.shopify_attributes }}{% endif %}>
             <div class="brisa-device-header__icon{% if feature_icon_file != blank or feature_icon_image != blank %} brisa-device-header__icon--has-image{% endif %}" aria-hidden="true">
-              {% if feature_icon_file != blank %}
-                <img
-                  class="brisa-device-header__icon-image"
-                  src="{{ feature_icon_file | file_url }}"
-                  alt=""
-                  loading="lazy"
-                  width="72"
-                  height="72"
-                >
-              {% elsif feature_icon_image != blank %}
+              {% if feature_icon_image != blank %}
                 <img
                   class="brisa-device-header__icon-image"
                   src="{{ feature_icon_image | image_url: width: 120 }}"
@@ -344,6 +335,15 @@
                   loading="lazy"
                   width="120"
                   height="120"
+                >
+              {% elsif feature_icon_file != blank %}
+                <img
+                  class="brisa-device-header__icon-image"
+                  src="{{ feature_icon_file | file_url }}"
+                  alt=""
+                  loading="lazy"
+                  width="72"
+                  height="72"
                 >
               {% else %}
                 {% case feature_icon %}
