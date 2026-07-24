@@ -198,12 +198,41 @@
     text-transform: uppercase;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__atc-caption {
+    margin: 12px 0 0;
+    color: {{ section.settings.muted_color }};
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+  }
+
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__guarantee {
     margin-top: 20px;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row {
-    margin-top: 16px;
+    margin-top: 18px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 8px;
+    max-width: 560px;
+    margin-inline: auto;
+    padding: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap .brisa-product-area-info__trust-item {
+    flex: 0 0 31%;
+    max-width: 160px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap .brisa-product-area-info__trust-icon {
+    width: 36px;
+    height: 36px;
   }
 
   .brisa-cores-picker-{{ section_uid }} .product-form__option-selector[data-selector-type="swatch"] {
@@ -269,22 +298,31 @@
         {%- render 'product-form', product: product, product_form_id: product_form_id, update_url: true -%}
       </product-rerender>
 
+      {% if section.settings.atc_caption != blank %}
+        <p class="brisa-cores-picker__atc-caption">{{ section.settings.atc_caption | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.show_trust_row %}
+        {% render 'brisa-trust-row',
+          trust_1: section.settings.trust_shipping,
+          trust_2: section.settings.trust_checkout,
+          trust_3: section.settings.trust_social,
+          trust_4: section.settings.trust_4,
+          trust_5: section.settings.trust_5,
+          trust_icon_1: section.settings.trust_icon_shipping,
+          trust_icon_2: section.settings.trust_icon_checkout,
+          trust_icon_3: section.settings.trust_icon_social,
+          trust_icon_4: section.settings.trust_icon_4,
+          trust_icon_5: section.settings.trust_icon_5,
+          trust_asset_3: 'brisa-trust-star.svg'
+        %}
+      {% endif %}
+
       {% if section.settings.show_guarantee %}
         <div class="brisa-product-area-info__guarantee">
           <strong>{{ section.settings.guarantee_heading | escape }}</strong>
           <span>{{ section.settings.guarantee_text | escape }}</span>
         </div>
-      {% endif %}
-
-      {% if section.settings.show_trust_row %}
-        {% render 'brisa-trust-row',
-          trust_shipping: section.settings.trust_shipping,
-          trust_checkout: section.settings.trust_checkout,
-          trust_social: section.settings.trust_social,
-          trust_icon_shipping: section.settings.trust_icon_shipping,
-          trust_icon_checkout: section.settings.trust_icon_checkout,
-          trust_icon_social: section.settings.trust_icon_social
-        %}
       {% endif %}
     </div>
   </div>
@@ -674,6 +712,12 @@
       "default": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit."
     },
     {
+      "type": "text",
+      "id": "atc_caption",
+      "label": "Text under add to cart",
+      "default": "From $3.33 a core — a fraction of what vaping costs."
+    },
+    {
       "type": "checkbox",
       "id": "show_trust_row",
       "label": "Show trust row",
@@ -682,35 +726,57 @@
     {
       "type": "textarea",
       "id": "trust_shipping",
-      "label": "Trust item — shipping",
-      "default": "Free shipping AUS & NZ wide"
+      "label": "Trust item 1",
+      "default": "Ships Next Day"
     },
     {
       "type": "image_picker",
       "id": "trust_icon_shipping",
-      "label": "Trust icon — shipping"
+      "label": "Trust icon 1"
     },
     {
       "type": "text",
       "id": "trust_checkout",
-      "label": "Trust item — checkout",
+      "label": "Trust item 2",
       "default": "Secure checkout"
     },
     {
       "type": "image_picker",
       "id": "trust_icon_checkout",
-      "label": "Trust icon — checkout"
+      "label": "Trust icon 2"
     },
     {
       "type": "textarea",
       "id": "trust_social",
-      "label": "Trust item — social proof",
-      "default": "1,000+ Aussies on Brisa"
+      "label": "Trust item 3",
+      "default": "4.7 (163)"
     },
     {
       "type": "image_picker",
       "id": "trust_icon_social",
-      "label": "Trust icon — social proof"
+      "label": "Trust icon 3"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_4",
+      "label": "Trust item 4",
+      "default": "World first formula"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_4",
+      "label": "Trust icon 4"
+    },
+    {
+      "type": "textarea",
+      "id": "trust_5",
+      "label": "Trust item 5",
+      "default": "Real throat hit"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_5",
+      "label": "Trust icon 5"
     },
     {
       "type": "checkbox",

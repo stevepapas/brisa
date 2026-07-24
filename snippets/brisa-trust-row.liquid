@@ -1,40 +1,94 @@
 {% liquid
-  assign trust_shipping_text = trust_shipping | default: 'Free shipping AUS & NZ wide'
-  assign trust_checkout_text = trust_checkout | default: 'Secure checkout'
-  assign trust_social_text = trust_social | default: '1,000+ Aussies on Brisa'
+  assign trust_1_text = trust_shipping | default: trust_1 | default: 'Free shipping AUS & NZ wide'
+  assign trust_2_text = trust_checkout | default: trust_2 | default: 'Secure checkout'
+  assign trust_3_text = trust_social | default: trust_3 | default: '1,000+ Aussies on Brisa'
+  assign trust_4_text = trust_4 | default: ''
+  assign trust_5_text = trust_5 | default: ''
+
+  assign trust_1_icon = trust_icon_shipping | default: trust_icon_1
+  assign trust_2_icon = trust_icon_checkout | default: trust_icon_2
+  assign trust_3_icon = trust_icon_social | default: trust_icon_3
+  assign trust_4_icon = trust_icon_4
+  assign trust_5_icon = trust_icon_5
+
+  assign trust_1_asset = trust_asset_1 | default: ''
+  assign trust_2_asset = trust_asset_2 | default: ''
+  assign trust_3_asset = trust_asset_3 | default: ''
+  assign trust_4_asset = trust_asset_4 | default: ''
+  assign trust_5_asset = trust_asset_5 | default: ''
+
+  assign trust_count = 3
+  if trust_4_text != blank
+    assign trust_count = trust_count | plus: 1
+  endif
+  if trust_5_text != blank
+    assign trust_count = trust_count | plus: 1
+  endif
 %}
 
-<div class="brisa-product-area-info__trust-row" aria-label="Store benefits">
+<div class="brisa-product-area-info__trust-row{% if trust_count > 3 %} brisa-product-area-info__trust-row--wrap{% endif %}" aria-label="Store benefits">
   <div class="brisa-product-area-info__trust-item">
     <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
-      {% if trust_icon_shipping != blank %}
-        {{ trust_icon_shipping | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% if trust_1_icon != blank %}
+        {{ trust_1_icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% elsif trust_1_asset != blank %}
+        <img src="{{ trust_1_asset | asset_url }}" alt="" loading="lazy" width="48" height="48">
       {% else %}
         <img src="{{ 'free-shipping.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
       {% endif %}
     </span>
-    <span>{{ trust_shipping_text | escape | newline_to_br }}</span>
+    <span>{{ trust_1_text | escape | newline_to_br }}</span>
   </div>
 
   <div class="brisa-product-area-info__trust-item">
     <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
-      {% if trust_icon_checkout != blank %}
-        {{ trust_icon_checkout | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% if trust_2_icon != blank %}
+        {{ trust_2_icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% elsif trust_2_asset != blank %}
+        <img src="{{ trust_2_asset | asset_url }}" alt="" loading="lazy" width="48" height="48">
       {% else %}
         <img src="{{ 'secure.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
       {% endif %}
     </span>
-    <span>{{ trust_checkout_text | escape }}</span>
+    <span>{{ trust_2_text | escape }}</span>
   </div>
 
   <div class="brisa-product-area-info__trust-item">
     <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
-      {% if trust_icon_social != blank %}
-        {{ trust_icon_social | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% if trust_3_icon != blank %}
+        {{ trust_3_icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+      {% elsif trust_3_asset != blank %}
+        <img src="{{ trust_3_asset | asset_url }}" alt="" loading="lazy" width="48" height="48">
       {% else %}
         <img src="{{ '1000s.png' | file_url }}" alt="" loading="lazy" width="120" height="55">
       {% endif %}
     </span>
-    <span>{{ trust_social_text | escape | newline_to_br }}</span>
+    <span>{{ trust_3_text | escape | newline_to_br }}</span>
   </div>
+
+  {% if trust_4_text != blank %}
+    <div class="brisa-product-area-info__trust-item">
+      <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+        {% if trust_4_icon != blank %}
+          {{ trust_4_icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+        {% elsif trust_4_asset != blank %}
+          <img src="{{ trust_4_asset | asset_url }}" alt="" loading="lazy" width="48" height="48">
+        {% endif %}
+      </span>
+      <span>{{ trust_4_text | escape | newline_to_br }}</span>
+    </div>
+  {% endif %}
+
+  {% if trust_5_text != blank %}
+    <div class="brisa-product-area-info__trust-item">
+      <span class="brisa-product-area-info__trust-icon" aria-hidden="true">
+        {% if trust_5_icon != blank %}
+          {{ trust_5_icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,120', alt: '' }}
+        {% elsif trust_5_asset != blank %}
+          <img src="{{ trust_5_asset | asset_url }}" alt="" loading="lazy" width="48" height="48">
+        {% endif %}
+      </span>
+      <span>{{ trust_5_text | escape | newline_to_br }}</span>
+    </div>
+  {% endif %}
 </div>

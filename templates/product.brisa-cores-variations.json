@@ -352,12 +352,12 @@
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
         "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
         "show_trust_row": true,
-        "trust_shipping": "Free shipping AUS & NZ wide",
+        "trust_shipping": "Ships Next Day",
         "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
         "trust_checkout": "Secure checkout",
         "trust_icon_checkout": "shopify://shop_images/secure.png",
-        "trust_social": "1,000+ Aussies on Brisa",
-        "trust_icon_social": "shopify://shop_images/1000s.png",
+        "trust_social": "4.7 (163)",
+        "trust_icon_social": "",
         "show_sticky_add_to_cart": true,
         "max_width": 760,
         "gallery_spacing": 20,
@@ -378,7 +378,12 @@
         "card_background": "#38b6ff",
         "heading_color": "#000000",
         "text_color": "#111111",
-        "muted_color": "#666666"
+        "muted_color": "#666666",
+        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
+        "trust_4": "World first formula",
+        "trust_icon_4": "shopify://shop_images/world-first-formula.png",
+        "trust_5": "Real throat hit",
+        "trust_icon_5": "shopify://shop_images/real-throat.png"
       }
     },
     "brisa_product_area_info_t9x6TB": {
@@ -527,38 +532,166 @@
         "footnote": ""
       }
     },
-    "brisa_testimonials_product_page_x4dyKh": {
-      "type": "brisa-testimonials-product-page",
+    "brisa_inside_cores": {
+      "type": "brisa-inside-cores",
       "blocks": {
-        "testimonial_gDdDde": {
-          "type": "testimonial",
+        "card_flavours": {
+          "type": "card",
           "settings": {
-            "author": "Belinda C.",
-            "quote": "Absolutely love it. Got it 4 days ago and started straight away, haven't used the vape once. You guys are legends!",
-            "rating": 5
+            "image_asset": "brisa-inside-core-1.png",
+            "heading": "The flavours you actually chase \ud83c\udf52",
+            "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
         },
-        "testimonial_Pk4NAQ": {
-          "type": "testimonial",
+        "card_formula": {
+          "type": "card",
           "settings": {
-            "author": "Tahlia R.",
-            "quote": "The mint ice feels exactly like what I was reaching for. First time I've felt like the habit was actually replaceable.",
-            "rating": 5
+            "image_asset": "brisa-inside-core-2.png",
+            "heading": "A formula we'll never share \ud83e\udd2b",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+          }
+        },
+        "card_hit": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-3.png",
+            "heading": "The hit isn't an accident",
+            "description": "That satisfying hit and rush at the back of your throat is engineered. Our secret layering delivers the sensation you know, with zero nicotine, zero smoke, zero vapour. The closest thing to the real feeling."
+          }
+        },
+        "card_food_grade": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-4.png",
+            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
           }
         }
       },
       "block_order": [
-        "testimonial_gDdDde",
-        "testimonial_Pk4NAQ"
+        "card_flavours",
+        "card_formula",
+        "card_hit",
+        "card_food_grade"
       ],
-      "name": "Brisa product reviews",
       "settings": {
-        "heading": "Real Aussies. Real Reviews.",
-        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
-        "show_arrows": true,
-        "show_dots": false,
-        "autoplay": false,
-        "autoplay_speed": 5000
+        "heading": "Inside the Brisa core",
+        "subtitle": "The part everyone tries to copy... and no one's cracked.",
+        "max_width": 980,
+        "card_max_width": 420,
+        "card_peek": 56,
+        "card_gap": 24,
+        "card_padding": 10,
+        "card_radius": 28,
+        "image_radius": 18,
+        "carousel_spacing": 28,
+        "dots_spacing": 18,
+        "heading_size": 32,
+        "subtitle_size": 16,
+        "card_heading_size": 20,
+        "card_text_size": 15,
+        "background": "#ffffff",
+        "heading_color": "#111111",
+        "subtitle_color": "#6b6b6b",
+        "text_color": "#222222",
+        "card_background": "#ffffff",
+        "card_shadow_color": "#008bdc",
+        "dot_active_color": "#cfe9f8",
+        "dot_inactive_color": "#6d87a3",
+        "padding_top": 48,
+        "padding_bottom": 40,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "brisa_how_it_works": {
+      "type": "brisa-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "title": "Pick your Better core",
+            "text": "Twist off the top, drop in your aroma core, twist it shut. Takes seconds"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "number": "2",
+            "title": "Set your airflow",
+            "text": "Dial the base for your perfect draw, tighter or looser, however you like it"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "number": "3",
+            "title": "Reach for it instead",
+            "text": "In the moment you\u2019d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "HOW IT WORKS",
+        "video": "shopify://files/videos/how to use, personal exp.mp4",
+        "video_url": "",
+        "video_mp4_url": "",
+        "cover_image": "shopify://shop_images/4-steps-how-to.png",
+        "video_label": "Play how it works video",
+        "max_width": 920,
+        "card_radius": 36,
+        "video_radius": 20,
+        "card_padding_y": 48,
+        "card_padding_x": 48,
+        "heading_spacing": 24,
+        "video_spacing": 32,
+        "step_gap": 22,
+        "badge_size": 36,
+        "heading_size": 32,
+        "step_title_size": 17,
+        "step_text_size": 15,
+        "background": "#008bdc",
+        "card_background": "#ffffff",
+        "heading_color": "#111111",
+        "text_color": "#111111",
+        "badge_background": "#008bdc",
+        "badge_text_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_horizontal": 24,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 28,
+        "mobile_padding_horizontal": 16,
+        "mobile_card_padding_y": 32,
+        "mobile_card_padding_x": 24
+      }
+    },
+    "brisa_judgeme_reviews": {
+      "type": "brisa-judgeme-reviews",
+      "name": "Judge.me reviews",
+      "settings": {
+        "heading": "",
+        "max_width": 720,
+        "list_max_height": 720,
+        "padding_top": 48,
+        "padding_bottom": 56,
+        "padding_horizontal": 20,
+        "card_gap": 14,
+        "card_radius": 12,
+        "heading_size": 32,
+        "background": "#ffffff",
+        "card_background": "#ffffff",
+        "text_color": "#111111",
+        "muted_color": "#6b6b6b",
+        "star_color": "#111111",
+        "border_color": "#111111",
+        "soft_border_color": "#e8e8e8"
       }
     }
   },
@@ -567,7 +700,9 @@
     "brisa_device_header_cgyBnd",
     "brisa_cores_picker",
     "brisa_product_area_info_t9x6TB",
+    "brisa_inside_cores",
+    "brisa_how_it_works",
     "brisa_comparison_table_ntMxq4",
-    "brisa_testimonials_product_page_x4dyKh"
+    "brisa_judgeme_reviews"
   ]
 }
