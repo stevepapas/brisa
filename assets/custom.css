@@ -1002,7 +1002,7 @@ display: none;
 
 .brisa-product-testimonials__header {
   margin: 0 0 var(--brisa-reviews-heading-spacing, 36px);
-  text-align: center;
+  text-align: left;
 }
 
 .brisa-product-testimonials__heading {
@@ -1012,7 +1012,7 @@ display: none;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: normal;
-  text-align: center;
+  text-align: left;
   text-transform: none;
 }
 
@@ -1022,7 +1022,7 @@ display: none;
   font-size: var(--brisa-reviews-subheading-size, 18px);
   font-weight: 500;
   line-height: 1.45;
-  text-align: center;
+  text-align: left;
 }
 
 .brisa-product-testimonials__viewport {
@@ -3479,31 +3479,32 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   cursor: pointer;
 }
 
-.brisa-cart__gift {
-  margin-top: 16px;
-  padding: 16px;
-  background: #f3f3f3;
-  border-radius: 12px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+.brisa-cart__item--gift .brisa-cart__item-body {
+  justify-content: flex-start;
 }
 
-.brisa-cart__gift-text {
-  margin: 0;
-  flex: 1;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.brisa-cart__gift-pricing {
+.brisa-cart__item-title--gift {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
-  white-space: nowrap;
+  gap: 1px;
+  margin-bottom: 6px;
+  pointer-events: none;
+}
+
+.brisa-cart__item-image--placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: #eef6fb;
+}
+
+.brisa-cart__price--free {
+  color: #2e9e7b;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
 .brisa-cart__checkout-panel {

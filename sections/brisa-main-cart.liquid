@@ -254,6 +254,55 @@
               {%- endif -%}
             </article>
           {%- endfor -%}
+
+          {%- if show_gift_bonus and section.settings.show_gift_bonus -%}
+            {%- liquid
+              assign gift_product = section.settings.gift_product
+              assign gift_image = section.settings.gift_image
+              if gift_image == blank and gift_product != blank and gift_product.featured_media != blank
+                assign gift_image = gift_product.featured_media
+              endif
+              assign gift_title = section.settings.gift_title | default: 'BRISA CORE - (FREE GIFT)'
+              assign gift_subtitle = section.settings.gift_subtitle | default: 'WATERMELON'
+              assign gift_detail = section.settings.gift_detail | default: '1 free core pack'
+              assign gift_value = section.settings.gift_value | default: '$15.00'
+              assign gift_price_label = section.settings.gift_price_label | default: 'FREE'
+            -%}
+            <article class="brisa-cart__item brisa-cart__item--gift">
+              <div class="brisa-cart__item-media">
+                {%- if gift_image != blank -%}
+                  <span class="brisa-cart__item-image">
+                    {{- gift_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: gift_title -}}
+                  </span>
+                {%- else -%}
+                  <span class="brisa-cart__item-image brisa-cart__item-image--placeholder" aria-hidden="true"></span>
+                {%- endif -%}
+              </div>
+
+              <div class="brisa-cart__item-body">
+                <p class="brisa-cart__item-title brisa-cart__item-title--gift">
+                  <span>{{ gift_title }}</span>
+                  {%- if gift_subtitle != blank -%}
+                    <span>{{ gift_subtitle }}</span>
+                  {%- endif -%}
+                </p>
+                {%- if gift_detail != blank -%}
+                  <ul class="brisa-cart__item-details list--unstyled">
+                    <li>{{ gift_detail }}</li>
+                  </ul>
+                {%- endif -%}
+              </div>
+
+              <div class="brisa-cart__item-side">
+                <div class="brisa-cart__item-pricing">
+                  {%- if gift_value != blank -%}
+                    <span class="brisa-cart__price brisa-cart__price--compare">{{ gift_value }}</span>
+                  {%- endif -%}
+                  <span class="brisa-cart__price brisa-cart__price--free">{{ gift_price_label }}</span>
+                </div>
+              </div>
+            </article>
+          {%- endif -%}
         </div>
 
         {%- if section.settings.show_recommendations -%}
@@ -303,18 +352,6 @@
               </div>
             {%- endif -%}
           </product-recommendations>
-        {%- endif -%}
-
-        {%- if show_gift_bonus and section.settings.show_gift_bonus -%}
-          <div class="brisa-cart__gift">
-            <p class="brisa-cart__gift-text">{{ section.settings.gift_text }}</p>
-            <div class="brisa-cart__gift-pricing">
-              {%- if section.settings.gift_value != blank -%}
-                <span class="brisa-cart__price brisa-cart__price--compare">{{ section.settings.gift_value }}</span>
-              {%- endif -%}
-              <span class="brisa-cart__price brisa-cart__price--free">{{ section.settings.gift_price_label }}</span>
-            </div>
-          </div>
         {%- endif -%}
 
         <div class="brisa-cart__checkout-panel">
@@ -447,7 +484,7 @@
     {
       "type": "checkbox",
       "id": "show_gift_bonus",
-      "label": "Show gift bonus row",
+      "label": "Show gift bonus line item",
       "default": true
     },
     {
@@ -465,22 +502,51 @@
       "info": "Fallback if kit product handles is empty."
     },
     {
+      "type": "product",
+      "id": "gift_product",
+      "label": "Gift product",
+      "info": "Used for the gift image if no image is set below."
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_image",
+      "label": "Gift image"
+    },
+    {
+      "type": "text",
+      "id": "gift_title",
+      "label": "Gift title",
+      "default": "BRISA CORE - (FREE GIFT)"
+    },
+    {
+      "type": "text",
+      "id": "gift_subtitle",
+      "label": "Gift subtitle",
+      "default": "WATERMELON"
+    },
+    {
+      "type": "text",
+      "id": "gift_detail",
+      "label": "Gift detail",
+      "default": "1 free core pack"
+    },
+    {
       "type": "text",
       "id": "gift_text",
-      "label": "Gift text",
+      "label": "Gift text (legacy)",
       "default": "🎁 FREE Watermelon Core 3-pack — $15 value · auto-included with your kit"
     },
     {
       "type": "text",
       "id": "gift_value",
       "label": "Gift compare value",
-      "default": "$15"
+      "default": "$15.00"
     },
     {
       "type": "text",
       "id": "gift_price_label",
       "label": "Gift price label",
-      "default": "Free"
+      "default": "FREE"
     },
     {
       "type": "header",
