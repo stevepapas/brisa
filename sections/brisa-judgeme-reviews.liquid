@@ -281,14 +281,11 @@
     display: flex !important;
     flex-direction: column;
     gap: var(--brisa-jdgm-card-gap);
-    max-height: var(--brisa-jdgm-list-max-height);
+    max-height: none;
     margin: 0 !important;
     padding: 2px 2px 8px !important;
     border: 0 !important;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    overflow: visible;
   }
 
   @media screen and (min-width: 750px) {
@@ -418,15 +415,59 @@
     flex-wrap: wrap;
     gap: 8px;
     margin: 12px 0 0 !important;
+    font-size: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    height: auto !important;
   }
 
-  #shopify-section-{{ section.id }} .jdgm-rev__pic-img,
-  #shopify-section-{{ section.id }} .jdgm-rev__pic-link,
-  #shopify-section-{{ section.id }} .jdgm-rev__pic-img img {
+  /* Don't fight Judge.me's loading state — spinner lives on .jdgm--loading:after */
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link {
+    position: relative !important;
+    display: inline-block !important;
+    width: auto !important;
+    height: 72px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border-radius: 6px !important;
+    vertical-align: top;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link.jdgm--loading {
     width: 72px !important;
+    height: 72px !important;
+    padding: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link.jdgm--loading .jdgm-rev__pic-img,
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link.jdgm--loading img {
+    visibility: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link:not(.jdgm--loading) .jdgm-rev__pic-img,
+  #shopify-section-{{ section.id }} .jdgm-rev__pic-link:not(.jdgm--loading) img,
+  #shopify-section-{{ section.id }} .jdgm-rev__pics img {
+    display: block !important;
+    width: auto !important;
+    max-width: 120px !important;
     height: 72px !important;
     object-fit: cover !important;
     border-radius: 6px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Revamp / gallery thumbnails */
+  #shopify-section-{{ section.id }} .jdgm-gallery,
+  #shopify-section-{{ section.id }} .jdgm-gallery__thumbnail-wrapper,
+  #shopify-section-{{ section.id }} .jdgm-gallery__thumbnail-link img {
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* Show more (Loox-style) instead of page numbers */
@@ -582,6 +623,43 @@
       });
     }
 
+    function hydrateReviewImages() {
+      root.querySelectorAll('.jdgm-rev__pic-link, .jdgm-gallery__thumbnail-link, .jdgm-rev__pics a, .jdgm-rev__pics img').forEach(function (el) {
+        var img = el.tagName === 'IMG' ? el : el.querySelector('img');
+        if (!img) return;
+
+        var lazySrc = img.getAttribute('data-src') || img.getAttribute('data-original') || img.getAttribute('data-lazy-src');
+        if (lazySrc && (!img.getAttribute('src') || img.getAttribute('src').indexOf('data:') === 0)) {
+          img.setAttribute('src', lazySrc);
+        }
+
+        var markLoaded = function () {
+          var link = img.closest('.jdgm-rev__pic-link, .jdgm-gallery__thumbnail-link');
+          if (link) link.classList.remove('jdgm--loading');
+          img.style.visibility = 'visible';
+          img.style.opacity = '1';
+        };
+
+        if (img.complete && img.naturalWidth > 0) {
+          markLoaded();
+        } else {
+          img.addEventListener('load', markLoaded, { once: true });
+          img.addEventListener('error', function () {
+            var link = img.closest('.jdgm-rev__pic-link');
+            if (link) link.classList.remove('jdgm--loading');
+          }, { once: true });
+        }
+      });
+
+      // Stuck loading placeholders: clear after a short wait once src exists
+      root.querySelectorAll('.jdgm-rev__pic-link.jdgm--loading').forEach(function (link) {
+        var img = link.querySelector('img');
+        if (img && img.getAttribute('src') && img.complete && img.naturalWidth > 0) {
+          link.classList.remove('jdgm--loading');
+        }
+      });
+    }
+
     function enhance() {
       var widget = root.querySelector('.jdgm-rev-widg, .jdgm-widget');
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
@@ -670,6 +748,7 @@
       }
 
       reorderCards();
+      hydrateReviewImages();
       return true;
     }
 
@@ -680,13 +759,18 @@
       tries += 1;
       enhance();
       formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
+      hydrateReviewImages();
       if (tries > 40) clearInterval(timer);
     }, 250);
 
-    document.addEventListener('jdgm.doneDoneSetup', enhance);
+    document.addEventListener('jdgm.doneDoneSetup', function () {
+      enhance();
+      hydrateReviewImages();
+    });
     document.addEventListener('jdgm.doneLoadingReviews', function () {
       enhance();
       reorderCards();
+      hydrateReviewImages();
     });
 
     if (window.MutationObserver) {
@@ -697,11 +781,11 @@
         try {
           formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
           reorderCards();
+          hydrateReviewImages();
         } finally {
           syncing = false;
         }
       });
-      // childList only — characterData would re-fire when formatAverageEl writes textContent.
       observer.observe(root, { childList: true, subtree: true });
     }
   })();
