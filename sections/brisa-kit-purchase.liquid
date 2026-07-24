@@ -55,6 +55,72 @@
   endif
 
   assign colour_blocks = section.blocks | where: 'type', 'colour'
+
+  # Device stock gates every kit. Linked colour-block products win; else Starter/Try colours.
+  assign devices_available = false
+  assign has_device_stock_signal = false
+  assign device_colour_source = blank
+
+  for colour_block in colour_blocks
+    assign colour_device = colour_block.settings.device_product
+    if colour_device != blank
+      assign has_device_stock_signal = true
+      if colour_device.available
+        assign devices_available = true
+      endif
+    endif
+  endfor
+
+  if has_device_stock_signal == false and try_product != blank
+    assign has_device_stock_signal = true
+    assign device_colour_source = try_product
+    if try_product.available
+      assign devices_available = true
+    endif
+  endif
+
+  assign shared_colour_variants_json = '{'
+  assign shared_colour_pair_index = 0
+
+  if colour_blocks.size > 0
+    for colour_block in colour_blocks
+      assign colour_device = colour_block.settings.device_product
+      assign colour_name = colour_block.settings.label | downcase | strip
+      if colour_device != blank and colour_name != blank
+        assign colour_variant = colour_device.selected_or_first_available_variant
+        if shared_colour_pair_index > 0
+          assign shared_colour_variants_json = shared_colour_variants_json | append: ','
+        endif
+        if colour_device.available
+          assign colour_avail_flag = 'true'
+        else
+          assign colour_avail_flag = 'false'
+        endif
+        assign shared_colour_variants_json = shared_colour_variants_json | append: '"' | append: colour_name | append: '":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
+        assign shared_colour_pair_index = shared_colour_pair_index | plus: 1
+      endif
+    endfor
+  endif
+
+  if shared_colour_pair_index == 0 and device_colour_source != blank
+    for colour_variant in device_colour_source.variants
+      assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+      if colour_name != blank and colour_name != 'default title'
+        if shared_colour_pair_index > 0
+          assign shared_colour_variants_json = shared_colour_variants_json | append: ','
+        endif
+        if colour_variant.available
+          assign colour_avail_flag = 'true'
+        else
+          assign colour_avail_flag = 'false'
+        endif
+        assign shared_colour_variants_json = shared_colour_variants_json | append: '"' | append: colour_name | append: '":{"id":' | append: colour_variant.id | append: ',"available":' | append: colour_avail_flag | append: '}'
+        assign shared_colour_pair_index = shared_colour_pair_index | plus: 1
+      endif
+    endfor
+  endif
+
+  assign shared_colour_variants_json = shared_colour_variants_json | append: '}'
 -%}
 
 <brisa-kit-purchase
@@ -200,10 +266,14 @@
           if kit_product != blank and kit_product.available
             assign kit_available = true
           endif
+          # Kits include devices — if device colours are sold out, every pack is sold out.
+          if has_device_stock_signal and devices_available == false
+            assign kit_available = false
+          endif
 
           assign colour_variants_json = '{'
+          assign colour_pair_index = 0
           if kit_product != blank
-            assign colour_pair_index = 0
             for colour_variant in kit_product.variants
               assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
               if colour_name != blank and colour_name != 'default title'
@@ -221,6 +291,9 @@
             endfor
           endif
           assign colour_variants_json = colour_variants_json | append: '}'
+          if colour_pair_index == 0
+            assign colour_variants_json = shared_colour_variants_json
+          endif
 
           assign is_selected = false
           if active_key == key and kit_available
