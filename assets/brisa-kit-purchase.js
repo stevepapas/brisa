@@ -333,6 +333,57 @@
       return FALLBACK_ATC_ERROR;
     }
 
+    async notifyCartAdded() {
+      // Match Prestige product-form behaviour: refresh cart + show success toast.
+      try {
+        const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`, {
+          credentials: 'same-origin',
+          headers: { Accept: 'application/json' },
+        });
+        const cartContent = cartRes.ok ? await cartRes.json() : null;
+
+        if (cartContent) {
+          document.documentElement.dispatchEvent(
+            new CustomEvent('cart:updated', {
+              bubbles: true,
+              detail: { cart: cartContent },
+            })
+          );
+          document.documentElement.dispatchEvent(
+            new CustomEvent('cart:refresh', {
+              bubbles: true,
+              detail: {
+                cart: cartContent,
+                openMiniCart: window.themeVariables?.settings?.cartType === 'drawer',
+              },
+            })
+          );
+        } else {
+          document.documentElement.dispatchEvent(
+            new CustomEvent('cart:refresh', { bubbles: true })
+          );
+          document.documentElement.dispatchEvent(
+            new CustomEvent('cart:updated', { bubbles: true })
+          );
+        }
+      } catch (err) {
+        document.documentElement.dispatchEvent(
+          new CustomEvent('cart:refresh', { bubbles: true })
+        );
+        document.documentElement.dispatchEvent(
+          new CustomEvent('cart:updated', { bubbles: true })
+        );
+      }
+
+      document.documentElement.dispatchEvent(
+        new CustomEvent('cart-notification:show', {
+          bubbles: true,
+          cancelable: true,
+          detail: { status: 'success', error: '' },
+        })
+      );
+    }
+
     async addToCart() {
       const kit = this.selectedKit();
       if (!kit) return;
@@ -490,12 +541,7 @@
             });
             const retryRaw = await retry.text();
             if (retry.ok) {
-              document.documentElement.dispatchEvent(
-                new CustomEvent('cart:refresh', { bubbles: true, detail: { open: true } })
-              );
-              document.documentElement.dispatchEvent(
-                new CustomEvent('cart:updated', { bubbles: true })
-              );
+              await this.notifyCartAdded();
               return;
             }
             console.warn('[brisa-kit] starter retry failed', retry.status, retryRaw.slice(0, 300));
@@ -522,15 +568,7 @@
           );
         }
 
-        document.documentElement.dispatchEvent(
-          new CustomEvent('cart:refresh', {
-            bubbles: true,
-            detail: { open: true },
-          })
-        );
-        document.documentElement.dispatchEvent(
-          new CustomEvent('cart:updated', { bubbles: true })
-        );
+        await this.notifyCartAdded();
       } catch (err) {
         this.setError(this.friendlyCartError(err.message));
       } finally {
