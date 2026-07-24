@@ -1000,15 +1000,29 @@ display: none;
   overflow: hidden;
 }
 
-.brisa-product-testimonials__heading {
+.brisa-product-testimonials__header {
   margin: 0 0 var(--brisa-reviews-heading-spacing, 36px);
+  text-align: center;
+}
+
+.brisa-product-testimonials__heading {
+  margin: 0;
   color: black;
   font-size: 36px;
   font-weight: 900;
   line-height: 1.05;
-  letter-spacing: 0.04em;
+  letter-spacing: normal;
   text-align: center;
-  text-transform: uppercase;
+  text-transform: none;
+}
+
+.brisa-product-testimonials__subheading {
+  margin: 12px 0 0;
+  color: var(--brisa-reviews-subheading-color, #6b7078);
+  font-size: var(--brisa-reviews-subheading-size, 18px);
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
 }
 
 .brisa-product-testimonials__viewport {

@@ -24,11 +24,19 @@
   data-autoplay-speed="{{ section.settings.autoplay_speed }}"
   {{ section.shopify_attributes }}
 >
-  {% if section.settings.heading != blank %}
-    <h2 class="brisa-product-testimonials__heading">{{ section.settings.heading | escape }}</h2>
+  {% if section.settings.heading != blank or section.settings.subheading != blank %}
+    <div class="brisa-product-testimonials__header">
+      {% if section.settings.heading != blank %}
+        <h2 class="brisa-product-testimonials__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="brisa-product-testimonials__subheading">{{ section.settings.subheading | escape }}</p>
+      {% endif %}
+    </div>
   {% endif %}
 
-  {% if total_testimonials > 0 %}
+  {% if section.settings.show_text_testimonials and total_testimonials > 0 %}
     <div class="brisa-product-testimonials__viewport">
       <div class="brisa-product-testimonials__track">
         {% for testimonial in selected_testimonials %}
@@ -154,9 +162,20 @@
     },
     {
       "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "textarea",
       "id": "disclaimer",
       "label": "Disclaimer",
       "default": "Customer experiences vary. Brisa is not a medical device or smoking cessation product."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_testimonials",
+      "label": "Show text testimonials slider",
+      "default": true
     },
     {
       "type": "checkbox",
