@@ -823,8 +823,12 @@
 }
 
 .bkp-bottom .bkp__trust {
-  margin-top: 0;
-  display: grid;
+  margin-top: 20px;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 8px;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .bkp-bottom__trust {
