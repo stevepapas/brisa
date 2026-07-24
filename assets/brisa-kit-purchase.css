@@ -824,20 +824,6 @@
 
 .bkp-bottom .bkp__trust {
   margin-top: 20px;
-  display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px 8px;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
-.bkp-bottom__trust {
-  margin-top: 4px;
-  display: block;
-}
-
-.bkp-bottom__trust:empty {
-  display: none;
 }
 
 .bkp__accordions {

@@ -6,44 +6,110 @@
       <span data-bkp-sync-atc-label>ADD TO CART</span>
     </button>
 
-    <ul class="bkp__trust">
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          <img src="{{ 'brisa-trust-ship.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-        </span>
-        <span>Ships Next Day</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          <img src="{{ 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-        </span>
-        <span>Secure checkout</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          <img src="{{ 'brisa-trust-box.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-        </span>
-        <span>FREE SHIPPING</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          <img src="{{ 'brisa-trust-aussie.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-        </span>
-        <span>Australian Customer service</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          <img src="{{ 'brisa-trust-star.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-        </span>
-        <span>4.7 (163)</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          <img src="{{ 'brisa-trust-shield.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-        </span>
-        <span>30 Day Guarantee</span>
-      </li>
-    </ul>
+    {%- if section.settings.show_trust -%}
+      {%- liquid
+        assign trust_count = 0
+        if section.settings.show_trust_1 and section.settings.trust_1 != blank
+          assign trust_count = trust_count | plus: 1
+        endif
+        if section.settings.show_trust_2 and section.settings.trust_2 != blank
+          assign trust_count = trust_count | plus: 1
+        endif
+        if section.settings.show_trust_3 and section.settings.trust_3 != blank
+          assign trust_count = trust_count | plus: 1
+        endif
+        if section.settings.show_trust_4 and section.settings.trust_4 != blank
+          assign trust_count = trust_count | plus: 1
+        endif
+        if section.settings.show_trust_5 and section.settings.trust_5 != blank
+          assign trust_count = trust_count | plus: 1
+        endif
+        if section.settings.show_trust_6 and section.settings.trust_6 != blank
+          assign trust_count = trust_count | plus: 1
+        endif
+      -%}
+      {%- if trust_count > 0 -%}
+        <ul class="bkp__trust">
+          {%- if section.settings.show_trust_1 and section.settings.trust_1 != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if section.settings.trust_icon_1 != blank -%}
+                  {{ section.settings.trust_icon_1 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- else -%}
+                  <img src="{{ section.settings.trust_icon_asset_1 | default: 'brisa-trust-ship.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ section.settings.trust_1 | escape }}</span>
+            </li>
+          {%- endif -%}
+
+          {%- if section.settings.show_trust_2 and section.settings.trust_2 != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if section.settings.trust_icon_2 != blank -%}
+                  {{ section.settings.trust_icon_2 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- else -%}
+                  <img src="{{ section.settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ section.settings.trust_2 | escape }}</span>
+            </li>
+          {%- endif -%}
+
+          {%- if section.settings.show_trust_3 and section.settings.trust_3 != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if section.settings.trust_icon_3 != blank -%}
+                  {{ section.settings.trust_icon_3 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- else -%}
+                  <img src="{{ section.settings.trust_icon_asset_3 | default: 'brisa-trust-box.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ section.settings.trust_3 | escape }}</span>
+            </li>
+          {%- endif -%}
+
+          {%- if section.settings.show_trust_4 and section.settings.trust_4 != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if section.settings.trust_icon_4 != blank -%}
+                  {{ section.settings.trust_icon_4 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- else -%}
+                  <img src="{{ section.settings.trust_icon_asset_4 | default: 'brisa-trust-aussie.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ section.settings.trust_4 | escape }}</span>
+            </li>
+          {%- endif -%}
+
+          {%- if section.settings.show_trust_5 and section.settings.trust_5 != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if section.settings.trust_icon_5 != blank -%}
+                  {{ section.settings.trust_icon_5 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- else -%}
+                  <img src="{{ section.settings.trust_icon_asset_5 | default: 'brisa-trust-star.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ section.settings.trust_5 | escape }}</span>
+            </li>
+          {%- endif -%}
+
+          {%- if section.settings.show_trust_6 and section.settings.trust_6 != blank -%}
+            <li class="bkp__trust-item">
+              <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
+                {%- if section.settings.trust_icon_6 != blank -%}
+                  {{ section.settings.trust_icon_6 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+                {%- else -%}
+                  <img src="{{ section.settings.trust_icon_asset_6 | default: 'brisa-trust-shield.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+                {%- endif -%}
+              </span>
+              <span>{{ section.settings.trust_6 | escape }}</span>
+            </li>
+          {%- endif -%}
+        </ul>
+      {%- endif -%}
+    {%- endif -%}
   </div>
 </section>
 
@@ -52,7 +118,184 @@
   "name": "Brisa kit bottom CTA",
   "tag": "section",
   "class": "shopify-section--brisa-kit-bottom-cta",
-  "settings": [],
-  "presets": [{ "name": "Brisa kit bottom CTA" }]
+  "settings": [
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show trust row",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Item 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_1",
+      "label": "Show item 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Label 1",
+      "default": "Ships Next Day"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_1",
+      "label": "Icon 1 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_1",
+      "label": "Icon 1 asset filename",
+      "default": "brisa-trust-ship.svg"
+    },
+    {
+      "type": "header",
+      "content": "Item 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_2",
+      "label": "Show item 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Label 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_2",
+      "label": "Icon 2 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_2",
+      "label": "Icon 2 asset filename",
+      "default": "brisa-trust-lock.svg"
+    },
+    {
+      "type": "header",
+      "content": "Item 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_3",
+      "label": "Show item 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Label 3",
+      "default": "FREE SHIPPING"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_3",
+      "label": "Icon 3 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_3",
+      "label": "Icon 3 asset filename",
+      "default": "brisa-trust-box.svg"
+    },
+    {
+      "type": "header",
+      "content": "Item 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_4",
+      "label": "Show item 4",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Label 4",
+      "default": "Australian Customer service"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_4",
+      "label": "Icon 4 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_4",
+      "label": "Icon 4 asset filename",
+      "default": "brisa-trust-aussie.svg"
+    },
+    {
+      "type": "header",
+      "content": "Item 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_5",
+      "label": "Show item 5",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_5",
+      "label": "Label 5",
+      "default": "4.7 (163)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_5",
+      "label": "Icon 5 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_5",
+      "label": "Icon 5 asset filename",
+      "default": "brisa-trust-star.svg"
+    },
+    {
+      "type": "header",
+      "content": "Item 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_6",
+      "label": "Show item 6",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_6",
+      "label": "Label 6",
+      "default": "30 Day Guarantee"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_6",
+      "label": "Icon 6 (optional override)"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_6",
+      "label": "Icon 6 asset filename",
+      "default": "brisa-trust-shield.svg"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa kit bottom CTA"
+    }
+  ]
 }
 {% endschema %}
