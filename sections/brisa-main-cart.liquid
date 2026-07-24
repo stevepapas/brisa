@@ -65,6 +65,8 @@
           <div class="brisa-cart__progress" style="--progress: {{ progress_value }};" aria-hidden="true">
             <div class="brisa-cart__progress-track">
               <div class="brisa-cart__progress-fill"></div>
+            </div>
+            <div class="brisa-cart__progress-markers">
               <span class="brisa-cart__progress-icon brisa-cart__progress-icon--shipping">
                 {% render 'icon' with 'picto-delivery-truck' %}
               </span>
@@ -142,34 +144,42 @@
                       <p class="brisa-cart__component">
                         Device Colour —
                         {%- assign _colour = line_item.properties['Your colour'] | strip -%}
-                        {%- assign _colour_key = _colour | downcase -%}
-                        {%- case _colour_key -%}
-                          {%- when 'black' -%}
-                            <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
-                          {%- when 'ocean', 'blue' -%}
-                            <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
-                          {%- when 'rose' -%}
-                            <span class="brisa-cart-colour-property__value" style="color: #E8A0A0 !important;">{{ _colour }}</span>
-                          {%- else -%}
-                            {{ _colour }}
-                        {%- endcase -%}
+                        {%- assign _colour_key = _colour | downcase | strip -%}
+                        {%- if _colour_key == 'black' -%}
+                          <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                        {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
+                          <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                        {%- elsif _colour_key == 'rose' -%}
+                          <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
+                        {%- else -%}
+                          {{ _colour }}
+                        {%- endif -%}
                       </p>
                     {%- endif -%}
-                    {%- if line_item.properties["Mate's colour"] != blank -%}
+                    {%- assign mates_colour_value = line_item.properties["Mate's colour"] -%}
+                    {%- if mates_colour_value == blank -%}
+                      {%- for _prop in line_item.properties -%}
+                        {%- assign _pk = _prop.first | downcase | replace: '’', "'" | replace: '‘', "'" -%}
+                        {%- if _pk == "mate's colour" -%}
+                          {%- assign mates_colour_value = _prop.last -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                    {%- if mates_colour_value != blank -%}
                       <p class="brisa-cart__component">
                         Mate's colour —
-                        {%- assign _colour = line_item.properties["Mate's colour"] | strip -%}
-                        {%- assign _colour_key = _colour | downcase -%}
-                        {%- case _colour_key -%}
-                          {%- when 'black' -%}
-                            <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
-                          {%- when 'ocean', 'blue' -%}
-                            <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
-                          {%- when 'rose' -%}
-                            <span class="brisa-cart-colour-property__value" style="color: #E8A0A0 !important;">{{ _colour }}</span>
-                          {%- else -%}
-                            {{ _colour }}
-                        {%- endcase -%}
+                        {%- assign _colour = mates_colour_value | strip -%}
+                        {%- assign _colour_key = _colour | downcase | strip -%}
+                        {%- if _colour_key == 'black' -%}
+                          <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                        {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
+                          <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                        {%- elsif _colour_key == 'rose' -%}
+                          <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
+                        {%- else -%}
+                          {{ _colour }}
+                        {%- endif -%}
                       </p>
                     {%- endif -%}
                   {%- endif -%}
@@ -287,88 +297,46 @@
           </div>
         {%- endif -%}
 
-        <div class="brisa-cart__summary">
-          <div class="brisa-cart__summary-row">
-            <span>{{ section.settings.subtotal_label }}</span>
-            <span>{{ cart.items_subtotal_price | money }}</span>
-          </div>
-          <div class="brisa-cart__summary-row">
-            <span>{{ section.settings.shipping_label }}</span>
-            <span class="brisa-cart__summary-free">
-              {%- if shipping_is_free -%}
-                {{ section.settings.free_shipping_label }}
-              {%- else -%}
-                {{ section.settings.calculated_shipping_label }}
-              {%- endif -%}
-            </span>
-          </div>
+        <div class="brisa-cart__checkout-panel">
+          <div class="brisa-cart__summary">
+            {%- if cart.cart_level_discount_applications != blank -%}
+              {%- for discount_application in cart.cart_level_discount_applications -%}
+                <div class="brisa-cart__summary-row brisa-cart__summary-row--discount">
+                  <span>{{ discount_application.title }}</span>
+                  <span>-{{ discount_application.total_allocated_amount | money }}</span>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
 
-          {%- if cart.cart_level_discount_applications != blank -%}
-            {%- for discount_application in cart.cart_level_discount_applications -%}
-              <div class="brisa-cart__summary-row brisa-cart__summary-row--discount">
-                <span>{{ discount_application.title }}</span>
-                <span>-{{ discount_application.total_allocated_amount | money }}</span>
+            <div class="brisa-cart__summary-row brisa-cart__summary-row--subtotal">
+              <div class="brisa-cart__summary-copy">
+                <span class="brisa-cart__summary-label">{{ section.settings.subtotal_label }}</span>
+                {%- if shipping_is_free or section.settings.always_show_free_shipping -%}
+                  <span class="brisa-cart__summary-note">{{ section.settings.free_shipping_note | default: 'Free shipping' }}</span>
+                {%- elsif section.settings.calculated_shipping_label != blank -%}
+                  <span class="brisa-cart__summary-note">{{ section.settings.calculated_shipping_label }}</span>
+                {%- endif -%}
               </div>
-            {%- endfor -%}
-          {%- endif -%}
-
-          <div class="brisa-cart__summary-row brisa-cart__summary-row--total">
-            <span>{{ section.settings.total_label }}</span>
-            <span>{{ cart.total_price | money_with_currency }}</span>
-          </div>
-
-          {%- if section.settings.show_afterpay and cart.total_price > 0 -%}
-            <p class="brisa-cart__afterpay">
-              {%- if section.settings.afterpay_logo != blank -%}
-                {{ section.settings.afterpay_logo | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', alt: 'Afterpay', class: 'brisa-cart__afterpay-logo' }}
-              {%- endif -%}
-              <span>{{ section.settings.afterpay_text | replace: '[amount]', installment_money }}</span>
-            </p>
-          {%- endif -%}
-        </div>
-
-        {%- if section.settings.show_guarantee -%}
-          <div class="brisa-product-area-info__guarantee brisa-cart__guarantee">
-            <div class="brisa-product-detail__guarantee-header">
-              <span class="brisa-product-detail__guarantee-icon" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                  <path d="M24 5 9 11v11c0 9.5 6.4 18.3 15 21 8.6-2.7 15-11.5 15-21V11L24 5Z" fill="currentColor"/>
-                  <path d="m17 24 5 5 9-11" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <strong>{{ section.settings.guarantee_heading | escape }}</strong>
+              <span class="brisa-cart__summary-price">{{ cart.total_price | money }}</span>
             </div>
-            <span>{{ section.settings.guarantee_text | escape }}</span>
           </div>
-        {%- endif -%}
 
-        {%- if section.settings.show_trust_bar -%}
-          <div class="brisa-cart__trust-bar" aria-label="Store benefits">
-            <span class="brisa-cart__trust-item">{{ section.settings.trust_reviews }}</span>
-            <span class="brisa-cart__trust-item">{{ section.settings.trust_social }}</span>
-            <span class="brisa-cart__trust-item">{{ section.settings.trust_checkout }}</span>
-          </div>
-        {%- endif -%}
+          <div class="brisa-cart__footer">
+            <button type="submit" class="brisa-cart__checkout-button" name="checkout">
+              <span class="brisa-cart__checkout-lock" aria-hidden="true">{% render 'icon' with 'lock' %}</span>
+              <span>{{ section.settings.checkout_button_text | replace: '[total]', cart_total_money }}</span>
+            </button>
 
-        {%- if section.settings.show_urgency and section.settings.urgency_text != blank -%}
-          <div class="brisa-product-area-info__sellout brisa-cart__urgency">{{ section.settings.urgency_text | escape }}</div>
-        {%- endif -%}
-
-        <div class="brisa-cart__footer">
-          <button type="submit" class="brisa-cart__checkout-button" name="checkout">
-            <span class="brisa-cart__checkout-lock" aria-hidden="true">{% render 'icon' with 'lock' %}</span>
-            <span>{{ section.settings.checkout_button_text | replace: '[total]', cart_total_money }}</span>
-          </button>
-
-          {%- if section.settings.show_payment_methods and shop.enabled_payment_types.size > 0 -%}
-            <div class="brisa-cart__payment-methods">
-              <div class="payment-methods-list payment-methods-list--center">
-                {% for type in shop.enabled_payment_types %}
-                  {{ type | payment_type_svg_tag }}
-                {% endfor %}
+            {%- if section.settings.show_payment_methods and shop.enabled_payment_types.size > 0 -%}
+              <div class="brisa-cart__payment-methods">
+                <div class="payment-methods-list payment-methods-list--center">
+                  {% for type in shop.enabled_payment_types %}
+                    {{ type | payment_type_svg_tag }}
+                  {% endfor %}
+                </div>
               </div>
-            </div>
-          {%- endif -%}
+            {%- endif -%}
+          </div>
         </div>
       </form>
     {%- endif -%}
@@ -505,8 +473,14 @@
     },
     {
       "type": "text",
+      "id": "free_shipping_note",
+      "label": "Free shipping note",
+      "default": "Free shipping"
+    },
+    {
+      "type": "text",
       "id": "free_shipping_label",
-      "label": "Free shipping label",
+      "label": "Free shipping label (legacy)",
       "default": "FREE"
     },
     {
@@ -518,25 +492,25 @@
     {
       "type": "text",
       "id": "total_label",
-      "label": "Total label",
+      "label": "Total label (legacy)",
       "default": "Total"
     },
     {
       "type": "checkbox",
       "id": "show_afterpay",
-      "label": "Show Afterpay message",
-      "default": true
+      "label": "Show Afterpay message (legacy)",
+      "default": false
     },
     {
       "type": "text",
       "id": "afterpay_text",
-      "label": "Afterpay text",
+      "label": "Afterpay text (legacy)",
       "default": "4 payments of [amount] with Afterpay"
     },
     {
       "type": "image_picker",
       "id": "afterpay_logo",
-      "label": "Afterpay logo"
+      "label": "Afterpay logo (legacy)"
     },
     {
       "type": "header",
@@ -600,7 +574,7 @@
       "type": "text",
       "id": "checkout_button_text",
       "label": "Checkout button text",
-      "default": "SECURE CHECKOUT - [total] >"
+      "default": "SECURE CHECKOUT"
     },
     {
       "type": "checkbox",
