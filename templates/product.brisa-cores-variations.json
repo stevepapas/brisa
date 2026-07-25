@@ -693,6 +693,25 @@
         "border_color": "#111111",
         "soft_border_color": "#e8e8e8"
       }
+    },
+    "brisa_cores_bottom_cta": {
+      "type": "brisa-cores-bottom-cta",
+      "name": "Brisa cores bottom CTA",
+      "settings": {
+        "button_label": "ADD TO CART >",
+        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
+        "show_trust": true,
+        "trust_1": "Ships Next Day",
+        "trust_icon_1": "shopify://shop_images/free-shipping.png",
+        "trust_2": "Secure checkout",
+        "trust_icon_2": "shopify://shop_images/secure.png",
+        "trust_3": "4.7 (163)",
+        "trust_icon_3": "",
+        "trust_4": "World first formula",
+        "trust_icon_4": "shopify://shop_images/world-first-formula.png",
+        "trust_5": "Real throat hit",
+        "trust_icon_5": "shopify://shop_images/real-throat.png"
+      }
     }
   },
   "order": [
@@ -703,6 +722,7 @@
     "brisa_inside_cores",
     "brisa_how_it_works",
     "brisa_comparison_table_ntMxq4",
-    "brisa_judgeme_reviews"
+    "brisa_judgeme_reviews",
+    "brisa_cores_bottom_cta"
   ]
 }

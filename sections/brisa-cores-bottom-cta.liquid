@@ -1,0 +1,204 @@
+{{ 'brisa-kit-purchase.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #shopify-section-{{ section.id }} .bkp-bottom__caption {
+    margin: 0 0 18px;
+    color: #8a8a8a;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .bkp-bottom .brisa-product-area-info__trust-row {
+    margin: 4px auto 0;
+    max-width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .bkp-bottom .brisa-product-area-info__trust-icon {
+    width: 36px;
+    height: 36px;
+    color: #23aee8;
+  }
+
+  #shopify-section-{{ section.id }} .bkp-bottom .brisa-product-area-info__trust-item {
+    font-size: 11px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  #shopify-section-{{ section.id }} .bkp-bottom .brisa-product-area-info__trust-row--wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 8px;
+  }
+
+  #shopify-section-{{ section.id }} .bkp-bottom .brisa-product-area-info__trust-row--wrap .brisa-product-area-info__trust-item {
+    width: calc(33.333% - 8px);
+    max-width: 140px;
+  }
+</style>
+
+<section class="bkp-bottom" data-brisa-cores-bottom-cta {{ section.shopify_attributes }}>
+  <div class="bkp-bottom__inner">
+    <button type="button" class="bkp__atc" data-brisa-cores-bottom-atc>
+      <span>{{ section.settings.button_label | default: 'ADD TO CART >' | escape }}</span>
+    </button>
+
+    {% if section.settings.atc_caption != blank %}
+      <p class="bkp-bottom__caption">{{ section.settings.atc_caption | escape }}</p>
+    {% endif %}
+
+    {% if section.settings.show_trust %}
+      {% render 'brisa-trust-row',
+        trust_1: section.settings.trust_1,
+        trust_2: section.settings.trust_2,
+        trust_3: section.settings.trust_3,
+        trust_4: section.settings.trust_4,
+        trust_5: section.settings.trust_5,
+        trust_icon_1: section.settings.trust_icon_1,
+        trust_icon_2: section.settings.trust_icon_2,
+        trust_icon_3: section.settings.trust_icon_3,
+        trust_icon_4: section.settings.trust_icon_4,
+        trust_icon_5: section.settings.trust_icon_5
+      %}
+    {% endif %}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    const btn = root.querySelector('[data-brisa-cores-bottom-atc]');
+    if (!btn || btn.dataset.bound === 'true') return;
+    btn.dataset.bound = 'true';
+
+    const findProductAtc = () =>
+      document.querySelector(
+        '.shopify-section--brisa-cores-picker .product-form__add-button, .shopify-section--brisa-cores-picker [name="add"], .shopify-section--brisa-cores-picker button[type="submit"]'
+      );
+
+    const syncDisabled = () => {
+      const source = findProductAtc();
+      if (!source) return;
+      btn.disabled = Boolean(source.disabled);
+      const label = source.textContent?.trim();
+      if (label) {
+        const span = btn.querySelector('span');
+        if (span) span.textContent = label.includes('ADD') ? label : (btn.querySelector('span')?.dataset.defaultLabel || label);
+      }
+    };
+
+    const span = btn.querySelector('span');
+    if (span) span.dataset.defaultLabel = span.textContent;
+
+    btn.addEventListener('click', (event) => {
+      event.preventDefault();
+      const source = findProductAtc();
+      if (!source) return;
+      source.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      window.setTimeout(() => {
+        source.click();
+      }, 350);
+    });
+
+    syncDisabled();
+    document.addEventListener('DOMContentLoaded', syncDisabled);
+    window.addEventListener('load', syncDisabled);
+    const picker = document.querySelector('.shopify-section--brisa-cores-picker');
+    if (picker) {
+      const observer = new MutationObserver(syncDisabled);
+      observer.observe(picker, { subtree: true, childList: true, attributes: true, attributeFilter: ['disabled'] });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Brisa cores bottom CTA",
+  "tag": "section",
+  "class": "shopify-section--brisa-cores-bottom-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "ADD TO CART >"
+    },
+    {
+      "type": "text",
+      "id": "atc_caption",
+      "label": "Text under button",
+      "default": "From $3.33 a core — a fraction of what vaping costs."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust",
+      "label": "Show trust row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust item 1",
+      "default": "Ships Next Day"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_1",
+      "label": "Trust icon 1"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust item 2",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_2",
+      "label": "Trust icon 2"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust item 3",
+      "default": "4.7 (163)"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_3",
+      "label": "Trust icon 3"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust item 4",
+      "default": "World first formula"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_4",
+      "label": "Trust icon 4"
+    },
+    {
+      "type": "text",
+      "id": "trust_5",
+      "label": "Trust item 5",
+      "default": "Real throat hit"
+    },
+    {
+      "type": "image_picker",
+      "id": "trust_icon_5",
+      "label": "Trust icon 5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa cores bottom CTA"
+    }
+  ]
+}
+{% endschema %}
