@@ -383,16 +383,16 @@
             "icon_asset": "brisa-compare-cost.png",
             "brisa_value_type": "cost",
             "brisa_text": "Low",
-            "brisa_subtext": "$45 / month*",
+            "brisa_subtext": "$45*",
             "column_2_value_type": "cost",
             "column_2_text": "High",
-            "column_2_subtext": "$300+ / month*",
+            "column_2_subtext": "$300+*",
             "column_3_value_type": "cost",
             "column_3_text": "High",
-            "column_3_subtext": "$400+ / month*",
+            "column_3_subtext": "$400+*",
             "column_4_value_type": "cost",
             "column_4_text": "High",
-            "column_4_subtext": "$100+ / month*"
+            "column_4_subtext": "$100+*"
           }
         }
       },
@@ -417,7 +417,7 @@
         "brisa_heading": "Brisa Better",
         "column_2_heading": "Vaping",
         "column_3_heading": "Smoking",
-        "column_4_heading": "Gums/Patches",
+        "column_4_heading": "Gums",
         "background": "#ffffff",
         "text_color": "#111111",
         "heading_color": "#111111",
