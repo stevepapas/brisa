@@ -224,6 +224,17 @@
 </style>
 
 <section class="habit-replacement" {{ section.shopify_attributes }}>
+  {%- liquid
+    assign has_reasons = false
+    for block in section.blocks
+      if block.type == 'reason'
+        assign has_reasons = true
+        break
+      endif
+    endfor
+  -%}
+
+  {% if section.settings.eyebrow != blank or section.settings.heading != blank or has_reasons %}
   <div class="habit-replacement__top">
     <div class="habit-replacement__top-inner">
     {% if section.settings.eyebrow != blank %}
@@ -234,11 +245,14 @@
       <h2 class="habit-replacement__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
     {% endif %}
 
+    {% if has_reasons %}
     <div class="habit-replacement__reasons">
+      {% assign reason_index = 0 %}
       {% for block in section.blocks %}
         {% if block.type == 'reason' %}
+          {% assign reason_index = reason_index | plus: 1 %}
           <div class="habit-replacement__reason" {{ block.shopify_attributes }}>
-            <span class="habit-replacement__number">{{ forloop.index }}</span>
+            <span class="habit-replacement__number">{{ reason_index }}</span>
             <div>
               {% if block.settings.title != blank %}
                 <h3 class="habit-replacement__reason-title">{{ block.settings.title | escape }}</h3>
@@ -251,8 +265,10 @@
         {% endif %}
       {% endfor %}
     </div>
+    {% endif %}
     </div>
   </div>
+  {% endif %}
 
   <div class="habit-replacement__bottom">
     {% if section.settings.bottom_eyebrow != blank %}

@@ -201,45 +201,6 @@
         "flavour_size": 22
       }
     },
-    "why_brisa_works_B3VdJE": {
-      "type": "why-brisa-works",
-      "blocks": {
-        "card_bmkRbN": {
-          "type": "card",
-          "settings": {
-            "title": "Habit Loop",
-            "text": "Most people don't just miss the nicotine. They miss the reach, the draw, the pause and the routine. Brisa gives that moment a cleaner replacement."
-          }
-        },
-        "card_pxxGDy": {
-          "type": "card",
-          "settings": {
-            "title": "Sensory Feel",
-            "text": "The aroma core and airflow are designed to feel familiar, giving your mouth and hands something to do when the urge hits."
-          }
-        },
-        "card_r7iXTV": {
-          "type": "card",
-          "settings": {
-            "title": "No Nicotine",
-            "text": "No nicotine. No smoke. No vapour. Just a reusable device and food-grade aroma cores."
-          }
-        }
-      },
-      "block_order": [
-        "card_bmkRbN",
-        "card_pxxGDy",
-        "card_r7iXTV"
-      ],
-      "name": "Why Brisa Works",
-      "settings": {
-        "heading": "WHY BRISA WORKS",
-        "bg_color_top": "#29b6f6",
-        "bg_color_bottom": "#1e88e5",
-        "padding_top": 48,
-        "padding_bottom": 48
-      }
-    },
     "brisa_comparison_table_PqHQJk": {
       "type": "brisa-comparison-table",
       "blocks": {
@@ -439,58 +400,9 @@
         "footnote": "<p>*Approximate typical spend. Actual costs vary.</p>"
       }
     },
-    "blue_layout_2_dK4pUp": {
-      "type": "blue-layout-2",
-      "name": "Blue layout 2",
-      "settings": {
-        "number": "1,000+",
-        "stat_copy": "AUSSIES HAVE STARTED WITH BRISA",
-        "badge": "DESIGNED TO REBEL",
-        "heading": "FOR THE ONES WHO ARE DONE\nWITH THE HABIT",
-        "body": "Not another vape. Not another patch. Not another \"just use willpower\" lecture. Brisa was built for the moment your hand reaches before your brain catches up.",
-        "content_width": 560,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "background": "#ffffff",
-        "panel_background": "#1198dc",
-        "text_color": "#ffffff",
-        "border_color": "#cdeeff",
-        "border_width": 4,
-        "divider_color": "#b8e9ff",
-        "divider_width": 3,
-        "badge_background": "#7ccfff",
-        "badge_text_color": "#2c579b",
-        "number_size": 72,
-        "stat_copy_size": 19,
-        "badge_size": 18,
-        "heading_size": 34,
-        "body_size": 20
-      }
-    },
     "habit_replacement_jDnDH3": {
       "type": "habit-replacement",
       "blocks": {
-        "reason_keaTLY": {
-          "type": "reason",
-          "settings": {
-            "title": "Precise Sensory Feel",
-            "text": "Food-grade aroma cores and adjustable airflow designed to give the moment a familiar feel."
-          }
-        },
-        "reason_RB34fd": {
-          "type": "reason",
-          "settings": {
-            "title": "Hand-to-Mouth Ritual",
-            "text": "Same reach. Same pause. Same routine. A cleaner object to put in your hand when the trigger hits."
-          }
-        },
-        "reason_e6BUDH": {
-          "type": "reason",
-          "settings": {
-            "title": "Zero Nicotine, Smoke or Vapour",
-            "text": "No batteries. No heat. No smoke. No vapour. No nicotine."
-          }
-        },
         "step_q6fQFc": {
           "type": "step",
           "settings": {
@@ -521,9 +433,6 @@
         }
       },
       "block_order": [
-        "reason_keaTLY",
-        "reason_RB34fd",
-        "reason_e6BUDH",
         "step_q6fQFc",
         "step_PKcfDz",
         "step_9J8yXd",
@@ -531,8 +440,8 @@
       ],
       "name": "Habit replacement",
       "settings": {
-        "eyebrow": "HABIT - REPLACEMENT DESIGN",
-        "heading": "DRUG-FREE\nRITUAL-LOCKED\nHABIT REPLACED",
+        "eyebrow": "",
+        "heading": "",
         "bottom_eyebrow": "HOW IT WORKS",
         "bottom_heading": "FOUR STEPS.\nREPLACE THE MOMENT",
         "video_image": "shopify://shop_images/4-steps-how-to.png",
@@ -1080,8 +989,6 @@
     "brisa_inside_cores_home",
     "product_slider_aJ9PmW",
     "brisa_comparison_table_PqHQJk",
-    "why_brisa_works_B3VdJE",
-    "blue_layout_2_dK4pUp",
     "habit_replacement_jDnDH3",
     "blue_layout_3_kctQaw",
     "product_slider_Ahg8i4",
