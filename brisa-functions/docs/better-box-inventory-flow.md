@@ -84,5 +84,22 @@ Add a condition at the top: order tags do **not** include `better-box-cores-adju
 ## Theme / product setup (already done)
 
 - MBB is **not** a Fixed Bundle (so Appstle works)
-- Kit page hides the add-on unless Mint Ice, Raspberry Lime, and Cherry Pom are all available
-- MBB inventory tracking stays **off** — cores are the source of truth
+- Kit + cores pages hide the add-on unless Mint Ice, Raspberry Lime, and Cherry Pom are all available
+- **MBB Shopify inventory is a dummy gate only** — flavour cores are the source of truth
+
+### Why cart/add still says “already sold out”
+
+Appstle’s plan uses **`inventoryPolicyReserve: ON_SALE`**. At cart time Shopify checks
+MBB’s own sellable quantity. With qty **0** and policy **DENY** (or untracked with no
+sellable qty), `/cart/add.js` returns *“The product 'Monthly better box' is already sold out”*
+even when cores are in stock. Setting **`inventory_policy: continue` alone is not always enough**.
+
+**Fix (Admin):**
+
+1. MBB variant → **Track quantity** + **Continue selling when out of stock**  
+   (CLI: `npm run setup:better-box-inventory` — needs `write_products`; optional
+   `write_inventory` to set a high dummy qty)
+2. Do **not** re-add Fixed Bundle components (`npm run clear:better-box` if needed)
+3. Theme + Flow continue to gate/decrement **cores** only
+
+Alternative: in Appstle, change the plan inventory policy from **On sale** to **On fulfillment**.

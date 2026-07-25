@@ -75,7 +75,7 @@ Each **Brisa Cores** variant is a **3-pack**. Box contents:
 
 ### Current setup
 
-1. **MBB product** — normal variant + Appstle monthly selling plan. Inventory tracking off so the subscription can add to cart.
+1. **MBB product** — normal variant + Appstle monthly selling plan. **Tracked + continue selling** (dummy Shopify qty; cores are the real stock gate). Run `npm run setup:better-box-inventory` after Admin API scope changes.
 2. **Theme gate** — `brisa-kit-purchase` marks the add-on sold out unless Mint Ice, Raspberry Lime, and Cherry Pom are all available on `brisa-cores`.
 3. **Auto-decrement on every order / renewal** — Shopify Flow (or `npm run better-box:decrement`) adjusts those three core inventory items by −1 per box. See [docs/better-box-inventory-flow.md](./docs/better-box-inventory-flow.md).
 

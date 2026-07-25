@@ -12,6 +12,7 @@
     "activate": "node scripts/activate-cart-transform.mjs",
     "setup:better-box": "node scripts/setup-better-box-bundle.mjs",
     "clear:better-box": "node scripts/clear-better-box-bundle.mjs",
+    "setup:better-box-inventory": "node scripts/setup-better-box-inventory.mjs",
     "better-box:decrement": "node scripts/decrement-better-box-cores.mjs",
     "variety:decrement": "node scripts/decrement-variety-cores.mjs"
   },
