@@ -1,92 +1,223 @@
 <style>
   #shopify-section-{{ section.id }} {
+    --bl2-blue: {{ section.settings.panel_background | default: '#38b6ff' }};
+    --bl2-text: {{ section.settings.text_color | default: '#ffffff' }};
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2 {
-    color: {{ section.settings.text_color }};
-    background: {{ section.settings.panel_background }};
-    border-top: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
-    border-bottom: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    color: var(--bl2-text);
+    overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__stat {
-    padding: 42px 20px 34px;
+    padding: 36px 20px 28px;
     text-align: center;
-    border-bottom: {{ section.settings.divider_width }}px solid {{ section.settings.divider_color }};
+    background: var(--bl2-blue);
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__number {
     margin: 0;
-    color: {{ section.settings.text_color }};
+    color: var(--bl2-text);
     font-size: {{ section.settings.number_size }}px;
     font-weight: 900;
+    letter-spacing: -0.02em;
     line-height: 0.95;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__stat-copy {
-    margin: 14px 0 0;
-    color: {{ section.settings.text_color }};
+    margin: 10px 0 0;
+    color: var(--bl2-text);
     font-size: {{ section.settings.stat_copy_size }}px;
-    font-weight: 900;
-    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.15;
     text-transform: uppercase;
   }
 
+  #shopify-section-{{ section.id }} .blue-layout-2__stat-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: min(220px, 55%);
+    margin: 18px auto 14px;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__stat-rule::before,
+  #shopify-section-{{ section.id }} .blue-layout-2__stat-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__stat-diamond {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    transform: rotate(45deg);
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__stat-footer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    color: var(--bl2-text);
+    font-size: {{ section.settings.stat_footer_size }}px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__stat-icon {
+    width: 22px;
+    height: 19px;
+    color: #ffffff;
+    flex: 0 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__hero {
+    position: relative;
+    min-height: {{ section.settings.image_min_height }}px;
+    color: #ffffff;
+    background: #1a1a1a;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ section.settings.image_position }};
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(17, 152, 220, 0) 42%,
+      rgba(17, 152, 220, 0.55) 68%,
+      rgba(17, 152, 220, 0.92) 100%
+    );
+    pointer-events: none;
+  }
+
   #shopify-section-{{ section.id }} .blue-layout-2__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: {{ section.settings.image_min_height }}px;
     max-width: {{ section.settings.content_width }}px;
-    margin: 0 auto;
-    padding: 34px 20px 58px;
-    text-align: center;
+    padding: 48px 22px 34px;
+    box-sizing: border-box;
+    text-align: left;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 34px;
-    padding: 10px 16px;
-    color: {{ section.settings.badge_text_color }};
-    background: {{ section.settings.badge_background }};
+    align-self: flex-start;
+    margin: 0 0 16px;
+    padding: 8px 14px;
+    color: #ffffff;
+    background: {{ section.settings.badge_background | default: '#7ccfff' }};
     border-radius: 999px;
     font-size: {{ section.settings.badge_size }}px;
-    font-weight: 900;
+    font-weight: 800;
+    letter-spacing: 0.03em;
     line-height: 1;
     text-transform: uppercase;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__heading {
     margin: 0;
-    color: {{ section.settings.text_color }};
+    color: #ffffff;
     font-size: {{ section.settings.heading_size }}px;
     font-weight: 900;
-    line-height: 1.35;
+    line-height: 1.05;
     text-transform: uppercase;
   }
 
+  #shopify-section-{{ section.id }} .blue-layout-2__heading-line {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__heading-accent {
+    display: block;
+    margin: 2px 0;
+    font-family: 'TeX Gyre Bonum', Georgia, 'Times New Roman', serif;
+    font-size: 0.92em;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1.1;
+    text-transform: none;
+  }
+
   #shopify-section-{{ section.id }} .blue-layout-2__text {
-    max-width: 480px;
-    margin: 0 auto;
-    color: {{ section.settings.text_color }};
+    max-width: 420px;
+    margin: 14px 0 0;
+    color: #ffffff;
     font-size: {{ section.settings.body_size }}px;
-    line-height: 1.25;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .blue-layout-2__text strong {
+    font-weight: 800;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .blue-layout-2__stat {
+      padding: 44px 24px 34px;
+    }
+
+    #shopify-section-{{ section.id }} .blue-layout-2__hero,
+    #shopify-section-{{ section.id }} .blue-layout-2__content {
+      min-height: {{ section.settings.image_min_height | times: 1.15 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .blue-layout-2__content {
+      padding: 64px 40px 48px;
+    }
   }
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .blue-layout-2__number {
-      font-size: {{ section.settings.number_size | times: 0.82 | round }}px;
+      font-size: {{ section.settings.number_size | times: 0.78 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .blue-layout-2__stat-copy {
+      font-size: {{ section.settings.stat_copy_size | times: 0.88 | round }}px;
     }
 
     #shopify-section-{{ section.id }} .blue-layout-2__heading {
-      font-size: {{ section.settings.heading_size | times: 0.72 | round }}px;
+      font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
     }
 
     #shopify-section-{{ section.id }} .blue-layout-2__text {
-      font-size: {{ section.settings.body_size | times: 0.9 | round }}px;
+      font-size: {{ section.settings.body_size | times: 0.92 | round }}px;
     }
   }
 </style>
+
+{%- liquid
+  assign hero_image = section.settings.image
+  assign hero_alt = section.settings.image.alt | default: section.settings.heading_line_1 | default: 'Brisa'
+-%}
 
 <section class="blue-layout-2" {{ section.shopify_attributes }}>
   <div class="blue-layout-2__stat">
@@ -97,20 +228,74 @@
     {% if section.settings.stat_copy != blank %}
       <p class="blue-layout-2__stat-copy">{{ section.settings.stat_copy | escape }}</p>
     {% endif %}
+
+    <div class="blue-layout-2__stat-rule" aria-hidden="true">
+      <span class="blue-layout-2__stat-diamond"></span>
+    </div>
+
+    {% if section.settings.stat_footer != blank %}
+      <p class="blue-layout-2__stat-footer">
+        <span>{{ section.settings.stat_footer | escape }}</span>
+        <img
+          class="blue-layout-2__stat-icon"
+          src="{{ 'brisa-australia-outline.svg' | asset_url }}"
+          alt=""
+          width="22"
+          height="19"
+          loading="lazy"
+        >
+      </p>
+    {% endif %}
   </div>
 
-  <div class="blue-layout-2__content">
-    {% if section.settings.badge != blank %}
-      <div class="blue-layout-2__badge">{{ section.settings.badge | escape }}</div>
+  <div class="blue-layout-2__hero">
+    {% if hero_image != blank %}
+      {{
+        hero_image
+        | image_url: width: 1800
+        | image_tag:
+          class: 'blue-layout-2__image',
+          loading: 'lazy',
+          widths: '750, 1100, 1500, 1800',
+          sizes: '100vw',
+          alt: hero_alt
+      }}
+    {% else %}
+      <img
+        class="blue-layout-2__image"
+        src="{{ 'brisa-built-for-the-moment.jpg' | asset_url }}"
+        alt="{{ hero_alt | escape }}"
+        width="682"
+        height="1024"
+        loading="lazy"
+      >
     {% endif %}
 
-    {% if section.settings.heading != blank %}
-      <h3 class="blue-layout-2__heading">{{ section.settings.heading | escape | newline_to_br }}</h3>
-    {% endif %}
+    <div class="blue-layout-2__overlay" aria-hidden="true"></div>
 
-    {% if section.settings.body != blank %}
-      <p class="blue-layout-2__text">{{ section.settings.body | escape }}</p>
-    {% endif %}
+    <div class="blue-layout-2__content">
+      {% if section.settings.badge != blank %}
+        <div class="blue-layout-2__badge">{{ section.settings.badge | escape }}</div>
+      {% endif %}
+
+      {% if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank or section.settings.heading_line_3 != blank %}
+        <h3 class="blue-layout-2__heading">
+          {% if section.settings.heading_line_1 != blank %}
+            <span class="blue-layout-2__heading-line">{{ section.settings.heading_line_1 | escape }}</span>
+          {% endif %}
+          {% if section.settings.heading_line_2 != blank %}
+            <span class="blue-layout-2__heading-accent">{{ section.settings.heading_line_2 | escape }}</span>
+          {% endif %}
+          {% if section.settings.heading_line_3 != blank %}
+            <span class="blue-layout-2__heading-line">{{ section.settings.heading_line_3 | escape }}</span>
+          {% endif %}
+        </h3>
+      {% endif %}
+
+      {% if section.settings.body != blank %}
+        <div class="blue-layout-2__text rte">{{ section.settings.body }}</div>
+      {% endif %}
+    </div>
   </div>
 </section>
 
@@ -123,31 +308,65 @@
       "type": "text",
       "id": "number",
       "label": "Number",
-      "default": "1,000+"
+      "default": "2,000+"
     },
     {
       "type": "text",
       "id": "stat_copy",
       "label": "Stat copy",
-      "default": "AUSSIES HAVE STARTED WITH BRISA"
+      "default": "PEOPLE HAVE STARTED WITH BRISA"
+    },
+    {
+      "type": "text",
+      "id": "stat_footer",
+      "label": "Stat footer",
+      "default": "Australian company"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image focal point",
+      "default": "center top",
+      "options": [
+        { "value": "center top", "label": "Top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "center bottom", "label": "Bottom" }
+      ]
     },
     {
       "type": "text",
       "id": "badge",
       "label": "Badge",
-      "default": "DESIGNED TO REBEL"
+      "default": "BUILT FOR THE MOMENT"
     },
     {
-      "type": "textarea",
-      "id": "heading",
-      "label": "Heading",
-      "default": "FOR THE ONES WHO ARE DONE\nWITH THE HABIT"
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "FOR THE ONES"
     },
     {
-      "type": "textarea",
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading italic line",
+      "default": "who are done with the"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_3",
+      "label": "Heading line 3",
+      "default": "habit."
+    },
+    {
+      "type": "richtext",
       "id": "body",
       "label": "Body",
-      "default": "Not another vape. Not another patch. Not another \"just use willpower\" lecture. Brisa was built for the moment your hand reaches before your brain catches up."
+      "default": "<p>Not another vape. Not another patch. Not another “just use willpower” lecture. Brisa was built for <strong>the moment your hand reaches before your brain catches up.</strong></p>"
     },
     {
       "type": "header",
@@ -160,6 +379,16 @@
       "min": 360,
       "max": 900,
       "step": 20,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "image_min_height",
+      "label": "Image min height",
+      "min": 420,
+      "max": 820,
+      "step": 10,
       "unit": "px",
       "default": 560
     },
@@ -196,58 +425,20 @@
     {
       "type": "color",
       "id": "panel_background",
-      "label": "Panel background",
-      "default": "#1198dc"
+      "label": "Stat panel background",
+      "default": "#38b6ff"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Text",
+      "label": "Stat text",
       "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "border_color",
-      "label": "Outer border",
-      "default": "#cdeeff"
-    },
-    {
-      "type": "range",
-      "id": "border_width",
-      "label": "Outer border width",
-      "min": 0,
-      "max": 8,
-      "step": 1,
-      "unit": "px",
-      "default": 4
-    },
-    {
-      "type": "color",
-      "id": "divider_color",
-      "label": "Divider",
-      "default": "#b8e9ff"
-    },
-    {
-      "type": "range",
-      "id": "divider_width",
-      "label": "Divider width",
-      "min": 0,
-      "max": 8,
-      "step": 1,
-      "unit": "px",
-      "default": 3
     },
     {
       "type": "color",
       "id": "badge_background",
       "label": "Badge background",
       "default": "#7ccfff"
-    },
-    {
-      "type": "color",
-      "id": "badge_text_color",
-      "label": "Badge text",
-      "default": "#2c579b"
     },
     {
       "type": "header",
@@ -271,27 +462,37 @@
       "max": 36,
       "step": 1,
       "unit": "px",
-      "default": 19
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "stat_footer_size",
+      "label": "Stat footer size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "range",
       "id": "badge_size",
       "label": "Badge size",
-      "min": 12,
-      "max": 28,
+      "min": 11,
+      "max": 22,
       "step": 1,
       "unit": "px",
-      "default": 18
+      "default": 13
     },
     {
       "type": "range",
       "id": "heading_size",
       "label": "Heading size",
-      "min": 24,
-      "max": 52,
+      "min": 28,
+      "max": 64,
       "step": 2,
       "unit": "px",
-      "default": 34
+      "default": 42
     },
     {
       "type": "range",
@@ -301,7 +502,7 @@
       "max": 28,
       "step": 1,
       "unit": "px",
-      "default": 20
+      "default": 16
     }
   ],
   "presets": [
