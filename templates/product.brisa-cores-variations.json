@@ -385,28 +385,6 @@
         "muted_color": "#666666"
       }
     },
-    "brisa_product_area_info_t9x6TB": {
-      "type": "brisa-product-area-info",
-      "name": "Brisa product area info",
-      "settings": {
-        "show_guarantee": false,
-        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
-        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
-        "show_trust_row": false,
-        "show_starter": false,
-        "trust_shipping": "Free shipping AUS & NZ wide",
-        "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
-        "trust_checkout": "Secure checkout",
-        "trust_icon_checkout": "shopify://shop_images/secure.png",
-        "trust_social": "1,000+ Aussies on Brisa",
-        "trust_icon_social": "shopify://shop_images/1000s.png",
-        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
-        "landscape_image": "shopify://shop_images/4-steps-how-to.png",
-        "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
-        "landscape_video": "",
-        "landscape_video_label": "Play install video"
-      }
-    },
     "brisa_inside_cores": {
       "type": "brisa-inside-cores",
       "blocks": {
@@ -821,7 +799,6 @@
     "slideshow_brisa_LPC6iL",
     "brisa_device_header_cgyBnd",
     "brisa_cores_picker",
-    "brisa_product_area_info_t9x6TB",
     "brisa_inside_cores",
     "brisa_how_it_works",
     "brisa_new_to_brisa",
