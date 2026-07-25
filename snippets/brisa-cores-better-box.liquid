@@ -1,7 +1,11 @@
 {%- liquid
   assign addon_product = section.settings.addon_product
-  if addon_product == blank and section.settings.addon_handle != blank
-    assign addon_product = all_products[section.settings.addon_handle]
+  if addon_product == blank or addon_product.id == blank
+    if section.settings.addon_handle != blank
+      assign addon_product = all_products[section.settings.addon_handle]
+    elsif section.settings.addon_product != blank
+      assign addon_product = all_products[section.settings.addon_product]
+    endif
   endif
 
   assign addon_variant = blank

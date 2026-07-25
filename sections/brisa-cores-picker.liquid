@@ -1520,6 +1520,35 @@
       });
     }
 
+    function cartAddJsUrl() {
+      const base = window.themeVariables?.routes?.cartAddUrl || '/cart/add';
+      return base.endsWith('.js') ? base : `${base}.js`;
+    }
+
+    function extractCartAddError(payload, raw) {
+      if (payload && typeof payload === 'object') {
+        if (typeof payload.description === 'string' && payload.description.trim()) {
+          return payload.description.trim();
+        }
+        if (typeof payload.message === 'string' && payload.message.trim() && payload.message !== 'Cart Error') {
+          return payload.message.trim();
+        }
+        if (typeof payload.errors === 'string' && payload.errors.trim()) {
+          return payload.errors.trim();
+        }
+        if (payload.errors && typeof payload.errors === 'object') {
+          const parts = Object.values(payload.errors).flat().filter(Boolean);
+          if (parts.length) return parts.join(' ');
+        }
+      }
+
+      const text = String(raw || '').trim();
+      if (text && !text.startsWith('<') && !text.startsWith('{')) {
+        return text.slice(0, 200);
+      }
+      return '';
+    }
+
     async function addAddonToCart() {
       const variantId = purchase?.dataset.addonVariantId;
       const sellingPlanId = purchase?.dataset.addonSellingPlanId;
@@ -1527,12 +1556,13 @@
         throw new Error('Monthly Better Box is unavailable.');
       }
 
-      const res = await fetch(window.themeVariables?.routes?.cartAddUrl || '/cart/add.js', {
+      const res = await fetch(cartAddJsUrl(), {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
         },
         body: JSON.stringify({
           items: [
@@ -1545,26 +1575,39 @@
               },
             },
           ],
-          sections: ['mini-cart'],
         }),
       });
 
-      const payload = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        throw new Error(payload.description || payload.message || 'Could not add Monthly Better Box.');
+      const raw = await res.text();
+      let payload = {};
+      try {
+        payload = raw ? JSON.parse(raw) : {};
+      } catch (err) {
+        payload = {};
       }
 
-      const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`);
-      const cartContent = await cartRes.json();
-      cartContent.sections = payload.sections;
-      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true, detail: { cart: cartContent } }));
-      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
-        bubbles: true,
-        detail: {
-          cart: cartContent,
-          openMiniCart: window.themeVariables?.settings?.cartType === 'drawer',
-        },
-      }));
+      if (!res.ok) {
+        const detail = extractCartAddError(payload, raw) || 'Could not add Monthly Better Box.';
+        throw new Error(detail);
+      }
+
+      const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`, {
+        credentials: 'same-origin',
+        headers: { Accept: 'application/json' },
+      });
+      const cartContent = cartRes.ok ? await cartRes.json() : null;
+
+      if (cartContent) {
+        document.documentElement.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true, detail: { cart: cartContent } }));
+        document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+          bubbles: true,
+          detail: {
+            cart: cartContent,
+            openMiniCart: window.themeVariables?.settings?.cartType === 'drawer',
+          },
+        }));
+      }
+
       document.documentElement.dispatchEvent(new CustomEvent('cart-notification:show', {
         bubbles: true,
         cancelable: true,
