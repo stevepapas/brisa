@@ -1372,10 +1372,42 @@
     const onetimeAtcLabel = {{ 'product.form.add_to_cart' | t | json }};
     const soldOutAtcLabel = 'SOLD OUT';
 
-    function variantMeetsQty(stock, qty) {
-      if (!stock || stock.available === false) return false;
+    function isVarietyNav(navItem) {
+      if (!navItem) return false;
+      if (navItem.dataset.variety === 'true' || navItem.dataset.flavourKey === 'variety') return true;
+
+      const variantId = String(navItem.dataset.variantId || '');
+      if (stockMap.varietyVariantId && variantId === String(stockMap.varietyVariantId)) return true;
+
+      const navIndex = parseInt(navItem.dataset.index, 10);
+      if (Number.isFinite(navIndex)) {
+        const card = cards[navIndex];
+        const label = (card?.dataset.slideLabel || '').trim().toLowerCase();
+        if (label.includes('variety')) return true;
+        const entry = aromaMap[navIndex];
+        if (entry?.flavourKey === 'variety') return true;
+      }
+
+      return false;
+    }
+
+    function flavourPacksNeeded(packBtn) {
+      const packQty = parseInt(packBtn?.dataset.packQty || '1', 10);
+      return Math.max(1, Math.floor(packQty / 3));
+    }
+
+    function componentMeetsPackQty(stock, packsNeeded) {
+      if (!stock) return false;
       if (!stock.inventoryManaged) return true;
       if (stock.inventoryPolicy === 'continue') return true;
+      return Number(stock.inventoryQuantity) >= packsNeeded;
+    }
+
+    function variantMeetsQty(stock, qty) {
+      if (!stock) return false;
+      if (!stock.inventoryManaged) return true;
+      if (stock.inventoryPolicy === 'continue') return true;
+      if (stock.available === false && Number(stock.inventoryQuantity) < qty) return false;
       return Number(stock.inventoryQuantity) >= qty;
     }
 
@@ -1383,12 +1415,11 @@
       if (!packBtn || !navItem) return false;
 
       const packQty = parseInt(packBtn.dataset.packQty || '1', 10);
-      const packCores = parseInt(packBtn.dataset.packCores || '9', 10);
 
-      if (navItem.dataset.variety === 'true') {
-        const neededPerFlavour = Math.max(1, Math.round(packCores / 9));
+      if (isVarietyNav(navItem)) {
+        const packsNeeded = flavourPacksNeeded(packBtn);
         const components = stockMap.varietyComponents || {};
-        return ['mint', 'raspberry', 'cherry'].every((key) => variantMeetsQty(components[key], neededPerFlavour));
+        return ['mint', 'raspberry', 'cherry'].every((key) => componentMeetsPackQty(components[key], packsNeeded));
       }
 
       const variantId = String(navItem.dataset.variantId || '');
@@ -1440,6 +1471,20 @@
       updateAtcState();
     }
 
+    function setAtcButtonState(btn, label, disabled) {
+      if (btn.dataset.buttonContent != null) {
+        btn.dataset.buttonContent = label;
+      }
+      const textEl = btn.querySelector('.loader-button__text');
+      if (textEl) {
+        textEl.textContent = label;
+      } else {
+        btn.textContent = label;
+      }
+      btn.disabled = disabled;
+      btn.classList.toggle('button--ternary', disabled);
+    }
+
     function updateAtcState() {
       const mode = getPurchaseMode();
       const navItem = navItems[currentIndex];
@@ -1463,12 +1508,7 @@
           disabled = true;
         }
 
-        btn.textContent = label;
-        if (btn.dataset.buttonContent != null) {
-          btn.dataset.buttonContent = label;
-        }
-        btn.disabled = disabled;
-        btn.classList.toggle('button--ternary', disabled);
+        setAtcButtonState(btn, label, disabled);
       });
 
       document.querySelectorAll('[data-brisa-cores-bottom-atc]').forEach((bottomBtn) => {
@@ -1618,11 +1658,17 @@
       });
     });
 
+    function scheduleAvailabilitySync() {
+      syncPurchaseAvailability();
+      queueMicrotask(() => syncPurchaseAvailability());
+      window.setTimeout(() => syncPurchaseAvailability(), 0);
+    }
+
     const coresForm = getForm();
     if (coresForm && coresForm.dataset.brisaCoresRerenderBound !== 'true') {
       coresForm.dataset.brisaCoresRerenderBound = 'true';
       coresForm.addEventListener('product:rerender', () => {
-        queueMicrotask(() => syncPurchaseAvailability());
+        scheduleAvailabilitySync();
       });
     }
 
@@ -1634,8 +1680,14 @@
       if (cardIndex >= 0 && cardIndex !== currentIndex) {
         updateGallery(cardIndex);
       } else {
-        syncPurchaseAvailability();
+        scheduleAvailabilitySync();
       }
+    });
+
+    document.addEventListener('variant:changed', (event) => {
+      if (!event.detail || !event.detail.variant) return;
+      if (coresForm && event.detail.formId && event.detail.formId !== coresForm.id) return;
+      scheduleAvailabilitySync();
     });
 
     const popularName = {{ section.settings.popular_variant_name | downcase | json }};

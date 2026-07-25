@@ -164,7 +164,7 @@
   data-index="{{ nav_index }}"
   data-variant-id="{{ variant.id }}"
   data-available="{% if nav_available %}true{% else %}false{% endif %}"
-  {% if is_variety %}data-variety="true"{% endif %}
+  {% if is_variety %}data-variety="true" data-flavour-key="variety"{% endif %}
   aria-label="Select {{ nav_label | escape }}"
   aria-checked="{% if nav_first %}true{% else %}false{% endif %}"
   {% unless nav_available %}disabled aria-disabled="true" title="Sold out"{% endunless %}

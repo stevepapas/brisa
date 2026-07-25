@@ -129,22 +129,26 @@
       assign variety_mint_variant = blank
       assign variety_raspberry_variant = blank
       assign variety_cherry_variant = blank
+      assign variety_pack_variant = blank
       for v in product.variants
         assign vt = v.title | downcase | strip
-        unless vt contains 'variety'
-          if vt == 'mint ice' or vt contains 'mint ice'
+        if vt contains 'variety'
+          assign variety_pack_variant = v
+        else
+          if vt == 'mint ice' or vt contains 'mint'
             assign variety_mint_variant = v
           elsif vt == 'raspberry lime' or vt contains 'raspberry'
             assign variety_raspberry_variant = v
           elsif vt == 'cherry pomegranate' or vt contains 'cherry'
             assign variety_cherry_variant = v
           endif
-        endunless
+        endif
       endfor
     -%}
 
     <script type="application/json" data-brisa-cores-stock-map>
       {
+        "varietyVariantId": {% if variety_pack_variant != blank %}{{ variety_pack_variant.id | json }}{% else %}null{% endif %},
         "variants": {
           {%- for variant in product.variants -%}
             "{{ variant.id }}": {
