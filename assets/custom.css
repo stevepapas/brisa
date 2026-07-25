@@ -743,7 +743,7 @@ display: none;
     min-height: 0 !important;
     max-height: none !important;
     margin-inline: auto;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: var(--slideshow-brisa-frame-ratio, 1 / 1);
     overflow: hidden;
     border-radius: 14px;
   }
@@ -938,7 +938,7 @@ display: none;
   .template-brisa-devices-variations .shopify-section--slideshow-brisa .slideshow__slide-list {
     overflow: hidden;
     border-radius: 14px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: var(--slideshow-brisa-frame-ratio, 1 / 1);
     min-height: 0 !important;
   }
 
