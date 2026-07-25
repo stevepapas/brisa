@@ -200,6 +200,7 @@
         "desktop_layout": "square",
         "desktop_max_width": 520,
         "desktop_image_fit": "contain",
+        "frame_height_percent": 93,
         "section_height": "auto",
         "transition_type": "sweep",
         "show_initial_transition": false,
@@ -212,8 +213,7 @@
         "thumbnail_radius": 15,
         "thumbnail_active_border": "#008bdc",
         "arrow_background": "#ffffff",
-        "arrow_color": "#1a1a1a",
-        "frame_height_percent": 93
+        "arrow_color": "#1a1a1a"
       }
     },
     "brisa_device_header_cgyBnd": {
@@ -317,7 +317,7 @@
       ],
       "name": "Brisa cores picker",
       "settings": {
-        "aroma_prefix": "Aroma \u2014",
+        "aroma_prefix": "Aroma —",
         "aroma_description": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety.",
         "option_name": "Color",
         "use_swatch_nav": true,
@@ -325,7 +325,7 @@
         "swatch_label_source": "product_option",
         "dot_color": "#c7c7c7",
         "popular_variant_name": "Mint Ice",
-        "popular_suffix": "\u00b7 MOST POPULAR",
+        "popular_suffix": "· MOST POPULAR",
         "variant_limit": 8,
         "slide_image_source": "variant_metafield",
         "slide_image_metafield_namespace": "custom",
@@ -351,13 +351,17 @@
         "show_guarantee": true,
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
         "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "atc_caption": "From $3.33 a core — a fraction of what vaping costs.",
         "show_trust_row": true,
         "trust_shipping": "Ships Next Day",
         "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
         "trust_checkout": "Secure checkout",
         "trust_icon_checkout": "shopify://shop_images/secure.png",
         "trust_social": "4.7 (163)",
-        "trust_icon_social": "",
+        "trust_4": "World first formula",
+        "trust_icon_4": "shopify://shop_images/world-first-formula.png",
+        "trust_5": "Real throat hit",
+        "trust_icon_5": "shopify://shop_images/real-throat.png",
         "show_sticky_add_to_cart": true,
         "max_width": 760,
         "gallery_spacing": 20,
@@ -378,158 +382,7 @@
         "card_background": "#38b6ff",
         "heading_color": "#000000",
         "text_color": "#111111",
-        "muted_color": "#666666",
-        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
-        "trust_4": "World first formula",
-        "trust_icon_4": "shopify://shop_images/world-first-formula.png",
-        "trust_5": "Real throat hit",
-        "trust_icon_5": "shopify://shop_images/real-throat.png"
-      }
-    },
-    "brisa_product_area_info_t9x6TB": {
-      "type": "brisa-product-area-info",
-      "name": "Brisa product area info",
-      "settings": {
-        "show_guarantee": false,
-        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
-        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
-        "show_trust_row": false,
-        "trust_shipping": "Free shipping AUS & NZ wide",
-        "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
-        "trust_checkout": "Secure checkout",
-        "trust_icon_checkout": "shopify://shop_images/secure.png",
-        "trust_social": "1,000+ Aussies on Brisa",
-        "trust_icon_social": "shopify://shop_images/1000s.png",
-        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
-        "landscape_image": "shopify://shop_images/4-steps-how-to.png",
-        "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
-        "landscape_video": "",
-        "landscape_video_label": "Play install video"
-      }
-    },
-    "brisa_comparison_table_ntMxq4": {
-      "type": "brisa-comparison-table",
-      "blocks": {
-        "row_H7WBdM": {
-          "type": "row",
-          "settings": {
-            "label": "Monthly cost",
-            "brisa_value_type": "text",
-            "brisa_text": "$45",
-            "column_2_value_type": "text",
-            "column_2_text": "$300+",
-            "column_3_value_type": "text",
-            "column_3_text": "$400+",
-            "column_4_value_type": "text",
-            "column_4_text": "$100+"
-          }
-        },
-        "row_izm7Ec": {
-          "type": "row",
-          "settings": {
-            "label": "Nicotine",
-            "brisa_value_type": "cross",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "check",
-            "column_4_text": ""
-          }
-        },
-        "row_Xbh3BT": {
-          "type": "row",
-          "settings": {
-            "label": "Chemicals",
-            "brisa_value_type": "cross",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "check",
-            "column_4_text": ""
-          }
-        },
-        "row_hGgG6N": {
-          "type": "row",
-          "settings": {
-            "label": "Ritual kept",
-            "brisa_value_type": "check",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "cross",
-            "column_4_text": ""
-          }
-        },
-        "row_V4U8Tm": {
-          "type": "row",
-          "settings": {
-            "label": "Designed for the switch",
-            "brisa_value_type": "check",
-            "brisa_text": "",
-            "column_2_value_type": "cross",
-            "column_2_text": "",
-            "column_3_value_type": "cross",
-            "column_3_text": "",
-            "column_4_value_type": "cross",
-            "column_4_text": ""
-          }
-        },
-        "row_t98cKz": {
-          "type": "row",
-          "settings": {
-            "label": "Sensory satisfaction",
-            "brisa_value_type": "check",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "cross",
-            "column_4_text": ""
-          }
-        }
-      },
-      "block_order": [
-        "row_H7WBdM",
-        "row_izm7Ec",
-        "row_Xbh3BT",
-        "row_hGgG6N",
-        "row_V4U8Tm",
-        "row_t98cKz"
-      ],
-      "name": "Brisa comparison table",
-      "settings": {
-        "heading": "Brisa vs alternatives",
-        "subheading": "",
-        "table_label": "Brisa comparison table",
-        "brisa_heading": "Brisa Better",
-        "column_2_heading": "Vaping",
-        "column_3_heading": "Smoking",
-        "column_4_heading": "Gums/ Other",
-        "background": "#ffffff",
-        "text_color": "#111111",
-        "heading_color": "#111111",
-        "line_color": "#111111",
-        "line_width": 4,
-        "brisa_color": "#0798dc",
-        "brisa_text_color": "#ffffff",
-        "icon_color": "#2350a4",
-        "brisa_icon_color": "#ffffff",
-        "icon_size": 36,
-        "brisa_radius": 18,
-        "heading_size": 36,
-        "max_width": 900,
-        "padding_top": 48,
-        "padding_bottom": 48,
-        "mobile_padding_top": 36,
-        "mobile_padding_bottom": 36,
-        "footnote": ""
+        "muted_color": "#666666"
       }
     },
     "brisa_inside_cores": {
@@ -539,7 +392,7 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-1.png",
-            "heading": "The flavours you actually chase \ud83c\udf52",
+            "heading": "The flavours you actually chase 🍒",
             "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
         },
@@ -547,8 +400,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-2.png",
-            "heading": "A formula we'll never share \ud83e\udd2b",
-            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+            "heading": "A formula we'll never share 🤫",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
           }
         },
         "card_hit": {
@@ -563,8 +416,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-4.png",
-            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
-            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
+            "heading": "Food-grade to the core 🍽️",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
           }
         }
       },
@@ -628,7 +481,7 @@
           "settings": {
             "number": "3",
             "title": "Reach for it instead",
-            "text": "In the moment you\u2019d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
+            "text": "In the moment you’d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
           }
         }
       },
@@ -672,11 +525,171 @@
         "mobile_card_padding_x": 24
       }
     },
+    "brisa_comparison_table_ntMxq4": {
+      "type": "brisa-comparison-table",
+      "blocks": {
+        "row_H7WBdM": {
+          "type": "row",
+          "settings": {
+            "label": "Monthly cost",
+            "icon_asset": "",
+            "brisa_value_type": "text",
+            "brisa_text": "$45",
+            "brisa_subtext": "",
+            "column_2_value_type": "text",
+            "column_2_text": "$300+",
+            "column_2_subtext": "",
+            "column_3_value_type": "text",
+            "column_3_text": "$400+",
+            "column_3_subtext": "",
+            "column_4_value_type": "text",
+            "column_4_text": "$100+",
+            "column_4_subtext": ""
+          }
+        },
+        "row_izm7Ec": {
+          "type": "row",
+          "settings": {
+            "label": "Nicotine",
+            "icon_asset": "",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "check",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_Xbh3BT": {
+          "type": "row",
+          "settings": {
+            "label": "Chemicals",
+            "icon_asset": "",
+            "brisa_value_type": "cross",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "check",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_hGgG6N": {
+          "type": "row",
+          "settings": {
+            "label": "Ritual kept",
+            "icon_asset": "",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "cross",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_V4U8Tm": {
+          "type": "row",
+          "settings": {
+            "label": "Designed for the switch",
+            "icon_asset": "",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "cross",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "cross",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "cross",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_t98cKz": {
+          "type": "row",
+          "settings": {
+            "label": "Sensory satisfaction",
+            "icon_asset": "",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "cross",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_H7WBdM",
+        "row_izm7Ec",
+        "row_Xbh3BT",
+        "row_hGgG6N",
+        "row_V4U8Tm",
+        "row_t98cKz"
+      ],
+      "name": "Brisa comparison table",
+      "settings": {
+        "heading": "Brisa vs alternatives",
+        "heading_brand": "BRISA",
+        "heading_vs": "VS",
+        "heading_rest": "THE REST.",
+        "subheading": "",
+        "table_label": "Brisa comparison table",
+        "brisa_heading": "Brisa Better",
+        "column_2_heading": "Vaping",
+        "column_3_heading": "Smoking",
+        "column_4_heading": "Gums/ Other",
+        "background": "#ffffff",
+        "text_color": "#111111",
+        "heading_color": "#111111",
+        "line_color": "#111111",
+        "line_width": 4,
+        "brisa_color": "#0798dc",
+        "brisa_text_color": "#ffffff",
+        "icon_color": "#2350a4",
+        "brisa_icon_color": "#ffffff",
+        "icon_size": 36,
+        "label_size": 15,
+        "brisa_radius": 18,
+        "heading_size": 36,
+        "max_width": 900,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "footnote": ""
+      }
+    },
     "brisa_judgeme_reviews": {
       "type": "brisa-judgeme-reviews",
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
+        "product": "brisa-starter-kit",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,
@@ -691,8 +704,7 @@
         "muted_color": "#6b6b6b",
         "star_color": "#111111",
         "border_color": "#111111",
-        "soft_border_color": "#e8e8e8",
-        "product": "brisa-starter-kit"
+        "soft_border_color": "#e8e8e8"
       }
     },
     "brisa_cores_bottom_cta": {
@@ -700,21 +712,18 @@
       "name": "Brisa cores bottom CTA",
       "settings": {
         "button_label": "ADD TO CART >",
-        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
+        "atc_caption": "From $3.33 a core — a fraction of what vaping costs.",
         "show_trust": true,
         "trust_1": "Ships Next Day",
-        "trust_icon_1": "",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
         "trust_2": "Secure checkout",
-        "trust_icon_2": "",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
         "trust_3": "4.7 (163)",
-        "trust_icon_3": "",
+        "trust_icon_asset_3": "brisa-trust-star.svg",
         "trust_4": "World first\nformula",
         "trust_icon_4": "shopify://shop_images/world-first-formula.png",
         "trust_5": "Real throat hit",
-        "trust_icon_5": "shopify://shop_images/real-throat.png",
-        "trust_icon_asset_1": "brisa-trust-ship.svg",
-        "trust_icon_asset_2": "brisa-trust-lock.svg",
-        "trust_icon_asset_3": "brisa-trust-star.svg"
+        "trust_icon_5": "shopify://shop_images/real-throat.png"
       }
     }
   },
@@ -722,7 +731,6 @@
     "slideshow_brisa_LPC6iL",
     "brisa_device_header_cgyBnd",
     "brisa_cores_picker",
-    "brisa_product_area_info_t9x6TB",
     "brisa_inside_cores",
     "brisa_how_it_works",
     "brisa_comparison_table_ntMxq4",
