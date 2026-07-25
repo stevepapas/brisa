@@ -1018,6 +1018,29 @@
         "body_size": 16,
         "stat_icon": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687"
       }
+    },
+    "brisa_judgeme_reviews_home": {
+      "type": "brisa-judgeme-reviews",
+      "name": "Judge.me reviews",
+      "settings": {
+        "heading": "",
+        "product": "brisa-starter-kit",
+        "max_width": 720,
+        "list_max_height": 720,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_horizontal": 20,
+        "card_gap": 14,
+        "card_radius": 12,
+        "heading_size": 32,
+        "background": "#ffffff",
+        "card_background": "#ffffff",
+        "text_color": "#111111",
+        "muted_color": "#6b6b6b",
+        "star_color": "#111111",
+        "border_color": "#111111",
+        "soft_border_color": "#e8e8e8"
+      }
     }
   },
   "order": [
@@ -1031,8 +1054,9 @@
     "habit_replacement_jDnDH3",
     "blue_layout_2_home",
     "brisa_testimonials_product_page_HnzNQj",
-    "blue_layout_3_kctQaw",
+    "brisa_judgeme_reviews_home",
     "product_slider_Ahg8i4",
+    "blue_layout_3_kctQaw",
     "blocks_nnxhpq",
     "custom_liquid_f33WWJ",
     "black_ribbon_blue_box_bnUnL4",
