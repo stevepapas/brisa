@@ -51,11 +51,19 @@
             assign swatch_color = '#6ec9b0'
           when 'blackcurrant', 'black currant'
             assign swatch_color = '#7b5ea7'
+          when 'cherry pomegranate', 'cherry'
+            assign swatch_style = 'background: linear-gradient(135deg, #e11d48 0%, #f9a8d4 100%)'
+          when 'raspberry lime', 'raspberry'
+            assign swatch_style = 'background: linear-gradient(135deg, #dc2626 0%, #84cc16 100%)'
+          when 'variety'
+            assign swatch_style = 'background: conic-gradient(#f9a8d4, #dc2626, #38bdf8, #6ec9b0, #f9a8d4)'
           else
             assign swatch_color = section.settings.dot_color
         endcase
       endif
-      assign swatch_style = 'background-color: ' | append: swatch_color
+      if swatch_style == blank and swatch_color != blank
+        assign swatch_style = 'background-color: ' | append: swatch_color
+      endif
     when 'carousel_background_colour'
       assign swatch_color = variant.metafields.custom.carousel_background_colour.value | default: variant.metafields.custom.carousel_background_colour | default: slider_product.metafields.custom.carousel_background_colour.value | default: slider_product.metafields.custom.carousel_background_colour | default: section.settings.dot_color
       assign swatch_style = 'background-color: ' | append: swatch_color
@@ -73,6 +81,33 @@
   endif
 %}
 
+{% liquid
+  assign display_label = swatch_label
+  assign label_down = swatch_label | downcase | strip
+  if label_down contains 'cherry'
+    assign display_label = 'Cherry'
+  elsif label_down contains 'raspberry'
+    assign display_label = 'Raspberry'
+  elsif label_down contains 'mint'
+    assign display_label = 'Mint Ice'
+  elsif label_down contains 'variety'
+    assign display_label = 'Variety'
+  endif
+
+  assign show_new_badge = false
+  assign display_down = display_label | downcase
+  assign new_badge_names = section.settings.new_badge_names | default: 'Cherry,Raspberry,Variety,Cherry Pomegranate,Raspberry Lime' | downcase | replace: ', ', ',' | split: ','
+  for badge_name in new_badge_names
+    assign badge_trim = badge_name | strip
+    if badge_trim != blank
+      if label_down == badge_trim or display_down == badge_trim or label_down contains badge_trim
+        assign show_new_badge = true
+        break
+      endif
+    endif
+  endfor
+%}
+
 {% unless variant == blank %}
 <button
   class="product-slider__nav {% if nav_first %}is-active{% endif %}"
@@ -83,9 +118,14 @@
   {% if nav_first %}aria-current="true"{% endif %}
 >
   {% if section.settings.use_swatch_nav %}
-    <span class="product-slider__swatch" style="{{ swatch_style }}"></span>
-    {% if swatch_label != blank %}
-      <span class="product-slider__swatch-label">{{ swatch_label | escape }}</span>
+    <span class="product-slider__swatch-wrap">
+      {% if show_new_badge %}
+        <span class="product-slider__new-badge">NEW!</span>
+      {% endif %}
+      <span class="product-slider__swatch" style="{{ swatch_style }}"></span>
+    </span>
+    {% if display_label != blank %}
+      <span class="product-slider__swatch-label">{{ display_label | escape }}</span>
     {% endif %}
   {% else %}
     <span class="product-slider__dot"></span>

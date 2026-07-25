@@ -1,0 +1,81 @@
+{%- comment -%}
+  Custom HOW MUCH? pack cards. Syncs quantity on the product form.
+  Each cores variant is a 3-pack ($15); qty 3/6/9 ≈ 9/18/27 cores.
+{%- endcomment -%}
+<div class="bcp-packs" data-brisa-cores-packs>
+  <button
+    type="button"
+    class="bcp-pack"
+    data-brisa-cores-pack
+    data-pack-qty="{{ section.settings.pack_1_qty | default: 3 }}"
+    data-pack-cores="{{ section.settings.pack_1_cores | default: 9 }}"
+    aria-pressed="false"
+  >
+    <span class="bcp-pack__cores">{{ section.settings.pack_1_label | default: '9 cores' | escape }}</span>
+    {% if section.settings.pack_1_meta != blank %}
+      <span class="bcp-pack__meta">{{ section.settings.pack_1_meta | escape }}</span>
+    {% endif %}
+    <span class="bcp-pack__price">{{ section.settings.pack_1_price | default: '$45' | escape }}</span>
+    {% if section.settings.pack_1_unit != blank %}
+      <span class="bcp-pack__unit">{{ section.settings.pack_1_unit | escape }}</span>
+    {% endif %}
+  </button>
+
+  <button
+    type="button"
+    class="bcp-pack bcp-pack--popular is-selected"
+    data-brisa-cores-pack
+    data-pack-qty="{{ section.settings.pack_2_qty | default: 6 }}"
+    data-pack-cores="{{ section.settings.pack_2_cores | default: 18 }}"
+    aria-pressed="true"
+  >
+    {% if section.settings.pack_2_flag != blank %}
+      <span class="bcp-pack__flag">{{ section.settings.pack_2_flag | escape }}</span>
+    {% endif %}
+    <span class="bcp-pack__cores">{{ section.settings.pack_2_label | default: '18 cores' | escape }}</span>
+    {% if section.settings.pack_2_meta != blank %}
+      <span class="bcp-pack__meta">{{ section.settings.pack_2_meta | escape }}</span>
+    {% endif %}
+    <span class="bcp-pack__price-row">
+      <span class="bcp-pack__price">{{ section.settings.pack_2_price | default: '$75' | escape }}</span>
+      {% if section.settings.pack_2_compare != blank %}
+        <span class="bcp-pack__compare">{{ section.settings.pack_2_compare | escape }}</span>
+      {% endif %}
+    </span>
+    {% if section.settings.pack_2_unit != blank %}
+      <span class="bcp-pack__unit">{{ section.settings.pack_2_unit | escape }}</span>
+    {% endif %}
+    {% if section.settings.pack_2_save != blank %}
+      <span class="bcp-pack__save">{{ section.settings.pack_2_save | escape }}</span>
+    {% endif %}
+  </button>
+
+  <button
+    type="button"
+    class="bcp-pack bcp-pack--value"
+    data-brisa-cores-pack
+    data-pack-qty="{{ section.settings.pack_3_qty | default: 9 }}"
+    data-pack-cores="{{ section.settings.pack_3_cores | default: 27 }}"
+    aria-pressed="false"
+  >
+    {% if section.settings.pack_3_flag != blank %}
+      <span class="bcp-pack__flag bcp-pack__flag--value">{{ section.settings.pack_3_flag | escape }}</span>
+    {% endif %}
+    <span class="bcp-pack__cores">{{ section.settings.pack_3_label | default: '27 cores' | escape }}</span>
+    {% if section.settings.pack_3_meta != blank %}
+      <span class="bcp-pack__meta">{{ section.settings.pack_3_meta | escape }}</span>
+    {% endif %}
+    <span class="bcp-pack__price-row">
+      <span class="bcp-pack__price">{{ section.settings.pack_3_price | default: '$90' | escape }}</span>
+      {% if section.settings.pack_3_compare != blank %}
+        <span class="bcp-pack__compare">{{ section.settings.pack_3_compare | escape }}</span>
+      {% endif %}
+    </span>
+    {% if section.settings.pack_3_unit != blank %}
+      <span class="bcp-pack__unit">{{ section.settings.pack_3_unit | escape }}</span>
+    {% endif %}
+    {% if section.settings.pack_3_save != blank %}
+      <span class="bcp-pack__save bcp-pack__save--value">{{ section.settings.pack_3_save | escape }}</span>
+    {% endif %}
+  </button>
+</div>

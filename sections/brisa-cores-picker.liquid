@@ -116,6 +116,347 @@
     {% endif %}
     background-position: center;
     background-size: cover;
+    border-radius: 0 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image,
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image-wrapper {
+    border-radius: 0 !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__aroma-slot {
+    margin: 0 0 12px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__caption {
+    border-radius: 0;
+  }
+
+  /* Purchase mode: one-time + Monthly Better Box */
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase {
+    display: grid;
+    gap: 12px;
+    margin: 16px 0 18px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr) auto;
+    gap: 10px 12px;
+    align-items: start;
+    margin: 0;
+    padding: 14px 14px 16px;
+    border: 2px solid #d8d8d8;
+    border-radius: 0;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option--addon {
+    grid-template-columns: 22px minmax(0, 1fr);
+    background: #e8f6ff;
+    border-color: #23aee8;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option.is-selected {
+    border-color: #23aee8;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option.is-sold-out {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__radio-ui {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    border: 2px solid #23aee8;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: #fff;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option.is-selected .bcp-purchase__radio-ui {
+    box-shadow: inset 0 0 0 5px #23aee8;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option-title {
+    display: inline-block;
+    color: #111;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__option-price {
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon {
+    display: grid;
+    gap: 10px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__save {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #e11d48;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__save--sold-out {
+    background: #666;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-thumb {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    border-radius: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-subtitle,
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-meta,
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-contents {
+    margin: 0;
+    color: #6b6b6b;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-price {
+    color: #111;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-compare {
+    color: #8a8a8a;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: line-through;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__bonus {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: #e7f8ea;
+    border-radius: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__bonus-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #22c55e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__bonus-text {
+    flex: 1;
+    margin: 0;
+    color: #166534;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__bonus-media {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 0 !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown {
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #23aee8;
+    border-radius: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    color: #111;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown-row--free {
+    color: #166534;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown-row--free strong {
+    color: #166534;
+    font-weight: 800;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown-row s {
+    color: #8a8a8a;
+    font-weight: 600;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown-row--total {
+    padding-top: 8px;
+    border-top: 1px solid #e5e5e5;
+    color: #6b6b6b;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__breakdown-row--pay {
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-purchase__addon-footer {
+    margin: 0;
+    color: #111;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }}[data-purchase-mode="addon"] .product-form__variants {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordions {
+    margin: 22px 0 0;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion {
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__summary {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) 18px;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 2px;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__icon {
+    width: 22px;
+    height: 22px;
+    color: #666;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__icon img,
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__title {
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__toggle {
+    position: relative;
+    width: 14px;
+    height: 14px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__toggle::before,
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__toggle::after {
+    content: '';
+    position: absolute;
+    background: #111;
+    inset: 50% auto auto 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__toggle::after {
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion[open] .bcp-accordion__toggle::after {
+    opacity: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__body {
+    padding: 0 2px 14px 38px;
+    color: #444;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__body > *:first-child {
+    margin-top: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-accordion__body > *:last-child {
+    margin-bottom: 0;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__track {
@@ -191,11 +532,11 @@
     margin: 14px 0 0;
     color: {{ section.settings.muted_color }};
     font-size: {{ section.settings.value_line_size }}px;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: 0.04em;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__atc-caption {
@@ -205,6 +546,159 @@
     font-weight: 500;
     line-height: 1.35;
     text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__new-badge {
+    position: absolute;
+    top: -8px;
+    left: -10px;
+    z-index: 2;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #23aee8;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-packs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    align-items: stretch;
+    margin: 0 0 8px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-height: 148px;
+    margin: 0;
+    padding: 18px 8px 12px;
+    border: 2px solid #d8d8d8;
+    border-radius: 0;
+    background: #fff;
+    color: #111;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-selected {
+    border-color: #23aee8;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack--value.is-selected {
+    border-color: #e11d48;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 3px 8px;
+    border-radius: 0;
+    background: #23aee8;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag--value {
+    background: #e11d48;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__meta {
+    color: #666;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__price-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__price {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__compare {
+    color: #8a8a8a;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: line-through;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__unit {
+    color: #666;
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__save {
+    margin-top: auto;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #23aee8;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__save--value {
+    background: #e11d48;
+  }
+
+  .brisa-cores-picker-{{ section_uid }}[data-purchase-mode="addon"] .bcp-packs {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .product-form__quantity,
+  .brisa-cores-picker-{{ section_uid }} .product-form__option-info {
+    display: none !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .product-form__variants {
+    display: none !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .product-form__text {
+    display: none !important;
+  }
+
+  .brisa-cores-picker-{{ section_uid }}[data-purchase-mode="addon"] .shopify-payment-button,
+  .brisa-cores-picker-{{ section_uid }}[data-purchase-mode="addon"] shopify-accelerated-checkout {
+    display: none !important;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__guarantee {
@@ -262,27 +756,57 @@
       width: {{ section.settings.swatch_size | times: 0.86 | round }}px;
       height: {{ section.settings.swatch_size | times: 0.86 | round }}px;
     }
+
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack {
+      min-height: 156px;
+      padding: 18px 4px 10px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack__price {
+      font-size: 18px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores {
+      font-size: 13px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag,
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack__save {
+      font-size: 8px;
+      padding: 3px 5px;
+    }
   }
 </style>
 
-<section class="brisa-cores-picker brisa-cores-picker-{{ section_uid }}" {{ section.shopify_attributes }}>
+<section
+  class="brisa-cores-picker brisa-cores-picker-{{ section_uid }}"
+  data-purchase-mode="onetime"
+  {{ section.shopify_attributes }}
+>
   {% if section.settings.show_sticky_add_to_cart and product.available %}
     {%- render 'product-sticky-form', product: product, product_form_id: product_form_id -%}
   {% endif %}
 
   <div class="brisa-cores-picker__inner">
-    <p class="brisa-cores-picker__aroma" data-brisa-cores-aroma-label>
-      {{ section.settings.aroma_prefix | escape }} {{ selected_flavour | upcase | escape }}
-    </p>
-
-    {% if section.settings.aroma_description != blank %}
-      <p class="brisa-cores-picker__aroma-desc">{{ section.settings.aroma_description | escape }}</p>
-    {% endif %}
+    {%- capture aroma_slot -%}
+      <p class="brisa-cores-picker__aroma" data-brisa-cores-aroma-label>
+        {{ section.settings.aroma_prefix | escape }} {{ selected_flavour | upcase | escape }}
+      </p>
+      <p
+        class="brisa-cores-picker__aroma-desc"
+        data-brisa-cores-aroma-desc
+        data-onetime-desc="{{ section.settings.aroma_description | escape }}"
+        data-addon-desc="{{ section.settings.addon_aroma_description | default: section.settings.addon_subtitle | escape }}"
+      >
+        {{ section.settings.aroma_description | escape }}
+      </p>
+    {%- endcapture -%}
 
     {% render 'brisa-cores-gallery',
       product: product,
       section: section,
-      color_swatch_config: color_swatch_config
+      color_swatch_config: color_swatch_config,
+      aroma_slot: aroma_slot
     %}
 
     <div class="brisa-cores-picker__purchase">
@@ -293,6 +817,14 @@
       {% if section.settings.pack_subheading != blank %}
         <p class="brisa-cores-picker__pack-subheading">{{ section.settings.pack_subheading | escape }}</p>
       {% endif %}
+
+      {% render 'brisa-cores-pack-cards', section: section %}
+
+      {% if section.settings.value_line != blank %}
+        <p class="brisa-cores-picker__value-line">{{ section.settings.value_line }}</p>
+      {% endif %}
+
+      {% render 'brisa-cores-better-box', section: section %}
 
       <product-rerender id="product-info-{{ product.id }}-{{ section.id }}" observe-form="{{ product_form_id }}" allow-partial-rerender>
         {%- render 'product-form', product: product, product_form_id: product_form_id, update_url: true -%}
@@ -324,32 +856,109 @@
           <span>{{ section.settings.guarantee_text | escape }}</span>
         </div>
       {% endif %}
+
+      {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
+      {% if accordion_blocks.size > 0 %}
+        <div class="bcp-accordions">
+          {% for block in accordion_blocks %}
+            <details class="bcp-accordion" {{ block.shopify_attributes }}>
+              <summary class="bcp-accordion__summary">
+                <span class="bcp-accordion__icon" aria-hidden="true">
+                  {% if block.settings.icon != blank %}
+                    {{ block.settings.icon | image_url: width: 64 | image_tag: loading: 'lazy', widths: '32,48,64', alt: '' }}
+                  {% else %}
+                    {%- case block.settings.icon_style -%}
+                      {%- when 'ingredients' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 12h8M8 15h5"/></svg>
+                      {%- when 'subscription' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0 1 13.5-5.8M20 12a8 8 0 0 1-13.5 5.8"/><path d="M17 3v4h4M7 21v-4H3"/></svg>
+                      {%- when 'shipping' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h11v10H3z"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7.5" cy="18.5" r="1.5"/><circle cx="17.5" cy="18.5" r="1.5"/></svg>
+                      {%- when 'special' -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+                      {%- else -%}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg>
+                    {%- endcase -%}
+                  {% endif %}
+                </span>
+                <span class="bcp-accordion__title">{{ block.settings.title | escape }}</span>
+                <span class="bcp-accordion__toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="bcp-accordion__body rte">{{ block.settings.content }}</div>
+            </details>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
 
 <script>
   (() => {
-    const section = document.getElementById('shopify-section-{{ section.id }}');
-    if (!section) return;
+    const sectionEl = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionEl) return;
 
-    const gallery = section.querySelector('[data-brisa-cores-gallery]');
-    if (!gallery) return;
+    const root = sectionEl.querySelector('.brisa-cores-picker');
+    const gallery = sectionEl.querySelector('[data-brisa-cores-gallery]');
+    if (!gallery || !root) return;
 
     const track = gallery.querySelector('[data-brisa-cores-track]');
     const cards = Array.from(gallery.querySelectorAll('[data-brisa-cores-card]'));
     const navItems = Array.from(gallery.querySelectorAll('[data-product-slider-nav]'));
     const captions = Array.from(gallery.querySelectorAll('[data-brisa-cores-caption]'));
-    const aromaLabel = section.querySelector('[data-brisa-cores-aroma-label]');
+    const aromaLabel = sectionEl.querySelector('[data-brisa-cores-aroma-label]');
+    const aromaDesc = sectionEl.querySelector('[data-brisa-cores-aroma-desc]');
     const aromaPrefix = {{ section.settings.aroma_prefix | json }};
+    const addonCaption = {{ section.settings.addon_gallery_caption | default: 'Monthly better box - NEW!' | json }};
+    const purchase = sectionEl.querySelector('[data-brisa-cores-purchase]');
+    const modeInputs = Array.from(sectionEl.querySelectorAll('[data-brisa-cores-mode]'));
+    const modeOptions = Array.from(sectionEl.querySelectorAll('[data-brisa-cores-mode-option]'));
+    const packButtons = Array.from(sectionEl.querySelectorAll('[data-brisa-cores-pack]'));
     let currentIndex = 0;
+    let purchaseMode = 'onetime';
+
+    function ensureQuantityInput(form) {
+      if (!form) return null;
+      let input = form.querySelector('input[name="quantity"]');
+      if (!input) {
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'quantity';
+        input.value = '6';
+        form.appendChild(input);
+      }
+      return input;
+    }
+
+    function getForm() {
+      return sectionEl.querySelector('form[id="{{ product_form_id }}"]') || document.getElementById('{{ product_form_id }}');
+    }
+
+    function setPackQuantity(qty) {
+      const form = getForm();
+      const input = ensureQuantityInput(form);
+      if (input) {
+        input.value = String(qty);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+
+    function selectPack(button) {
+      if (!button) return;
+      packButtons.forEach((btn) => {
+        const on = btn === button;
+        btn.classList.toggle('is-selected', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      setPackQuantity(parseInt(button.dataset.packQty || '1', 10));
+    }
 
     function syncVariantPicker(index) {
       const card = cards[index];
       if (!card) return;
 
       const slideLabel = (card.dataset.slideLabel || '').trim().toLowerCase();
-      const variantPicker = section.querySelector('variant-picker');
+      const variantPicker = sectionEl.querySelector('variant-picker');
       if (!variantPicker || !slideLabel) return;
 
       const radios = variantPicker.querySelectorAll('.color-swatch__radio, .block-swatch__radio');
@@ -379,22 +988,165 @@
       });
 
       captions.forEach((caption, captionIndex) => {
-        caption.classList.toggle('is-active', captionIndex === currentIndex);
+        if (purchaseMode === 'addon') {
+          caption.classList.toggle('is-active', captionIndex === 0);
+          if (captionIndex === 0) caption.textContent = addonCaption;
+        } else {
+          caption.classList.toggle('is-active', captionIndex === currentIndex);
+        }
       });
 
       const card = cards[currentIndex];
       if (!card) return;
 
-      if (aromaLabel) {
+      if (aromaLabel && purchaseMode !== 'addon') {
         const label = card.dataset.slideLabel || '';
         aromaLabel.textContent = `${aromaPrefix} ${label.toUpperCase()}`.trim();
       }
 
-      syncVariantPicker(currentIndex);
+      if (purchaseMode !== 'addon') syncVariantPicker(currentIndex);
     }
+
+    function setPurchaseMode(mode) {
+      const available = purchase?.dataset.addonAvailable !== 'false';
+      if (mode === 'addon' && !available) mode = 'onetime';
+      purchaseMode = mode;
+      root.dataset.purchaseMode = mode;
+
+      modeOptions.forEach((option) => {
+        option.classList.toggle('is-selected', option.dataset.mode === mode);
+      });
+      modeInputs.forEach((input) => {
+        input.checked = input.value === mode;
+      });
+
+      if (aromaDesc) {
+        const next = mode === 'addon'
+          ? (aromaDesc.dataset.addonDesc || '')
+          : (aromaDesc.dataset.onetimeDesc || '');
+        if (next) aromaDesc.textContent = next;
+      }
+
+      if (aromaLabel && mode === 'addon') {
+        aromaLabel.textContent = {{ section.settings.addon_aroma_label | default: 'AROMA PROFILE — MONTHLY BETTER BOX' | json }};
+      } else {
+        updateGallery(currentIndex);
+      }
+
+      if (mode === 'addon') {
+        captions.forEach((caption, captionIndex) => {
+          caption.classList.toggle('is-active', captionIndex === 0);
+          if (captionIndex === 0) caption.textContent = addonCaption;
+        });
+      } else {
+        updateGallery(currentIndex);
+      }
+    }
+
+    async function addAddonToCart() {
+      const variantId = purchase?.dataset.addonVariantId;
+      const sellingPlanId = purchase?.dataset.addonSellingPlanId;
+      if (!variantId || !sellingPlanId) {
+        throw new Error('Monthly Better Box is unavailable.');
+      }
+
+      const res = await fetch(window.themeVariables?.routes?.cartAddUrl || '/cart/add.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          items: [
+            {
+              id: String(variantId),
+              quantity: 1,
+              selling_plan: String(sellingPlanId),
+              properties: {
+                _bundle: 'brisa-cores-addon',
+              },
+            },
+          ],
+          sections: ['mini-cart'],
+        }),
+      });
+
+      const payload = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(payload.description || payload.message || 'Could not add Monthly Better Box.');
+      }
+
+      const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`);
+      const cartContent = await cartRes.json();
+      cartContent.sections = payload.sections;
+      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true, detail: { cart: cartContent } }));
+      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+        bubbles: true,
+        detail: {
+          cart: cartContent,
+          openMiniCart: window.themeVariables?.settings?.cartType === 'drawer',
+        },
+      }));
+      document.documentElement.dispatchEvent(new CustomEvent('cart-notification:show', {
+        bubbles: true,
+        cancelable: true,
+        detail: { status: 'success', error: '' },
+      }));
+    }
+
+    packButtons.forEach((button) => {
+      button.addEventListener('click', () => selectPack(button));
+    });
+
+    modeInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        if (input.checked) setPurchaseMode(input.value);
+      });
+    });
+
+    modeOptions.forEach((option) => {
+      option.addEventListener('click', (event) => {
+        if (option.classList.contains('is-sold-out')) {
+          event.preventDefault();
+          return;
+        }
+      });
+    });
+
+    sectionEl.addEventListener('submit', async (event) => {
+      if (purchaseMode !== 'addon') return;
+      const form = event.target;
+      if (!(form instanceof HTMLFormElement)) return;
+      if (form.id !== '{{ product_form_id }}') return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const submitButtons = Array.from(form.querySelectorAll('[type="submit"]'));
+      submitButtons.forEach((btn) => {
+        btn.setAttribute('disabled', 'disabled');
+        btn.setAttribute('aria-busy', 'true');
+      });
+
+      try {
+        await addAddonToCart();
+      } catch (err) {
+        document.documentElement.dispatchEvent(new CustomEvent('cart-notification:show', {
+          bubbles: true,
+          cancelable: true,
+          detail: { status: 'error', error: err.message || 'Add to cart failed' },
+        }));
+      } finally {
+        submitButtons.forEach((btn) => {
+          btn.removeAttribute('disabled');
+          btn.removeAttribute('aria-busy');
+        });
+      }
+    }, true);
 
     navItems.forEach((item) => {
       item.addEventListener('click', () => {
+        if (purchaseMode === 'addon') setPurchaseMode('onetime');
         updateGallery(parseInt(item.dataset.index, 10));
       });
     });
@@ -415,6 +1167,10 @@
       if (popularIndex >= 0) startIndex = popularIndex;
     }
     updateGallery(startIndex);
+
+    const defaultPack = packButtons.find((btn) => btn.classList.contains('is-selected')) || packButtons[1] || packButtons[0];
+    selectPack(defaultPack);
+    setPurchaseMode('onetime');
   })();
 </script>
 
@@ -431,7 +1187,7 @@
       "type": "text",
       "id": "aroma_prefix",
       "label": "Aroma label prefix",
-      "default": "Aroma —"
+      "default": "AROMA PROFILE —"
     },
     {
       "type": "textarea",
@@ -500,6 +1256,13 @@
       "id": "popular_suffix",
       "label": "Popular suffix",
       "default": "· MOST POPULAR"
+    },
+    {
+      "type": "text",
+      "id": "new_badge_names",
+      "label": "NEW badge flavour names",
+      "default": "Cherry,Raspberry,Variety,Cherry Pomegranate,Raspberry Lime",
+      "info": "Comma-separated. Matches swatch labels."
     },
     {
       "type": "header",
@@ -685,19 +1448,376 @@
       "type": "text",
       "id": "pack_subheading",
       "label": "Pack subheading",
-      "default": "Stock up and save. Or grab a single pack to top up."
+      "default": "Stock up and save."
     },
     {
       "type": "text",
       "id": "value_line",
       "label": "Value line",
-      "default": "LESS THAN $1 A DAY TO KEEP THE RITUAL YOURS. COMPARE THAT TO A VAPE"
+      "default": "Most people grab the 27-pack so they're not reordering every few weeks — just $3.33 a core"
+    },
+    {
+      "type": "header",
+      "content": "Pack cards"
+    },
+    {
+      "type": "text",
+      "id": "pack_1_label",
+      "label": "Pack 1 label",
+      "default": "9 cores"
+    },
+    {
+      "type": "text",
+      "id": "pack_1_meta",
+      "label": "Pack 1 meta",
+      "default": "• 3 weeks of ritual"
+    },
+    {
+      "type": "text",
+      "id": "pack_1_price",
+      "label": "Pack 1 price",
+      "default": "$45"
+    },
+    {
+      "type": "text",
+      "id": "pack_1_unit",
+      "label": "Pack 1 unit price",
+      "default": "$5.00/core"
+    },
+    {
+      "type": "number",
+      "id": "pack_1_qty",
+      "label": "Pack 1 cart quantity",
+      "default": 3,
+      "info": "Each cores variant is a 3-pack. Qty 3 = 9 cores."
+    },
+    {
+      "type": "number",
+      "id": "pack_1_cores",
+      "label": "Pack 1 core count",
+      "default": 9
+    },
+    {
+      "type": "text",
+      "id": "pack_2_flag",
+      "label": "Pack 2 flag",
+      "default": "MOST POPULAR"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_label",
+      "label": "Pack 2 label",
+      "default": "18 cores"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_meta",
+      "label": "Pack 2 meta",
+      "default": "• 6 weeks of ritual"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_price",
+      "label": "Pack 2 price",
+      "default": "$75"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_compare",
+      "label": "Pack 2 compare",
+      "default": "$90"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_unit",
+      "label": "Pack 2 unit price",
+      "default": "$4.17/core"
+    },
+    {
+      "type": "text",
+      "id": "pack_2_save",
+      "label": "Pack 2 save badge",
+      "default": "SAVE 17% $15 OFF"
+    },
+    {
+      "type": "number",
+      "id": "pack_2_qty",
+      "label": "Pack 2 cart quantity",
+      "default": 6
+    },
+    {
+      "type": "number",
+      "id": "pack_2_cores",
+      "label": "Pack 2 core count",
+      "default": 18
+    },
+    {
+      "type": "text",
+      "id": "pack_3_flag",
+      "label": "Pack 3 flag",
+      "default": "BEST VALUE"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_label",
+      "label": "Pack 3 label",
+      "default": "27 cores"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_meta",
+      "label": "Pack 3 meta",
+      "default": "• 2 months of ritual"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_price",
+      "label": "Pack 3 price",
+      "default": "$90"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_compare",
+      "label": "Pack 3 compare",
+      "default": "$135"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_unit",
+      "label": "Pack 3 unit price",
+      "default": "$3.33/core"
+    },
+    {
+      "type": "text",
+      "id": "pack_3_save",
+      "label": "Pack 3 save badge",
+      "default": "SAVE 33% $45 OFF"
+    },
+    {
+      "type": "number",
+      "id": "pack_3_qty",
+      "label": "Pack 3 cart quantity",
+      "default": 9
+    },
+    {
+      "type": "number",
+      "id": "pack_3_cores",
+      "label": "Pack 3 core count",
+      "default": 27
+    },
+    {
+      "type": "header",
+      "content": "Purchase modes"
+    },
+    {
+      "type": "text",
+      "id": "onetime_label",
+      "label": "One-time label",
+      "default": "One-time purchase"
+    },
+    {
+      "type": "text",
+      "id": "onetime_price",
+      "label": "One-time price",
+      "default": "from $45"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_addon",
+      "label": "Show Monthly Better Box",
+      "default": true
+    },
+    {
+      "type": "product",
+      "id": "addon_product",
+      "label": "Better Box product"
+    },
+    {
+      "type": "text",
+      "id": "addon_handle",
+      "label": "Better Box handle fallback",
+      "default": "monthly-better-box"
+    },
+    {
+      "type": "text",
+      "id": "addon_title",
+      "label": "Better Box title",
+      "default": "Monthly Better Box"
+    },
+    {
+      "type": "text",
+      "id": "addon_subtitle",
+      "label": "Better Box subtitle",
+      "default": "12 cores every 4 weeks - never run out while on your journey"
+    },
+    {
+      "type": "textarea",
+      "id": "addon_aroma_description",
+      "label": "Aroma description when Better Box selected",
+      "default": "12 cores every 4 weeks — Mint Ice, Raspberry Lime and Cherry Pomegranate, with a free Cherry Pom in every box. Cancel anytime."
+    },
+    {
+      "type": "text",
+      "id": "addon_aroma_label",
+      "label": "Aroma label when Better Box selected",
+      "default": "AROMA PROFILE — MONTHLY BETTER BOX"
+    },
+    {
+      "type": "text",
+      "id": "addon_gallery_caption",
+      "label": "Gallery caption when Better Box selected",
+      "default": "Monthly better box - NEW!"
+    },
+    {
+      "type": "text",
+      "id": "addon_price",
+      "label": "Better Box price",
+      "default": "$44 /mo"
+    },
+    {
+      "type": "text",
+      "id": "addon_compare",
+      "label": "Better Box compare",
+      "default": "$72"
+    },
+    {
+      "type": "text",
+      "id": "addon_save",
+      "label": "Better Box save badge",
+      "default": "SAVE $28"
+    },
+    {
+      "type": "text",
+      "id": "addon_price_meta",
+      "label": "Better Box price meta",
+      "default": "$3.67/core - free shipping"
+    },
+    {
+      "type": "text",
+      "id": "addon_contents",
+      "label": "Better Box contents",
+      "default": "In every box: 1 Mint Ice - 1 Raspberry Lime - 1 Cherry Pomegranate"
+    },
+    {
+      "type": "image_picker",
+      "id": "addon_image",
+      "label": "Better Box image"
+    },
+    {
+      "type": "text",
+      "id": "addon_image_asset",
+      "label": "Better Box image asset fallback"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus_tag",
+      "label": "Bonus tag",
+      "default": "FREE"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus_text",
+      "label": "Bonus text",
+      "default": "A Free Cherry Pom in every box"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus",
+      "label": "Bonus text fallback"
+    },
+    {
+      "type": "image_picker",
+      "id": "addon_bonus_image",
+      "label": "Bonus image"
+    },
+    {
+      "type": "text",
+      "id": "addon_bonus_image_asset",
+      "label": "Bonus image asset fallback"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_1_label",
+      "label": "Breakdown line 1 label",
+      "default": "3 core packs (9 cores)"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_1_value",
+      "label": "Breakdown line 1 value",
+      "default": "$45"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_2_label",
+      "label": "Breakdown line 2 label",
+      "default": "+ Free Cherry Pom pack"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_2_value",
+      "label": "Breakdown line 2 value",
+      "default": "FREE"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_2_compare",
+      "label": "Breakdown line 2 compare",
+      "default": "$15"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_3_label",
+      "label": "Breakdown line 3 label",
+      "default": "+ Free shipping"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_3_value",
+      "label": "Breakdown line 3 value",
+      "default": "FREE"
+    },
+    {
+      "type": "text",
+      "id": "addon_line_3_compare",
+      "label": "Breakdown line 3 compare",
+      "default": "$12"
+    },
+    {
+      "type": "text",
+      "id": "addon_total_label",
+      "label": "Total label",
+      "default": "Total value"
+    },
+    {
+      "type": "text",
+      "id": "addon_total_value",
+      "label": "Total value",
+      "default": "$72"
+    },
+    {
+      "type": "text",
+      "id": "addon_pay_label",
+      "label": "You pay label",
+      "default": "You pay"
+    },
+    {
+      "type": "text",
+      "id": "addon_pay_value",
+      "label": "You pay value",
+      "default": "$44/mo"
+    },
+    {
+      "type": "text",
+      "id": "addon_footer",
+      "label": "Better Box footer",
+      "default": "Cancel anytime."
     },
     {
       "type": "checkbox",
       "id": "show_guarantee",
       "label": "Show 30-day guarantee",
-      "default": true
+      "default": false
     },
     {
       "type": "text",
@@ -1072,6 +2192,42 @@
           "id": "buy_now_button_text_color",
           "label": "Buy now text",
           "default": "rgba(0,0,0,0)"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Description"
+        },
+        {
+          "type": "select",
+          "id": "icon_style",
+          "label": "Icon",
+          "options": [
+            { "value": "description", "label": "Description" },
+            { "value": "ingredients", "label": "Ingredients" },
+            { "value": "subscription", "label": "Subscription" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "special", "label": "Special" }
+          ],
+          "default": "description"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Custom icon"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add accordion content here.</p>"
         }
       ]
     }

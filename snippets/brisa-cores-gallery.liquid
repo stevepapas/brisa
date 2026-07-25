@@ -58,7 +58,13 @@
       {% endif %}
     </div>
 
-    <div class="brisa-cores-gallery__viewport" style="border-radius: {{ section.settings.slider_border_radius }}px;">
+    {% if aroma_slot != blank %}
+      <div class="brisa-cores-gallery__aroma-slot">
+        {{ aroma_slot }}
+      </div>
+    {% endif %}
+
+    <div class="brisa-cores-gallery__viewport" style="border-radius: 0;">
       <div class="brisa-cores-gallery__track" data-brisa-cores-track>
         {% if slider_option != blank %}
           {% for option_value in slider_option.values limit: section.settings.variant_limit %}

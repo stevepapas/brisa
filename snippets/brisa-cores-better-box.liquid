@@ -1,0 +1,203 @@
+{%- liquid
+  assign addon_product = section.settings.addon_product
+  if addon_product == blank and section.settings.addon_handle != blank
+    assign addon_product = all_products[section.settings.addon_handle]
+  endif
+
+  assign addon_variant = blank
+  assign addon_selling_plan_id = blank
+  assign addon_available = false
+
+  if addon_product != blank
+    assign addon_variant = addon_product.selected_or_first_available_variant
+    if addon_variant == blank and addon_product.variants.size > 0
+      assign addon_variant = addon_product.variants.first
+    endif
+  endif
+
+  if addon_variant != blank
+    for allocation in addon_variant.selling_plan_allocations
+      assign addon_selling_plan_id = allocation.selling_plan.id
+      break
+    endfor
+    if addon_selling_plan_id == blank
+      for group in addon_product.selling_plan_groups
+        for plan in group.selling_plans
+          assign addon_selling_plan_id = plan.id
+          break
+        endfor
+        if addon_selling_plan_id != blank
+          break
+        endif
+      endfor
+    endif
+  endif
+
+  assign addon_cores_product = all_products['brisa-cores']
+  assign addon_core_mint_ok = false
+  assign addon_core_raspberry_ok = false
+  assign addon_core_cherry_ok = false
+  if addon_cores_product != blank
+    for core_variant in addon_cores_product.variants
+      assign core_title = core_variant.title | downcase
+      if core_variant.available
+        if core_title contains 'mint'
+          assign addon_core_mint_ok = true
+        endif
+        if core_title contains 'raspberry'
+          assign addon_core_raspberry_ok = true
+        endif
+        if core_title contains 'cherry'
+          assign addon_core_cherry_ok = true
+        endif
+      endif
+    endfor
+  endif
+  assign addon_cores_ok = false
+  if addon_core_mint_ok and addon_core_raspberry_ok and addon_core_cherry_ok
+    assign addon_cores_ok = true
+  endif
+
+  if addon_variant != blank and addon_variant.available and addon_selling_plan_id != blank and addon_cores_ok
+    assign addon_available = true
+  endif
+
+  assign addon_image = section.settings.addon_image
+  if addon_image == blank and addon_product != blank
+    assign addon_image = addon_product.featured_image
+  endif
+  assign addon_image_asset = section.settings.addon_image_asset | strip
+  assign addon_bonus_image = section.settings.addon_bonus_image
+  assign addon_bonus_image_asset = section.settings.addon_bonus_image_asset | strip
+-%}
+
+<div
+  class="bcp-purchase"
+  data-brisa-cores-purchase
+  data-addon-available="{% if addon_available %}true{% else %}false{% endif %}"
+  {% if addon_variant != blank %}data-addon-variant-id="{{ addon_variant.id }}"{% endif %}
+  {% if addon_selling_plan_id != blank %}data-addon-selling-plan-id="{{ addon_selling_plan_id }}"{% endif %}
+>
+  <label class="bcp-purchase__option bcp-purchase__option--onetime is-selected" data-brisa-cores-mode-option data-mode="onetime">
+    <input class="bcp-purchase__radio" type="radio" name="brisa-cores-mode-{{ section.id }}" value="onetime" checked data-brisa-cores-mode>
+    <span class="bcp-purchase__radio-ui" aria-hidden="true"></span>
+    <span class="bcp-purchase__option-copy">
+      <span class="bcp-purchase__option-title">{{ section.settings.onetime_label | default: 'One-time purchase' | escape }}</span>
+    </span>
+    {% if section.settings.onetime_price != blank %}
+      <span class="bcp-purchase__option-price">{{ section.settings.onetime_price | escape }}</span>
+    {% endif %}
+  </label>
+
+  {% if section.settings.show_addon %}
+    <label
+      class="bcp-purchase__option bcp-purchase__option--addon{% unless addon_available %} is-sold-out{% endunless %}"
+      data-brisa-cores-mode-option
+      data-mode="addon"
+      {% unless addon_available %}aria-disabled="true"{% endunless %}
+    >
+      <input
+        class="bcp-purchase__radio"
+        type="radio"
+        name="brisa-cores-mode-{{ section.id }}"
+        value="addon"
+        data-brisa-cores-mode
+        {% unless addon_available %}disabled{% endunless %}
+      >
+      <span class="bcp-purchase__radio-ui" aria-hidden="true"></span>
+
+      <div class="bcp-purchase__addon">
+        <div class="bcp-purchase__addon-top">
+          <div class="bcp-purchase__addon-heading">
+            <span class="bcp-purchase__option-title">{{ section.settings.addon_title | default: 'Monthly Better Box' | escape }}</span>
+            {% if addon_available and section.settings.addon_save != blank %}
+              <span class="bcp-purchase__save">{{ section.settings.addon_save | escape }}</span>
+            {% endif %}
+            {% unless addon_available %}
+              <span class="bcp-purchase__save bcp-purchase__save--sold-out">Sold out</span>
+            {% endunless %}
+          </div>
+
+          {% if addon_image != blank %}
+            {{ addon_image | image_url: width: 240 | image_tag: class: 'bcp-purchase__addon-thumb', loading: 'lazy', widths: '96,140,180,240', alt: section.settings.addon_title }}
+          {% elsif addon_image_asset != blank %}
+            <img
+              class="bcp-purchase__addon-thumb"
+              src="{{ addon_image_asset | asset_url }}"
+              alt="{{ section.settings.addon_title | escape }}"
+              width="96"
+              height="96"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
+
+        {% if section.settings.addon_subtitle != blank %}
+          <p class="bcp-purchase__addon-subtitle">{{ section.settings.addon_subtitle | escape }}</p>
+        {% endif %}
+
+        <div class="bcp-purchase__addon-price-row">
+          <span class="bcp-purchase__addon-price">{{ section.settings.addon_price | default: '$44 /mo' | escape }}</span>
+          {% if section.settings.addon_compare != blank %}
+            <span class="bcp-purchase__addon-compare">{{ section.settings.addon_compare | escape }}</span>
+          {% endif %}
+        </div>
+        {% if section.settings.addon_price_meta != blank %}
+          <p class="bcp-purchase__addon-meta">{{ section.settings.addon_price_meta | escape }}</p>
+        {% endif %}
+        {% if section.settings.addon_contents != blank %}
+          <p class="bcp-purchase__addon-contents">{{ section.settings.addon_contents | escape }}</p>
+        {% endif %}
+
+        {% if section.settings.addon_bonus_text != blank or section.settings.addon_bonus != blank %}
+          <div class="bcp-purchase__bonus">
+            <span class="bcp-purchase__bonus-tag">{{ section.settings.addon_bonus_tag | default: 'FREE' | escape }}</span>
+            <p class="bcp-purchase__bonus-text">{{ section.settings.addon_bonus_text | default: section.settings.addon_bonus | escape }}</p>
+            {% if addon_bonus_image != blank %}
+              {{ addon_bonus_image | image_url: width: 96 | image_tag: class: 'bcp-purchase__bonus-media', loading: 'lazy', widths: '48,72,96', alt: '' }}
+            {% elsif addon_bonus_image_asset != blank %}
+              <img class="bcp-purchase__bonus-media" src="{{ addon_bonus_image_asset | asset_url }}" alt="" width="48" height="48" loading="lazy">
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="bcp-purchase__breakdown">
+          <div class="bcp-purchase__breakdown-row">
+            <span>{{ section.settings.addon_line_1_label | default: '3 core packs (9 cores)' | escape }}</span>
+            <span>{{ section.settings.addon_line_1_value | default: '$45' | escape }}</span>
+          </div>
+          <div class="bcp-purchase__breakdown-row bcp-purchase__breakdown-row--free">
+            <span>{{ section.settings.addon_line_2_label | default: '+ Free Cherry Pom pack' | escape }}</span>
+            <span>
+              <strong>{{ section.settings.addon_line_2_value | default: 'FREE' | escape }}</strong>
+              {% if section.settings.addon_line_2_compare != blank %}
+                <s>{{ section.settings.addon_line_2_compare | escape }}</s>
+              {% endif %}
+            </span>
+          </div>
+          <div class="bcp-purchase__breakdown-row bcp-purchase__breakdown-row--free">
+            <span>{{ section.settings.addon_line_3_label | default: '+ Free shipping' | escape }}</span>
+            <span>
+              <strong>{{ section.settings.addon_line_3_value | default: 'FREE' | escape }}</strong>
+              {% if section.settings.addon_line_3_compare != blank %}
+                <s>{{ section.settings.addon_line_3_compare | escape }}</s>
+              {% endif %}
+            </span>
+          </div>
+          <div class="bcp-purchase__breakdown-row bcp-purchase__breakdown-row--total">
+            <span>{{ section.settings.addon_total_label | default: 'Total value' | escape }}</span>
+            <span><s>{{ section.settings.addon_total_value | default: '$72' | escape }}</s></span>
+          </div>
+          <div class="bcp-purchase__breakdown-row bcp-purchase__breakdown-row--pay">
+            <span>{{ section.settings.addon_pay_label | default: 'You pay' | escape }}</span>
+            <span>{{ section.settings.addon_pay_value | default: '$44/mo' | escape }}</span>
+          </div>
+        </div>
+
+        {% if section.settings.addon_footer != blank %}
+          <p class="bcp-purchase__addon-footer">{{ section.settings.addon_footer | escape }}</p>
+        {% endif %}
+      </div>
+    </label>
+  {% endif %}
+</div>
