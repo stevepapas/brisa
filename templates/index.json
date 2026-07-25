@@ -16,7 +16,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_03.png",
-            "icon_emoji": "\ud83d\udd04",
+            "icon_emoji": "🔄",
             "label": "Satisfies the ritual"
           }
         },
@@ -24,7 +24,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_05.png",
-            "icon_emoji": "\ud83d\udead",
+            "icon_emoji": "🚭",
             "label": "No smoke No vapour"
           }
         },
@@ -32,7 +32,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_09.png",
-            "icon_emoji": "\u2728",
+            "icon_emoji": "✨",
             "label": "Airflow sensation"
           }
         },
@@ -40,7 +40,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_10.png",
-            "icon_emoji": "\ud83d\udeab",
+            "icon_emoji": "🚫",
             "label": "No Nicotine"
           }
         },
@@ -48,7 +48,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_20.png",
-            "icon_emoji": "\ud83d\ude9a",
+            "icon_emoji": "🚚",
             "text": "Free Shipping"
           }
         },
@@ -56,7 +56,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_14.png",
-            "icon_emoji": "\ud83d\udee1\ufe0f",
+            "icon_emoji": "🛡️",
             "text": "Secure Checkout"
           }
         },
@@ -64,7 +64,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_17.png",
-            "icon_emoji": "\ud83d\udc65",
+            "icon_emoji": "👥",
             "text": "1,000+ aussies"
           }
         }
@@ -94,7 +94,7 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Designed to feel familiar.<br>Built to move you on.",
-            "content": "<p>Brisa is Habit Replacment Device intentionally designed to look and feel close to what you\u2019re used to, so the transition feels comfortable, not forced.</p><p>From the weight in your hand to airflow, draw pressure, flavour, and our effect layer, every detail is considered. without smoke, vapour, or nicotine.</p>",
+            "content": "<p>Brisa is Habit Replacment Device intentionally designed to look and feel close to what you’re used to, so the transition feels comfortable, not forced.</p><p>From the weight in your hand to airflow, draw pressure, flavour, and our effect layer, every detail is considered. without smoke, vapour, or nicotine.</p>",
             "button_text": "",
             "button_link": ""
           }
@@ -161,7 +161,7 @@
         "swatch_size": 32,
         "swatch_text_size": 12,
         "swatch_label_width": 80,
-        "button_text": "SHOP STARTER KIT \u2192",
+        "button_text": "SHOP STARTER KIT →",
         "button_link": "shopify://products/brisa-starter-kit",
         "button_background": "#38b6ff",
         "button_text_color": "#ffffff",
@@ -470,9 +470,9 @@
       "type": "blue-layout-3",
       "name": "Blue layout 3",
       "settings": {
-        "heading": "MATES PACK \u2014 2 DEVICES, SAVE $40",
+        "heading": "MATES PACK — 2 DEVICES, SAVE $40",
         "body": "$220. Two devices. Two starter kits. Built for doing it with a mate.",
-        "button_text": "GET THE MATES PACK\u2192",
+        "button_text": "GET THE MATES PACK→",
         "button_link": "shopify://products/brisa-mates-pack",
         "content_width": 520,
         "padding_top": 0,
@@ -655,9 +655,9 @@
         "rating_text": "Rated 4.7 (163)",
         "rating_label": "Rated 4.7 out of 5 by 163 customers",
         "badge_text": "Happy customers",
-        "button_text": "ADD STARTER KIT \u2192",
+        "button_text": "ADD STARTER KIT →",
         "button_link": "",
-        "benefits": "Free shipping \u00b7 30-Day Fit and Feel Guarantee \u00b7 Ships in 1\u20132 days",
+        "benefits": "Free shipping · 30-Day Fit and Feel Guarantee · Ships in 1–2 days",
         "max_width": 900,
         "padding_top": 0,
         "padding_bottom": 20,
@@ -695,7 +695,7 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Why We Built Brisa",
-            "content": "<p>Brisa started with one friend trying to help another upgrade his life.<br/>Everything was improving, except he couldn\u2019t quit vaping.<br/>So we built something for him.</p><p>Brisa has always come from a good heart. <br/>We know it\u2019s hard.<br/>We know why it\u2019s hard. <br/>Our mission is simple: make the switch feel easier, and make life better.</p><p>We\u2019re here to bring products that genuinely improve people\u2019s lives, with authenticity at the forefront and real products without the gimmicks.\u00a0</p>",
+            "content": "<p>Brisa started with one friend trying to help another upgrade his life.<br/>Everything was improving, except he couldn’t quit vaping.<br/>So we built something for him.</p><p>Brisa has always come from a good heart. <br/>We know it’s hard.<br/>We know why it’s hard. <br/>Our mission is simple: make the switch feel easier, and make life better.</p><p>We’re here to bring products that genuinely improve people’s lives, with authenticity at the forefront and real products without the gimmicks. </p>",
             "button_text": "Our Story",
             "button_link": "shopify://pages/education"
           }
@@ -728,7 +728,7 @@
         "stack_items": false,
         "subheading": "",
         "title": "Subscribe and Stay Better",
-        "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month \u2014 so you never break your routine.\u00a0</p>",
+        "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month — so you never break your routine. </p>",
         "column_alignment": "center",
         "mobile_item_size": "medium",
         "desktop_item_size": "medium",
@@ -747,8 +747,8 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Subscribe & Stay Better",
-            "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month \u2014 so you never break your routine.\u00a0</p><p>Benefits: <br/>\u2022 Save on every order <br/>\u2022 Pause or cancel anytime<br/>\u2022 Priority flavour access<br/>\u2022 Automatic monthly delivery\u00a0</p>",
-            "button_text": "Start Subscription\u00a0",
+            "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month — so you never break your routine. </p><p>Benefits: <br/>• Save on every order <br/>• Pause or cancel anytime<br/>• Priority flavour access<br/>• Automatic monthly delivery </p>",
+            "button_text": "Start Subscription ",
             "button_link": "shopify://products/refills"
           }
         }
@@ -832,7 +832,7 @@
           "type": "question",
           "settings": {
             "title": "Does Brisa help with the habit?",
-            "answer": "<p>Brisa is designed for the \u201cmoment\u201d, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It is designed as closely as possible to mimic the old habit, with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure, but without smoke, vapour, or nicotine.</p><p>If you use Brisa every time the urge hits, you are replacing the nicotine routine with a smoke-free, vapour-free, nicotine-free tool.</p>"
+            "answer": "<p>Brisa is designed for the “moment”, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It is designed as closely as possible to mimic the old habit, with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure, but without smoke, vapour, or nicotine.</p><p>If you use Brisa every time the urge hits, you are replacing the nicotine routine with a smoke-free, vapour-free, nicotine-free tool.</p>"
           }
         },
         "question_RxQPLt": {
@@ -846,7 +846,7 @@
           "type": "question",
           "settings": {
             "title": "What's the 30 - day success guarantee?",
-            "answer": "<p>The 30-Day Success Guarantee is built around helping customers get the best result from Brisa.</p><p>After seeing over 1,000 people leave the old habit behind using Brisa, we have learned what works best for our customers. If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy using what we know.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p><p>To claim it, contact us through our contact section with your name, phone number or WhatsApp, and the message: \u201c30 DAY SUCCESS GUARANTEE\u201d.</p>"
+            "answer": "<p>The 30-Day Success Guarantee is built around helping customers get the best result from Brisa.</p><p>After seeing over 1,000 people leave the old habit behind using Brisa, we have learned what works best for our customers. If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy using what we know.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p><p>To claim it, contact us through our contact section with your name, phone number or WhatsApp, and the message: “30 DAY SUCCESS GUARANTEE”.</p>"
           }
         },
         "question_ezbiVT": {
@@ -915,7 +915,7 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-1.png",
-            "heading": "The flavours you actually chase \ud83c\udf52",
+            "heading": "The flavours you actually chase 🍒",
             "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
         },
@@ -923,8 +923,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-2.png",
-            "heading": "A formula we'll never share \ud83e\udd2b",
-            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+            "heading": "A formula we'll never share 🤫",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
           }
         },
         "card_hit": {
@@ -939,8 +939,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-4.png",
-            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
-            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
+            "heading": "Food-grade to the core 🍽️",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
           }
         }
       },
