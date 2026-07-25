@@ -376,7 +376,7 @@
         "slide_image_metafield_key": "slider_image",
         "slide_background_image": "shopify://shop_images/sky-background.png",
         "slider_border_radius": 0,
-        "swatch_size": 52,
+        "swatch_size": 48,
         "swatch_text_size": 11,
         "swatch_label_width": 72,
         "nav_gap": 16,
