@@ -217,7 +217,7 @@ if (setQty && scope.includes('write_inventory')) {
     '\nSkipping dummy qty — Brisa Admin app needs write_inventory + read_locations scopes.'
   );
   console.warn(
-    'Tracked + CONTINUE at qty 0 is usually enough for Appstle ON_SALE cart adds.'
+    'Appstle ON_SALE still requires sellableOnlineQuantity > 0 — set dummy qty in Admin or grant write_inventory.'
   );
   console.warn(
     `Or set qty manually in Admin, then re-run with --set-qty once scopes are granted.`

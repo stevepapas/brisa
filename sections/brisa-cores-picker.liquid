@@ -1549,14 +1549,8 @@
       return '';
     }
 
-    async function addAddonToCart() {
-      const variantId = purchase?.dataset.addonVariantId;
-      const sellingPlanId = purchase?.dataset.addonSellingPlanId;
-      if (!variantId || !sellingPlanId) {
-        throw new Error('Monthly Better Box is unavailable.');
-      }
-
-      const res = await fetch(cartAddJsUrl(), {
+    async function postAddonCartAdd(body) {
+      return fetch(cartAddJsUrl(), {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -1564,21 +1558,29 @@
           Accept: 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
         },
-        body: JSON.stringify({
-          items: [
-            {
-              id: String(variantId),
-              quantity: 1,
-              selling_plan: String(sellingPlanId),
-              properties: {
-                _bundle: 'brisa-cores-addon',
-              },
-            },
-          ],
-        }),
+        body: JSON.stringify(body),
       });
+    }
 
-      const raw = await res.text();
+    async function addAddonToCart() {
+      const variantId = Number(purchase?.dataset.addonVariantId);
+      const sellingPlanId = Number(purchase?.dataset.addonSellingPlanId);
+      if (!Number.isFinite(variantId) || !Number.isFinite(sellingPlanId)) {
+        throw new Error('Monthly Better Box is unavailable.');
+      }
+
+      const lineItem = {
+        id: variantId,
+        quantity: 1,
+        selling_plan: sellingPlanId,
+        properties: {
+          _bundle: 'brisa-cores-addon',
+        },
+      };
+
+      let res = await postAddonCartAdd({ items: [lineItem] });
+
+      let raw = await res.text();
       let payload = {};
       try {
         payload = raw ? JSON.parse(raw) : {};
@@ -1588,7 +1590,24 @@
 
       if (!res.ok) {
         const detail = extractCartAddError(payload, raw) || 'Could not add Monthly Better Box.';
-        throw new Error(detail);
+        if (/sold out|not available|cannot be added/i.test(detail)) {
+          res = await postAddonCartAdd(lineItem);
+          const retryRaw = await res.text();
+          let retryPayload = {};
+          try {
+            retryPayload = retryRaw ? JSON.parse(retryRaw) : {};
+          } catch (err) {
+            retryPayload = {};
+          }
+          if (res.ok) {
+            payload = retryPayload;
+            raw = retryRaw;
+          } else {
+            throw new Error(extractCartAddError(retryPayload, retryRaw) || detail);
+          }
+        } else {
+          throw new Error(detail);
+        }
       }
 
       const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`, {

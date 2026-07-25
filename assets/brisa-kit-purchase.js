@@ -579,9 +579,14 @@
           return;
         }
 
-        const sellingPlanId = String(this.dataset.addonSellingPlanId || '').trim();
+        const addonVariantId = Number(this.dataset.addonVariantId);
+        const sellingPlanId = Number(this.dataset.addonSellingPlanId);
+        if (!Number.isFinite(addonVariantId) || !Number.isFinite(sellingPlanId)) {
+          this.setError('Monthly Better Box is unavailable right now.');
+          return;
+        }
         items.push({
-          id: String(this.dataset.addonVariantId),
+          id: addonVariantId,
           quantity: 1,
           selling_plan: sellingPlanId,
           properties: {
