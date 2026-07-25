@@ -9,7 +9,7 @@ Shopify Fixed Bundles can’t run with Appstle selling plans. This Flow is the *
 | Layer | When | What happens |
 |---|---|---|
 | **Theme** (kit + cores pages) | Pre-cart UX | Hides MBB unless Mint Ice, Raspberry Lime, and Cherry Pom are all available on `brisa-cores`. Same logic in `brisa-kit-purchase.liquid` and `snippets/brisa-cores-better-box.liquid`. |
-| **Shopify cart** (`/cart/add.js`) | Add to cart | Validates **MBB’s own** sellable quantity. Appstle’s plan uses `inventoryPolicyReserve: ON_SALE`, so MBB needs tracked inventory with a dummy qty (or Appstle set to **On fulfillment**). Flow does **not** run here. |
+| **Shopify cart** (`/cart/add.js`) | Add to cart | Validates **MBB’s own** sellable quantity. Appstle’s plan is set to `inventoryPolicyReserve: ON_FULFILLMENT`, so nothing is reserved at cart time. (With `ON_SALE` it would need tracked inventory plus a dummy qty.) Flow does **not** run here. |
 | **Shopify Flow** (this doc) | Order created / renewal | Decrements Mint, Raspberry, and Cherry **core** inventory by −1 each per box. Does **not** increment or sync MBB qty from cores. |
 
 **“Inventory derives from the flavour variants”** means cores are the **business** source of truth: the theme gates on them, and Flow decrements them after purchase. It does **not** mean Shopify’s cart API reads core stock when adding MBB — that only worked with native Fixed Bundles, which break Appstle subscriptions.
@@ -99,28 +99,40 @@ Add a condition at the top: order tags do **not** include `better-box-cores-adju
 - Kit + cores pages hide the add-on unless Mint Ice, Raspberry Lime, and Cherry Pom are all available
 - **MBB Shopify inventory is a dummy gate only** — flavour cores are the source of truth
 
-### Why cart/add still says “already sold out”
+### “Already sold out” at cart/add — cause and fix (resolved 2026-07-25)
 
-Appstle’s plan uses **`inventoryPolicyReserve: ON_SALE`**. At cart time Shopify checks
-MBB’s own **sellable** quantity (`sellableOnlineQuantity`), not Brisa Cores stock.
-With qty **0** (even with **`inventory_policy: continue`**), `/cart/add.js` returns
+With Appstle’s plan set to **`inventoryPolicyReserve: ON_SALE`**, Shopify checks MBB’s own
+**sellable** quantity at cart time, not Brisa Cores stock. With qty **0** (even with
+`inventory_policy: continue`), `/cart/add.js` returns
 *“The product 'Monthly better box' is already sold out”* while cores are in stock.
 
-This affects **both** the devices kit page and the cores picker — they use the same
-MBB product, selling plan, and `/cart/add.js` + `selling_plan` payload. If one fails at
-cart time, the other would too.
+This affects **both** the devices kit page and the cores picker — same MBB product,
+selling plan, and `/cart/add.js` + `selling_plan` payload. If one fails at cart time,
+so does the other.
 
-**Fix (Admin — completes the architecture, does not contradict Flow):**
+**What actually fixed it:** switching the Appstle plan to **On fulfillment** so no
+inventory is reserved at cart time.
 
-1. MBB variant → **Track quantity** + **Continue selling when out of stock**  
-   (CLI: `npm run setup:better-box-inventory` — needs `write_products`)
-2. Set a high **dummy available qty** on MBB (e.g. 9999) — Admin → Products → Monthly
-   better box → Inventory, or re-run `npm run setup:better-box-inventory -- --set-qty`
-   once the Brisa Admin app has **`write_inventory`** + **`read_locations`**. Cores remain
-   the real gate via theme + Flow decrements.
-3. Do **not** re-add Fixed Bundle components (`npm run clear:better-box` if needed)
+1. Shopify Admin → **Apps** → **Appstle Subscriptions** → **Subscription Plans**
+2. Open group **Monthly Better Box** (`groupId` 81208377716)
+3. Next to **Monthly Subscription** (`694395470196`) click **Edit**
+4. Expand **Policies** — the field is **Inventory Policy** (not under “Advanced”)
+5. Change **On Sale** → **On fulfillment**, then **Done** and save the plan
 
-Alternative: in Appstle, change the plan inventory policy from **On sale** to **On fulfillment** (reserves inventory at ship time instead of cart time).
+CLI equivalent if you have an Appstle API key:
+`APPSTLE_API_KEY=… npm run setup:better-box-appstle-plan`
 
-**Live check (2026-07):** MBB is tracked, `CONTINUE`, Fixed Bundle cleared, Appstle
-`ON_SALE`, but `sellableOnlineQuantity: 0` — dummy qty is the remaining step.
+Shopify Admin **cannot** mutate Appstle-owned selling plan groups
+(`sellingPlanGroupUpdate` → *Selling plan group does not exist*), so this must be done
+in Appstle or via their API.
+
+**Verified state after the fix:** plan reserve `ON_FULFILLMENT`; MBB variant
+`availableForSale: true`, untracked, `CONTINUE`, `sellableOnlineQuantity: 99999`,
+`requiresComponents: false`. Cart add succeeds.
+
+Keeping `ON_SALE` also works **only** if MBB carries a high dummy qty at the
+online-fulfillment location (Admin → Products → Monthly better box → Inventory, or
+`npm run setup:better-box-inventory -- --set-qty` once the Brisa Admin app has
+**`write_inventory`** + **`read_locations`**). Either way, cores stay the real gate via
+theme availability + Flow decrements, and Fixed Bundle components must stay cleared
+(`npm run clear:better-box`).
