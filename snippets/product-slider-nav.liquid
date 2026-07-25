@@ -32,22 +32,22 @@
       assign swatch_label = variant.metafields[metafield_namespace][metafield_key].value | default: variant.metafields[metafield_namespace][metafield_key] | default: slider_product.metafields[metafield_namespace][metafield_key].value | default: slider_product.metafields[metafield_namespace][metafield_key]
   endcase
 
-  comment
-    Admin option swatch image (Aroma → Image) — e.g. variety.png on the Variety value.
-  endcomment
-  if option_value != blank and option_value.swatch.image != blank
-    assign swatch_image_url = option_value.swatch.image | image_url: width: 96
-    assign swatch_style = 'background-image: url(' | append: swatch_image_url | append: ')'
-  endif
-
   if swatch_style == blank
   case section.settings.swatch_color_source
     when 'product_option'
       if option_value != blank
-        capture swatch_style
-          render 'color-swatch-style', swatch: option_value.swatch, color_swatch_config: color_swatch_config, value: option_value
-        endcapture
-        assign swatch_style = swatch_style | strip
+        comment
+          Admin option swatch image (Aroma → Image) — only when source is product_option.
+        endcomment
+        if option_value.swatch.image != blank
+          assign swatch_image_url = option_value.swatch.image | image_url: width: 96
+          assign swatch_style = 'background-image: url(' | append: swatch_image_url | append: ')'
+        else
+          capture swatch_style
+            render 'color-swatch-style', swatch: option_value.swatch, color_swatch_config: color_swatch_config, value: option_value
+          endcapture
+          assign swatch_style = swatch_style | strip
+        endif
       endif
     when 'carousel_swatch_colour'
       assign swatch_color = variant.metafields.custom.carousel_swatch_colour.value | default: variant.metafields.custom.carousel_swatch_colour | default: slider_product.metafields.custom.carousel_swatch_colour.value | default: slider_product.metafields.custom.carousel_swatch_colour
