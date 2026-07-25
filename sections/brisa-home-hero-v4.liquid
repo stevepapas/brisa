@@ -199,7 +199,7 @@
     gap: 10px;
     width: min(560px, 100%);
     margin: 34px auto 0;
-    padding-top: 52px;
+    padding-top: 88px;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta {
@@ -252,7 +252,7 @@
     display: block;
     width: 100%;
     height: auto;
-    max-height: 78px;
+    max-height: 120px;
     object-fit: contain;
     object-position: bottom center;
     filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
@@ -306,7 +306,7 @@
       gap: 14px;
       width: min(620px, 100%);
       margin-top: 42px;
-      padding-top: 64px;
+      padding-top: 110px;
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta {
@@ -321,7 +321,7 @@
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
-      max-height: 96px;
+      max-height: 150px;
     }
   }
 
@@ -338,7 +338,7 @@
 
     #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
       margin-top: 28px;
-      padding-top: 44px;
+      padding-top: 72px;
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta {
@@ -353,7 +353,7 @@
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
-      max-height: 58px;
+      max-height: 90px;
     }
   }
 </style>
@@ -440,11 +440,17 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--devices" href="{{ section.settings.button_1_link | default: '/products/brisa-starter-kit' }}">
           {% if section.settings.devices_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
-              {{ section.settings.devices_image | image_url: width: 500 | image_tag: loading: 'lazy', widths: '240,360,500' }}
+              {{ section.settings.devices_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700' }}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
-              <img src="{{ 'brisa-home-hero-devices.png' | asset_url }}" alt="" width="372" height="95" loading="lazy">
+              <img
+                src="{{ section.settings.devices_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-devices-trans.png?v=1784972994' }}"
+                alt=""
+                width="700"
+                height="280"
+                loading="lazy"
+              >
             </span>
           {% endif %}
           <span class="brisa-home-hero__cta-label">{{ section.settings.button_1_text | escape }}</span>
@@ -455,11 +461,17 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--cores" href="{{ section.settings.button_2_link | default: '/products/brisa-cores' }}">
           {% if section.settings.cores_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
-              {{ section.settings.cores_image | image_url: width: 500 | image_tag: loading: 'lazy', widths: '240,360,500' }}
+              {{ section.settings.cores_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700' }}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
-              <img src="{{ 'brisa-home-hero-cores.png' | asset_url }}" alt="" width="286" height="98" loading="lazy">
+              <img
+                src="{{ section.settings.cores_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-cores-trans.png?v=1784972994' }}"
+                alt=""
+                width="700"
+                height="280"
+                loading="lazy"
+              >
             </span>
           {% endif %}
           <span class="brisa-home-hero__cta-label">{{ section.settings.button_2_text | escape }}</span>
@@ -547,6 +559,12 @@
     },
     {
       "type": "text",
+      "id": "devices_image_url",
+      "label": "Left button product art URL",
+      "default": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-devices-trans.png?v=1784972994"
+    },
+    {
+      "type": "text",
       "id": "button_2_text",
       "label": "Right button text",
       "default": "BRISA CORES"
@@ -560,6 +578,12 @@
       "type": "image_picker",
       "id": "cores_image",
       "label": "Right button product art"
+    },
+    {
+      "type": "text",
+      "id": "cores_image_url",
+      "label": "Right button product art URL",
+      "default": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-cores-trans.png?v=1784972994"
     },
     {
       "type": "image_picker",

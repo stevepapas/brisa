@@ -609,7 +609,9 @@
         "padding_top": 28,
         "mobile_padding_top": 20,
         "hero_min_height": 720,
-        "mobile_hero_min_height": 680
+        "mobile_hero_min_height": 680,
+        "devices_image_url": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-devices-trans.png?v=1784972994",
+        "cores_image_url": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-cores-trans.png?v=1784972994"
       }
     },
     "brisa_inside_cores_home": {
