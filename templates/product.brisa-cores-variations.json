@@ -317,7 +317,7 @@
       ],
       "name": "Brisa cores picker",
       "settings": {
-        "aroma_prefix": "Aroma \u2014",
+        "aroma_prefix": "Aroma —",
         "aroma_description": "Mint Ice is the daily. Watermelon and Black Currant rotate in for variety.",
         "option_name": "Color",
         "use_swatch_nav": true,
@@ -325,7 +325,7 @@
         "swatch_label_source": "product_option",
         "dot_color": "#c7c7c7",
         "popular_variant_name": "Mint Ice",
-        "popular_suffix": "\u00b7 MOST POPULAR",
+        "popular_suffix": "· MOST POPULAR",
         "variant_limit": 8,
         "slide_image_source": "variant_metafield",
         "slide_image_metafield_namespace": "custom",
@@ -351,7 +351,7 @@
         "show_guarantee": true,
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
         "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
-        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
+        "atc_caption": "From $3.33 a core — a fraction of what vaping costs.",
         "show_trust_row": true,
         "trust_shipping": "Ships Next Day",
         "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
@@ -385,6 +385,28 @@
         "muted_color": "#666666"
       }
     },
+    "brisa_product_area_info_t9x6TB": {
+      "type": "brisa-product-area-info",
+      "name": "Brisa product area info",
+      "settings": {
+        "show_guarantee": false,
+        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
+        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "show_trust_row": false,
+        "show_starter": false,
+        "trust_shipping": "Free shipping AUS & NZ wide",
+        "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
+        "trust_checkout": "Secure checkout",
+        "trust_icon_checkout": "shopify://shop_images/secure.png",
+        "trust_social": "1,000+ Aussies on Brisa",
+        "trust_icon_social": "shopify://shop_images/1000s.png",
+        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
+        "landscape_image": "shopify://shop_images/4-steps-how-to.png",
+        "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
+        "landscape_video": "",
+        "landscape_video_label": "Play install video"
+      }
+    },
     "brisa_inside_cores": {
       "type": "brisa-inside-cores",
       "blocks": {
@@ -392,7 +414,7 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-1.png",
-            "heading": "The flavours you actually chase \ud83c\udf52",
+            "heading": "The flavours you actually chase 🍒",
             "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
         },
@@ -400,8 +422,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-2.png",
-            "heading": "A formula we'll never share \ud83e\udd2b",
-            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+            "heading": "A formula we'll never share 🤫",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
           }
         },
         "card_hit": {
@@ -416,8 +438,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-4.png",
-            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
-            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
+            "heading": "Food-grade to the core 🍽️",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
           }
         }
       },
@@ -481,7 +503,7 @@
           "settings": {
             "number": "3",
             "title": "Reach for it instead",
-            "text": "In the moment you\u2019d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
+            "text": "In the moment you’d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
           }
         }
       },
@@ -523,6 +545,34 @@
         "mobile_padding_horizontal": 16,
         "mobile_card_padding_y": 32,
         "mobile_card_padding_x": 24
+      }
+    },
+    "brisa_new_to_brisa": {
+      "type": "brisa-new-to-brisa",
+      "name": "Brisa new to Brisa",
+      "settings": {
+        "body": "Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 9 cores (30 days), a cleaning kit, and a carry bag, all for $130.",
+        "image": "shopify://shop_images/try-brisa.png",
+        "image_asset": "brisa-new-to-brisa-kit.jpg",
+        "button_label": "GET THE STARTER KIT",
+        "button_link": "shopify://products/brisa-starter-kit",
+        "max_width": 720,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 24,
+        "heading_size": 40,
+        "body_size": 15,
+        "button_size": 18,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 28,
+        "mobile_padding_horizontal": 16,
+        "mobile_heading_size": 32,
+        "mobile_body_size": 14,
+        "mobile_button_size": 16,
+        "background": "#e4f8ff",
+        "text_color": "#111111",
+        "button_background": "#57a9ff",
+        "button_text_color": "#ffffff"
       }
     },
     "brisa_comparison_table_ntMxq4": {
@@ -689,6 +739,7 @@
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
+        "product": "brisa-starter-kit",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,
@@ -703,8 +754,7 @@
         "muted_color": "#6b6b6b",
         "star_color": "#111111",
         "border_color": "#111111",
-        "soft_border_color": "#e8e8e8",
-        "product": "brisa-starter-kit"
+        "soft_border_color": "#e8e8e8"
       }
     },
     "brisa_cores_bottom_cta": {
@@ -712,71 +762,18 @@
       "name": "Brisa cores bottom CTA",
       "settings": {
         "button_label": "ADD TO CART >",
-        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
+        "atc_caption": "From $3.33 a core — a fraction of what vaping costs.",
         "show_trust": true,
         "trust_1": "Ships Next Day",
-        "trust_icon_1": "",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
         "trust_2": "Secure checkout",
-        "trust_icon_2": "",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
         "trust_3": "4.7 (163)",
-        "trust_icon_3": "",
+        "trust_icon_asset_3": "brisa-trust-star.svg",
         "trust_4": "World first\nformula",
         "trust_icon_4": "shopify://shop_images/world-first-formula.png",
         "trust_5": "Real throat hit",
-        "trust_icon_5": "shopify://shop_images/real-throat.png",
-        "trust_icon_asset_1": "brisa-trust-ship.svg",
-        "trust_icon_asset_2": "brisa-trust-lock.svg",
-        "trust_icon_asset_3": "brisa-trust-star.svg"
-      }
-    },
-    "brisa_new_to_brisa": {
-      "type": "brisa-new-to-brisa",
-      "name": "Brisa new to Brisa",
-      "settings": {
-        "body": "Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 9 cores (30 days), a cleaning kit, and a carry bag, all for $130.",
-        "image": "",
-        "image_asset": "brisa-new-to-brisa-kit.jpg",
-        "button_label": "GET THE STARTER KIT",
-        "button_link": "shopify://products/brisa-starter-kit",
-        "max_width": 720,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "padding_horizontal": 24,
-        "heading_size": 40,
-        "body_size": 15,
-        "button_size": 18,
-        "mobile_padding_top": 28,
-        "mobile_padding_bottom": 28,
-        "mobile_padding_horizontal": 16,
-        "mobile_heading_size": 32,
-        "mobile_body_size": 14,
-        "mobile_button_size": 16,
-        "background": "#e4f8ff",
-        "text_color": "#111111",
-        "button_background": "#57a9ff",
-        "button_text_color": "#ffffff"
-      }
-    },
-    "brisa_product_area_info_t9x6TB": {
-      "type": "brisa-product-area-info",
-      "name": "Brisa product area info",
-      "settings": {
-        "show_guarantee": false,
-        "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
-        "guarantee_text": "If Brisa doesn't work for you in 30-days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
-        "show_trust_row": false,
-        "trust_shipping": "Free shipping AUS & NZ wide",
-        "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
-        "trust_checkout": "Secure checkout",
-        "trust_icon_checkout": "shopify://shop_images/secure.png",
-        "trust_social": "1,000+ Aussies on Brisa",
-        "trust_icon_social": "shopify://shop_images/1000s.png",
-        "urgency_text": "WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
-        "landscape_image": "shopify://shop_images/4-steps-how-to.png",
-        "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
-        "landscape_video": "",
-        "landscape_video_label": "Play install video",
-        "show_starter": false
+        "trust_icon_5": "shopify://shop_images/real-throat.png"
       }
     }
   },
