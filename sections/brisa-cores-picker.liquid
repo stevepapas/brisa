@@ -409,6 +409,11 @@
     width: 22px;
     height: 22px;
     color: #666;
+    border-radius: 0 !important;
+    overflow: visible;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-accordion__icon img,
@@ -417,6 +422,12 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+    /* Override global img { border-radius: 10px } which circles small 22px icons */
+    border-radius: 0 !important;
+    overflow: visible;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-accordion__title {
@@ -752,6 +763,16 @@
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap .brisa-product-area-info__trust-icon {
     width: 36px;
     height: 36px;
+    border-radius: 0 !important;
+    overflow: visible;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-icon img,
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-icon svg {
+    border-radius: 0 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
   .brisa-cores-picker-{{ section_uid }} .product-form__description,
