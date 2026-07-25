@@ -161,7 +161,7 @@
         "swatch_size": 32,
         "swatch_text_size": 12,
         "swatch_label_width": 80,
-        "button_text": "SHOP STARTER KIT \u2014 $130 \u2192",
+        "button_text": "SHOP STARTER KIT \u2192",
         "button_link": "shopify://products/brisa-starter-kit",
         "button_background": "#38b6ff",
         "button_text_color": "#ffffff",
