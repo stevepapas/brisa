@@ -1,4 +1,4 @@
-/* Brisa home hero — overlay layout matching mock */
+/* Brisa home hero — product art behind CTAs, angled fans */
 .shopify-section--brisa-home-hero .brisa-home-hero__ctas,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__ctas {
   position: relative !important;
@@ -13,30 +13,55 @@
   top: auto !important;
 }
 
+.shopify-section--brisa-home-hero .brisa-home-hero__cta,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta {
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta::before,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  background: var(--bhh-button, #35adff) !important;
+  border-radius: inherit !important;
+  box-shadow: 0 10px 24px rgba(0, 100, 180, 0.22) !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta-label,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-label {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
 .shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art {
   position: absolute !important;
-  z-index: 1 !important;
+  z-index: 0 !important;
   pointer-events: none !important;
   line-height: 0 !important;
-  bottom: calc(100% - 10px) !important;
+  bottom: calc(100% - 28px) !important;
   top: auto !important;
-  width: 92% !important;
-  max-width: 168px !important;
+  width: 100% !important;
+  max-width: 180px !important;
   max-height: none !important;
   overflow: visible !important;
+  left: 50% !important;
+  right: auto !important;
+  transform-origin: center bottom !important;
 }
 
 .shopify-section--brisa-home-hero .brisa-home-hero__cta-art--devices,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art--devices {
-  left: -6% !important;
-  right: auto !important;
+  transform: translateX(-50%) rotate(-15deg) !important;
 }
 
 .shopify-section--brisa-home-hero .brisa-home-hero__cta-art--cores,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art--cores {
-  right: -4% !important;
-  left: auto !important;
+  transform: translateX(-50%) rotate(15deg) !important;
 }
 
 .shopify-section--brisa-home-hero .brisa-home-hero__cta-art img,
@@ -44,7 +69,7 @@
   display: block !important;
   width: 100% !important;
   height: auto !important;
-  max-height: 120px !important;
+  max-height: 130px !important;
   object-fit: contain !important;
   object-position: bottom center !important;
 }
@@ -74,13 +99,13 @@
 
   .shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
   .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art {
-    max-width: 210px !important;
-    bottom: calc(100% - 12px) !important;
+    max-width: 230px !important;
+    bottom: calc(100% - 34px) !important;
   }
 
   .shopify-section--brisa-home-hero .brisa-home-hero__cta-art img,
   .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art img {
-    max-height: 150px !important;
+    max-height: 160px !important;
   }
 }
 
@@ -93,11 +118,12 @@
 
   .shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
   .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art {
-    max-width: 120px !important;
+    max-width: 140px !important;
+    bottom: calc(100% - 24px) !important;
   }
 
   .shopify-section--brisa-home-hero .brisa-home-hero__cta-art img,
   .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art img {
-    max-height: 90px !important;
+    max-height: 100px !important;
   }
 }

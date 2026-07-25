@@ -204,6 +204,7 @@
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta {
     position: relative;
+    isolation: isolate;
     display: flex;
     flex: 1 1 0;
     align-items: center;
@@ -212,9 +213,8 @@
     padding: 14px 12px;
     overflow: visible;
     color: #ffffff !important;
-    background: var(--bhh-button);
+    background: transparent;
     border-radius: 14px;
-    box-shadow: 0 10px 24px rgba(0, 100, 180, 0.22);
     font-size: 13px;
     font-weight: 900;
     letter-spacing: 0.04em;
@@ -224,6 +224,16 @@
     text-transform: uppercase;
   }
 
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--bhh-button);
+    border-radius: inherit;
+    box-shadow: 0 10px 24px rgba(0, 100, 180, 0.22);
+  }
+
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-label {
     position: relative;
     z-index: 2;
@@ -231,28 +241,32 @@
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-art {
     position: absolute;
-    z-index: 1;
+    z-index: 0;
     pointer-events: none;
     line-height: 0;
-    bottom: calc(100% - 10px);
-    width: 92%;
-    max-width: 168px;
+    bottom: calc(100% - 28px);
+    width: 100%;
+    max-width: 180px;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--devices {
-    left: -6%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-15deg);
+    transform-origin: center bottom;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores {
-    right: -4%;
-    left: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) rotate(15deg);
+    transform-origin: center bottom;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 120px;
+    max-height: 130px;
     object-fit: contain;
     object-position: bottom center;
     filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
@@ -316,12 +330,12 @@
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art {
-      max-width: 210px;
-      bottom: calc(100% - 12px);
+      max-width: 230px;
+      bottom: calc(100% - 34px);
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
-      max-height: 150px;
+      max-height: 160px;
     }
   }
 
