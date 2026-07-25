@@ -1095,6 +1095,16 @@
     const packButtons = Array.from(sectionEl.querySelectorAll('[data-brisa-cores-pack]'));
     let currentIndex = 0;
     let purchaseMode = 'onetime';
+    let addonSubmitInFlight = false;
+
+    function getPurchaseMode() {
+      const checked = sectionEl.querySelector('[data-brisa-cores-mode]:checked');
+      return checked?.value === 'addon' ? 'addon' : 'onetime';
+    }
+
+    function isAddonMode() {
+      return getPurchaseMode() === 'addon';
+    }
 
     function ensureQuantityInput(form) {
       if (!form) return null;
@@ -1115,7 +1125,9 @@
 
     function setPackQuantity(qty) {
       const form = getForm();
-      const input = ensureQuantityInput(form);
+      if (!form) return;
+      const inputs = Array.from(form.querySelectorAll('input[name="quantity"]'));
+      const input = inputs[0] || ensureQuantityInput(form);
       if (input) {
         input.value = String(qty);
         input.dispatchEvent(new Event('change', { bubbles: true }));
@@ -1260,14 +1272,18 @@
       const available = purchase?.dataset.addonAvailable !== 'false';
       if (mode === 'addon' && !available) mode = 'onetime';
       purchaseMode = mode;
-      root.dataset.purchaseMode = mode;
 
+      modeInputs.forEach((input) => {
+        if (input.disabled) return;
+        input.checked = input.value === mode;
+      });
+
+      root.dataset.purchaseMode = mode;
       modeOptions.forEach((option) => {
         option.classList.toggle('is-selected', option.dataset.mode === mode);
       });
-      modeInputs.forEach((input) => {
-        input.checked = input.value === mode;
-      });
+
+      updateAtcLabels(mode);
 
       if (aromaDesc && mode === 'addon') {
         if (addonDescHtml) aromaDesc.innerHTML = addonDescHtml;
@@ -1296,6 +1312,22 @@
       } else {
         updateGallery(currentIndex);
       }
+    }
+
+    const addonAtcLabel = {{ section.settings.addon_atc_label | default: 'Add Monthly Better Box' | json }};
+    const onetimeAtcLabel = {{ 'product.form.add_to_cart' | t | json }};
+
+    function updateAtcLabels(mode) {
+      sectionEl.querySelectorAll('[data-product-add-to-cart-button]').forEach((btn) => {
+        if (btn.dataset.brisaCoresDefaultLabel == null) {
+          btn.dataset.brisaCoresDefaultLabel = btn.textContent.trim() || onetimeAtcLabel;
+        }
+        const nextLabel = mode === 'addon' ? addonAtcLabel : btn.dataset.brisaCoresDefaultLabel;
+        btn.textContent = nextLabel;
+        if (btn.dataset.buttonContent != null) {
+          btn.dataset.buttonContent = nextLabel;
+        }
+      });
     }
 
     async function addAddonToCart() {
@@ -1350,32 +1382,9 @@
       }));
     }
 
-    packButtons.forEach((button) => {
-      button.addEventListener('click', () => selectPack(button));
-    });
-
-    modeInputs.forEach((input) => {
-      input.addEventListener('change', () => {
-        if (input.checked) setPurchaseMode(input.value);
-      });
-    });
-
-    modeOptions.forEach((option) => {
-      option.addEventListener('click', (event) => {
-        if (option.classList.contains('is-sold-out')) {
-          event.preventDefault();
-          return;
-        }
-      });
-    });
-
-    sectionEl.addEventListener('submit', async (event) => {
-      if (purchaseMode !== 'addon') return;
-      const form = event.target;
-      if (!(form instanceof HTMLFormElement)) return;
-      if (form.id !== '{{ product_form_id }}') return;
-      event.preventDefault();
-      event.stopImmediatePropagation();
+    async function handleAddonAddToCart(form) {
+      if (!form || addonSubmitInFlight) return;
+      addonSubmitInFlight = true;
 
       const submitButtons = Array.from(form.querySelectorAll('[type="submit"]'));
       submitButtons.forEach((btn) => {
@@ -1392,17 +1401,66 @@
           detail: { status: 'error', error: err.message || 'Add to cart failed' },
         }));
       } finally {
+        addonSubmitInFlight = false;
         submitButtons.forEach((btn) => {
           btn.removeAttribute('disabled');
           btn.removeAttribute('aria-busy');
         });
       }
-    }, true);
+    }
+
+    function bindAddonAtcGuard() {
+      const form = getForm();
+      if (!form || form.dataset.brisaCoresAtcBound === 'true') return;
+      form.dataset.brisaCoresAtcBound = 'true';
+
+      form.addEventListener('submit', (event) => {
+        if (!isAddonMode()) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        handleAddonAddToCart(form);
+      }, true);
+
+      sectionEl.addEventListener('click', (event) => {
+        if (!isAddonMode()) return;
+        const button = event.target.closest('button[type="submit"], input[type="submit"]');
+        if (!button) return;
+
+        const targetForm = button.form || (button.getAttribute('form') ? document.getElementById(button.getAttribute('form')) : null);
+        if (targetForm !== form) return;
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        handleAddonAddToCart(form);
+      }, true);
+    }
+
+    packButtons.forEach((button) => {
+      button.addEventListener('click', () => selectPack(button));
+    });
+
+    modeInputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        if (input.checked) setPurchaseMode(input.value);
+      });
+    });
+
+    modeOptions.forEach((option) => {
+      option.addEventListener('click', (event) => {
+        if (option.classList.contains('is-sold-out')) {
+          event.preventDefault();
+          return;
+        }
+        const mode = option.dataset.mode;
+        if (!mode) return;
+        queueMicrotask(() => setPurchaseMode(getPurchaseMode()));
+      });
+    });
 
     navItems.forEach((item) => {
       item.addEventListener('click', () => {
         if (item.dataset.available === 'false' || item.classList.contains('is-sold-out')) return;
-        if (purchaseMode === 'addon') setPurchaseMode('onetime');
+        if (isAddonMode()) setPurchaseMode('onetime');
         updateGallery(parseInt(item.dataset.index, 10));
       });
     });
@@ -1426,7 +1484,8 @@
 
     const defaultPack = packButtons.find((btn) => btn.classList.contains('is-selected')) || packButtons[1] || packButtons[0];
     selectPack(defaultPack);
-    setPurchaseMode('onetime');
+    setPurchaseMode(getPurchaseMode());
+    bindAddonAtcGuard();
   })();
 </script>
 
@@ -2062,6 +2121,12 @@
       "id": "addon_pay_value",
       "label": "You pay value",
       "default": "$44/mo"
+    },
+    {
+      "type": "text",
+      "id": "addon_atc_label",
+      "label": "Add to cart label when Better Box selected",
+      "default": "Add Monthly Better Box"
     },
     {
       "type": "text",
