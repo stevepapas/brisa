@@ -167,7 +167,7 @@
   {% if is_variety %}data-variety="true"{% endif %}
   aria-label="Select {{ nav_label | escape }}"
   aria-checked="{% if nav_first %}true{% else %}false{% endif %}"
-  {% unless nav_available %}aria-disabled="true"{% endunless %}
+  {% unless nav_available %}disabled aria-disabled="true" title="Sold out"{% endunless %}
   {% if nav_first %}aria-current="true"{% endif %}
 >
   {% if section.settings.use_swatch_nav %}

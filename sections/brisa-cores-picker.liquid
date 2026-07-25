@@ -175,6 +175,23 @@
     cursor: not-allowed;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__nav.is-sold-out .product-slider__swatch-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-top: 1.5px solid rgba(0, 0, 0, 0.55);
+    transform: rotate(-45deg);
+    transform-origin: center;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__nav.is-sold-out .product-slider__swatch-label::after {
+    content: ' (Sold out)';
+    font-weight: 700;
+    color: #666;
+  }
+
   /* Outer ring: sizing, active border, scale — no clip-path (border must sit outside the image). */
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-wrap {
     position: relative;
@@ -737,6 +754,30 @@
     border-color: #23aee8;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-sold-out {
+    cursor: not-allowed;
+    opacity: 0.55;
+    background: #f7f7f7;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-sold-out.is-selected {
+    border-color: #d8d8d8;
+    box-shadow: none;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag--sold-out {
+    display: none;
+    background: #5c5c5c;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-sold-out .bcp-pack__flag--sold-out {
+    display: block;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-sold-out .bcp-pack__flag:not(.bcp-pack__flag--sold-out) {
+    display: none;
+  }
+
   .brisa-cores-picker-{{ section_uid }} .bcp-pack--value.is-selected {
     border-color: #e11d48;
   }
@@ -1086,6 +1127,15 @@
         aromaMap = [];
       }
     }
+    const stockMapEl = gallery.querySelector('[data-brisa-cores-stock-map]');
+    let stockMap = { variants: {}, varietyComponents: {} };
+    if (stockMapEl) {
+      try {
+        stockMap = JSON.parse(stockMapEl.textContent || '{}');
+      } catch (err) {
+        stockMap = { variants: {}, varietyComponents: {} };
+      }
+    }
     const addonAromaLabel = {{ section.settings.addon_aroma_label | default: 'AROMA PROFILE — MONTHLY BETTER BOX' | json }};
     const addonDescHtml = {{ section.settings.addon_aroma_description | default: section.settings.addon_subtitle | json }};
     const addonCaption = {{ section.settings.addon_gallery_caption | default: 'Monthly better box - NEW!' | json }};
@@ -1186,8 +1236,8 @@
       updateVarietyComposition(entry.flavourKey || '');
     }
 
-    function selectPack(button) {
-      if (!button) return;
+    function selectPack(button, options = {}) {
+      if (!button || button.classList.contains('is-sold-out')) return;
       packButtons.forEach((btn) => {
         const on = btn === button;
         btn.classList.toggle('is-selected', on);
@@ -1196,6 +1246,9 @@
       setPackQuantity(parseInt(button.dataset.packQty || '1', 10));
       const entry = getAromaEntry(currentIndex);
       if (entry) updateVarietyComposition(entry.flavourKey || '');
+      if (!options.skipAvailabilitySync) {
+        updateAtcState();
+      }
     }
 
     function syncVariantPicker(index) {
@@ -1266,6 +1319,8 @@
       if (purchaseMode !== 'addon') applyAromaCopy(currentIndex);
 
       if (purchaseMode !== 'addon') syncVariantPicker(currentIndex);
+      syncPackAvailability();
+      updateAtcState();
     }
 
     function setPurchaseMode(mode) {
@@ -1283,7 +1338,7 @@
         option.classList.toggle('is-selected', option.dataset.mode === mode);
       });
 
-      updateAtcLabels(mode);
+      updateAtcState();
 
       if (aromaDesc && mode === 'addon') {
         if (addonDescHtml) aromaDesc.innerHTML = addonDescHtml;
@@ -1316,17 +1371,92 @@
 
     const addonAtcLabel = {{ section.settings.addon_atc_label | default: 'Add Monthly Better Box' | json }};
     const onetimeAtcLabel = {{ 'product.form.add_to_cart' | t | json }};
+    const soldOutAtcLabel = 'SOLD OUT';
 
-    function updateAtcLabels(mode) {
+    function isNavAvailable(navItem) {
+      if (!navItem) return false;
+      return navItem.dataset.available !== 'false' && !navItem.classList.contains('is-sold-out');
+    }
+
+    function variantMeetsQty(stock, qty) {
+      if (!stock || stock.available === false) return false;
+      if (!stock.inventoryManaged) return true;
+      return Number(stock.inventoryQuantity) >= qty;
+    }
+
+    function isPackAvailable(packBtn, navItem) {
+      if (!packBtn || !isNavAvailable(navItem)) return false;
+
+      const packQty = parseInt(packBtn.dataset.packQty || '1', 10);
+      const packCores = parseInt(packBtn.dataset.packCores || '9', 10);
+
+      if (navItem.dataset.variety === 'true') {
+        const neededPerFlavour = Math.max(1, Math.round(packCores / 9));
+        const components = stockMap.varietyComponents || {};
+        return ['mint', 'raspberry', 'cherry'].every((key) => variantMeetsQty(components[key], neededPerFlavour));
+      }
+
+      const variantId = String(navItem.dataset.variantId || '');
+      const stock = stockMap.variants?.[variantId];
+      return variantMeetsQty(stock, packQty);
+    }
+
+    function syncPackAvailability() {
+      const navItem = navItems[currentIndex];
+      packButtons.forEach((btn) => {
+        const available = isPackAvailable(btn, navItem);
+        btn.classList.toggle('is-sold-out', !available);
+        btn.disabled = !available;
+        btn.setAttribute('aria-disabled', available ? 'false' : 'true');
+        const soldOutFlag = btn.querySelector('[data-bcp-pack-sold-out]');
+        if (soldOutFlag) soldOutFlag.hidden = available;
+      });
+
+      const selected = packButtons.find((btn) => btn.classList.contains('is-selected'));
+      if (selected?.classList.contains('is-sold-out')) {
+        const fallback = packButtons.find((btn) => !btn.classList.contains('is-sold-out'));
+        if (fallback) selectPack(fallback, { skipAvailabilitySync: true });
+      }
+    }
+
+    function updateAtcState() {
+      const mode = getPurchaseMode();
+      const navItem = navItems[currentIndex];
+      const selectedPack = packButtons.find((btn) => btn.classList.contains('is-selected'));
+      const flavourOk = mode !== 'addon' && isNavAvailable(navItem);
+      const packOk = mode !== 'addon' && selectedPack && !selectedPack.classList.contains('is-sold-out');
+      const addonOk = mode === 'addon' && purchase?.dataset.addonAvailable !== 'false';
+
       sectionEl.querySelectorAll('[data-product-add-to-cart-button]').forEach((btn) => {
         if (btn.dataset.brisaCoresDefaultLabel == null) {
           btn.dataset.brisaCoresDefaultLabel = btn.textContent.trim() || onetimeAtcLabel;
         }
-        const nextLabel = mode === 'addon' ? addonAtcLabel : btn.dataset.brisaCoresDefaultLabel;
-        btn.textContent = nextLabel;
-        if (btn.dataset.buttonContent != null) {
-          btn.dataset.buttonContent = nextLabel;
+
+        let label = btn.dataset.brisaCoresDefaultLabel;
+        let disabled = false;
+
+        if (mode === 'addon') {
+          label = addonAtcLabel;
+          disabled = !addonOk;
+        } else if (!flavourOk || !packOk) {
+          label = soldOutAtcLabel;
+          disabled = true;
         }
+
+        btn.textContent = label;
+        if (btn.dataset.buttonContent != null) {
+          btn.dataset.buttonContent = label;
+        }
+        btn.disabled = disabled;
+        btn.classList.toggle('button--ternary', disabled);
+      });
+
+      document.querySelectorAll('[data-brisa-cores-bottom-atc]').forEach((bottomBtn) => {
+        const mainAtc = sectionEl.querySelector('[data-product-add-to-cart-button]');
+        if (!mainAtc) return;
+        bottomBtn.disabled = Boolean(mainAtc.disabled);
+        const span = bottomBtn.querySelector('span');
+        if (span) span.textContent = mainAtc.textContent.trim();
       });
     }
 
@@ -1403,9 +1533,9 @@
       } finally {
         addonSubmitInFlight = false;
         submitButtons.forEach((btn) => {
-          btn.removeAttribute('disabled');
           btn.removeAttribute('aria-busy');
         });
+        updateAtcState();
       }
     }
 
@@ -1436,7 +1566,10 @@
     }
 
     packButtons.forEach((button) => {
-      button.addEventListener('click', () => selectPack(button));
+      button.addEventListener('click', () => {
+        if (button.classList.contains('is-sold-out')) return;
+        selectPack(button);
+      });
     });
 
     modeInputs.forEach((input) => {
@@ -1471,20 +1604,40 @@
       const cardIndex = cards.findIndex((card) => card.dataset.variantId === variantId);
       if (cardIndex >= 0 && cardIndex !== currentIndex) {
         updateGallery(cardIndex);
+      } else {
+        syncPackAvailability();
+        updateAtcState();
       }
     });
 
     const popularName = {{ section.settings.popular_variant_name | downcase | json }};
-    let startIndex = 0;
-    if (popularName) {
-      const popularIndex = cards.findIndex((card) => (card.dataset.slideLabel || '').trim().toLowerCase() === popularName);
-      if (popularIndex >= 0) startIndex = popularIndex;
-    }
-    updateGallery(startIndex);
 
-    const defaultPack = packButtons.find((btn) => btn.classList.contains('is-selected')) || packButtons[1] || packButtons[0];
-    selectPack(defaultPack);
+    function resolveStartIndex() {
+      let startIndex = 0;
+      if (popularName) {
+        const popularIndex = cards.findIndex((card) => (card.dataset.slideLabel || '').trim().toLowerCase() === popularName);
+        if (popularIndex >= 0 && isNavAvailable(navItems[popularIndex])) {
+          startIndex = popularIndex;
+        }
+      }
+      if (!isNavAvailable(navItems[startIndex])) {
+        const firstAvailable = navItems.findIndex((item) => isNavAvailable(item));
+        if (firstAvailable >= 0) startIndex = firstAvailable;
+      }
+      return startIndex;
+    }
+
+    updateGallery(resolveStartIndex());
+
+    const defaultPack =
+      packButtons.find((btn) => btn.classList.contains('is-selected') && !btn.classList.contains('is-sold-out')) ||
+      packButtons.find((btn) => !btn.classList.contains('is-sold-out')) ||
+      packButtons[1] ||
+      packButtons[0];
+    if (defaultPack) selectPack(defaultPack, { skipAvailabilitySync: true });
     setPurchaseMode(getPurchaseMode());
+    syncPackAvailability();
+    updateAtcState();
     bindAddonAtcGuard();
   })();
 </script>

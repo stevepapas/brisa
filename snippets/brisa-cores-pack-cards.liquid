@@ -11,6 +11,7 @@
     data-pack-cores="{{ section.settings.pack_1_cores | default: 9 }}"
     aria-pressed="false"
   >
+    <span class="bcp-pack__flag bcp-pack__flag--sold-out" data-bcp-pack-sold-out hidden>Sold out</span>
     <span class="bcp-pack__cores">{{ section.settings.pack_1_label | default: '9 cores' | escape }}</span>
     {% if section.settings.pack_1_meta != blank %}
       <span class="bcp-pack__meta">{{ section.settings.pack_1_meta | escape }}</span>
@@ -29,6 +30,7 @@
     data-pack-cores="{{ section.settings.pack_2_cores | default: 18 }}"
     aria-pressed="true"
   >
+    <span class="bcp-pack__flag bcp-pack__flag--sold-out" data-bcp-pack-sold-out hidden>Sold out</span>
     {% if section.settings.pack_2_flag != blank %}
       <span class="bcp-pack__flag">{{ section.settings.pack_2_flag | escape }}</span>
     {% endif %}
@@ -58,6 +60,7 @@
     data-pack-cores="{{ section.settings.pack_3_cores | default: 27 }}"
     aria-pressed="false"
   >
+    <span class="bcp-pack__flag bcp-pack__flag--sold-out" data-bcp-pack-sold-out hidden>Sold out</span>
     {% if section.settings.pack_3_flag != blank %}
       <span class="bcp-pack__flag bcp-pack__flag--value">{{ section.settings.pack_3_flag | escape }}</span>
     {% endif %}

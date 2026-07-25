@@ -125,6 +125,64 @@
       {% endif %}
     </div>
 
+    {%- liquid
+      assign variety_mint_variant = blank
+      assign variety_raspberry_variant = blank
+      assign variety_cherry_variant = blank
+      for v in product.variants
+        assign vt = v.title | downcase | strip
+        unless vt contains 'variety'
+          if vt == 'mint ice' or vt contains 'mint ice'
+            assign variety_mint_variant = v
+          elsif vt == 'raspberry lime' or vt contains 'raspberry'
+            assign variety_raspberry_variant = v
+          elsif vt == 'cherry pomegranate' or vt contains 'cherry'
+            assign variety_cherry_variant = v
+          endif
+        endunless
+      endfor
+    -%}
+
+    <script type="application/json" data-brisa-cores-stock-map>
+      {
+        "variants": {
+          {%- for variant in product.variants -%}
+            "{{ variant.id }}": {
+              "available": {{ variant.available | json }},
+              "inventoryQuantity": {{ variant.inventory_quantity | json }},
+              "inventoryManaged": {% if variant.inventory_management != blank %}true{% else %}false{% endif %}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        },
+        "varietyComponents": {
+          {%- if variety_mint_variant != blank -%}
+          "mint": {
+            "id": {{ variety_mint_variant.id | json }},
+            "available": {{ variety_mint_variant.available | json }},
+            "inventoryQuantity": {{ variety_mint_variant.inventory_quantity | json }},
+            "inventoryManaged": {% if variety_mint_variant.inventory_management != blank %}true{% else %}false{% endif %}
+          }{%- if variety_raspberry_variant != blank or variety_cherry_variant != blank -%},{%- endif -%}
+          {%- endif -%}
+          {%- if variety_raspberry_variant != blank -%}
+          "raspberry": {
+            "id": {{ variety_raspberry_variant.id | json }},
+            "available": {{ variety_raspberry_variant.available | json }},
+            "inventoryQuantity": {{ variety_raspberry_variant.inventory_quantity | json }},
+            "inventoryManaged": {% if variety_raspberry_variant.inventory_management != blank %}true{% else %}false{% endif %}
+          }{%- if variety_cherry_variant != blank -%},{%- endif -%}
+          {%- endif -%}
+          {%- if variety_cherry_variant != blank -%}
+          "cherry": {
+            "id": {{ variety_cherry_variant.id | json }},
+            "available": {{ variety_cherry_variant.available | json }},
+            "inventoryQuantity": {{ variety_cherry_variant.inventory_quantity | json }},
+            "inventoryManaged": {% if variety_cherry_variant.inventory_management != blank %}true{% else %}false{% endif %}
+          }
+          {%- endif -%}
+        }
+      }
+    </script>
+
     <script type="application/json" data-brisa-cores-aroma-map>
       [
         {% if slider_option != blank %}
