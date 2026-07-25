@@ -243,126 +243,200 @@
     "brisa_comparison_table_PqHQJk": {
       "type": "brisa-comparison-table",
       "blocks": {
-        "row_kUBAMt": {
+        "row_hand": {
+          "type": "row",
+          "settings": {
+            "label": "Hand to mouth ritual",
+            "icon_asset": "brisa-compare-hand.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "empty",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_throat": {
+          "type": "row",
+          "settings": {
+            "label": "Real throat hit",
+            "icon_asset": "brisa-compare-throat.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "check",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "empty",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_flavour": {
+          "type": "row",
+          "settings": {
+            "label": "Bold, real flavour",
+            "icon_asset": "brisa-compare-flavour.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "check",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "empty",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "empty",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_nicotine": {
+          "type": "row",
+          "settings": {
+            "label": "Nicotine - free",
+            "icon_asset": "brisa-compare-leaf.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "empty",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "empty",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "empty",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_smoke": {
+          "type": "row",
+          "settings": {
+            "label": "No smoke, vapour or smell",
+            "icon_asset": "brisa-compare-cloud.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "empty",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "empty",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "check",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_discreet": {
+          "type": "row",
+          "settings": {
+            "label": "Discreet - use it anywhere",
+            "icon_asset": "brisa-compare-lock.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "empty",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "empty",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "check",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_buyonce": {
+          "type": "row",
+          "settings": {
+            "label": "Buy once - no endless refills",
+            "icon_asset": "brisa-compare-wallet.png",
+            "brisa_value_type": "check",
+            "brisa_text": "",
+            "brisa_subtext": "",
+            "column_2_value_type": "empty",
+            "column_2_text": "",
+            "column_2_subtext": "",
+            "column_3_value_type": "empty",
+            "column_3_text": "",
+            "column_3_subtext": "",
+            "column_4_value_type": "empty",
+            "column_4_text": "",
+            "column_4_subtext": ""
+          }
+        },
+        "row_cost": {
           "type": "row",
           "settings": {
             "label": "Monthly cost",
-            "brisa_value_type": "text",
-            "brisa_text": "$45",
-            "column_2_value_type": "text",
-            "column_2_text": "$300+",
-            "column_3_value_type": "text",
-            "column_3_text": "$400+",
-            "column_4_value_type": "text",
-            "column_4_text": "$100+"
-          }
-        },
-        "row_r6aqPA": {
-          "type": "row",
-          "settings": {
-            "label": "Nicotine",
-            "brisa_value_type": "cross",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "check",
-            "column_4_text": ""
-          }
-        },
-        "row_wXdhxb": {
-          "type": "row",
-          "settings": {
-            "label": "Chemicals",
-            "brisa_value_type": "cross",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "check",
-            "column_4_text": ""
-          }
-        },
-        "row_eMDGYJ": {
-          "type": "row",
-          "settings": {
-            "label": "Ritual kept",
-            "brisa_value_type": "check",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "cross",
-            "column_4_text": ""
-          }
-        },
-        "row_rTcTmd": {
-          "type": "row",
-          "settings": {
-            "label": "Designed for the switch",
-            "brisa_value_type": "check",
-            "brisa_text": "",
-            "column_2_value_type": "cross",
-            "column_2_text": "",
-            "column_3_value_type": "cross",
-            "column_3_text": "",
-            "column_4_value_type": "cross",
-            "column_4_text": ""
-          }
-        },
-        "row_iHCFi7": {
-          "type": "row",
-          "settings": {
-            "label": "Sensory satisfaction",
-            "brisa_value_type": "check",
-            "brisa_text": "",
-            "column_2_value_type": "check",
-            "column_2_text": "",
-            "column_3_value_type": "check",
-            "column_3_text": "",
-            "column_4_value_type": "cross",
-            "column_4_text": ""
+            "icon_asset": "brisa-compare-cost.png",
+            "brisa_value_type": "cost",
+            "brisa_text": "Low",
+            "brisa_subtext": "$45 / month*",
+            "column_2_value_type": "cost",
+            "column_2_text": "High",
+            "column_2_subtext": "$300+ / month*",
+            "column_3_value_type": "cost",
+            "column_3_text": "High",
+            "column_3_subtext": "$400+ / month*",
+            "column_4_value_type": "cost",
+            "column_4_text": "High",
+            "column_4_subtext": "$100+ / month*"
           }
         }
       },
       "block_order": [
-        "row_kUBAMt",
-        "row_r6aqPA",
-        "row_wXdhxb",
-        "row_eMDGYJ",
-        "row_rTcTmd",
-        "row_iHCFi7"
+        "row_hand",
+        "row_throat",
+        "row_flavour",
+        "row_nicotine",
+        "row_smoke",
+        "row_discreet",
+        "row_buyonce",
+        "row_cost"
       ],
       "name": "Brisa comparison table",
       "settings": {
-        "heading": "WHY BRISA BEATS THE OLD OPTIONS",
-        "subheading": "",
+        "heading": "",
+        "heading_brand": "BRISA",
+        "heading_vs": "VS",
+        "heading_rest": "THE REST.",
+        "subheading": "<p>Everything you love about the habit. None of what it costs you.</p>",
         "table_label": "Brisa comparison table",
         "brisa_heading": "Brisa Better",
         "column_2_heading": "Vaping",
         "column_3_heading": "Smoking",
-        "column_4_heading": "Gums/ Other",
+        "column_4_heading": "Gums/Patches",
         "background": "#ffffff",
         "text_color": "#111111",
         "heading_color": "#111111",
-        "line_color": "#111111",
-        "line_width": 4,
-        "brisa_color": "#0798dc",
+        "line_color": "#d9d9d9",
+        "line_width": 1,
+        "brisa_color": "#4eb8ef",
         "brisa_text_color": "#ffffff",
-        "icon_color": "#2350a4",
-        "brisa_icon_color": "#ffffff",
-        "icon_size": 36,
-        "brisa_radius": 18,
-        "heading_size": 36,
-        "max_width": 900,
+        "icon_color": "#4eb8ef",
+        "brisa_icon_color": "#4eb8ef",
+        "icon_size": 34,
+        "label_size": 15,
+        "brisa_radius": 28,
+        "heading_size": 44,
+        "max_width": 920,
         "padding_top": 48,
         "padding_bottom": 48,
         "mobile_padding_top": 36,
         "mobile_padding_bottom": 36,
-        "footnote": ""
+        "footnote": "<p>*Approximate typical spend. Actual costs vary.</p>"
       }
     },
     "blue_layout_2_dK4pUp": {
@@ -821,83 +895,91 @@
       "type": "_blocks",
       "settings": {}
     },
-    "faq_jptxLw": {
-      "type": "faq",
+    "device_questions_home": {
+      "type": "device-questions",
       "blocks": {
-        "question_prcTJn": {
+        "q1": {
           "type": "question",
           "settings": {
-            "title": "How does Brisa actually work?",
-            "answer": "<p>Brisa is made for the moment you'd usually reach for a vape. It gives you a non-consumable object to reach for instead, with the same weight and a familiar draw, and no nicotine, smoke, or vapour.</p>"
+            "question": "Be honest... will it actually satisfy me?",
+            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw, the same hand-tomouth moment you know, minus the nicotine. It's not a wooden pen or a puff of air. It's engineered to feel like the real thing. </p>"
           }
         },
-        "question_jDRjKb": {
+        "q2": {
           "type": "question",
           "settings": {
-            "title": "Is Brisa drug - free?",
-            "answer": "<p>Yes. Brisa contains no nicotine, no tobacco, no cannabis, no caffeine, and no medicinal substances.</p><p>It is not a vape, cigarette, or drug product. It is more the opposite. Brisa was built as a tool to help people move away from those habits by giving them something familiar to use without smoke, vapour, or nicotine.</p>"
+            "question": "Isn't it just a vape without the nicotine?",
+            "answer": "<p>No. No battery, no e-liquid, no heating, no vapour, nothing is powered or produced. Brisa is a non-electronic device with a replaceable aroma core. You get the draw, the throat hit and the flavour through pure airflow, not a cloud. A completely different thing. </p>"
           }
         },
-        "question_iDWdDH": {
+        "q3": {
           "type": "question",
           "settings": {
-            "title": "What's in the core?",
-            "answer": "<p>Brisa cores are made with internal fibre material infused with food-grade aromatic compounds.</p><p>The cores are designed to create aroma and a sensory draw using air only. There is no liquid to drink, no flavour to consume, no smoke, no vapour, no heating, and nothing is designed to be ingested.</p>"
+            "question": "Isn't it like those wooden pens that just blow air?",
+            "answer": "<p>Not even close. A plain air inhaler gives you the motion and nothing else, no throat hit, no real flavour. Brisa's secret aroma and cooling formula delivers a genuine hit at the back of the throat and bold flavour the second you draw. That's the entire reason we exist. </p>"
           }
         },
-        "question_WzqzzN": {
+        "q4": {
           "type": "question",
           "settings": {
-            "title": "Does Brisa help with the habit?",
-            "answer": "<p>Brisa is designed for the “moment”, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It is designed as closely as possible to mimic the old habit, with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure, but without smoke, vapour, or nicotine.</p><p>If you use Brisa every time the urge hits, you are replacing the nicotine routine with a smoke-free, vapour-free, nicotine-free tool.</p>"
+            "question": "I've tried gums and patches, how is this different?",
+            "answer": "<p>Gums and patches miss the one thing running the habit: the hand-to-mouth ritual. They still put nicotine in your body and give your hands nothing to do. Brisa is the opposite, zero nicotine, and it's the exact thing your hand reaches for, with the throat hit and flavour to match. </p>"
           }
         },
-        "question_RxQPLt": {
+        "question_7QFghX": {
           "type": "question",
           "settings": {
-            "title": "Is Brisa safe?",
-            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid.</p><p>It works through air pressure and aroma only. You breathe air through the aromatic core to create the sensory draw, without burning, vaporising, or consuming anything.</p>"
+            "question": "Is it actually safe to inhale? What am I breathing in?",
+            "answer": "<p>No nicotine, no tobacco, no smoke, no vapour, and nothing burned or heated, just food-grade aroma and cooling compounds in a food-grade core. You're drawing air through aroma, not a chemical cloud. </p>"
           }
         },
-        "question_nPfaLW": {
+        "question_DXhh7a": {
           "type": "question",
           "settings": {
-            "title": "What's the 30 - day success guarantee?",
-            "answer": "<p>The 30-Day Success Guarantee is built around helping customers get the best result from Brisa.</p><p>After seeing over 1,000 people leave the old habit behind using Brisa, we have learned what works best for our customers. If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy using what we know.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p><p>To claim it, contact us through our contact section with your name, phone number or WhatsApp, and the message: “30 DAY SUCCESS GUARANTEE”.</p>"
+            "question": "Won't the cores run out and cost me forever?",
+            "answer": "<p>Good news first: there's no nicotine in Brisa, so there's nothing keeping you tied to it, use it for as long as it serves you. Each core lasts 2-3 days (around $1.70 a day). Top up with a core pack, or set the Monthly Better Box to turn up automatically, cancel anytime. And the real difference: a vape is a bill that never stops. Brisa, you buy once. </p>"
           }
         },
-        "question_ezbiVT": {
+        "question_yzU3fM": {
           "type": "question",
           "settings": {
-            "title": "How do refills work?",
-            "answer": "<p>The Brisa device is a one-time purchase. Once you own the unit, you only replace the cores.</p><p>The Starter Kit already comes with 30 days worth of cores. After that, you simply order refill core packs and replace the core when the aroma starts to fade.</p>"
+            "question": "Can I use it at work and around people?",
+            "answer": "<p>Yes. No smoke, no vapour, no lingering smell, nothing to step outside for, nothing that fills a room. It's not a vape. Reach for it at your desk, in the car, or out with mates, wherever the moment hits. </p>"
           }
         },
-        "question_px4ApX": {
+        "question_rMCimq": {
           "type": "question",
           "settings": {
-            "title": "What's the mates pack?",
-            "answer": "<p>The Mates Pack is made for sharing Brisa with someone else.</p><p>It includes multiple starter kits so you and a mate can start together, support each other, and both have your own device and cores. It is the best option if two people want to start the Brisa routine at the same time.</p>"
+            "question": "Is this just a gimmick… will it really work?",
+            "answer": "<p>It's almost a year of R&D and a world-first aroma formula no one in our category has cracked. Thousands reach for it every day in the moment they'd normally reach for a vape. One draw and the skepticism usually disappears. </p>"
           }
         }
       },
       "block_order": [
-        "question_prcTJn",
-        "question_jDRjKb",
-        "question_iDWdDH",
-        "question_WzqzzN",
-        "question_RxQPLt",
-        "question_nPfaLW",
-        "question_ezbiVT",
-        "question_px4ApX"
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "question_7QFghX",
+        "question_DXhh7a",
+        "question_yzU3fM",
+        "question_rMCimq"
       ],
-      "name": "FAQ",
+      "name": "Device questions",
       "settings": {
-        "show_navigation": false,
-        "title": "FAQ",
-        "content": "",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
+        "heading": "Frequently Asked Questions Answered",
+        "max_width": 760,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "box_padding_horizontal": 40,
+        "heading_spacing": 36,
+        "item_padding_vertical": 28,
+        "heading_size": 42,
+        "question_size": 18,
+        "answer_size": 16,
+        "background": "#008bdc",
+        "panel_background": "#008bdc",
+        "text_color": "#ffffff"
       }
     },
     "brisa_home_hero_v4": {
@@ -950,6 +1032,6 @@
     "177899310035a7028b",
     "17789936267965322a",
     "177899374592e5fb95",
-    "faq_jptxLw"
+    "device_questions_home"
   ]
 }
