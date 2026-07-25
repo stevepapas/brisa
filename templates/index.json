@@ -642,12 +642,15 @@
       ],
       "name": "Brisa product reviews",
       "settings": {
-        "heading": "Real Aussies. Real Reviews.",
-        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
-        "show_arrows": true,
-        "show_dots": false,
-        "autoplay": false,
-        "autoplay_speed": 5000
+        "heading": "REAL RESULTS",
+        "disclaimer": "",
+        "max_width": 560,
+        "padding_top": 28,
+        "padding_bottom": 36,
+        "background": "#f4f4f4",
+        "badge_background": "#bee3f9",
+        "badge_text_color": "#2c579b",
+        "badge_size": 13
       }
     },
     "black_ribbon_blue_box_bnUnL4": {

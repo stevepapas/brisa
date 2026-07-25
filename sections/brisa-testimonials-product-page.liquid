@@ -1,4 +1,185 @@
-{% render 'brisa-product-testimonials-slider', section: section, show_heading: true %}
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background | default: '#f4f4f4' }};
+    padding: {{ section.settings.padding_top }}px 16px {{ section.settings.padding_bottom }}px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 14px;
+    padding: 8px 16px;
+    color: {{ section.settings.badge_text_color | default: '#2c579b' }};
+    background: {{ section.settings.badge_background | default: '#bee3f9' }};
+    border-radius: 999px;
+    font-size: {{ section.settings.badge_size }}px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__video-thumb {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    padding: 0;
+    overflow: hidden;
+    background: #d8f6ff;
+    border: 0;
+    border-radius: 14px;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__video-thumb img,
+  #shopify-section-{{ section.id }} .brisa-real-results__video-thumb .brisa-media-placeholder {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid #38b6ff;
+    border-radius: 50%;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -50%);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__video-play span {
+    width: 0;
+    height: 0;
+    margin-left: 3px;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 14px solid #2d579b;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-real-results__disclaimer {
+    max-width: 520px;
+    margin: 16px auto 0;
+    color: #6b7078;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-real-results__badge {
+      margin-bottom: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-real-results__video-grid {
+      gap: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-real-results__video-play {
+      width: 52px;
+      height: 52px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-real-results__video-play span {
+      border-top-width: 11px;
+      border-bottom-width: 11px;
+      border-left-width: 17px;
+    }
+  }
+</style>
+
+{%- assign video_blocks = section.blocks | where: 'type', 'video_review' -%}
+
+<section class="brisa-real-results" {{ section.shopify_attributes }}>
+  {% if section.settings.heading != blank %}
+    <p class="brisa-real-results__badge">{{ section.settings.heading | escape }}</p>
+  {% endif %}
+
+  {% if video_blocks.size > 0 %}
+    <div class="brisa-real-results__video-grid">
+      {% for block in video_blocks %}
+        {% liquid
+          assign video_src = ''
+          assign video_type = ''
+
+          if block.settings.video != blank
+            assign local_video_source = block.settings.video.sources | where: 'format', 'mp4' | first
+            if local_video_source == blank
+              assign local_video_source = block.settings.video.sources | first
+            endif
+            assign video_src = local_video_source.url
+            assign video_type = 'html5'
+          elsif block.settings.video_url.type == 'youtube'
+            assign video_src = 'https://www.youtube.com/embed/' | append: block.settings.video_url.id | append: '?autoplay=1&rel=0&modestbranding=1'
+            assign video_type = 'iframe'
+          elsif block.settings.video_url.type == 'vimeo'
+            assign video_src = 'https://player.vimeo.com/video/' | append: block.settings.video_url.id | append: '?autoplay=1&title=0&byline=0&portrait=0'
+            assign video_type = 'iframe'
+          endif
+        %}
+
+        <button
+          type="button"
+          class="brisa-real-results__video-thumb"
+          {% if video_src != blank %}data-brisa-video-src="{{ video_src | escape }}"{% endif %}
+          {% if video_type != blank %}data-brisa-video-type="{{ video_type }}"{% endif %}
+          data-brisa-video-aspect="portrait"
+          aria-label="Play {{ block.settings.label | default: 'customer video review' | escape }}"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.thumbnail != blank %}
+            <img
+              src="{{ block.settings.thumbnail | image_url: width: 720 }}"
+              alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
+              loading="lazy"
+              width="{{ block.settings.thumbnail.width }}"
+              height="{{ block.settings.thumbnail.height }}"
+            >
+          {% else %}
+            {% render 'brisa-media-placeholder', type: 'portrait', label: '' %}
+          {% endif %}
+
+          <span class="brisa-real-results__video-play" aria-hidden="true">
+            <span></span>
+          </span>
+        </button>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if section.settings.disclaimer != blank %}
+    <p class="brisa-real-results__disclaimer">{{ section.settings.disclaimer | escape }}</p>
+  {% endif %}
+</section>
 
 {% schema %}
 {
@@ -9,42 +190,79 @@
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "Real Aussies. Real Reviews."
+      "label": "Badge",
+      "default": "REAL RESULTS"
     },
     {
       "type": "textarea",
       "id": "disclaimer",
-      "label": "Disclaimer",
-      "default": "Customer experiences vary. Brisa is not a medical device or smoking cessation product."
+      "label": "Disclaimer"
     },
     {
-      "type": "checkbox",
-      "id": "show_arrows",
-      "label": "Show arrows",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_dots",
-      "label": "Show dots",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable autoplay",
-      "default": false
+      "type": "header",
+      "content": "Layout"
     },
     {
       "type": "range",
-      "id": "autoplay_speed",
-      "label": "Autoplay speed",
-      "min": 3000,
-      "max": 9000,
-      "step": 500,
-      "unit": "ms",
-      "default": 5000
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#bee3f9"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#2c579b"
+    },
+    {
+      "type": "range",
+      "id": "badge_size",
+      "label": "Badge size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
     }
   ],
   "blocks": [
@@ -54,7 +272,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Legacy blocks are kept only so older page data can save. Reviews displayed by this section come from the testimonial metaobject setting above."
+          "content": "Legacy blocks are kept only so older page data can save. This section displays video review blocks."
         },
         {
           "type": "text",
