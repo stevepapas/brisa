@@ -13,6 +13,8 @@
     --bntb-btn-text: {{ section.settings.button_text_color }};
     background: var(--bntb-bg);
     color: var(--bntb-ink);
+    border-radius: 0 !important;
+    overflow: visible;
   }
 
   .brisa-new-to-brisa-{{ section_uid }} {
@@ -20,6 +22,8 @@
     margin: 0 auto;
     padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
     box-sizing: border-box;
+    border-radius: 0 !important;
+    overflow: visible;
   }
 
   .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__top {
@@ -48,12 +52,23 @@
     display: inline-flex;
     align-items: center;
     height: 0.92em;
+    border-radius: 0 !important;
+    overflow: visible;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
-  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand img {
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand img,
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand svg {
     display: block;
     height: 100%;
     width: auto;
+    border-radius: 0 !important;
+    overflow: visible;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
   .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand-fallback {
@@ -75,6 +90,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 0 !important;
+    overflow: visible;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
   .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__media img {
@@ -83,6 +103,10 @@
     max-width: 360px;
     height: auto;
     object-fit: contain;
+    border-radius: 0 !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    clip-path: none !important;
   }
 
   .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__cta {
