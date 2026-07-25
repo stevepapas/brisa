@@ -924,6 +924,78 @@
         "padding_top": 28,
         "mobile_padding_top": 20
       }
+    },
+    "brisa_inside_cores_home": {
+      "type": "brisa-inside-cores",
+      "blocks": {
+        "card_flavours": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-1.png",
+            "heading": "The flavours you actually chase \ud83c\udf52",
+            "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
+          }
+        },
+        "card_formula": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-2.png",
+            "heading": "A formula we'll never share \ud83e\udd2b",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+          }
+        },
+        "card_hit": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-3.png",
+            "heading": "The hit isn't an accident",
+            "description": "That satisfying hit and rush at the back of your throat is engineered. Our secret layering delivers the sensation you know, with zero nicotine, zero smoke, zero vapour. The closest thing to the real feeling."
+          }
+        },
+        "card_food_grade": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-4.png",
+            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
+          }
+        }
+      },
+      "block_order": [
+        "card_flavours",
+        "card_formula",
+        "card_hit",
+        "card_food_grade"
+      ],
+      "settings": {
+        "heading": "Inside the Brisa core",
+        "subtitle": "The part everyone tries to copy... and no one's cracked.",
+        "max_width": 980,
+        "card_max_width": 420,
+        "card_peek": 56,
+        "card_gap": 24,
+        "card_padding": 12,
+        "card_radius": 28,
+        "image_radius": 18,
+        "carousel_spacing": 28,
+        "dots_spacing": 18,
+        "heading_size": 32,
+        "subtitle_size": 16,
+        "card_heading_size": 20,
+        "card_text_size": 15,
+        "background": "#ffffff",
+        "heading_color": "#111111",
+        "subtitle_color": "#6b6b6b",
+        "text_color": "#222222",
+        "card_background": "#ffffff",
+        "card_shadow_color": "#008bdc",
+        "dot_active_color": "#cfe9f8",
+        "dot_inactive_color": "#6d87a3",
+        "padding_top": 48,
+        "padding_bottom": 40,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 32
+      }
     }
   },
   "order": [
@@ -931,6 +1003,7 @@
     "social_proof_testimonials_gAi9fg",
     "image_with_text_brisa_iej7Fj",
     "custom_liquid_Yfw4yY",
+    "brisa_inside_cores_home",
     "product_slider_aJ9PmW",
     "why_brisa_works_B3VdJE",
     "brisa_comparison_table_PqHQJk",
