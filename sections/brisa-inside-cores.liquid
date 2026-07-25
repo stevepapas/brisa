@@ -204,6 +204,28 @@
       padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
     }
 
+    .brisa-inside-cores-{{ section_id }} {
+      --bic-gap: 16px;
+    }
+
+    /* Start-aligned near-full-width cards + right peek (matches device-page mobile).
+       Avoid centering + card_max caps that leave a tiny card and a huge side gap. */
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__carousel {
+      --bic-edge: 16px;
+      --bic-peek: min(56px, {{ section.settings.card_peek }}px);
+      --bic-card-w: calc(100% - var(--bic-edge) - var(--bic-peek));
+      --bic-side: var(--bic-edge);
+    }
+
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__track {
+      padding-inline: var(--bic-edge) 0;
+      scroll-padding-inline: var(--bic-edge);
+    }
+
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card {
+      scroll-snap-align: start;
+    }
+
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__heading {
       font-size: {{ section.settings.heading_size | times: 0.82 | round }}px;
     }
@@ -214,6 +236,7 @@
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-heading {
       font-size: {{ section.settings.card_heading_size | times: 0.92 | round }}px;
+      margin-top: 12px;
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-text {
@@ -328,15 +351,23 @@
       });
     }
 
+    function useStartSnap() {
+      return window.matchMedia('(max-width: 749px)').matches;
+    }
+
     function nearestIndex() {
       var trackRect = track.getBoundingClientRect();
-      var center = trackRect.left + trackRect.width / 2;
+      var styles = window.getComputedStyle(track);
+      var padLeft = parseFloat(styles.paddingLeft) || 0;
+      var target = useStartSnap()
+        ? trackRect.left + padLeft
+        : trackRect.left + trackRect.width / 2;
       var best = 0;
       var bestDist = Infinity;
       cards.forEach(function (card, i) {
         var rect = card.getBoundingClientRect();
-        var cardCenter = rect.left + rect.width / 2;
-        var dist = Math.abs(cardCenter - center);
+        var point = useStartSnap() ? rect.left : rect.left + rect.width / 2;
+        var dist = Math.abs(point - target);
         if (dist < bestDist) {
           bestDist = dist;
           best = i;
@@ -359,7 +390,11 @@
       if (!card) return;
       var trackRect = track.getBoundingClientRect();
       var cardRect = card.getBoundingClientRect();
-      var delta = cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
+      var styles = window.getComputedStyle(track);
+      var padLeft = parseFloat(styles.paddingLeft) || 0;
+      var delta = useStartSnap()
+        ? cardRect.left - trackRect.left - padLeft
+        : cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
       if (Math.abs(delta) < 1) {
         setActive(index);
         return;
@@ -378,7 +413,29 @@
     window.addEventListener('resize', function () {
       scrollToIndex(activeIndex, 'auto');
     }, { passive: true });
+
+    // Re-snap after images paint so first card isn't left short on mobile.
+    var imgs = track.querySelectorAll('img');
+    var pending = 0;
+    function onReady() {
+      scrollToIndex(activeIndex, 'auto');
+    }
+    imgs.forEach(function (img) {
+      if (img.complete) return;
+      pending += 1;
+      img.addEventListener('load', function () {
+        pending -= 1;
+        if (pending <= 0) onReady();
+      }, { once: true });
+      img.addEventListener('error', function () {
+        pending -= 1;
+        if (pending <= 0) onReady();
+      }, { once: true });
+    });
     scrollToIndex(0, 'auto');
+    if (pending === 0) {
+      requestAnimationFrame(onReady);
+    }
   })();
 </script>
 
