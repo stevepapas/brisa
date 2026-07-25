@@ -691,7 +691,8 @@
         "muted_color": "#6b6b6b",
         "star_color": "#111111",
         "border_color": "#111111",
-        "soft_border_color": "#e8e8e8"
+        "soft_border_color": "#e8e8e8",
+        "product": "brisa-starter-kit"
       }
     },
     "brisa_cores_bottom_cta": {
