@@ -472,29 +472,6 @@
         "cta_trust": "Free shipping - 30-Day Guarantee - Ships in 1-2 days"
       }
     },
-    "blue_layout_3_kctQaw": {
-      "type": "blue-layout-3",
-      "name": "Blue layout 3",
-      "settings": {
-        "heading": "MATES PACK \u2014 2 DEVICES, SAVE $40",
-        "body": "$220. Two devices. Two starter kits. Built for doing it with a mate.",
-        "button_text": "GET THE MATES PACK\u2192",
-        "button_link": "shopify://products/brisa-mates-pack",
-        "content_width": 520,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "background": "#ffffff",
-        "panel_background": "#dff2ff",
-        "text_color": "#098bd8",
-        "border_color": "#159ee7",
-        "border_width": 3,
-        "button_background": "#38b6ff",
-        "button_text_color": "#ffffff",
-        "heading_size": 27,
-        "body_size": 16,
-        "button_size": 25
-      }
-    },
     "product_slider_Ahg8i4": {
       "type": "product-slider",
       "name": "Choose Core",
@@ -559,51 +536,6 @@
         "flavour_size": 22
       }
     },
-    "blocks_nnxhpq": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_7b96835_AeQa7c": {
-          "type": "ai_gen_block_7b96835",
-          "settings": {
-            "text_1": "NO NICOTINE",
-            "text_2": "NO SMOKE",
-            "text_3": "AUSSIE BRAND",
-            "text_4": "1,000+ REVIEWS",
-            "text_5": "",
-            "font_size": 14,
-            "font_weight": "400",
-            "text_transform": "none",
-            "background_color": "#1491d9",
-            "text_color": "#ffffff",
-            "vertical_padding": 12,
-            "show_separator": true,
-            "separator_size": 4,
-            "separator_color": "#ffffff",
-            "item_spacing": 40,
-            "desktop_width_percent": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_7b96835_AeQa7c"
-      ],
-      "name": "Marquee",
-      "settings": {}
-    },
-    "custom_liquid_f33WWJ": {
-      "type": "custom-liquid",
-      "name": "Custom Liquid",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<div style=\"font-weight: bold;\ncolor: black; margin: 0 auto;\njustify-content: center; text-align: center;\ngap: 10px;\ngrid-template-columns: auto auto auto;\nalign-items: center; padding-bottom: 0px\">\n\n  <div class=\"grid-column\" style=\"font-weight: bold;\">\n<span class=\"ai-testimonials-carousel__stars-top\">\n<svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg><svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n          <svg class=\"ai-testimonials-carousel__star-top ai-testimonials-carousel__star\" viewbox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\"></path>\n          </svg>\n\n</span>\n</div>\n  <div class=\"grid-column\" style=\"font-size: 12px\">\n    Rated 4.7 (163)\n  </div>\n</div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
     "brisa_testimonials_product_page_HnzNQj": {
       "type": "brisa-testimonials-product-page",
       "blocks": {
@@ -651,245 +583,6 @@
         "badge_background": "#bee3f9",
         "badge_text_color": "#2c579b",
         "badge_size": 13
-      }
-    },
-    "black_ribbon_blue_box_bnUnL4": {
-      "type": "black-ribbon-blue-box",
-      "name": "Black Ribbon, blue box",
-      "settings": {
-        "ribbon_text": "",
-        "heading": "Vaping can cost you $4,380 this year.",
-        "subheading": "<p>BRISA STARTER KIT <strong>$130 - ONCE.</strong><br/>CORES FROM $30</p>",
-        "show_rating": true,
-        "rating_text": "Rated 4.7 (163)",
-        "rating_label": "Rated 4.7 out of 5 by 163 customers",
-        "badge_text": "Happy customers",
-        "button_text": "ADD STARTER KIT \u2192",
-        "button_link": "",
-        "benefits": "Free shipping \u00b7 30-Day Fit and Feel Guarantee \u00b7 Ships in 1\u20132 days",
-        "max_width": 900,
-        "padding_top": 0,
-        "padding_bottom": 20,
-        "mobile_padding_top": 0,
-        "mobile_padding_bottom": 20,
-        "page_background": "#ffffff",
-        "ribbon_background": "#000000",
-        "ribbon_text_color": "#ffffff",
-        "box_background": "#1198dc",
-        "text_color": "#ffffff",
-        "star_color": "#ffffff",
-        "badge_background": "#c6e9ff",
-        "badge_text_color": "#26579a",
-        "button_background": "#ffffff",
-        "button_text_color": "#48aeea",
-        "benefits_color": "#c9edff",
-        "ribbon_size": 30,
-        "heading_size": 52,
-        "subheading_size": 33,
-        "star_size": 38,
-        "rating_size": 28,
-        "badge_size": 22,
-        "badge_radius": 8,
-        "button_size": 42,
-        "benefits_size": 26
-      }
-    },
-    "image_with_text_jtTw6U": {
-      "type": "image-with-text",
-      "blocks": {
-        "item_jkUPkj": {
-          "type": "item",
-          "settings": {
-            "image": "shopify://shop_images/top_one.jpg",
-            "tab_label": "Item",
-            "subheading": "",
-            "title": "Why We Built Brisa",
-            "content": "<p>Brisa started with one friend trying to help another upgrade his life.<br/>Everything was improving, except he couldn\u2019t quit vaping.<br/>So we built something for him.</p><p>Brisa has always come from a good heart. <br/>We know it\u2019s hard.<br/>We know why it\u2019s hard. <br/>Our mission is simple: make the switch feel easier, and make life better.</p><p>We\u2019re here to bring products that genuinely improve people\u2019s lives, with authenticity at the forefront and real products without the gimmicks.\u00a0</p>",
-            "button_text": "Our Story",
-            "button_link": "shopify://pages/education"
-          }
-        }
-      },
-      "block_order": [
-        "item_jkUPkj"
-      ],
-      "disabled": true,
-      "name": "Why",
-      "settings": {
-        "reveal_on_scroll": true,
-        "background_type": "full_width",
-        "background_overlap": "image",
-        "image_position": "right",
-        "text_alignment": "center",
-        "cycle_speed": 8,
-        "accent_background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "multi_column_Xa8YUJ": {
-      "type": "multi-column",
-      "disabled": true,
-      "name": "Subscribe Header",
-      "settings": {
-        "reveal_on_scroll": true,
-        "stack_items": false,
-        "subheading": "",
-        "title": "Subscribe and Stay Better",
-        "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month \u2014 so you never break your routine.\u00a0</p>",
-        "column_alignment": "center",
-        "mobile_item_size": "medium",
-        "desktop_item_size": "medium",
-        "spacing": "tight",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "image_with_text_wC8Yh3": {
-      "type": "image-with-text",
-      "blocks": {
-        "item_6RddLE": {
-          "type": "item",
-          "settings": {
-            "image": "shopify://shop_images/12A5517C-D8E6-439E-B2B6-135EEB707FB6.png",
-            "tab_label": "Item",
-            "subheading": "",
-            "title": "Subscribe & Stay Better",
-            "content": "<p>A fresh pack of Brisa Better flavour units delivered to your door every month \u2014 so you never break your routine.\u00a0</p><p>Benefits: <br/>\u2022 Save on every order <br/>\u2022 Pause or cancel anytime<br/>\u2022 Priority flavour access<br/>\u2022 Automatic monthly delivery\u00a0</p>",
-            "button_text": "Start Subscription\u00a0",
-            "button_link": "shopify://products/refills"
-          }
-        }
-      },
-      "block_order": [
-        "item_6RddLE"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "section {margin-top: 0px;}"
-      ],
-      "name": "Subscribe Text",
-      "settings": {
-        "reveal_on_scroll": true,
-        "background_type": "full_width",
-        "background_overlap": "image",
-        "image_position": "left",
-        "text_alignment": "center",
-        "cycle_speed": 8,
-        "accent_background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "custom_liquid_ke6YPe": {
-      "type": "custom-liquid",
-      "disabled": true,
-      "name": "Custom Liquid",
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<div class=\"sticky-call-to-action\"><a href=\"/pages/shop\" class=\"brisa-buy-button\">Buy Now</a></div>",
-        "background_type": "full_width",
-        "add_vertical_spacing": true,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      }
-    },
-    "1777722508659cced2": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "177899310035a7028b": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "17789936267965322a": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "177899374592e5fb95": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "faq_jptxLw": {
-      "type": "faq",
-      "blocks": {
-        "question_prcTJn": {
-          "type": "question",
-          "settings": {
-            "title": "How does Brisa actually work?",
-            "answer": "<p>Brisa is made for the moment you'd usually reach for a vape. It gives you a non-consumable object to reach for instead, with the same weight and a familiar draw, and no nicotine, smoke, or vapour.</p>"
-          }
-        },
-        "question_jDRjKb": {
-          "type": "question",
-          "settings": {
-            "title": "Is Brisa drug - free?",
-            "answer": "<p>Yes. Brisa contains no nicotine, no tobacco, no cannabis, no caffeine, and no medicinal substances.</p><p>It is not a vape, cigarette, or drug product. It is more the opposite. Brisa was built as a tool to help people move away from those habits by giving them something familiar to use without smoke, vapour, or nicotine.</p>"
-          }
-        },
-        "question_iDWdDH": {
-          "type": "question",
-          "settings": {
-            "title": "What's in the core?",
-            "answer": "<p>Brisa cores are made with internal fibre material infused with food-grade aromatic compounds.</p><p>The cores are designed to create aroma and a sensory draw using air only. There is no liquid to drink, no flavour to consume, no smoke, no vapour, no heating, and nothing is designed to be ingested.</p>"
-          }
-        },
-        "question_WzqzzN": {
-          "type": "question",
-          "settings": {
-            "title": "Does Brisa help with the habit?",
-            "answer": "<p>Brisa is designed for the \u201cmoment\u201d, especially when you are trying to move away from smoking or vaping and the urge hits.</p><p>Instead of going back to nicotine, you use Brisa as the replacement action. It is designed as closely as possible to mimic the old habit, with a familiar weight, size, look, aroma, hand-to-mouth feel, and draw pressure, but without smoke, vapour, or nicotine.</p><p>If you use Brisa every time the urge hits, you are replacing the nicotine routine with a smoke-free, vapour-free, nicotine-free tool.</p>"
-          }
-        },
-        "question_RxQPLt": {
-          "type": "question",
-          "settings": {
-            "title": "Is Brisa safe?",
-            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid.</p><p>It works through air pressure and aroma only. You breathe air through the aromatic core to create the sensory draw, without burning, vaporising, or consuming anything.</p>"
-          }
-        },
-        "question_nPfaLW": {
-          "type": "question",
-          "settings": {
-            "title": "What's the 30 - day success guarantee?",
-            "answer": "<p>The 30-Day Success Guarantee is built around helping customers get the best result from Brisa.</p><p>After seeing over 1,000 people leave the old habit behind using Brisa, we have learned what works best for our customers. If you need extra support within your first 30 days, we will book a 1-on-1 call, talk through your current routine, and help build a better strategy using what we know.</p><p>We will also send you 3 packs of Better Cores for free to help kick-start the new strategy, valued at $45.</p><p>To claim it, contact us through our contact section with your name, phone number or WhatsApp, and the message: \u201c30 DAY SUCCESS GUARANTEE\u201d.</p>"
-          }
-        },
-        "question_ezbiVT": {
-          "type": "question",
-          "settings": {
-            "title": "How do refills work?",
-            "answer": "<p>The Brisa device is a one-time purchase. Once you own the unit, you only replace the cores.</p><p>The Starter Kit already comes with 30 days worth of cores. After that, you simply order refill core packs and replace the core when the aroma starts to fade.</p>"
-          }
-        },
-        "question_px4ApX": {
-          "type": "question",
-          "settings": {
-            "title": "What's the mates pack?",
-            "answer": "<p>The Mates Pack is made for sharing Brisa with someone else.</p><p>It includes multiple starter kits so you and a mate can start together, support each other, and both have your own device and cores. It is the best option if two people want to start the Brisa routine at the same time.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "question_prcTJn",
-        "question_jDRjKb",
-        "question_iDWdDH",
-        "question_WzqzzN",
-        "question_RxQPLt",
-        "question_nPfaLW",
-        "question_ezbiVT",
-        "question_px4ApX"
-      ],
-      "name": "FAQ",
-      "settings": {
-        "show_navigation": false,
-        "title": "FAQ",
-        "content": "",
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
       }
     },
     "brisa_home_hero_v4": {
@@ -1041,6 +734,107 @@
         "border_color": "#111111",
         "soft_border_color": "#e8e8e8"
       }
+    },
+    "brisa_home_closing": {
+      "type": "brisa-home-closing",
+      "name": "Brisa home closing",
+      "settings": {
+        "kit_heading": "THE STARTER KIT",
+        "old_label": "THE OLD HABIT",
+        "old_mid": "Cost you more\nthan money.\nForever.",
+        "old_foot": "Every week. For as long as you have.",
+        "new_label": "BRISA",
+        "new_mid": "COSTS YOU\nONCE.",
+        "new_foot": "Buy the device once. Refill cores only when you choose.",
+        "summary": "<p>Vaping and smoking take your money along with a list of other things.. <strong>every single week.. forever.</strong> Brisa is bought <strong>once</strong>, and it's yours.</p>",
+        "free_title": "INCLUDED FREE WITH EVERY KIT",
+        "free_item_1": "3 bonus Raspberry Lime cores",
+        "free_item_2": "Fast shipping on every kit",
+        "free_tag": "FREE",
+        "button_text": "SHOP STARTER KIT \u2192",
+        "button_link": "shopify://products/brisa-starter-kit",
+        "button_background": "#38b6ff",
+        "trust": "30-Day Guarantee \u00b7 Secure checkout \u00b7 Ships in 1-2 days",
+        "rating": "Rated 4.7 (163)",
+        "max_width": 560,
+        "padding_top": 28,
+        "padding_bottom": 36,
+        "kit_heading_size": 34,
+        "background": "#e8f4fc",
+        "accent_color": "#008bdc",
+        "text_color": "#0b3a66"
+      }
+    },
+    "device_questions_home": {
+      "type": "device-questions",
+      "name": "Device questions",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Be honest... will it actually satisfy me?",
+            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw \u2014 the same hand-to-mouth moment you know, minus the nicotine.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Isn't it just a vape without the nicotine?",
+            "answer": "<p>No. There's no vapour, no coil, and no chemicals. It's a sensory habit device that keeps the ritual, not a nicotine product.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Isn't it like those wooden pens that just blow air?",
+            "answer": "<p>No. Brisa uses precision-formulated aroma cores and tuned airflow so the draw and throat feel land like the habit you know.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "I've tried gums and patches, how is this different?",
+            "answer": "<p>Gums and patches skip the ritual. Brisa keeps the hand-to-mouth moment your body reaches for \u2014 so the switch feels familiar, not empty.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Is it actually safe to inhale? What am I breathing in?",
+            "answer": "<p>You're drawing air through a food-grade aroma core. No nicotine, no smoke, no vapour, no heating, and no battery.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Won't the cores run out and cost me forever?",
+            "answer": "<p>The device is a one-time purchase. The Starter Kit includes cores to get you going. After that you only replace cores when you choose \u2014 not a weekly nicotine spend forever.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions Answered",
+        "max_width": 760,
+        "padding_top": 48,
+        "padding_bottom": 56,
+        "box_padding_horizontal": 24,
+        "heading_spacing": 28,
+        "item_padding_vertical": 22,
+        "heading_size": 34,
+        "question_size": 16,
+        "answer_size": 15,
+        "background": "#008bdc",
+        "panel_background": "#008bdc",
+        "text_color": "#ffffff"
+      }
     }
   },
   "order": [
@@ -1056,18 +850,7 @@
     "brisa_testimonials_product_page_HnzNQj",
     "brisa_judgeme_reviews_home",
     "product_slider_Ahg8i4",
-    "blue_layout_3_kctQaw",
-    "blocks_nnxhpq",
-    "custom_liquid_f33WWJ",
-    "black_ribbon_blue_box_bnUnL4",
-    "image_with_text_jtTw6U",
-    "multi_column_Xa8YUJ",
-    "image_with_text_wC8Yh3",
-    "custom_liquid_ke6YPe",
-    "1777722508659cced2",
-    "177899310035a7028b",
-    "17789936267965322a",
-    "177899374592e5fb95",
-    "faq_jptxLw"
+    "brisa_home_closing",
+    "device_questions_home"
   ]
 }
