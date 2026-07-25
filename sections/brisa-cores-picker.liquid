@@ -611,19 +611,18 @@
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: {{ section.settings.card_height }}px;
-    padding: {{ section.settings.image_padding }}px 20px;
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.card_height }}px;
+    padding: 0;
+    overflow: hidden;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image {
     display: block;
-    width: auto;
-    max-width: {{ section.settings.image_width }}%;
-    max-height: {{ section.settings.image_max_height }}px;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__caption {
@@ -895,11 +894,7 @@
     }
 
     .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image-wrapper {
-      min-height: {{ section.settings.mobile_card_height }}px;
-    }
-
-    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__image {
-      max-height: {{ section.settings.mobile_image_max_height }}px;
+      height: {{ section.settings.mobile_card_height }}px;
     }
 
     .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-wrap {
