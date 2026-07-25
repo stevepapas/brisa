@@ -1,6 +1,6 @@
 <style>
   #shopify-section-{{ section.id }} {
-    --bl2-blue: {{ section.settings.panel_background | default: '#38b6ff' }};
+    --bl2-blue: {{ section.settings.panel_background | default: '#008bdc' }};
     --bl2-text: {{ section.settings.text_color | default: '#ffffff' }};
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
@@ -12,7 +12,7 @@
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__stat {
-    padding: 36px 20px 28px;
+    padding: 22px 20px 18px;
     text-align: center;
     background: var(--bl2-blue);
   }
@@ -23,16 +23,16 @@
     font-size: {{ section.settings.number_size }}px;
     font-weight: 900;
     letter-spacing: -0.02em;
-    line-height: 0.95;
+    line-height: 0.9;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__stat-copy {
-    margin: 10px 0 0;
+    margin: 6px 0 0;
     color: var(--bl2-text);
     font-size: {{ section.settings.stat_copy_size }}px;
     font-weight: 800;
     letter-spacing: 0.04em;
-    line-height: 1.15;
+    line-height: 1.1;
     text-transform: uppercase;
   }
 
@@ -40,9 +40,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    width: min(220px, 55%);
-    margin: 18px auto 14px;
+    gap: 10px;
+    width: min(200px, 50%);
+    margin: 10px auto 8px;
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__stat-rule::before,
@@ -74,9 +74,9 @@
   }
 
   #shopify-section-{{ section.id }} .blue-layout-2__stat-icon {
-    width: 22px;
-    height: 19px;
-    color: #ffffff;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
     flex: 0 0 auto;
   }
 
@@ -182,7 +182,7 @@
 
   @media screen and (min-width: 750px) {
     #shopify-section-{{ section.id }} .blue-layout-2__stat {
-      padding: 44px 24px 34px;
+      padding: 28px 24px 22px;
     }
 
     #shopify-section-{{ section.id }} .blue-layout-2__hero,
@@ -238,10 +238,10 @@
         <span>{{ section.settings.stat_footer | escape }}</span>
         <img
           class="blue-layout-2__stat-icon"
-          src="{{ 'brisa-australia-outline.png' | asset_url }}"
+          src="{{ section.settings.stat_icon | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687' }}"
           alt=""
-          width="22"
-          height="19"
+          width="28"
+          height="28"
           loading="lazy"
         >
       </p>
@@ -321,6 +321,12 @@
       "id": "stat_footer",
       "label": "Stat footer",
       "default": "Australian company"
+    },
+    {
+      "type": "text",
+      "id": "stat_icon",
+      "label": "Australia icon URL",
+      "default": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687"
     },
     {
       "type": "image_picker",
@@ -426,7 +432,7 @@
       "type": "color",
       "id": "panel_background",
       "label": "Stat panel background",
-      "default": "#38b6ff"
+      "default": "#008bdc"
     },
     {
       "type": "color",

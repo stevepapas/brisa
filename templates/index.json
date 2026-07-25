@@ -1004,7 +1004,7 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "background": "#ffffff",
-        "panel_background": "#38b6ff",
+        "panel_background": "#008bdc",
         "text_color": "#ffffff",
         "badge_background": "#7ccfff",
         "number_size": 72,
@@ -1012,7 +1012,8 @@
         "stat_footer_size": 16,
         "badge_size": 13,
         "heading_size": 42,
-        "body_size": 16
+        "body_size": 16,
+        "stat_icon": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687"
       }
     }
   },
