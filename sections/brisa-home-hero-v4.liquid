@@ -250,15 +250,18 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--devices {
-    left: 50%;
-    transform: translateX(-50%) rotate(-15deg);
+    left: -8%;
+    right: auto;
+    transform: rotate(-20deg);
     transform-origin: center bottom;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%) rotate(15deg);
+    left: auto;
+    right: -8%;
+    width: 70%;
+    max-width: 126px;
+    transform: rotate(20deg);
     transform-origin: center bottom;
   }
 
@@ -270,6 +273,10 @@
     object-fit: contain;
     object-position: bottom center;
     filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.18));
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores img {
+    max-height: 91px;
   }
 
   @media screen and (min-width: 750px) {
@@ -334,8 +341,16 @@
       bottom: calc(100% - 34px);
     }
 
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores {
+      max-width: 161px;
+    }
+
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
       max-height: 160px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores img {
+      max-height: 112px;
     }
   }
 
@@ -363,11 +378,25 @@
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art {
-      max-width: 120px;
+      max-width: 140px;
+      bottom: calc(100% - 24px);
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--devices {
+      left: -10%;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores {
+      right: -10%;
+      max-width: 98px;
     }
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art img {
-      max-height: 90px;
+      max-height: 100px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-hero__cta-art--cores img {
+      max-height: 70px;
     }
   }
 </style>
