@@ -32,6 +32,15 @@
       assign swatch_label = variant.metafields[metafield_namespace][metafield_key].value | default: variant.metafields[metafield_namespace][metafield_key] | default: slider_product.metafields[metafield_namespace][metafield_key].value | default: slider_product.metafields[metafield_namespace][metafield_key]
   endcase
 
+  comment
+    Admin option swatch image (Aroma → Image) — e.g. variety.png on the Variety value.
+  endcomment
+  if option_value != blank and option_value.swatch.image != blank
+    assign swatch_image_url = option_value.swatch.image | image_url: width: 96
+    assign swatch_style = 'background-image: url(' | append: swatch_image_url | append: ')'
+  endif
+
+  if swatch_style == blank
   case section.settings.swatch_color_source
     when 'product_option'
       if option_value != blank
@@ -56,7 +65,8 @@
           when 'raspberry lime', 'raspberry'
             assign swatch_style = 'background: linear-gradient(135deg, #dc2626 0%, #84cc16 100%)'
           when 'variety'
-            assign swatch_style = 'background: conic-gradient(#f9a8d4, #dc2626, #38bdf8, #6ec9b0, #f9a8d4)'
+            assign variety_swatch_url = 'variety.png' | file_url
+            assign swatch_style = 'background-image: url(' | append: variety_swatch_url | append: ')'
           else
             assign swatch_color = section.settings.dot_color
         endcase
@@ -75,6 +85,7 @@
     else
       assign swatch_style = 'background-color: ' | append: section.settings.dot_color
   endcase
+  endif
 
   if swatch_style == blank
     assign swatch_style = 'background-color: ' | append: section.settings.dot_color
