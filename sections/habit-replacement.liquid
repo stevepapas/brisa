@@ -1,4 +1,12 @@
 <style>
+  @font-face {
+    font-family: 'TeX Gyre Bonum';
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url({{ 'texgyrebonum-bolditalic.woff' | asset_url }}) format('woff');
+  }
+
   #shopify-section-{{ section.id }} {
     background: {{ section.settings.background }};
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
@@ -107,13 +115,36 @@
     text-align: center;
   }
 
+  #shopify-section-{{ section.id }} .habit-replacement__bottom > .habit-replacement__eyebrow {
+    margin-bottom: 18px;
+  }
+
   #shopify-section-{{ section.id }} .habit-replacement__bottom-heading {
-    margin: 0 auto 16px;
+    margin: 0 auto 20px;
     color: {{ section.settings.heading_color }};
     font-size: {{ section.settings.bottom_heading_size }}px;
     font-weight: 900;
-    line-height: 1.35;
+    line-height: 1.15;
     text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__bottom-heading-main {
+    display: block;
+    color: #111111;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__bottom-heading-accent {
+    display: block;
+    margin-top: 0.12em;
+    color: {{ section.settings.eyebrow_color | default: '#2c579b' }};
+    font-family: 'TeX Gyre Bonum', Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__video {
@@ -276,7 +307,21 @@
     {% endif %}
 
     {% if section.settings.bottom_heading != blank %}
-      <h2 class="habit-replacement__bottom-heading">{{ section.settings.bottom_heading | escape | newline_to_br }}</h2>
+      {%- liquid
+        assign bottom_heading_html = section.settings.bottom_heading | strip | newline_to_br
+        assign bottom_heading_lines = bottom_heading_html | split: '<br />'
+        if bottom_heading_lines.size == 1
+          assign bottom_heading_lines = bottom_heading_html | split: '<br>'
+        endif
+      -%}
+      <h2 class="habit-replacement__bottom-heading">
+        {% if bottom_heading_lines.size > 1 %}
+          <span class="habit-replacement__bottom-heading-main">{{ bottom_heading_lines.first | strip_html | strip | escape }}</span>
+          <span class="habit-replacement__bottom-heading-accent">{{ bottom_heading_lines.last | strip_html | strip | escape }}</span>
+        {% else %}
+          {{ section.settings.bottom_heading | escape | newline_to_br }}
+        {% endif %}
+      </h2>
     {% endif %}
 
     <div class="habit-replacement__video">

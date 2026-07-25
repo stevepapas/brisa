@@ -456,14 +456,14 @@
         "heading_color": "#000000",
         "text_color": "#111111",
         "divider_color": "#cccccc",
-        "eyebrow_background": "#75cfff",
-        "eyebrow_color": "#2c579b",
+        "eyebrow_background": "#81d4fa",
+        "eyebrow_color": "#1e4f8c",
         "number_background": "#1198dc",
         "number_color": "#ffffff",
         "step_number_color": "#94d7fb",
-        "eyebrow_size": 14,
+        "eyebrow_size": 13,
         "heading_size": 26,
-        "bottom_heading_size": 26
+        "bottom_heading_size": 34
       }
     },
     "blue_layout_3_kctQaw": {
