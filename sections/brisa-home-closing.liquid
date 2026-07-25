@@ -1,0 +1,693 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    --bhc-blue: {{ section.settings.accent_color | default: '#008bdc' }};
+    --bhc-text: {{ section.settings.text_color | default: '#0b3a66' }};
+    background: {{ section.settings.background | default: '#e8f4fc' }};
+    padding: {{ section.settings.padding_top }}px 16px {{ section.settings.padding_bottom }}px;
+    color: var(--bhc-text);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-header {
+    margin: 0 0 18px;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-title {
+    margin: 0;
+    color: var(--bhc-text);
+    font-size: {{ section.settings.kit_heading_size }}px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: min(220px, 70%);
+    margin: 12px auto 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-rule::before,
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(11, 58, 102, 0.45);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: #ffffff;
+    background: #111111;
+    border-radius: 50%;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 0 28px;
+    border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__compare {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 18px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 3 / 4;
+    background: #111111;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card--old .brisa-home-closing__card-image {
+    object-position: center top;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card--new .brisa-home-closing__card-image {
+    object-position: center center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 14px 12px 16px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.15) 35%,
+      rgba(0, 0, 0, 0.2) 55%,
+      rgba(0, 0, 0, 0.72) 100%
+    );
+    color: #ffffff;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card-label {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card-mid {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__card-foot {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__summary {
+    margin: 0 0 22px;
+    color: #163a5c;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__summary strong {
+    font-weight: 800;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__free {
+    margin: 0 0 16px;
+    padding: 16px 14px;
+    background: #ffffff;
+    border: 1px solid #d7e8f4;
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__free-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    color: #1f8a3b;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__free-list {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__free-item {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    color: #163a5c;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__free-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    color: #1f8a3b;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__free-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    color: #1f8a3b;
+    background: #e7f7eb;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 54px;
+    margin: 0 0 12px;
+    padding: 14px 20px;
+    box-sizing: border-box;
+    color: #ffffff;
+    background: {{ section.settings.button_background | default: '#38b6ff' }};
+    border: 0;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__trust {
+    margin: 0 0 10px;
+    color: #163a5c;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    color: var(--bhc-blue);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--bhc-blue);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__stars svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__compare {
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__card-overlay {
+      padding: 18px 16px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__card-label {
+      font-size: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__card-mid {
+      font-size: 22px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__card-foot {
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__summary {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-home-closing__kit-title {
+      font-size: {{ section.settings.kit_heading_size | times: 0.78 | round }}px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__card-mid {
+      font-size: 15px;
+    }
+  }
+</style>
+
+{%- liquid
+  assign kit_image = section.settings.kit_image
+  assign old_image = section.settings.old_image
+  assign new_image = section.settings.new_image
+-%}
+
+<section class="brisa-home-closing" {{ section.shopify_attributes }}>
+  <header class="brisa-home-closing__kit-header">
+    {% if section.settings.kit_heading != blank %}
+      <h2 class="brisa-home-closing__kit-title">{{ section.settings.kit_heading | escape }}</h2>
+    {% endif %}
+    <div class="brisa-home-closing__kit-rule" aria-hidden="true">
+      <span class="brisa-home-closing__kit-mark">B</span>
+    </div>
+  </header>
+
+  {% if kit_image != blank %}
+    {{
+      kit_image
+      | image_url: width: 1400
+      | image_tag:
+        class: 'brisa-home-closing__kit-image',
+        loading: 'lazy',
+        widths: '600, 900, 1200, 1400',
+        sizes: '(min-width: 750px) 640px, 100vw',
+        alt: section.settings.kit_heading | default: 'The Starter Kit'
+    }}
+  {% else %}
+    <img
+      class="brisa-home-closing__kit-image"
+      src="{{ 'brisa-the-starter-kit.jpg' | asset_url }}"
+      alt="{{ section.settings.kit_heading | default: 'The Starter Kit' | escape }}"
+      width="819"
+      height="1024"
+      loading="lazy"
+    >
+  {% endif %}
+
+  <div class="brisa-home-closing__compare">
+    <article class="brisa-home-closing__card brisa-home-closing__card--old">
+      {% if old_image != blank %}
+        {{
+          old_image
+          | image_url: width: 900
+          | image_tag:
+            class: 'brisa-home-closing__card-image',
+            loading: 'lazy',
+            widths: '400, 600, 900',
+            sizes: '(min-width: 750px) 310px, 48vw',
+            alt: section.settings.old_label | default: 'The old habit'
+        }}
+      {% else %}
+        <img
+          class="brisa-home-closing__card-image"
+          src="{{ 'brisa-old-habit.jpg' | asset_url }}"
+          alt="{{ section.settings.old_label | default: 'The old habit' | escape }}"
+          width="819"
+          height="1024"
+          loading="lazy"
+        >
+      {% endif %}
+      <div class="brisa-home-closing__card-overlay">
+        {% if section.settings.old_label != blank %}
+          <p class="brisa-home-closing__card-label">{{ section.settings.old_label | escape }}</p>
+        {% endif %}
+        {% if section.settings.old_mid != blank %}
+          <p class="brisa-home-closing__card-mid">{{ section.settings.old_mid | escape | newline_to_br }}</p>
+        {% endif %}
+        {% if section.settings.old_foot != blank %}
+          <p class="brisa-home-closing__card-foot">{{ section.settings.old_foot | escape }}</p>
+        {% endif %}
+      </div>
+    </article>
+
+    <article class="brisa-home-closing__card brisa-home-closing__card--new">
+      {% if new_image != blank %}
+        {{
+          new_image
+          | image_url: width: 900
+          | image_tag:
+            class: 'brisa-home-closing__card-image',
+            loading: 'lazy',
+            widths: '400, 600, 900',
+            sizes: '(min-width: 750px) 310px, 48vw',
+            alt: section.settings.new_label | default: 'Brisa'
+        }}
+      {% else %}
+        <img
+          class="brisa-home-closing__card-image"
+          src="{{ 'brisa-new-habit.jpg' | asset_url }}"
+          alt="{{ section.settings.new_label | default: 'Brisa' | escape }}"
+          width="768"
+          height="1024"
+          loading="lazy"
+        >
+      {% endif %}
+      <div class="brisa-home-closing__card-overlay">
+        {% if section.settings.new_label != blank %}
+          <p class="brisa-home-closing__card-label">{{ section.settings.new_label | escape }}</p>
+        {% endif %}
+        {% if section.settings.new_mid != blank %}
+          <p class="brisa-home-closing__card-mid">{{ section.settings.new_mid | escape | newline_to_br }}</p>
+        {% endif %}
+        {% if section.settings.new_foot != blank %}
+          <p class="brisa-home-closing__card-foot">{{ section.settings.new_foot | escape }}</p>
+        {% endif %}
+      </div>
+    </article>
+  </div>
+
+  {% if section.settings.summary != blank %}
+    <div class="brisa-home-closing__summary rte">{{ section.settings.summary }}</div>
+  {% endif %}
+
+  {% if section.settings.free_title != blank or section.settings.free_item_1 != blank or section.settings.free_item_2 != blank %}
+    <div class="brisa-home-closing__free">
+      {% if section.settings.free_title != blank %}
+        <p class="brisa-home-closing__free-title">
+          <span aria-hidden="true">🎁</span>
+          <span>{{ section.settings.free_title | escape }}</span>
+        </p>
+      {% endif %}
+      <ul class="brisa-home-closing__free-list">
+        {% if section.settings.free_item_1 != blank %}
+          <li class="brisa-home-closing__free-item">
+            <span class="brisa-home-closing__free-check" aria-hidden="true">✓</span>
+            <span>{{ section.settings.free_item_1 | escape }}</span>
+            {% if section.settings.free_tag != blank %}
+              <span class="brisa-home-closing__free-tag">{{ section.settings.free_tag | escape }}</span>
+            {% endif %}
+          </li>
+        {% endif %}
+        {% if section.settings.free_item_2 != blank %}
+          <li class="brisa-home-closing__free-item">
+            <span class="brisa-home-closing__free-check" aria-hidden="true">✓</span>
+            <span>{{ section.settings.free_item_2 | escape }}</span>
+            {% if section.settings.free_tag != blank %}
+              <span class="brisa-home-closing__free-tag">{{ section.settings.free_tag | escape }}</span>
+            {% endif %}
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
+
+  {% if section.settings.button_text != blank %}
+    <a
+      class="brisa-home-closing__button"
+      href="{{ section.settings.button_link | default: '/products/brisa-starter-kit' }}"
+    >
+      {{ section.settings.button_text | escape }}
+    </a>
+  {% endif %}
+
+  {% if section.settings.trust != blank %}
+    <p class="brisa-home-closing__trust">{{ section.settings.trust | escape }}</p>
+  {% endif %}
+
+  {% if section.settings.rating != blank %}
+    <p class="brisa-home-closing__rating">
+      <span class="brisa-home-closing__stars" aria-hidden="true">
+        {% for i in (1..5) %}
+          <svg viewBox="0 0 24 24" focusable="false"><path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z"/></svg>
+        {% endfor %}
+      </span>
+      <span>{{ section.settings.rating | escape }}</span>
+    </p>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Brisa home closing",
+  "class": "shopify-section--brisa-home-closing",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kit_heading",
+      "label": "Starter kit heading",
+      "default": "THE STARTER KIT"
+    },
+    {
+      "type": "image_picker",
+      "id": "kit_image",
+      "label": "Starter kit image"
+    },
+    {
+      "type": "header",
+      "content": "Comparison cards"
+    },
+    {
+      "type": "image_picker",
+      "id": "old_image",
+      "label": "Old habit image"
+    },
+    {
+      "type": "text",
+      "id": "old_label",
+      "label": "Old habit label",
+      "default": "THE OLD HABIT"
+    },
+    {
+      "type": "textarea",
+      "id": "old_mid",
+      "label": "Old habit middle text",
+      "default": "Cost you more\nthan money.\nForever."
+    },
+    {
+      "type": "text",
+      "id": "old_foot",
+      "label": "Old habit footer",
+      "default": "Every week. For as long as you have."
+    },
+    {
+      "type": "image_picker",
+      "id": "new_image",
+      "label": "Brisa image"
+    },
+    {
+      "type": "text",
+      "id": "new_label",
+      "label": "Brisa label",
+      "default": "BRISA"
+    },
+    {
+      "type": "textarea",
+      "id": "new_mid",
+      "label": "Brisa middle text",
+      "default": "COSTS YOU\nONCE."
+    },
+    {
+      "type": "text",
+      "id": "new_foot",
+      "label": "Brisa footer",
+      "default": "Buy the device once. Refill cores only when you choose."
+    },
+    {
+      "type": "richtext",
+      "id": "summary",
+      "label": "Summary",
+      "default": "<p>Vaping and smoking take your money along with a list of other things.. <strong>every single week.. forever.</strong> Brisa is bought <strong>once</strong>, and it's yours.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Free offer + CTA"
+    },
+    {
+      "type": "text",
+      "id": "free_title",
+      "label": "Free title",
+      "default": "INCLUDED FREE WITH EVERY KIT"
+    },
+    {
+      "type": "text",
+      "id": "free_item_1",
+      "label": "Free item 1",
+      "default": "3 bonus Raspberry Lime cores"
+    },
+    {
+      "type": "text",
+      "id": "free_item_2",
+      "label": "Free item 2",
+      "default": "Fast shipping on every kit"
+    },
+    {
+      "type": "text",
+      "id": "free_tag",
+      "label": "Free tag",
+      "default": "FREE"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button label",
+      "default": "SHOP STARTER KIT →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#38b6ff"
+    },
+    {
+      "type": "text",
+      "id": "trust",
+      "label": "Trust line",
+      "default": "30-Day Guarantee · Secure checkout · Ships in 1-2 days"
+    },
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating text",
+      "default": "Rated 4.7 (163)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 360,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "kit_heading_size",
+      "label": "Kit heading size",
+      "min": 24,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#e8f4fc"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#008bdc"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading text",
+      "default": "#0b3a66"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa home closing",
+      "category": "Brisa"
+    }
+  ]
+}
+{% endschema %}
