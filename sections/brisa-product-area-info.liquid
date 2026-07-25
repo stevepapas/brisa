@@ -141,11 +141,13 @@
       {% endif %}
     </div>
 
-    <div class="brisa-product-area-info__starter">
-      <h2>NEW TO BRISA?</h2>
-      <p>Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 3 mint cores (30 days), a cleaning kit, and a carry bag, all for $130.</p>
-      <a href="/products/starter-kit" class="brisa-product-area-info__button">GET THE STARTER KIT</a>
-    </div>
+    {% if section.settings.show_starter %}
+      <div class="brisa-product-area-info__starter">
+        <h2>NEW TO BRISA?</h2>
+        <p>Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 3 mint cores (30 days), a cleaning kit, and a carry bag, all for $130.</p>
+        <a href="/products/brisa-starter-kit" class="brisa-product-area-info__button">GET THE STARTER KIT</a>
+      </div>
+    {% endif %}
 
     <div class="brisa-product-area-info__cost">
       <h2 class="brisa-product-area-info__heading">YOU'RE NOT BROKE.<br>YOU JUST VAPE.</h2>
@@ -195,6 +197,12 @@
       "type": "checkbox",
       "id": "show_trust_row",
       "label": "Show trust row",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_starter",
+      "label": "Show New to Brisa CTA",
       "default": true
     },
     {

@@ -1,0 +1,410 @@
+{% liquid
+  assign section_uid = section.id | replace: '-', '' | downcase
+  assign kit_url = section.settings.button_link | default: '/products/brisa-starter-kit'
+  assign kit_image = section.settings.image
+  assign kit_asset = section.settings.image_asset | default: 'brisa-new-to-brisa-kit.jpg'
+%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --bntb-bg: {{ section.settings.background }};
+    --bntb-ink: {{ section.settings.text_color }};
+    --bntb-btn: {{ section.settings.button_background }};
+    --bntb-btn-text: {{ section.settings.button_text_color }};
+    background: var(--bntb-bg);
+    color: var(--bntb-ink);
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px {{ section.settings.padding_horizontal }}px {{ section.settings.padding_bottom }}px;
+    box-sizing: border-box;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 20px 28px;
+    align-items: center;
+    margin: 0 0 22px;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.18em 0.28em;
+    margin: 0 0 14px;
+    color: var(--bntb-ink);
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand {
+    display: inline-flex;
+    align-items: center;
+    height: 0.92em;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand img {
+    display: block;
+    height: 100%;
+    width: auto;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__brand-fallback {
+    font-family: 'TeX Gyre Bonum', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__body {
+    margin: 0;
+    color: var(--bntb-ink);
+    font-size: {{ section.settings.body_size }}px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__media img {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 54px;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    color: var(--bntb-btn-text) !important;
+    background: var(--bntb-btn);
+    border-radius: 999px;
+    font-size: {{ section.settings.button_size }}px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
+  .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__cta:hover {
+    filter: brightness(0.96);
+  }
+
+  @media screen and (max-width: 749px) {
+    .brisa-new-to-brisa-{{ section_uid }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      padding-left: {{ section.settings.mobile_padding_horizontal }}px;
+      padding-right: {{ section.settings.mobile_padding_horizontal }}px;
+    }
+
+    .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__top {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+      margin-bottom: 10px;
+    }
+
+    .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__body {
+      font-size: {{ section.settings.mobile_body_size }}px;
+    }
+
+    .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__media {
+      order: 2;
+      margin-top: 4px;
+    }
+
+    .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__media img {
+      max-width: 300px;
+    }
+
+    .brisa-new-to-brisa-{{ section_uid }} .brisa-new-to-brisa__cta {
+      min-height: 50px;
+      font-size: {{ section.settings.mobile_button_size }}px;
+    }
+  }
+</style>
+
+<section class="brisa-new-to-brisa-{{ section_uid }}" data-brisa-new-to-brisa {{ section.shopify_attributes }}>
+  <div class="brisa-new-to-brisa__top">
+    <div class="brisa-new-to-brisa__copy">
+      <h2 class="brisa-new-to-brisa__heading">
+        <span>NEW TO</span>
+        <span class="brisa-new-to-brisa__brand" aria-label="Brisa">
+          <img
+            src="{{ 'brisa-logo-wordmark.svg' | asset_url }}"
+            alt="Brisa"
+            width="120"
+            height="45"
+            loading="lazy"
+          >
+          <span class="visually-hidden">Brisa</span>
+        </span>
+        <span>?</span>
+      </h2>
+      {% if section.settings.body != blank %}
+        <p class="brisa-new-to-brisa__body">{{ section.settings.body | escape }}</p>
+      {% endif %}
+    </div>
+
+    <div class="brisa-new-to-brisa__media">
+      {% if kit_image != blank %}
+        {% assign kit_alt = kit_image.alt | default: 'Brisa Starter Kit' %}
+        {{
+          kit_image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            widths: '280,420,560,720,900',
+            sizes: '(max-width: 749px) 80vw, 360px',
+            alt: kit_alt
+        }}
+      {% else %}
+        <img
+          src="{{ kit_asset | asset_url }}"
+          alt="Brisa Starter Kit"
+          width="676"
+          height="819"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+  </div>
+
+  <a class="brisa-new-to-brisa__cta" href="{{ kit_url }}">
+    {{ section.settings.button_label | default: 'GET THE STARTER KIT' | escape }}
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "Brisa new to Brisa",
+  "class": "shopify-section--brisa-new-to-brisa",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 9 cores (30 days), a cleaning kit, and a carry bag, all for $130."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Kit image",
+      "info": "Optional. Falls back to the theme asset below if empty."
+    },
+    {
+      "type": "text",
+      "id": "image_asset",
+      "label": "Fallback image asset filename",
+      "default": "brisa-new-to-brisa-kit.jpg"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "GET THE STARTER KIT"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 480,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Padding horizontal",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body size",
+      "min": 13,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button text size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 12,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 12,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "label": "Mobile padding horizontal",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 24,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "label": "Mobile body size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_button_size",
+      "label": "Mobile button text size",
+      "min": 13,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#e4f8ff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#57a9ff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brisa new to Brisa"
+    }
+  ]
+}
+{% endschema %}

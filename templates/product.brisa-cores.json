@@ -404,7 +404,8 @@
         "landscape_image": "shopify://shop_images/4-steps-how-to.png",
         "landscape_local_video": "shopify://files/videos/how to use, personal exp.mp4",
         "landscape_video": "",
-        "landscape_video_label": "Play install video"
+        "landscape_video_label": "Play install video",
+        "show_starter": false
       }
     },
     "brisa_comparison_table_ntMxq4": {
@@ -716,6 +717,34 @@
         "trust_icon_asset_2": "brisa-trust-lock.svg",
         "trust_icon_asset_3": "brisa-trust-star.svg"
       }
+    },
+    "brisa_new_to_brisa": {
+      "type": "brisa-new-to-brisa",
+      "name": "Brisa new to Brisa",
+      "settings": {
+        "body": "Cores need a Better Unit to slot into. Grab the Starter Kit and you'll get your device, 9 cores (30 days), a cleaning kit, and a carry bag, all for $130.",
+        "image": "",
+        "image_asset": "brisa-new-to-brisa-kit.jpg",
+        "button_label": "GET THE STARTER KIT",
+        "button_link": "shopify://products/brisa-starter-kit",
+        "max_width": 720,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_horizontal": 24,
+        "heading_size": 40,
+        "body_size": 15,
+        "button_size": 18,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 28,
+        "mobile_padding_horizontal": 16,
+        "mobile_heading_size": 32,
+        "mobile_body_size": 14,
+        "mobile_button_size": 16,
+        "background": "#e4f8ff",
+        "text_color": "#111111",
+        "button_background": "#57a9ff",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [
@@ -725,6 +754,7 @@
     "brisa_product_area_info_t9x6TB",
     "brisa_inside_cores",
     "brisa_how_it_works",
+    "brisa_new_to_brisa",
     "brisa_comparison_table_ntMxq4",
     "brisa_judgeme_reviews",
     "brisa_cores_bottom_cta"
