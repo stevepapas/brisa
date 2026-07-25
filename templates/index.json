@@ -9,31 +9,6 @@
  */
 {
   "sections": {
-    "brisa_home_hero_v4": {
-      "type": "brisa-home-hero-v4",
-      "name": "Brisa home hero v4",
-      "settings": {
-        "eyebrow": "WORLD FIRST - AUSTRALIAN DESIGNED",
-        "heading_line_1": "KEEP THE RITUAL",
-        "heading_line_2": "DROP THE HABIT",
-        "text": "A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking.",
-        "offer": "Up to $70 Aud in free gifts + savings, plus FREE SHIPPING on all kits.",
-        "show_rating": true,
-        "rating_text": "Rated 4.7",
-        "rating_badge": "Happy customers",
-        "rating_label": "Rated 4.7 out of 5 by happy customers",
-        "button_1_text": "THE BRISA",
-        "button_1_link": "shopify://products/brisa-starter-kit",
-        "button_2_text": "BRISA CORES",
-        "button_2_link": "shopify://products/brisa-cores",
-        "image": "shopify://shop_images/DSC_2245.jpg",
-        "image_position": "center 30%",
-        "accent_color": "#008bdc",
-        "button_background": "#35adff",
-        "padding_top": 28,
-        "mobile_padding_top": 20
-      }
-    },
     "social_proof_testimonials_gAi9fg": {
       "type": "social-proof-testimonials",
       "blocks": {
@@ -41,7 +16,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_03.png",
-            "icon_emoji": "🔄",
+            "icon_emoji": "\ud83d\udd04",
             "label": "Satisfies the ritual"
           }
         },
@@ -49,7 +24,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_05.png",
-            "icon_emoji": "🚭",
+            "icon_emoji": "\ud83d\udead",
             "label": "No smoke No vapour"
           }
         },
@@ -57,7 +32,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_09.png",
-            "icon_emoji": "✨",
+            "icon_emoji": "\u2728",
             "label": "Airflow sensation"
           }
         },
@@ -65,7 +40,7 @@
           "type": "icon_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_10.png",
-            "icon_emoji": "🚫",
+            "icon_emoji": "\ud83d\udeab",
             "label": "No Nicotine"
           }
         },
@@ -73,7 +48,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_20.png",
-            "icon_emoji": "🚚",
+            "icon_emoji": "\ud83d\ude9a",
             "text": "Free Shipping"
           }
         },
@@ -81,7 +56,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_14.png",
-            "icon_emoji": "🛡️",
+            "icon_emoji": "\ud83d\udee1\ufe0f",
             "text": "Secure Checkout"
           }
         },
@@ -89,7 +64,7 @@
           "type": "trust_item",
           "settings": {
             "icon_image": "shopify://shop_images/brisa_17.png",
-            "icon_emoji": "👥",
+            "icon_emoji": "\ud83d\udc65",
             "text": "1,000+ aussies"
           }
         }
@@ -119,7 +94,7 @@
             "tab_label": "Item",
             "subheading": "",
             "title": "Designed to feel familiar.<br>Built to move you on.",
-            "content": "<p>Brisa is Habit Replacment Device intentionally designed to look and feel close to what you’re used to, so the transition feels comfortable, not forced.</p><p>From the weight in your hand to airflow, draw pressure, flavour, and our effect layer, every detail is considered. without smoke, vapour, or nicotine.</p>",
+            "content": "<p>Brisa is Habit Replacment Device intentionally designed to look and feel close to what you\u2019re used to, so the transition feels comfortable, not forced.</p><p>From the weight in your hand to airflow, draw pressure, flavour, and our effect layer, every detail is considered. without smoke, vapour, or nicotine.</p>",
             "button_text": "",
             "button_link": ""
           }
@@ -159,78 +134,6 @@
         "text_color": "rgba(0,0,0,0)"
       }
     },
-    "brisa_inside_cores_home": {
-      "type": "brisa-inside-cores",
-      "blocks": {
-        "card_flavours": {
-          "type": "card",
-          "settings": {
-            "image_asset": "brisa-inside-core-1.png",
-            "heading": "The flavours you actually chase 🍒",
-            "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
-          }
-        },
-        "card_formula": {
-          "type": "card",
-          "settings": {
-            "image_asset": "brisa-inside-core-2.png",
-            "heading": "A formula we'll never share 🤫",
-            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
-          }
-        },
-        "card_hit": {
-          "type": "card",
-          "settings": {
-            "image_asset": "brisa-inside-core-3.png",
-            "heading": "The hit isn't an accident",
-            "description": "That satisfying hit and rush at the back of your throat is engineered. Our secret layering delivers the sensation you know, with zero nicotine, zero smoke, zero vapour. The closest thing to the real feeling."
-          }
-        },
-        "card_food_grade": {
-          "type": "card",
-          "settings": {
-            "image_asset": "brisa-inside-core-4.png",
-            "heading": "Food-grade to the core 🍽️",
-            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
-          }
-        }
-      },
-      "block_order": [
-        "card_flavours",
-        "card_formula",
-        "card_hit",
-        "card_food_grade"
-      ],
-      "settings": {
-        "heading": "Inside the Brisa core",
-        "subtitle": "The part everyone tries to copy... and no one's cracked.",
-        "max_width": 980,
-        "card_max_width": 420,
-        "card_peek": 56,
-        "card_gap": 24,
-        "card_padding": 12,
-        "card_radius": 28,
-        "image_radius": 18,
-        "carousel_spacing": 28,
-        "dots_spacing": 18,
-        "heading_size": 32,
-        "subtitle_size": 16,
-        "card_heading_size": 20,
-        "card_text_size": 15,
-        "background": "#ffffff",
-        "heading_color": "#111111",
-        "subtitle_color": "#6b6b6b",
-        "text_color": "#222222",
-        "card_background": "#ffffff",
-        "card_shadow_color": "#008bdc",
-        "dot_active_color": "#cfe9f8",
-        "dot_inactive_color": "#6d87a3",
-        "padding_top": 48,
-        "padding_bottom": 40,
-        "mobile_padding_top": 36,
-        "mobile_padding_bottom": 32
-      }
-    },
     "product_slider_aJ9PmW": {
       "type": "product-slider",
       "custom_css": [
@@ -241,7 +144,7 @@
         "product": "brisa-starter-kit",
         "option_name": "Color",
         "heading": "Choose your Brisa",
-        "subheading": "Select from 3 colours",
+        "subheading": "Select your colour",
         "variant_limit": 8,
         "show_product_name": false,
         "show_slide_product_name": false,
@@ -258,7 +161,7 @@
         "swatch_size": 32,
         "swatch_text_size": 12,
         "swatch_label_width": 80,
-        "button_text": "SHOP STARTER KIT →",
+        "button_text": "SHOP STARTER KIT \u2192",
         "button_link": "shopify://products/brisa-starter-kit",
         "button_background": "#38b6ff",
         "button_text_color": "#ffffff",
@@ -563,112 +466,10 @@
         "bottom_heading_size": 34,
         "cta_title": "No battery. No heat. No smoke. No nicotine.",
         "cta_text": "<p>You draw air through a <strong>food-grade aroma core</strong>. That's where the familiar draw and throat sensation come from.</p>",
-        "cta_button_text": "SHOP STARTER KIT →",
+        "cta_button_text": "SHOP STARTER KIT \u2192",
         "cta_button_link": "shopify://products/brisa-starter-kit",
         "cta_button_background": "#38b6ff",
         "cta_trust": "Free shipping - 30-Day Guarantee - Ships in 1-2 days"
-      }
-    },
-    "blue_layout_2_home": {
-      "type": "blue-layout-2",
-      "name": "Blue layout 2",
-      "settings": {
-        "number": "2,000+",
-        "stat_copy": "PEOPLE HAVE STARTED WITH BRISA",
-        "stat_footer": "Australian company",
-        "stat_icon": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687",
-        "image_position": "center top",
-        "badge": "BUILT FOR THE MOMENT",
-        "heading_line_1": "FOR THE ONES",
-        "heading_line_2": "who are done with the",
-        "heading_line_3": "habit.",
-        "body": "<p>Not another vape. Not another patch. Not another “just use willpower” lecture. Brisa was built for <strong>the moment your hand reaches before your brain catches up.</strong></p>",
-        "content_width": 560,
-        "image_min_height": 560,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "background": "#ffffff",
-        "panel_background": "#008bdc",
-        "text_color": "#ffffff",
-        "badge_background": "#7ccfff",
-        "number_size": 72,
-        "stat_copy_size": 18,
-        "stat_footer_size": 16,
-        "badge_size": 13,
-        "heading_size": 42,
-        "body_size": 16
-      }
-    },
-    "brisa_testimonials_product_page_HnzNQj": {
-      "type": "brisa-testimonials-product-page",
-      "blocks": {
-        "video_review_NxjJdN": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-2.png",
-            "video": "shopify://files/videos/test2.MOV",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "video_review_GewtFM": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-3.png",
-            "video": "shopify://files/videos/test3.MOV",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "video_review_mNzzaA": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-1.png",
-            "video": "shopify://files/videos/test-1.mov",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        }
-      },
-      "block_order": [
-        "video_review_NxjJdN",
-        "video_review_GewtFM",
-        "video_review_mNzzaA"
-      ],
-      "name": "Brisa product reviews",
-      "settings": {
-        "heading": "REAL RESULTS",
-        "disclaimer": "",
-        "max_width": 560,
-        "padding_top": 28,
-        "padding_bottom": 36,
-        "background": "#f4f4f4",
-        "badge_background": "#bee3f9",
-        "badge_text_color": "#2c579b",
-        "badge_size": 13
-      }
-    },
-    "brisa_judgeme_reviews_home": {
-      "type": "brisa-judgeme-reviews",
-      "name": "Judge.me reviews",
-      "settings": {
-        "heading": "",
-        "product": "brisa-starter-kit",
-        "max_width": 720,
-        "list_max_height": 720,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "padding_horizontal": 20,
-        "card_gap": 14,
-        "card_radius": 12,
-        "heading_size": 32,
-        "background": "#ffffff",
-        "card_background": "#ffffff",
-        "text_color": "#111111",
-        "muted_color": "#6b6b6b",
-        "star_color": "#111111",
-        "border_color": "#111111",
-        "soft_border_color": "#e8e8e8"
       }
     },
     "product_slider_Ahg8i4": {
@@ -677,7 +478,7 @@
       "settings": {
         "product": "brisa-cores",
         "option_name": "Color",
-        "heading": "BRISA CORES",
+        "heading": "BETTER CORES",
         "subheading": "Food-grade aroma cores made for the Brisa ritual.",
         "variant_limit": 8,
         "show_product_name": true,
@@ -735,6 +536,207 @@
         "flavour_size": 22
       }
     },
+    "brisa_testimonials_product_page_HnzNQj": {
+      "type": "brisa-testimonials-product-page",
+      "blocks": {
+        "video_review_NxjJdN": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-2.png",
+            "video": "shopify://files/videos/test2.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_GewtFM": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-3.png",
+            "video": "shopify://files/videos/test3.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_mNzzaA": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-1.png",
+            "video": "shopify://files/videos/test-1.mov",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        }
+      },
+      "block_order": [
+        "video_review_NxjJdN",
+        "video_review_GewtFM",
+        "video_review_mNzzaA"
+      ],
+      "name": "Brisa product reviews",
+      "settings": {
+        "heading": "REAL RESULTS",
+        "disclaimer": "",
+        "max_width": 560,
+        "padding_top": 28,
+        "padding_bottom": 36,
+        "background": "#f4f4f4",
+        "badge_background": "#bee3f9",
+        "badge_text_color": "#2c579b",
+        "badge_size": 13
+      }
+    },
+    "brisa_home_hero_v4": {
+      "type": "brisa-home-hero-v4",
+      "name": "Brisa home hero v4",
+      "settings": {
+        "eyebrow": "WORLD FIRST - AUSTRALIAN DESIGNED",
+        "heading_line_1": "KEEP THE RITUAL",
+        "heading_line_2": "DROP THE HABIT",
+        "text": "A drug-free sensory habit device made to replace the hand-to-mouth routine of vaping and smoking.",
+        "offer": "Up to $70 Aud in free gifts + savings, plus FREE SHIPPING on all kits.",
+        "show_rating": true,
+        "rating_text": "Rated 4.7",
+        "rating_badge": "Happy customers",
+        "rating_label": "Rated 4.7 out of 5 by happy customers",
+        "button_1_text": "THE BRISA",
+        "button_1_link": "shopify://products/brisa-starter-kit",
+        "button_2_text": "BRISA CORES",
+        "button_2_link": "shopify://products/brisa-cores",
+        "image": "shopify://shop_images/DSC_2245.jpg",
+        "image_position": "center 28%",
+        "accent_color": "#008bdc",
+        "button_background": "#35adff",
+        "padding_top": 28,
+        "mobile_padding_top": 20,
+        "hero_min_height": 720,
+        "mobile_hero_min_height": 680
+      }
+    },
+    "brisa_inside_cores_home": {
+      "type": "brisa-inside-cores",
+      "blocks": {
+        "card_flavours": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-1.png",
+            "heading": "The flavours you actually chase \ud83c\udf52",
+            "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
+          }
+        },
+        "card_formula": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-2.png",
+            "heading": "A formula we'll never share \ud83e\udd2b",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+          }
+        },
+        "card_hit": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-3.png",
+            "heading": "The hit isn't an accident",
+            "description": "That satisfying hit and rush at the back of your throat is engineered. Our secret layering delivers the sensation you know, with zero nicotine, zero smoke, zero vapour. The closest thing to the real feeling."
+          }
+        },
+        "card_food_grade": {
+          "type": "card",
+          "settings": {
+            "image_asset": "brisa-inside-core-4.png",
+            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
+          }
+        }
+      },
+      "block_order": [
+        "card_flavours",
+        "card_formula",
+        "card_hit",
+        "card_food_grade"
+      ],
+      "settings": {
+        "heading": "Inside the Brisa core",
+        "subtitle": "The part everyone tries to copy... and no one's cracked.",
+        "max_width": 980,
+        "card_max_width": 420,
+        "card_peek": 56,
+        "card_gap": 24,
+        "card_padding": 12,
+        "card_radius": 28,
+        "image_radius": 18,
+        "carousel_spacing": 28,
+        "dots_spacing": 18,
+        "heading_size": 32,
+        "subtitle_size": 16,
+        "card_heading_size": 20,
+        "card_text_size": 15,
+        "background": "#ffffff",
+        "heading_color": "#111111",
+        "subtitle_color": "#6b6b6b",
+        "text_color": "#222222",
+        "card_background": "#ffffff",
+        "card_shadow_color": "#008bdc",
+        "dot_active_color": "#cfe9f8",
+        "dot_inactive_color": "#6d87a3",
+        "padding_top": 48,
+        "padding_bottom": 40,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "blue_layout_2_home": {
+      "type": "blue-layout-2",
+      "name": "Blue layout 2",
+      "settings": {
+        "number": "2,000+",
+        "stat_copy": "PEOPLE HAVE STARTED WITH BRISA",
+        "stat_footer": "Australian company",
+        "image_position": "center top",
+        "badge": "BUILT FOR THE MOMENT",
+        "heading_line_1": "FOR THE ONES",
+        "heading_line_2": "who are done with the",
+        "heading_line_3": "habit.",
+        "body": "<p>Not another vape. Not another patch. Not another \u201cjust use willpower\u201d lecture. Brisa was built for <strong>the moment your hand reaches before your brain catches up.</strong></p>",
+        "content_width": 560,
+        "image_min_height": 560,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "background": "#ffffff",
+        "panel_background": "#008bdc",
+        "text_color": "#ffffff",
+        "badge_background": "#7ccfff",
+        "number_size": 72,
+        "stat_copy_size": 18,
+        "stat_footer_size": 16,
+        "badge_size": 13,
+        "heading_size": 42,
+        "body_size": 16,
+        "stat_icon": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687"
+      }
+    },
+    "brisa_judgeme_reviews_home": {
+      "type": "brisa-judgeme-reviews",
+      "name": "Judge.me reviews",
+      "settings": {
+        "heading": "",
+        "product": "brisa-starter-kit",
+        "max_width": 720,
+        "list_max_height": 720,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_horizontal": 20,
+        "card_gap": 14,
+        "card_radius": 12,
+        "heading_size": 32,
+        "background": "#ffffff",
+        "card_background": "#ffffff",
+        "text_color": "#111111",
+        "muted_color": "#6b6b6b",
+        "star_color": "#111111",
+        "border_color": "#111111",
+        "soft_border_color": "#e8e8e8"
+      }
+    },
     "brisa_home_closing": {
       "type": "brisa-home-closing",
       "name": "Brisa home closing",
@@ -751,10 +753,10 @@
         "free_item_1": "3 bonus Raspberry Lime cores",
         "free_item_2": "Fast shipping on every kit",
         "free_tag": "FREE",
-        "button_text": "SHOP STARTER KIT →",
+        "button_text": "SHOP STARTER KIT \u2192",
         "button_link": "shopify://products/brisa-starter-kit",
         "button_background": "#38b6ff",
-        "trust": "30-Day Guarantee · Secure checkout · Ships in 1-2 days",
+        "trust": "30-Day Guarantee \u00b7 Secure checkout \u00b7 Ships in 1-2 days",
         "rating": "Rated 4.7 (163)",
         "max_width": 560,
         "padding_top": 28,
@@ -767,12 +769,13 @@
     },
     "device_questions_home": {
       "type": "device-questions",
+      "name": "Device questions",
       "blocks": {
         "q1": {
           "type": "question",
           "settings": {
             "question": "Be honest... will it actually satisfy me?",
-            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw — the same hand-to-mouth moment you know, minus the nicotine.</p>"
+            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw \u2014 the same hand-to-mouth moment you know, minus the nicotine.</p>"
           }
         },
         "q2": {
@@ -793,7 +796,7 @@
           "type": "question",
           "settings": {
             "question": "I've tried gums and patches, how is this different?",
-            "answer": "<p>Gums and patches skip the ritual. Brisa keeps the hand-to-mouth moment your body reaches for — so the switch feels familiar, not empty.</p>"
+            "answer": "<p>Gums and patches skip the ritual. Brisa keeps the hand-to-mouth moment your body reaches for \u2014 so the switch feels familiar, not empty.</p>"
           }
         },
         "q5": {
@@ -807,7 +810,7 @@
           "type": "question",
           "settings": {
             "question": "Won't the cores run out and cost me forever?",
-            "answer": "<p>The device is a one-time purchase. The Starter Kit includes cores to get you going. After that you only replace cores when you choose — not a weekly nicotine spend forever.</p>"
+            "answer": "<p>The device is a one-time purchase. The Starter Kit includes cores to get you going. After that you only replace cores when you choose \u2014 not a weekly nicotine spend forever.</p>"
           }
         }
       },
@@ -819,7 +822,6 @@
         "q5",
         "q6"
       ],
-      "name": "Device questions",
       "settings": {
         "heading": "Frequently Asked Questions Answered",
         "max_width": 760,
