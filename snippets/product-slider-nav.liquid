@@ -106,23 +106,65 @@
       endif
     endif
   endfor
+
+  comment
+    Variety has no independent stock — gate on the three single-flavour packs
+    (same source of truth as Monthly Better Box / Flow BOM).
+  endcomment
+  assign nav_available = variant.available
+  assign is_variety = false
+  assign variety_check = nav_label | append: ' ' | append: variant.title | downcase
+  if variety_check contains 'variety'
+    assign is_variety = true
+    assign variety_mint_ok = false
+    assign variety_raspberry_ok = false
+    assign variety_cherry_ok = false
+    for core_variant in slider_product.variants
+      assign core_title = core_variant.title | downcase
+      unless core_title contains 'variety'
+        if core_variant.available
+          if core_title contains 'mint'
+            assign variety_mint_ok = true
+          endif
+          if core_title contains 'raspberry'
+            assign variety_raspberry_ok = true
+          endif
+          if core_title contains 'cherry'
+            assign variety_cherry_ok = true
+          endif
+        endif
+      endunless
+    endfor
+    if variety_mint_ok and variety_raspberry_ok and variety_cherry_ok
+      assign nav_available = true
+    else
+      assign nav_available = false
+    endif
+  endif
 %}
 
 {% unless variant == blank %}
 <button
-  class="product-slider__nav {% if nav_first %}is-active{% endif %}"
+  class="product-slider__nav{% if nav_first %} is-active{% endif %}{% unless nav_available %} is-sold-out{% endunless %}"
   type="button"
+  role="radio"
   data-product-slider-nav
+  data-brisa-cores-swatch
   data-index="{{ nav_index }}"
-  aria-label="Go to {{ nav_label | escape }}"
+  data-variant-id="{{ variant.id }}"
+  data-available="{% if nav_available %}true{% else %}false{% endif %}"
+  {% if is_variety %}data-variety="true"{% endif %}
+  aria-label="Select {{ nav_label | escape }}"
+  aria-checked="{% if nav_first %}true{% else %}false{% endif %}"
+  {% unless nav_available %}aria-disabled="true"{% endunless %}
   {% if nav_first %}aria-current="true"{% endif %}
 >
   {% if section.settings.use_swatch_nav %}
     <span class="product-slider__swatch-wrap">
-      {% if show_new_badge %}
-        <span class="product-slider__new-badge">NEW!</span>
-      {% endif %}
       <span class="product-slider__swatch" style="{{ swatch_style }}"></span>
+      {% if show_new_badge %}
+        <span class="product-slider__new-badge">NEW</span>
+      {% endif %}
     </span>
     {% if display_label != blank %}
       <span class="product-slider__swatch-label">{{ display_label | escape }}</span>

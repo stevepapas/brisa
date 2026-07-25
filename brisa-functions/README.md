@@ -58,6 +58,54 @@ The Admin token needs `write_cart_transforms`.
 - Colour blocks in **Brisa kit purchase** must link real device products so `_device_*_variant_id` is populated.
 - Mates ATC already writes the properties from `assets/brisa-kit-purchase.js`.
 
+## Monthly Better Box inventory + subscription
+
+**Do not use Shopify Fixed Bundles on Monthly Better Box** while it has an Appstle selling plan. Native Fixed Bundles (`requiresComponents`) are incompatible with purchase options — cart/add returns *"The product 'Monthly better box' is already sold out"* even when flavour cores are in stock.
+
+### Intended BOM (marketing + fulfilment)
+
+Each **Brisa Cores** variant is a **3-pack**. Box contents:
+
+| Component | Qty | Cores | Notes |
+|---|---|---|---|
+| Mint Ice | 1 | 3 | |
+| Raspberry Lime | 1 | 3 | |
+| Cherry Pomegranate | 1 | 3 | Free Cherry Pom pack |
+| **Total** | **3** | **9** | |
+
+### Current setup
+
+1. **MBB product** — normal variant + Appstle monthly selling plan. Inventory tracking off so the subscription can add to cart.
+2. **Theme gate** — `brisa-kit-purchase` marks the add-on sold out unless Mint Ice, Raspberry Lime, and Cherry Pom are all available on `brisa-cores`.
+3. **Auto-decrement on every order / renewal** — Shopify Flow (or `npm run better-box:decrement`) adjusts those three core inventory items by −1 per box. See [docs/better-box-inventory-flow.md](./docs/better-box-inventory-flow.md).
+
+## Variety pack inventory
+
+Variety is a mixed **3-pack** on `brisa-cores` (1 core of each flavour). Flavour SKUs stay the source of truth — same Flow pattern as Better Box.
+
+| Customer buys | Variety qty | Stock move |
+|---|---|---|
+| 9 cores | 3 | −1 Mint, −1 Cherry Pom, −1 Raspberry Lime pack |
+| 18 cores | 6 | −2 of each |
+| 27 cores | 9 | −3 of each |
+
+Availability = all three flavours in stock. Max Variety units = `3 × min(flavour packs)`.  
+See [docs/variety-inventory-flow.md](./docs/variety-inventory-flow.md).
+
+### Scripts
+
+```bash
+cd brisa-functions
+cp .env.example .env   # SHOP + CLIENT_ID + CLIENT_SECRET
+npm run clear:better-box   # strip Fixed Bundle if one was applied
+# Inventory helpers (need write_inventory + read_locations on Brisa Admin):
+# LOCATION_ID=gid://shopify/Location/… npm run better-box:decrement -- --boxes=1
+# LOCATION_ID=… npm run variety:decrement -- --units=3
+# npm run setup:better-box # DO NOT use while Appstle plan is attached
+```
+
+Auth (Dev Dashboard → **Brisa Admin** → Client ID/secret) is shared with other admin scripts. Prefer **Shopify Flow** for live decrements when the app lacks inventory scopes.
+
 ## Local test
 
 ```bash

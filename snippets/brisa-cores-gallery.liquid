@@ -30,7 +30,7 @@
 
 {% if slider_item_count > 0 %}
   <div class="brisa-cores-gallery" data-brisa-cores-gallery>
-    <div class="brisa-cores-gallery__swatches" data-brisa-cores-swatches>
+    <div class="brisa-cores-gallery__swatches" data-brisa-cores-swatches role="radiogroup" aria-label="Choose aroma">
       {% if slider_option != blank %}
         {% for option_value in slider_option.values limit: section.settings.variant_limit %}
           {% render 'product-slider-nav',

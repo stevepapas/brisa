@@ -68,6 +68,7 @@
     margin-bottom: {{ section.settings.swatch_spacing }}px;
   }
 
+  /* Circular thumbs ARE the flavour swatches (sole selector; form swatches hidden). */
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__nav {
     display: inline-flex;
     flex-direction: column;
@@ -80,6 +81,11 @@
     cursor: pointer;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__nav.is-sold-out {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch {
     display: block;
     width: {{ section.settings.swatch_size }}px;
@@ -89,6 +95,7 @@
     background-size: cover;
     border: 2px solid transparent;
     border-radius: 50%;
+    box-sizing: border-box;
     transition: transform 0.2s ease, border-color 0.2s ease;
   }
 
@@ -551,23 +558,36 @@
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-wrap {
     position: relative;
     display: inline-flex;
+    width: {{ section.settings.swatch_size }}px;
+    height: {{ section.settings.swatch_size }}px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-wrap .product-slider__swatch {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* NEW pill sits inside the circle: white bg, blue text */
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__new-badge {
     position: absolute;
-    top: -8px;
-    left: -10px;
+    top: 6px;
+    left: 50%;
     z-index: 2;
-    padding: 2px 6px;
+    transform: translateX(-50%);
+    padding: 2px 5px;
     border-radius: 999px;
-    background: #23aee8;
-    color: #fff;
-    font-size: 9px;
+    background: #fff;
+    color: #008bdc;
+    font-size: 8px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.15;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+    white-space: nowrap;
     pointer-events: none;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-packs {
@@ -688,7 +708,12 @@
     display: none !important;
   }
 
-  .brisa-cores-picker-{{ section_uid }} .product-form__variants {
+  /* Hide duplicate form swatches — gallery circular thumbs are the only selector. */
+  .brisa-cores-picker-{{ section_uid }} .product-form__variants,
+  .brisa-cores-picker-{{ section_uid }} .product-form__option-selector,
+  .brisa-cores-picker-{{ section_uid }} variant-picker,
+  .brisa-cores-picker-{{ section_uid }} .color-swatch-list,
+  .brisa-cores-picker-{{ section_uid }} .block-swatch-list {
     display: none !important;
   }
 
@@ -729,10 +754,6 @@
     height: 36px;
   }
 
-  .brisa-cores-picker-{{ section_uid }} .product-form__option-selector[data-selector-type="swatch"] {
-    display: none !important;
-  }
-
   .brisa-cores-picker-{{ section_uid }} .product-form__description,
   .brisa-cores-picker-{{ section_uid }} .product-form__text .rte > p:first-child strong:empty {
     display: none;
@@ -752,9 +773,20 @@
       max-height: {{ section.settings.mobile_image_max_height }}px;
     }
 
-    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch {
+    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch-wrap {
       width: {{ section.settings.swatch_size | times: 0.86 | round }}px;
       height: {{ section.settings.swatch_size | times: 0.86 | round }}px;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__swatch {
+      width: 100%;
+      height: 100%;
+    }
+
+    .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__swatches .product-slider__new-badge {
+      top: 5px;
+      font-size: 7px;
+      padding: 2px 4px;
     }
 
     .brisa-cores-picker-{{ section_uid }} .bcp-pack {
@@ -957,14 +989,27 @@
       const card = cards[index];
       if (!card) return;
 
+      const variantId = String(card.dataset.variantId || '');
       const slideLabel = (card.dataset.slideLabel || '').trim().toLowerCase();
+      const form = getForm();
+      if (form && variantId) {
+        const idInput = form.querySelector('input[name="id"]');
+        if (idInput && idInput.value !== variantId) {
+          idInput.value = variantId;
+          idInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
       const variantPicker = sectionEl.querySelector('variant-picker');
-      if (!variantPicker || !slideLabel) return;
+      if (!variantPicker) return;
 
       const radios = variantPicker.querySelectorAll('.color-swatch__radio, .block-swatch__radio');
       radios.forEach((radio) => {
+        const radioVariantId = radio.dataset.variantId || radio.value || '';
         const label = radio.labels && radio.labels[0] ? radio.labels[0].textContent.trim().toLowerCase() : '';
-        if (label === slideLabel && !radio.checked) {
+        const match = (variantId && String(radioVariantId) === variantId) ||
+          (slideLabel && label === slideLabel);
+        if (match && !radio.checked) {
           radio.checked = true;
           radio.dispatchEvent(new Event('change', { bubbles: true }));
         }
@@ -980,6 +1025,7 @@
       navItems.forEach((item, itemIndex) => {
         const isActive = itemIndex === currentIndex;
         item.classList.toggle('is-active', isActive);
+        item.setAttribute('aria-checked', isActive ? 'true' : 'false');
         if (isActive) {
           item.setAttribute('aria-current', 'true');
         } else {
@@ -1146,6 +1192,7 @@
 
     navItems.forEach((item) => {
       item.addEventListener('click', () => {
+        if (item.dataset.available === 'false' || item.classList.contains('is-sold-out')) return;
         if (purchaseMode === 'addon') setPurchaseMode('onetime');
         updateGallery(parseInt(item.dataset.index, 10));
       });
@@ -1198,8 +1245,8 @@
     {
       "type": "text",
       "id": "option_name",
-      "label": "Color option name",
-      "default": "Color"
+      "label": "Option name (e.g. Aroma)",
+      "default": "Aroma"
     },
     {
       "type": "checkbox",
