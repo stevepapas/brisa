@@ -13,6 +13,9 @@
           assign ns = section.settings.slide_image_metafield_namespace
           assign key = section.settings.slide_image_metafield_key
           assign card_image = variant.metafields[ns][key].value | default: variant.metafields[ns][key]
+          if card_image == blank
+            assign card_image = variant.image
+          endif
         when 'variant_image'
           assign card_image = variant.image
         when 'carousel_product_image'
@@ -20,6 +23,13 @@
         else
           assign card_image = variant.metafields.custom.slider_image.value | default: variant.metafields.custom.slider_image | default: variant.image
       endcase
+
+      if card_image == blank and variant.featured_media != blank
+        assign card_image = variant.featured_media.preview_image
+      endif
+      if card_image == blank and product.featured_media != blank
+        assign card_image = product.featured_media.preview_image
+      endif
     %}
 
     {% if card_image != blank %}

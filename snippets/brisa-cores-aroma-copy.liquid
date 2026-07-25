@@ -1,0 +1,70 @@
+{%- comment -%}
+  Per-flavour aroma copy for Brisa Cores (theme-side until Shopify metafields are set).
+  Params: slide_label, aroma_prefix, part (label | desc | caption | title | key)
+{%- endcomment -%}
+{% liquid
+  assign key_raw = slide_label | downcase | strip
+  assign prefix = aroma_prefix | default: 'AROMA —'
+
+  if key_raw contains 'mint'
+    assign flavour_key = 'mint'
+  elsif key_raw contains 'cherry'
+    assign flavour_key = 'cherry'
+  elsif key_raw contains 'raspberry'
+    assign flavour_key = 'raspberry'
+  elsif key_raw contains 'variety'
+    assign flavour_key = 'variety'
+  else
+    assign flavour_key = 'default'
+  endif
+%}
+
+{% case part %}
+  {% when 'key' %}
+    {{- flavour_key -}}
+
+  {% when 'title' %}
+    {% if flavour_key == 'variety' %}
+      <span class="bcp-aroma__title">VARIETY PACK</span>
+    {% endif %}
+
+  {% when 'label' %}
+    {% case flavour_key %}
+      {% when 'mint' %}
+        <span class="bcp-aroma__prefix">{{ prefix | escape }}</span> <span class="bcp-aroma__flavour bcp-aroma__flavour--mint">MINT ICE</span>
+      {% when 'cherry' %}
+        <span class="bcp-aroma__prefix">{{ prefix | escape }}</span> <span class="bcp-aroma__flavour bcp-aroma__flavour--cherry">CHERRY POMEGRANATE</span>
+      {% when 'raspberry' %}
+        <span class="bcp-aroma__prefix">{{ prefix | escape }}</span> <span class="bcp-aroma__flavour bcp-aroma__flavour--raspberry">RASPBERRY</span> <span class="bcp-aroma__flavour bcp-aroma__flavour--lime">LIME</span>
+      {% when 'variety' %}
+        <span class="bcp-aroma__prefix">{{ prefix | escape }}</span> <span class="bcp-aroma__flavour bcp-aroma__flavour--variety">VARIETY PACK</span>
+      {% else %}
+        <span class="bcp-aroma__prefix">{{ prefix | escape }}</span> <span class="bcp-aroma__flavour">{{ slide_label | upcase | escape }}</span>
+    {% endcase %}
+
+  {% when 'desc' %}
+    {% case flavour_key %}
+      {% when 'mint' %}
+        Our original customer favourite. A smooth mint ice profile built for a clean cooling sensation, long-lasting aroma, and an easy everyday draw.<br><strong>No smoke. No vapour. No nicotine.</strong>
+      {% when 'cherry' %}
+        A first-of-its-kind cherry-pomegranate profile, built for bigger flavour and aroma, longer-lasting aroma, and a stronger sensory draw.<br><strong>No smoke. No vapour. No nicotine.</strong>
+      {% when 'raspberry' %}
+        A bright raspberry-lime profile with strong flavour, long-lasting aroma, and an extra cooling throat feel.<br><br>Slightly smoother than Cherry Pomegranate, but built for a colder, cleaner sensory draw.<br><strong>No smoke. No vapour. No nicotine.</strong>
+      {% when 'variety' %}
+        Three Brisa Better master pieces, built to give you the full sensory range. Cherry Pomegranate brings a bold, deep flavour with a stronger throat feel. Mint Ice is our smooth, cooling customer favourite. Raspberry Lime gives a bright, cleaner draw with extra cooling. Each flavour was meticulously developed and perfected by Brisa Better. No copies. No off-the-shelf blends. Just our own 1/1 aroma profiles.<br><strong>No smoke. No vapour. No nicotine.</strong>
+      {% else %}
+        {{ slide_label | escape }}
+    {% endcase %}
+
+  {% when 'caption' %}
+    {% case flavour_key %}
+      {% when 'mint' %}
+        MINT ICE · MOST POPULAR
+      {% when 'raspberry' %}
+        <span class="bcp-caption__raspberry">Raspberry</span> <span class="bcp-caption__lime">Lime</span> <span class="bcp-caption__dash">-</span> <span class="bcp-caption__new">NEW!</span>
+      {% when 'variety' %}
+        Three Brisa Better Master pieces - <span class="bcp-caption__new">NEW</span>
+      {% else %}
+        {{ slide_label | upcase | escape }}
+    {% endcase %}
+{% endcase %}

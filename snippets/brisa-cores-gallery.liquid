@@ -108,15 +108,9 @@
           {% endif %}
           {% liquid
             assign caption_label = option_value.name
-            assign caption_downcase = caption_label | downcase
-            assign popular_name = section.settings.popular_variant_name | downcase
-            assign caption_text = caption_label | upcase
-            if popular_name != blank and caption_downcase == popular_name and section.settings.popular_suffix != blank
-              assign caption_text = caption_text | append: ' ' | append: section.settings.popular_suffix
-            endif
           %}
           <p class="brisa-cores-gallery__caption {% if forloop.first %}is-active{% endif %}" data-brisa-cores-caption data-variant-id="{{ option_value.variant.id }}">
-            {{ caption_text | escape }}
+            {%- render 'brisa-cores-aroma-copy', slide_label: caption_label, aroma_prefix: section.settings.aroma_prefix, part: 'caption' -%}
           </p>
         {% endfor %}
       {% else %}
@@ -124,19 +118,78 @@
           {% liquid
             assign caption_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
           %}
-          {% liquid
-            assign caption_downcase = caption_label | downcase
-            assign popular_name = section.settings.popular_variant_name | downcase
-            assign caption_text = caption_label | upcase
-            if popular_name != blank and caption_downcase == popular_name and section.settings.popular_suffix != blank
-              assign caption_text = caption_text | append: ' ' | append: section.settings.popular_suffix
-            endif
-          %}
           <p class="brisa-cores-gallery__caption {% if forloop.first %}is-active{% endif %}" data-brisa-cores-caption data-variant-id="{{ variant.id }}">
-            {{ caption_text | escape }}
+            {%- render 'brisa-cores-aroma-copy', slide_label: caption_label, aroma_prefix: section.settings.aroma_prefix, part: 'caption' -%}
           </p>
         {% endfor %}
       {% endif %}
     </div>
+
+    <script type="application/json" data-brisa-cores-aroma-map>
+      [
+        {% if slider_option != blank %}
+          {% for option_value in slider_option.values limit: section.settings.variant_limit %}
+            {% if option_value.variant == blank %}{% continue %}{% endif %}
+            {% liquid
+              assign map_label = option_value.name
+              capture map_label_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'label'
+              endcapture
+              capture map_desc_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'desc'
+              endcapture
+              capture map_caption_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'caption'
+              endcapture
+              capture map_title_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'title'
+              endcapture
+              capture map_flavour_key
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'key'
+              endcapture
+            %}
+            {
+              "variantId": {{ option_value.variant.id | json }},
+              "slideLabel": {{ map_label | json }},
+              "flavourKey": {{ map_flavour_key | strip | json }},
+              "titleHtml": {{ map_title_html | strip | json }},
+              "labelHtml": {{ map_label_html | strip | json }},
+              "descHtml": {{ map_desc_html | strip | json }},
+              "captionHtml": {{ map_caption_html | strip | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        {% else %}
+          {% for variant in product.variants limit: section.settings.variant_limit %}
+            {% liquid
+              assign map_label = variant.metafields.custom.flavour.value | default: variant.metafields.custom.flavour | default: variant.title
+              capture map_label_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'label'
+              endcapture
+              capture map_desc_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'desc'
+              endcapture
+              capture map_caption_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'caption'
+              endcapture
+              capture map_title_html
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'title'
+              endcapture
+              capture map_flavour_key
+                render 'brisa-cores-aroma-copy', slide_label: map_label, aroma_prefix: section.settings.aroma_prefix, part: 'key'
+              endcapture
+            %}
+            {
+              "variantId": {{ variant.id | json }},
+              "slideLabel": {{ map_label | json }},
+              "flavourKey": {{ map_flavour_key | strip | json }},
+              "titleHtml": {{ map_title_html | strip | json }},
+              "labelHtml": {{ map_label_html | strip | json }},
+              "descHtml": {{ map_desc_html | strip | json }},
+              "captionHtml": {{ map_caption_html | strip | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        {% endif %}
+      ]
+    </script>
   </div>
 {% endif %}

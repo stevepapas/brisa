@@ -51,6 +51,95 @@
     text-align: center;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__title {
+    display: none;
+    margin: 0 0 6px;
+    color: #111;
+    font-size: {{ section.settings.aroma_label_size | plus: 2 }}px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__title.is-visible {
+    display: block;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__prefix {
+    color: #888;
+    font-weight: 900;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__flavour--mint {
+    color: #6ec9b0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__flavour--cherry {
+    color: #e11d48;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__flavour--raspberry {
+    color: #dc2626;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__flavour--lime {
+    color: #84cc16;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-aroma__flavour--variety {
+    background: linear-gradient(90deg, #e11d48 0%, #6ec9b0 35%, #84cc16 65%, #008bdc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-caption__raspberry {
+    color: #dc2626;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-caption__lime {
+    color: #84cc16;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-caption__dash {
+    color: {{ section.settings.text_color }};
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-caption__new {
+    color: #008bdc;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__aroma-desc strong {
+    font-weight: 800;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-variety-composition {
+    display: none;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    color: {{ section.settings.text_color }};
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-variety-composition.is-visible {
+    display: block;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-variety-composition__line {
+    margin: 0;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .bcp-variety-composition__line + .bcp-variety-composition__line {
+    margin-top: 4px;
+  }
+
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-picker__aroma-desc {
     margin: 0 0 {{ section.settings.gallery_spacing }}px;
     color: {{ section.settings.text_color }};
@@ -546,7 +635,7 @@
     line-height: 1.1;
     letter-spacing: 0.06em;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: none;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-cores-gallery__caption.is-active {
@@ -861,17 +950,19 @@
 
   <div class="brisa-cores-picker__inner">
     {%- capture aroma_slot -%}
+      <div class="bcp-aroma__title" data-brisa-cores-aroma-title hidden>
+        {%- render 'brisa-cores-aroma-copy', slide_label: selected_flavour, aroma_prefix: section.settings.aroma_prefix, part: 'title' -%}
+      </div>
       <p class="brisa-cores-picker__aroma" data-brisa-cores-aroma-label>
-        {{ section.settings.aroma_prefix | escape }} {{ selected_flavour | upcase | escape }}
+        {%- render 'brisa-cores-aroma-copy', slide_label: selected_flavour, aroma_prefix: section.settings.aroma_prefix, part: 'label' -%}
       </p>
-      <p
+      <div
         class="brisa-cores-picker__aroma-desc"
         data-brisa-cores-aroma-desc
-        data-onetime-desc="{{ section.settings.aroma_description | escape }}"
         data-addon-desc="{{ section.settings.addon_aroma_description | default: section.settings.addon_subtitle | escape }}"
       >
-        {{ section.settings.aroma_description | escape }}
-      </p>
+        {%- render 'brisa-cores-aroma-copy', slide_label: selected_flavour, aroma_prefix: section.settings.aroma_prefix, part: 'desc' -%}
+      </div>
     {%- endcapture -%}
 
     {% render 'brisa-cores-gallery',
@@ -891,6 +982,12 @@
       {% endif %}
 
       {% render 'brisa-cores-pack-cards', section: section %}
+
+      <div class="bcp-variety-composition" data-brisa-cores-variety-composition hidden aria-live="polite">
+        <p class="bcp-variety-composition__line" data-variety-pack-9><strong>9 cores:</strong> 1× Cherry Pomegranate, 1× Mint Ice, 1× Raspberry Lime</p>
+        <p class="bcp-variety-composition__line" data-variety-pack-18 hidden><strong>18 cores:</strong> 2× of each flavour</p>
+        <p class="bcp-variety-composition__line" data-variety-pack-27 hidden><strong>27 cores:</strong> 3× of each flavour</p>
+      </div>
 
       {% if section.settings.value_line != blank %}
         <p class="brisa-cores-picker__value-line">{{ section.settings.value_line }}</p>
@@ -979,8 +1076,23 @@
     const navItems = Array.from(gallery.querySelectorAll('[data-product-slider-nav]'));
     const captions = Array.from(gallery.querySelectorAll('[data-brisa-cores-caption]'));
     const aromaLabel = sectionEl.querySelector('[data-brisa-cores-aroma-label]');
+    const aromaTitle = sectionEl.querySelector('[data-brisa-cores-aroma-title]');
     const aromaDesc = sectionEl.querySelector('[data-brisa-cores-aroma-desc]');
-    const aromaPrefix = {{ section.settings.aroma_prefix | json }};
+    const varietyComposition = sectionEl.querySelector('[data-brisa-cores-variety-composition]');
+    const varietyPack9 = sectionEl.querySelector('[data-variety-pack-9]');
+    const varietyPack18 = sectionEl.querySelector('[data-variety-pack-18]');
+    const varietyPack27 = sectionEl.querySelector('[data-variety-pack-27]');
+    const aromaMapEl = gallery.querySelector('[data-brisa-cores-aroma-map]');
+    let aromaMap = [];
+    if (aromaMapEl) {
+      try {
+        aromaMap = JSON.parse(aromaMapEl.textContent || '[]');
+      } catch (err) {
+        aromaMap = [];
+      }
+    }
+    const addonAromaLabel = {{ section.settings.addon_aroma_label | default: 'AROMA PROFILE — MONTHLY BETTER BOX' | json }};
+    const addonDescHtml = {{ section.settings.addon_aroma_description | default: section.settings.addon_subtitle | json }};
     const addonCaption = {{ section.settings.addon_gallery_caption | default: 'Monthly better box - NEW!' | json }};
     const purchase = sectionEl.querySelector('[data-brisa-cores-purchase]');
     const modeInputs = Array.from(sectionEl.querySelectorAll('[data-brisa-cores-mode]'));
@@ -1015,6 +1127,58 @@
       }
     }
 
+    function getAromaEntry(index) {
+      const card = cards[index];
+      if (!card) return null;
+      const variantId = String(card.dataset.variantId || '');
+      return aromaMap.find((entry) => String(entry.variantId) === variantId) || null;
+    }
+
+    function getSelectedPackCores() {
+      const selected = packButtons.find((btn) => btn.classList.contains('is-selected'));
+      return parseInt(selected?.dataset.packCores || '18', 10);
+    }
+
+    function updateVarietyComposition(flavourKey) {
+      if (!varietyComposition) return;
+      const isVariety = flavourKey === 'variety' && purchaseMode !== 'addon';
+      varietyComposition.classList.toggle('is-visible', isVariety);
+      varietyComposition.hidden = !isVariety;
+      if (!isVariety) return;
+
+      const cores = getSelectedPackCores();
+      if (varietyPack9) varietyPack9.hidden = cores !== 9;
+      if (varietyPack18) varietyPack18.hidden = cores !== 18;
+      if (varietyPack27) varietyPack27.hidden = cores !== 27;
+    }
+
+    function applyAromaCopy(index) {
+      const entry = getAromaEntry(index);
+      if (!entry || purchaseMode === 'addon') return;
+
+      if (aromaLabel && entry.labelHtml) {
+        aromaLabel.innerHTML = entry.labelHtml;
+      }
+
+      if (aromaTitle) {
+        if (entry.titleHtml) {
+          aromaTitle.innerHTML = entry.titleHtml;
+          aromaTitle.classList.add('is-visible');
+          aromaTitle.hidden = false;
+        } else {
+          aromaTitle.innerHTML = '';
+          aromaTitle.classList.remove('is-visible');
+          aromaTitle.hidden = true;
+        }
+      }
+
+      if (aromaDesc && entry.descHtml) {
+        aromaDesc.innerHTML = entry.descHtml;
+      }
+
+      updateVarietyComposition(entry.flavourKey || '');
+    }
+
     function selectPack(button) {
       if (!button) return;
       packButtons.forEach((btn) => {
@@ -1023,6 +1187,8 @@
         btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
       setPackQuantity(parseInt(button.dataset.packQty || '1', 10));
+      const entry = getAromaEntry(currentIndex);
+      if (entry) updateVarietyComposition(entry.flavourKey || '');
     }
 
     function syncVariantPicker(index) {
@@ -1078,17 +1244,19 @@
           caption.classList.toggle('is-active', captionIndex === 0);
           if (captionIndex === 0) caption.textContent = addonCaption;
         } else {
-          caption.classList.toggle('is-active', captionIndex === currentIndex);
+          const isActive = captionIndex === currentIndex;
+          caption.classList.toggle('is-active', isActive);
+          const entry = aromaMap[captionIndex];
+          if (isActive && entry?.captionHtml) {
+            caption.innerHTML = entry.captionHtml;
+          }
         }
       });
 
       const card = cards[currentIndex];
       if (!card) return;
 
-      if (aromaLabel && purchaseMode !== 'addon') {
-        const label = card.dataset.slideLabel || '';
-        aromaLabel.textContent = `${aromaPrefix} ${label.toUpperCase()}`.trim();
-      }
+      if (purchaseMode !== 'addon') applyAromaCopy(currentIndex);
 
       if (purchaseMode !== 'addon') syncVariantPicker(currentIndex);
     }
@@ -1106,17 +1274,23 @@
         input.checked = input.value === mode;
       });
 
-      if (aromaDesc) {
-        const next = mode === 'addon'
-          ? (aromaDesc.dataset.addonDesc || '')
-          : (aromaDesc.dataset.onetimeDesc || '');
-        if (next) aromaDesc.textContent = next;
+      if (aromaDesc && mode === 'addon') {
+        if (addonDescHtml) aromaDesc.innerHTML = addonDescHtml;
       }
 
       if (aromaLabel && mode === 'addon') {
-        aromaLabel.textContent = {{ section.settings.addon_aroma_label | default: 'AROMA PROFILE — MONTHLY BETTER BOX' | json }};
-      } else {
-        updateGallery(currentIndex);
+        aromaLabel.textContent = addonAromaLabel;
+      }
+
+      if (aromaTitle) {
+        aromaTitle.innerHTML = '';
+        aromaTitle.classList.remove('is-visible');
+        aromaTitle.hidden = true;
+      }
+
+      if (varietyComposition) {
+        varietyComposition.classList.remove('is-visible');
+        varietyComposition.hidden = true;
       }
 
       if (mode === 'addon') {
@@ -1274,7 +1448,7 @@
       "type": "text",
       "id": "aroma_prefix",
       "label": "Aroma label prefix",
-      "default": "AROMA PROFILE —"
+      "default": "AROMA —"
     },
     {
       "type": "textarea",
@@ -1382,7 +1556,7 @@
           "label": "Legacy carousel_product_image"
         }
       ],
-      "default": "variant_metafield"
+      "default": "variant_image"
     },
     {
       "type": "text",
