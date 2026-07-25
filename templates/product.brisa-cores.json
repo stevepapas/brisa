@@ -702,15 +702,18 @@
         "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
         "show_trust": true,
         "trust_1": "Ships Next Day",
-        "trust_icon_1": "shopify://shop_images/free-shipping.png",
+        "trust_icon_1": "",
         "trust_2": "Secure checkout",
-        "trust_icon_2": "shopify://shop_images/secure.png",
+        "trust_icon_2": "",
         "trust_3": "4.7 (163)",
         "trust_icon_3": "",
-        "trust_4": "World first formula",
+        "trust_4": "World first\nformula",
         "trust_icon_4": "shopify://shop_images/world-first-formula.png",
         "trust_5": "Real throat hit",
-        "trust_icon_5": "shopify://shop_images/real-throat.png"
+        "trust_icon_5": "shopify://shop_images/real-throat.png",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
+        "trust_icon_asset_3": "brisa-trust-star.svg"
       }
     }
   },
