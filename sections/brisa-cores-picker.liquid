@@ -1319,8 +1319,7 @@
       if (purchaseMode !== 'addon') applyAromaCopy(currentIndex);
 
       if (purchaseMode !== 'addon') syncVariantPicker(currentIndex);
-      syncPackAvailability();
-      updateAtcState();
+      syncPurchaseAvailability();
     }
 
     function setPurchaseMode(mode) {
@@ -1373,19 +1372,15 @@
     const onetimeAtcLabel = {{ 'product.form.add_to_cart' | t | json }};
     const soldOutAtcLabel = 'SOLD OUT';
 
-    function isNavAvailable(navItem) {
-      if (!navItem) return false;
-      return navItem.dataset.available !== 'false' && !navItem.classList.contains('is-sold-out');
-    }
-
     function variantMeetsQty(stock, qty) {
       if (!stock || stock.available === false) return false;
       if (!stock.inventoryManaged) return true;
+      if (stock.inventoryPolicy === 'continue') return true;
       return Number(stock.inventoryQuantity) >= qty;
     }
 
-    function isPackAvailable(packBtn, navItem) {
-      if (!packBtn || !isNavAvailable(navItem)) return false;
+    function packMeetsStock(packBtn, navItem) {
+      if (!packBtn || !navItem) return false;
 
       const packQty = parseInt(packBtn.dataset.packQty || '1', 10);
       const packCores = parseInt(packBtn.dataset.packCores || '9', 10);
@@ -1401,10 +1396,30 @@
       return variantMeetsQty(stock, packQty);
     }
 
+    function flavourHasAnyPack(navItem) {
+      if (!navItem) return false;
+      return packButtons.some((btn) => packMeetsStock(btn, navItem));
+    }
+
+    function syncNavAvailability() {
+      navItems.forEach((item) => {
+        const available = flavourHasAnyPack(item);
+        item.classList.toggle('is-sold-out', !available);
+        item.dataset.available = available ? 'true' : 'false';
+        item.disabled = !available;
+        item.setAttribute('aria-disabled', available ? 'false' : 'true');
+        if (available) {
+          item.removeAttribute('title');
+        } else {
+          item.title = 'Sold out';
+        }
+      });
+    }
+
     function syncPackAvailability() {
       const navItem = navItems[currentIndex];
       packButtons.forEach((btn) => {
-        const available = isPackAvailable(btn, navItem);
+        const available = packMeetsStock(btn, navItem);
         btn.classList.toggle('is-sold-out', !available);
         btn.disabled = !available;
         btn.setAttribute('aria-disabled', available ? 'false' : 'true');
@@ -1413,32 +1428,37 @@
       });
 
       const selected = packButtons.find((btn) => btn.classList.contains('is-selected'));
-      if (selected?.classList.contains('is-sold-out')) {
-        const fallback = packButtons.find((btn) => !btn.classList.contains('is-sold-out'));
+      if (selected && !packMeetsStock(selected, navItem)) {
+        const fallback = packButtons.find((btn) => packMeetsStock(btn, navItem));
         if (fallback) selectPack(fallback, { skipAvailabilitySync: true });
       }
+    }
+
+    function syncPurchaseAvailability() {
+      syncNavAvailability();
+      syncPackAvailability();
+      updateAtcState();
     }
 
     function updateAtcState() {
       const mode = getPurchaseMode();
       const navItem = navItems[currentIndex];
       const selectedPack = packButtons.find((btn) => btn.classList.contains('is-selected'));
-      const flavourOk = mode !== 'addon' && isNavAvailable(navItem);
-      const packOk = mode !== 'addon' && selectedPack && !selectedPack.classList.contains('is-sold-out');
+      const packOk = mode !== 'addon' && selectedPack && packMeetsStock(selectedPack, navItem);
+      const flavourOk = mode !== 'addon' && flavourHasAnyPack(navItem);
+      const canPurchase = mode === 'addon'
+        ? purchase?.dataset.addonAvailable !== 'false'
+        : flavourOk && packOk;
       const addonOk = mode === 'addon' && purchase?.dataset.addonAvailable !== 'false';
 
       sectionEl.querySelectorAll('[data-product-add-to-cart-button]').forEach((btn) => {
-        if (btn.dataset.brisaCoresDefaultLabel == null) {
-          btn.dataset.brisaCoresDefaultLabel = btn.textContent.trim() || onetimeAtcLabel;
-        }
-
-        let label = btn.dataset.brisaCoresDefaultLabel;
+        let label = onetimeAtcLabel;
         let disabled = false;
 
         if (mode === 'addon') {
           label = addonAtcLabel;
           disabled = !addonOk;
-        } else if (!flavourOk || !packOk) {
+        } else if (!canPurchase) {
           label = soldOutAtcLabel;
           disabled = true;
         }
@@ -1592,21 +1612,29 @@
 
     navItems.forEach((item) => {
       item.addEventListener('click', () => {
-        if (item.dataset.available === 'false' || item.classList.contains('is-sold-out')) return;
+        if (!flavourHasAnyPack(item)) return;
         if (isAddonMode()) setPurchaseMode('onetime');
         updateGallery(parseInt(item.dataset.index, 10));
       });
     });
 
+    const coresForm = getForm();
+    if (coresForm && coresForm.dataset.brisaCoresRerenderBound !== 'true') {
+      coresForm.dataset.brisaCoresRerenderBound = 'true';
+      coresForm.addEventListener('product:rerender', () => {
+        queueMicrotask(() => syncPurchaseAvailability());
+      });
+    }
+
     document.addEventListener('variant:change', (event) => {
       if (!event.detail || !event.detail.variant) return;
+      if (coresForm && event.detail.formId && event.detail.formId !== coresForm.id) return;
       const variantId = String(event.detail.variant.id);
       const cardIndex = cards.findIndex((card) => card.dataset.variantId === variantId);
       if (cardIndex >= 0 && cardIndex !== currentIndex) {
         updateGallery(cardIndex);
       } else {
-        syncPackAvailability();
-        updateAtcState();
+        syncPurchaseAvailability();
       }
     });
 
@@ -1616,12 +1644,12 @@
       let startIndex = 0;
       if (popularName) {
         const popularIndex = cards.findIndex((card) => (card.dataset.slideLabel || '').trim().toLowerCase() === popularName);
-        if (popularIndex >= 0 && isNavAvailable(navItems[popularIndex])) {
+        if (popularIndex >= 0 && flavourHasAnyPack(navItems[popularIndex])) {
           startIndex = popularIndex;
         }
       }
-      if (!isNavAvailable(navItems[startIndex])) {
-        const firstAvailable = navItems.findIndex((item) => isNavAvailable(item));
+      if (!flavourHasAnyPack(navItems[startIndex])) {
+        const firstAvailable = navItems.findIndex((item) => flavourHasAnyPack(item));
         if (firstAvailable >= 0) startIndex = firstAvailable;
       }
       return startIndex;
@@ -1629,15 +1657,13 @@
 
     updateGallery(resolveStartIndex());
 
+    const startNav = navItems[currentIndex];
     const defaultPack =
-      packButtons.find((btn) => btn.classList.contains('is-selected') && !btn.classList.contains('is-sold-out')) ||
-      packButtons.find((btn) => !btn.classList.contains('is-sold-out')) ||
-      packButtons[1] ||
-      packButtons[0];
+      packButtons.find((btn) => btn.classList.contains('is-selected') && packMeetsStock(btn, startNav)) ||
+      packButtons.find((btn) => packMeetsStock(btn, startNav));
     if (defaultPack) selectPack(defaultPack, { skipAvailabilitySync: true });
     setPurchaseMode(getPurchaseMode());
-    syncPackAvailability();
-    updateAtcState();
+    syncPurchaseAvailability();
     bindAddonAtcGuard();
   })();
 </script>

@@ -150,7 +150,8 @@
             "{{ variant.id }}": {
               "available": {{ variant.available | json }},
               "inventoryQuantity": {{ variant.inventory_quantity | json }},
-              "inventoryManaged": {% if variant.inventory_management != blank %}true{% else %}false{% endif %}
+              "inventoryManaged": {% if variant.inventory_management != blank %}true{% else %}false{% endif %},
+              "inventoryPolicy": {{ variant.inventory_policy | json }}
             }{%- unless forloop.last -%},{%- endunless -%}
           {%- endfor -%}
         },
@@ -160,7 +161,8 @@
             "id": {{ variety_mint_variant.id | json }},
             "available": {{ variety_mint_variant.available | json }},
             "inventoryQuantity": {{ variety_mint_variant.inventory_quantity | json }},
-            "inventoryManaged": {% if variety_mint_variant.inventory_management != blank %}true{% else %}false{% endif %}
+            "inventoryManaged": {% if variety_mint_variant.inventory_management != blank %}true{% else %}false{% endif %},
+            "inventoryPolicy": {{ variety_mint_variant.inventory_policy | json }}
           }{%- if variety_raspberry_variant != blank or variety_cherry_variant != blank -%},{%- endif -%}
           {%- endif -%}
           {%- if variety_raspberry_variant != blank -%}
@@ -168,7 +170,8 @@
             "id": {{ variety_raspberry_variant.id | json }},
             "available": {{ variety_raspberry_variant.available | json }},
             "inventoryQuantity": {{ variety_raspberry_variant.inventory_quantity | json }},
-            "inventoryManaged": {% if variety_raspberry_variant.inventory_management != blank %}true{% else %}false{% endif %}
+            "inventoryManaged": {% if variety_raspberry_variant.inventory_management != blank %}true{% else %}false{% endif %},
+            "inventoryPolicy": {{ variety_raspberry_variant.inventory_policy | json }}
           }{%- if variety_cherry_variant != blank -%},{%- endif -%}
           {%- endif -%}
           {%- if variety_cherry_variant != blank -%}
@@ -176,7 +179,8 @@
             "id": {{ variety_cherry_variant.id | json }},
             "available": {{ variety_cherry_variant.available | json }},
             "inventoryQuantity": {{ variety_cherry_variant.inventory_quantity | json }},
-            "inventoryManaged": {% if variety_cherry_variant.inventory_management != blank %}true{% else %}false{% endif %}
+            "inventoryManaged": {% if variety_cherry_variant.inventory_management != blank %}true{% else %}false{% endif %},
+            "inventoryPolicy": {{ variety_cherry_variant.inventory_policy | json }}
           }
           {%- endif -%}
         }
