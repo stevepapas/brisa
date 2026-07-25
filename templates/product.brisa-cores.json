@@ -581,7 +581,7 @@
         "card_max_width": 420,
         "card_peek": 56,
         "card_gap": 24,
-        "card_padding": 10,
+        "card_padding": 12,
         "card_radius": 28,
         "image_radius": 18,
         "carousel_spacing": 28,
