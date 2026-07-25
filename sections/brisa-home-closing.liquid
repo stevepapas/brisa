@@ -3,69 +3,33 @@
     --bhc-blue: {{ section.settings.accent_color | default: '#008bdc' }};
     --bhc-text: {{ section.settings.text_color | default: '#0b3a66' }};
     background: {{ section.settings.background | default: '#e8f4fc' }};
-    padding: {{ section.settings.padding_top }}px 16px {{ section.settings.padding_bottom }}px;
+    padding: 0 0 {{ section.settings.padding_bottom }}px;
     color: var(--bhc-text);
   }
 
-  #shopify-section-{{ section.id }} .brisa-home-closing {
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit {
+    width: 100%;
+    margin: 0 0 28px;
+    padding: {{ section.settings.padding_top }}px 16px 24px;
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-inner,
+  #shopify-section-{{ section.id }} .brisa-home-closing__body {
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-home-closing__kit-header {
-    margin: 0 0 18px;
-    text-align: center;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-home-closing__kit-title {
-    margin: 0;
-    color: var(--bhc-text);
-    font-size: {{ section.settings.kit_heading_size }}px;
-    font-weight: 900;
-    letter-spacing: 0.02em;
-    line-height: 1.05;
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-home-closing__kit-rule {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    width: min(220px, 70%);
-    margin: 12px auto 0;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-home-closing__kit-rule::before,
-  #shopify-section-{{ section.id }} .brisa-home-closing__kit-rule::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(11, 58, 102, 0.45);
-  }
-
-  #shopify-section-{{ section.id }} .brisa-home-closing__kit-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    color: #ffffff;
-    background: #111111;
-    border-radius: 50%;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 15px;
-    font-style: italic;
-    font-weight: 700;
-    line-height: 1;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-closing__kit-image {
     display: block;
     width: 100%;
     height: auto;
-    margin: 0 0 28px;
+    margin: 0;
     border-radius: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-closing__body {
+    padding: 0 16px;
   }
 
   #shopify-section-{{ section.id }} .brisa-home-closing__compare {
@@ -279,7 +243,12 @@
   }
 
   @media screen and (min-width: 750px) {
-    #shopify-section-{{ section.id }} {
+    #shopify-section-{{ section.id }} .brisa-home-closing__kit {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-home-closing__body {
       padding-left: 24px;
       padding-right: 24px;
     }
@@ -311,10 +280,6 @@
   }
 
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .brisa-home-closing__kit-title {
-      font-size: {{ section.settings.kit_heading_size | times: 0.78 | round }}px;
-    }
-
     #shopify-section-{{ section.id }} .brisa-home-closing__card-mid {
       font-size: 15px;
     }
@@ -328,37 +293,33 @@
 -%}
 
 <section class="brisa-home-closing" {{ section.shopify_attributes }}>
-  <header class="brisa-home-closing__kit-header">
-    {% if section.settings.kit_heading != blank %}
-      <h2 class="brisa-home-closing__kit-title">{{ section.settings.kit_heading | escape }}</h2>
+  <div class="brisa-home-closing__kit">
+    <div class="brisa-home-closing__kit-inner">
+    {% if kit_image != blank %}
+      {{
+        kit_image
+        | image_url: width: 1400
+        | image_tag:
+          class: 'brisa-home-closing__kit-image',
+          loading: 'lazy',
+          widths: '600, 900, 1200, 1400',
+          sizes: '(min-width: 750px) 640px, 100vw',
+          alt: section.settings.kit_heading | default: 'The Starter Kit'
+      }}
+    {% else %}
+      <img
+        class="brisa-home-closing__kit-image"
+        src="{{ 'brisa-the-starter-kit.jpg' | asset_url }}"
+        alt="{{ section.settings.kit_heading | default: 'The Starter Kit' | escape }}"
+        width="819"
+        height="1024"
+        loading="lazy"
+      >
     {% endif %}
-    <div class="brisa-home-closing__kit-rule" aria-hidden="true">
-      <span class="brisa-home-closing__kit-mark">B</span>
     </div>
-  </header>
+  </div>
 
-  {% if kit_image != blank %}
-    {{
-      kit_image
-      | image_url: width: 1400
-      | image_tag:
-        class: 'brisa-home-closing__kit-image',
-        loading: 'lazy',
-        widths: '600, 900, 1200, 1400',
-        sizes: '(min-width: 750px) 640px, 100vw',
-        alt: section.settings.kit_heading | default: 'The Starter Kit'
-    }}
-  {% else %}
-    <img
-      class="brisa-home-closing__kit-image"
-      src="{{ 'brisa-the-starter-kit.jpg' | asset_url }}"
-      alt="{{ section.settings.kit_heading | default: 'The Starter Kit' | escape }}"
-      width="819"
-      height="1024"
-      loading="lazy"
-    >
-  {% endif %}
-
+  <div class="brisa-home-closing__body">
   <div class="brisa-home-closing__compare">
     <article class="brisa-home-closing__card brisa-home-closing__card--old">
       {% if old_image != blank %}
@@ -489,6 +450,7 @@
       <span>{{ section.settings.rating | escape }}</span>
     </p>
   {% endif %}
+  </div>
 </section>
 
 {% schema %}
