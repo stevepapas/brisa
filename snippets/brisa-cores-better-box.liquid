@@ -69,6 +69,10 @@
   assign addon_image_asset = section.settings.addon_image_asset | strip
   assign addon_bonus_image = section.settings.addon_bonus_image
   assign addon_bonus_image_asset = section.settings.addon_bonus_image_asset | strip
+  assign addon_bonus_image_file = ''
+  if addon_bonus_image == blank and addon_bonus_image_asset == blank
+    assign addon_bonus_image_file = 'cher-pom.png'
+  endif
 -%}
 
 <div
@@ -119,14 +123,14 @@
           </div>
 
           {% if addon_image != blank %}
-            {{ addon_image | image_url: width: 240 | image_tag: class: 'bcp-purchase__addon-thumb', loading: 'lazy', widths: '96,140,180,240', alt: section.settings.addon_title }}
+            {{ addon_image | image_url: width: 280 | image_tag: class: 'bcp-purchase__addon-thumb', loading: 'lazy', widths: '110,140,180,240,280', alt: section.settings.addon_title }}
           {% elsif addon_image_asset != blank %}
             <img
               class="bcp-purchase__addon-thumb"
               src="{{ addon_image_asset | asset_url }}"
               alt="{{ section.settings.addon_title | escape }}"
-              width="96"
-              height="96"
+              width="110"
+              height="110"
               loading="lazy"
             >
           {% endif %}
@@ -157,6 +161,8 @@
               {{ addon_bonus_image | image_url: width: 96 | image_tag: class: 'bcp-purchase__bonus-media', loading: 'lazy', widths: '48,72,96', alt: '' }}
             {% elsif addon_bonus_image_asset != blank %}
               <img class="bcp-purchase__bonus-media" src="{{ addon_bonus_image_asset | asset_url }}" alt="" width="48" height="48" loading="lazy">
+            {% elsif addon_bonus_image_file != blank %}
+              <img class="bcp-purchase__bonus-media" src="{{ addon_bonus_image_file | file_url }}" alt="" width="48" height="48" loading="lazy">
             {% endif %}
           </div>
         {% endif %}
