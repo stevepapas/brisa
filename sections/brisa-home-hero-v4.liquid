@@ -399,6 +399,48 @@
       max-height: 70px;
     }
   }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__media {
+    top: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__eyebrow {
+    margin: 0 0 5px;
+    padding: 4px 16px;
+    font-size: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__title {
+    margin-bottom: 3px;
+    font-size: clamp(24px, 8vw, 48px);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__text {
+    margin: 0 auto 4px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__offer {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating {
+    gap: 3px;
+    flex-wrap: nowrap;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__stars {
+    gap: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__star {
+    width: 13px;
+    height: 13px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-badge {
+    color: #254b99 !important;
+    background: #38b6ff !important;
+  }
 </style>
 
 <section class="brisa-home-hero" {{ section.shopify_attributes }}>
