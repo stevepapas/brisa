@@ -33,6 +33,8 @@
   align-items: center !important;
   justify-content: center !important;
   width: 100% !important;
+  max-width: 100% !important;
+  margin-inline: auto !important;
   min-height: 56px !important;
   padding: 14px 24px !important;
   box-sizing: border-box !important;
@@ -101,4 +103,37 @@
 shopify-accelerated-checkout,
 shopify-accelerated-checkout-cart {
   --shopify-accelerated-checkout-button-border-radius: 999px;
+}
+
+@media screen and (min-width: 750px) {
+  :is(
+    .button:not(.button--text),
+    .shopify-challenge__button,
+    #shopify-product-reviews .spr-summary-actions-newreview,
+    #shopify-product-reviews .spr-button,
+    .home_button,
+    .brisa-buy-button,
+    .sticky-call-to-action,
+    .habit-replacement__cta-button,
+    .brisa-home-hero__cta,
+    .brisa-home-closing__button,
+    .brisa-new-to-brisa__cta,
+    .brisa-product-area-info__button,
+    .brisa-product-detail__cta,
+    .brisa-cart__checkout-button,
+    .cart__checkout-button,
+    .checkout-button,
+    .product-form__add-button,
+    .product-item__cta,
+    .bkp__atc,
+    .product-slider__button,
+    .blue-layout-3__button,
+    .black-ribbon-blue-box__button,
+    .learn-kit__button,
+    .learn-questions__cta,
+    .brisa-customer-care__submit,
+    .dq-final-cta__btn
+  ) {
+    width: 425px !important;
+  }
 }
