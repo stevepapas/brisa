@@ -140,6 +140,29 @@ shopify-accelerated-checkout-cart {
     .brisa-customer-care__submit,
     .dq-final-cta__btn
   ) {
-    width: 425px !important;
+    /* Cap at container width so CTAs cannot overflow narrow cards/modals. */
+    width: min(425px, 100%) !important;
+  }
+}
+
+/* Newsletter popup: Subscribe must stay inside the white card. */
+.newsletter-modal__content,
+.newsletter-modal__form,
+.newsletter-modal__content .input {
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.newsletter-modal__content .button:not(.button--text) {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media screen and (min-width: 1000px) {
+  .newsletter-modal__image,
+  .newsletter-modal__content {
+    min-width: 560px;
+    max-width: 560px;
   }
 }
