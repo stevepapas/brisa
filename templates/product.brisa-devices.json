@@ -942,7 +942,7 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "3 Cherry Pom - 3 Mint Ice - 3 Raspberry Lime",
+            "text": "6 Cherry Pom - 3 Mint Ice",
             "bonus": false
           }
         },
@@ -982,7 +982,7 @@
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "9 Cherry Pom - 9 Mint Ice - 9 Raspberry Lime",
+            "text": "18 Cherry Pom - 9 Mint Ice",
             "bonus": false
           }
         },
@@ -1022,7 +1022,7 @@
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "6 Cherry Pom - 6 Mint Ice - 6 Raspberry Lime",
+            "text": "12 Cherry Pom - 6 Mint Ice",
             "bonus": false
           }
         },
