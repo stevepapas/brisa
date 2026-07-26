@@ -1,0 +1,103 @@
+/* Universal Brisa CTA treatment.
+   Keep this list explicit so carousel, quantity, swatch, modal and navigation
+   controls retain their purpose-specific styling. */
+:is(
+  .button:not(.button--text),
+  .shopify-challenge__button,
+  #shopify-product-reviews .spr-summary-actions-newreview,
+  #shopify-product-reviews .spr-button,
+  .home_button,
+  .brisa-buy-button,
+  .sticky-call-to-action,
+  .habit-replacement__cta-button,
+  .brisa-home-hero__cta,
+  .brisa-home-closing__button,
+  .brisa-new-to-brisa__cta,
+  .brisa-product-area-info__button,
+  .brisa-product-detail__cta,
+  .brisa-cart__checkout-button,
+  .cart__checkout-button,
+  .checkout-button,
+  .product-form__add-button,
+  .product-item__cta,
+  .bkp__atc,
+  .product-slider__button,
+  .blue-layout-3__button,
+  .black-ribbon-blue-box__button,
+  .learn-kit__button,
+  .learn-questions__cta,
+  .brisa-customer-care__submit,
+  .dq-final-cta__btn
+) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 56px !important;
+  padding: 14px 24px !important;
+  box-sizing: border-box !important;
+  color: #ffffff !important;
+  background: #4eb8ef !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  font-family: var(--text-font-family) !important;
+  font-size: 17px !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+}
+
+:is(
+  .button:not(.button--text),
+  .shopify-challenge__button,
+  #shopify-product-reviews .spr-summary-actions-newreview,
+  #shopify-product-reviews .spr-button,
+  .home_button,
+  .brisa-buy-button,
+  .sticky-call-to-action,
+  .habit-replacement__cta-button,
+  .brisa-home-hero__cta,
+  .brisa-home-closing__button,
+  .brisa-new-to-brisa__cta,
+  .brisa-product-area-info__button,
+  .brisa-product-detail__cta,
+  .brisa-cart__checkout-button,
+  .cart__checkout-button,
+  .checkout-button,
+  .product-form__add-button,
+  .product-item__cta,
+  .bkp__atc,
+  .product-slider__button,
+  .blue-layout-3__button,
+  .black-ribbon-blue-box__button,
+  .learn-kit__button,
+  .learn-questions__cta,
+  .brisa-customer-care__submit,
+  .dq-final-cta__btn
+):hover {
+  color: #ffffff !important;
+  background: #4eb8ef !important;
+  background-image: none !important;
+}
+
+/* The home hero paints its button colour on a pseudo-element. */
+.shopify-section--brisa-home-hero .brisa-home-hero__cta::before,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta::before {
+  background: #4eb8ef !important;
+}
+
+/* Preserve the compact floating CTA layout while sharing its visual style. */
+.brisa-buy-button,
+.sticky-call-to-action {
+  width: auto !important;
+  white-space: nowrap;
+}
+
+shopify-accelerated-checkout,
+shopify-accelerated-checkout-cart {
+  --shopify-accelerated-checkout-button-border-radius: 999px;
+}
