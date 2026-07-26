@@ -141,7 +141,7 @@
 
 .bkp__kits {
   display: grid;
-  gap: 16px;
+  gap: 8px;
   margin-bottom: 22px;
   padding-top: 8px;
 }
