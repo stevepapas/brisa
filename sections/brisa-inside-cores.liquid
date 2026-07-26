@@ -139,7 +139,7 @@
     color: var(--bic-ink);
     font-size: {{ section.settings.card_heading_size }}px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.15;
     letter-spacing: -0.015em;
   }
 
@@ -148,7 +148,7 @@
     color: var(--bic-text);
     font-size: {{ section.settings.card_text_size }}px;
     font-weight: 400;
-    line-height: 1.45;
+    line-height: 1.4;
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dots {
@@ -208,22 +208,21 @@
       --bic-gap: 16px;
     }
 
-    /* Start-aligned near-full-width cards + right peek (matches device-page mobile).
-       Avoid centering + card_max caps that leave a tiny card and a huge side gap. */
+    /* Centered near-full-width cards: equal side gutters, next card peeks right. */
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__carousel {
       --bic-edge: 16px;
       --bic-peek: min(56px, {{ section.settings.card_peek }}px);
       --bic-card-w: calc(100% - var(--bic-edge) - var(--bic-peek));
-      --bic-side: var(--bic-edge);
+      --bic-side: max(var(--bic-edge), calc((100% - var(--bic-card-w)) / 2));
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__track {
-      padding-inline: var(--bic-edge) 0;
-      scroll-padding-inline: var(--bic-edge);
+      padding-inline: var(--bic-side);
+      scroll-padding-inline: var(--bic-side);
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card {
-      scroll-snap-align: start;
+      scroll-snap-align: center;
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__heading {
@@ -237,10 +236,12 @@
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-heading {
       font-size: {{ section.settings.card_heading_size | times: 0.92 | round }}px;
       margin-top: 12px;
+      line-height: 1.05;
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-text {
       font-size: {{ section.settings.card_text_size | times: 0.95 | round }}px;
+      line-height: 1.32;
     }
   }
 </style>
@@ -351,22 +352,14 @@
       });
     }
 
-    function useStartSnap() {
-      return window.matchMedia('(max-width: 749px)').matches;
-    }
-
     function nearestIndex() {
       var trackRect = track.getBoundingClientRect();
-      var styles = window.getComputedStyle(track);
-      var padLeft = parseFloat(styles.paddingLeft) || 0;
-      var target = useStartSnap()
-        ? trackRect.left + padLeft
-        : trackRect.left + trackRect.width / 2;
+      var target = trackRect.left + trackRect.width / 2;
       var best = 0;
       var bestDist = Infinity;
       cards.forEach(function (card, i) {
         var rect = card.getBoundingClientRect();
-        var point = useStartSnap() ? rect.left : rect.left + rect.width / 2;
+        var point = rect.left + rect.width / 2;
         var dist = Math.abs(point - target);
         if (dist < bestDist) {
           bestDist = dist;
@@ -390,11 +383,7 @@
       if (!card) return;
       var trackRect = track.getBoundingClientRect();
       var cardRect = card.getBoundingClientRect();
-      var styles = window.getComputedStyle(track);
-      var padLeft = parseFloat(styles.paddingLeft) || 0;
-      var delta = useStartSnap()
-        ? cardRect.left - trackRect.left - padLeft
-        : cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
+      var delta = cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
       if (Math.abs(delta) < 1) {
         setActive(index);
         return;
@@ -414,7 +403,7 @@
       scrollToIndex(activeIndex, 'auto');
     }, { passive: true });
 
-    // Re-snap after images paint so first card isn't left short on mobile.
+    // Re-center after layout/images so the first card isn't off-center on load.
     var imgs = track.querySelectorAll('img');
     var pending = 0;
     function onReady() {
@@ -433,8 +422,11 @@
       }, { once: true });
     });
     scrollToIndex(0, 'auto');
-    if (pending === 0) {
+    requestAnimationFrame(function () {
       requestAnimationFrame(onReady);
+    });
+    if (pending === 0) {
+      onReady();
     }
   })();
 </script>
