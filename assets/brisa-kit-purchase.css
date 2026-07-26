@@ -46,7 +46,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 10px;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .bkp__stars {
@@ -80,8 +80,8 @@
 .bkp__highlights {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 18px;
-  margin: 0 0 28px;
+  gap: 8px 12px;
+  margin: 0 0 18px;
   padding: 0;
   list-style: none;
 }
@@ -89,16 +89,16 @@
 .bkp__highlight {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.25;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.1;
 }
 
 .bkp__highlight-icon {
   flex: 0 0 auto;
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;

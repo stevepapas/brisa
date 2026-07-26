@@ -99,6 +99,13 @@
   background: #333333 !important;
 }
 
+.shopify-section--brisa-home-hero .brisa-home-hero__cta,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta {
+  min-height: 27px !important;
+  padding: 9px 6px !important;
+  font-size: 15px !important;
+}
+
 /* Preserve the compact floating CTA layout while sharing its visual style. */
 .brisa-buy-button,
 .sticky-call-to-action {
