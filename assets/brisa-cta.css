@@ -29,9 +29,10 @@
   .brisa-customer-care__submit,
   .dq-final-cta__btn
 ) {
-  display: inline-flex !important;
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  width: 100% !important;
   min-height: 56px !important;
   padding: 14px 24px !important;
   box-sizing: border-box !important;
