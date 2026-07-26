@@ -752,7 +752,3 @@
     customElements.define('brisa-kit-purchase', BrisaKitPurchase);
   }
 })();
-')) {
-    customElements.define('brisa-kit-purchase', BrisaKitPurchase);
-  }
-})();
