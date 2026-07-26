@@ -205,10 +205,13 @@
 
 .bkp__kit-main {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .bkp__kit-heading {
-  margin: 0 0 4px;
+  margin: 0;
 }
 
 .bkp__kit-title {
@@ -231,7 +234,7 @@
   flex-direction: row;
   align-items: baseline;
   gap: 4px 6px;
-  margin-bottom: 8px;
+  margin: 0;
   white-space: nowrap;
 }
 
@@ -267,7 +270,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 1px;
+  gap: 0;
 }
 
 .bkp__kit-feature {
@@ -276,7 +279,7 @@
   gap: 6px;
   align-items: start;
   font-size: 12.5px;
-  line-height: 1.2;
+  line-height: 1.15;
   color: #333;
 }
 
@@ -324,7 +327,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 8px;
+  min-width: 0;
 }
 
 .bkp__kit-radio {
@@ -989,23 +993,21 @@
   margin-bottom: 0;
 }
 
-/* Mobile: compact kit cards — radio+thumb side-by-side, price under right cluster */
+/* Mobile: compact kit cards — left shrink-wraps; radio+thumb row, price under */
 @media (max-width: 749px) {
   .bkp__kit {
-    /* Left features + right cluster (radio | thumb) */
     grid-template-columns: minmax(0, 1fr) auto;
-    padding: 10px 5px 10px 6px;
-    gap: 2px 6px;
+    padding: 8px 6px 8px 8px;
+    gap: 2px 4px;
     align-items: start;
   }
 
   .bkp__kit-main {
-    display: contents;
+    gap: 2px;
+    min-width: 0;
   }
 
   .bkp__kit-heading {
-    grid-column: 1;
-    grid-row: 1;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -1022,20 +1024,18 @@
   .bkp__kit-subtitle {
     margin: 0;
     font-size: 10px;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
   .bkp__kit-features {
-    grid-column: 1;
-    grid-row: 2 / 4;
     gap: 0;
   }
 
   .bkp__kit-feature {
     grid-template-columns: 11px 1fr;
     font-size: 10px;
-    line-height: 1.2;
-    gap: 4px;
+    line-height: 1.12;
+    gap: 3px;
   }
 
   .bkp__kit-check {
@@ -1044,29 +1044,48 @@
     font-size: 10px;
   }
 
-  /* Radio + product thumb on one row (neighbors), not stacked */
+  /* Radio + thumb on one row; pricing tight under that cluster */
   .bkp__kit-side {
-    grid-column: 2;
-    grid-row: 1;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    gap: 2px 4px;
+    align-content: start;
+    justify-items: end;
     min-width: 0;
   }
 
-  .bkp__kit-pricing {
+  .bkp__kit-radio {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: center;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .bkp__kit-radio::after {
+    width: 9px;
+    height: 9px;
+  }
+
+  .bkp__kit-thumb {
     grid-column: 2;
+    grid-row: 1;
+    width: 56px;
+    height: 56px;
+  }
+
+  .bkp__kit-pricing {
+    grid-column: 1 / -1;
     grid-row: 2;
-    align-self: start;
     justify-self: stretch;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: baseline;
     gap: 2px 3px;
-    margin: 2px 0 0;
+    margin: 0;
     max-width: none;
     width: 100%;
     min-width: 0;
@@ -1074,34 +1093,18 @@
   }
 
   .bkp__kit-price {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.1;
   }
 
   .bkp__kit-compare {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .bkp__kit-save {
-    font-size: 9px;
-    padding: 1px 5px;
+    font-size: 8px;
+    padding: 1px 4px;
     letter-spacing: 0.01em;
-  }
-
-  .bkp__kit-thumb {
-    width: 64px;
-    height: 64px;
-  }
-
-  .bkp__kit-radio {
-    width: 20px;
-    height: 20px;
-    flex: 0 0 auto;
-  }
-
-  .bkp__kit-radio::after {
-    width: 10px;
-    height: 10px;
   }
 }
 
@@ -1112,9 +1115,45 @@
 
   .bkp__kit {
     padding: 16px 18px;
+    /* heading | radio
+       pricing | thumb
+       features | (thumb continues) */
+    grid-template-rows: auto auto auto;
+  }
+
+  /* Flatten so pricing can sit under heading on the left */
+  .bkp__kit-main,
+  .bkp__kit-side {
+    display: contents;
+  }
+
+  .bkp__kit-heading {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .bkp__kit-pricing {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0 0 4px;
+  }
+
+  .bkp__kit-features {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .bkp__kit-radio {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
   }
 
   .bkp__kit-thumb {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    justify-self: end;
+    align-self: start;
     width: 136px;
     height: 136px;
     border-radius: 0;

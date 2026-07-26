@@ -365,18 +365,6 @@
               {% endif %}
             </div>
 
-            <div class="bkp__kit-pricing">
-              {% if kit_price != blank %}
-                <span class="bkp__kit-price">{{ kit_price | escape }}</span>
-              {% endif %}
-              {% if kit_compare != blank %}
-                <span class="bkp__kit-compare">{{ kit_compare | escape }}</span>
-              {% endif %}
-              {% if kit_save != blank %}
-                <span class="bkp__kit-save">{{ kit_save | escape }}</span>
-              {% endif %}
-            </div>
-
             <ul class="bkp__kit-features">
               {% for block in section.blocks %}
                 {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
@@ -404,6 +392,17 @@
                 decoding="async"
               >
             {% endif %}
+            <div class="bkp__kit-pricing">
+              {% if kit_price != blank %}
+                <span class="bkp__kit-price">{{ kit_price | escape }}</span>
+              {% endif %}
+              {% if kit_compare != blank %}
+                <span class="bkp__kit-compare">{{ kit_compare | escape }}</span>
+              {% endif %}
+              {% if kit_save != blank %}
+                <span class="bkp__kit-save">{{ kit_save | escape }}</span>
+              {% endif %}
+            </div>
           </div>
         </label>
       {% endfor %}
