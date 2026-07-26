@@ -208,21 +208,25 @@
       --bic-gap: 16px;
     }
 
-    /* Centered near-full-width cards: equal side gutters, next card peeks right. */
+    /* Left-anchored cards: fixed left inset, 15% wider than prior centered width,
+       next card peeks on the right (width grows rightward only). */
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__carousel {
       --bic-edge: 16px;
       --bic-peek: min(56px, {{ section.settings.card_peek }}px);
-      --bic-card-w: calc(100% - var(--bic-edge) - var(--bic-peek));
-      --bic-side: max(var(--bic-edge), calc((100% - var(--bic-card-w)) / 2));
+      --bic-card-base: calc(100% - var(--bic-edge) - var(--bic-peek));
+      --bic-card-w: calc(var(--bic-card-base) * 1.15);
+      /* Keep the old centered left edge; do not expand equally both ways. */
+      --bic-side: max(var(--bic-edge), calc((var(--bic-edge) + var(--bic-peek)) / 2));
+      --bic-side-end: max(var(--bic-edge), calc(100% - var(--bic-side) - var(--bic-card-w)));
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__track {
-      padding-inline: var(--bic-side);
-      scroll-padding-inline: var(--bic-side);
+      padding-inline: var(--bic-side) var(--bic-side-end);
+      scroll-padding-inline: var(--bic-side) 0;
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card {
-      scroll-snap-align: center;
+      scroll-snap-align: start;
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__heading {
@@ -240,8 +244,8 @@
     }
 
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-text {
-      font-size: {{ section.settings.card_text_size | times: 0.95 | round }}px;
-      line-height: 1.32;
+      font-size: 12px;
+      line-height: 1.2;
     }
   }
 </style>
@@ -337,6 +341,17 @@
     var cards = Array.prototype.slice.call(track.querySelectorAll('.brisa-inside-cores__card'));
     var activeIndex = 0;
     var ticking = false;
+    var mobileMq = window.matchMedia('(max-width: 749px)');
+
+    function isStartAlign() {
+      return mobileMq.matches;
+    }
+
+    function startPad() {
+      var styles = window.getComputedStyle(track);
+      var raw = styles.scrollPaddingInlineStart || styles.scrollPaddingLeft || styles.paddingInlineStart || styles.paddingLeft || '0';
+      return parseFloat(raw) || 0;
+    }
 
     function setActive(index) {
       if (index < 0 || index >= cards.length) return;
@@ -354,12 +369,17 @@
 
     function nearestIndex() {
       var trackRect = track.getBoundingClientRect();
-      var target = trackRect.left + trackRect.width / 2;
+      var target;
+      if (isStartAlign()) {
+        target = trackRect.left + startPad();
+      } else {
+        target = trackRect.left + trackRect.width / 2;
+      }
       var best = 0;
       var bestDist = Infinity;
       cards.forEach(function (card, i) {
         var rect = card.getBoundingClientRect();
-        var point = rect.left + rect.width / 2;
+        var point = isStartAlign() ? rect.left : rect.left + rect.width / 2;
         var dist = Math.abs(point - target);
         if (dist < bestDist) {
           bestDist = dist;
@@ -383,7 +403,13 @@
       if (!card) return;
       var trackRect = track.getBoundingClientRect();
       var cardRect = card.getBoundingClientRect();
-      var delta = cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
+      var delta;
+      if (isStartAlign()) {
+        // Align card start to the fixed left inset (not center midpoint).
+        delta = cardRect.left - trackRect.left - startPad();
+      } else {
+        delta = cardRect.left - trackRect.left - (trackRect.width - cardRect.width) / 2;
+      }
       if (Math.abs(delta) < 1) {
         setActive(index);
         return;
@@ -403,7 +429,7 @@
       scrollToIndex(activeIndex, 'auto');
     }, { passive: true });
 
-    // Re-center after layout/images so the first card isn't off-center on load.
+    // Re-align after layout/images so the first card sits on the start inset.
     var imgs = track.querySelectorAll('img');
     var pending = 0;
     function onReady() {
