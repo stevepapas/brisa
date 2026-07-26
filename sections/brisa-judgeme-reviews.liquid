@@ -329,6 +329,96 @@
     box-sizing: border-box;
   }
 
+  /*
+    Submitted state: Judge.me inserts .jdgm-notification before .jdgm-form-wrapper.
+    With 2 form wrappers it clones the notice; without width:100% it sits beside stars/filter.
+  */
+  #shopify-section-{{ section.id }} .jdgm-notification {
+    order: 0;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    margin: 0 0 16px !important;
+    padding: 8px 4px 4px !important;
+    border: 0 !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    text-align: center;
+    color: var(--brisa-jdgm-text);
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-notification + .jdgm-notification,
+  #shopify-section-{{ section.id }} .jdgm-notification ~ .jdgm-notification {
+    display: none !important;
+  }
+
+  /* Settings success HTML sometimes already includes a full notice — drop the outer title */
+  #shopify-section-{{ section.id }} .jdgm-notification__inner > .jdgm-notification__title:has(+ .jdgm-notification),
+  #shopify-section-{{ section.id }} .jdgm-notification__inner > .jdgm-notification__title:has(+ *:is(div, section) .jdgm-notification__title) {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-notification .jdgm-notification {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-notification__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-notification__title {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    color: var(--brisa-jdgm-text) !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-notification p,
+  #shopify-section-{{ section.id }} .jdgm-notification__inner p {
+    margin: 0 !important;
+    max-width: 28em;
+    color: var(--brisa-jdgm-muted) !important;
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-notification hr,
+  #shopify-section-{{ section.id }} .jdgm-notification .jdgm-rev__br {
+    display: none !important;
+  }
+
+  /* Hide header chrome + leftover forms while the success notice is showing */
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .jdgm-row-stars,
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .jdgm-rev-widg__summary,
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .brisa-jdgm-summary-trigger,
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .brisa-jdgm-filter,
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .jdgm-histogram,
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .jdgm-rev-widg__sort-wrapper,
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .jdgm-form-wrapper {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }}:has(.jdgm-notification) .jdgm-write-rev-link:not(.brisa-jdgm-write-dup) {
+    order: 5;
+    margin-top: 8px !important;
+    margin-bottom: 18px !important;
+  }
+
   /* —— Scrollable review feed (page-like continuous list) —— */
   #shopify-section-{{ section.id }} .jdgm-rev-widg__body {
     margin: 0 !important;
@@ -890,7 +980,8 @@
 
     function ensureInlineReviewForm() {
       ensureRowStars();
-      if (root.querySelector('.jdgm-form-wrapper')) return root.querySelector('.jdgm-form-wrapper');
+      var existing = dedupeFormWrappers();
+      if (existing) return existing;
       if (!window.jdgm || !jdgm.$) return null;
 
       var row = root.querySelector('.jdgm-row-stars');
@@ -912,7 +1003,59 @@
       } else {
         return null;
       }
-      return root.querySelector('.jdgm-form-wrapper');
+      return dedupeFormWrappers();
+    }
+
+    // Judge.me clones .jdgm-notification before EVERY .jdgm-form-wrapper — keep a single form.
+    function dedupeFormWrappers() {
+      var forms = Array.prototype.slice.call(root.querySelectorAll('.jdgm-form-wrapper'));
+      if (!forms.length) return null;
+      var keeper =
+        forms.find(function (el) {
+          return isShown(el);
+        }) || forms[0];
+      forms.forEach(function (el) {
+        if (el !== keeper) el.remove();
+      });
+      // Also strip leftover horizontal rules Judge.me prefixes on some templates.
+      root.querySelectorAll('.jdgm-rev-widg__header > .jdgm-rev__br, .jdgm-row-stars + .jdgm-rev__br').forEach(function (el) {
+        el.remove();
+      });
+      return keeper;
+    }
+
+    function normalizeSubmittedState() {
+      var notes = Array.prototype.slice.call(root.querySelectorAll('.jdgm-notification'));
+      if (!notes.length) return false;
+
+      // Keep the outermost notice only (Judge.me clones one per form-wrapper).
+      var topLevel = notes.filter(function (el) {
+        return !el.parentElement || !el.parentElement.closest('.jdgm-notification');
+      });
+      topLevel.forEach(function (el, index) {
+        if (index > 0) el.remove();
+      });
+
+      var keeper = root.querySelector('.jdgm-notification');
+      if (!keeper) return false;
+
+      // Flatten nested notice from settings HTML that already includes title + body.
+      var nested = keeper.querySelector('.jdgm-notification');
+      if (nested) {
+        var outerTitle = keeper.querySelector(':scope > .jdgm-notification__inner > .jdgm-notification__title');
+        if (outerTitle) outerTitle.remove();
+      } else {
+        var titles = keeper.querySelectorAll('.jdgm-notification__title');
+        if (titles.length > 1) {
+          titles[0].remove();
+        }
+      }
+
+      root.querySelectorAll('.jdgm-form-wrapper').forEach(function (el) {
+        el.style.setProperty('display', 'none', 'important');
+        el.setAttribute('hidden', '');
+      });
+      return true;
     }
 
     function openInlineReviewForm() {
@@ -965,6 +1108,7 @@
       try {
         jdgm._renderAndSetupReviewForm($widget);
         didRebindWriteHandlers = true;
+        dedupeFormWrappers();
       } catch (err) {
         /* Judge.me optional */
       }
@@ -975,6 +1119,8 @@
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
 
       ensureRowStars();
+      dedupeFormWrappers();
+      normalizeSubmittedState();
       syncProductImageAttrs();
 
       var header = root.querySelector('.jdgm-rev-widg__header');
@@ -1151,6 +1297,8 @@
         if (syncing) return;
         syncing = true;
         try {
+          dedupeFormWrappers();
+          normalizeSubmittedState();
           formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
           reorderCards();
           hydrateReviewImages();
@@ -1160,14 +1308,19 @@
         }
       });
       observer.observe(root, { childList: true, subtree: true });
-      // Modal mounts on body — patch thumb when Judge.me inserts the write-review modal.
+      // Modal mounts on body — patch thumb when Judge.me inserts/fills the write-review modal.
       var modalSyncTimer = null;
       var bodyObserver = new MutationObserver(function () {
-        if (!document.querySelector('.jdgm-write-review-modal__product-image img')) return;
+        var img = document.querySelector('.jdgm-write-review-modal__product-image img');
+        if (root.querySelector('.jdgm-notification')) {
+          dedupeFormWrappers();
+          normalizeSubmittedState();
+        }
+        if (!img || img.getAttribute('src') === PRODUCT_IMAGE_URL) return;
         if (modalSyncTimer) clearTimeout(modalSyncTimer);
         modalSyncTimer = setTimeout(syncProductImageAttrs, 50);
       });
-      bodyObserver.observe(document.body, { childList: true });
+      bodyObserver.observe(document.body, { childList: true, subtree: true });
     }
   })();
 </script>
