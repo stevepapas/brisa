@@ -4,8 +4,8 @@
 :is(
   .button:not(.button--text),
   .shopify-challenge__button,
-  #shopify-product-reviews .spr-summary-actions-newreview,
-  #shopify-product-reviews .spr-button,
+  :where(#shopify-product-reviews) .spr-summary-actions-newreview,
+  :where(#shopify-product-reviews) .spr-button,
   .home_button,
   .brisa-buy-button,
   .sticky-call-to-action,
@@ -57,8 +57,8 @@
 :is(
   .button:not(.button--text),
   .shopify-challenge__button,
-  #shopify-product-reviews .spr-summary-actions-newreview,
-  #shopify-product-reviews .spr-button,
+  :where(#shopify-product-reviews) .spr-summary-actions-newreview,
+  :where(#shopify-product-reviews) .spr-button,
   .home_button,
   .brisa-buy-button,
   .sticky-call-to-action,
@@ -101,7 +101,7 @@
 
 .shopify-section--brisa-home-hero .brisa-home-hero__cta,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta {
-  padding: 9px 6px !important;
+  padding: 9px 3px !important;
   font-size: 15px !important;
 }
 
@@ -126,8 +126,8 @@ shopify-accelerated-checkout-cart {
   :is(
     .button:not(.button--text),
     .shopify-challenge__button,
-    #shopify-product-reviews .spr-summary-actions-newreview,
-    #shopify-product-reviews .spr-button,
+    :where(#shopify-product-reviews) .spr-summary-actions-newreview,
+    :where(#shopify-product-reviews) .spr-button,
     .home_button,
     .brisa-buy-button,
     .sticky-call-to-action,
