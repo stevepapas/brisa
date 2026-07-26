@@ -274,53 +274,15 @@
 }
 
 .bkp__kit-feature {
-  display: grid;
-  grid-template-columns: 14px 1fr;
-  gap: 6px;
-  align-items: start;
+  display: block;
   font-size: 12.5px;
   line-height: 1.15;
   color: #333;
 }
 
-.bkp__kit-check {
-  width: 14px;
-  height: 14px;
-  margin-top: 0;
-  border-radius: 0;
-  background: transparent;
-  position: relative;
-  flex: 0 0 auto;
-  color: #1f9d55;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.bkp__kit-check::after {
-  content: '✓';
-  position: static;
-  width: auto;
-  height: auto;
-  border: 0;
-  transform: none;
-  color: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: 1;
-}
-
 .bkp__kit-feature--bonus {
   color: #1f9d55;
   font-weight: 700;
-}
-
-.bkp__kit-feature--bonus .bkp__kit-check {
-  background: transparent;
-  color: #1f9d55;
 }
 
 .bkp__kit-side {
@@ -1032,16 +994,8 @@
   }
 
   .bkp__kit-feature {
-    grid-template-columns: 11px 1fr;
     font-size: 10px;
     line-height: 1.12;
-    gap: 3px;
-  }
-
-  .bkp__kit-check {
-    width: 11px;
-    height: 11px;
-    font-size: 10px;
   }
 
   /* Thumb left, radio right on one row; pricing tight under that cluster */

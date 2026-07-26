@@ -369,7 +369,6 @@
               {% for block in section.blocks %}
                 {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
                   <li class="bkp__kit-feature{% if block.settings.bonus %} bkp__kit-feature--bonus{% endif %}" {{ block.shopify_attributes }}>
-                    <span class="bkp__kit-check" aria-hidden="true"></span>
                     <span>{{ block.settings.text | escape }}</span>
                   </li>
                 {% endif %}
