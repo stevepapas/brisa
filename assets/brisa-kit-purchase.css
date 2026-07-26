@@ -924,6 +924,108 @@
   margin-bottom: 0;
 }
 
+/* Mobile: compact kit cards — price under thumb, denser vertical rhythm */
+@media (max-width: 749px) {
+  .bkp__kit {
+    padding: 10px 10px 10px 12px;
+    gap: 2px 8px;
+    align-items: start;
+  }
+
+  .bkp__kit-main {
+    display: contents;
+  }
+
+  .bkp__kit-heading {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 6px;
+    margin: 0;
+    min-width: 0;
+  }
+
+  .bkp__kit-title {
+    font-size: 16px;
+    line-height: 1.15;
+  }
+
+  .bkp__kit-subtitle {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .bkp__kit-features {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    gap: 0;
+  }
+
+  .bkp__kit-feature {
+    font-size: 12px;
+    line-height: 1.15;
+    gap: 5px;
+  }
+
+  .bkp__kit-check {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+  }
+
+  .bkp__kit-side {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    gap: 4px;
+  }
+
+  .bkp__kit-pricing {
+    grid-column: 2;
+    grid-row: 3;
+    align-self: start;
+    justify-self: end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: 2px 4px;
+    margin: 2px 0 0;
+    max-width: 112px;
+  }
+
+  .bkp__kit-price {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .bkp__kit-compare {
+    font-size: 12px;
+  }
+
+  .bkp__kit-save {
+    font-size: 10px;
+    padding: 1px 6px;
+  }
+
+  .bkp__kit-thumb {
+    width: 96px;
+    height: 96px;
+  }
+
+  .bkp__kit-radio {
+    width: 20px;
+    height: 20px;
+  }
+
+  .bkp__kit-radio::after {
+    width: 10px;
+    height: 10px;
+  }
+}
+
 @media (min-width: 750px) {
   .bkp__inner {
     max-width: 640px;
