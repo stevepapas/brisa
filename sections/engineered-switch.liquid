@@ -123,8 +123,16 @@
     }
 
     .engineered-switch-{{ ai_gen_id }} .engineered-switch__list {
-      grid-template-columns: 1fr;
-      gap: {{ section.settings.item_gap | times: 0.85 | round }}px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: {{ section.settings.item_gap | times: 0.75 | round }}px {{ section.settings.item_gap | times: 0.5 | round }}px;
+    }
+
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__item-title {
+      font-size: {{ section.settings.item_title_size | times: 0.85 | round }}px;
+    }
+
+    .engineered-switch-{{ ai_gen_id }} .engineered-switch__item-text {
+      font-size: {{ section.settings.item_text_size | times: 0.9 | round }}px;
     }
 
     .engineered-switch-{{ ai_gen_id }} .engineered-switch__item {
