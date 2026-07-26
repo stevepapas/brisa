@@ -4,6 +4,22 @@ html {
   scroll-behavior: smooth;
 }
 
+@media screen and (max-width: 749px) {
+  .what-is-brisa {
+    padding: 0 !important;
+  }
+
+  .what-is-brisa__heading {
+    margin-bottom: 0 !important;
+    font-size: calc(var(--heading-h2-font-size) * 0.8) !important;
+  }
+
+  .what-is-brisa__text {
+    font-size: 0.8rem !important;
+    line-height: 1.1 !important;
+  }
+}
+
 #choose-device-colour {
   scroll-margin-top: calc(
     var(--header-height, 0px) * var(--enable-sticky-header, 0)
