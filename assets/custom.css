@@ -3960,4 +3960,28 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
     margin-left: auto;
     margin-right: auto;
   }
+
+  /* Real Results video row — match blue-layout-2 / 800px content width */
+  .shopify-section--brisa-testimonials-product-page .brisa-real-results {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .shopify-section--brisa-testimonials-product-page .brisa-real-results__video-grid {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .shopify-section--brisa-product-reviews .brisa-product-testimonials__video-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .shopify-section--brisa-testimonials-product-page .brisa-real-results__video-thumb,
+  .shopify-section--brisa-product-reviews .brisa-product-testimonials__video-thumb {
+    width: 100%;
+    max-width: none;
+  }
 }
