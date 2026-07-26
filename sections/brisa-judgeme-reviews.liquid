@@ -218,9 +218,17 @@
     display: block;
   }
 
+  /* Keep a real box so an inserted review form is not dropped from layout */
   #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper,
   #shopify-section-{{ section.id }} .jdgm-row-actions {
-    display: contents !important;
+    display: flex !important;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    order: 4;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev-widg__sort-wrapper {
@@ -277,7 +285,7 @@
     background: #f7f7f7 !important;
   }
 
-  /* Inline write-review form (fallback when modal is off / still loading) */
+  /* Inline write-review form (Judge.me inserts after .jdgm-row-stars; also modal fallback) */
   #shopify-section-{{ section.id }} .jdgm-form-wrapper {
     order: 6;
     flex: 1 1 100%;
@@ -285,12 +293,31 @@
     max-width: 100%;
     box-sizing: border-box;
     margin: 8px 0 16px !important;
+    clear: both;
   }
 
   #shopify-section-{{ section.id }} .jdgm-form,
   #shopify-section-{{ section.id }} .jdgm-form-wrapper .jdgm-form {
+    display: block;
     width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
+    padding: 16px;
+    border: 1px solid var(--brisa-jdgm-border-soft);
+    border-radius: 8px;
+    background: var(--brisa-jdgm-card-bg);
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-form__fieldset,
+  #shopify-section-{{ section.id }} .jdgm-form__name-fieldset,
+  #shopify-section-{{ section.id }} .jdgm-form__email-fieldset,
+  #shopify-section-{{ section.id }} .jdgm-form__title-fieldset,
+  #shopify-section-{{ section.id }} .jdgm-form textarea,
+  #shopify-section-{{ section.id }} .jdgm-form input[type='text'],
+  #shopify-section-{{ section.id }} .jdgm-form input[type='email'] {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   /* —— Scrollable review feed (page-like continuous list) —— */
@@ -622,10 +649,23 @@
 {% comment %} Modal mounts on body — keep it above theme sticky chrome {% endcomment %}
 <style>
   .jdgm-write-review-modal,
-  .jdgm-review-widget-modal,
+  .jdgm-review-widget-modal.jdgm-write-review-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 100000 !important;
+  }
+
   .jdgm-write-review-modal__overlay,
   .jdgm-form-dynamic-wrapper {
     z-index: 100000 !important;
+  }
+
+  .jdgm-write-review-modal__container,
+  .jdgm-write-review-modal__content {
+    position: relative;
+    z-index: 100001;
   }
 </style>
 
@@ -747,8 +787,9 @@
       if (!window.jdgm || typeof jdgm.loadScript !== 'function') return;
       var host = jdgm.CDN_HOST || 'https://cdnwidget.judge.me/';
       try {
-        jdgm.loadScript(host + 'widget/form.js');
+        // Modal class must exist before form.js wires the write-review click path.
         jdgm.loadScript(host + 'widget/write_review_modal.js');
+        jdgm.loadScript(host + 'widget/form.js');
         if (typeof jdgm.loadCSS === 'function' && typeof jdgm.widgetPath === 'function') {
           jdgm.loadCSS(jdgm.widgetPath('form.css'));
         }
@@ -765,9 +806,125 @@
       }
     }
 
+    function isShown(el) {
+      if (!el) return false;
+      var style = window.getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) {
+        return false;
+      }
+      var rect = el.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    }
+
+    // Judge.me v3 inserts the inline form with: $(widget).find('.jdgm-row-stars').after(form)
+    // Revamp/minimal headers omit that node — without it openForm only flips the button label.
+    function ensureRowStars() {
+      var header = root.querySelector('.jdgm-rev-widg__header');
+      var summary = root.querySelector('.jdgm-rev-widg__summary');
+      if (!header || !summary) return null;
+      var existing = header.querySelector(':scope > .jdgm-row-stars') || root.querySelector('.jdgm-row-stars');
+      if (existing) {
+        if (!existing.contains(summary)) existing.appendChild(summary);
+        return existing;
+      }
+      var row = document.createElement('div');
+      row.className = 'jdgm-row-stars';
+      summary.parentNode.insertBefore(row, summary);
+      row.appendChild(summary);
+      return row;
+    }
+
+    function getReviewWidgetEl() {
+      return root.querySelector('.jdgm-review-widget') || root.querySelector('.jdgm-rev-widg, .jdgm-widget');
+    }
+
+    function ensureInlineReviewForm() {
+      ensureRowStars();
+      if (root.querySelector('.jdgm-form-wrapper')) return root.querySelector('.jdgm-form-wrapper');
+      if (!window.jdgm || !jdgm.$) return null;
+
+      var row = root.querySelector('.jdgm-row-stars');
+      var header = root.querySelector('.jdgm-rev-widg__header');
+      var html = null;
+      try {
+        if (jdgm.templates && typeof jdgm.templates.reviewForm === 'function') {
+          html = jdgm.templates.reviewForm();
+        }
+      } catch (err) {
+        html = null;
+      }
+      if (!html) return null;
+
+      if (row) {
+        jdgm.$(row).after(html);
+      } else if (header) {
+        jdgm.$(header).append(html);
+      } else {
+        return null;
+      }
+      return root.querySelector('.jdgm-form-wrapper');
+    }
+
+    function openInlineReviewForm() {
+      if (!window.jdgm || typeof jdgm.openForm !== 'function' || !window.jdgm.$) return false;
+      var form = ensureInlineReviewForm();
+      if (!form) return false;
+      var widgetEl = getReviewWidgetEl();
+      if (!widgetEl) return false;
+      try {
+        jdgm.openForm(jdgm.$(widgetEl));
+        return isShown(form) || form.style.display !== 'none';
+      } catch (err) {
+        return false;
+      }
+    }
+
+    function tryOpenJudgemeModal() {
+      var modal = document.querySelector('.jdgm-write-review-modal');
+      if (!modal || !modal.querySelector('.jdgm-write-review-modal__container')) return false;
+      if (isShown(modal)) return true;
+      if (!window.jdgm || !jdgm.$) {
+        modal.style.display = 'block';
+        return isShown(modal);
+      }
+      try {
+        jdgm.$(modal).stop(true, true).fadeIn(200);
+        jdgm.$(modal).trigger('jdgm.modal.opened');
+        return true;
+      } catch (err) {
+        modal.style.display = 'block';
+        return isShown(modal);
+      }
+    }
+
+    var didRebindWriteHandlers = false;
+
+    function rebindJudgemeWriteHandlers() {
+      if (didRebindWriteHandlers) return;
+      if (!window.jdgm || !jdgm.$ || typeof jdgm._renderAndSetupReviewForm !== 'function') return;
+      if (!jdgm._WriteReviewModal) return;
+      var $widget = jdgm.$(root).find('.jdgm-review-widget').first();
+      if (!$widget.length) $widget = jdgm.$(root).find('.jdgm-rev-widg').first();
+      if (!$widget.length) return;
+
+      // Orphan hidden modals block Judge.me re-setup (early return when modal selector matches).
+      document.querySelectorAll('body > .jdgm-write-review-modal').forEach(function (el) {
+        if (!isShown(el)) el.remove();
+      });
+
+      try {
+        jdgm._renderAndSetupReviewForm($widget);
+        didRebindWriteHandlers = true;
+      } catch (err) {
+        /* Judge.me optional */
+      }
+    }
+
     function enhance() {
       var widget = root.querySelector('.jdgm-rev-widg, .jdgm-widget');
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
+
+      ensureRowStars();
 
       var header = root.querySelector('.jdgm-rev-widg__header');
       var summary = root.querySelector('.jdgm-rev-widg__summary');
@@ -848,54 +1005,42 @@
       if (writeLink) {
         writeLink.style.setProperty('display', 'flex', 'important');
         writeLink.removeAttribute('hidden');
-        disarmHashHref(writeLink);
+        // Keep href="#" until click — Judge.me may read it; we preventDefault on click instead.
         if (header && writeLink.parentElement !== header) {
           header.appendChild(writeLink);
         }
       }
 
+      rebindJudgemeWriteHandlers();
       reorderCards();
       hydrateReviewImages();
       return true;
     }
 
-    // Judge.me modal flow uses href="#" and often skips preventDefault — stop the jump to page top.
+    // Stop href="#" jump only. Let Judge.me run its own handler; recover if UI stays hidden.
     root.addEventListener(
       'click',
       function (event) {
         var link = event.target.closest('a.jdgm-write-rev-link, a.jdgm-ask-question-btn');
         if (!link || !root.contains(link)) return;
-        event.preventDefault();
-        disarmHashHref(link);
+
+        var href = link.getAttribute('href');
+        if (!href || href === '#' || href === '#/' || href === '#!' || href.indexOf('javascript:') === 0) {
+          event.preventDefault();
+        }
         ensureJudgemeFormAssets();
+        ensureRowStars();
 
-        // If Judge.me handlers didn't open UI (script race), open inline form as fallback.
         window.setTimeout(function () {
-          function isShown(el) {
-            if (!el) return false;
-            var style = window.getComputedStyle(el);
-            if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') return false;
-            var rect = el.getBoundingClientRect();
-            return rect.width > 0 && rect.height > 0;
-          }
+          if (isShown(document.querySelector('.jdgm-write-review-modal'))) return;
+          if (isShown(root.querySelector('.jdgm-form-wrapper'))) return;
 
-          var modal = document.querySelector(
-            '.jdgm-write-review-modal, .jdgm-review-widget-modal, .jdgm-form-dynamic-wrapper, [class*="jdgm-write-review-modal"]'
-          );
-          var form = root.querySelector('.jdgm-form-wrapper');
-          if (isShown(modal) || isShown(form)) return;
-          if (!window.jdgm || typeof jdgm.openForm !== 'function' || !window.jdgm.$) return;
+          // Prefer Judge.me popup when its modal DOM is already mounted.
+          if (tryOpenJudgemeModal()) return;
 
-          var $widget = jdgm.$(root).find('.jdgm-review-widget').first();
-          if (!$widget.length) $widget = jdgm.$(root).find('.jdgm-rev-widg').first();
-          if ($widget.length) {
-            try {
-              jdgm.openForm($widget);
-            } catch (err) {
-              /* ignore */
-            }
-          }
-        }, 400);
+          // Otherwise show the inline form (create insert target + form first so Cancel isn't empty).
+          openInlineReviewForm();
+        }, 350);
       },
       true
     );
@@ -919,6 +1064,9 @@
       enhance();
       reorderCards();
       hydrateReviewImages();
+    });
+    document.addEventListener('jdgm.doneSetupReviewForm', function () {
+      ensureRowStars();
     });
 
     if (window.MutationObserver) {
