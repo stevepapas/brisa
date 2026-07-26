@@ -42,6 +42,11 @@
     --section-autoplay-duration: {% if section.settings.autoplay %}{{ section.settings.cycle_speed }}s{% else %}0s{% endif %};
     --section-animation-play-state: paused;
     --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size }}px;
+    /* Cap radius so small mobile thumbs stay rounded squares (not near-circles). */
+    --slideshow-brisa-thumb-radius: min(
+      {{ section.settings.thumbnail_radius | default: 15 }}px,
+      calc(var(--slideshow-brisa-thumb-size) * 0.25)
+    );
     --slideshow-brisa-frame-ratio: 100 / {{ frame_height_percent }};
     background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
   }
@@ -214,23 +219,25 @@
     z-index: 1;
   }
 
+  /* Rounded squares — never circles (no 50% / clip-path circle). */
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb {
     position: relative;
     display: block;
     flex: 0 0 var(--slideshow-brisa-thumb-size);
+    flex-shrink: 0;
     scroll-snap-align: center;
-    width: var(--slideshow-brisa-thumb-size);
-    min-width: var(--slideshow-brisa-thumb-size);
-    max-width: var(--slideshow-brisa-thumb-size);
-    height: var(--slideshow-brisa-thumb-size);
-    min-height: var(--slideshow-brisa-thumb-size);
-    max-height: var(--slideshow-brisa-thumb-size);
-    aspect-ratio: 1 / 1;
+    width: var(--slideshow-brisa-thumb-size) !important;
+    min-width: var(--slideshow-brisa-thumb-size) !important;
+    max-width: var(--slideshow-brisa-thumb-size) !important;
+    height: var(--slideshow-brisa-thumb-size) !important;
+    min-height: var(--slideshow-brisa-thumb-size) !important;
+    max-height: var(--slideshow-brisa-thumb-size) !important;
+    aspect-ratio: 1 / 1 !important;
     margin: 0;
     padding: 0;
     overflow: hidden;
     border: 2px solid #e0e0e0;
-    border-radius: {{ section.settings.thumbnail_radius | default: 15 }}px !important;
+    border-radius: var(--slideshow-brisa-thumb-radius) !important;
     background-color: #ececec;
     cursor: pointer;
     box-sizing: border-box;
@@ -238,7 +245,8 @@
     -webkit-appearance: none;
     appearance: none;
     line-height: 0;
-    clip-path: none;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb[aria-current="true"] {
@@ -249,12 +257,13 @@
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb img,
   #shopify-section-{{ section.id }} .slideshow-brisa__thumb-image {
     display: block;
-    width: 100%;
-    height: 100%;
-    max-width: none;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
     object-fit: cover;
     object-position: center;
-    border-radius: {{ section.settings.thumbnail_radius | default: 15 }}px;
+    border-radius: var(--slideshow-brisa-thumb-radius) !important;
     pointer-events: none;
   }
 
