@@ -805,10 +805,45 @@
     },
     "brisa_product_reviews_zMjLwQ": {
       "type": "brisa-product-reviews",
+      "blocks": {
+        "video_review_NxjJdN": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-2.png",
+            "video": "shopify://files/videos/test2.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_GewtFM": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-3.png",
+            "video": "shopify://files/videos/test3.MOV",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        },
+        "video_review_mNzzaA": {
+          "type": "video_review",
+          "settings": {
+            "thumbnail": "shopify://shop_images/test-1.png",
+            "video": "shopify://files/videos/test-1.mov",
+            "video_url": "",
+            "label": "customer video review"
+          }
+        }
+      },
+      "block_order": [
+        "video_review_NxjJdN",
+        "video_review_GewtFM",
+        "video_review_mNzzaA"
+      ],
       "name": "Brisa product reviews",
       "settings": {
         "heading": "Real Aussies. Real Reviews.",
         "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_text_testimonials": false,
         "show_arrows": true,
         "show_dots": false,
         "autoplay": false,
