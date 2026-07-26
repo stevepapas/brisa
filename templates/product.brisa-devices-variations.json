@@ -176,7 +176,6 @@
           "settings": {
             "kit": "try",
             "text": "1 x Brisa device - 1 time purchase ( completely reusable )",
-            "composition": false,
             "bonus": false
           }
         },
@@ -185,7 +184,6 @@
           "settings": {
             "kit": "try",
             "text": "9 cores - Nearly a Months worth!",
-            "composition": false,
             "bonus": false
           }
         },
@@ -194,7 +192,7 @@
           "settings": {
             "kit": "try",
             "text": "6 Cherry Pom - 3 Mint Ice",
-            "composition": false,
+            "composition": true,
             "bonus": false
           }
         },
@@ -203,7 +201,6 @@
           "settings": {
             "kit": "try",
             "text": "Cleaning kit + carry bag",
-            "composition": false,
             "bonus": false
           }
         },
@@ -212,7 +209,6 @@
           "settings": {
             "kit": "try",
             "text": "FREE 3 x Watermelon cores (worth $15)",
-            "composition": false,
             "bonus": true
           }
         },
@@ -221,7 +217,6 @@
           "settings": {
             "kit": "commitment",
             "text": "1 x Brisa device - 1 time purchase ( completely reusable )",
-            "composition": false,
             "bonus": false
           }
         },
@@ -230,7 +225,6 @@
           "settings": {
             "kit": "commitment",
             "text": "27 cores - Roughly 10 weeks worth!",
-            "composition": false,
             "bonus": false
           }
         },
@@ -239,7 +233,7 @@
           "settings": {
             "kit": "commitment",
             "text": "18 Cherry Pom - 9 Mint Ice",
-            "composition": false,
+            "composition": true,
             "bonus": false
           }
         },
@@ -248,7 +242,6 @@
           "settings": {
             "kit": "commitment",
             "text": "Cleaning kit + carry bag",
-            "composition": false,
             "bonus": false
           }
         },
@@ -257,7 +250,6 @@
           "settings": {
             "kit": "commitment",
             "text": "FREE 3 x Watermelon cores (worth $15)",
-            "composition": false,
             "bonus": true
           }
         },
@@ -266,7 +258,6 @@
           "settings": {
             "kit": "mates",
             "text": "2 x Brisa device - 1 time purchase ( completely reusable )",
-            "composition": false,
             "bonus": false
           }
         },
@@ -275,7 +266,6 @@
           "settings": {
             "kit": "mates",
             "text": "18 cores - about 1 month each",
-            "composition": false,
             "bonus": false
           }
         },
@@ -284,7 +274,7 @@
           "settings": {
             "kit": "mates",
             "text": "12 Cherry Pom - 6 Mint Ice",
-            "composition": false,
+            "composition": true,
             "bonus": false
           }
         },
@@ -293,7 +283,6 @@
           "settings": {
             "kit": "mates",
             "text": "2 x Cleaning kit + carry bag",
-            "composition": false,
             "bonus": false
           }
         },
@@ -302,7 +291,6 @@
           "settings": {
             "kit": "mates",
             "text": "FREE 3 x Watermelon cores (worth $15)",
-            "composition": false,
             "bonus": true
           }
         },
@@ -329,7 +317,6 @@
           "settings": {
             "label": "Black",
             "hex": "#1a1a1a",
-            "image_asset": "",
             "device_product": ""
           }
         },
@@ -338,7 +325,6 @@
           "settings": {
             "label": "Blue",
             "hex": "#008BDC",
-            "image_asset": "",
             "device_product": ""
           }
         },
@@ -347,7 +333,6 @@
           "settings": {
             "label": "Rose",
             "hex": "#E8A0A0",
-            "image_asset": "",
             "device_product": ""
           }
         },
@@ -1052,66 +1037,6 @@
         "footnote": "<p>*Approximate typical spend. Actual costs vary.</p>"
       }
     },
-    "brisa_product_reviews_zMjLwQ": {
-      "type": "brisa-product-reviews",
-      "blocks": {
-        "video_review_DNDtGH": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-2.png",
-            "video": "shopify://files/videos/test2.MOV",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "video_review_9xhP4f": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-3.png",
-            "video": "shopify://files/videos/test3.MOV",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        },
-        "video_review_3DBxHU": {
-          "type": "video_review",
-          "settings": {
-            "thumbnail": "shopify://shop_images/test-1.png",
-            "video": "shopify://files/videos/test-1.mov",
-            "video_url": "",
-            "label": "customer video review"
-          }
-        }
-      },
-      "block_order": [
-        "video_review_DNDtGH",
-        "video_review_9xhP4f",
-        "video_review_3DBxHU"
-      ],
-      "name": "Brisa product reviews",
-      "settings": {
-        "heading": "Real Results",
-        "subheading": "Video testimonials",
-        "disclaimer": "",
-        "show_text_testimonials": false,
-        "show_arrows": true,
-        "show_dots": false,
-        "autoplay": false,
-        "autoplay_speed": 5000
-      }
-    },
-    "brisa_kit_bottom_cta": {
-      "type": "brisa-kit-bottom-cta",
-      "settings": {
-        "show_trust": true,
-        "show_trust_1": true,
-        "show_trust_2": true,
-        "show_trust_3": true,
-        "show_trust_4": true,
-        "show_trust_5": true,
-        "show_trust_6": true
-      }
-    },
     "engineered_switch_NniVXE": {
       "type": "engineered-switch",
       "blocks": {
@@ -1175,14 +1100,23 @@
         "bar_font_size": 13,
         "icon_size": 52,
         "mobile_icon_size": 46,
-        "icon_svg_size": 62,
         "background": "#ffffff",
         "bar_background": "#e9f4ff",
         "bar_text_color": "#003a72",
         "heading_color": "#111111",
-        "text_color": "#6b6b6b",
-        "icon_background": "#008bdc",
-        "icon_color": "#ffffff"
+        "text_color": "#6b6b6b"
+      }
+    },
+    "brisa_product_reviews_zMjLwQ": {
+      "type": "brisa-product-reviews",
+      "name": "Brisa product reviews",
+      "settings": {
+        "heading": "Real Aussies. Real Reviews.",
+        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "show_arrows": true,
+        "show_dots": false,
+        "autoplay": false,
+        "autoplay_speed": 5000
       }
     },
     "whats_in_the_box_MiChAY": {
@@ -1301,12 +1235,23 @@
         "text_color": "#ffffff"
       }
     },
+    "brisa_kit_bottom_cta": {
+      "type": "brisa-kit-bottom-cta",
+      "settings": {
+        "show_trust": true,
+        "show_trust_1": true,
+        "show_trust_2": true,
+        "show_trust_3": true,
+        "show_trust_4": true,
+        "show_trust_5": true,
+        "show_trust_6": true
+      }
+    },
     "brisa_judgeme_reviews": {
       "type": "brisa-judgeme-reviews",
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
-        "product": "",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,

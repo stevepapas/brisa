@@ -772,14 +772,11 @@
         "bar_font_size": 13,
         "icon_size": 52,
         "mobile_icon_size": 46,
-        "icon_svg_size": 62,
         "background": "#ffffff",
         "bar_background": "#e9f4ff",
         "bar_text_color": "#003a72",
         "heading_color": "#111111",
-        "text_color": "#6b6b6b",
-        "icon_background": "#008bdc",
-        "icon_color": "#ffffff"
+        "text_color": "#6b6b6b"
       }
     },
     "brisa_product_reviews_zMjLwQ": {
@@ -944,6 +941,7 @@
           "settings": {
             "kit": "try",
             "text": "6 Cherry Pom - 3 Mint Ice",
+            "composition": true,
             "bonus": false
           }
         },
@@ -984,6 +982,7 @@
           "settings": {
             "kit": "commitment",
             "text": "18 Cherry Pom - 9 Mint Ice",
+            "composition": true,
             "bonus": false
           }
         },
@@ -1024,6 +1023,7 @@
           "settings": {
             "kit": "mates",
             "text": "12 Cherry Pom - 6 Mint Ice",
+            "composition": true,
             "bonus": false
           }
         },

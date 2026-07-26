@@ -76,21 +76,18 @@
   }
 
   .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     width: {{ section.settings.icon_size }}px;
     height: {{ section.settings.icon_size }}px;
-    color: {{ section.settings.icon_color }};
-    background: {{ section.settings.icon_background }};
-    border-radius: 50%;
     flex: 0 0 auto;
+    line-height: 0;
   }
 
-  .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon svg {
+  .engineered-switch-{{ ai_gen_id }} .engineered-switch__icon img {
     display: block;
-    width: {{ section.settings.icon_svg_size }}%;
-    height: {{ section.settings.icon_svg_size }}%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .engineered-switch-{{ ai_gen_id }} .engineered-switch__item-title {
@@ -167,37 +164,28 @@
         <div class="engineered-switch__list">
           {% for block in section.blocks %}
             <div class="engineered-switch__item" {{ block.shopify_attributes }}>
+              {% liquid
+                case block.settings.icon
+                  when 'ruler'
+                    assign icon_asset = 'brisa-engineered-ruler.png'
+                  when 'airflow'
+                    assign icon_asset = 'brisa-engineered-airflow.png'
+                  when 'leaf'
+                    assign icon_asset = 'brisa-engineered-leaf.png'
+                  when 'cross'
+                    assign icon_asset = 'brisa-engineered-zero-nicotine.png'
+                  else
+                    assign icon_asset = 'brisa-engineered-ruler.png'
+                endcase
+              %}
               <div class="engineered-switch__icon" aria-hidden="true">
-                {% case block.settings.icon %}
-                  {% when 'ruler' %}
-                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                      <path d="M12 36h24a4 4 0 0 0 4-4V16a4 4 0 0 0-4-4H12a4 4 0 0 0-4 4v16a4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"/>
-                      <path d="M16 16v6M20 16v4M24 16v6M28 16v4M32 16v6" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-                    </svg>
-                  {% when 'airflow' %}
-                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                      <path d="M7 18h24c4.5 0 6.5-5.5 3-8.2C31.6 8 28 8.9 27 12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-                      <path d="M7 26h31c4.5 0 6.5 5.5 3 8.2C38.6 36 35 35.1 34 32" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-                      <path d="M7 34h18" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-                    </svg>
-                  {% when 'leaf' %}
-                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                      <path d="M40 7C21.5 8.5 10.5 17.5 9 35.5C18.5 37 30.5 31 35.5 21.5" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M9.5 36C15.5 25.5 23.5 19.5 35.5 16" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-                    </svg>
-                  {% when 'cross' %}
-                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                      <path d="M18 14h12v6c0 4.4-2.2 7.5-6 9.2V38" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M18 20h12" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
-                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
-                      <path d="M14 14 34 34" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                    </svg>
-                  {% else %}
-                    <svg viewBox="0 0 48 48" fill="none" focusable="false">
-                      <circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="3.5"/>
-                      <path d="M16 24h16" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                    </svg>
-                {% endcase %}
+                <img
+                  src="{{ icon_asset | asset_url }}"
+                  alt=""
+                  width="204"
+                  height="205"
+                  loading="lazy"
+                >
               </div>
 
               <div class="engineered-switch__item-copy">
@@ -410,16 +398,6 @@
       "default": 54
     },
     {
-      "type": "range",
-      "id": "icon_svg_size",
-      "label": "Icon glyph size",
-      "min": 45,
-      "max": 90,
-      "step": 1,
-      "unit": "%",
-      "default": 70
-    },
-    {
       "type": "header",
       "content": "Colors"
     },
@@ -452,18 +430,6 @@
       "id": "text_color",
       "label": "Text",
       "default": "#2b2b2b"
-    },
-    {
-      "type": "color",
-      "id": "icon_background",
-      "label": "Icon background",
-      "default": "#008bdc"
-    },
-    {
-      "type": "color",
-      "id": "icon_color",
-      "label": "Icon color",
-      "default": "#ffffff"
     }
   ],
   "blocks": [
@@ -477,10 +443,10 @@
           "label": "Icon",
           "default": "ruler",
           "options": [
-            { "value": "ruler", "label": "Ruler" },
+            { "value": "ruler", "label": "Ruler (same weight)" },
             { "value": "airflow", "label": "Airflow" },
-            { "value": "leaf", "label": "Leaf" },
-            { "value": "cross", "label": "Cross" }
+            { "value": "leaf", "label": "Leaf (precision cores)" },
+            { "value": "cross", "label": "Zero nicotine" }
           ]
         },
         {
