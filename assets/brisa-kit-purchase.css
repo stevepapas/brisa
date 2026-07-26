@@ -993,7 +993,7 @@
   margin-bottom: 0;
 }
 
-/* Mobile: compact kit cards — left shrink-wraps; radio+thumb row, price under */
+/* Mobile: compact kit cards — left shrink-wraps; thumb+radio row, price under */
 @media (max-width: 749px) {
   .bkp__kit {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1044,7 +1044,7 @@
     font-size: 10px;
   }
 
-  /* Radio + thumb on one row; pricing tight under that cluster */
+  /* Thumb left, radio right on one row; pricing tight under that cluster */
   .bkp__kit-side {
     display: grid;
     grid-template-columns: auto auto;
@@ -1055,8 +1055,15 @@
     min-width: 0;
   }
 
-  .bkp__kit-radio {
+  .bkp__kit-thumb {
     grid-column: 1;
+    grid-row: 1;
+    width: 56px;
+    height: 56px;
+  }
+
+  .bkp__kit-radio {
+    grid-column: 2;
     grid-row: 1;
     align-self: center;
     width: 18px;
@@ -1067,13 +1074,6 @@
   .bkp__kit-radio::after {
     width: 9px;
     height: 9px;
-  }
-
-  .bkp__kit-thumb {
-    grid-column: 2;
-    grid-row: 1;
-    width: 56px;
-    height: 56px;
   }
 
   .bkp__kit-pricing {
