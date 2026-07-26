@@ -558,116 +558,212 @@
       </div>
     {% endif %}
 
+    {%- liquid
+      # Resolve default colour preview from first colour block (Black / Blue↔Ocean / Rose).
+      assign default_colour_preview = blank
+      assign default_colour_preview_alt = ''
+      if colour_blocks.size > 0
+        assign default_colour_preview_alt = colour_blocks.first.settings.label
+        assign default_label_key = colour_blocks.first.settings.label | downcase | strip
+        if try_product != blank
+          for colour_variant in try_product.variants
+            assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+            if colour_name == default_label_key or default_label_key == 'ocean' and colour_name == 'blue' or default_label_key == 'blue' and colour_name == 'ocean'
+              assign default_colour_preview = colour_variant.featured_media | default: colour_variant.image
+              break
+            endif
+          endfor
+        endif
+        if default_colour_preview == blank and colour_blocks.first.settings.image != blank
+          assign default_colour_preview = colour_blocks.first.settings.image
+        endif
+        if default_colour_preview == blank and colour_blocks.first.settings.device_product != blank
+          assign default_colour_preview = colour_blocks.first.settings.device_product.featured_media | default: colour_blocks.first.settings.device_product.featured_image
+        endif
+      endif
+    -%}
     <div class="bkp__colours bkp__colours--dual" data-bkp-colours>
       <div class="bkp__colour-group" data-role="yours">
         <p class="bkp__colour-label">{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}</p>
-        <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}">
-          {% for block in colour_blocks %}
-            {% liquid
-              assign colour_product = block.settings.device_product
-              assign colour_variant_id = ''
-              assign kit_colour_variant_id = ''
-              assign kit_colour_available = true
-              assign colour_label_key = block.settings.label | downcase | strip
-              if colour_product != blank
-                assign colour_variant_id = colour_product.selected_or_first_available_variant.id
-              endif
-              if try_product != blank
-                for colour_variant in try_product.variants
-                  assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-                  if colour_name == colour_label_key
-                    assign kit_colour_variant_id = colour_variant.id
-                    assign kit_colour_available = colour_variant.available
-                  elsif colour_label_key == 'ocean' and colour_name == 'blue'
-                    assign kit_colour_variant_id = colour_variant.id
-                    assign kit_colour_available = colour_variant.available
-                  elsif colour_label_key == 'blue' and colour_name == 'ocean'
-                    assign kit_colour_variant_id = colour_variant.id
-                    assign kit_colour_available = colour_variant.available
-                  endif
-                endfor
-              endif
-              assign swatch_style = block.settings.hex | default: '#cccccc'
-              assign is_first = forloop.first
-              assign swatch_sold_out = false
-              if kit_colour_variant_id != blank and kit_colour_available == false
-                assign swatch_sold_out = true
-              endif
-            %}
-            <button
-              type="button"
-              class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
-              style="background-color: {{ swatch_style }};"
-              data-bkp-swatch
-              data-role="yours"
-              data-label="{{ block.settings.label | escape }}"
-              data-variant-id="{{ colour_variant_id }}"
-              data-kit-variant-id="{{ kit_colour_variant_id }}"
-              data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
-              {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
-              aria-label="{{ block.settings.label | escape }}"
-              {{ block.shopify_attributes }}
-            ></button>
-          {% endfor %}
+        <div class="bkp__colour-picker">
+          <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}">
+            {% for block in colour_blocks %}
+              {% liquid
+                assign colour_product = block.settings.device_product
+                assign colour_variant_id = ''
+                assign kit_colour_variant_id = ''
+                assign kit_colour_available = true
+                assign colour_label_key = block.settings.label | downcase | strip
+                assign colour_preview = blank
+                if colour_product != blank
+                  assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+                endif
+                if try_product != blank
+                  for colour_variant in try_product.variants
+                    assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+                    if colour_name == colour_label_key
+                      assign kit_colour_variant_id = colour_variant.id
+                      assign kit_colour_available = colour_variant.available
+                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                    elsif colour_label_key == 'ocean' and colour_name == 'blue'
+                      assign kit_colour_variant_id = colour_variant.id
+                      assign kit_colour_available = colour_variant.available
+                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                    elsif colour_label_key == 'blue' and colour_name == 'ocean'
+                      assign kit_colour_variant_id = colour_variant.id
+                      assign kit_colour_available = colour_variant.available
+                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                    endif
+                  endfor
+                endif
+                if colour_preview == blank and block.settings.image != blank
+                  assign colour_preview = block.settings.image
+                endif
+                if colour_preview == blank and colour_product != blank
+                  assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
+                endif
+                assign colour_preview_url = ''
+                if colour_preview != blank
+                  assign colour_preview_url = colour_preview | image_url: width: 1200
+                elsif block.settings.image_asset != blank
+                  assign colour_preview_url = block.settings.image_asset | asset_url
+                endif
+                assign swatch_style = block.settings.hex | default: '#cccccc'
+                assign is_first = forloop.first
+                assign swatch_sold_out = false
+                if kit_colour_variant_id != blank and kit_colour_available == false
+                  assign swatch_sold_out = true
+                endif
+              %}
+              <div class="bkp__swatch-wrap">
+                <button
+                  type="button"
+                  class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
+                  style="background-color: {{ swatch_style }};"
+                  data-bkp-swatch
+                  data-role="yours"
+                  data-label="{{ block.settings.label | escape }}"
+                  data-variant-id="{{ colour_variant_id }}"
+                  data-kit-variant-id="{{ kit_colour_variant_id }}"
+                  data-image="{{ colour_preview_url | escape }}"
+                  data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
+                  {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
+                  aria-label="{{ block.settings.label | escape }}"
+                  {{ block.shopify_attributes }}
+                ></button>
+                <span class="bkp__swatch-name">{{ block.settings.label | escape }}</span>
+              </div>
+            {% endfor %}
+          </div>
+          {%- liquid
+            assign yours_preview_src = ''
+            if default_colour_preview != blank
+              assign yours_preview_src = default_colour_preview | image_url: width: 1200
+            elsif colour_blocks.size > 0 and colour_blocks.first.settings.image_asset != blank
+              assign yours_preview_src = colour_blocks.first.settings.image_asset | asset_url
+            endif
+          -%}
+          <div class="bkp__colour-preview" data-bkp-colour-preview="yours"{% if yours_preview_src == blank %} hidden{% endif %}>
+            <img
+              class="bkp__colour-preview-img"
+              data-bkp-colour-preview-img="yours"
+              src="{{ yours_preview_src | escape }}"
+              alt="{{ default_colour_preview_alt | escape }}"
+              width="1200"
+              height="214"
+              loading="eager"
+              decoding="async"
+              {% if yours_preview_src == blank %}hidden{% endif %}
+            >
+          </div>
         </div>
-        <p class="bkp__swatch-name" data-bkp-colour-name="yours">
-          {% if colour_blocks.size > 0 %}{{ colour_blocks.first.settings.label | escape }}{% endif %}
-        </p>
       </div>
 
       <div class="bkp__colour-group" data-role="mates">
         <p class="bkp__colour-label">{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}</p>
-        <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}">
-          {% for block in colour_blocks %}
-            {% liquid
-              assign colour_product = block.settings.device_product
-              assign colour_variant_id = ''
-              assign kit_colour_variant_id = ''
-              assign kit_colour_available = true
-              assign colour_label_key = block.settings.label | downcase | strip
-              if colour_product != blank
-                assign colour_variant_id = colour_product.selected_or_first_available_variant.id
-              endif
-              if try_product != blank
-                for colour_variant in try_product.variants
-                  assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-                  if colour_name == colour_label_key
-                    assign kit_colour_variant_id = colour_variant.id
-                    assign kit_colour_available = colour_variant.available
-                  elsif colour_label_key == 'ocean' and colour_name == 'blue'
-                    assign kit_colour_variant_id = colour_variant.id
-                    assign kit_colour_available = colour_variant.available
-                  elsif colour_label_key == 'blue' and colour_name == 'ocean'
-                    assign kit_colour_variant_id = colour_variant.id
-                    assign kit_colour_available = colour_variant.available
-                  endif
-                endfor
-              endif
-              assign swatch_style = block.settings.hex | default: '#cccccc'
-              assign is_first = forloop.first
-              assign swatch_sold_out = false
-              if kit_colour_variant_id != blank and kit_colour_available == false
-                assign swatch_sold_out = true
-              endif
-            %}
-            <button
-              type="button"
-              class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
-              style="background-color: {{ swatch_style }};"
-              data-bkp-swatch
-              data-role="mates"
-              data-label="{{ block.settings.label | escape }}"
-              data-variant-id="{{ colour_variant_id }}"
-              data-kit-variant-id="{{ kit_colour_variant_id }}"
-              data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
-              {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
-              aria-label="{{ block.settings.label | escape }}"
-            ></button>
-          {% endfor %}
+        <div class="bkp__colour-picker">
+          <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}">
+            {% for block in colour_blocks %}
+              {% liquid
+                assign colour_product = block.settings.device_product
+                assign colour_variant_id = ''
+                assign kit_colour_variant_id = ''
+                assign kit_colour_available = true
+                assign colour_label_key = block.settings.label | downcase | strip
+                assign colour_preview = blank
+                if colour_product != blank
+                  assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+                endif
+                if try_product != blank
+                  for colour_variant in try_product.variants
+                    assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+                    if colour_name == colour_label_key
+                      assign kit_colour_variant_id = colour_variant.id
+                      assign kit_colour_available = colour_variant.available
+                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                    elsif colour_label_key == 'ocean' and colour_name == 'blue'
+                      assign kit_colour_variant_id = colour_variant.id
+                      assign kit_colour_available = colour_variant.available
+                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                    elsif colour_label_key == 'blue' and colour_name == 'ocean'
+                      assign kit_colour_variant_id = colour_variant.id
+                      assign kit_colour_available = colour_variant.available
+                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                    endif
+                  endfor
+                endif
+                if colour_preview == blank and block.settings.image != blank
+                  assign colour_preview = block.settings.image
+                endif
+                if colour_preview == blank and colour_product != blank
+                  assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
+                endif
+                assign colour_preview_url = ''
+                if colour_preview != blank
+                  assign colour_preview_url = colour_preview | image_url: width: 1200
+                elsif block.settings.image_asset != blank
+                  assign colour_preview_url = block.settings.image_asset | asset_url
+                endif
+                assign swatch_style = block.settings.hex | default: '#cccccc'
+                assign is_first = forloop.first
+                assign swatch_sold_out = false
+                if kit_colour_variant_id != blank and kit_colour_available == false
+                  assign swatch_sold_out = true
+                endif
+              %}
+              <div class="bkp__swatch-wrap">
+                <button
+                  type="button"
+                  class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
+                  style="background-color: {{ swatch_style }};"
+                  data-bkp-swatch
+                  data-role="mates"
+                  data-label="{{ block.settings.label | escape }}"
+                  data-variant-id="{{ colour_variant_id }}"
+                  data-kit-variant-id="{{ kit_colour_variant_id }}"
+                  data-image="{{ colour_preview_url | escape }}"
+                  data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
+                  {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
+                  aria-label="{{ block.settings.label | escape }}"
+                ></button>
+                <span class="bkp__swatch-name">{{ block.settings.label | escape }}</span>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="bkp__colour-preview" data-bkp-colour-preview="mates"{% if yours_preview_src == blank %} hidden{% endif %}>
+            <img
+              class="bkp__colour-preview-img"
+              data-bkp-colour-preview-img="mates"
+              src="{{ yours_preview_src | escape }}"
+              alt="{{ default_colour_preview_alt | escape }}"
+              width="1200"
+              height="214"
+              loading="lazy"
+              decoding="async"
+              {% if yours_preview_src == blank %}hidden{% endif %}
+            >
+          </div>
         </div>
-        <p class="bkp__swatch-name" data-bkp-colour-name="mates">
-          {% if colour_blocks.size > 0 %}{{ colour_blocks.first.settings.label | escape }}{% endif %}
-        </p>
       </div>
     </div>
 
@@ -1419,6 +1515,18 @@
           "id": "hex",
           "label": "Swatch hex",
           "default": "#000000"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Colour preview image",
+          "info": "Optional override. Defaults to the matching Starter Kit variant image (Black / Blue / Rose)."
+        },
+        {
+          "type": "text",
+          "id": "image_asset",
+          "label": "Colour preview asset fallback",
+          "info": "Theme asset filename if Image above is empty and no variant image is found."
         },
         {
           "type": "product",

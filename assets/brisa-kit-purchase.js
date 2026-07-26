@@ -22,8 +22,10 @@
       this.errorEl = this.querySelector('[data-bkp-error]');
       this.addonCheck = this.querySelector('[data-bkp-addon-check]');
       this.colourRoot = this.querySelector('[data-bkp-colours]');
-      this.yoursName = this.querySelector('[data-bkp-colour-name="yours"]');
-      this.matesName = this.querySelector('[data-bkp-colour-name="mates"]');
+      this.yoursPreviewImg = this.querySelector('[data-bkp-colour-preview-img="yours"]');
+      this.matesPreviewImg = this.querySelector('[data-bkp-colour-preview-img="mates"]');
+      this.yoursPreview = this.querySelector('[data-bkp-colour-preview="yours"]');
+      this.matesPreview = this.querySelector('[data-bkp-colour-preview="mates"]');
 
       this.kits.forEach((kit) => {
         kit.addEventListener('click', (event) => {
@@ -119,10 +121,70 @@
       this.querySelectorAll(`[data-bkp-swatch][data-role="${role}"]`).forEach((el) => {
         el.classList.toggle('is-selected', el === btn);
       });
-      const nameEl = role === 'mates' ? this.matesName : this.yoursName;
-      if (nameEl) nameEl.textContent = btn.dataset.label || '';
+      this.updateColourPreview(role, btn);
       this.updatePrice();
       this.clearError();
+    }
+
+    updateColourPreview(role, swatch) {
+      const img = role === 'mates' ? this.matesPreviewImg : this.yoursPreviewImg;
+      const host = role === 'mates' ? this.matesPreview : this.yoursPreview;
+      const src = String(swatch?.dataset?.image || '').trim();
+      if (!img) return;
+
+      if (!src) {
+        img.removeAttribute('src');
+        img.hidden = true;
+        if (host) host.hidden = true;
+        return;
+      }
+
+      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+      img.alt = swatch?.dataset?.label || img.alt || '';
+      img.hidden = false;
+      if (host) host.hidden = false;
+    }
+
+    // Landing from a colour swatch elsewhere on the site (?variant= / ?colour=)
+    // should open on that colour instead of the first block.
+    requestedColour() {
+      let params;
+      try {
+        params = new URLSearchParams(window.location.search);
+      } catch (err) {
+        return null;
+      }
+
+      const label = (params.get('colour') || params.get('color') || '').trim().toLowerCase();
+      const variantId = (params.get('variant') || '').trim();
+      if (!label && !variantId) return null;
+      return { label, variantId };
+    }
+
+    swatchMatchesColour(swatch, request) {
+      if (request.variantId) {
+        if (swatch.dataset.kitVariantId === request.variantId) return true;
+        if (swatch.dataset.variantId === request.variantId) return true;
+      }
+      if (!request.label) return false;
+
+      const label = String(swatch.dataset.label || '').trim().toLowerCase();
+      if (label === request.label) return true;
+      if (label === 'ocean' && request.label === 'blue') return true;
+      if (label === 'blue' && request.label === 'ocean') return true;
+      return false;
+    }
+
+    applyUrlColour() {
+      const request = this.requestedColour();
+      if (!request) return;
+
+      const swatches = Array.from(this.querySelectorAll('[data-bkp-swatch][data-role="yours"]'));
+      const match = swatches.find((swatch) => this.swatchMatchesColour(swatch, request));
+      if (!match || match.classList.contains('is-sold-out')) return;
+
+      swatches.forEach((swatch) => swatch.classList.toggle('is-selected', swatch === match));
+      if (this.yoursName) this.yoursName.textContent = match.dataset.label || '';
     }
 
     selectedSwatch(role) {
@@ -356,9 +418,10 @@
           selected = roleSwatches.find((swatch) => !swatch.classList.contains('is-sold-out'));
           if (selected) {
             roleSwatches.forEach((swatch) => swatch.classList.toggle('is-selected', swatch === selected));
-            const nameEl = role === 'mates' ? this.matesName : this.yoursName;
-            if (nameEl) nameEl.textContent = selected.dataset.label || '';
           }
+        }
+        if (selected) {
+          this.updateColourPreview(role, selected);
         }
       });
     }
@@ -684,6 +747,10 @@
   }
 
   if (!customElements.get('brisa-kit-purchase')) {
+    customElements.define('brisa-kit-purchase', BrisaKitPurchase);
+  }
+})();
+')) {
     customElements.define('brisa-kit-purchase', BrisaKitPurchase);
   }
 })();
