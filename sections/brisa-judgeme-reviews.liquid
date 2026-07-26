@@ -218,17 +218,10 @@
     display: block;
   }
 
-  /* Keep a real box so an inserted review form is not dropped from layout */
+  /* Let action children participate in the header flex (form inserts after .jdgm-row-stars) */
   #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper,
   #shopify-section-{{ section.id }} .jdgm-row-actions {
-    display: flex !important;
-    flex: 1 1 100%;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
-    order: 4;
+    display: contents !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev-widg__sort-wrapper {
@@ -252,11 +245,11 @@
   }
 
   /* Write a review — full-width outlined button under header row */
-  #shopify-section-{{ section.id }} .jdgm-write-rev-link,
-  #shopify-section-{{ section.id }} a.jdgm-write-rev-link,
-  #shopify-section-{{ section.id }} .jdgm-write-rev-link.jdgm-btn,
-  #shopify-section-{{ section.id }} .jdgm-btn.jdgm-btn-light.jdgm-write-rev-link,
-  #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper .jdgm-write-rev-link {
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link:not(.brisa-jdgm-write-dup),
+  #shopify-section-{{ section.id }} a.jdgm-write-rev-link:not(.brisa-jdgm-write-dup),
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link.jdgm-btn:not(.brisa-jdgm-write-dup),
+  #shopify-section-{{ section.id }} .jdgm-btn.jdgm-btn-light.jdgm-write-rev-link:not(.brisa-jdgm-write-dup),
+  #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper .jdgm-write-rev-link:not(.brisa-jdgm-write-dup) {
     order: 4;
     display: flex !important;
     align-items: center;
@@ -280,9 +273,14 @@
     min-height: 44px;
   }
 
-  #shopify-section-{{ section.id }} .jdgm-write-rev-link:hover,
-  #shopify-section-{{ section.id }} a.jdgm-write-rev-link:hover {
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link:not(.brisa-jdgm-write-dup):hover,
+  #shopify-section-{{ section.id }} a.jdgm-write-rev-link:not(.brisa-jdgm-write-dup):hover {
     background: #f7f7f7 !important;
+  }
+
+  /* Hide Judge.me duplicate write links (desktop/mobile or re-rendered copies) */
+  #shopify-section-{{ section.id }} .jdgm-write-rev-link.brisa-jdgm-write-dup {
+    display: none !important;
   }
 
   /* Inline write-review form (Judge.me inserts after .jdgm-row-stars; also modal fallback) */
@@ -931,7 +929,6 @@
       var starsWrap = root.querySelector('.jdgm-rev-widg__summary-stars');
       var averageEl = root.querySelector('.jdgm-rev-widg__summary-average');
       var histogram = root.querySelector('.jdgm-histogram');
-      var writeLink = root.querySelector('.jdgm-write-rev-link');
       var sortWrap = root.querySelector('.jdgm-rev-widg__sort-wrapper');
 
       formatAverageEl(widget);
@@ -1002,13 +999,29 @@
         });
       }
 
-      if (writeLink) {
-        writeLink.style.setProperty('display', 'flex', 'important');
-        writeLink.removeAttribute('hidden');
-        // Keep href="#" until click — Judge.me may read it; we preventDefault on click instead.
-        if (header && writeLink.parentElement !== header) {
-          header.appendChild(writeLink);
-        }
+      // Keep a single Write a review control. Judge.me (and re-setup) can leave 2+
+      // .jdgm-write-rev-link nodes; our full-width CSS was revealing every copy.
+      var writeLinks = Array.prototype.slice.call(root.querySelectorAll('.jdgm-write-rev-link'));
+      if (writeLinks.length) {
+        var keeper =
+          writeLinks.find(function (el) {
+            return el.parentElement === header;
+          }) || writeLinks[0];
+        writeLinks.forEach(function (el) {
+          if (el === keeper) {
+            el.classList.remove('brisa-jdgm-write-dup');
+            el.style.setProperty('display', 'flex', 'important');
+            el.removeAttribute('hidden');
+            // Keep href="#" until click — Judge.me may read it; we preventDefault on click instead.
+            if (header && el.parentElement !== header) {
+              header.appendChild(el);
+            }
+          } else {
+            el.classList.add('brisa-jdgm-write-dup');
+            el.setAttribute('hidden', '');
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
       }
 
       rebindJudgemeWriteHandlers();
