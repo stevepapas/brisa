@@ -79,8 +79,15 @@
     border: 0 !important;
   }
 
+  /* Keep a real box (not display:contents) so Judge.me can insert the review form after this row */
   #shopify-section-{{ section.id }} .jdgm-row-stars {
-    display: contents !important;
+    display: flex !important;
+    flex: 1 1 auto;
+    align-items: center;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    order: 1;
   }
 
   #shopify-section-{{ section.id }} .jdgm-rev-widg__summary {
@@ -268,6 +275,22 @@
   #shopify-section-{{ section.id }} .jdgm-write-rev-link:hover,
   #shopify-section-{{ section.id }} a.jdgm-write-rev-link:hover {
     background: #f7f7f7 !important;
+  }
+
+  /* Inline write-review form (fallback when modal is off / still loading) */
+  #shopify-section-{{ section.id }} .jdgm-form-wrapper {
+    order: 6;
+    flex: 1 1 100%;
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 8px 0 16px !important;
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-form,
+  #shopify-section-{{ section.id }} .jdgm-form-wrapper .jdgm-form {
+    width: 100%;
+    max-width: 100%;
   }
 
   /* —— Scrollable review feed (page-like continuous list) —— */
@@ -596,6 +619,16 @@
   }
 </style>
 
+{% comment %} Modal mounts on body — keep it above theme sticky chrome {% endcomment %}
+<style>
+  .jdgm-write-review-modal,
+  .jdgm-review-widget-modal,
+  .jdgm-write-review-modal__overlay,
+  .jdgm-form-dynamic-wrapper {
+    z-index: 100000 !important;
+  }
+</style>
+
 <section class="brisa-judgeme" id="judgeme_reviews" data-brisa-judgeme {{ section.shopify_attributes }}>
   <div class="brisa-judgeme__inner">
     {%- if section.settings.heading != blank -%}
@@ -710,6 +743,28 @@
       });
     }
 
+    function ensureJudgemeFormAssets() {
+      if (!window.jdgm || typeof jdgm.loadScript !== 'function') return;
+      var host = jdgm.CDN_HOST || 'https://cdnwidget.judge.me/';
+      try {
+        jdgm.loadScript(host + 'widget/form.js');
+        jdgm.loadScript(host + 'widget/write_review_modal.js');
+        if (typeof jdgm.loadCSS === 'function' && typeof jdgm.widgetPath === 'function') {
+          jdgm.loadCSS(jdgm.widgetPath('form.css'));
+        }
+      } catch (err) {
+        /* Judge.me optional — never break the page */
+      }
+    }
+
+    function disarmHashHref(link) {
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href || href === '#' || href === '#/' || href === '#!') {
+        link.setAttribute('href', 'javascript:void(0)');
+      }
+    }
+
     function enhance() {
       var widget = root.querySelector('.jdgm-rev-widg, .jdgm-widget');
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
@@ -723,6 +778,7 @@
       var sortWrap = root.querySelector('.jdgm-rev-widg__sort-wrapper');
 
       formatAverageEl(widget);
+      ensureJudgemeFormAssets();
 
       if (starsWrap && !starsWrap.closest('.brisa-jdgm-summary-trigger')) {
         var trigger = document.createElement('button');
@@ -792,6 +848,7 @@
       if (writeLink) {
         writeLink.style.setProperty('display', 'flex', 'important');
         writeLink.removeAttribute('hidden');
+        disarmHashHref(writeLink);
         if (header && writeLink.parentElement !== header) {
           header.appendChild(writeLink);
         }
@@ -801,6 +858,47 @@
       hydrateReviewImages();
       return true;
     }
+
+    // Judge.me modal flow uses href="#" and often skips preventDefault — stop the jump to page top.
+    root.addEventListener(
+      'click',
+      function (event) {
+        var link = event.target.closest('a.jdgm-write-rev-link, a.jdgm-ask-question-btn');
+        if (!link || !root.contains(link)) return;
+        event.preventDefault();
+        disarmHashHref(link);
+        ensureJudgemeFormAssets();
+
+        // If Judge.me handlers didn't open UI (script race), open inline form as fallback.
+        window.setTimeout(function () {
+          function isShown(el) {
+            if (!el) return false;
+            var style = window.getComputedStyle(el);
+            if (style.display === 'none' || style.visibility === 'hidden' || style.opacity === '0') return false;
+            var rect = el.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0;
+          }
+
+          var modal = document.querySelector(
+            '.jdgm-write-review-modal, .jdgm-review-widget-modal, .jdgm-form-dynamic-wrapper, [class*="jdgm-write-review-modal"]'
+          );
+          var form = root.querySelector('.jdgm-form-wrapper');
+          if (isShown(modal) || isShown(form)) return;
+          if (!window.jdgm || typeof jdgm.openForm !== 'function' || !window.jdgm.$) return;
+
+          var $widget = jdgm.$(root).find('.jdgm-review-widget').first();
+          if (!$widget.length) $widget = jdgm.$(root).find('.jdgm-rev-widg').first();
+          if ($widget.length) {
+            try {
+              jdgm.openForm($widget);
+            } catch (err) {
+              /* ignore */
+            }
+          }
+        }, 400);
+      },
+      true
+    );
 
     enhance();
 
