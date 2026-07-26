@@ -2100,7 +2100,7 @@ display: none;
   gap: 0.12em;
   margin: 0;
   color: var(--brisa-comparison-heading-color, #000000);
-  font-size: clamp(36px, 7vw, 72px);
+  font-size: clamp(25px, 4.9vw, 50px);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -2108,7 +2108,7 @@ display: none;
 
 .brisa-comparison__heading-logo {
   flex: 0 1 auto;
-  width: clamp(180px, 27vw, 270px);
+  width: clamp(126px, 18.9vw, 189px);
   height: auto;
   border-radius: 0 !important;
   object-fit: contain;
@@ -2137,7 +2137,7 @@ display: none;
   max-width: 920px;
   margin: 16px auto 0;
   color: #858585;
-  font-size: clamp(20px, 3.2vw, 34px);
+  font-size: clamp(14px, 2.24vw, 24px);
   font-weight: 700;
   line-height: 1.05;
 }
