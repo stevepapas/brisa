@@ -472,10 +472,23 @@
         {% if addon_available %}
           <span class="bkp__addon-tab">{{ section.settings.addon_tab | default: 'ADD ON' | escape }}</span>
         {% else %}
-          <span class="bkp__addon-tab bkp__addon-tab--sold-out">Sold out</span>
+          <span class="bkp__addon-tab bkp__addon-tab--sold-out">SOLD OUT</span>
         {% endif %}
 
-        <div class="bkp__addon-layout">
+        <button
+          type="button"
+          class="bkp__addon-action{% unless addon_available %} is-sold-out{% endunless %}"
+          data-bkp-addon-toggle
+          {% unless addon_available %}disabled aria-disabled="true"{% endunless %}
+        >
+          {% if addon_available %}
+            {{ section.settings.addon_action | default: 'ADD' | escape }}
+          {% else %}
+            SOLD OUT
+          {% endif %}
+        </button>
+
+        <div class="bkp__addon-lead">
           <input
             class="bkp__addon-check"
             type="checkbox"
@@ -483,13 +496,15 @@
             id="bkp-addon-{{ section.id }}"
             {% unless addon_available %}disabled{% endunless %}
           >
+        </div>
 
-          <div class="bkp__addon-main">
+        <div class="bkp__addon-body">
+          <div class="bkp__addon-copy">
             <div class="bkp__addon-heading">
               <h4 class="bkp__addon-title">
                 <label for="bkp-addon-{{ section.id }}">{{ section.settings.addon_title | default: 'Monthly Better Box' | escape }}</label>
               </h4>
-              {% if addon_available and section.settings.addon_save != blank %}
+              {% if section.settings.addon_save != blank %}
                 <span class="bkp__addon-save">{{ section.settings.addon_save | escape }}</span>
               {% endif %}
             </div>
@@ -498,73 +513,57 @@
               <p class="bkp__addon-subtitle">{{ section.settings.addon_subtitle | escape }}</p>
             {% endif %}
 
-            <div class="bkp__addon-body">
-              <div class="bkp__addon-copy">
-                <div class="bkp__addon-price-row">
-                  <span class="bkp__addon-price">{{ section.settings.addon_price | default: '$44/mo' | escape }}</span>
-                  {% if section.settings.addon_compare != blank %}
-                    <span class="bkp__addon-compare">{{ section.settings.addon_compare | escape }}</span>
-                  {% endif %}
-                  {% if section.settings.addon_price_meta != blank %}
-                    <span class="bkp__addon-price-meta">{{ section.settings.addon_price_meta | escape }}</span>
-                  {% endif %}
-                </div>
-                {% if section.settings.addon_contents != blank %}
-                  <p class="bkp__addon-contents">{{ section.settings.addon_contents | escape }}</p>
-                {% endif %}
-              </div>
-
-              {% if addon_image != blank %}
-                {{ addon_image | image_url: width: 280 | image_tag: class: 'bkp__addon-media', loading: 'lazy', widths: '120,180,240,280', alt: section.settings.addon_title }}
-              {% elsif addon_image_asset != blank %}
-                <img
-                  class="bkp__addon-media"
-                  src="{{ addon_image_asset | asset_url }}"
-                  alt="{{ section.settings.addon_title | escape }}"
-                  width="140"
-                  height="140"
-                  loading="lazy"
-                  decoding="async"
-                >
+            <div class="bkp__addon-price-row">
+              <span class="bkp__addon-price">{{ section.settings.addon_price | default: '$44/mo' | escape }}</span>
+              {% if section.settings.addon_compare != blank %}
+                <span class="bkp__addon-compare">{{ section.settings.addon_compare | escape }}</span>
+              {% endif %}
+              {% if section.settings.addon_price_meta != blank %}
+                <span class="bkp__addon-price-meta">{{ section.settings.addon_price_meta | escape }}</span>
               {% endif %}
             </div>
 
-            {% if section.settings.addon_bonus != blank or section.settings.addon_bonus_text != blank %}
-              <div class="bkp__addon-bonus">
-                <span class="bkp__addon-bonus-tag">{{ section.settings.addon_bonus_tag | default: 'FREE' | escape }}</span>
-                <p class="bkp__addon-bonus-text">
-                  {{ section.settings.addon_bonus_text | default: section.settings.addon_bonus | escape }}
-                </p>
-                {% if addon_bonus_image != blank %}
-                  {{ addon_bonus_image | image_url: width: 96 | image_tag: class: 'bkp__addon-bonus-media', loading: 'lazy', widths: '48,72,96', alt: '' }}
-                {% elsif addon_bonus_image_asset != blank %}
-                  <img
-                    class="bkp__addon-bonus-media"
-                    src="{{ addon_bonus_image_asset | asset_url }}"
-                    alt=""
-                    width="48"
-                    height="48"
-                    loading="lazy"
-                    decoding="async"
-                  >
-                {% endif %}
-              </div>
+            {% if section.settings.addon_contents != blank %}
+              <p class="bkp__addon-contents">{{ section.settings.addon_contents | escape }}</p>
             {% endif %}
           </div>
 
-          <button
-            type="button"
-            class="bkp__addon-action{% unless addon_available %} is-sold-out{% endunless %}"
-            data-bkp-addon-toggle
-            {% unless addon_available %}disabled aria-disabled="true"{% endunless %}
-          >
-            {% if addon_available %}
-              {{ section.settings.addon_action | default: 'ADD' | escape }}
-            {% else %}
-              Sold out
-            {% endif %}
-          </button>
+          {% if addon_image != blank %}
+            {{ addon_image | image_url: width: 280 | image_tag: class: 'bkp__addon-media', loading: 'lazy', widths: '120,180,240,280', alt: section.settings.addon_title }}
+          {% elsif addon_image_asset != blank %}
+            <img
+              class="bkp__addon-media"
+              src="{{ addon_image_asset | asset_url }}"
+              alt="{{ section.settings.addon_title | escape }}"
+              width="140"
+              height="140"
+              loading="lazy"
+              decoding="async"
+            >
+          {% endif %}
         </div>
+
+        {% if section.settings.addon_bonus != blank or section.settings.addon_bonus_text != blank %}
+          <div class="bkp__addon-bonus">
+            <span class="bkp__addon-bonus-tag">{{ section.settings.addon_bonus_tag | default: 'FREE' | escape }}</span>
+            <p class="bkp__addon-bonus-text">
+              {{ section.settings.addon_bonus_text | default: section.settings.addon_bonus | escape }}
+            </p>
+            {% if addon_bonus_image != blank %}
+              {{ addon_bonus_image | image_url: width: 96 | image_tag: class: 'bkp__addon-bonus-media', loading: 'lazy', widths: '48,72,96', alt: '' }}
+            {% elsif addon_bonus_image_asset != blank %}
+              <img
+                class="bkp__addon-bonus-media"
+                src="{{ addon_bonus_image_asset | asset_url }}"
+                alt=""
+                width="48"
+                height="48"
+                loading="lazy"
+                decoding="async"
+              >
+            {% endif %}
+          </div>
+        {% endif %}
 
         {% if section.settings.addon_footer != blank %}
           <p class="bkp__addon-footer">{{ section.settings.addon_footer | escape }}</p>

@@ -225,7 +225,7 @@
         action.disabled = !available;
         action.classList.toggle('is-sold-out', !available);
         action.setAttribute('aria-disabled', available ? 'false' : 'true');
-        action.textContent = available ? (on ? 'ADDED' : action.dataset.defaultLabel) : 'Sold out';
+        action.textContent = available ? (on ? 'ADDED' : action.dataset.defaultLabel) : 'SOLD OUT';
       }
     }
 
