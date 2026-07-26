@@ -935,8 +935,14 @@
   margin-top: 20px;
 }
 
-.bkp-bottom__trust:empty {
+.bkp-bottom__trust:empty,
+[data-bkp-bottom][data-show-trust='false'] .bkp-bottom__trust {
   display: none;
+}
+
+/* Keep bottom ATC margin tight when trust is hidden */
+[data-bkp-bottom][data-show-trust='false'] .bkp__atc {
+  margin-bottom: 0;
 }
 
 .bkp__accordions {

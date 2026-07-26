@@ -251,10 +251,11 @@
       if (this.atcLabel) this.atcLabel.textContent = label;
       if (this.atc) this.atc.disabled = disabled;
 
-      document.querySelectorAll('[data-bkp-sync-atc-label]').forEach((el) => {
+      // Scope to bottom CTA sections only — never overwrite the main kit ATC label.
+      document.querySelectorAll('[data-bkp-bottom] [data-bkp-sync-atc-label]').forEach((el) => {
         el.textContent = label;
       });
-      document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
+      document.querySelectorAll('[data-bkp-bottom] [data-bkp-sync-atc]').forEach((btn) => {
         btn.disabled = disabled;
       });
     }
@@ -267,13 +268,23 @@
       document.addEventListener('DOMContentLoaded', () => this.mirrorTrustIcons());
       window.addEventListener('load', () => this.mirrorTrustIcons());
 
-      document.querySelectorAll('[data-bkp-sync-atc]').forEach((btn) => {
-        if (btn.dataset.bkpSyncBound) return;
-        btn.dataset.bkpSyncBound = '1';
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          this.scrollToAtc();
-        });
+      // Theme Editor re-renders the bottom CTA when trust toggles; re-mirror + re-price.
+      document.addEventListener('shopify:section:load', (event) => {
+        const root = event.target;
+        if (!(root instanceof Element)) return;
+        if (!root.querySelector('[data-bkp-bottom], [data-bkp-mirror-trust]') && !root.matches?.('[data-bkp-bottom]')) {
+          return;
+        }
+        this.mirrorTrustIcons();
+        this.updatePrice();
+      });
+
+      // Event delegation so newly rendered bottom ATC buttons keep working.
+      document.addEventListener('click', (e) => {
+        const btn = e.target instanceof Element ? e.target.closest('[data-bkp-sync-atc]') : null;
+        if (!btn || !btn.closest('[data-bkp-bottom]')) return;
+        e.preventDefault();
+        this.scrollToAtc();
       });
     }
 
@@ -283,7 +294,10 @@
         document.querySelector('brisa-kit-purchase [data-bkp-trust-source], brisa-kit-purchase .bkp__trust');
       if (!source) return;
 
-      document.querySelectorAll('[data-bkp-mirror-trust]').forEach((host) => {
+      document.querySelectorAll('[data-bkp-bottom] [data-bkp-mirror-trust]').forEach((host) => {
+        // Trust host only — never touch the ATC button / price label siblings.
+        if (!(host instanceof Element) || !host.matches('[data-bkp-mirror-trust]')) return;
+
         const section = host.closest('[data-bkp-bottom]');
         if (section && section.dataset.showTrust !== 'true') {
           host.replaceChildren();
@@ -301,7 +315,7 @@
           });
         }
 
-        if (!clone.querySelector('.bkp__trust-item')) {
+        if (!clone.querySelector('.bkp__trust-item, [data-bkp-trust-index]')) {
           host.replaceChildren();
           return;
         }

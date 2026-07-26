@@ -20,6 +20,7 @@
     {%- comment -%}
       Trust labels/icons are cloned from Brisa kit purchase (single source of truth).
       This section only controls which items are shown.
+      Host stays in the DOM when hidden so trust clear never touches the ATC siblings.
     {%- endcomment -%}
     <div class="bkp-bottom__trust" data-bkp-mirror-trust></div>
   </div>
@@ -27,11 +28,29 @@
 
 <script>
   (() => {
+    const syncBottomAtcFromKit = () => {
+      const kit = document.querySelector('brisa-kit-purchase');
+      if (!kit) return;
+
+      // Prefer live updatePrice so money formatting + disabled state stay correct.
+      if (typeof kit.updatePrice === 'function') {
+        kit.updatePrice();
+        return;
+      }
+
+      const mainLabel = kit.querySelector('[data-bkp-atc-label]');
+      if (!mainLabel) return;
+      document.querySelectorAll('[data-bkp-bottom] [data-bkp-sync-atc-label]').forEach((el) => {
+        el.textContent = mainLabel.textContent;
+      });
+    };
+
     const fillTrust = () => {
       document.querySelectorAll('[data-bkp-bottom]').forEach((section) => {
         const host = section.querySelector('[data-bkp-mirror-trust]');
         if (!host) return;
 
+        // Hide/clear trust UI only — never touch the ATC button or its price label.
         if (section.dataset.showTrust !== 'true') {
           host.replaceChildren();
           return;
@@ -51,20 +70,35 @@
           if (section.getAttribute(`data-show-trust-${index}`) !== 'true') item.remove();
         });
 
-        if (!clone.querySelector('[data-bkp-trust-index]')) {
+        if (!clone.querySelector('[data-bkp-trust-index], .bkp__trust-item')) {
           host.replaceChildren();
           return;
         }
 
         host.replaceChildren(clone);
       });
-      return Boolean(document.querySelector('brisa-kit-purchase [data-bkp-trust-source], brisa-kit-purchase .bkp__trust'));
+
+      // Always re-apply ATC price after trust work (Theme Editor toggles re-render this section).
+      syncBottomAtcFromKit();
+
+      return Boolean(
+        document.querySelector('brisa-kit-purchase [data-bkp-trust-source], brisa-kit-purchase .bkp__trust')
+      );
     };
 
     if (!fillTrust()) {
       document.addEventListener('DOMContentLoaded', fillTrust);
       window.addEventListener('load', fillTrust);
     }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      const root = event.target;
+      if (!(root instanceof Element)) return;
+      if (!root.querySelector('[data-bkp-bottom], [data-bkp-mirror-trust]') && !root.matches('[data-bkp-bottom]')) {
+        return;
+      }
+      fillTrust();
+    });
 
     // Re-run after kit purchase custom element finishes setup.
     const kit = document.querySelector('brisa-kit-purchase');
