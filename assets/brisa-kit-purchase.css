@@ -989,13 +989,13 @@
   margin-bottom: 0;
 }
 
-/* Mobile: compact kit cards — price under thumb, denser vertical rhythm */
+/* Mobile: compact kit cards — radio+thumb side-by-side, price under right cluster */
 @media (max-width: 749px) {
   .bkp__kit {
-    /* ~74/26 (was 1fr auto ≈ 65/35) — left ~15% wider relative */
-    grid-template-columns: minmax(0, 2.8fr) minmax(96px, 1fr);
+    /* Left features + right cluster (radio | thumb) */
+    grid-template-columns: minmax(0, 1fr) auto;
     padding: 10px 5px 10px 6px;
-    gap: 2px 0;
+    gap: 2px 6px;
     align-items: start;
   }
 
@@ -1015,13 +1015,13 @@
   }
 
   .bkp__kit-title {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.15;
   }
 
   .bkp__kit-subtitle {
     margin: 0;
-    font-size: 12px;
+    font-size: 10px;
     line-height: 1.2;
   }
 
@@ -1032,27 +1032,33 @@
   }
 
   .bkp__kit-feature {
-    font-size: 12px;
-    line-height: 1.15;
-    gap: 5px;
+    grid-template-columns: 11px 1fr;
+    font-size: 10px;
+    line-height: 1.2;
+    gap: 4px;
   }
 
   .bkp__kit-check {
-    width: 12px;
-    height: 12px;
-    font-size: 12px;
+    width: 11px;
+    height: 11px;
+    font-size: 10px;
   }
 
+  /* Radio + product thumb on one row (neighbors), not stacked */
   .bkp__kit-side {
     grid-column: 2;
-    grid-row: 1 / 3;
-    gap: 4px;
+    grid-row: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
     min-width: 0;
   }
 
   .bkp__kit-pricing {
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 2;
     align-self: start;
     justify-self: stretch;
     flex-direction: row;
@@ -1090,6 +1096,7 @@
   .bkp__kit-radio {
     width: 20px;
     height: 20px;
+    flex: 0 0 auto;
   }
 
   .bkp__kit-radio::after {
