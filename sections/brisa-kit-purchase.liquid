@@ -641,6 +641,10 @@
                 elsif block.settings.image_asset != blank
                   assign colour_preview_url = block.settings.image_asset | asset_url
                 endif
+                # Prefer landscape device cutouts beside swatches (black/cyan/rose-tran-horiz.png).
+                if colour_preview_url != blank
+                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                endif
                 assign swatch_style = block.settings.hex | default: '#cccccc'
                 assign is_first = forloop.first
                 assign swatch_sold_out = false
@@ -674,6 +678,9 @@
               assign yours_preview_src = default_colour_preview | image_url: width: 1200
             elsif colour_blocks.size > 0 and colour_blocks.first.settings.image_asset != blank
               assign yours_preview_src = colour_blocks.first.settings.image_asset | asset_url
+            endif
+            if yours_preview_src != blank
+              assign yours_preview_src = yours_preview_src | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
             endif
           -%}
           <div class="bkp__colour-preview" data-bkp-colour-preview="yours"{% if yours_preview_src == blank %} hidden{% endif %}>
@@ -734,6 +741,9 @@
                   assign colour_preview_url = colour_preview | image_url: width: 1200
                 elsif block.settings.image_asset != blank
                   assign colour_preview_url = block.settings.image_asset | asset_url
+                endif
+                if colour_preview_url != blank
+                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
                 endif
                 assign swatch_style = block.settings.hex | default: '#cccccc'
                 assign is_first = forloop.first
