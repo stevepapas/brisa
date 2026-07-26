@@ -569,7 +569,7 @@
           for colour_variant in try_product.variants
             assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
             if colour_name == default_label_key or default_label_key == 'ocean' and colour_name == 'blue' or default_label_key == 'blue' and colour_name == 'ocean'
-              assign default_colour_preview = colour_variant.featured_media | default: colour_variant.image
+              assign default_colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
               break
             endif
           endfor
@@ -604,15 +604,15 @@
                     if colour_name == colour_label_key
                       assign kit_colour_variant_id = colour_variant.id
                       assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
                     elsif colour_label_key == 'ocean' and colour_name == 'blue'
                       assign kit_colour_variant_id = colour_variant.id
                       assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
                     elsif colour_label_key == 'blue' and colour_name == 'ocean'
                       assign kit_colour_variant_id = colour_variant.id
                       assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
                     endif
                   endfor
                 endif
@@ -669,8 +669,6 @@
               data-bkp-colour-preview-img="yours"
               src="{{ yours_preview_src | escape }}"
               alt="{{ default_colour_preview_alt | escape }}"
-              width="1200"
-              height="214"
               loading="eager"
               decoding="async"
               {% if yours_preview_src == blank %}hidden{% endif %}
@@ -700,15 +698,15 @@
                     if colour_name == colour_label_key
                       assign kit_colour_variant_id = colour_variant.id
                       assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
                     elsif colour_label_key == 'ocean' and colour_name == 'blue'
                       assign kit_colour_variant_id = colour_variant.id
                       assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
                     elsif colour_label_key == 'blue' and colour_name == 'ocean'
                       assign kit_colour_variant_id = colour_variant.id
                       assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.featured_media | default: colour_variant.image
+                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
                     endif
                   endfor
                 endif
@@ -756,8 +754,6 @@
               data-bkp-colour-preview-img="mates"
               src="{{ yours_preview_src | escape }}"
               alt="{{ default_colour_preview_alt | escape }}"
-              width="1200"
-              height="214"
               loading="lazy"
               decoding="async"
               {% if yours_preview_src == blank %}hidden{% endif %}

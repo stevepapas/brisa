@@ -747,6 +747,8 @@
   align-items: center;
   justify-content: center;
   min-width: 0;
+  /* Reserve the image's height so swapping colours doesn't shift the page. */
+  min-height: 120px;
   overflow: visible;
 }
 
@@ -756,10 +758,10 @@
 
 .bkp__colour-preview-img {
   display: block;
+  width: auto;
   max-width: 100%;
-  width: 100%;
   height: auto;
-  max-height: 110px;
+  max-height: 120px;
   object-fit: contain;
   object-position: center;
 }
@@ -777,8 +779,12 @@
 }
 
 @media (min-width: 750px) {
+  .bkp__colour-preview {
+    min-height: 160px;
+  }
+
   .bkp__colour-preview-img {
-    max-height: 140px;
+    max-height: 160px;
   }
 }
 
