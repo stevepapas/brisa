@@ -1,10 +1,18 @@
+{% liquid
+  assign slide_href = variant.url
+  if slide_label != blank and slide_href contains '?'
+    assign slide_colour_param = slide_label | url_encode
+    assign slide_href = slide_href | append: '&colour=' | append: slide_colour_param
+  endif
+%}
+
 <div
   class="product-slider__card"
   data-product-slider-card
   data-product-title="{{ slide_label | escape }}"
   style="border-radius: {{ section.settings.slider_border_radius }}px;"
 >
-  <a class="product-slider__link" href="{{ variant.url }}">
+  <a class="product-slider__link" href="{{ slide_href }}">
     <div class="product-slider__image-wrapper">
       {% if section.settings.show_slide_product_name %}
         <div class="product-slider__flavour">{{ slide_label | escape }}</div>

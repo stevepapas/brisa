@@ -163,6 +163,7 @@
   data-brisa-cores-swatch
   data-index="{{ nav_index }}"
   data-variant-id="{{ variant.id }}"
+  data-colour-label="{{ nav_label | escape }}"
   data-available="{% if nav_available %}true{% else %}false{% endif %}"
   {% if is_variety %}data-variety="true" data-flavour-key="variety"{% endif %}
   aria-label="Select {{ nav_label | escape }}"

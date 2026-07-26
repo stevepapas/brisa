@@ -75,6 +75,8 @@
         this.addToCart();
       });
 
+      this.applyUrlColour();
+
       const preferred =
         this.kits.find((k) => k.classList.contains('is-selected') && this.isKitAvailable(k)) ||
         this.kits.find((k) => this.isKitAvailable(k));
@@ -184,7 +186,7 @@
       if (!match || match.classList.contains('is-sold-out')) return;
 
       swatches.forEach((swatch) => swatch.classList.toggle('is-selected', swatch === match));
-      if (this.yoursName) this.yoursName.textContent = match.dataset.label || '';
+      this.updateColourPreview('yours', match);
     }
 
     selectedSwatch(role) {

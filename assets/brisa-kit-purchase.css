@@ -764,6 +764,10 @@
   object-position: center;
 }
 
+.bkp__colour-preview-img[hidden] {
+  display: none;
+}
+
 .bkp__colours--dual .bkp__colour-group[data-role='mates'] {
   display: none;
 }
@@ -773,22 +777,8 @@
 }
 
 @media (min-width: 750px) {
-  .bkp__colour-picker {
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .bkp__swatches {
-    flex-shrink: 0;
-  }
-
-  .bkp__colour-preview {
-    flex: 1;
-  }
-
   .bkp__colour-preview-img {
-    max-height: 120px;
+    max-height: 140px;
   }
 }
 

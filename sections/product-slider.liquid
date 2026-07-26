@@ -342,7 +342,11 @@
   }
 </style>
 
-<section class="product-slider product-slider-{{ section_key }}" data-product-slider>
+<section
+  class="product-slider product-slider-{{ section_key }}"
+  data-product-slider
+  data-product-url="{{ slider_product.url }}"
+>
   {% if section.settings.heading != blank or section.settings.subheading != blank %}
     <div class="product-slider__header">
       {% if section.settings.heading != blank %}
@@ -461,7 +465,7 @@
     </div>
 
     {% if section.settings.button_text != blank %}
-      <a class="product-slider__button" href="{{ section.settings.button_link }}">
+      <a class="product-slider__button" href="{{ section.settings.button_link }}" data-product-slider-button>
         {{ section.settings.button_text | escape }}
       </a>
     {% endif %}
@@ -481,7 +485,36 @@
     const titles = Array.from(root.querySelectorAll('[data-product-slider-title]'));
     const prev = root.querySelector('[data-product-slider-prev]');
     const next = root.querySelector('[data-product-slider-next]');
+    const button = root.querySelector('[data-product-slider-button]');
+    const buttonBase = button ? button.getAttribute('href') || '' : '';
+
+    function toUrl(value) {
+      if (!value) return null;
+      try {
+        return new URL(value, window.location.origin);
+      } catch (err) {
+        return null;
+      }
+    }
+
+    const buttonUrl = toUrl(buttonBase);
+    const productUrl = toUrl(root.dataset.productUrl);
+    // Only carry the active colour when the button already points at the slider's own product.
+    const buttonTracksColour = Boolean(
+      buttonUrl &&
+        productUrl &&
+        buttonUrl.pathname.replace(/\/$/, '') === productUrl.pathname.replace(/\/$/, '')
+    );
     let currentIndex = 0;
+
+    function updateButtonLink(item) {
+      if (!buttonTracksColour || !item) return;
+
+      const url = new URL(buttonUrl.href);
+      if (item.dataset.variantId) url.searchParams.set('variant', item.dataset.variantId);
+      if (item.dataset.colourLabel) url.searchParams.set('colour', item.dataset.colourLabel);
+      button.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
+    }
 
     function updateSlider(index) {
       if (!track || cards.length === 0) return;
@@ -502,6 +535,8 @@
       titles.forEach((title, titleIndex) => {
         title.classList.toggle('is-active', titleIndex === currentIndex);
       });
+
+      updateButtonLink(navItems[currentIndex]);
     }
 
     navItems.forEach((item) => {
@@ -509,6 +544,8 @@
         updateSlider(parseInt(item.dataset.index, 10));
       });
     });
+
+    updateButtonLink(navItems[currentIndex]);
 
     if (prev) {
       prev.addEventListener('click', () => updateSlider(currentIndex - 1));
