@@ -206,7 +206,7 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "text": "FREE 3 x Watermelon cores (worth $15)",
             "bonus": true
           }
         },
@@ -246,7 +246,7 @@
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "text": "FREE 3 x Watermelon cores (worth $15)",
             "bonus": true
           }
         },
@@ -286,17 +286,17 @@
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "FREE 3 x Raspberry lime cores (worth $15)",
+            "text": "FREE 3 x Watermelon cores (worth $15)",
             "bonus": true
           }
         },
         "g1": {
           "type": "gift",
           "settings": {
-            "image": "shopify://shop_images/ras-lime.png",
-            "title": "Raspberry lime core",
+            "image": "shopify://shop_images/watermelon-pack.png",
+            "title": "Watermelon pack",
             "tag": "FREE $15",
-            "text": "FREE 3 Raspberry lime cores with every kit."
+            "text": "FREE 3 watermelon cores with every kit."
           }
         },
         "g2": {
