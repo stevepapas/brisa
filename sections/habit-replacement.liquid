@@ -149,18 +149,36 @@
 
   #shopify-section-{{ section.id }} .habit-replacement__video {
     position: relative;
-    max-width: 520px;
-    margin: 0 auto 30px;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto 14px;
     overflow: hidden;
     background: #d8f6ff;
-    border-radius: 8px;
+    border-radius: 24px;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__video-image {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 0;
+    border-radius: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__video-caption {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto 22px;
+    color: {{ section.settings.text_color }};
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__video-caption p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__video-caption strong {
+    font-weight: 800;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__play {
@@ -191,78 +209,86 @@
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__steps {
-    max-width: 520px;
+    max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
     text-align: left;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__step {
     display: grid;
-    grid-template-columns: 38px 8px minmax(0, 1fr);
-    gap: 14px;
-    align-items: start;
-    margin-bottom: 14px;
+    grid-template-columns: 44px 6px minmax(0, 1fr);
+    gap: 0 17px;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .habit-replacement__step:not(:last-child) {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid {{ section.settings.step_divider_color }};
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__step-index {
+    align-self: start;
     color: {{ section.settings.step_number_color }};
-    font-size: 16px;
+    font-size: 28px;
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__step-line {
     display: block;
-    width: 5px;
-    min-height: 38px;
+    align-self: stretch;
+    width: 6px;
+    min-height: 34px;
     background: {{ section.settings.eyebrow_background }};
+    border-radius: 3px;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__step-title {
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     color: {{ section.settings.heading_color }};
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 900;
-    line-height: 1.15;
+    line-height: 1.2;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__step-text {
     margin: 0;
     color: {{ section.settings.text_color }};
-    font-size: 10px;
-    line-height: 1.2;
+    font-size: 15px;
+    line-height: 1.35;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__cta {
-    max-width: 520px;
-    margin: 28px auto 0;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 26px auto 0;
     text-align: center;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__cta-card {
     margin: 0 0 22px;
-    padding: 22px 20px;
+    padding: 22px 24px;
     color: #111111;
-    background: #f7fcff;
-    border: 2px solid {{ section.settings.number_background | default: '#1198dc' }};
-    border-radius: 22px;
+    background: {{ section.settings.cta_card_background | default: '#eef3fd' }};
+    border: 2px solid {{ section.settings.cta_card_border | default: '#5b83c8' }};
+    border-radius: 20px;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__cta-title {
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     color: #111111;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 800;
     line-height: 1.25;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__cta-text {
     margin: 0;
-    color: #222222;
-    font-size: 15px;
+    color: #111111;
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.45;
+    line-height: 1.4;
   }
 
   #shopify-section-{{ section.id }} .habit-replacement__cta-text p {
@@ -322,6 +348,31 @@
       font-size: 15px;
     }
 
+    #shopify-section-{{ section.id }} .habit-replacement__video {
+      border-radius: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__video-caption {
+      font-size: 15px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__step {
+      grid-template-columns: 38px 6px minmax(0, 1fr);
+      gap: 0 13px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__step-index {
+      font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__step-title {
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .habit-replacement__step-text {
+      font-size: 14px;
+    }
+
     #shopify-section-{{ section.id }} .habit-replacement__cta {
       margin-top: 22px;
     }
@@ -332,11 +383,11 @@
     }
 
     #shopify-section-{{ section.id }} .habit-replacement__cta-title {
-      font-size: 16px;
+      font-size: 17px;
     }
 
     #shopify-section-{{ section.id }} .habit-replacement__cta-text {
-      font-size: 14px;
+      font-size: 15px;
     }
 
     #shopify-section-{{ section.id }} .habit-replacement__cta-button {
@@ -465,6 +516,10 @@
       {% endif %}
     </div>
 
+    {% if section.settings.video_caption != blank %}
+      <div class="habit-replacement__video-caption rte">{{ section.settings.video_caption }}</div>
+    {% endif %}
+
     <div class="habit-replacement__steps">
       {% assign step_index = 0 %}
       {% for block in section.blocks %}
@@ -559,6 +614,12 @@
       "id": "video_url",
       "label": "External video",
       "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "richtext",
+      "id": "video_caption",
+      "label": "Video caption",
+      "default": "<p>watch <strong>Kaiden, our Co - founder</strong>, show you how he uses the brisa,</p>"
     },
     {
       "type": "header",
@@ -662,7 +723,13 @@
       "type": "color",
       "id": "step_number_color",
       "label": "Step number",
-      "default": "#94d7fb"
+      "default": "#1b4a87"
+    },
+    {
+      "type": "color",
+      "id": "step_divider_color",
+      "label": "Step divider",
+      "default": "#a8d4f2"
     },
     {
       "type": "header",
@@ -724,6 +791,18 @@
       "type": "url",
       "id": "cta_button_link",
       "label": "CTA button link"
+    },
+    {
+      "type": "color",
+      "id": "cta_card_background",
+      "label": "CTA card background",
+      "default": "#eef3fd"
+    },
+    {
+      "type": "color",
+      "id": "cta_card_border",
+      "label": "CTA card border",
+      "default": "#5b83c8"
     },
     {
       "type": "color",
