@@ -738,3 +738,21 @@ document.addEventListener('prev-next:next', (event) => {
     slideshow.next();
   }
 });
+
+/**
+ * Cores cart stepper shows display units (1 = 3 Shopify packs).
+ * Convert typed display qty → Shopify qty before LineItemQuantity reads the value.
+ */
+document.addEventListener('change', (event) => {
+  const input = event.target;
+  if (!(input instanceof HTMLInputElement)) return;
+  if (!input.matches('input[data-brisa-cores-step]')) return;
+
+  const step = parseInt(input.getAttribute('data-brisa-cores-step') || '3', 10);
+  if (!Number.isFinite(step) || step <= 1) return;
+
+  const displayQty = parseInt(input.value, 10);
+  if (!Number.isFinite(displayQty)) return;
+
+  input.value = String(Math.max(0, displayQty * step));
+}, true);

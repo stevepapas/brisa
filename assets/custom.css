@@ -4025,3 +4025,95 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
     max-width: none;
   }
 }
+
+/* —— Cores volume cart line (drawer + main) —— */
+.brisa-cart-cores__title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+}
+
+.brisa-cart-cores__flavour {
+  display: block;
+  font-weight: 800;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.brisa-cart-cores__product {
+  display: block;
+  font-weight: 800;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.brisa-cart-cores__pack-copy {
+  margin: 4px 0 0;
+  line-height: 1.35;
+}
+
+.brisa-cart__item-details.brisa-cart-cores__pack-copy {
+  margin: 0 0 12px;
+}
+
+.brisa-cart__item-details.brisa-cart-cores__pack-copy li {
+  padding-left: 0;
+}
+
+.brisa-cart__item-details.brisa-cart-cores__pack-copy li::before {
+  content: none;
+}
+
+.brisa-cart-cores__pricing .brisa-cart__price--current {
+  order: -1;
+}
+
+.line-item--brisa-cores .brisa-cart-cores__price.price--highlight {
+  color: inherit;
+}
+
+.brisa-cart-cores__discount-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #ffffff;
+  background: #23aee8;
+}
+
+.brisa-cart-cores__discount-badge--mid {
+  background: #23aee8;
+}
+
+.brisa-cart-cores__discount-badge--top {
+  background: #e11d48;
+}
+
+.brisa-cart-cores__discount-badge.discount-badge {
+  background: #23aee8;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+
+.brisa-cart-cores__discount-badge--mid.discount-badge {
+  background: #23aee8;
+}
+
+.brisa-cart-cores__discount-badge--top.discount-badge {
+  background: #e11d48;
+}
+
+.brisa-cart-cores__discount-badge svg {
+  flex: 0 0 auto;
+}
+
+.brisa-cart__item-discount.brisa-cart-cores__discount-badge {
+  width: fit-content;
+}

@@ -89,11 +89,30 @@
         {%- endif -%}
       {%- endif -%}
 
+      {%- liquid
+        assign cores_pool_qty = 0
+        for pool_item in cart.items
+          if pool_item.product.handle == 'brisa-cores' and pool_item.selling_plan_allocation == blank
+            if pool_item.properties['_kit_key'] == blank and pool_item.properties['_device_1_variant_id'] == blank and pool_item.properties['_brisa_component'] == blank
+              assign cores_pool_qty = cores_pool_qty | plus: pool_item.quantity
+            endif
+          endif
+        endfor
+      -%}
+
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
 
         {%- for line_item in cart.items -%}
-          <line-item class="line-item">
+          {%- liquid
+            assign is_cores_onetime = false
+            if line_item.product.handle == 'brisa-cores' and line_item.selling_plan_allocation == blank
+              if line_item.properties['_kit_key'] == blank and line_item.properties['_device_1_variant_id'] == blank and line_item.properties['_brisa_component'] == blank
+                assign is_cores_onetime = true
+              endif
+            endif
+          -%}
+          <line-item class="line-item{% if is_cores_onetime %} line-item--brisa-cores{% endif %}">
             <div class="line-item__content-wrapper">
               <a href="{{ line_item.url }}" class="line-item__image-wrapper" tabindex="-1" aria-hidden="true">
                 <span class="line-item__loader" hidden>
@@ -124,31 +143,35 @@
               {%- endcapture -%}
 
               {%- capture line_price -%}
-                {%- comment -%}
-                IMPLEMENTATION NOTE: The designer wanted to show the "compare at price" on cart. In case an automatic discount is applied
-                  to a line item though, the "real" discount takes precedence over the compare at price
-                {%- endcomment -%}
+                {%- if is_cores_onetime -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'price', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
+                {%- else -%}
+                  {%- comment -%}
+                  IMPLEMENTATION NOTE: The designer wanted to show the "compare at price" on cart. In case an automatic discount is applied
+                    to a line item though, the "real" discount takes precedence over the compare at price
+                  {%- endcomment -%}
 
-                <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
-                  <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                  <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                    <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if line_item.final_line_price == 0 -%}
-                    {{- 'cart.general.free' | t -}}
-                  {%- else -%}
-                    {{- line_item.final_line_price | money -}}
-                  {%- endif -%}
-                </span>
-
-                {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
-                  <span class="price price--compare">
-                    <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-
-                    {%- if line_item.original_line_price > line_item.final_line_price -%}
-                      {{- line_item.original_line_price | money -}}
+                    {%- if line_item.final_line_price == 0 -%}
+                      {{- 'cart.general.free' | t -}}
                     {%- else -%}
-                      {{- line_item.variant.compare_at_price | times: line_item.quantity | money -}}
+                      {{- line_item.final_line_price | money -}}
                     {%- endif -%}
                   </span>
+
+                  {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                    <span class="price price--compare">
+                      <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+
+                      {%- if line_item.original_line_price > line_item.final_line_price -%}
+                        {{- line_item.original_line_price | money -}}
+                      {%- else -%}
+                        {{- line_item.variant.compare_at_price | times: line_item.quantity | money -}}
+                      {%- endif -%}
+                    </span>
+                  {%- endif -%}
                 {%- endif -%}
               {%- endcapture -%}
 
@@ -165,44 +188,49 @@
                     {%- endunless -%}
                   {%- endif -%}
 
-                  <a href="{{ line_item.url }}" class="product-item-meta__title text--small">{{ line_item.product.title }}</a>
+                  {%- if is_cores_onetime -%}
+                    {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'title', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
+                    {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'pack_copy', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
+                  {%- else -%}
+                    <a href="{{ line_item.url }}" class="product-item-meta__title text--small">{{ line_item.product.title }}</a>
 
-                  {%- capture line_item_properties -%}
-                    {%- unless line_item.product.has_only_default_variant -%}
-                      <span class="product-item-meta__property text--subdued text--xsmall">{{ line_item.variant.title }}</span>
-                    {%- endunless -%}
+                    {%- capture line_item_properties -%}
+                      {%- unless line_item.product.has_only_default_variant -%}
+                        <span class="product-item-meta__property text--subdued text--xsmall">{{ line_item.variant.title }}</span>
+                      {%- endunless -%}
 
-                    {%- if line_item.selling_plan_allocation -%}
-                      <span class="product-item-meta__property text--subdued text--xsmall">{{ line_item.selling_plan_allocation.selling_plan.name }}</span>
+                      {%- if line_item.selling_plan_allocation -%}
+                        <span class="product-item-meta__property text--subdued text--xsmall">{{ line_item.selling_plan_allocation.selling_plan.name }}</span>
+                      {%- endif -%}
+
+                      {%- unless line_item.properties == blank -%}
+                        <ul class="product-item-meta__property list--unstyled text--subdued text--xsmall" role="list">
+                          {%- for property in line_item.properties -%}
+                            {%- assign first_character_in_key = property.first | truncate: 1, '' -%}
+
+                            {%- if property.last == blank or first_character_in_key == '_' -%}
+                              {%- continue -%}
+                            {%- endif -%}
+
+                            {%- if property.first == 'Your colour' or property.first == "Mate's colour" -%}
+                              {% render 'brisa-cart-colour-property', property_key: property.first, property_value: property.last %}
+                            {%- else -%}
+                              <li>{{ property.first }}: {{ property.last }}</li>
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </ul>
+                      {%- endunless -%}
+                    {%- endcapture -%}
+
+                    {%- if line_item_properties != blank -%}
+                      <div class="product-item-meta__property-list">
+                        {{- line_item_properties -}}
+                      </div>
                     {%- endif -%}
-
-                    {%- unless line_item.properties == blank -%}
-                      <ul class="product-item-meta__property list--unstyled text--subdued text--xsmall" role="list">
-                        {%- for property in line_item.properties -%}
-                          {%- assign first_character_in_key = property.first | truncate: 1, '' -%}
-
-                          {%- if property.last == blank or first_character_in_key == '_' -%}
-                            {%- continue -%}
-                          {%- endif -%}
-
-                          {%- if property.first == 'Your colour' or property.first == "Mate's colour" -%}
-                            {% render 'brisa-cart-colour-property', property_key: property.first, property_value: property.last %}
-                          {%- else -%}
-                            <li>{{ property.first }}: {{ property.last }}</li>
-                          {%- endif -%}
-                        {%- endfor -%}
-                      </ul>
-                    {%- endunless -%}
-                  {%- endcapture -%}
-
-                  {%- if line_item_properties != blank -%}
-                    <div class="product-item-meta__property-list">
-                      {{- line_item_properties -}}
-                    </div>
                   {%- endif -%}
 
                   <div class="product-item-meta__price-list-container text--small">
-                    <div class="price-list hidden-tablet-and-up">
+                    <div class="price-list{% if is_cores_onetime %} price-list--stack{% endif %} hidden-tablet-and-up">
                       {{- line_price -}}
                       {{- unit_price -}}
                     </div>
@@ -215,7 +243,9 @@
                   </div>
                 </div>
 
-                {%- if line_item.line_level_discount_allocations != blank -%}
+                {%- if is_cores_onetime -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'discount', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
+                {%- elsif line_item.line_level_discount_allocations != blank -%}
                   <ul class="line-item__discount-list list--unstyled" role="list">
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
                       <li class="line-item__discount-badge discount-badge">
@@ -239,33 +269,37 @@
                   endif
                 %}
 
-                <line-item-quantity class="line-item__quantity">
-                  <div class="quantity-selector quantity-selector--small">
-                    <a href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment | at_least: 0 }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.decrease_quantity' | t | escape }}" data-no-instant>
-                      {%- render 'icon' with 'minus' -%}
-                    </a>
-
-                    <input is="input-number" class="quantity-selector__input text--xsmall" autocomplete="off" type="number" inputmode="numeric" name="updates[]" data-line="{{ forloop.index }}" value="{{ line_item.quantity }}" {% if max_quantity != '' %}max="{{ max_quantity }}"{% endif %} size="{{ line_item.quantity | append: '' | size | at_least: 2 }}" aria-label="{{ 'cart.general.change_quantity' | t | escape }}">
-
-                    {%- if max_quantity == blank or line_item.quantity < max_quantity -%}
-                      {% assign increment = line_item.quantity | plus: line_item.variant.quantity_rule.increment %}
-
-                      {%- if line_item.variant.quantity_rule.max != nil -%}
-                        {%- assign increment = increment | at_most: line_item.variant.quantity_rule.max -%}
-                      {%- endif -%}
-
-                      <a href="{{ routes.cart_change_url }}?quantity={{ increment }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.increase_quantity' | t | escape }}" data-no-instant>
-                        {%- render 'icon' with 'plus' -%}
+                {%- if is_cores_onetime -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'quantity', layout: 'drawer', line_index: forloop.index, max_quantity: max_quantity, cores_pool_qty: cores_pool_qty -%}
+                {%- else -%}
+                  <line-item-quantity class="line-item__quantity">
+                    <div class="quantity-selector quantity-selector--small">
+                      <a href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment | at_least: 0 }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.decrease_quantity' | t | escape }}" data-no-instant>
+                        {%- render 'icon' with 'minus' -%}
                       </a>
-                    {%- else -%}
-                      <span class="quantity-selector__button" aria-label="{{ 'cart.general.no_more_stock' | t | escape }}" data-tooltip="{{ 'cart.general.no_more_stock' | t | escape }}">
-                        {%- render 'icon' with 'plus' -%}
-                      </span>
-                    {%- endif -%}
-                  </div>
 
-                  <a href="{{ line_item.url_to_remove }}" class="line-item__remove-button link text--subdued text--xxsmall" data-no-instant>{{ 'cart.general.remove' | t }}</a>
-                </line-item-quantity>
+                      <input is="input-number" class="quantity-selector__input text--xsmall" autocomplete="off" type="number" inputmode="numeric" name="updates[]" data-line="{{ forloop.index }}" value="{{ line_item.quantity }}" {% if max_quantity != '' %}max="{{ max_quantity }}"{% endif %} size="{{ line_item.quantity | append: '' | size | at_least: 2 }}" aria-label="{{ 'cart.general.change_quantity' | t | escape }}">
+
+                      {%- if max_quantity == blank or line_item.quantity < max_quantity -%}
+                        {% assign increment = line_item.quantity | plus: line_item.variant.quantity_rule.increment %}
+
+                        {%- if line_item.variant.quantity_rule.max != nil -%}
+                          {%- assign increment = increment | at_most: line_item.variant.quantity_rule.max -%}
+                        {%- endif -%}
+
+                        <a href="{{ routes.cart_change_url }}?quantity={{ increment }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.increase_quantity' | t | escape }}" data-no-instant>
+                          {%- render 'icon' with 'plus' -%}
+                        </a>
+                      {%- else -%}
+                        <span class="quantity-selector__button" aria-label="{{ 'cart.general.no_more_stock' | t | escape }}" data-tooltip="{{ 'cart.general.no_more_stock' | t | escape }}">
+                          {%- render 'icon' with 'plus' -%}
+                        </span>
+                      {%- endif -%}
+                    </div>
+
+                    <a href="{{ line_item.url_to_remove }}" class="line-item__remove-button link text--subdued text--xxsmall" data-no-instant>{{ 'cart.general.remove' | t }}</a>
+                  </line-item-quantity>
+                {%- endif -%}
               </div>
 
               <div class="line-item__price-list-container text--small hidden-phone">
