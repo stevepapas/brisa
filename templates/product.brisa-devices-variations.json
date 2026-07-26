@@ -126,6 +126,29 @@
             "overlay_color": "#000000",
             "overlay_opacity": 0
           }
+        },
+        "image_device6": {
+          "type": "image",
+          "name": "device-6",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-6.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
         }
       },
       "block_order": [
@@ -133,7 +156,8 @@
         "image_8JzWqj",
         "image_fqhXJ3",
         "image_drDPHj",
-        "image_mUiUVU"
+        "image_mUiUVU",
+        "image_device6"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
