@@ -131,8 +131,9 @@
 @media screen and (max-width: 749px) {
   .shopify-section--brisa-home-hero .brisa-home-hero__ctas,
   .shopify-section--brisa-home-hero-v4 .brisa-home-hero__ctas {
-    margin-top: 28px !important;
+    margin-top: -39px !important;
     padding-top: 72px !important;
+    margin-bottom: 122px !important;
   }
 
   .shopify-section--brisa-home-hero .brisa-home-hero__cta-art,
@@ -163,7 +164,12 @@
   }
 }
 
+.shopify-section--brisa-home-hero .brisa-home-hero__cta-art--devices img,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art--devices img {
+  max-height: 48px !important;
+}
+
 .shopify-section--brisa-home-hero .brisa-home-hero__cta-art--cores img,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta-art--cores img {
-  max-height: 52px !important;
+  max-height: 36.4px !important;
 }
