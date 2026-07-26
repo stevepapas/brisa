@@ -275,13 +275,24 @@
 
 .bkp__kit-feature {
   display: block;
-  font-size: 12.5px;
+  font-size: 11px;
   line-height: 1.15;
   color: #333;
 }
 
+.bkp__kit-feature--composition,
+.bkp__kit-features > .bkp__kit-feature:nth-child(3):not(.bkp__kit-feature--bonus) {
+  color: #6e6e6e;
+  font-weight: 700;
+}
+
 .bkp__kit-feature--bonus {
   color: #1f9d55;
+  font-weight: 700;
+}
+
+.bkp__kit-feature--bonus .bkp__kit-feature-worth {
+  color: #6e6e6e;
   font-weight: 700;
 }
 
@@ -994,7 +1005,7 @@
   }
 
   .bkp__kit-feature {
-    font-size: 10px;
+    font-size: 9px;
     line-height: 1.12;
   }
 

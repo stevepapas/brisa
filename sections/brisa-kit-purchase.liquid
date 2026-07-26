@@ -368,8 +368,24 @@
             <ul class="bkp__kit-features">
               {% for block in section.blocks %}
                 {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
-                  <li class="bkp__kit-feature{% if block.settings.bonus %} bkp__kit-feature--bonus{% endif %}" {{ block.shopify_attributes }}>
-                    <span>{{ block.settings.text | escape }}</span>
+                  {% liquid
+                    assign feature_text = block.settings.text
+                    assign feature_class = 'bkp__kit-feature'
+                    if block.settings.composition
+                      assign feature_class = feature_class | append: ' bkp__kit-feature--composition'
+                    endif
+                    if block.settings.bonus
+                      assign feature_class = feature_class | append: ' bkp__kit-feature--bonus'
+                    endif
+                  %}
+                  <li class="{{ feature_class }}" {{ block.shopify_attributes }}>
+                    {% if block.settings.bonus and feature_text contains '(worth' %}
+                      {% assign worth_parts = feature_text | split: '(worth' %}
+                      <span class="bkp__kit-feature-text">{{ worth_parts.first | strip | escape }}</span>
+                      <span class="bkp__kit-feature-worth">(worth{{ worth_parts.last | escape }}</span>
+                    {% else %}
+                      <span class="bkp__kit-feature-text">{{ feature_text | escape }}</span>
+                    {% endif %}
                   </li>
                 {% endif %}
               {% endfor %}
@@ -1456,6 +1472,13 @@
           "id": "text",
           "label": "Text",
           "default": "1x Brisa device"
+        },
+        {
+          "type": "checkbox",
+          "id": "composition",
+          "label": "Products mix / grey bold",
+          "default": false,
+          "info": "Flavour mix line (e.g. 18 Cherry Pom - 9 Mint Ice)"
         },
         {
           "type": "checkbox",
