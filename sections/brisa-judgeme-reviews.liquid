@@ -3,6 +3,17 @@
   if section.settings.product != blank
     assign review_product = section.settings.product
   endif
+
+  # Judge.me write-review modal reads data-image-url from the cached widget HTML
+  # (often stale). Prefer the live Shopify featured media for the product thumbnail.
+  assign jdgm_product_image = review_product.featured_media
+  if jdgm_product_image == blank
+    assign jdgm_product_image = review_product.featured_image
+  endif
+  assign jdgm_product_image_url = ''
+  if jdgm_product_image != blank
+    assign jdgm_product_image_url = jdgm_product_image | image_url: width: 400
+  endif
 -%}
 
 <style>
@@ -688,6 +699,8 @@
         data-product-title="{{ review_product.title | escape }}"
         data-id="{{ review_product.id }}"
         data-auto-install="false"
+        data-product-image-url="{{ jdgm_product_image_url | escape }}"
+        data-image-url="{{ jdgm_product_image_url | escape }}"
       >
         {{ review_product.metafields.judgeme.widget }}
       </div>
@@ -705,8 +718,47 @@
     var root = document.getElementById('shopify-section-{{ section.id }}');
     if (!root) return;
 
+    var PRODUCT_IMAGE_URL = {{ jdgm_product_image_url | json }};
     var CHEVRON = '<span class="brisa-jdgm-chevron" aria-hidden="true"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L7 6.5L13 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
     var FILTER = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.143 15a2.501 2.501 0 0 1 4.717 0h8.475v1.666H9.86a2.5 2.5 0 0 1-4.717 0H1.667V15h3.476Zm5-6.667a2.501 2.501 0 0 1 4.717 0h3.476V10h-3.476a2.5 2.5 0 0 1-4.717 0H1.667V8.333h8.476Zm-5-6.666a2.501 2.501 0 0 1 4.717 0h8.475V3.333H9.86a2.5 2.5 0 0 1-4.717 0H1.667V1.667h3.476Z"/></svg>';
+
+    // Judge.me modal uses jQuery .data('image-url') from .jdgm-rev-widg — override
+    // stale metafield cache with the current Shopify featured image.
+    function syncProductImageAttrs() {
+      if (!PRODUCT_IMAGE_URL) return;
+      var nodes = root.querySelectorAll(
+        '.jdgm-review-widget, .jdgm-rev-widg, .jm-review-widget, .jdgm-widget'
+      );
+      nodes.forEach(function (el) {
+        if (el.getAttribute('data-image-url') !== PRODUCT_IMAGE_URL) {
+          el.setAttribute('data-image-url', PRODUCT_IMAGE_URL);
+        }
+        if (el.getAttribute('data-product-image-url') !== PRODUCT_IMAGE_URL) {
+          el.setAttribute('data-product-image-url', PRODUCT_IMAGE_URL);
+        }
+        if (window.jdgm && jdgm.$) {
+          try {
+            var $el = jdgm.$(el);
+            if ($el.data('image-url') !== PRODUCT_IMAGE_URL) {
+              $el.removeData('imageUrl').removeData('image-url');
+              $el.attr('data-image-url', PRODUCT_IMAGE_URL);
+              $el.data('image-url', PRODUCT_IMAGE_URL);
+            }
+          } catch (err) {
+            /* Judge.me optional */
+          }
+        }
+      });
+      document
+        .querySelectorAll(
+          '.jdgm-write-review-modal__product-image img, .jdgm-write-review-modal__other-product-image img'
+        )
+        .forEach(function (img) {
+          if (img.getAttribute('src') !== PRODUCT_IMAGE_URL) {
+            img.setAttribute('src', PRODUCT_IMAGE_URL);
+          }
+        });
+    }
 
     function formatAverage(text, fallback) {
       var match = String(text || '').match(/(\d+(?:\.\d+)?)/);
@@ -923,6 +975,7 @@
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
 
       ensureRowStars();
+      syncProductImageAttrs();
 
       var header = root.querySelector('.jdgm-rev-widg__header');
       var summary = root.querySelector('.jdgm-rev-widg__summary');
@@ -1043,13 +1096,18 @@
         }
         ensureJudgemeFormAssets();
         ensureRowStars();
+        syncProductImageAttrs();
 
         window.setTimeout(function () {
+          syncProductImageAttrs();
           if (isShown(document.querySelector('.jdgm-write-review-modal'))) return;
           if (isShown(root.querySelector('.jdgm-form-wrapper'))) return;
 
           // Prefer Judge.me popup when its modal DOM is already mounted.
-          if (tryOpenJudgemeModal()) return;
+          if (tryOpenJudgemeModal()) {
+            syncProductImageAttrs();
+            return;
+          }
 
           // Otherwise show the inline form (create insert target + form first so Cancel isn't empty).
           openInlineReviewForm();
@@ -1058,6 +1116,7 @@
       true
     );
 
+    syncProductImageAttrs();
     enhance();
 
     var tries = 0;
@@ -1066,20 +1125,24 @@
       enhance();
       formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
       hydrateReviewImages();
+      syncProductImageAttrs();
       if (tries > 40) clearInterval(timer);
     }, 250);
 
     document.addEventListener('jdgm.doneDoneSetup', function () {
       enhance();
       hydrateReviewImages();
+      syncProductImageAttrs();
     });
     document.addEventListener('jdgm.doneLoadingReviews', function () {
       enhance();
       reorderCards();
       hydrateReviewImages();
+      syncProductImageAttrs();
     });
     document.addEventListener('jdgm.doneSetupReviewForm', function () {
       ensureRowStars();
+      syncProductImageAttrs();
     });
 
     if (window.MutationObserver) {
@@ -1091,11 +1154,20 @@
           formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
           reorderCards();
           hydrateReviewImages();
+          syncProductImageAttrs();
         } finally {
           syncing = false;
         }
       });
       observer.observe(root, { childList: true, subtree: true });
+      // Modal mounts on body — patch thumb when Judge.me inserts the write-review modal.
+      var modalSyncTimer = null;
+      var bodyObserver = new MutationObserver(function () {
+        if (!document.querySelector('.jdgm-write-review-modal__product-image img')) return;
+        if (modalSyncTimer) clearTimeout(modalSyncTimer);
+        modalSyncTimer = setTimeout(syncProductImageAttrs, 50);
+      });
+      bodyObserver.observe(document.body, { childList: true });
     }
   })();
 </script>
