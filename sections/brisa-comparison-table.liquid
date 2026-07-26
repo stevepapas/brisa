@@ -6,8 +6,8 @@
     --brisa-comparison-max-width: {{ section.settings.max_width }}px;
     --brisa-comparison-heading-color: {{ section.settings.heading_color }};
     --brisa-comparison-heading-size: {{ section.settings.heading_size }}px;
-    --brisa-comparison-line-width: {{ section.settings.line_width }}px;
-    --brisa-comparison-line-color: {{ section.settings.line_color }};
+    --brisa-comparison-line-width: 2px;
+    --brisa-comparison-line-color: #333333;
     --brisa-comparison-brisa-text-color: {{ section.settings.brisa_text_color }};
     --brisa-comparison-brisa-color: {{ section.settings.brisa_color }};
     --brisa-comparison-brisa-radius: {{ section.settings.brisa_radius }}px;
@@ -37,7 +37,14 @@
         {% if section.settings.heading != blank %}
           {{ section.settings.heading | escape }}
         {% else %}
-          <span class="brisa-comparison__brand">{{ section.settings.heading_brand | default: 'BRISA' | escape }}</span>
+          <img
+            class="brisa-comparison__heading-logo"
+            src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446"
+            alt="{{ section.settings.heading_brand | default: 'Brisa Better' | escape }}"
+            width="600"
+            height="270"
+            loading="lazy"
+          >
           <span class="brisa-comparison__vs">{{ section.settings.heading_vs | default: 'VS' | escape }}</span>
           <span class="brisa-comparison__rest">{{ section.settings.heading_rest | default: 'THE REST.' | escape }}</span>
         {% endif %}
