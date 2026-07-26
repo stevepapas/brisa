@@ -175,6 +175,8 @@
 
 .bkp__kit:has(.bkp__kit-banner) {
   margin-top: 8px;
+  /* Clear absolute popular/sold-out pill above the title */
+  padding-top: 24px;
 }
 
 .bkp__kit.is-selected {
@@ -1035,6 +1037,10 @@
     padding: 8px 6px 8px 8px;
     gap: 2px 4px;
     align-items: start;
+  }
+
+  .bkp__kit:has(.bkp__kit-banner) {
+    padding-top: 18px;
   }
 
   .bkp__kit-main {
