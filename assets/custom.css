@@ -3920,3 +3920,44 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
     max-height: 48px !important;
   }
 }
+
+/* Desktop content width: 800px centered for Choose your Brisa / sliders,
+   comparison, BUILT FOR THE MOMENT, ENGINEERED TO MIMIC, Real results.
+   Constrain inner wrappers only so section backgrounds can stay full-bleed. */
+@media screen and (min-width: 750px) {
+  .shopify_section_product_slider .product-slider {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brisa-inside-cores__inner {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .brisa-comparison__container {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blue-layout-2 {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .engineered-switch__inner {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .shopify-section--brisa-product-reviews .brisa-product-testimonials {
+    max-width: 800px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
