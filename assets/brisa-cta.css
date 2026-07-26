@@ -83,14 +83,20 @@
   .dq-final-cta__btn
 ):hover {
   color: #ffffff !important;
-  background: #4eb8ef !important;
+  background: #333333 !important;
   background-image: none !important;
+  filter: none !important;
 }
 
 /* The home hero paints its button colour on a pseudo-element. */
 .shopify-section--brisa-home-hero .brisa-home-hero__cta::before,
 .shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta::before {
   background: #4eb8ef !important;
+}
+
+.shopify-section--brisa-home-hero .brisa-home-hero__cta:hover::before,
+.shopify-section--brisa-home-hero-v4 .brisa-home-hero__cta:hover::before {
+  background: #333333 !important;
 }
 
 /* Preserve the compact floating CTA layout while sharing its visual style. */
