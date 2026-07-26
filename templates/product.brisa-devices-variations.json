@@ -1090,9 +1090,9 @@
       ],
       "name": "Brisa product reviews",
       "settings": {
-        "heading": "Real Aussies. Real Reviews.",
-        "subheading": "",
-        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "heading": "Real Results",
+        "subheading": "Video testimonials",
+        "disclaimer": "",
         "show_text_testimonials": false,
         "show_arrows": true,
         "show_dots": false,
