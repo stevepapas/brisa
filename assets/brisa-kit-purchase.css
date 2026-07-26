@@ -927,8 +927,8 @@
 /* Mobile: compact kit cards — price under thumb, denser vertical rhythm */
 @media (max-width: 749px) {
   .bkp__kit {
-    padding: 10px 10px 10px 12px;
-    gap: 2px 8px;
+    padding: 10px 5px 10px 6px;
+    gap: 2px 0;
     align-items: start;
   }
 
@@ -1011,8 +1011,8 @@
   }
 
   .bkp__kit-thumb {
-    width: 96px;
-    height: 96px;
+    width: 67px;
+    height: 67px;
   }
 
   .bkp__kit-radio {
