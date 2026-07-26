@@ -1400,6 +1400,12 @@ display: none;
   gap: 3px !important;
   font-size: 0.7rem !important;
 }
+@media screen and (min-width: 750px) {
+  .trust-bar {
+    width: min(712px, 100%);
+    margin-inline: auto;
+  }
+}
 @media (max-width: 749px) {
   .trust-bar__item {
     font-size: 0.7rem;
