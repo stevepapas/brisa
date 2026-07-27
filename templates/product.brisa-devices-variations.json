@@ -1171,7 +1171,7 @@
       "settings": {
         "heading": "Real results",
         "subheading": "Video testimonials",
-        "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
+        "disclaimer": "",
         "show_text_testimonials": false,
         "show_arrows": true,
         "show_dots": false,
@@ -1311,10 +1311,10 @@
     "brisa_how_it_works",
     "brisa_inside_cores",
     "brisa_comparison_table_ntMxq4",
-    "brisa_product_reviews_zMjLwQ",
     "brisa_kit_bottom_cta",
     "engineered_switch_NniVXE",
     "device_questions_PFtKdK",
+    "brisa_product_reviews_zMjLwQ",
     "brisa_judgeme_reviews"
   ]
 }
