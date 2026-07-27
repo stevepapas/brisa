@@ -851,35 +851,6 @@
         "autoplay_speed": 5000
       }
     },
-    "whats_in_the_box_MiChAY": {
-      "type": "whats-in-the-box",
-      "name": "Whats in the box",
-      "settings": {
-        "heading": "",
-        "subheading": "",
-        "image_asset": "brisa-what-comes-with.jpg",
-        "image_aspect_ratio": "1 / 1",
-        "placeholder_text": "Product image goes here",
-        "footer_text": "",
-        "image_max_width": 720,
-        "image_radius": 16,
-        "image_fit": "contain",
-        "max_width": 800,
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "header_spacing": 32,
-        "footer_spacing": 24,
-        "heading_size": 48,
-        "subheading_size": 18,
-        "footer_size": 16,
-        "placeholder_text_size": 22,
-        "background": "#d7ebf7",
-        "heading_color": "#0b3a66",
-        "text_color": "#4a6a84",
-        "placeholder_background": "#d7ebf7",
-        "placeholder_text_color": "#ffffff"
-      }
-    },
     "device_questions_PFtKdK": {
       "type": "device-questions",
       "blocks": {
@@ -1301,7 +1272,6 @@
     "brisa_product_reviews_zMjLwQ",
     "brisa_kit_bottom_cta",
     "engineered_switch_NniVXE",
-    "whats_in_the_box_MiChAY",
     "device_questions_PFtKdK",
     "brisa_judgeme_reviews"
   ]
