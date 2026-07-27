@@ -180,18 +180,18 @@
 
   @media screen and (max-width: 749px) {
     .brisa-how-it-works-{{ section_uid }} {
-      padding: {{ section.settings.mobile_padding_top }}px {{ section.settings.mobile_padding_horizontal }}px {{ section.settings.mobile_padding_bottom }}px;
+      padding: {{ section.settings.mobile_padding_top | times: 0.5 | round }}px {{ section.settings.mobile_padding_horizontal }}px {{ section.settings.mobile_padding_bottom | times: 0.5 | round }}px;
     }
 
     .brisa-how-it-works-{{ section_uid }} .brisa-how-it-works__inner {
-      padding: {{ section.settings.mobile_card_padding_y }}px {{ section.settings.mobile_card_padding_x }}px;
+      padding: {{ section.settings.mobile_card_padding_y | times: 0.5 | round }}px {{ section.settings.mobile_card_padding_x }}px;
       border-radius: {{ section.settings.card_radius | times: 0.72 | round }}px;
     }
 
     .brisa-how-it-works-{{ section_uid }} .brisa-how-it-works__heading {
       font-size: {{ section.settings.heading_size | times: 0.78 | round }}px;
       margin: 0;
-      padding: 6px 0 8px;
+      padding: 3px 0 4px;
     }
 
     .brisa-how-it-works-{{ section_uid }} .brisa-how-it-works__video {
