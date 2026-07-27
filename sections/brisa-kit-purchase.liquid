@@ -430,20 +430,18 @@
       {% for block in section.blocks %}
         {% if block.type == 'gift' %}
           <div class="bkp__gift" {{ block.shopify_attributes }}>
+            {% if block.settings.tag != blank %}
+              <span class="bkp__gift-tag">{{ block.settings.tag | escape }}</span>
+            {% endif %}
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 160 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
             {% else %}
               <span class="bkp__gift-media" aria-hidden="true"></span>
             {% endif %}
             <div class="bkp__gift-body">
-              <div class="bkp__gift-title-row">
-                {% if block.settings.title != blank %}
-                  <h4 class="bkp__gift-title">{{ block.settings.title | escape }}</h4>
-                {% endif %}
-                {% if block.settings.tag != blank %}
-                  <span class="bkp__gift-tag">{{ block.settings.tag | escape }}</span>
-                {% endif %}
-              </div>
+              {% if block.settings.title != blank %}
+                <h4 class="bkp__gift-title">{{ block.settings.title | escape }}</h4>
+              {% endif %}
               {% if block.settings.text != blank %}
                 <p class="bkp__gift-text">{{ block.settings.text | escape }}</p>
               {% endif %}
