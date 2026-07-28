@@ -6,6 +6,7 @@
   if section.settings.image != blank and section.settings.image.alt != blank
     assign hero_alt = section.settings.image.alt
   endif
+  assign text_in_image = section.settings.text_in_image
 %}
 
 <style>
@@ -400,9 +401,60 @@
     }
   }
 
+  {% unless text_in_image %}
   #shopify-section-{{ section.id }} .brisa-home-hero__media {
     top: 50%;
   }
+  {% endunless %}
+
+  {% if text_in_image %}
+  #shopify-section-{{ section.id }} .brisa-home-hero__veil {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 40%,
+      rgba(255, 255, 255, 0) 70%
+    );
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__intro {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__content {
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+    margin-top: 0 !important;
+    margin-bottom: 28px !important;
+    padding-top: 96px !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+      margin-top: 0 !important;
+      margin-bottom: 40px !important;
+      padding-top: 120px !important;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+      margin-top: 0 !important;
+      margin-bottom: 24px !important;
+      padding-top: 88px !important;
+    }
+  }
+  {% endif %}
 
   #shopify-section-{{ section.id }} .brisa-home-hero__eyebrow {
     margin: 0 0 5px;
@@ -539,8 +591,8 @@
           class="brisa-home-hero__image"
           src="{{ 'brisa-home-hero.jpg' | asset_url }}"
           alt=""
-          width="1651"
-          height="1981"
+          width="819"
+          height="1024"
           loading="eager"
           fetchpriority="high"
         >
@@ -753,6 +805,13 @@
       "label": "Hero image"
     },
     {
+      "type": "checkbox",
+      "id": "text_in_image",
+      "label": "Hero image already includes copy",
+      "info": "Hides the text overlay (keeps buttons and product art). Use when the uploaded hero is a full mockup.",
+      "default": true
+    },
+    {
       "type": "select",
       "id": "image_position",
       "label": "Image focal point",
@@ -762,7 +821,7 @@
         { "value": "center 30%", "label": "Upper center" },
         { "value": "center bottom", "label": "Bottom" }
       ],
-      "default": "center 30%"
+      "default": "center top"
     },
     {
       "type": "color",
