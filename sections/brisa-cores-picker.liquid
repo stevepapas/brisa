@@ -748,10 +748,15 @@
     color: #111;
     cursor: pointer;
     text-align: center;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-selected {
-    border-color: #23aee8;
+    border-color: #008bdc;
+    box-shadow:
+      0 0 0 1px #008bdc,
+      0 8px 24px rgba(0, 139, 220, 0.35);
+    background: #f3faff;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-sold-out {
@@ -763,6 +768,7 @@
   .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-sold-out.is-selected {
     border-color: #d8d8d8;
     box-shadow: none;
+    background: #f7f7f7;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag--sold-out {
@@ -780,6 +786,10 @@
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack--value.is-selected {
     border-color: #e11d48;
+    box-shadow:
+      0 0 0 1px #e11d48,
+      0 8px 24px rgba(225, 29, 72, 0.28);
+    background: #fff5f7;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag {
