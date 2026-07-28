@@ -335,7 +335,6 @@
 }
 
 .bkp__kit-thumb {
-  width: 120px;
   height: 120px;
   border-radius: 0;
   object-fit: contain;
@@ -1127,7 +1126,6 @@
   .bkp__kit-thumb {
     grid-column: 1;
     grid-row: 1;
-    width: 56px;
     height: 56px;
   }
 
@@ -1223,7 +1221,6 @@
     grid-row: 2 / 4;
     justify-self: end;
     align-self: start;
-    width: 136px;
     height: 136px;
     border-radius: 0;
   }
