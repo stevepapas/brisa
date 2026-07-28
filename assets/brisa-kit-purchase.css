@@ -1047,6 +1047,10 @@
 
 /* Mobile: compact kit cards — left shrink-wraps; thumb+radio row, price under */
 @media (max-width: 749px) {
+  .bkp__rating {
+    gap: 8px 6px;
+  }
+
   .bkp__stars svg {
     width: 12px;
     height: 12px;
