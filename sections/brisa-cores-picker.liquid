@@ -812,7 +812,8 @@
     background: #e11d48;
   }
 
-  .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores {
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores,
+  .brisa-cores-picker-{{ section_uid }} .bcp-pack__aroma {
     font-size: 15px;
     font-weight: 800;
     line-height: 1.15;
@@ -973,7 +974,8 @@
       font-size: 18px;
     }
 
-    .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores {
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores,
+    .brisa-cores-picker-{{ section_uid }} .bcp-pack__aroma {
       font-size: 13px;
     }
 
@@ -2066,13 +2068,13 @@
       "type": "text",
       "id": "pack_subheading",
       "label": "Pack subheading",
-      "default": "Stock up and save."
+      "default": "Stock up and save. (EACH CORE PACK CONTAINS 3 CORES)"
     },
     {
       "type": "text",
       "id": "value_line",
       "label": "Value line",
-      "default": "Most people grab the 27-pack so they're not reordering every few weeks — just $3.33 a core"
+      "default": "Most people grab the 9 core packs so they're not reordering every few weeks — just $3.33 a core"
     },
     {
       "type": "header",
@@ -2082,13 +2084,14 @@
       "type": "text",
       "id": "pack_1_label",
       "label": "Pack 1 label",
-      "default": "9 cores"
+      "default": "3 Core Packs"
     },
     {
       "type": "text",
       "id": "pack_1_meta",
       "label": "Pack 1 meta",
-      "default": "• 3 weeks of ritual"
+      "default": "9 Aroma Cores|= 3 weeks of ritual",
+      "info": "Use | to split into bold aroma line and grey ritual line."
     },
     {
       "type": "text",
@@ -2125,13 +2128,14 @@
       "type": "text",
       "id": "pack_2_label",
       "label": "Pack 2 label",
-      "default": "18 cores"
+      "default": "6 Core Packs"
     },
     {
       "type": "text",
       "id": "pack_2_meta",
       "label": "Pack 2 meta",
-      "default": "• 6 weeks of ritual"
+      "default": "18 Aroma Cores|= 6 weeks of ritual",
+      "info": "Use | to split into bold aroma line and grey ritual line."
     },
     {
       "type": "text",
@@ -2155,7 +2159,7 @@
       "type": "text",
       "id": "pack_2_save",
       "label": "Pack 2 save badge",
-      "default": "SAVE 17% $15 OFF"
+      "default": "SAVE 17% / $15 OFF"
     },
     {
       "type": "number",
@@ -2179,13 +2183,14 @@
       "type": "text",
       "id": "pack_3_label",
       "label": "Pack 3 label",
-      "default": "27 cores"
+      "default": "9 Core Packs"
     },
     {
       "type": "text",
       "id": "pack_3_meta",
       "label": "Pack 3 meta",
-      "default": "• 2 months of ritual"
+      "default": "27 Aroma Cores|= 2 months of ritual",
+      "info": "Use | to split into bold aroma line and grey ritual line."
     },
     {
       "type": "text",
@@ -2209,7 +2214,7 @@
       "type": "text",
       "id": "pack_3_save",
       "label": "Pack 3 save badge",
-      "default": "SAVE 33% $45 OFF"
+      "default": "SAVE 33% / $45 OFF"
     },
     {
       "type": "number",
