@@ -34,7 +34,7 @@
 
 .bkp__title {
   margin: 0 0 12px;
-  font-size: clamp(28px, 6vw, 36px);
+  font-size: clamp(22px, 6vw, 36px);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -1047,6 +1047,19 @@
 
 /* Mobile: compact kit cards — left shrink-wraps; thumb+radio row, price under */
 @media (max-width: 749px) {
+  .bkp__stars svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .bkp__rating-text {
+    font-size: 11px;
+  }
+
+  .bkp__rating-badge {
+    font-size: 10px;
+  }
+
   .bkp__kit {
     grid-template-columns: minmax(0, 1fr) auto;
     padding: 8px 6px 8px 8px;
