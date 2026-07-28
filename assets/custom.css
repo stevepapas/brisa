@@ -4090,3 +4090,25 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
 .brisa-cart__item-discount.brisa-cart-cores__discount-badge {
   width: fit-content;
 }
+
+/* Free shipping announcement ribbon */
+.announcement-bar__message p,
+.announcement-bar__message .link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.announcement-bar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.announcement-bar__icon svg {
+  display: block;
+}

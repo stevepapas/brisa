@@ -17,7 +17,8 @@
         "message_yeyJkg": {
           "type": "message",
           "settings": {
-            "text": "FREE SHIPPING ON ALL STARTER KITS AUS & NZ",
+            "text": "FREE SHIPPING ON ALL KITS",
+            "show_icons": true,
             "learn_more_text": "Learn more",
             "title": "",
             "content": "",

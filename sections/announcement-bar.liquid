@@ -70,12 +70,37 @@
             <div class="announcement-bar__message {{ text_size_class }}">
               {%- if block.settings.content != blank or block.settings.image != blank -%}
                 {%- if block.settings.learn_more_text != blank -%}
-                  <p>{{ block.settings.text | escape }} <button class="link" data-action="open-content">{{ block.settings.learn_more_text | escape }}</button></p>
+                  <p>
+                    {%- if block.settings.show_icons -%}
+                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-delivery-truck', width: 18, height: 16 -%}</span>
+                    {%- endif -%}
+                    <span>{{ block.settings.text | escape }}</span>
+                    {%- if block.settings.show_icons -%}
+                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-worldwide', width: 16, height: 16 -%}</span>
+                    {%- endif -%}
+                    <button class="link" data-action="open-content">{{ block.settings.learn_more_text | escape }}</button>
+                  </p>
                 {%- else -%}
-                  <button class="link" data-action="open-content">{{ block.settings.text | escape }}</button>
+                  <button class="link" data-action="open-content">
+                    {%- if block.settings.show_icons -%}
+                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-delivery-truck', width: 18, height: 16 -%}</span>
+                    {%- endif -%}
+                    <span>{{ block.settings.text | escape }}</span>
+                    {%- if block.settings.show_icons -%}
+                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-worldwide', width: 16, height: 16 -%}</span>
+                    {%- endif -%}
+                  </button>
                 {%- endif -%}
               {%- else -%}
-                <p>{{ block.settings.text | escape }}</p>
+                <p>
+                  {%- if block.settings.show_icons -%}
+                    <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-delivery-truck', width: 18, height: 16 -%}</span>
+                  {%- endif -%}
+                  <span>{{ block.settings.text | escape }}</span>
+                  {%- if block.settings.show_icons -%}
+                    <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-worldwide', width: 16, height: 16 -%}</span>
+                  {%- endif -%}
+                </p>
               {%- endif -%}
             </div>
 
@@ -151,6 +176,13 @@
           "id": "text",
           "label": "Text",
           "default": "Announce something here"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icons",
+          "label": "Show shipping icons",
+          "default": false,
+          "info": "Adds a delivery truck and globe beside the message."
         },
         {
           "type": "text",
