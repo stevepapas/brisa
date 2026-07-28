@@ -20,7 +20,7 @@
           {%- else -%}
             <span class="trust-bar__icon">{{ block.settings.icon_emoji }}</span>
           {%- endif -%}
-          <span>{{ block.settings.text | escape }}</span>
+          <span>{{ block.settings.text }}</span>
         </div>
       {%- endif -%}
     {%- endfor -%}
@@ -141,7 +141,8 @@
           "type": "text",
           "id": "text",
           "label": "Text",
-          "default": "Free Shipping"
+          "default": "Free Shipping",
+          "info": "HTML allowed (e.g. use &lt;br&gt; for a line break)."
         }
       ]
     }
