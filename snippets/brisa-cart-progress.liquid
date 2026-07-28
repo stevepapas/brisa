@@ -1,14 +1,17 @@
 {%- comment -%}
   Brisa cart shipping progress.
-  - Kit in cart: full bar, truck + gift markers, unlocked message
-  - Otherwise: fill toward dollar threshold (default $90), truck only at end
+  - Kit in cart: full bar, truck + gift markers, unlocked gift message
+  - Threshold met (no kit): full bar, truck only, "You've received FREE SHIPPING"
+  - Otherwise: fill toward dollar threshold, truck only, spend message
 
   Params:
     - has_kit_product (boolean)
+    - shipping_is_free (boolean)
     - progress_value (number 0–1)
     - show_gift_marker (boolean) — truck+gift vs truck-only
-    - free_shipping_message (richtext/html)
-    - cores_shipping_message (text)
+    - free_shipping_message (richtext/html) — kit unlocked
+    - threshold_met_message (text) — $ threshold unlocked, no kit
+    - cores_shipping_message (text) — still below threshold
 {%- endcomment -%}
 
 {%- liquid
@@ -16,11 +19,18 @@
   if has_kit_product
     assign show_gift_marker = true
   endif
+
+  assign threshold_met = false
+  if shipping_is_free or progress_value >= 1
+    assign threshold_met = true
+  endif
 -%}
 
 <p class="brisa-cart__shipping-message">
   {%- if has_kit_product -%}
     {{ free_shipping_message }}
+  {%- elsif threshold_met -%}
+    {{ threshold_met_message | default: "You've received FREE SHIPPING" }}
   {%- else -%}
     {{ cores_shipping_message | default: 'Spend $90 to receive FREE SHIPPING' }}
   {%- endif -%}

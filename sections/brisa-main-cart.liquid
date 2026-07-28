@@ -67,9 +67,11 @@
         {%- if section.settings.show_shipping_message -%}
           {%- render 'brisa-cart-progress',
             has_kit_product: has_kit_product,
+            shipping_is_free: shipping_is_free,
             progress_value: progress_value,
             show_gift_marker: progress_show_gift,
             free_shipping_message: section.settings.free_shipping_message,
+            threshold_met_message: section.settings.threshold_met_message,
             cores_shipping_message: section.settings.cores_shipping_message
           -%}
         {%- endif -%}
@@ -420,6 +422,12 @@
       "id": "cores_shipping_message",
       "label": "Shipping message (cores only)",
       "default": "Spend $90 to receive FREE SHIPPING"
+    },
+    {
+      "type": "text",
+      "id": "threshold_met_message",
+      "label": "Threshold met message (no kit)",
+      "default": "You've received FREE SHIPPING"
     },
     {
       "type": "number",

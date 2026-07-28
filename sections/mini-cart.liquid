@@ -1,23 +1,62 @@
-<cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large">
+{%- liquid
+  assign kit_handles_setting = section.settings.kit_trigger_handles
+  if kit_handles_setting == blank
+    assign kit_handles_setting = section.settings.gift_trigger_handles
+  endif
+  if kit_handles_setting == blank
+    assign kit_handles_setting = 'brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack'
+  endif
+  assign kit_trigger_handles = kit_handles_setting | downcase | split: ','
+  assign has_kit_product = false
+  assign show_gift_bonus = false
+
+  for line_item in cart.items
+    assign item_handle = line_item.product.handle | downcase
+    for trigger_handle in kit_trigger_handles
+      assign trigger = trigger_handle | strip
+      if trigger != blank and item_handle contains trigger
+        assign has_kit_product = true
+        assign show_gift_bonus = true
+        break
+      endif
+    endfor
+    if has_kit_product
+      break
+    endif
+  endfor
+
+  assign shipping_threshold = section.settings.shipping_threshold | default: 90 | times: 1.0
+  if shipping_threshold <= 0
+    assign shipping_threshold = 90
+  endif
+  assign threshold_cents = shipping_threshold | times: 100.0
+
+  assign shipping_is_free = false
+  if has_kit_product or cart.total_price >= threshold_cents
+    assign shipping_is_free = true
+  endif
+
+  assign progress_value = 0
+  assign progress_show_gift = false
+  if has_kit_product
+    assign progress_value = 1
+    assign progress_show_gift = true
+  else
+    assign progress_value = cart.total_price | times: 1.0 | divided_by: threshold_cents | at_most: 1
+  endif
+-%}
+
+{% capture cart_total_money %}{{ cart.total_price | money }}{% endcapture %}
+
+<cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large brisa-cart-drawer">
   <span class="drawer__overlay"></span>
 
   <header class="drawer__header">
-    <p class="drawer__title heading h6">
-      {%- case settings.cart_icon -%}
-        {%- when 'shopping_bag' -%}
-          {%- render 'icon' with 'header-cart' -%}
-
-        {%- when 'shopping_cart' -%}
-          {%- render 'icon' with 'header-shopping-cart' -%}
-
-        {%- when 'tote_bag' -%}
-          {%- render 'icon' with 'header-tote-bag' -%}
-      {%- endcase -%}
-
+    <p class="drawer__title brisa-cart__title">
       {%- if cart.item_count == 0 -%}
-        {{- 'cart.general.title' | t -}}
+        {{ section.settings.empty_title | default: 'Your Cart' }}
       {%- else -%}
-        {{- 'cart.general.item_count' | t: count: cart.item_count -}}
+        {{ section.settings.title | default: 'Your Cart ([count])' | replace: '[count]', cart.item_count }}
       {%- endif -%}
     </p>
 
@@ -28,65 +67,23 @@
 
   {%- if cart.item_count == 0 -%}
     <div class="drawer__content drawer__content--center">
-      <p>{{ 'cart.general.empty' | t }}</p>
-
-      <div class="button-wrapper">
-        <a href="{{ section.settings.empty_button_link }}" class="button button--primary">{{ 'cart.general.start_shopping' | t }}</a>
+      <div class="brisa-cart__empty">
+        <p class="brisa-cart__empty-text">{{ 'cart.general.empty' | t }}</p>
+        <a href="{{ section.settings.empty_button_link }}" class="brisa-cart__checkout-button">{{ 'cart.general.start_shopping' | t }}</a>
       </div>
     </div>
   {%- else -%}
     <div class="drawer__content">
-      {%- if settings.cart_show_free_shipping_threshold and settings.cart_free_shipping_threshold != '' and cart.requires_shipping -%}
-        {%- assign free_shipping_thresholds = settings.cart_free_shipping_threshold | remove: ' ' | split: ',' -%}
-        {%- assign has_found_matching_threshold = false -%}
-
-        {%- if free_shipping_thresholds.size > 1 -%}
-          {%- for threshold in free_shipping_thresholds -%}
-            {%- assign threshold_parts = threshold | split: ':' -%}
-            {%- assign currency_code = threshold_parts | first | upcase -%}
-
-            {%- if currency_code == cart.currency.iso_code -%}
-              {%- assign free_shipping_calculated_threshold = threshold_parts | last -%}
-              {%- assign has_found_matching_threshold = true -%}
-              {%- break -%}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- else -%}
-          {%- assign free_shipping_calculated_threshold = free_shipping_thresholds | last -%}
-          {%- assign has_found_matching_threshold = true -%}
-        {%- endif -%}
-
-        {%- if has_found_matching_threshold -%}
-          {%- assign threshold_in_cents = free_shipping_calculated_threshold | times: 100.0 -%}
-
-          {%- assign calculated_total_price = 0 -%}
-
-          {%- for line_item in cart.items -%}
-            {%- if line_item.requires_shipping -%}
-              {%- assign calculated_total_price = calculated_total_price | plus: line_item.final_line_price -%}
-            {%- endif -%}
-          {%- endfor -%}
-
-          {% comment %}We have to remove the cart level discount from the calculated amount{% endcomment %}
-          {%- assign total_cart_discount = 0 -%}
-
-          {%- for discount_application in cart.cart_level_discount_applications -%}
-            {%- assign total_cart_discount = total_cart_discount | plus: discount_application.total_allocated_amount -%}
-          {%- endfor -%}
-
-          {%- assign calculated_total_price = calculated_total_price | minus: total_cart_discount -%}
-
-          <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar" style="--progress: {{ calculated_total_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
-            {%- if calculated_total_price >= threshold_in_cents -%}
-              <span class="shipping-bar__text text--small">{{ 'cart.general.free_shipping' | t }}</span>
-            {%- else -%}
-              {%- capture remaining_amount -%}{{ calculated_total_price | minus: threshold_in_cents | abs | money }}{%- endcapture -%}
-              <span class="shipping-bar__text text--small">{{ 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount }}</span>
-            {%- endif -%}
-
-            <span class="shipping-bar__progress"></span>
-          </free-shipping-bar>
-        {%- endif -%}
+      {%- if section.settings.show_shipping_message -%}
+        {%- render 'brisa-cart-progress',
+          has_kit_product: has_kit_product,
+          shipping_is_free: shipping_is_free,
+          progress_value: progress_value,
+          show_gift_marker: progress_show_gift,
+          free_shipping_message: section.settings.free_shipping_message,
+          threshold_met_message: section.settings.threshold_met_message,
+          cores_shipping_message: section.settings.cores_shipping_message
+        -%}
       {%- endif -%}
 
       {%- liquid
@@ -100,233 +97,227 @@
         endfor
       -%}
 
-      <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
+      <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post" class="brisa-cart__form">
         <input type="hidden" name="checkout">
 
-        {%- for line_item in cart.items -%}
-          {%- liquid
-            assign is_cores_onetime = false
-            if line_item.product.handle == 'brisa-cores' and line_item.selling_plan_allocation == blank
-              if line_item.properties['_kit_key'] == blank and line_item.properties['_device_1_variant_id'] == blank and line_item.properties['_brisa_component'] == blank
-                assign is_cores_onetime = true
+        <div class="brisa-cart__items">
+          {%- for line_item in cart.items -%}
+            {% liquid
+              assign max_quantity = ''
+              assign variant = line_item.variant
+
+              if variant.inventory_management != blank and variant.inventory_policy == 'deny'
+                assign current_quantity_for_variant = cart | item_count_for_variant: variant.id
+                assign max_quantity = variant.inventory_quantity | minus: current_quantity_for_variant | plus: line_item.quantity
               endif
-            endif
-          -%}
-          <line-item class="line-item{% if is_cores_onetime %} line-item--brisa-cores{% endif %}">
-            <div class="line-item__content-wrapper">
-              <a href="{{ line_item.url }}" class="line-item__image-wrapper" tabindex="-1" aria-hidden="true">
-                <span class="line-item__loader" hidden>
-                  <span class="line-item__loader-spinner spinner" hidden>{% render 'icon' with 'spinner', width: 16, height: 16, stroke_width: 6 %}</span>
-                  <span class="line-item__loader-mark" hidden>{% render 'icon' with 'check', width: 20, height: 20 %}</span>
-                </span>
 
-                {%- if line_item.image != blank -%}
-                  {{- line_item.image | image_url: width: line_item.image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) 80px, 92px', widths: '80,92,160,184,240,276', class: 'line-item__image' -}}
-                {%- endif -%}
-              </a>
+              if variant.quantity_rule.max != nil
+                assign max_quantity = max_quantity | default: 999999 | at_most: variant.quantity_rule.max
+              endif
 
-              {%- capture unit_price -%}
-                {%- if line_item.unit_price_measurement -%}
-                  <div class="price text--subdued">
-                    <div class="unit-price-measurement">
-                      <span class="unit-price-measurement__price">{{ line_item.unit_price | money }}</span>
-                      <span class="unit-price-measurement__separator">/</span>
+              assign line_subtitle = line_item.product.metafields.custom.cart_subtitle.value
+              if line_subtitle == blank
+                assign line_subtitle = section.settings.default_line_subtitle
+              endif
 
-                      {%- if line_item.unit_price_measurement.reference_value != 1 -%}
-                        <span class="unit-price-measurement__reference-value">{{ line_item.unit_price_measurement.reference_value }}</span>
-                      {%- endif -%}
+              assign display_title = line_item.product.title
+              unless line_item.product.has_only_default_variant
+                assign display_title = display_title | append: ' · ' | append: line_item.variant.title
+              endunless
 
-                      <span class="unit-price-measurement__reference-unit">{{ line_item.unit_price_measurement.reference_unit }}</span>
-                    </div>
-                  </div>
-                {%- endif -%}
-              {%- endcapture -%}
+              assign is_cores_onetime = false
+              if line_item.product.handle == 'brisa-cores' and line_item.selling_plan_allocation == blank
+                if line_item.properties['_kit_key'] == blank and line_item.properties['_device_1_variant_id'] == blank and line_item.properties['_brisa_component'] == blank
+                  assign is_cores_onetime = true
+                endif
+              endif
+            %}
 
-              {%- capture line_price -%}
-                {%- if is_cores_onetime -%}
-                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'price', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
-                {%- else -%}
-                  {%- comment -%}
-                  IMPLEMENTATION NOTE: The designer wanted to show the "compare at price" on cart. In case an automatic discount is applied
-                    to a line item though, the "real" discount takes precedence over the compare at price
-                  {%- endcomment -%}
-
-                  <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
-                    <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-
-                    {%- if line_item.final_line_price == 0 -%}
-                      {{- 'cart.general.free' | t -}}
-                    {%- else -%}
-                      {{- line_item.final_line_price | money -}}
-                    {%- endif -%}
-                  </span>
-
-                  {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
-                    <span class="price price--compare">
-                      <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-
-                      {%- if line_item.original_line_price > line_item.final_line_price -%}
-                        {{- line_item.original_line_price | money -}}
-                      {%- else -%}
-                        {{- line_item.variant.compare_at_price | times: line_item.quantity | money -}}
-                      {%- endif -%}
+            <line-item class="line-item brisa-cart__item{% if is_cores_onetime %} brisa-cart__item--cores line-item--brisa-cores{% endif %}">
+              {%- if line_item.image != blank -%}
+                <div class="brisa-cart__item-media">
+                  <a href="{{ line_item.url }}" class="brisa-cart__item-image" tabindex="-1" aria-hidden="true">
+                    <span class="line-item__loader" hidden>
+                      <span class="line-item__loader-spinner spinner" hidden>{% render 'icon' with 'spinner', width: 16, height: 16, stroke_width: 6 %}</span>
+                      <span class="line-item__loader-mark" hidden>{% render 'icon' with 'check', width: 20, height: 20 %}</span>
                     </span>
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endcapture -%}
-
-              <div class="line-item__info">
-                <div class="product-item-meta">
-                  {%- if settings.show_vendor -%}
-                    {%- assign vendor_handle = line_item.vendor | handle -%}
-                    {%- assign collection_for_vendor = collections[vendor_handle] -%}
-
-                    {%- unless collection_for_vendor.empty? -%}
-                      <a class="product-item-meta__vendor heading heading--xxsmall" href="{{ collection_for_vendor.url }}">{{ line_item.vendor }}</a>
-                      {%- else -%}
-                      <a class="product-item-meta__vendor heading heading--xxsmall" href="{{ line_item.vendor | url_for_vendor }}">{{ line_item.vendor }}</a>
-                    {%- endunless -%}
-                  {%- endif -%}
-
-                  {%- if is_cores_onetime -%}
-                    {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'title', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
-                    {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'pack_copy', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
-                  {%- else -%}
-                    <a href="{{ line_item.url }}" class="product-item-meta__title text--small">{{ line_item.product.title }}</a>
-
-                    {%- capture line_item_properties -%}
-                      {%- unless line_item.product.has_only_default_variant -%}
-                        <span class="product-item-meta__property text--subdued text--xsmall">{{ line_item.variant.title }}</span>
-                      {%- endunless -%}
-
-                      {%- if line_item.selling_plan_allocation -%}
-                        <span class="product-item-meta__property text--subdued text--xsmall">{{ line_item.selling_plan_allocation.selling_plan.name }}</span>
+                    {{- line_item.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: line_item.product.title -}}
+                  </a>
+                  {%- unless is_cores_onetime -%}
+                    {%- if line_item.variant.compare_at_price > line_item.variant.price or line_item.original_line_price > line_item.final_line_price -%}
+                      {%- if section.settings.item_badge_text != blank -%}
+                        <span class="brisa-cart__item-badge">{{ section.settings.item_badge_text }}</span>
                       {%- endif -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                </div>
+              {%- endif -%}
 
-                      {%- unless line_item.properties == blank -%}
-                        <ul class="product-item-meta__property list--unstyled text--subdued text--xsmall" role="list">
-                          {%- for property in line_item.properties -%}
-                            {%- assign first_character_in_key = property.first | truncate: 1, '' -%}
+              <div class="brisa-cart__item-body">
+                {%- if is_cores_onetime -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'title', layout: 'main', cores_pool_qty: cores_pool_qty -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'pack_copy', layout: 'main', cores_pool_qty: cores_pool_qty -%}
+                {%- else -%}
+                  <a href="{{ line_item.url }}" class="brisa-cart__item-title">{{ display_title }}</a>
 
-                            {%- if property.last == blank or first_character_in_key == '_' -%}
-                              {%- continue -%}
-                            {%- endif -%}
-
-                            {%- if property.first == 'Your colour' or property.first == "Mate's colour" -%}
-                              {% render 'brisa-cart-colour-property', property_key: property.first, property_value: property.last %}
+                  <ul class="brisa-cart__item-details list--unstyled">
+                    {%- assign cart_bullets = line_item.product.metafields.custom.cart_bullets.value -%}
+                    {%- if cart_bullets != blank -%}
+                      {%- for bullet in cart_bullets -%}
+                        {%- if bullet != blank -%}
+                          <li>{{ bullet }}</li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- else -%}
+                      {%- if line_subtitle != blank -%}
+                        <li>{{ line_subtitle }}</li>
+                      {%- endif -%}
+                      {%- if line_item.item_components != blank and line_item.item_components.size > 0 -%}
+                        {%- for component in line_item.item_components -%}
+                          {%- unless component.properties['_brisa_component'] == 'pack' -%}
+                            {%- assign component_role = component.properties['Role'] -%}
+                            {%- assign component_colour = component.properties['Colour'] -%}
+                            <li>
+                              {%- if component_role != blank -%}
+                                {{ component_role }}{% if component_colour != blank %} — {{ component_colour }}{% endif %}
+                              {%- elsif component_colour != blank -%}
+                                {{ component_colour }}
+                              {%- else -%}
+                                {{ component.title }}
+                              {%- endif -%}
+                            </li>
+                          {%- endunless -%}
+                        {%- endfor -%}
+                      {%- else -%}
+                        {%- if line_item.properties['Your colour'] != blank -%}
+                          <li>
+                            Device Colour —
+                            {%- assign _colour = line_item.properties['Your colour'] | strip -%}
+                            {%- assign _colour_key = _colour | downcase | strip -%}
+                            {%- if _colour_key == 'black' -%}
+                              <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                            {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
+                              <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                            {%- elsif _colour_key == 'rose' -%}
+                              <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
                             {%- else -%}
-                              <li>{{ property.first }}: {{ property.last }}</li>
+                              {{ _colour }}
+                            {%- endif -%}
+                          </li>
+                        {%- endif -%}
+                        {%- assign mates_colour_value = line_item.properties["Mate's colour"] -%}
+                        {%- if mates_colour_value == blank -%}
+                          {%- for _prop in line_item.properties -%}
+                            {%- assign _pk = _prop.first | downcase | replace: '’', "'" | replace: '‘', "'" -%}
+                            {%- if _pk == "mate's colour" -%}
+                              {%- assign mates_colour_value = _prop.last -%}
+                              {%- break -%}
                             {%- endif -%}
                           {%- endfor -%}
-                        </ul>
-                      {%- endunless -%}
-                    {%- endcapture -%}
-
-                    {%- if line_item_properties != blank -%}
-                      <div class="product-item-meta__property-list">
-                        {{- line_item_properties -}}
-                      </div>
+                        {%- endif -%}
+                        {%- if mates_colour_value != blank -%}
+                          <li>
+                            Mate's colour —
+                            {%- assign _colour = mates_colour_value | strip -%}
+                            {%- assign _colour_key = _colour | downcase | strip -%}
+                            {%- if _colour_key == 'black' -%}
+                              <span class="brisa-cart-colour-property__value" style="color: #1a1a1a !important;">{{ _colour }}</span>
+                            {%- elsif _colour_key == 'ocean' or _colour_key == 'blue' -%}
+                              <span class="brisa-cart-colour-property__value" style="color: #1A7A8A !important;">{{ _colour }}</span>
+                            {%- elsif _colour_key == 'rose' -%}
+                              <span class="brisa-cart-colour-property__value" style="color: #C97878 !important;">{{ _colour }}</span>
+                            {%- else -%}
+                              {{ _colour }}
+                            {%- endif -%}
+                          </li>
+                        {%- endif -%}
+                      {%- endif -%}
                     {%- endif -%}
-                  {%- endif -%}
-
-                  <div class="product-item-meta__price-list-container text--small">
-                    <div class="price-list{% if is_cores_onetime %} price-list--stack{% endif %} hidden-tablet-and-up">
-                      {{- line_price -}}
-                      {{- unit_price -}}
-                    </div>
-
-                    {%- if unit_price != blank -%}
-                      <div class="price-list hidden-phone">
-                        {{- unit_price -}}
-                      </div>
-                    {%- endif -%}
-                  </div>
-                </div>
-
-                {%- if is_cores_onetime -%}
-                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'discount', layout: 'drawer', cores_pool_qty: cores_pool_qty -%}
-                {%- elsif line_item.line_level_discount_allocations != blank -%}
-                  <ul class="line-item__discount-list list--unstyled" role="list">
-                    {%- for discount_allocation in line_item.line_level_discount_allocations -%}
-                      <li class="line-item__discount-badge discount-badge">
-                        {%- render 'icon' with 'discount-badge' -%}{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
-                      </li>
-                    {%- endfor -%}
                   </ul>
                 {%- endif -%}
 
-                {% liquid
-                  assign max_quantity = ''
-                  assign variant = line_item.variant
-            
-                  if variant.inventory_management != blank and variant.inventory_policy == 'deny'
-                    assign current_quantity_for_variant = cart | item_count_for_variant: variant.id
-                    assign max_quantity = variant.inventory_quantity | minus: current_quantity_for_variant | plus: line_item.quantity
-                  endif
-            
-                  if variant.quantity_rule.max != nil
-                    assign max_quantity = max_quantity | default: 999999 | at_most: variant.quantity_rule.max
-                  endif
-                %}
-
                 {%- if is_cores_onetime -%}
-                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'quantity', layout: 'drawer', line_index: forloop.index, max_quantity: max_quantity, cores_pool_qty: cores_pool_qty -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'quantity', layout: 'main', line_index: forloop.index, max_quantity: max_quantity, cores_pool_qty: cores_pool_qty -%}
                 {%- else -%}
-                  <line-item-quantity class="line-item__quantity">
-                    <div class="quantity-selector quantity-selector--small">
-                      <a href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment | at_least: 0 }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.decrease_quantity' | t | escape }}" data-no-instant>
-                        {%- render 'icon' with 'minus' -%}
-                      </a>
-
-                      <input is="input-number" class="quantity-selector__input text--xsmall" autocomplete="off" type="number" inputmode="numeric" name="updates[]" data-line="{{ forloop.index }}" value="{{ line_item.quantity }}" {% if max_quantity != '' %}max="{{ max_quantity }}"{% endif %} size="{{ line_item.quantity | append: '' | size | at_least: 2 }}" aria-label="{{ 'cart.general.change_quantity' | t | escape }}">
-
+                  <line-item-quantity class="brisa-cart__quantity">
+                    <div class="quantity-selector quantity-selector--small brisa-cart__quantity-selector">
+                      <a href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: line_item.variant.quantity_rule.increment | at_least: line_item.variant.quantity_rule.min }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.decrease_quantity' | t | escape }}" data-no-instant>{% render 'icon' with 'minus' %}</a>
+                      <input is="input-number" class="quantity-selector__input text--xsmall" autocomplete="off" type="number" inputmode="numeric" value="{{ line_item.quantity }}" name="updates[]" data-line="{{ forloop.index }}" {% if max_quantity != '' %}max="{{ max_quantity }}"{% endif %} aria-label="{{ 'cart.general.change_quantity' | t | escape }}">
                       {%- if max_quantity == blank or line_item.quantity < max_quantity -%}
                         {% assign increment = line_item.quantity | plus: line_item.variant.quantity_rule.increment %}
-
                         {%- if line_item.variant.quantity_rule.max != nil -%}
                           {%- assign increment = increment | at_most: line_item.variant.quantity_rule.max -%}
                         {%- endif -%}
-
-                        <a href="{{ routes.cart_change_url }}?quantity={{ increment }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.increase_quantity' | t | escape }}" data-no-instant>
-                          {%- render 'icon' with 'plus' -%}
-                        </a>
+                        <a href="{{ routes.cart_change_url }}?quantity={{ increment }}&line={{ forloop.index }}" class="quantity-selector__button" aria-label="{{ 'cart.general.increase_quantity' | t | escape }}" data-no-instant>{% render 'icon' with 'plus' %}</a>
                       {%- else -%}
-                        <span class="quantity-selector__button" aria-label="{{ 'cart.general.no_more_stock' | t | escape }}" data-tooltip="{{ 'cart.general.no_more_stock' | t | escape }}">
-                          {%- render 'icon' with 'plus' -%}
-                        </span>
+                        <span class="quantity-selector__button" aria-hidden="true">{% render 'icon' with 'plus' %}</span>
                       {%- endif -%}
                     </div>
-
-                    <a href="{{ line_item.url_to_remove }}" class="line-item__remove-button link text--subdued text--xxsmall" data-no-instant>{{ 'cart.general.remove' | t }}</a>
                   </line-item-quantity>
                 {%- endif -%}
               </div>
 
-              <div class="line-item__price-list-container text--small hidden-phone">
-                {%- if settings.show_vendor -%}
-                  {%- comment -%}
-                    IMPLEMENTATION NOTE: in the design, the price is aligned in regards of the product title (not the brand). It was a
-                    bit hard to do as we cannot set a fixed margin, so I am actually adding an empty vendor to simulate the same height
-                  {%- endcomment -%}
-                  <span class="product-item-meta__vendor heading heading--xxsmall" style="visibility: hidden">x</span>
+              <div class="brisa-cart__item-side">
+                {%- if is_cores_onetime -%}
+                  {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'price', layout: 'main', cores_pool_qty: cores_pool_qty -%}
+                {%- else -%}
+                  <div class="brisa-cart__item-pricing">
+                    {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
+                      <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.variant.compare_at_price | times: line_item.quantity | money }}</span>
+                    {%- elsif line_item.original_line_price > line_item.final_line_price -%}
+                      <span class="brisa-cart__price brisa-cart__price--compare">{{ line_item.original_line_price | money }}</span>
+                    {%- endif -%}
+                    <span class="brisa-cart__price brisa-cart__price--current">
+                      {%- if line_item.final_line_price == 0 -%}
+                        {{ 'cart.general.free' | t }}
+                      {%- else -%}
+                        {{ line_item.final_line_price | money }}
+                      {%- endif -%}
+                    </span>
+                  </div>
                 {%- endif -%}
 
-                <div class="price-list price-list--stack">
-                  {{- line_price -}}
-                </div>
+                <a href="{{ line_item.url_to_remove }}" class="brisa-cart__remove" aria-label="{{ 'cart.general.remove' | t | escape }}" data-no-instant>
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 7h16"/>
+                    <path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                    <path d="M7 7v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7"/>
+                    <path d="M10 11v6M14 11v6"/>
+                  </svg>
+                </a>
               </div>
-            </div>
-          </line-item>
-        {%- endfor -%}
+
+              {%- if is_cores_onetime -%}
+                {%- render 'brisa-cart-cores-line', line_item: line_item, part: 'discount', layout: 'main', cores_pool_qty: cores_pool_qty -%}
+              {%- elsif line_item.line_level_discount_allocations != blank -%}
+                <ul class="brisa-cart__item-discounts list--unstyled" role="list">
+                  {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                    <li class="brisa-cart__item-discount">{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})</li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </line-item>
+          {%- endfor -%}
+
+          {%- if show_gift_bonus and section.settings.show_gift_bonus -%}
+            {%- render 'brisa-cart-gift',
+              gift_product: section.settings.gift_product,
+              gift_image: section.settings.gift_image,
+              gift_title: section.settings.gift_title,
+              gift_subtitle: section.settings.gift_subtitle,
+              gift_detail: section.settings.gift_detail,
+              gift_value: section.settings.gift_value,
+              gift_price_label: section.settings.gift_price_label
+            -%}
+          {%- endif -%}
+        </div>
       </form>
 
       {%- if section.settings.show_recommendations -%}
-        <cart-drawer-recommendations section-id="{{ section.id }}" product-id="{{ cart.items.first.product_id }}" class="mini-cart__recommendations">
+        <cart-drawer-recommendations section-id="{{ section.id }}" product-id="{{ cart.items.first.product_id }}" class="brisa-cart__recommendations mini-cart__recommendations">
           {%- assign acceptable_recommendations_count = 0 -%}
-
           {%- for product in recommendations.products -%}
             {%- assign matching_product = cart.items | where: 'product_id', product.id | first -%}
-
             {%- if matching_product == blank -%}
               {%- assign acceptable_recommendations_count = acceptable_recommendations_count | plus: 1 -%}
             {%- endif -%}
@@ -334,36 +325,45 @@
 
           {%- if recommendations.performed -%}
             {%- if acceptable_recommendations_count > 0 -%}
-              <div class="mini-cart__recommendations-inner">
+              <div class="brisa-cart__recommendations-inner mini-cart__recommendations-inner">
                 {%- if section.settings.recommendations_title != blank -%}
-                  <p class="mini-cart__recommendations-heading heading heading--small hidden-pocket">{{ section.settings.recommendations_title | escape }}</p>
-                  <p class="mini-cart__recommendations-heading heading heading--xsmall text--subdued hidden-lap-and-up">{{ section.settings.recommendations_title | escape }}</p>
+                  <p class="brisa-cart__recommendations-heading">{{ section.settings.recommendations_title }}</p>
                 {%- endif -%}
-
-                <div class="scroller">
-                  <div class="scroller__inner">
-                    <div class="mini-cart__recommendations-list">
-                      {%- assign shown_products_count = 0 -%}
-
-                      {%- for product in recommendations.products -%}
-                        {%- if shown_products_count >= 6 -%}
-                          {%- break -%}
+                {%- assign shown_products_count = 0 -%}
+                {%- for product in recommendations.products -%}
+                  {%- if shown_products_count >= 1 -%}
+                    {%- break -%}
+                  {%- endif -%}
+                  {%- assign matching_product = cart.items | where: 'product_id', product.id -%}
+                  {%- if matching_product.size == 0 -%}
+                    {%- assign shown_products_count = shown_products_count | plus: 1 -%}
+                    <div class="brisa-cart__recommendation">
+                      <a href="{{ product.url }}" class="brisa-cart__recommendation-image" tabindex="-1" aria-hidden="true">
+                        {%- if product.featured_media -%}
+                          {{- product.featured_media | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60,90,120', sizes: '60px', alt: product.title -}}
                         {%- endif -%}
-
-                        {%- assign matching_product = cart.items | where: 'product_id', product.id -%}
-
-                        {%- if matching_product.size == 0 -%}
-                          {%- assign shown_products_count = shown_products_count | plus: 1 -%}
-                          {%- render 'product-item', product: product, reduced_content: true, reduced_font_size: true, hide_secondary_image: true, sizes_attribute: '(max-width: 740px) 65px, 92px' -%}
-                        {%- endif -%}
-                      {%- endfor -%}
+                      </a>
+                      <div class="brisa-cart__recommendation-info">
+                        <a href="{{ product.url }}" class="brisa-cart__recommendation-title">{{ product.title }}</a>
+                        <p class="brisa-cart__recommendation-price">
+                          {%- if product.price_varies -%}
+                            From {{ product.price_min | money }}
+                          {%- else -%}
+                            {{ product.price | money }}
+                          {%- endif -%}
+                        </p>
+                        <button type="button" is="toggle-button" loader aria-controls="brisa-mini-cart-quick-buy-{{ section.id }}-{{ product.id }}" aria-expanded="false" class="brisa-cart__recommendation-quick-view hidden-phone">{{ section.settings.quick_view_label | default: 'QUICK VIEW' }}</button>
+                        <button type="button" is="toggle-button" loader aria-controls="brisa-mini-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" aria-expanded="false" class="brisa-cart__recommendation-quick-view hidden-tablet-and-up">{{ section.settings.quick_view_label | default: 'QUICK VIEW' }}</button>
+                        <quick-buy-drawer id="brisa-mini-cart-quick-buy-{{ section.id }}-{{ product.id }}" href="{{ product.url }}?view=quick-buy-drawer" class="drawer drawer--large drawer--quick-buy hidden-phone"></quick-buy-drawer>
+                        <quick-buy-popover id="brisa-mini-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" href="{{ product.url }}?view=quick-buy-popover" class="popover popover--quick-buy hidden-tablet-and-up"></quick-buy-popover>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
             {%- endif -%}
           {%- else -%}
-            <div class="mini-cart__recommendations-inner">
+            <div class="brisa-cart__recommendations-inner mini-cart__recommendations-inner">
               <div class="spinner">
                 {%- render 'icon' with 'spinner', stroke_width: 3, width: 40, height: 40 -%}
               </div>
@@ -374,58 +374,52 @@
     </div>
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">
-      {%- capture shipping_tax_note -%}{{ 'cart.general.shipping_tax_note_html' | t: link: shop.shipping_policy.url }}{%- endcapture -%}
-
-      {%- if cart.cart_level_discount_applications != blank -%}
-        <ul class="mini-cart__discount-list list--unstyled" role="list">
-          {%- for discount_application in cart.cart_level_discount_applications -%}
-            <li class="mini-cart__discount">
-              <span class="mini-cart__discount-badge discount-badge">{%- render 'icon' with 'discount-badge' -%}{{ discount_application.title }}</span>
-              <span class="mini-cart__discount-price text--xsmall text--subdued">-{{ discount_application.total_allocated_amount | money }}</span>
-            </li>
-          {%- endfor -%}
-        </ul>
-      {%- endif -%}
-
-      {%- if section.settings.show_order_note or shipping_tax_note != '' -%}
-        <div class="mini-cart__actions text--subdued text--xsmall">
-          {%- if section.settings.show_order_note -%}
-            <button type="button" is="toggle-button" id="order-note-toggle" class="link" data-action="toggle-order-note" aria-controls="mini-cart-note" aria-expanded="false">
-              {%- if cart.note == blank -%}
-                {{- 'cart.general.add_order_note' | t -}}
-              {%- else -%}
-                {{- 'cart.general.edit_order_note' | t -}}
-              {%- endif -%}
-            </button>
+      <div class="brisa-cart__checkout-panel">
+        <div class="brisa-cart__summary">
+          {%- if cart.cart_level_discount_applications != blank -%}
+            {%- for discount_application in cart.cart_level_discount_applications -%}
+              <div class="brisa-cart__summary-row brisa-cart__summary-row--discount">
+                <span>{{ discount_application.title }}</span>
+                <span>-{{ discount_application.total_allocated_amount | money }}</span>
+              </div>
+            {%- endfor -%}
           {%- endif -%}
 
-          {%- if shipping_tax_note != '' -%}
-            <span>{{ shipping_tax_note }}</span>
+          <div class="brisa-cart__summary-row brisa-cart__summary-row--subtotal">
+            <div class="brisa-cart__summary-copy">
+              <span class="brisa-cart__summary-label">{{ section.settings.subtotal_label | default: 'Subtotal' }}</span>
+              {%- if shipping_is_free or section.settings.always_show_free_shipping -%}
+                <span class="brisa-cart__summary-note">{{ section.settings.free_shipping_note | default: 'Free shipping' }}</span>
+              {%- elsif section.settings.calculated_shipping_label != blank -%}
+                <span class="brisa-cart__summary-note">{{ section.settings.calculated_shipping_label }}</span>
+              {%- endif -%}
+            </div>
+            <span class="brisa-cart__summary-price">{{ cart.total_price | money }}</span>
+          </div>
+        </div>
+
+        <div class="brisa-cart__footer">
+          {%- if section.settings.show_checkout_button -%}
+            <button form="mini-cart-form" type="submit" class="brisa-cart__checkout-button" name="checkout">
+              <span class="brisa-cart__checkout-lock" aria-hidden="true">{% render 'icon' with 'lock' %}</span>
+              <span>{{ section.settings.checkout_button_text | default: 'SECURE CHECKOUT' | replace: '[total]', cart_total_money }}</span>
+            </button>
+          {%- else -%}
+            <a href="{{ routes.cart_url }}" class="brisa-cart__checkout-button" data-no-instant>{{ 'cart.general.go_to_cart' | t }}</a>
+          {%- endif -%}
+
+          {%- if section.settings.show_payment_methods and shop.enabled_payment_types.size > 0 -%}
+            <div class="brisa-cart__payment-methods">
+              <div class="payment-methods-list payment-methods-list--center">
+                {% for type in shop.enabled_payment_types %}
+                  {{ type | payment_type_svg_tag }}
+                {% endfor %}
+              </div>
+            </div>
           {%- endif -%}
         </div>
-      {%- endif -%}
-
-      {%- if section.settings.show_checkout_button -%}
-        <button form="mini-cart-form" type="submit" class="checkout-button button button--primary button--full" name="checkout">
-          <span class="checkout-button__lock">{%- render 'icon' with 'lock' -%}</span>
-
-          {{- 'cart.general.checkout' | t -}}
-          <span class="square-separator"></span>
-          {{- cart.total_price | money_with_currency -}}
-        </button>
-      {%- else -%}
-        <a href="{{ routes.cart_url }}" class="button button--primary button--full" data-no-instant>{{ 'cart.general.go_to_cart' | t }}</a>
-      {%- endif -%}
+      </div>
     </footer>
-  {%- endif -%}
-
-  {%- if section.settings.show_order_note -%}
-    <openable-element id="mini-cart-note" class="mini-cart__order-note">
-      <span class="openable__overlay"></span>
-      <label for="cart[note]" class="mini-cart__order-note-title heading heading--xsmall">{{- 'cart.general.add_order_note' | t -}}</label>
-      <textarea is="cart-note" name="note" id="cart[note]" rows="3" aria-owns="order-note-toggle" class="input__field input__field--textarea" placeholder="{{ 'cart.general.order_note_placeholder' | t }}">{{ cart.note }}</textarea>
-      <button type="button" data-action="close" class="form__submit form__submit--closer button button--secondary">{{ 'cart.general.order_note_save' | t }}</button>
-    </openable-element>
   {%- endif -%}
 </cart-drawer>
 
@@ -435,31 +429,65 @@
   "class": "shopify-section--mini-cart",
   "settings": [
     {
-      "type": "paragraph",
-      "content": "Free shipping notice can be configured in global cart settings."
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your Cart ([count])"
     },
     {
       "type": "checkbox",
-      "id": "show_order_note",
-      "label": "Show order note",
+      "id": "show_shipping_message",
+      "label": "Show shipping progress",
       "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "free_shipping_message",
+      "label": "Free shipping message (starter & mates pack)",
+      "default": "<p>You've been approved for <strong>FREE SHIPPING</strong> &amp; a <strong>FREE GIFT</strong></p>"
+    },
+    {
+      "type": "text",
+      "id": "cores_shipping_message",
+      "label": "Shipping message (cores only)",
+      "default": "Spend $90 to receive FREE SHIPPING"
+    },
+    {
+      "type": "text",
+      "id": "threshold_met_message",
+      "label": "Threshold met message (no kit)",
+      "default": "You've received FREE SHIPPING"
+    },
+    {
+      "type": "number",
+      "id": "shipping_threshold",
+      "label": "Free shipping threshold ($)",
+      "default": 90,
+      "info": "Used for cores progress bar fill. Kit products always unlock free shipping + gift."
     },
     {
       "type": "checkbox",
-      "id": "show_checkout_button",
-      "label": "Show checkout button",
-      "default": true
+      "id": "always_show_free_shipping",
+      "label": "Always show free shipping (legacy, leave off)",
+      "default": false
     },
     {
-      "type": "url",
-      "id": "empty_button_link",
-      "label": "Empty button link",
-      "default": "/collections/all"
+      "type": "text",
+      "id": "default_line_subtitle",
+      "label": "Default line item subtitle",
+      "default": "9 cores · 3 to 5 weeks of ritual",
+      "info": "Used when product metafield custom.cart_subtitle is empty. Prefer custom.cart_bullets list metafield for multi-line details."
+    },
+    {
+      "type": "text",
+      "id": "item_badge_text",
+      "label": "Discount badge on image",
+      "default": "Save 10% OFF & Free Shipping",
+      "info": "Shown on discounted line items. Leave blank to hide."
     },
     {
       "type": "header",
-      "content": "Cross-sell",
-      "info": "Dynamic recommendations are based on the items in your cart. They change and improve with time. [Learn more](https://help.shopify.com/en/themes/development/recommended-products)"
+      "content": "Recommendations"
     },
     {
       "type": "checkbox",
@@ -471,8 +499,130 @@
       "type": "text",
       "id": "recommendations_title",
       "label": "Recommendations heading",
-      "default": "You may also like",
-      "visible_if": "{{ section.settings.show_recommendations }}"
+      "default": "You May Also Like"
+    },
+    {
+      "type": "text",
+      "id": "quick_view_label",
+      "label": "Quick view label",
+      "default": "QUICK VIEW"
+    },
+    {
+      "type": "header",
+      "content": "Gift bonus"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_gift_bonus",
+      "label": "Show gift bonus line item",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "kit_trigger_handles",
+      "label": "Kit product handles",
+      "default": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+      "info": "Comma-separated handles for Starter Kit and Mates Pack. Used for free shipping and gift bonus."
+    },
+    {
+      "type": "text",
+      "id": "gift_trigger_handles",
+      "label": "Legacy kit handles (deprecated)",
+      "default": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+      "info": "Fallback if kit product handles is empty."
+    },
+    {
+      "type": "product",
+      "id": "gift_product",
+      "label": "Gift product",
+      "info": "Used for the gift image if no image is set below."
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_image",
+      "label": "Gift image"
+    },
+    {
+      "type": "text",
+      "id": "gift_title",
+      "label": "Gift title",
+      "default": "BRISA CORE - (FREE GIFT)"
+    },
+    {
+      "type": "text",
+      "id": "gift_subtitle",
+      "label": "Gift subtitle",
+      "default": "WATERMELON"
+    },
+    {
+      "type": "text",
+      "id": "gift_detail",
+      "label": "Gift detail",
+      "default": "3 free cores"
+    },
+    {
+      "type": "text",
+      "id": "gift_value",
+      "label": "Gift compare value",
+      "default": "$15.00"
+    },
+    {
+      "type": "text",
+      "id": "gift_price_label",
+      "label": "Gift price label",
+      "default": "FREE"
+    },
+    {
+      "type": "header",
+      "content": "Order summary"
+    },
+    {
+      "type": "text",
+      "id": "subtotal_label",
+      "label": "Subtotal label",
+      "default": "Subtotal"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_note",
+      "label": "Free shipping note",
+      "default": "Free shipping"
+    },
+    {
+      "type": "text",
+      "id": "calculated_shipping_label",
+      "label": "Calculated shipping label",
+      "default": "Calculated at checkout"
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_text",
+      "label": "Checkout button text",
+      "default": "SECURE CHECKOUT"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_checkout_button",
+      "label": "Show checkout button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_methods",
+      "label": "Show payment methods",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "empty_button_link",
+      "label": "Empty button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "empty_title",
+      "label": "Empty cart title",
+      "default": "Your Cart"
     }
   ]
 }
