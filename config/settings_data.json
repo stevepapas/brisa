@@ -73,6 +73,7 @@
           "show_gift_bonus": true,
           "kit_trigger_handles": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
           "gift_trigger_handles": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+          "gift_image_url": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/wm-pack-cart.png?v=1785245338",
           "gift_title": "BRISA CORE - (FREE GIFT)",
           "gift_subtitle": "WATERMELON",
           "gift_detail": "3 free cores",
