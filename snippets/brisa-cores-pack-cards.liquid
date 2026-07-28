@@ -1,6 +1,7 @@
 {%- comment -%}
   Custom HOW MUCH? pack cards. Syncs quantity on the product form.
   Each cores variant is a 3-pack ($15); qty 3/6/9 ≈ 9/18/27 cores.
+  pack_X_label is split on first space: leading number (large) + rest (e.g. Core packs).
   pack_X_meta supports "Aroma line|ritual line" (split on |).
 {%- endcomment -%}
 <div class="bcp-packs" data-brisa-cores-packs>
@@ -13,12 +14,23 @@
     aria-pressed="false"
   >
     <span class="bcp-pack__flag bcp-pack__flag--sold-out" data-bcp-pack-sold-out hidden>Sold out</span>
-    <span class="bcp-pack__cores">{{ section.settings.pack_1_label | default: '3 Core Packs' | escape }}</span>
+    {%- assign pack_1_label = section.settings.pack_1_label | default: '3 Core packs' -%}
+    {%- assign pack_1_label_parts = pack_1_label | split: ' ' -%}
+    <span class="bcp-pack__cores">
+      {%- if pack_1_label_parts.size > 1 -%}
+        <span class="bcp-pack__cores-num">{{ pack_1_label_parts.first | escape }}</span>
+        <span class="bcp-pack__cores-label">{{ pack_1_label | remove_first: pack_1_label_parts.first | strip | escape }}</span>
+      {%- else -%}
+        {{ pack_1_label | escape }}
+      {%- endif -%}
+    </span>
     {% if section.settings.pack_1_meta != blank %}
       {%- assign pack_1_meta_parts = section.settings.pack_1_meta | split: '|' -%}
       {% if pack_1_meta_parts.size > 1 %}
-        <span class="bcp-pack__aroma">{{ pack_1_meta_parts[0] | strip | escape }}</span>
-        <span class="bcp-pack__meta">{{ pack_1_meta_parts[1] | strip | escape }}</span>
+        <span class="bcp-pack__sublines">
+          <span class="bcp-pack__aroma">{{ pack_1_meta_parts[0] | strip | escape }}</span>
+          <span class="bcp-pack__meta">{{ pack_1_meta_parts[1] | strip | escape }}</span>
+        </span>
       {% else %}
         <span class="bcp-pack__meta">{{ section.settings.pack_1_meta | escape }}</span>
       {% endif %}
@@ -41,12 +53,23 @@
     {% if section.settings.pack_2_flag != blank %}
       <span class="bcp-pack__flag">{{ section.settings.pack_2_flag | escape }}</span>
     {% endif %}
-    <span class="bcp-pack__cores">{{ section.settings.pack_2_label | default: '6 Core Packs' | escape }}</span>
+    {%- assign pack_2_label = section.settings.pack_2_label | default: '6 Core packs' -%}
+    {%- assign pack_2_label_parts = pack_2_label | split: ' ' -%}
+    <span class="bcp-pack__cores">
+      {%- if pack_2_label_parts.size > 1 -%}
+        <span class="bcp-pack__cores-num">{{ pack_2_label_parts.first | escape }}</span>
+        <span class="bcp-pack__cores-label">{{ pack_2_label | remove_first: pack_2_label_parts.first | strip | escape }}</span>
+      {%- else -%}
+        {{ pack_2_label | escape }}
+      {%- endif -%}
+    </span>
     {% if section.settings.pack_2_meta != blank %}
       {%- assign pack_2_meta_parts = section.settings.pack_2_meta | split: '|' -%}
       {% if pack_2_meta_parts.size > 1 %}
-        <span class="bcp-pack__aroma">{{ pack_2_meta_parts[0] | strip | escape }}</span>
-        <span class="bcp-pack__meta">{{ pack_2_meta_parts[1] | strip | escape }}</span>
+        <span class="bcp-pack__sublines">
+          <span class="bcp-pack__aroma">{{ pack_2_meta_parts[0] | strip | escape }}</span>
+          <span class="bcp-pack__meta">{{ pack_2_meta_parts[1] | strip | escape }}</span>
+        </span>
       {% else %}
         <span class="bcp-pack__meta">{{ section.settings.pack_2_meta | escape }}</span>
       {% endif %}
@@ -77,12 +100,23 @@
     {% if section.settings.pack_3_flag != blank %}
       <span class="bcp-pack__flag bcp-pack__flag--value">{{ section.settings.pack_3_flag | escape }}</span>
     {% endif %}
-    <span class="bcp-pack__cores">{{ section.settings.pack_3_label | default: '9 Core Packs' | escape }}</span>
+    {%- assign pack_3_label = section.settings.pack_3_label | default: '9 Core packs' -%}
+    {%- assign pack_3_label_parts = pack_3_label | split: ' ' -%}
+    <span class="bcp-pack__cores">
+      {%- if pack_3_label_parts.size > 1 -%}
+        <span class="bcp-pack__cores-num">{{ pack_3_label_parts.first | escape }}</span>
+        <span class="bcp-pack__cores-label">{{ pack_3_label | remove_first: pack_3_label_parts.first | strip | escape }}</span>
+      {%- else -%}
+        {{ pack_3_label | escape }}
+      {%- endif -%}
+    </span>
     {% if section.settings.pack_3_meta != blank %}
       {%- assign pack_3_meta_parts = section.settings.pack_3_meta | split: '|' -%}
       {% if pack_3_meta_parts.size > 1 %}
-        <span class="bcp-pack__aroma">{{ pack_3_meta_parts[0] | strip | escape }}</span>
-        <span class="bcp-pack__meta">{{ pack_3_meta_parts[1] | strip | escape }}</span>
+        <span class="bcp-pack__sublines">
+          <span class="bcp-pack__aroma">{{ pack_3_meta_parts[0] | strip | escape }}</span>
+          <span class="bcp-pack__meta">{{ pack_3_meta_parts[1] | strip | escape }}</span>
+        </span>
       {% else %}
         <span class="bcp-pack__meta">{{ section.settings.pack_3_meta | escape }}</span>
       {% endif %}
