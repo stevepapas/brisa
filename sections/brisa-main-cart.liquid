@@ -290,7 +290,7 @@
             {%- render 'brisa-cart-gift',
               gift_product: section.settings.gift_product,
               gift_image: section.settings.gift_image,
-              gift_image_asset: section.settings.gift_image_asset,
+              gift_image_url: section.settings.gift_image_url,
               gift_title: section.settings.gift_title,
               gift_subtitle: section.settings.gift_subtitle,
               gift_detail: section.settings.gift_detail,
@@ -522,10 +522,10 @@
     },
     {
       "type": "text",
-      "id": "gift_image_asset",
-      "label": "Gift image asset",
-      "default": "watermelon-pack.png",
-      "info": "Theme asset filename used when Gift image and Gift product are empty."
+      "id": "gift_image_url",
+      "label": "Gift image URL",
+      "default": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/wm-pack-cart.png?v=1785245338",
+      "info": "Used when Gift image and Gift product are empty."
     },
     {
       "type": "text",

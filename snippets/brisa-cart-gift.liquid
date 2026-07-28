@@ -3,7 +3,7 @@
   Params (optional; fall back to defaults):
     - gift_product
     - gift_image (image picker)
-    - gift_image_asset (theme asset filename, e.g. watermelon-pack.png)
+    - gift_image_url (absolute URL fallback)
     - gift_title
     - gift_subtitle
     - gift_detail
@@ -15,7 +15,7 @@
   if gift_image == blank and gift_product != blank and gift_product.featured_media != blank
     assign gift_image = gift_product.featured_media
   endif
-  assign gift_image_asset = gift_image_asset | default: 'watermelon-pack.png' | strip
+  assign gift_image_url = gift_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/wm-pack-cart.png?v=1785245338' | strip
   assign gift_title = gift_title | default: 'BRISA CORE - (FREE GIFT)'
   assign gift_subtitle = gift_subtitle | default: 'WATERMELON'
   assign gift_detail = gift_detail | default: '3 free cores'
@@ -29,10 +29,10 @@
       <span class="brisa-cart__item-image">
         {{- gift_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: gift_title -}}
       </span>
-    {%- elsif gift_image_asset != blank -%}
+    {%- elsif gift_image_url != blank -%}
       <span class="brisa-cart__item-image">
         <img
-          src="{{ gift_image_asset | asset_url }}"
+          src="{{ gift_image_url | escape }}"
           alt="{{ gift_title | escape }}"
           width="100"
           height="100"
