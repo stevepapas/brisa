@@ -175,7 +175,7 @@
         "editor_preview_kit": "auto",
         "desktop_layout": "square",
         "desktop_max_width": 520,
-        "desktop_image_fit": "contain",
+        "desktop_image_fit": "cover",
         "frame_height_percent": 93,
         "section_height": "auto",
         "transition_type": "sweep",
