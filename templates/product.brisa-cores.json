@@ -176,6 +176,7 @@
         "desktop_layout": "square",
         "desktop_max_width": 520,
         "desktop_image_fit": "cover",
+        "frame_height_percent": 93,
         "section_height": "auto",
         "transition_type": "sweep",
         "show_initial_transition": false,
@@ -188,8 +189,7 @@
         "thumbnail_radius": 15,
         "thumbnail_active_border": "#008bdc",
         "arrow_background": "#ffffff",
-        "arrow_color": "#1a1a1a",
-        "frame_height_percent": 93
+        "arrow_color": "#1a1a1a"
       }
     },
     "brisa_device_header_cgyBnd": {
@@ -285,7 +285,7 @@
             "title": "Description",
             "icon_style": "description",
             "icon": "shopify://shop_images/accordion-desc.png",
-            "content": "<p>Brisa cores are replaceable aroma cores for the Brisa sensory habit device \u2014 food-grade aroma compounds that recreate throat sensation, cooling and bold flavour. Snap a core in, twist your airflow, and reach for it in the moment you\u2019d normally reach for the old habit. No nicotine, no vapour, no smoke.</p>"
+            "content": "<p>Brisa cores are replaceable aroma cores for the Brisa sensory habit device — food-grade aroma compounds that recreate throat sensation, cooling and bold flavour. Snap a core in, twist your airflow, and reach for it in the moment you’d normally reach for the old habit. No nicotine, no vapour, no smoke.</p>"
           }
         },
         "acc_ingredients": {
@@ -294,7 +294,7 @@
             "title": "Ingredients",
             "icon_style": "ingredients",
             "icon": "shopify://shop_images/accordion-ingred.png",
-            "content": "<p>Each core is packed with food-grade aroma compounds \u2014 the same kind used in premium scent and sensory products for decades \u2014 layered with a real cooling compound that creates that crisp, cool sensation at the back of the throat. No nicotine, no vapour, no smoke, no combustion. Each core lasts 2\u20133 days.</p>"
+            "content": "<p>Each core is packed with food-grade aroma compounds — the same kind used in premium scent and sensory products for decades — layered with a real cooling compound that creates that crisp, cool sensation at the back of the throat. No nicotine, no vapour, no smoke, no combustion. Each core lasts 2–3 days.</p>"
           }
         },
         "acc_subscription": {
@@ -303,7 +303,7 @@
             "title": "Subscription",
             "icon_style": "subscription",
             "icon": "shopify://shop_images/accordion-sub.png",
-            "content": "<p>Never run out. The Monthly Better Box sends 12 cores every 4 weeks for $44/mo with free shipping \u2014 a fresh mix of Mint Ice, Raspberry Lime and Cherry Pom, plus a free Cherry Pom pack in every box. Skip, pause or cancel anytime.</p>"
+            "content": "<p>Never run out. The Monthly Better Box sends 12 cores every 4 weeks for $44/mo with free shipping — a fresh mix of Mint Ice, Raspberry Lime and Cherry Pom, plus a free Cherry Pom pack in every box. Skip, pause or cancel anytime.</p>"
           }
         },
         "acc_shipping": {
@@ -312,7 +312,7 @@
             "title": "Shipping, returns & guarantee",
             "icon_style": "shipping",
             "icon": "shopify://shop_images/accordion-ship.png",
-            "content": "<p>Free shipping, dispatched in 1\u20132 business days. Try Brisa with total confidence \u2014 you\u2019re covered for faults, and unopened packs can be returned within 30 days.</p>"
+            "content": "<p>Free shipping, dispatched in 1–2 business days. Try Brisa with total confidence — you’re covered for faults, and unopened packs can be returned within 30 days.</p>"
           }
         },
         "acc_special": {
@@ -321,7 +321,7 @@
             "title": "What makes brisa cores so special?",
             "icon_style": "special",
             "icon": "shopify://shop_images/accordion-desc.png",
-            "content": "<p>Most alternatives only give you something to hold. Brisa cores recreate the parts that made the ritual satisfying \u2014 throat hit, cooling and bold flavour \u2014 from food-grade aroma alone. That\u2019s the part everyone tries to copy, and no one\u2019s cracked.</p>"
+            "content": "<p>Most alternatives only give you something to hold. Brisa cores recreate the parts that made the ritual satisfying — throat hit, cooling and bold flavour — from food-grade aroma alone. That’s the part everyone tries to copy, and no one’s cracked.</p>"
           }
         }
       },
@@ -336,7 +336,7 @@
       ],
       "name": "Brisa cores picker",
       "settings": {
-        "aroma_prefix": "AROMA \u2014",
+        "aroma_prefix": "AROMA —",
         "aroma_description": "A first-of-its-kind cherry-pomegranate profile, built for bigger flavour and aroma, longer-lasting aroma, and a stronger sensory draw. No smoke. No vapour. No nicotine.",
         "option_name": "Aroma",
         "use_swatch_nav": true,
@@ -344,7 +344,7 @@
         "swatch_label_source": "product_option",
         "dot_color": "#c7c7c7",
         "popular_variant_name": "Mint Ice",
-        "popular_suffix": "\u00b7 MOST POPULAR",
+        "popular_suffix": "· MOST POPULAR",
         "new_badge_names": "Cherry,Raspberry,Variety,Cherry Pomegranate,Raspberry Lime",
         "variant_limit": 8,
         "slide_image_source": "variant_image",
@@ -367,7 +367,7 @@
         "popular_size": 13,
         "pack_heading": "HOW MUCH?",
         "pack_subheading": "Stock up and save. (EACH CORE PACK CONTAINS 3 CORES)",
-        "value_line": "Most people grab the 9 core packs so they're not reordering every few weeks \u2014 just $3.33 a core",
+        "value_line": "Most people grab the 9 core packs so they're not reordering every few weeks — just $3.33 a core",
         "pack_1_label": "3 Core packs",
         "pack_1_meta": "9 Aroma Cores|= 3 weeks of ritual",
         "pack_1_price": "$45",
@@ -399,8 +399,8 @@
         "addon_handle": "monthly-better-box",
         "addon_title": "Monthly Better Box",
         "addon_subtitle": "12 cores every 4 weeks - never run out while on your journey",
-        "addon_aroma_description": "12 cores every 4 weeks \u2014 Mint Ice, Raspberry Lime and Cherry Pomegranate, with a free Cherry Pom in every box. Cancel anytime.",
-        "addon_aroma_label": "AROMA PROFILE \u2014 MONTHLY BETTER BOX",
+        "addon_aroma_description": "12 cores every 4 weeks — Mint Ice, Raspberry Lime and Cherry Pomegranate, with a free Cherry Pom in every box. Cancel anytime.",
+        "addon_aroma_label": "AROMA PROFILE — MONTHLY BETTER BOX",
         "addon_gallery_caption": "Monthly better box - NEW!",
         "addon_price": "$44 /mo",
         "addon_compare": "$72",
@@ -428,6 +428,7 @@
         "show_guarantee": false,
         "guarantee_heading": "30-DAY SUCCESS GUARANTEE",
         "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
+        "atc_caption": "From $3.33 a core — a fraction of what vaping costs.",
         "show_trust_row": true,
         "trust_shipping": "Ships Next Day",
         "trust_icon_shipping": "",
@@ -435,6 +436,10 @@
         "trust_icon_checkout": "",
         "trust_social": "4.7 (163)",
         "trust_icon_social": "",
+        "trust_4": "World first formula",
+        "trust_icon_4": "",
+        "trust_5": "Real throat hit",
+        "trust_icon_5": "",
         "show_sticky_add_to_cart": true,
         "max_width": 760,
         "gallery_spacing": 20,
@@ -455,12 +460,7 @@
         "card_background": "#38b6ff",
         "heading_color": "#000000",
         "text_color": "#111111",
-        "muted_color": "#666666",
-        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
-        "trust_4": "World first formula",
-        "trust_icon_4": "",
-        "trust_5": "Real throat hit",
-        "trust_icon_5": ""
+        "muted_color": "#666666"
       }
     },
     "brisa_comparison_table_ntMxq4": {
@@ -669,7 +669,7 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-1.png",
-            "heading": "The flavours you actually chase \ud83c\udf52",
+            "heading": "The flavours you actually chase 🍒",
             "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
         },
@@ -677,8 +677,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-2.png",
-            "heading": "A formula we'll never share \ud83e\udd2b",
-            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
+            "heading": "A formula we'll never share 🤫",
+            "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
           }
         },
         "card_hit": {
@@ -693,8 +693,8 @@
           "type": "card",
           "settings": {
             "image_asset": "brisa-inside-core-4.png",
-            "heading": "Food-grade to the core \ud83c\udf7d\ufe0f",
-            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion \u2014 just pure, clean sensory intensity, every draw."
+            "heading": "Food-grade to the core 🍽️",
+            "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
           }
         }
       },
@@ -758,7 +758,7 @@
           "settings": {
             "number": "3",
             "title": "Reach for it instead",
-            "text": "In the moment you\u2019d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
+            "text": "In the moment you’d normally reach for your vape reach for Brisa. Same size, same draw, same exhale. No nicotine, no smoke, no vapour"
           }
         }
       },
@@ -807,6 +807,7 @@
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
+        "product": "brisa-starter-kit",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,
@@ -821,8 +822,7 @@
         "muted_color": "#6b6b6b",
         "star_color": "#111111",
         "border_color": "#111111",
-        "soft_border_color": "#e8e8e8",
-        "product": "brisa-starter-kit"
+        "soft_border_color": "#e8e8e8"
       }
     },
     "brisa_cores_bottom_cta": {
@@ -830,23 +830,21 @@
       "name": "Brisa cores bottom CTA",
       "settings": {
         "button_label": "ADD TO CART >",
-        "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
+        "atc_caption": "From $3.33 a core — a fraction of what vaping costs.",
         "show_trust": true,
         "trust_1": "Ships Next Day",
         "trust_icon_1": "",
+        "trust_icon_asset_1": "brisa-trust-ship.svg",
         "trust_2": "Secure checkout",
         "trust_icon_2": "",
+        "trust_icon_asset_2": "brisa-trust-lock.svg",
         "trust_3": "4.7 (163)",
         "trust_icon_3": "",
+        "trust_icon_asset_3": "brisa-trust-star.svg",
         "trust_4": "World first\nformula",
         "trust_icon_4": "",
         "trust_5": "Real throat hit",
-        "trust_icon_5": "",
-        "trust_icon_asset_1": "brisa-trust-ship.svg",
-        "trust_icon_asset_2": "brisa-trust-lock.svg",
-        "trust_icon_asset_3": "brisa-trust-star.svg",
-        "trust_icon_asset_4": "brisa-trust-globe.svg",
-        "trust_icon_asset_5": "brisa-trust-sparkles.svg"
+        "trust_icon_5": ""
       }
     },
     "brisa_new_to_brisa": {
