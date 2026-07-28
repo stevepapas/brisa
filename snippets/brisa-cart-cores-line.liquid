@@ -57,11 +57,15 @@
   {%- when 'pack_copy' -%}
     {%- if layout == 'main' -%}
       <ul class="brisa-cart__item-details brisa-cart-cores__pack-copy list--unstyled">
-        <li>{{ packs }} Core Packs ({{ cores }} Aroma Cores) = {{ packs }} weeks of ritual</li>
+        <li>
+          {{ packs }} Core Packs ({{ cores }} Aroma Cores)<br>
+          = {{ packs }} weeks of ritual
+        </li>
       </ul>
     {%- else -%}
       <p class="brisa-cart-cores__pack-copy text--subdued text--xsmall">
-        {{ packs }} Core Packs ({{ cores }} Aroma Cores) = {{ packs }} weeks of ritual
+        {{ packs }} Core Packs ({{ cores }} Aroma Cores)<br>
+        = {{ packs }} weeks of ritual
       </p>
     {%- endif -%}
 
