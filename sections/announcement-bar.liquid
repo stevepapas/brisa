@@ -67,39 +67,39 @@
                 {%- assign text_size_class = '' -%}
             {%- endcase -%}
 
+            {%- capture announcement_icon -%}
+              <span class="announcement-bar__icon" aria-hidden="true">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/free-shipping-ribbon.gif?v=1785234427"
+                  alt=""
+                  width="20"
+                  height="20"
+                  loading="eager"
+                >
+              </span>
+            {%- endcapture -%}
+
             <div class="announcement-bar__message {{ text_size_class }}">
               {%- if block.settings.content != blank or block.settings.image != blank -%}
                 {%- if block.settings.learn_more_text != blank -%}
                   <p>
-                    {%- if block.settings.show_icons -%}
-                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-delivery-truck', width: 18, height: 16 -%}</span>
-                    {%- endif -%}
+                    {%- if block.settings.show_icons -%}{{ announcement_icon }}{%- endif -%}
                     <span>{{ block.settings.text | escape }}</span>
-                    {%- if block.settings.show_icons -%}
-                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-worldwide', width: 16, height: 16 -%}</span>
-                    {%- endif -%}
+                    {%- if block.settings.show_icons -%}{{ announcement_icon }}{%- endif -%}
                     <button class="link" data-action="open-content">{{ block.settings.learn_more_text | escape }}</button>
                   </p>
                 {%- else -%}
                   <button class="link" data-action="open-content">
-                    {%- if block.settings.show_icons -%}
-                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-delivery-truck', width: 18, height: 16 -%}</span>
-                    {%- endif -%}
+                    {%- if block.settings.show_icons -%}{{ announcement_icon }}{%- endif -%}
                     <span>{{ block.settings.text | escape }}</span>
-                    {%- if block.settings.show_icons -%}
-                      <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-worldwide', width: 16, height: 16 -%}</span>
-                    {%- endif -%}
+                    {%- if block.settings.show_icons -%}{{ announcement_icon }}{%- endif -%}
                   </button>
                 {%- endif -%}
               {%- else -%}
                 <p>
-                  {%- if block.settings.show_icons -%}
-                    <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-delivery-truck', width: 18, height: 16 -%}</span>
-                  {%- endif -%}
+                  {%- if block.settings.show_icons -%}{{ announcement_icon }}{%- endif -%}
                   <span>{{ block.settings.text | escape }}</span>
-                  {%- if block.settings.show_icons -%}
-                    <span class="announcement-bar__icon" aria-hidden="true">{%- render 'icon' with 'picto-worldwide', width: 16, height: 16 -%}</span>
-                  {%- endif -%}
+                  {%- if block.settings.show_icons -%}{{ announcement_icon }}{%- endif -%}
                 </p>
               {%- endif -%}
             </div>
