@@ -4234,15 +4234,39 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   display: none;
 }
 
+/* Kill Impact's desktop side-panel recommendations (absolute 240px column) */
+.mini-cart.brisa-cart-drawer .mini-cart__recommendations {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  text-align: start !important;
+}
+
 .mini-cart.brisa-cart-drawer .mini-cart__recommendations-inner {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  margin-inline: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: block !important;
 }
 
 .mini-cart.brisa-cart-drawer .mini-cart__recommendations-inner .spinner {
   display: flex;
   justify-content: center;
   padding: 16px 0;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__recommendation {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  text-align: start;
 }
 
 .mini-cart.brisa-cart-drawer .drawer__footer {
