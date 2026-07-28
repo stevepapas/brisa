@@ -912,8 +912,8 @@
         "g1": {
           "type": "gift",
           "settings": {
-            "image": "",
-            "image_asset": "watermelon-pack.png",
+            "image": "shopify://shop_images/wm-pack.png",
+            "image_asset": "",
             "title": "Watermelon pack",
             "tag": "FREE $15",
             "text": "FREE 3 watermelon cores with every kit."
