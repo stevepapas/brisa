@@ -936,34 +936,44 @@
     margin-top: 20px;
   }
 
+  /* Match device-page kit trust icons (flat SVGs, compact type) */
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row {
-    margin-top: 18px;
-  }
-
-  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px 8px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px 8px;
     max-width: 560px;
-    margin-inline: auto;
+    margin: 20px auto 0;
     padding: 0;
   }
 
-  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap .brisa-product-area-info__trust-item {
-    flex: 0 0 31%;
-    max-width: 160px;
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: initial;
   }
 
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-item {
+    gap: 6px;
+    color: #333;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-icon,
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-row--wrap .brisa-product-area-info__trust-icon {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
+    color: #008bdc;
     border-radius: 0 !important;
     overflow: visible;
   }
 
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-icon img,
   .brisa-cores-picker-{{ section_uid }} .brisa-product-area-info__trust-icon svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     border-radius: 0 !important;
     -webkit-mask-image: none !important;
     mask-image: none !important;
@@ -1102,12 +1112,11 @@
           trust_3: section.settings.trust_social,
           trust_4: section.settings.trust_4,
           trust_5: section.settings.trust_5,
-          trust_icon_1: section.settings.trust_icon_shipping,
-          trust_icon_2: section.settings.trust_icon_checkout,
-          trust_icon_3: section.settings.trust_icon_social,
-          trust_icon_4: section.settings.trust_icon_4,
-          trust_icon_5: section.settings.trust_icon_5,
-          trust_asset_3: 'brisa-trust-star.svg'
+          trust_asset_1: 'brisa-trust-ship.svg',
+          trust_asset_2: 'brisa-trust-lock.svg',
+          trust_asset_3: 'brisa-trust-star.svg',
+          trust_asset_4: 'brisa-trust-globe.svg',
+          trust_asset_5: 'brisa-trust-sparkles.svg'
         %}
       {% endif %}
 

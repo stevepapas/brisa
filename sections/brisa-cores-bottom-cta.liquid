@@ -103,11 +103,11 @@
               when 4
                 assign t_label = section.settings.trust_4
                 assign t_icon = section.settings.trust_icon_4
-                assign t_asset = section.settings.trust_icon_asset_4 | default: ''
+                assign t_asset = section.settings.trust_icon_asset_4 | default: 'brisa-trust-globe.svg'
               else
                 assign t_label = section.settings.trust_5
                 assign t_icon = section.settings.trust_icon_5
-                assign t_asset = section.settings.trust_icon_asset_5 | default: ''
+                assign t_asset = section.settings.trust_icon_asset_5 | default: 'brisa-trust-sparkles.svg'
             endcase
           %}
           {% if t_label != blank %}
@@ -256,6 +256,12 @@
     },
     {
       "type": "text",
+      "id": "trust_icon_asset_4",
+      "label": "Trust icon 4 asset filename",
+      "default": "brisa-trust-globe.svg"
+    },
+    {
+      "type": "text",
       "id": "trust_5",
       "label": "Trust item 5",
       "default": "Real throat hit"
@@ -264,6 +270,12 @@
       "type": "image_picker",
       "id": "trust_icon_5",
       "label": "Trust icon 5"
+    },
+    {
+      "type": "text",
+      "id": "trust_icon_asset_5",
+      "label": "Trust icon 5 asset filename",
+      "default": "brisa-trust-sparkles.svg"
     }
   ],
   "presets": [

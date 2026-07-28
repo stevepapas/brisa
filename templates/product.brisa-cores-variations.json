@@ -430,9 +430,9 @@
         "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to make sure it does. We don't stop until you've kicked the habit.",
         "show_trust_row": true,
         "trust_shipping": "Ships Next Day",
-        "trust_icon_shipping": "shopify://shop_images/free-shipping.png",
+        "trust_icon_shipping": "",
         "trust_checkout": "Secure checkout",
-        "trust_icon_checkout": "shopify://shop_images/secure.png",
+        "trust_icon_checkout": "",
         "trust_social": "4.7 (163)",
         "trust_icon_social": "",
         "show_sticky_add_to_cart": true,
@@ -458,9 +458,9 @@
         "muted_color": "#666666",
         "atc_caption": "From $3.33 a core \u2014 a fraction of what vaping costs.",
         "trust_4": "World first formula",
-        "trust_icon_4": "shopify://shop_images/world-first-formula.png",
+        "trust_icon_4": "",
         "trust_5": "Real throat hit",
-        "trust_icon_5": "shopify://shop_images/real-throat.png"
+        "trust_icon_5": ""
       }
     },
     "brisa_inside_cores": {
@@ -867,9 +867,14 @@
         "trust_3": "4.7 (163)",
         "trust_icon_asset_3": "brisa-trust-star.svg",
         "trust_4": "World first\nformula",
-        "trust_icon_4": "shopify://shop_images/world-first-formula.png",
+        "trust_icon_4": "",
         "trust_5": "Real throat hit",
-        "trust_icon_5": "shopify://shop_images/real-throat.png"
+        "trust_icon_5": "",
+        "trust_icon_1": "",
+        "trust_icon_2": "",
+        "trust_icon_3": "",
+        "trust_icon_asset_4": "brisa-trust-globe.svg",
+        "trust_icon_asset_5": "brisa-trust-sparkles.svg"
       }
     }
   },
