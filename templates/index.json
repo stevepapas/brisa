@@ -777,42 +777,56 @@
           "type": "question",
           "settings": {
             "question": "Be honest... will it actually satisfy me?",
-            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw \u2014 the same hand-to-mouth moment you know, minus the nicotine.</p>"
+            "answer": "<p>Most people expect nothing special, just air. Then they take the first draw. You get the pull, the throat sensation and our bold Brisa flavour the second you draw, the same hand-tomouth moment you know, minus the nicotine. It's not a wooden pen or a puff of air. It's engineered to feel like the real thing.\u00a0</p>"
           }
         },
         "q2": {
           "type": "question",
           "settings": {
             "question": "Isn't it just a vape without the nicotine?",
-            "answer": "<p>No. There's no vapour, no coil, and no chemicals. It's a sensory habit device that keeps the ritual, not a nicotine product.</p>"
+            "answer": "<p>No. No battery, no e-liquid, no heating, no vapour, nothing is powered or produced. Brisa is a non-electronic device with a replaceable aroma core. You get the draw, the throat hit and the flavour through pure airflow, not a cloud. A completely different thing.\u00a0</p>"
           }
         },
         "q3": {
           "type": "question",
           "settings": {
             "question": "Isn't it like those wooden pens that just blow air?",
-            "answer": "<p>No. Brisa uses precision-formulated aroma cores and tuned airflow so the draw and throat feel land like the habit you know.</p>"
+            "answer": "<p>Not even close. A plain air inhaler gives you the motion and nothing else, no throat hit, no real flavour. Brisa's secret aroma and cooling formula delivers a genuine hit at the back of the throat and bold flavour the second you draw. That's the entire reason we exist.\u00a0</p>"
           }
         },
         "q4": {
           "type": "question",
           "settings": {
             "question": "I've tried gums and patches, how is this different?",
-            "answer": "<p>Gums and patches skip the ritual. Brisa keeps the hand-to-mouth moment your body reaches for \u2014 so the switch feels familiar, not empty.</p>"
+            "answer": "<p>Gums and patches miss the one thing running the habit: the hand-to-mouth ritual. They still put nicotine in your body and give your hands nothing to do. Brisa is the opposite, zero nicotine, and it's the exact thing your hand reaches for, with the throat hit and flavour to match.\u00a0</p>"
           }
         },
-        "q5": {
+        "question_7QFghX": {
           "type": "question",
           "settings": {
             "question": "Is it actually safe to inhale? What am I breathing in?",
-            "answer": "<p>You're drawing air through a food-grade aroma core. No nicotine, no smoke, no vapour, no heating, and no battery.</p>"
+            "answer": "<p>No nicotine, no tobacco, no smoke, no vapour, and nothing burned or heated, just food-grade aroma and cooling compounds in a food-grade core. You're drawing air through aroma, not a chemical cloud.\u00a0</p>"
           }
         },
-        "q6": {
+        "question_DXhh7a": {
           "type": "question",
           "settings": {
             "question": "Won't the cores run out and cost me forever?",
-            "answer": "<p>The device is a one-time purchase. The Starter Kit includes cores to get you going. After that you only replace cores when you choose \u2014 not a weekly nicotine spend forever.</p>"
+            "answer": "<p>Good news first: there's no nicotine in Brisa, so there's nothing keeping you tied to it, use it for as long as it serves you. Each core lasts 2-3 days (around $1.70 a day). Top up with a core pack, or set the Monthly Better Box to turn up automatically, cancel anytime. And the real difference: a vape is a bill that never stops. Brisa, you buy once.\u00a0</p>"
+          }
+        },
+        "question_yzU3fM": {
+          "type": "question",
+          "settings": {
+            "question": "Can I use it at work and around people?",
+            "answer": "<p>Yes. No smoke, no vapour, no lingering smell, nothing to step outside for, nothing that fills a room. It's not a vape. Reach for it at your desk, in the car, or out with mates, wherever the moment hits.\u00a0</p>"
+          }
+        },
+        "question_rMCimq": {
+          "type": "question",
+          "settings": {
+            "question": "Is this just a gimmick\u2026 will it really work?",
+            "answer": "<p>It's almost a year of R&D and a world-first aroma formula no one in our category has cracked. Thousands reach for it every day in the moment they'd normally reach for a vape. One draw and the skepticism usually disappears.\u00a0</p>"
           }
         }
       },
@@ -821,8 +835,10 @@
         "q2",
         "q3",
         "q4",
-        "q5",
-        "q6"
+        "question_7QFghX",
+        "question_DXhh7a",
+        "question_yzU3fM",
+        "question_rMCimq"
       ],
       "settings": {
         "heading": "Frequently Asked Questions Answered",
