@@ -16,6 +16,7 @@
         "show_shipping_message": true,
         "free_shipping_message": "<p>You've been approved for <strong>FREE SHIPPING</strong> &amp; a <strong>FREE GIFT</strong></p>",
         "cores_shipping_message": "Spend $90 to receive FREE SHIPPING",
+        "threshold_met_message": "You've received FREE SHIPPING",
         "shipping_threshold": 90,
         "shipping_progress_message": "Spend $90 to receive FREE SHIPPING",
         "always_show_free_shipping": false,

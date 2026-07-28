@@ -290,6 +290,7 @@
             {%- render 'brisa-cart-gift',
               gift_product: section.settings.gift_product,
               gift_image: section.settings.gift_image,
+              gift_image_asset: section.settings.gift_image_asset,
               gift_title: section.settings.gift_title,
               gift_subtitle: section.settings.gift_subtitle,
               gift_detail: section.settings.gift_detail,
@@ -337,8 +338,8 @@
                         </p>
                         <button type="button" is="toggle-button" loader aria-controls="brisa-cart-quick-buy-{{ section.id }}-{{ product.id }}" aria-expanded="false" class="brisa-cart__recommendation-quick-view hidden-phone">{{ section.settings.quick_view_label }}</button>
                         <button type="button" is="toggle-button" loader aria-controls="brisa-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" aria-expanded="false" class="brisa-cart__recommendation-quick-view hidden-tablet-and-up">{{ section.settings.quick_view_label }}</button>
-                        <quick-buy-drawer id="brisa-cart-quick-buy-{{ section.id }}-{{ product.id }}" href="{{ product.url }}?view=quick-buy-drawer" class="drawer drawer--large drawer--quick-buy hidden-phone"></quick-buy-drawer>
-                        <quick-buy-popover id="brisa-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" href="{{ product.url }}?view=quick-buy-popover" class="popover popover--quick-buy hidden-tablet-and-up"></quick-buy-popover>
+                        <quick-buy-drawer id="brisa-cart-quick-buy-{{ section.id }}-{{ product.id }}" href="{{ product.url }}" class="drawer drawer--large drawer--quick-buy hidden-phone"></quick-buy-drawer>
+                        <quick-buy-popover id="brisa-cart-quick-buy-popover-{{ section.id }}-{{ product.id }}" href="{{ product.url }}" class="popover popover--quick-buy hidden-tablet-and-up"></quick-buy-popover>
                       </div>
                     </div>
                   {%- endif -%}
@@ -518,6 +519,13 @@
       "type": "image_picker",
       "id": "gift_image",
       "label": "Gift image"
+    },
+    {
+      "type": "text",
+      "id": "gift_image_asset",
+      "label": "Gift image asset",
+      "default": "watermelon-pack.png",
+      "info": "Theme asset filename used when Gift image and Gift product are empty."
     },
     {
       "type": "text",
