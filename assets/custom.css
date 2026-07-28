@@ -1410,6 +1410,7 @@ display: none;
 .trust-bar__item {
   gap: 3px !important;
   font-size: 0.7rem !important;
+  line-height: 1;
 }
 @media screen and (min-width: 750px) {
   .trust-bar {
@@ -1419,7 +1420,7 @@ display: none;
 }
 @media (max-width: 749px) {
   .trust-bar__item {
-    font-size: 0.7rem;
+    font-size: 0.6rem !important;
   }
 }
 
