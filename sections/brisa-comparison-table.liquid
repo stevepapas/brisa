@@ -62,15 +62,22 @@
         <div class="brisa-comparison__cell brisa-comparison__cell--heading brisa-comparison__cell--brisa brisa-comparison__cell--brisa-heading" role="columnheader">
           {% if section.settings.brisa_logo != blank %}
             <img
-              src="{{ section.settings.brisa_logo | image_url: width: 180 }}"
-              alt="{{ section.settings.brisa_heading | escape }}"
+              src="{{ section.settings.brisa_logo | image_url: width: 240 }}"
+              alt="{{ section.settings.brisa_heading | default: 'Brisa Better' | escape }}"
               class="brisa-comparison__logo"
               loading="lazy"
               width="{{ section.settings.brisa_logo.width }}"
               height="{{ section.settings.brisa_logo.height }}"
             >
           {% else %}
-            <span class="brisa-comparison__logo-text">Brisa <small>Better</small></span>
+            <img
+              src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446"
+              alt="{{ section.settings.brisa_heading | default: 'Brisa Better' | escape }}"
+              class="brisa-comparison__logo"
+              loading="lazy"
+              width="600"
+              height="270"
+            >
           {% endif %}
         </div>
 
