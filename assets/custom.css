@@ -2228,7 +2228,7 @@ display: none;
 .brisa-comparison__cell--brisa-heading {
   min-height: 84px;
   border-top: 0;
-  border-radius: var(--brisa-comparison-brisa-radius, 28px) var(--brisa-comparison-brisa-radius, 28px) 0 0;
+  border-radius: 0;
   box-shadow:
     0 10px 28px rgba(14, 90, 140, 0.18),
     0 0 0 1px var(--brisa-comparison-brisa-color, #4eb8ef);
@@ -2245,6 +2245,7 @@ display: none;
   max-width: 118px;
   max-height: 48px;
   object-fit: contain;
+  border-radius: 0 !important;
   filter:
     drop-shadow(0 0 1.5px #fff)
     drop-shadow(0 0 4px rgba(255, 255, 255, 0.95))
@@ -2404,7 +2405,7 @@ display: none;
 
   .brisa-comparison__cell--brisa-heading {
     min-height: 42px;
-    border-radius: 14px 14px 0 0;
+    border-radius: 0;
   }
 
   .brisa-comparison__cell--brisa-last {
