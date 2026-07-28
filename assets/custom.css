@@ -15,8 +15,12 @@ html {
   }
 
   .what-is-brisa__text {
-    font-size: 0.8rem !important;
-    line-height: 1.1 !important;
+    font-size: 1rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .what-is-brisa__copy {
+    background-position: 93% top;
   }
 }
 
