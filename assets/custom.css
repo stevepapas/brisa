@@ -704,10 +704,10 @@ display: none;
   text-decoration: none !important;
 }
 
-/* Cores hero: lock frame to slide-1 asset ratio (1024×955), independent of theme-editor settings */
+/* Cores hero: lock frame to square slide assets (1024×1024), independent of theme-editor settings */
 .template-brisa-cores .shopify-section--slideshow-brisa,
 .template-brisa-cores-variations .shopify-section--slideshow-brisa {
-  --slideshow-brisa-frame-ratio: 1024 / 955;
+  --slideshow-brisa-frame-ratio: 1 / 1;
 }
 
 .template-brisa-devices .shopify-section--slideshow-brisa,
@@ -721,8 +721,8 @@ display: none;
 @media screen and (min-width: 1000px) {
   .template-brisa-cores .shopify-section--slideshow-brisa,
   .template-brisa-cores-variations .shopify-section--slideshow-brisa {
-    /* Match assets/brisa-cores-slide-1.jpg (1024×955) */
-    --slideshow-brisa-frame-ratio: 1024 / 955;
+    /* Match assets/brisa-cores-slide-*.png (1024×1024) */
+    --slideshow-brisa-frame-ratio: 1 / 1;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa slide-show.slideshow-brisa,
@@ -926,8 +926,8 @@ display: none;
 @media screen and (max-width: 999px) {
   .template-brisa-cores .shopify-section--slideshow-brisa,
   .template-brisa-cores-variations .shopify-section--slideshow-brisa {
-    /* Match assets/brisa-cores-slide-1.jpg (1024×955) */
-    --slideshow-brisa-frame-ratio: 1024 / 955;
+    /* Match assets/brisa-cores-slide-*.png (1024×1024) */
+    --slideshow-brisa-frame-ratio: 1 / 1;
   }
 
   .template-brisa-cores .shopify-section--slideshow-brisa,

@@ -17,7 +17,7 @@
           "name": "cores-1",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-1.jpg",
+            "image_asset": "brisa-cores-slide-1.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -40,7 +40,7 @@
           "name": "cores-2",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-2.jpg",
+            "image_asset": "brisa-cores-slide-2.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -63,7 +63,7 @@
           "name": "cores-3",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-3.jpg",
+            "image_asset": "brisa-cores-slide-3.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -86,7 +86,7 @@
           "name": "cores-4",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-4.jpg",
+            "image_asset": "brisa-cores-slide-4.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -109,7 +109,7 @@
           "name": "cores-5",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-5.jpg",
+            "image_asset": "brisa-cores-slide-5.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -132,30 +132,7 @@
           "name": "cores-6",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-6.jpg",
-            "image_focal_point": "center_center",
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "",
-            "content": "",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "show_image_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        },
-        "image_cores07": {
-          "type": "image",
-          "name": "cores-7",
-          "settings": {
-            "kit_set": "both",
-            "image_asset": "brisa-cores-slide-7.jpg",
+            "image_asset": "brisa-cores-slide-6.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -180,8 +157,7 @@
         "image_cores03",
         "image_cores04",
         "image_cores05",
-        "image_cores06",
-        "image_cores07"
+        "image_cores06"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
