@@ -1,0 +1,46 @@
+{%- comment -%}
+  Brisa cart shipping progress.
+  - Kit in cart: full bar, truck + gift markers, unlocked message
+  - Otherwise: fill toward dollar threshold (default $90), truck only at end
+
+  Params:
+    - has_kit_product (boolean)
+    - progress_value (number 0–1)
+    - show_gift_marker (boolean) — truck+gift vs truck-only
+    - free_shipping_message (richtext/html)
+    - cores_shipping_message (text)
+{%- endcomment -%}
+
+{%- liquid
+  assign show_gift_marker = show_gift_marker | default: false
+  if has_kit_product
+    assign show_gift_marker = true
+  endif
+-%}
+
+<p class="brisa-cart__shipping-message">
+  {%- if has_kit_product -%}
+    {{ free_shipping_message }}
+  {%- else -%}
+    {{ cores_shipping_message | default: 'Spend $90 to receive FREE SHIPPING' }}
+  {%- endif -%}
+</p>
+
+<div class="brisa-cart__progress{% unless show_gift_marker %} brisa-cart__progress--shipping-only{% endunless %}" style="--progress: {{ progress_value }};" aria-hidden="true">
+  <div class="brisa-cart__progress-track">
+    <div class="brisa-cart__progress-fill"></div>
+  </div>
+  {%- if progress_value > 0 -%}
+    <span class="brisa-cart__progress-thumb"></span>
+  {%- endif -%}
+  <div class="brisa-cart__progress-markers">
+    <span class="brisa-cart__progress-icon brisa-cart__progress-icon--shipping">
+      {% render 'icon' with 'picto-delivery-truck' %}
+    </span>
+    {%- if show_gift_marker -%}
+      <span class="brisa-cart__progress-icon brisa-cart__progress-icon--gift">
+        {% render 'icon' with 'picto-gift' %}
+      </span>
+    {%- endif -%}
+  </div>
+</div>

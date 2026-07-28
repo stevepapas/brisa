@@ -1,0 +1,57 @@
+{%- comment -%}
+  Fake FREE gift line shown when a kit is in cart.
+  Params (optional; fall back to defaults):
+    - gift_product
+    - gift_image
+    - gift_title
+    - gift_subtitle
+    - gift_detail
+    - gift_value
+    - gift_price_label
+{%- endcomment -%}
+
+{%- liquid
+  if gift_image == blank and gift_product != blank and gift_product.featured_media != blank
+    assign gift_image = gift_product.featured_media
+  endif
+  assign gift_title = gift_title | default: 'BRISA CORE - (FREE GIFT)'
+  assign gift_subtitle = gift_subtitle | default: 'WATERMELON'
+  assign gift_detail = gift_detail | default: '3 free cores'
+  assign gift_value = gift_value | default: '$15.00'
+  assign gift_price_label = gift_price_label | default: 'FREE'
+-%}
+
+<article class="brisa-cart__item brisa-cart__item--gift">
+  <div class="brisa-cart__item-media">
+    {%- if gift_image != blank -%}
+      <span class="brisa-cart__item-image">
+        {{- gift_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: gift_title -}}
+      </span>
+    {%- else -%}
+      <span class="brisa-cart__item-image brisa-cart__item-image--placeholder" aria-hidden="true"></span>
+    {%- endif -%}
+  </div>
+
+  <div class="brisa-cart__item-body">
+    <p class="brisa-cart__item-title brisa-cart__item-title--gift">
+      <span>{{ gift_title }}</span>
+      {%- if gift_subtitle != blank -%}
+        <span>{{ gift_subtitle }}</span>
+      {%- endif -%}
+    </p>
+    {%- if gift_detail != blank -%}
+      <ul class="brisa-cart__item-details list--unstyled">
+        <li>{{ gift_detail }}</li>
+      </ul>
+    {%- endif -%}
+  </div>
+
+  <div class="brisa-cart__item-side">
+    <div class="brisa-cart__item-pricing">
+      {%- if gift_value != blank -%}
+        <span class="brisa-cart__price brisa-cart__price--compare">{{ gift_value }}</span>
+      {%- endif -%}
+      <span class="brisa-cart__price brisa-cart__price--free">{{ gift_price_label }}</span>
+    </div>
+  </div>
+</article>

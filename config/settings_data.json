@@ -44,6 +44,7 @@
     "product_image_size": "natural",
     "cart_type": "message",
     "cart_show_free_shipping_threshold": true,
+    "cart_free_shipping_threshold": "90",
     "social_facebook": "https://facebook.com/brisabetter",
     "social_instagram": "http://instagram.com/brisabetter.au",
     "social_tiktok": "https://www.tiktok.com/@brisabetter",
@@ -57,24 +58,38 @@
       "mini-cart": {
         "type": "mini-cart",
         "settings": {
-          "show_order_note": true,
-          "show_checkout_button": true,
-          "empty_button_link": "shopify://products/brisa-starter-kit",
+          "title": "Your Cart ([count])",
+          "show_shipping_message": true,
+          "free_shipping_message": "<p>You've been approved for <strong>FREE SHIPPING</strong> &amp; a <strong>FREE GIFT</strong></p>",
+          "cores_shipping_message": "Spend $90 to receive FREE SHIPPING",
+          "shipping_threshold": 90,
+          "always_show_free_shipping": false,
+          "default_line_subtitle": "9 cores · 3 to 5 weeks of ritual",
+          "item_badge_text": "Save 10% OFF & Free Shipping",
           "show_recommendations": true,
-          "recommendations_title": "You may also like"
+          "recommendations_title": "You May Also Like",
+          "quick_view_label": "QUICK VIEW",
+          "show_gift_bonus": true,
+          "kit_trigger_handles": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+          "gift_trigger_handles": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+          "gift_title": "BRISA CORE - (FREE GIFT)",
+          "gift_subtitle": "WATERMELON",
+          "gift_detail": "3 free cores",
+          "gift_value": "$15.00",
+          "gift_price_label": "FREE",
+          "subtotal_label": "Subtotal",
+          "free_shipping_note": "Free shipping",
+          "calculated_shipping_label": "Calculated at checkout",
+          "checkout_button_text": "SECURE CHECKOUT",
+          "show_checkout_button": true,
+          "show_payment_methods": true,
+          "empty_button_link": "shopify://pages/shop",
+          "empty_title": "Your Cart"
         }
       }
     },
     "content_for_index": [],
     "blocks": {
-      "8912919057760678768": {
-        "type": "shopify://apps/easify-box-builder/blocks/app-embed-block/5e4620dd-6bb8-4776-ada5-5f18c69faedd",
-        "disabled": false,
-        "settings": {
-          "settings_js_develop_mode": true,
-          "settings_exclude_js_paths": ""
-        }
-      },
       "10436698916776057164": {
         "type": "shopify://apps/appstle-subscription/blocks/appstle-subscription-helper/fe257d39-6f88-4f35-ab08-bd437e3aa94e",
         "disabled": false,
@@ -127,6 +142,7 @@
       "show_product_rating": false,
       "cart_type": "message",
       "cart_show_free_shipping_threshold": true,
+      "cart_free_shipping_threshold": "90",
       "accent_color": "#405de6",
       "checkout_sidebar_background_color": "#f5f5f5",
       "checkout_accent_color": "#282828",

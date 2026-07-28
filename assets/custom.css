@@ -3394,6 +3394,16 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   transform: translateX(-50%);
 }
 
+/* Cores / $ threshold: truck sits at the end (Canva pages 2–3) */
+.brisa-cart__progress--shipping-only .brisa-cart__progress-icon--shipping {
+  left: 100%;
+  transform: translateX(-50%);
+}
+
+.brisa-cart__progress--shipping-only .brisa-cart__progress-icon--gift {
+  display: none;
+}
+
 .brisa-cart__item {
   display: grid;
   grid-template-columns: 96px minmax(0, 1fr) auto;
@@ -3710,7 +3720,7 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   font-size: 18px;
   font-weight: 800;
   line-height: 1.2;
-  color: #0b2c4a;
+  color: #23aee8;
   white-space: nowrap;
 }
 
@@ -4133,4 +4143,146 @@ background: linear-gradient(to bottom right,transparent calc(50% - 1px),
   width: 20px;
   height: 20px;
   object-fit: contain;
+}
+
+/* ============================================================
+   Brisa cart drawer (mini-cart matched to cart page)
+   ============================================================ */
+.mini-cart.brisa-cart-drawer {
+  color: #000000;
+  background: #ffffff;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__header {
+  padding-block: 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__title.brisa-cart__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__content {
+  padding: 16px 16px 8px;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__content--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__empty {
+  padding: 24px 8px 40px;
+  width: 100%;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__progress {
+  margin-bottom: 8px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__items {
+  margin: 0;
+}
+
+/* Beat Impact .line-item { display: flow-root } */
+.mini-cart.brisa-cart-drawer .line-item.brisa-cart__item {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  padding: 16px 0;
+  border-top: 1px solid #e5e5e5;
+  align-items: stretch;
+  margin: 0;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__items > .brisa-cart__item:first-child,
+.mini-cart.brisa-cart-drawer .brisa-cart__items > .line-item.brisa-cart__item:first-child {
+  border-top: 0;
+  padding-top: 8px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__item-media {
+  width: 84px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__item-image {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__item-badge {
+  width: 46px;
+  height: 46px;
+  font-size: 7px;
+  padding: 5px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__recommendations {
+  display: block;
+  margin: 0;
+  padding: 16px 0 8px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__recommendations[hidden],
+.mini-cart.brisa-cart-drawer cart-drawer-recommendations[hidden] {
+  display: none;
+}
+
+.mini-cart.brisa-cart-drawer .mini-cart__recommendations-inner {
+  margin: 0;
+  padding: 0;
+}
+
+.mini-cart.brisa-cart-drawer .mini-cart__recommendations-inner .spinner {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__footer {
+  padding: 0 12px 12px;
+  background: #ffffff;
+  border-top: 0;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__footer.drawer__footer--bordered {
+  border-top: 0;
+  box-shadow: none;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__checkout-panel {
+  margin-top: 0;
+  padding: 16px 14px 14px;
+  border-radius: 14px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__checkout-button {
+  min-height: 52px;
+  font-size: 14px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__payment-methods {
+  margin-top: 12px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__payment-methods .payment-methods-list {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__payment-methods .payment-methods-list svg {
+  width: 36px;
+  height: auto;
+}
+
+/* Hide legacy Impact free-shipping bar if theme settings still inject it elsewhere */
+.mini-cart.brisa-cart-drawer .shipping-bar {
+  display: none;
 }

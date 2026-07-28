@@ -26,13 +26,24 @@
     endif
   endfor
 
-  assign shipping_is_free = has_kit_product
+  assign shipping_threshold = section.settings.shipping_threshold | default: 90 | times: 1.0
+  if shipping_threshold <= 0
+    assign shipping_threshold = 90
+  endif
+  assign threshold_cents = shipping_threshold | times: 100.0
+
+  assign shipping_is_free = false
+  if has_kit_product or cart.total_price >= threshold_cents
+    assign shipping_is_free = true
+  endif
 
   assign progress_value = 0
-  if has_kit_product and show_gift_bonus
+  assign progress_show_gift = false
+  if has_kit_product
     assign progress_value = 1
-  elsif has_kit_product
-    assign progress_value = 0.55
+    assign progress_show_gift = true
+  else
+    assign progress_value = cart.total_price | times: 1.0 | divided_by: threshold_cents | at_most: 1
   endif
 
   assign installment_amount = cart.total_price | divided_by: 4
@@ -54,30 +65,13 @@
         <h1 class="brisa-cart__title">{{ section.settings.title | replace: '[count]', cart.item_count }}</h1>
 
         {%- if section.settings.show_shipping_message -%}
-          <p class="brisa-cart__shipping-message">
-            {%- if has_kit_product -%}
-              {{ section.settings.free_shipping_message }}
-            {%- else -%}
-              {{ section.settings.cores_shipping_message | default: 'Order a Brisa and get free shipping' }}
-            {%- endif -%}
-          </p>
-
-          <div class="brisa-cart__progress" style="--progress: {{ progress_value }};" aria-hidden="true">
-            <div class="brisa-cart__progress-track">
-              <div class="brisa-cart__progress-fill"></div>
-            </div>
-            {%- if progress_value > 0 -%}
-              <span class="brisa-cart__progress-thumb"></span>
-            {%- endif -%}
-            <div class="brisa-cart__progress-markers">
-              <span class="brisa-cart__progress-icon brisa-cart__progress-icon--shipping">
-                {% render 'icon' with 'picto-delivery-truck' %}
-              </span>
-              <span class="brisa-cart__progress-icon brisa-cart__progress-icon--gift">
-                {% render 'icon' with 'picto-gift' %}
-              </span>
-            </div>
-          </div>
+          {%- render 'brisa-cart-progress',
+            has_kit_product: has_kit_product,
+            progress_value: progress_value,
+            show_gift_marker: progress_show_gift,
+            free_shipping_message: section.settings.free_shipping_message,
+            cores_shipping_message: section.settings.cores_shipping_message
+          -%}
         {%- endif -%}
       </header>
 
@@ -291,52 +285,15 @@
           {%- endfor -%}
 
           {%- if show_gift_bonus and section.settings.show_gift_bonus -%}
-            {%- liquid
-              assign gift_product = section.settings.gift_product
-              assign gift_image = section.settings.gift_image
-              if gift_image == blank and gift_product != blank and gift_product.featured_media != blank
-                assign gift_image = gift_product.featured_media
-              endif
-              assign gift_title = section.settings.gift_title | default: 'BRISA CORE - (FREE GIFT)'
-              assign gift_subtitle = section.settings.gift_subtitle | default: 'WATERMELON'
-              assign gift_detail = section.settings.gift_detail | default: '1 free core pack'
-              assign gift_value = section.settings.gift_value | default: '$15.00'
-              assign gift_price_label = section.settings.gift_price_label | default: 'FREE'
+            {%- render 'brisa-cart-gift',
+              gift_product: section.settings.gift_product,
+              gift_image: section.settings.gift_image,
+              gift_title: section.settings.gift_title,
+              gift_subtitle: section.settings.gift_subtitle,
+              gift_detail: section.settings.gift_detail,
+              gift_value: section.settings.gift_value,
+              gift_price_label: section.settings.gift_price_label
             -%}
-            <article class="brisa-cart__item brisa-cart__item--gift">
-              <div class="brisa-cart__item-media">
-                {%- if gift_image != blank -%}
-                  <span class="brisa-cart__item-image">
-                    {{- gift_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: gift_title -}}
-                  </span>
-                {%- else -%}
-                  <span class="brisa-cart__item-image brisa-cart__item-image--placeholder" aria-hidden="true"></span>
-                {%- endif -%}
-              </div>
-
-              <div class="brisa-cart__item-body">
-                <p class="brisa-cart__item-title brisa-cart__item-title--gift">
-                  <span>{{ gift_title }}</span>
-                  {%- if gift_subtitle != blank -%}
-                    <span>{{ gift_subtitle }}</span>
-                  {%- endif -%}
-                </p>
-                {%- if gift_detail != blank -%}
-                  <ul class="brisa-cart__item-details list--unstyled">
-                    <li>{{ gift_detail }}</li>
-                  </ul>
-                {%- endif -%}
-              </div>
-
-              <div class="brisa-cart__item-side">
-                <div class="brisa-cart__item-pricing">
-                  {%- if gift_value != blank -%}
-                    <span class="brisa-cart__price brisa-cart__price--compare">{{ gift_value }}</span>
-                  {%- endif -%}
-                  <span class="brisa-cart__price brisa-cart__price--free">{{ gift_price_label }}</span>
-                </div>
-              </div>
-            </article>
           {%- endif -%}
         </div>
 
@@ -456,19 +413,26 @@
       "type": "richtext",
       "id": "free_shipping_message",
       "label": "Free shipping message (starter & mates pack)",
-      "default": "<p>Congratulations you are eligible for <strong>FREE SHIPPING</strong> 🤝</p>"
+      "default": "<p>You've been approved for <strong>FREE SHIPPING</strong> &amp; a <strong>FREE GIFT</strong></p>"
     },
     {
       "type": "text",
       "id": "cores_shipping_message",
       "label": "Shipping message (cores only)",
-      "default": "Order a Brisa and get free shipping"
+      "default": "Spend $90 to receive FREE SHIPPING"
+    },
+    {
+      "type": "number",
+      "id": "shipping_threshold",
+      "label": "Free shipping threshold ($)",
+      "default": 90,
+      "info": "Used for cores progress bar fill. Kit products always unlock free shipping + gift."
     },
     {
       "type": "text",
       "id": "shipping_progress_message",
       "label": "Shipping message (cores only, legacy)",
-      "default": "Order a Brisa and get free shipping"
+      "default": "Spend $90 to receive FREE SHIPPING"
     },
     {
       "type": "checkbox",
@@ -563,7 +527,7 @@
       "type": "text",
       "id": "gift_detail",
       "label": "Gift detail",
-      "default": "1 free core pack"
+      "default": "3 free cores"
     },
     {
       "type": "text",
