@@ -752,6 +752,8 @@
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack.is-selected {
+    padding-left: 0;
+    padding-right: 0;
     border-color: #008bdc;
     box-shadow:
       0 0 0 1px #008bdc,
@@ -828,9 +830,10 @@
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores-label {
-    font-size: 13px;
-    font-weight: 800;
-    line-height: 1.05;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__sublines {
@@ -848,7 +851,7 @@
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__meta {
     color: #666;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 400;
     line-height: 1.05;
     margin-top: -1px;
@@ -875,12 +878,15 @@
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__unit {
-    color: #666;
+    color: #000;
     font-size: 11px;
     font-weight: 400;
   }
 
   .brisa-cores-picker-{{ section_uid }} .bcp-pack__save {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: auto;
     padding: 4px 8px;
     border-radius: 999px;
@@ -889,6 +895,7 @@
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.02em;
+    line-height: 1.15;
     text-transform: uppercase;
   }
 
@@ -1007,11 +1014,11 @@
     }
 
     .brisa-cores-picker-{{ section_uid }} .bcp-pack__cores-label {
-      font-size: 11px;
+      font-size: 30px;
     }
 
     .brisa-cores-picker-{{ section_uid }} .bcp-pack__aroma {
-      font-size: 13px;
+      font-size: 11px;
     }
 
     .brisa-cores-picker-{{ section_uid }} .bcp-pack__flag,

@@ -84,7 +84,19 @@
       <span class="bcp-pack__unit">{{ section.settings.pack_2_unit | escape }}</span>
     {% endif %}
     {% if section.settings.pack_2_save != blank %}
-      <span class="bcp-pack__save">{{ section.settings.pack_2_save | escape }}</span>
+      {%- assign pack_2_save = section.settings.pack_2_save -%}
+      {%- assign pack_2_save_parts = pack_2_save | split: ' / ' -%}
+      {%- if pack_2_save_parts.size < 2 -%}
+        {%- assign pack_2_save_parts = pack_2_save | split: '/' -%}
+      {%- endif -%}
+      <span class="bcp-pack__save">
+        {%- if pack_2_save_parts.size > 1 -%}
+          <span>{{ pack_2_save_parts[0] | strip | escape }}</span>
+          <span>{{ pack_2_save_parts[1] | strip | escape }}</span>
+        {%- else -%}
+          {{ pack_2_save | escape }}
+        {%- endif -%}
+      </span>
     {% endif %}
   </button>
 
@@ -131,7 +143,19 @@
       <span class="bcp-pack__unit">{{ section.settings.pack_3_unit | escape }}</span>
     {% endif %}
     {% if section.settings.pack_3_save != blank %}
-      <span class="bcp-pack__save bcp-pack__save--value">{{ section.settings.pack_3_save | escape }}</span>
+      {%- assign pack_3_save = section.settings.pack_3_save -%}
+      {%- assign pack_3_save_parts = pack_3_save | split: ' / ' -%}
+      {%- if pack_3_save_parts.size < 2 -%}
+        {%- assign pack_3_save_parts = pack_3_save | split: '/' -%}
+      {%- endif -%}
+      <span class="bcp-pack__save bcp-pack__save--value">
+        {%- if pack_3_save_parts.size > 1 -%}
+          <span>{{ pack_3_save_parts[0] | strip | escape }}</span>
+          <span>{{ pack_3_save_parts[1] | strip | escape }}</span>
+        {%- else -%}
+          {{ pack_3_save | escape }}
+        {%- endif -%}
+      </span>
     {% endif %}
   </button>
 </div>
