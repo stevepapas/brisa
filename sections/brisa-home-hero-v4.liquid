@@ -433,25 +433,21 @@
     justify-content: flex-end;
   }
 
-  #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
-    margin-top: 0 !important;
-    margin-bottom: 28px !important;
-    padding-top: 96px !important;
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+      margin-top: 0 !important;
+      padding-top: 142px !important;
+      margin-bottom: 122px !important;
+    }
   }
 
   @media screen and (min-width: 750px) {
     #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+      width: min(620px, 100%) !important;
+      gap: 14px !important;
       margin-top: 0 !important;
-      margin-bottom: 40px !important;
-      padding-top: 120px !important;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
-      margin-top: 0 !important;
-      margin-bottom: 24px !important;
-      padding-top: 88px !important;
+      margin-bottom: 144px !important;
+      padding-top: 370px !important;
     }
   }
   {% endif %}
@@ -520,11 +516,13 @@
       bottom: calc(100% - 14px) !important;
     }
 
+    {% unless text_in_image %}
     #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
       margin-top: -39px !important;
       padding-top: 72px !important;
       margin-bottom: 122px !important;
     }
+    {% endunless %}
   }
 
   @media screen and (min-width: 750px) {
@@ -550,6 +548,7 @@
       font-size: 13px;
     }
 
+    {% unless text_in_image %}
     #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
       width: min(620px, 100%) !important;
       gap: 14px !important;
@@ -557,6 +556,7 @@
       margin-bottom: 144px !important;
       padding-top: 84px !important;
     }
+    {% endunless %}
 
     #shopify-section-{{ section.id }} .brisa-home-hero__cta-art {
       bottom: calc(100% - 18px) !important;
