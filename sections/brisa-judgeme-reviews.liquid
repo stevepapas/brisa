@@ -82,12 +82,15 @@
   /* —— Minimal header (Trenchies / Loox style) —— */
   #shopify-section-{{ section.id }} .jdgm-rev-widg__header {
     display: flex !important;
-    flex-wrap: wrap;
+    flex-wrap: wrap !important;
     align-items: center;
     gap: 10px 12px;
     margin: 0 0 8px !important;
     padding: 0 !important;
     border: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
   }
 
   /* Keep a real box (not display:contents) so Judge.me can insert the review form after this row */
@@ -185,15 +188,18 @@
 
   #shopify-section-{{ section.id }} .jdgm-histogram {
     order: 3;
-    flex: 1 1 100%;
+    flex: 1 1 100% !important;
+    position: static !important;
+    float: none !important;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
     margin: 4px 0 8px !important;
     padding: 12px 14px !important;
     border: 1px solid var(--brisa-jdgm-border-soft) !important;
     border-radius: 8px !important;
     background: var(--brisa-jdgm-card-bg) !important;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+    box-sizing: border-box !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-histogram.jdgm-temp-hidden,
@@ -262,11 +268,13 @@
   #shopify-section-{{ section.id }} .jdgm-btn.jdgm-btn-light.jdgm-write-rev-link:not(.brisa-jdgm-write-dup),
   #shopify-section-{{ section.id }} .jdgm-widget-actions-wrapper .jdgm-write-rev-link:not(.brisa-jdgm-write-dup) {
     order: 4;
+    flex: 0 0 100% !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
     box-sizing: border-box;
     margin: 4px 0 18px !important;
     padding: 12px 18px !important;
@@ -294,27 +302,39 @@
     display: none !important;
   }
 
-  /* Inline write-review form (Judge.me inserts after .jdgm-row-stars; also modal fallback) */
-  #shopify-section-{{ section.id }} .jdgm-form-wrapper {
+  /*
+    Form must NOT sit in the header flex row (Judge.me inserts it after .jdgm-row-stars).
+    JS relocates it after the header; these rules keep it full-width either way.
+  */
+  #shopify-section-{{ section.id }} .jdgm-form-wrapper,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg__header .jdgm-form-wrapper,
+  #shopify-section-{{ section.id }} .jdgm-rev-widg > .jdgm-form-wrapper {
     order: 6;
-    flex: 1 1 100%;
+    flex: 0 0 100% !important;
+    float: none !important;
+    position: relative !important;
+    display: block;
     width: 100% !important;
-    max-width: 100%;
-    box-sizing: border-box;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
     margin: 8px 0 16px !important;
-    clear: both;
+    padding: 0 !important;
+    clear: both !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-form,
   #shopify-section-{{ section.id }} .jdgm-form-wrapper .jdgm-form {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 16px;
-    border: 1px solid var(--brisa-jdgm-border-soft);
-    border-radius: 8px;
-    background: var(--brisa-jdgm-card-bg);
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    padding: 16px !important;
+    border: 1px solid var(--brisa-jdgm-border-soft) !important;
+    border-radius: 8px !important;
+    background: var(--brisa-jdgm-card-bg) !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-form__fieldset,
@@ -323,10 +343,21 @@
   #shopify-section-{{ section.id }} .jdgm-form__title-fieldset,
   #shopify-section-{{ section.id }} .jdgm-form textarea,
   #shopify-section-{{ section.id }} .jdgm-form input[type='text'],
-  #shopify-section-{{ section.id }} .jdgm-form input[type='email'] {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+  #shopify-section-{{ section.id }} .jdgm-form input[type='email'],
+  #shopify-section-{{ section.id }} .jdgm-form input[type='url'] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #shopify-section-{{ section.id }}.brisa-jdgm-writing .brisa-jdgm-filter,
+  #shopify-section-{{ section.id }}.brisa-jdgm-writing .jdgm-histogram,
+  #shopify-section-{{ section.id }}.brisa-jdgm-writing .jdgm-rev-widg__sort-wrapper,
+  #shopify-section-{{ section.id }}:has(.jdgm-form-wrapper:not([hidden]):not([style*='display: none'])) .brisa-jdgm-filter,
+  #shopify-section-{{ section.id }}:has(.jdgm-form-wrapper:not([hidden]):not([style*='display: none'])) .jdgm-histogram,
+  #shopify-section-{{ section.id }}:has(.jdgm-form-wrapper:not([hidden]):not([style*='display: none'])) .jdgm-rev-widg__sort-wrapper {
+    display: none !important;
   }
 
   /*
@@ -666,10 +697,13 @@
   /* Show more (Loox-style) instead of page numbers */
   #shopify-section-{{ section.id }} .jdgm-paginate {
     display: flex !important;
-    justify-content: center;
+    justify-content: stretch;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 18px 0 0 !important;
     padding: 0 !important;
     border: 0 !important;
+    box-sizing: border-box;
   }
 
   #shopify-section-{{ section.id }} .jdgm-paginate:empty,
@@ -683,24 +717,33 @@
 
   #shopify-section-{{ section.id }} .jdgm-paginate__next-page,
   #shopify-section-{{ section.id }} .brisa-jdgm-load-more {
-    display: inline-flex !important;
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    min-height: 36px;
-    padding: 8px 16px !important;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 12px 16px !important;
     border: 1px solid var(--brisa-jdgm-border-soft) !important;
     border-radius: 6px !important;
     background: var(--brisa-jdgm-card-bg) !important;
     color: var(--brisa-jdgm-text) !important;
     font-size: 13px !important;
     font-weight: 500 !important;
+    line-height: 1.3 !important;
     text-decoration: none !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
     cursor: pointer;
   }
 
-  #shopify-section-{{ section.id }} .jdgm-paginate__next-page::before,
-  #shopify-section-{{ section.id }} .brisa-jdgm-load-more {
-    content: none;
+  #shopify-section-{{ section.id }} .jdgm-paginate__next-page::before {
+    content: none !important;
+    display: none !important;
   }
 
   #shopify-section-{{ section.id }} .jdgm-paginate__next-page {
@@ -709,9 +752,12 @@
 
   #shopify-section-{{ section.id }} .jdgm-paginate__next-page::after {
     content: 'Show more reviews';
-    font-size: 13px;
-    font-weight: 500;
+    display: inline !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
     color: var(--brisa-jdgm-text);
+    white-space: nowrap !important;
   }
 
   #shopify-section-{{ section.id }} .brisa-judgeme__fallback {
@@ -727,11 +773,30 @@
   }
 
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      overflow-x: clip;
+    }
+
     #shopify-section-{{ section.id }} .brisa-judgeme {
       padding-top: calc(var(--brisa-jdgm-pad-y) * 0.7);
       padding-bottom: calc(var(--brisa-jdgm-pad-y-bottom) * 0.7);
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-judgeme__inner,
+    #shopify-section-{{ section.id }} .jdgm-rev-widg,
+    #shopify-section-{{ section.id }} .jdgm-widget,
+    #shopify-section-{{ section.id }} .jdgm-rev-widg__body,
+    #shopify-section-{{ section.id }} .jdgm-rev-widg__reviews {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box;
+    }
+
+    #shopify-section-{{ section.id }} .jdgm-rev-widg__header {
+      flex-direction: row;
+      align-items: center;
     }
 
     #shopify-section-{{ section.id }} .jdgm-rev-widg__summary-stars .jdgm-star {
@@ -740,7 +805,17 @@
 
     #shopify-section-{{ section.id }} .jdgm-rev,
     #shopify-section-{{ section.id }} .jdgm-rev.jdgm-divider-top {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
       padding: 14px !important;
+    }
+
+    #shopify-section-{{ section.id }} .jdgm-form-wrapper,
+    #shopify-section-{{ section.id }} .jdgm-form {
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
     }
   }
 </style>
@@ -981,7 +1056,10 @@
     function ensureInlineReviewForm() {
       ensureRowStars();
       var existing = dedupeFormWrappers();
-      if (existing) return existing;
+      if (existing) {
+        relocateFormOutsideHeader(existing);
+        return existing;
+      }
       if (!window.jdgm || !jdgm.$) return null;
 
       var row = root.querySelector('.jdgm-row-stars');
@@ -1003,7 +1081,35 @@
       } else {
         return null;
       }
-      return dedupeFormWrappers();
+      var form = dedupeFormWrappers();
+      relocateFormOutsideHeader(form);
+      return form;
+    }
+
+    // Pull the form out of the header flex so it can't sit in a side column on mobile.
+    function relocateFormOutsideHeader(form) {
+      form = form || root.querySelector('.jdgm-form-wrapper');
+      var header = root.querySelector('.jdgm-rev-widg__header');
+      if (!form || !header || !header.contains(form)) return form;
+      if (header.nextElementSibling === form) return form;
+      header.insertAdjacentElement('afterend', form);
+      return form;
+    }
+
+    function syncWritingState() {
+      var form = relocateFormOutsideHeader();
+      var open = false;
+      if (form) {
+        var style = form.getAttribute('style') || '';
+        var hiddenAttr = form.hasAttribute('hidden');
+        open = !hiddenAttr && style.indexOf('display: none') === -1 && style.indexOf('display:none') === -1;
+        if (open && window.getComputedStyle(form).display === 'none') {
+          open = false;
+        }
+        if (!open && isShown(form)) open = true;
+      }
+      root.classList.toggle('brisa-jdgm-writing', open);
+      return open;
     }
 
     // Judge.me clones .jdgm-notification before EVERY .jdgm-form-wrapper — keep a single form.
@@ -1021,6 +1127,7 @@
       root.querySelectorAll('.jdgm-rev-widg__header > .jdgm-rev__br, .jdgm-row-stars + .jdgm-rev__br').forEach(function (el) {
         el.remove();
       });
+      relocateFormOutsideHeader(keeper);
       return keeper;
     }
 
@@ -1066,6 +1173,8 @@
       if (!widgetEl) return false;
       try {
         jdgm.openForm(jdgm.$(widgetEl));
+        relocateFormOutsideHeader(form);
+        syncWritingState();
         return isShown(form) || form.style.display !== 'none';
       } catch (err) {
         return false;
@@ -1120,6 +1229,8 @@
 
       ensureRowStars();
       dedupeFormWrappers();
+      relocateFormOutsideHeader();
+      syncWritingState();
       normalizeSubmittedState();
       syncProductImageAttrs();
 
@@ -1246,8 +1357,13 @@
 
         window.setTimeout(function () {
           syncProductImageAttrs();
+          relocateFormOutsideHeader();
+          syncWritingState();
           if (isShown(document.querySelector('.jdgm-write-review-modal'))) return;
-          if (isShown(root.querySelector('.jdgm-form-wrapper'))) return;
+          if (isShown(root.querySelector('.jdgm-form-wrapper'))) {
+            syncWritingState();
+            return;
+          }
 
           // Prefer Judge.me popup when its modal DOM is already mounted.
           if (tryOpenJudgemeModal()) {
@@ -1257,6 +1373,8 @@
 
           // Otherwise show the inline form (create insert target + form first so Cancel isn't empty).
           openInlineReviewForm();
+          relocateFormOutsideHeader();
+          syncWritingState();
         }, 350);
       },
       true
@@ -1298,6 +1416,8 @@
         syncing = true;
         try {
           dedupeFormWrappers();
+          relocateFormOutsideHeader();
+          syncWritingState();
           normalizeSubmittedState();
           formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
           reorderCards();
