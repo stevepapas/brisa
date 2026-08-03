@@ -616,11 +616,21 @@
         /^\d+$/.test(device1Id) &&
         device1Id !== variantId;
 
+      const yourColourLabel = String(yours.dataset.label || '').trim();
+      const matesColourLabel =
+        devices > 1 ? String(mates?.dataset?.label || '').trim() : '';
+      const colourSummary = [yourColourLabel, matesColourLabel].filter(Boolean).join(' / ');
+      const kitLabel = String(kit.dataset.title || '').trim();
+
       const properties = {
         _bundle: 'brisa-kit',
         _kit_key: kitKey,
-        Kit: kit.dataset.title || '',
-        'Your colour': yours.dataset.label || '',
+        // Include colours in Kit so warehouse/packing systems that print
+        // properties (or only skim Kit) still see the selection.
+        Kit: colourSummary ? `${kitLabel} — ${colourSummary}` : kitLabel,
+        'Your colour': yourColourLabel,
+        'Device Colour': yourColourLabel,
+        Colours: colourSummary,
       };
 
       if (canExpand) {
@@ -628,7 +638,8 @@
       }
 
       if (devices > 1) {
-        properties["Mate's colour"] = mates.dataset.label || '';
+        properties["Mate's colour"] = matesColourLabel;
+        properties['Mate Colour'] = matesColourLabel;
         if (
           canExpand &&
           device2Id &&
