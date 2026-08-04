@@ -55,6 +55,21 @@
     margin-bottom: 10px;
   }
 
+  .brisa-device-header-{{ section_id }} .brisa-device-header__rating-link {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .brisa-device-header-{{ section_id }} .brisa-device-header__rating-link:hover .brisa-device-header__rating-text,
+  .brisa-device-header-{{ section_id }} .brisa-device-header__rating-link:focus-visible .brisa-device-header__rating-text {
+    text-decoration: underline;
+  }
+
   .brisa-device-header-{{ section_id }} .brisa-device-header__stars {
     display: inline-flex;
     gap: 2px;
@@ -209,20 +224,26 @@
       {% endif %}
 
       {% if section.settings.show_rating %}
-        <div class="brisa-device-header__rating" aria-label="{{ section.settings.rating_label | escape }}">
-          <span class="brisa-device-header__stars" aria-hidden="true">
-            {% for i in (1..5) %}
-              <span class="brisa-device-header__star">
-                <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
-                  <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z"/>
-                </svg>
-              </span>
-            {% endfor %}
-          </span>
+        <div class="brisa-device-header__rating">
+          <a
+            href="#judgeme_reviews"
+            class="brisa-device-header__rating-link"
+            aria-label="{{ section.settings.rating_label | default: section.settings.rating_text | default: 'View customer reviews' | escape }}"
+          >
+            <span class="brisa-device-header__stars" aria-hidden="true">
+              {% for i in (1..5) %}
+                <span class="brisa-device-header__star">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z"/>
+                  </svg>
+                </span>
+              {% endfor %}
+            </span>
 
-          {% if section.settings.rating_text != blank %}
-            <span class="brisa-device-header__rating-text">{{ section.settings.rating_text | escape }}</span>
-          {% endif %}
+            {% if section.settings.rating_text != blank %}
+              <span class="brisa-device-header__rating-text">{{ section.settings.rating_text | escape }}</span>
+            {% endif %}
+          </a>
 
           {% if section.settings.badge_text != blank %}
             <span class="brisa-device-header__badge">{{ section.settings.badge_text | escape }}</span>
