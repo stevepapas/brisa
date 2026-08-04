@@ -373,7 +373,7 @@
       return true;
     }
 
-    // Hard aliases for Starter Kit colour labels → variant IDs (Ocean is "Blue" in Shopify).
+    // Hard aliases when Liquid map is stale (Ocean is "Blue" in Shopify).
     static STARTER_COLOUR_VARIANTS = {
       black: '54693535777140',
       blue: '54693535809908',
@@ -381,25 +381,80 @@
       rose: '54693535842676',
     };
 
+    static COMMITMENT_COLOUR_VARIANTS = {
+      black: '55093166571892',
+      blue: '55093166604660',
+      ocean: '55093166604660',
+      rose: '55093166637428',
+    };
+
+    static MATES_PAIR_VARIANTS = {
+      'black / black': '55093166670196',
+      'black / blue': '55093166702964',
+      'black / rose': '55093166735732',
+      'blue / black': '55093166768500',
+      'blue / blue': '55093166801268',
+      'blue / rose': '55093166834036',
+      'rose / black': '55093166866804',
+      'rose / blue': '55093166899572',
+      'rose / rose': '55093166932340',
+      // Ocean aliases (UI may say Ocean; Shopify option is Blue)
+      'black / ocean': '55093166702964',
+      'ocean / black': '55093166768500',
+      'ocean / ocean': '55093166801268',
+      'ocean / blue': '55093166801268',
+      'blue / ocean': '55093166801268',
+      'ocean / rose': '55093166834036',
+      'rose / ocean': '55093166899572',
+    };
+
+    normalizeColourLabel(label) {
+      const key = String(label || '')
+        .trim()
+        .toLowerCase();
+      if (key === 'ocean') return 'blue';
+      return key;
+    }
+
     resolveColourVariantId(kit, swatch) {
       if (!swatch) return '';
-      // Only Starter Kit (`try`) uses colour variants on the kit product itself.
-      // Commitment / Mates always add the pack parent; colour is property text.
-      if (kit?.dataset?.kitKey !== 'try') return '';
+      const kitKey = kit?.dataset?.kitKey || '';
+      // Single-colour kits: Starter + Commitment use colour variants on the pack product.
+      if (kitKey !== 'try' && kitKey !== 'commitment') return '';
 
-      // Prefer kit colour variant baked onto the swatch (Ocean → Blue on Starter Kit).
-      if (swatch.dataset.kitVariantId && /^\d+$/.test(swatch.dataset.kitVariantId)) {
+      // Starter swatches bake Ocean→Blue kit variant IDs; only trust those for `try`.
+      if (
+        kitKey === 'try' &&
+        swatch.dataset.kitVariantId &&
+        /^\d+$/.test(swatch.dataset.kitVariantId)
+      ) {
         return swatch.dataset.kitVariantId;
       }
       const entry = this.colourEntry(this.colourVariantMap(kit), swatch.dataset.label);
       const fromMap = this.colourEntryId(entry);
       if (fromMap && /^\d+$/.test(fromMap)) return fromMap;
 
-      const label = String(swatch.dataset.label || '').trim().toLowerCase();
-      if (BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label]) {
-        return BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label];
-      }
-      return '';
+      const label = this.normalizeColourLabel(swatch.dataset.label);
+      const fallback =
+        kitKey === 'commitment'
+          ? BrisaKitPurchase.COMMITMENT_COLOUR_VARIANTS[label]
+          : BrisaKitPurchase.STARTER_COLOUR_VARIANTS[label];
+      return fallback || '';
+    }
+
+    resolveMatesPairVariantId(kit, yoursSwatch, matesSwatch) {
+      if (!yoursSwatch || !matesSwatch) return '';
+      const yours = this.normalizeColourLabel(yoursSwatch.dataset.label);
+      const mates = this.normalizeColourLabel(matesSwatch.dataset.label);
+      if (!yours || !mates) return '';
+
+      const pairKey = `${yours} / ${mates}`;
+      const map = this.colourVariantMap(kit);
+      const entry = map[pairKey] != null ? map[pairKey] : map[`${yoursSwatch.dataset.label} / ${matesSwatch.dataset.label}`.toLowerCase()];
+      const fromMap = this.colourEntryId(entry);
+      if (fromMap && /^\d+$/.test(fromMap)) return fromMap;
+
+      return BrisaKitPurchase.MATES_PAIR_VARIANTS[pairKey] || '';
     }
 
     syncColourAvailability() {
@@ -595,14 +650,19 @@
         return;
       }
 
-      // Starter Kit: line item IS the colour variant (Black/Ocean/Rose).
-      // Commitment / Mates: line item is the pack product; colour is property text only.
+      // Packing-slip path: line item IS the colour (or colour-pair) variant so
+      // Australia Post EZ Label / Shopify slips show colour in variant title.
+      // Starter + Commitment: Black/Blue/Rose. Mates: "Blue / Rose" pairs.
       const kitKey = kit.dataset.kitKey || '';
       const isStarterKit = kitKey === 'try';
-      const colourMappedId = isStarterKit ? this.resolveColourVariantId(kit, yours) : '';
-      const variantId = String(
-        (isStarterKit ? colourMappedId : '') || kit.dataset.variantId || ''
-      ).trim();
+      const isCommitmentKit = kitKey === 'commitment';
+      const isMatesKit = kitKey === 'mates';
+      const colourMappedId = isMatesKit
+        ? this.resolveMatesPairVariantId(kit, yours, mates)
+        : isStarterKit || isCommitmentKit
+          ? this.resolveColourVariantId(kit, yours)
+          : '';
+      const variantId = String(colourMappedId || kit.dataset.variantId || '').trim();
       if (!variantId || !/^\d+$/.test(variantId)) {
         this.setError('This colour isn’t available yet. Please choose another.');
         console.warn('[brisa-kit] missing/invalid variant id', {
@@ -611,12 +671,13 @@
           kitVariantId: yours.dataset.kitVariantId,
           kitDefault: kit.dataset.variantId,
           label: yours.dataset.label,
+          matesLabel: mates?.dataset?.label,
         });
         return;
       }
 
       // Cart Transform Option A: only when swatches link SEPARATE device products
-      // (data-variant-id from colour block device_product), not starter kit colours.
+      // (data-variant-id from colour block device_product), not pack colour variants.
       const device1Id = String(yours.dataset.variantId || '').trim();
       const device2Id = devices > 1 ? String(mates.dataset.variantId || '').trim() : '';
       const canExpand =
