@@ -1,0 +1,27 @@
+{% comment %}
+  Paste into Shopify Admin → Settings → Shipping and delivery → Packing slip template.
+  Place under the product title / after the variant_title block.
+
+  Shows kit device colours on packing slips. Underscore properties stay hidden.
+  Cart transform also suffixes colour into the kit title
+  (e.g. "The Commitment Kit — Ocean") so warehouse sees colour in the title.
+{% endcomment %}
+{% for group in line_item.groups %}
+  <span class="line-item-description-line">
+    {% if group.deliverable? %}
+      Add-on for: {{ group.title }}
+    {% else %}
+      Part of: {{ group.title }}
+    {% endif %}
+  </span>
+{% endfor %}
+{% for property in line_item.properties %}
+  {% assign first_char = property.first | slice: 0 %}
+  {% if property.last != blank and first_char != '_' %}
+    {% if property.first == 'Your colour' or property.first == 'Device Colour' or property.first == "Mate's colour" or property.first == 'Mate Colour' or property.first == 'Colours' or property.first == 'Colour' or property.first == 'Role' or property.first == 'Kit' %}
+      <span class="line-item-description-line">
+        {% if property.first == 'Your colour' %}Device Colour{% else %}{{ property.first }}{% endif %}: {{ property.last }}
+      </span>
+    {% endif %}
+  {% endif %}
+{% endfor %}

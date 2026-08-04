@@ -31,6 +31,45 @@ describe('brisa kit cart transform', () => {
     expect(result.operations).toHaveLength(0);
   });
 
+  it('title-only expands commitment pack when device variants are missing', () => {
+    const result = cartTransformRun({
+      presentmentCurrencyRate: 1,
+      cart: {
+        lines: [
+          {
+            id: 'gid://shopify/CartLine/2',
+            quantity: 1,
+            cost: { amountPerQuantity: { amount: '165.0', currencyCode: 'AUD' } },
+            device1: null,
+            device2: null,
+            kitKey: { value: 'commitment' },
+            yourColour: { value: 'Ocean' },
+            matesColour: null,
+            kitLabel: { value: 'The Commitment Kit' },
+            merchandise: {
+              __typename: 'ProductVariant',
+              id: 'gid://shopify/ProductVariant/150',
+              title: 'Default',
+              product: { title: 'The Commitment Kit' },
+            },
+          },
+        ],
+      },
+    });
+
+    expect(result.operations).toHaveLength(1);
+    const expand = result.operations[0].lineExpand;
+    expect(expand.title).toBe('The Commitment Kit — Ocean');
+    expect(expand.expandedCartItems).toHaveLength(1);
+    expect(expand.expandedCartItems[0].attributes).toEqual(
+      expect.arrayContaining([
+        { key: '_brisa_component', value: 'pack' },
+        { key: 'Your colour', value: 'Ocean' },
+        { key: 'Device Colour', value: 'Ocean' },
+      ])
+    );
+  });
+
   it('expands a single-device kit with colour', () => {
     const result = cartTransformRun({
       presentmentCurrencyRate: 1,
@@ -59,13 +98,20 @@ describe('brisa kit cart transform', () => {
 
     expect(result.operations).toHaveLength(1);
     const expand = result.operations[0].lineExpand;
-    expect(expand.title).toBe('Try Brisa First');
+    expect(expand.title).toBe('Try Brisa First — Ocean');
     expect(expand.expandedCartItems).toHaveLength(2);
     expect(expand.expandedCartItems[0].merchandiseId).toBe(
       'gid://shopify/ProductVariant/100'
     );
     expect(expand.expandedCartItems[0].price.adjustment.fixedPricePerUnit.amount).toBe(
       '130.00'
+    );
+    expect(expand.expandedCartItems[0].attributes).toEqual(
+      expect.arrayContaining([
+        { key: '_brisa_component', value: 'pack' },
+        { key: '_kit_key', value: 'try' },
+        { key: 'Your colour', value: 'Ocean' },
+      ])
     );
     expect(expand.expandedCartItems[1].merchandiseId).toBe(
       'gid://shopify/ProductVariant/201'
@@ -102,7 +148,16 @@ describe('brisa kit cart transform', () => {
     });
 
     const expand = result.operations[0].lineExpand;
+    expect(expand.title).toBe('Mates pack — Black / Rose');
     expect(expand.expandedCartItems).toHaveLength(3);
+    expect(expand.expandedCartItems[0].attributes).toEqual(
+      expect.arrayContaining([
+        { key: '_brisa_component', value: 'pack' },
+        { key: 'Your colour', value: 'Black' },
+        { key: "Mate's colour", value: 'Rose' },
+        { key: 'Mate Colour', value: 'Rose' },
+      ])
+    );
     expect(expand.expandedCartItems[1].merchandiseId).toBe(
       'gid://shopify/ProductVariant/301'
     );

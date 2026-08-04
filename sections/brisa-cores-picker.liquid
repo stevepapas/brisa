@@ -1675,6 +1675,15 @@
         }
       }
 
+      // Match Prestige product-form: page cart type goes straight to /cart.
+      if (
+        window.themeVariables?.settings?.cartType === 'page' ||
+        window.themeVariables?.settings?.pageType === 'cart'
+      ) {
+        window.location.href = `${window.Shopify?.routes?.root || '/'}cart`;
+        return;
+      }
+
       const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`, {
         credentials: 'same-origin',
         headers: { Accept: 'application/json' },

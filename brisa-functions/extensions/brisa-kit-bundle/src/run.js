@@ -4,12 +4,16 @@
  * Expands Brisa kit parent lines into pack + coloured device components.
  *
  * Theme ATC writes:
- *   _device_1_variant_id  (required for expand)
+ *   _device_1_variant_id  (optional — enables inventory expand)
  *   _device_2_variant_id  (mates pack only)
  *   _kit_key / Kit / Your colour / Mate's colour
  *
  * Pricing (Option A): pack parent keeps the full kit price; device
  * colour variants expand at $0 so inventory tracks without double-charging.
+ *
+ * When device variant IDs are missing (colour blocks not linked), still
+ * expand the pack alone so the title includes colours for packing slips /
+ * warehouse systems that only print the line title.
  */
 
 /**
@@ -51,6 +55,32 @@ function moneyAmount(amount) {
 }
 
 /**
+ * @param {string} packTitle
+ * @param {string} yourColour
+ * @param {string} matesColour
+ */
+function titledPackName(packTitle, yourColour, matesColour) {
+  const colourSuffix = [yourColour, matesColour].filter(Boolean).join(' / ');
+  return colourSuffix ? `${packTitle} — ${colourSuffix}` : packTitle;
+}
+
+/**
+ * @param {string} kitKey
+ * @param {string} yourColour
+ * @param {string} matesColour
+ */
+function packColourAttributes(kitKey, yourColour, matesColour) {
+  return [
+    { key: '_brisa_component', value: 'pack' },
+    ...(kitKey ? [{ key: '_kit_key', value: kitKey }] : []),
+    ...(yourColour ? [{ key: 'Your colour', value: yourColour }] : []),
+    ...(matesColour ? [{ key: "Mate's colour", value: matesColour }] : []),
+    ...(yourColour ? [{ key: 'Device Colour', value: yourColour }] : []),
+    ...(matesColour ? [{ key: 'Mate Colour', value: matesColour }] : []),
+  ];
+}
+
+/**
  * @param {RunInput} input
  * @returns {CartTransformRunResult}
  */
@@ -82,19 +112,25 @@ function buildExpandOperation(cartLine) {
   const { id: cartLineId, merchandise, quantity, cost } = cartLine;
   if (merchandise.__typename !== 'ProductVariant') return null;
 
-  const device1Id = toVariantGid(cartLine.device1?.value);
-  if (!device1Id) return null;
-
-  const device2Id = toVariantGid(cartLine.device2?.value);
   const kitKey = cartLine.kitKey?.value || '';
+  const yourColour = cartLine.yourColour?.value || '';
+  const matesColour = cartLine.matesColour?.value || '';
+  const device1Id = toVariantGid(cartLine.device1?.value);
+  const device2Id = toVariantGid(cartLine.device2?.value);
+
+  const isColourPack = kitKey === 'commitment' || kitKey === 'mates';
+  // Title-only expand when colours exist but device products aren't linked live.
+  if (!device1Id && !(isColourPack && yourColour)) return null;
+
   const packTitle =
     cartLine.kitLabel?.value ||
     KIT_TITLES[kitKey] ||
     merchandise.product?.title ||
     merchandise.title ||
     'Brisa Kit';
-
+  const titledPack = titledPackName(packTitle, yourColour, matesColour);
   const packAmount = moneyAmount(cost.amountPerQuantity.amount);
+
   /** @type {Array<Record<string, unknown>>} */
   const expandedCartItems = [];
 
@@ -107,13 +143,18 @@ function buildExpandOperation(cartLine) {
         fixedPricePerUnit: { amount: packAmount },
       },
     },
-    attributes: [
-      { key: '_brisa_component', value: 'pack' },
-      ...(kitKey ? [{ key: '_kit_key', value: kitKey }] : []),
-    ],
+    attributes: packColourAttributes(kitKey, yourColour, matesColour),
   });
 
-  const yourColour = cartLine.yourColour?.value || '';
+  // No linked device variants — still override title for packing slips.
+  if (!device1Id) {
+    return {
+      cartLineId,
+      title: titledPack,
+      expandedCartItems,
+    };
+  }
+
   expandedCartItems.push({
     merchandiseId: device1Id,
     quantity,
@@ -130,7 +171,6 @@ function buildExpandOperation(cartLine) {
   });
 
   if (device2Id) {
-    const matesColour = cartLine.matesColour?.value || '';
     expandedCartItems.push({
       merchandiseId: device2Id,
       quantity,
@@ -149,7 +189,7 @@ function buildExpandOperation(cartLine) {
 
   return {
     cartLineId,
-    title: packTitle,
+    title: titledPack,
     expandedCartItems,
   };
 }

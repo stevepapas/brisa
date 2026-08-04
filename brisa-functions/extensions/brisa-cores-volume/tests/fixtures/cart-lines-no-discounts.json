@@ -1,0 +1,37 @@
+{
+  "payload": {
+    "export": "cart-lines-discounts-generate-run",
+    "target": "cart.lines.discounts.generate.run",
+    "input": {
+      "cart": {
+        "lines": [
+          {
+            "id": "gid://shopify/CartLine/0",
+            "quantity": 9,
+            "cost": {
+              "amountPerQuantity": { "amount": "15.0" }
+            },
+            "sellingPlanAllocation": null,
+            "kitKey": null,
+            "device1": null,
+            "brisaComponent": null,
+            "merchandise": {
+              "__typename": "ProductVariant",
+              "id": "gid://shopify/ProductVariant/54682411991412",
+              "product": {
+                "id": "gid://shopify/Product/15080732131700",
+                "handle": "brisa-cores"
+              }
+            }
+          }
+        ]
+      },
+      "discount": {
+        "discountClasses": []
+      }
+    },
+    "output": {
+      "operations": []
+    }
+  }
+}

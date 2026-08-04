@@ -221,10 +221,13 @@ document.addEventListener('scroll', () => {
   };
 
 document.addEventListener('DOMContentLoaded', function () {
-  const cartLink = document.querySelector('.header__icon-wrapper[href="/cart"]');
-
-  if (cartLink) {
-    cartLink.setAttribute('href', '#');
+  // Keep the header cart link pointing at /cart when cart type is "page".
+  // Only neutralize the href when the drawer flow is active.
+  if (window.themeVariables?.settings?.cartType === 'drawer') {
+    const cartLink = document.querySelector('.header__icon-wrapper[href="/cart"]');
+    if (cartLink) {
+      cartLink.setAttribute('href', '#');
+    }
   }
 });
 

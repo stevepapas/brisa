@@ -1,0 +1,96 @@
+{
+  "payload": {
+    "export": "cart-lines-discounts-generate-run",
+    "target": "cart.lines.discounts.generate.run",
+    "input": {
+      "cart": {
+        "lines": [
+          {
+            "id": "gid://shopify/CartLine/mint",
+            "quantity": 6,
+            "cost": {
+              "amountPerQuantity": { "amount": "15.0" }
+            },
+            "sellingPlanAllocation": null,
+            "kitKey": null,
+            "device1": null,
+            "brisaComponent": null,
+            "merchandise": {
+              "__typename": "ProductVariant",
+              "id": "gid://shopify/ProductVariant/54682411991412",
+              "product": {
+                "id": "gid://shopify/Product/15080732131700",
+                "handle": "brisa-cores"
+              }
+            }
+          },
+          {
+            "id": "gid://shopify/CartLine/cherry",
+            "quantity": 3,
+            "cost": {
+              "amountPerQuantity": { "amount": "15.0" }
+            },
+            "sellingPlanAllocation": null,
+            "kitKey": null,
+            "device1": null,
+            "brisaComponent": null,
+            "merchandise": {
+              "__typename": "ProductVariant",
+              "id": "gid://shopify/ProductVariant/55011889840500",
+              "product": {
+                "id": "gid://shopify/Product/15080732131700",
+                "handle": "brisa-cores"
+              }
+            }
+          }
+        ]
+      },
+      "discount": {
+        "discountClasses": ["PRODUCT"]
+      }
+    },
+    "output": {
+      "operations": [
+        {
+          "productDiscountsAdd": {
+            "candidates": [
+              {
+                "message": "Cores volume save",
+                "targets": [
+                  {
+                    "cartLine": {
+                      "id": "gid://shopify/CartLine/mint"
+                    }
+                  }
+                ],
+                "value": {
+                  "fixedAmount": {
+                    "amount": "5.00",
+                    "appliesToEachItem": true
+                  }
+                }
+              },
+              {
+                "message": "Cores volume save",
+                "targets": [
+                  {
+                    "cartLine": {
+                      "id": "gid://shopify/CartLine/cherry"
+                    }
+                  }
+                ],
+                "value": {
+                  "fixedAmount": {
+                    "amount": "5.00",
+                    "appliesToEachItem": true
+                  }
+                }
+              }
+            ],
+            "selectionStrategy": "ALL"
+          }
+        }
+      ]
+    }
+  }
+}

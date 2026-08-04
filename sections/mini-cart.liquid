@@ -4,7 +4,7 @@
     assign kit_handles_setting = section.settings.gift_trigger_handles
   endif
   if kit_handles_setting == blank
-    assign kit_handles_setting = 'brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack'
+    assign kit_handles_setting = 'brisa-starter-kit,starter-kit,the-commitment-kit,commitment-kit,brisa-mates-pack,mates-pack'
   endif
   assign kit_trigger_handles = kit_handles_setting | downcase | split: ','
   assign has_kit_product = false
@@ -12,6 +12,12 @@
 
   for line_item in cart.items
     assign item_handle = line_item.product.handle | downcase
+    assign line_kit_key = line_item.properties['_kit_key'] | downcase
+    if line_kit_key == 'try' or line_kit_key == 'commitment' or line_kit_key == 'mates'
+      assign has_kit_product = true
+      assign show_gift_bonus = true
+      break
+    endif
     for trigger_handle in kit_trigger_handles
       assign trigger = trigger_handle | strip
       if trigger != blank and item_handle contains trigger
@@ -115,7 +121,19 @@
                 assign max_quantity = max_quantity | default: 999999 | at_most: variant.quantity_rule.max
               endif
 
-              assign line_subtitle = line_item.product.metafields.custom.cart_subtitle.value
+              assign line_kit_key = line_item.properties['_kit_key'] | downcase
+              assign line_subtitle = ''
+              case line_kit_key
+                when 'commitment'
+                  assign line_subtitle = '27 cores · roughly 10 weeks of ritual'
+                when 'mates'
+                  assign line_subtitle = '18 cores · about 1 month each'
+                when 'try'
+                  assign line_subtitle = '9 cores · 3 to 5 weeks of ritual'
+              endcase
+              if line_subtitle == blank
+                assign line_subtitle = line_item.product.metafields.custom.cart_subtitle.value
+              endif
               if line_subtitle == blank
                 assign line_subtitle = section.settings.default_line_subtitle
               endif
@@ -522,14 +540,14 @@
       "type": "text",
       "id": "kit_trigger_handles",
       "label": "Kit product handles",
-      "default": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
-      "info": "Comma-separated handles for Starter Kit and Mates Pack. Used for free shipping and gift bonus."
+      "default": "brisa-starter-kit,starter-kit,the-commitment-kit,commitment-kit,brisa-mates-pack,mates-pack",
+      "info": "Comma-separated handles for Starter, Commitment, and Mates kits. Used for free shipping and gift bonus."
     },
     {
       "type": "text",
       "id": "gift_trigger_handles",
       "label": "Legacy kit handles (deprecated)",
-      "default": "brisa-starter-kit,starter-kit,brisa-mates-pack,mates-pack",
+      "default": "brisa-starter-kit,starter-kit,the-commitment-kit,commitment-kit,brisa-mates-pack,mates-pack",
       "info": "Fallback if kit product handles is empty."
     },
     {

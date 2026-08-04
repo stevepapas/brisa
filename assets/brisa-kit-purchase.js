@@ -514,7 +514,16 @@
     }
 
     async notifyCartAdded() {
-      // Match Prestige product-form behaviour: refresh cart + show success toast.
+      // Match Prestige product-form: page cart type goes straight to /cart.
+      if (
+        window.themeVariables?.settings?.cartType === 'page' ||
+        window.themeVariables?.settings?.pageType === 'cart'
+      ) {
+        window.location.href = `${window.Shopify?.routes?.root || '/'}cart`;
+        return;
+      }
+
+      // Otherwise refresh cart + show success toast / drawer.
       try {
         const cartRes = await fetch(`${window.themeVariables?.routes?.cartUrl || '/cart'}.js`, {
           credentials: 'same-origin',

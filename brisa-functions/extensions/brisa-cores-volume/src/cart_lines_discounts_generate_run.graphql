@@ -1,0 +1,40 @@
+query CartInput {
+  cart {
+    lines {
+      id
+      quantity
+      cost {
+        amountPerQuantity {
+          amount
+        }
+      }
+      sellingPlanAllocation {
+        sellingPlan {
+          id
+        }
+      }
+      kitKey: attribute(key: "_kit_key") {
+        value
+      }
+      device1: attribute(key: "_device_1_variant_id") {
+        value
+      }
+      brisaComponent: attribute(key: "_brisa_component") {
+        value
+      }
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          product {
+            id
+            handle
+          }
+        }
+      }
+    }
+  }
+  discount {
+    discountClasses
+  }
+}
