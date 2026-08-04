@@ -33,6 +33,7 @@ html {
 }
 
 #real_reviews,
+#real_results,
 #judgeme_reviews {
   scroll-margin-top: calc(
     var(--header-height, 0px) * var(--enable-sticky-header, 0)

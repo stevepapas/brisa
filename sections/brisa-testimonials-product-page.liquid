@@ -119,7 +119,7 @@
 
 {%- assign video_blocks = section.blocks | where: 'type', 'video_review' -%}
 
-<section class="brisa-real-results" {{ section.shopify_attributes }}>
+<section class="brisa-real-results" id="real_results" {{ section.shopify_attributes }}>
   {% if section.settings.heading != blank %}
     <p class="brisa-real-results__badge">{{ section.settings.heading | escape }}</p>
   {% endif %}

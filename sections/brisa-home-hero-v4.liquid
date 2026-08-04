@@ -154,6 +154,22 @@
     margin: 0 auto;
   }
 
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-link {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-link:hover .brisa-home-hero__rating-text,
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-link:focus-visible .brisa-home-hero__rating-text {
+    text-decoration: underline;
+  }
+
   #shopify-section-{{ section.id }} .brisa-home-hero__stars {
     display: inline-flex;
     gap: 2px;
@@ -434,7 +450,32 @@
     justify-content: flex-end;
   }
 
+  /* Invisible hit target over baked-in stars/rating in the hero image */
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-hotspot {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 68%;
+    max-width: 420px;
+    height: 36px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__rating-hotspot:focus-visible {
+    outline: 2px solid var(--bhh-accent);
+    outline-offset: 2px;
+  }
+
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__rating-hotspot {
+      /* Image is height-cropped on tall mobile frames; y% tracks the asset */
+      top: 31.5%;
+      width: 78%;
+      height: 34px;
+    }
+
     #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
       margin-top: 0 !important;
       padding-top: 172px !important;
@@ -443,6 +484,13 @@
   }
 
   @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-home-hero__rating-hotspot {
+      /* Width-driven cover crops the bottom; map image y≈32% into the frame */
+      top: 40.2%;
+      width: 62%;
+      height: 38px;
+    }
+
     #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
       width: min(620px, 100%) !important;
       gap: 14px !important;
@@ -603,6 +651,14 @@
   </div>
 
   <div class="brisa-home-hero__content">
+    {% if text_in_image and section.settings.show_rating %}
+      <a
+        class="brisa-home-hero__rating-hotspot"
+        href="#real_results"
+        aria-label="{{ section.settings.rating_label | default: section.settings.rating_text | default: 'View customer reviews' | escape }}"
+      ></a>
+    {% endif %}
+
     <div class="brisa-home-hero__intro">
       {% if section.settings.eyebrow != blank %}
         <p class="brisa-home-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
@@ -628,19 +684,39 @@
       {% endif %}
 
       {% if section.settings.show_rating %}
-        <div class="brisa-home-hero__rating" aria-label="{{ section.settings.rating_label | escape }}">
-          <span class="brisa-home-hero__stars" aria-hidden="true">
-            {% for star in (1..5) %}
-              <span class="brisa-home-hero__star">
-                <svg viewBox="0 0 24 24" focusable="false">
-                  <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
-                </svg>
+        <div class="brisa-home-hero__rating">
+          {% if text_in_image %}
+            <span class="brisa-home-hero__stars" aria-hidden="true">
+              {% for star in (1..5) %}
+                <span class="brisa-home-hero__star">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
+                  </svg>
+                </span>
+              {% endfor %}
+            </span>
+            {% if section.settings.rating_text != blank %}
+              <span class="brisa-home-hero__rating-text">{{ section.settings.rating_text | escape }}</span>
+            {% endif %}
+          {% else %}
+            <a
+              href="#real_results"
+              class="brisa-home-hero__rating-link"
+              aria-label="{{ section.settings.rating_label | default: section.settings.rating_text | default: 'View customer reviews' | escape }}"
+            >
+              <span class="brisa-home-hero__stars" aria-hidden="true">
+                {% for star in (1..5) %}
+                  <span class="brisa-home-hero__star">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="m12 1.9 3.1 6.2 6.9 1-5 4.9 1.2 6.9-6.2-3.2-6.2 3.2L7 14 2 9.1l6.9-1L12 1.9Z" />
+                    </svg>
+                  </span>
+                {% endfor %}
               </span>
-            {% endfor %}
-          </span>
-
-          {% if section.settings.rating_text != blank %}
-            <span class="brisa-home-hero__rating-text">{{ section.settings.rating_text | escape }}</span>
+              {% if section.settings.rating_text != blank %}
+                <span class="brisa-home-hero__rating-text">{{ section.settings.rating_text | escape }}</span>
+              {% endif %}
+            </a>
           {% endif %}
 
           {% if section.settings.rating_badge != blank %}
