@@ -450,10 +450,19 @@
     justify-content: flex-end;
   }
 
+  /* CTA padding covers the baked rating — let clicks pass through empty space */
+  #shopify-section-{{ section.id }} .brisa-home-hero__ctas {
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-home-hero__cta {
+    pointer-events: auto;
+  }
+
   /* Invisible hit target over baked-in stars/rating in the hero image */
   #shopify-section-{{ section.id }} .brisa-home-hero__rating-hotspot {
     position: absolute;
-    z-index: 3;
+    z-index: 5;
     left: 50%;
     transform: translateX(-50%);
     width: 68%;
