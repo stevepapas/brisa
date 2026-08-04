@@ -32,6 +32,14 @@ html {
   );
 }
 
+#real_reviews {
+  scroll-margin-top: calc(
+    var(--header-height, 0px) * var(--enable-sticky-header, 0)
+    + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)
+    + 16px
+  );
+}
+
 @media (max-width: 768px) {
   .mobile_hide {
     display: none;

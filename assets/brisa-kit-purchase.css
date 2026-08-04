@@ -49,6 +49,21 @@
   margin-bottom: 10px;
 }
 
+.bkp__rating-link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bkp__rating-link:hover .bkp__rating-text,
+.bkp__rating-link:focus-visible .bkp__rating-text {
+  text-decoration: underline;
+}
+
 .bkp__stars {
   display: inline-flex;
   gap: 2px;
