@@ -122,12 +122,33 @@
   }
 
   #shopify-section-{{ section.id }} .jm-review-widget-minimal-header > .jm-cluster {
-    display: flex !important;
-    flex-wrap: wrap !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
     align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 10px 12px !important;
+    justify-content: stretch !important;
+    column-gap: 12px !important;
+    row-gap: 12px !important;
     width: 100% !important;
+  }
+
+  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header > .jm-cluster > .jm-stack:first-child {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header__filter-container {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 10px !important;
+    margin: 0 !important;
   }
 
   #shopify-section-{{ section.id }} .jm-average-rating-display,
@@ -137,6 +158,21 @@
     gap: 8px !important;
   }
 
+  /* Original header: black stars + score (+ optional chevron via JS) */
+  #shopify-section-{{ section.id }} .brisa-jdgm-header-stars {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    color: var(--brisa-jdgm-star) !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-header-stars .brisa-jdgm-header-star {
+    color: inherit !important;
+  }
+
   #shopify-section-{{ section.id }} .jm-average-rating-display .jm-text {
     color: var(--brisa-jdgm-text) !important;
     font-size: 16px !important;
@@ -144,13 +180,13 @@
     letter-spacing: 0 !important;
   }
 
-  #shopify-section-{{ section.id }} .jm-average-rating-display .jm-text:first-child {
+  #shopify-section-{{ section.id }} .jm-average-rating-display .jm-text:first-of-type {
     font-size: 16px !important;
     font-weight: 600 !important;
   }
 
   /* Hide “15 reviews” count next to score for the tighter original look */
-  #shopify-section-{{ section.id }} .jm-average-rating-display .jm-text:nth-child(2) {
+  #shopify-section-{{ section.id }} .jm-average-rating-display .jm-text:nth-of-type(2) {
     display: none !important;
   }
 
@@ -160,7 +196,6 @@
     --17d289b0: var(--brisa-jdgm-star) !important;
   }
 
-  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header__filter-container,
   #shopify-section-{{ section.id }} .jm-review-widget-minimal-header__button-and-filters,
   #shopify-section-{{ section.id }} .jm-review-widget-minimal-header__action-buttons,
   #shopify-section-{{ section.id }} .jm-action-buttons {
@@ -170,6 +205,39 @@
     width: 100% !important;
     gap: 10px !important;
     margin: 0 !important;
+  }
+
+  /* Filter icon sits top-right beside the score (original layout) */
+  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header {
+    position: relative !important;
+  }
+
+  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header__filters,
+  #shopify-section-{{ section.id }} .jm-filters {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    width: auto !important;
+    margin: 0 !important;
+    z-index: 2 !important;
+  }
+
+  #shopify-section-{{ section.id }} .jm-sort-filter {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header.is-brisa-filters-open .jm-sort-filter {
+    display: block !important;
+    position: absolute !important;
+    top: 48px !important;
+    right: 0 !important;
+    z-index: 5 !important;
+    min-width: 200px !important;
   }
 
   #shopify-section-{{ section.id }} .jm-action-buttons__button.jm-button--primary,
@@ -198,16 +266,6 @@
     background: #f7f7f7 !important;
   }
 
-  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header__filters,
-  #shopify-section-{{ section.id }} .jm-filters {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 8px !important;
-    width: 100% !important;
-    margin: 0 0 8px !important;
-  }
-
   #shopify-section-{{ section.id }} .jm-custom-answer-filter,
   #shopify-section-{{ section.id }} .jm-button--secondary.jm-custom-answer-filter {
     display: inline-flex !important;
@@ -234,9 +292,12 @@
     min-height: 40px !important;
   }
 
-  /* Top media strip was not part of the original layout */
-  #shopify-section-{{ section.id }} .jm-media-preview,
-  #shopify-section-{{ section.id }} .jm-media-grid {
+  /* Top media strip was not part of the original layout (keep in-card photos) */
+  #shopify-section-{{ section.id }} .jm-review-widget__header .jm-media-preview,
+  #shopify-section-{{ section.id }} .jm-review-widget-minimal-header ~ .jm-media-preview,
+  #shopify-section-{{ section.id }} .jm-review-widget > .jm-media-preview,
+  #shopify-section-{{ section.id }} .jm-review-widget__body > .jm-media-preview,
+  #shopify-section-{{ section.id }} .jm-review-widget__body > .jm-media-grid {
     display: none !important;
   }
 
@@ -1665,9 +1726,56 @@
       }
     }
 
+    function enhanceRevamp() {
+      var header = root.querySelector('.jm-review-widget-minimal-header');
+      var avgCluster = root.querySelector('.jm-average-rating-display .jm-cluster');
+      if (!header || !avgCluster) return false;
+
+      if (!avgCluster.querySelector('.brisa-jdgm-header-stars')) {
+        var scoreEl = avgCluster.querySelector('.jm-text');
+        var score = parseFloat((scoreEl && scoreEl.textContent) || '5') || 5;
+        var filled = Math.max(0, Math.min(5, Math.round(score)));
+        var stars = document.createElement('span');
+        stars.className = 'brisa-jdgm-header-stars';
+        stars.setAttribute('aria-hidden', 'true');
+        var html = '';
+        for (var i = 1; i <= 5; i++) {
+          html +=
+            '<span class="brisa-jdgm-header-star' +
+            (i <= filled ? ' is-on' : '') +
+            '">★</span>';
+        }
+        stars.innerHTML = html;
+        avgCluster.insertBefore(stars, avgCluster.firstChild);
+
+        if (scoreEl && !avgCluster.querySelector('.brisa-jdgm-chevron')) {
+          scoreEl.insertAdjacentHTML('afterend', CHEVRON);
+        }
+      }
+
+      if (!header.hasAttribute('data-brisa-revamp-filters')) {
+        header.setAttribute('data-brisa-revamp-filters', '1');
+        var filterBtn = header.querySelector(
+          '.jm-custom-answer-filter, .jm-filters button, [data-testid="filters-button"], button[aria-label*="ilter" i]'
+        );
+        if (filterBtn) {
+          filterBtn.addEventListener('click', function () {
+            // Keep Judge.me’s own panel; also toggle our sort dropdown fallback.
+            window.setTimeout(function () {
+              header.classList.toggle('is-brisa-filters-open');
+            }, 0);
+          });
+        }
+      }
+
+      return true;
+    }
+
     function enhance() {
-      // Revamp Vue widget owns its own header/form/cards — skip legacy Loox restyle.
-      if (root.querySelector('.jdgm-widget-revamp')) return false;
+      // Revamp Vue widget owns its own header/form/cards — light header polish only.
+      if (root.querySelector('.jdgm-widget-revamp')) {
+        return enhanceRevamp();
+      }
 
       var widget = root.querySelector('.jdgm-rev-widg, .jdgm-widget');
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
@@ -1827,13 +1935,14 @@
     );
 
     syncProductImageAttrs();
-    if (!isRevampWidget()) enhance();
+    enhance();
 
     var tries = 0;
     var timer = setInterval(function () {
       tries += 1;
       if (root.querySelector('.jdgm-widget-revamp')) {
-        clearInterval(timer);
+        enhanceRevamp();
+        if (tries > 20) clearInterval(timer);
         return;
       }
       enhance();
@@ -1865,6 +1974,10 @@
         if (syncing) return;
         syncing = true;
         try {
+          if (root.querySelector('.jdgm-widget-revamp')) {
+            enhanceRevamp();
+            return;
+          }
           dedupeFormWrappers();
           relocateFormOutsideHeader();
           syncWritingState();
