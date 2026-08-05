@@ -84,6 +84,10 @@
     text-align: left;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__hero-text strong {
+    font-weight: 700;
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__form-panel {
     background: #ffffff;
   }
@@ -592,7 +596,8 @@
       {%- endif -%}
       <h1 class="brisa-customer-care__hero-heading">{{ section.settings.hero_heading | escape }}</h1>
       {%- if section.settings.hero_text != blank -%}
-        <p class="brisa-customer-care__hero-text">{{ section.settings.hero_text | escape }}</p>
+        {%- assign escaped_hero_text = section.settings.hero_text | escape -%}
+        <p class="brisa-customer-care__hero-text">{{ escaped_hero_text | replace: '1 business day', '<strong>1 business day</strong>' }}</p>
       {%- endif -%}
     </div>
   </div>
@@ -904,7 +909,7 @@
       "type": "textarea",
       "id": "hero_text",
       "label": "Intro text",
-      "default": "Whether it's your order, your Better Unit, Better Cores, our 30 day guarantee, or a general question, we're here to help you get sorted. Drop us a message below and we'll get back to you within 1 business day."
+      "default": "Whether it's your order, your Brisa Better, Brisa Cores, our 30 day guarantee, or a general question, we're here to help you get sorted. Drop us a message below and we'll get back to you within 1 business day."
     },
     {
       "type": "header",
@@ -950,7 +955,7 @@
       "type": "text",
       "id": "label_order",
       "label": "Order number label",
-      "default": "Order number (optional)"
+      "default": "Order number - optional"
     },
     {
       "type": "text",
@@ -1012,7 +1017,7 @@
       "type": "text",
       "id": "claim_heading",
       "label": "Heading",
-      "default": "How to claim your guarantee."
+      "default": "How to claim our 30 day guarantee."
     },
     {
       "type": "text",
@@ -1030,7 +1035,7 @@
       "type": "textarea",
       "id": "method_1_text",
       "label": "Method 1 text",
-      "default": "Drop us a message above with your order number and mention the 30 Day Success Guarantee."
+      "default": "Message us on the form above with your order number, and mention 'the 30 Day Guarantee' in your message."
     },
     {
       "type": "url",
@@ -1080,7 +1085,7 @@
       "type": "textarea",
       "id": "care_intro",
       "label": "Intro",
-      "default": "A 60-second routine keeps your Better Unit fresh, smooth on the draw, and working the way it should."
+      "default": "A 60-second routine keeps your Brisa better fresh, smooth on the draw, and working the way it should."
     },
     {
       "type": "textarea",
@@ -1313,7 +1318,7 @@
           "type": "textarea",
           "id": "text",
           "label": "Text",
-          "default": "Twist off the top section and lift the Better Core out before you start."
+          "default": "Twist off the top section and lift the Brisa Core out before you start."
         }
       ]
     }
@@ -1348,7 +1353,7 @@
           "type": "care_step",
           "settings": {
             "title": "Remove the core.",
-            "text": "Twist off the top section and lift the Better Core out before you start."
+            "text": "Twist off the top section and lift the Brisa Core out before you start."
           }
         },
         {
@@ -1376,7 +1381,7 @@
           "type": "care_step",
           "settings": {
             "title": "Let it dry, then reload.",
-            "text": "Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
+            "text": "Wait until it's fully dry before sliding a fresh Brisa Core back in. Then you're set."
           }
         }
       ]

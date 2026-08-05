@@ -37,7 +37,7 @@
           "type": "care_step",
           "settings": {
             "title": "Remove the core.",
-            "text": "Twist off the top section and lift the Better Core out before you start."
+            "text": "Twist off the top section and lift the Brisa Core out before you start."
           }
         },
         "care_step_2": {
@@ -65,7 +65,7 @@
           "type": "care_step",
           "settings": {
             "title": "Let it dry, then reload.",
-            "text": "Wait until it's fully dry before sliding a fresh Better Core back in. Then you're set."
+            "text": "Wait until it's fully dry before sliding a fresh Brisa Core back in. Then you're set."
           }
         }
       },
@@ -82,14 +82,14 @@
       "settings": {
         "ribbon_contact": "Customer Care",
         "hero_heading": "Contact Us",
-        "hero_text": "Whether it's your order, your Better Unit, Better Cores, our 30 day guarantee, or a general question, we're here to help you get sorted. Drop us a message below and we'll get back to you within 1 business day.",
+        "hero_text": "Whether it's your order, your Brisa Better, Brisa Cores, our 30 day guarantee, or a general question, we're here to help you get sorted. Drop us a message below and we'll get back to you within 1 business day.",
         "form_heading": "Send us a message.",
         "form_subtext": "We typically reply within 1 business day.",
         "label_name": "Name *",
         "placeholder_name": "Your name",
         "label_email": "Email *",
         "placeholder_email": "you@email.com",
-        "label_order": "Order number (optional)",
+        "label_order": "Order number - optional",
         "placeholder_order": "e.g #BR1234",
         "label_message": "Message *",
         "placeholder_message": "Tell us whats going on...",
@@ -97,17 +97,17 @@
         "privacy_text": "We respect your privacy - your details stay with us.",
         "guarantee_heading": "30 Day Success Guarantee",
         "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to help you get the most out of it. We don't leave you guessing.",
-        "claim_heading": "How to claim your guarantee.",
+        "claim_heading": "How to claim our 30 day guarantee.",
         "claim_intro": "Two ways to reach us:",
         "method_1_title": "Submit through our website",
-        "method_1_text": "Drop us a message above with your order number and mention the 30 Day Success Guarantee.",
+        "method_1_text": "Message us on the form above with your order number, and mention 'the 30 Day Guarantee' in your message.",
         "method_2_title": "Message us on Instagram",
         "method_2_text": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number.",
         "method_2_link": "https://www.instagram.com/brisabetter/",
         "claim_quote": "\"That's the deal. We've got you.\"",
         "ribbon_care": "Product Care",
         "care_heading": "Keep your Brisa like new.",
-        "care_intro": "A 60-second routine keeps your Better Unit fresh, smooth on the draw, and working the way it should.",
+        "care_intro": "A 60-second routine keeps your Brisa better fresh, smooth on the draw, and working the way it should.",
         "care_frequency": "Aim to clean your Better Unit at least every 3 days — sooner if you're using it daily.",
         "warning_heading": "A small heads-up",
         "warning_text": "Try to avoid getting dirt, dust, or loose debris down the barrel or into the bottom airflow dial. Keep it covered when it's not in use.",
