@@ -74,6 +74,16 @@
     color: var(--brisa-jdgm-text) !important;
   }
 
+  /* Judge.me Vue revamp — keep full width; don't fight their component CSS */
+  #shopify-section-{{ section.id }} .jdgm-widget-revamp,
+  #shopify-section-{{ section.id }} .jdgm-review-widget[data-entry-point] {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
   #shopify-section-{{ section.id }} .jdgm-rev-widg__title,
   #shopify-section-{{ section.id }} .jdgm-rev-widg__header .jdgm-rev-widg__title {
     display: none !important;
@@ -856,18 +866,27 @@
         </div>
       {%- endfor -%}
     {%- elsif review_product != blank -%}
-      <!-- Start of Judge.me code -->
+      <!-- Start of Judge.me code (revamp entry-point + legacy fallback) -->
       <div style="clear:both"></div>
       <div
         id="judgeme_product_reviews"
         class="jdgm-widget jdgm-review-widget"
+        data-widget="review"
+        data-entry-point="review_widget.js"
+        data-entry-key="review-widget/main.js"
         data-product-title="{{ review_product.title | escape }}"
+        data-product-handle="{{ review_product.handle | escape }}"
+        data-product-id="{{ review_product.id }}"
         data-id="{{ review_product.id }}"
-        data-auto-install="false"
+        data-auto-install="true"
         data-product-image-url="{{ jdgm_product_image_url | escape }}"
         data-image-url="{{ jdgm_product_image_url | escape }}"
       >
-        {{ review_product.metafields.judgeme.widget }}
+        {%- if review_product.metafields.judgeme.widget != blank -%}
+          <div class="jdgm-legacy-widget-content" style="display:none">
+            {{ review_product.metafields.judgeme.widget }}
+          </div>
+        {%- endif -%}
       </div>
       <!-- End of Judge.me code -->
     {%- else -%}
@@ -882,6 +901,11 @@
   (function () {
     var root = document.getElementById('shopify-section-{{ section.id }}');
     if (!root) return;
+
+    // Judge.me revamp (Vue) mounts into [data-entry-point] — do not restyle/reorder that DOM.
+    function isRevampWidget() {
+      return !!root.querySelector('.jdgm-widget-revamp, .jdgm-review-widget[data-entry-point]');
+    }
 
     var PRODUCT_IMAGE_URL = {{ jdgm_product_image_url | json }};
     var CHEVRON = '<span class="brisa-jdgm-chevron" aria-hidden="true"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L7 6.5L13 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
@@ -1224,6 +1248,9 @@
     }
 
     function enhance() {
+      // Revamp Vue widget owns its own header/form/cards — skip legacy Loox restyle.
+      if (root.querySelector('.jdgm-widget-revamp')) return false;
+
       var widget = root.querySelector('.jdgm-rev-widg, .jdgm-widget');
       if (!widget || !root.querySelector('.jdgm-rev-widg__summary')) return false;
 
@@ -1344,6 +1371,7 @@
     root.addEventListener(
       'click',
       function (event) {
+        if (root.querySelector('.jdgm-widget-revamp')) return;
         var link = event.target.closest('a.jdgm-write-rev-link, a.jdgm-ask-question-btn');
         if (!link || !root.contains(link)) return;
 
@@ -1381,11 +1409,15 @@
     );
 
     syncProductImageAttrs();
-    enhance();
+    if (!isRevampWidget()) enhance();
 
     var tries = 0;
     var timer = setInterval(function () {
       tries += 1;
+      if (root.querySelector('.jdgm-widget-revamp')) {
+        clearInterval(timer);
+        return;
+      }
       enhance();
       formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
       hydrateReviewImages();
