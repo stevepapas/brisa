@@ -457,14 +457,22 @@
   }
 
   #shopify-section-{{ section.id }} .jm-pagination-controls__button--page.jm-button--primary,
-  #shopify-section-{{ section.id }} .jm-pagination-controls__button[aria-current='page'] {
-    background: var(--brisa-jdgm-text) !important;
-    border-color: var(--brisa-jdgm-text) !important;
-    color: #fff !important;
+  #shopify-section-{{ section.id }} .jm-pagination-controls__button--page {
+    background: var(--brisa-jdgm-card-bg) !important;
+    border-color: var(--brisa-jdgm-border-soft) !important;
+    color: var(--brisa-jdgm-text) !important;
   }
 
-  #shopify-section-{{ section.id }} .jm-pagination-controls__button--page.jm-button--primary .jm-text {
-    color: #fff !important;
+  #shopify-section-{{ section.id }} .jm-pagination-controls__button[aria-current='page'],
+  #shopify-section-{{ section.id }} .jm-pagination-controls__button--page[aria-current='page'] {
+    background: #f0f0f0 !important;
+    border-color: var(--brisa-jdgm-border-soft) !important;
+    color: var(--brisa-jdgm-text) !important;
+  }
+
+  #shopify-section-{{ section.id }} .jm-pagination-controls__button--page.jm-button--primary .jm-text,
+  #shopify-section-{{ section.id }} .jm-pagination-controls__button[aria-current='page'] .jm-text {
+    color: var(--brisa-jdgm-text) !important;
   }
 
   @media screen and (max-width: 749px) {
