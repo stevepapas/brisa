@@ -866,13 +866,35 @@
         </div>
       {%- endfor -%}
     {%- elsif review_product != blank -%}
-      <!-- Start of Judge.me code (revamp entry-point + legacy fallback) -->
+      {%- liquid
+        assign jdgm_revamp_data = review_product.metafields.judgeme.review_widget_data
+        if jdgm_revamp_data.value != blank
+          assign jdgm_revamp_json = jdgm_revamp_data.value
+        elsif jdgm_revamp_data != blank
+          assign jdgm_revamp_json = jdgm_revamp_data
+        endif
+      -%}
+      <!--
+        Judge.me revamp reads window.jdgm.data.reviewWidget[productId].
+        Seed it from the metafield (or CDN fallback) before booting the Vue entry.
+      -->
+      <script>
+        window.jdgm = window.jdgm || {};
+        window.jdgm.data = window.jdgm.data || {};
+        window.jdgm.data.reviewWidget = window.jdgm.data.reviewWidget || {};
+        window.jdgm.data.reviewWidget[{{ review_product.id | json }}] =
+          {% if jdgm_revamp_json != blank %}
+            {{ jdgm_revamp_json | json }}
+          {% else %}
+            null
+          {% endif %}
+        ;
+      </script>
       <div style="clear:both"></div>
       <div
         id="judgeme_product_reviews"
         class="jdgm-widget jdgm-review-widget"
         data-widget="review"
-        data-entry-point="review_widget.js"
         data-entry-key="review-widget/main.js"
         data-product-title="{{ review_product.title | escape }}"
         data-product-handle="{{ review_product.handle | escape }}"
@@ -888,6 +910,69 @@
           </div>
         {%- endif -%}
       </div>
+      <script>
+        (function () {
+          var productId = {{ review_product.id | json }};
+          var el = document.getElementById('judgeme_product_reviews');
+          if (!el) return;
+
+          function hasReviewPayload(data) {
+            return !!(data && (data.number_of_reviews > 0 || (data.reviews && data.reviews.length) || (data.primary_language_reviews && data.primary_language_reviews.length)));
+          }
+
+          function bootRevamp() {
+            var base = (window.jdgm && jdgm.CDN_BASE_URL) || '';
+            if (!base) {
+              setTimeout(bootRevamp, 50);
+              return;
+            }
+            if (el.classList.contains('jdgm-widget-revamp')) return;
+            el.setAttribute('data-entry-point', 'review_widget.js');
+            el.setAttribute('data-entry-key', 'review-widget/main.js');
+            var existing = document.querySelector('script[data-brisa-jdgm-revamp="1"]');
+            if (existing) existing.remove();
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.src = base + 'review_widget.js?brisa=' + Date.now();
+            script.setAttribute('data-brisa-jdgm-revamp', '1');
+            document.head.appendChild(script);
+          }
+
+          function seedAndBoot(data) {
+            window.jdgm = window.jdgm || {};
+            window.jdgm.data = window.jdgm.data || {};
+            window.jdgm.data.reviewWidget = window.jdgm.data.reviewWidget || {};
+            if (data) window.jdgm.data.reviewWidget[productId] = data;
+            bootRevamp();
+          }
+
+          var seeded = window.jdgm.data.reviewWidget[productId];
+          if (hasReviewPayload(seeded)) {
+            bootRevamp();
+            return;
+          }
+
+          var shop = (window.Shopify && Shopify.shop) || window.location.hostname;
+          var url =
+            'https://cdn.judge.me/reviews/reviews_for_widget?url=' +
+            encodeURIComponent(shop) +
+            '&shop_domain=' +
+            encodeURIComponent(shop) +
+            '&product_id=' +
+            encodeURIComponent(productId) +
+            '&platform=shopify';
+
+          fetch(url)
+            .then(function (res) {
+              if (!res.ok) throw new Error('Judge.me reviews fetch failed');
+              return res.json();
+            })
+            .then(seedAndBoot)
+            .catch(function () {
+              seedAndBoot(seeded || {});
+            });
+        })();
+      </script>
       <!-- End of Judge.me code -->
     {%- else -%}
       <p class="brisa-judgeme__fallback">
@@ -906,7 +991,6 @@
     function isRevampWidget() {
       return !!root.querySelector('.jdgm-widget-revamp, .jdgm-review-widget[data-entry-point]');
     }
-
     var PRODUCT_IMAGE_URL = {{ jdgm_product_image_url | json }};
     var CHEVRON = '<span class="brisa-jdgm-chevron" aria-hidden="true"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L7 6.5L13 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
     var FILTER = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.143 15a2.501 2.501 0 0 1 4.717 0h8.475v1.666H9.86a2.5 2.5 0 0 1-4.717 0H1.667V15h3.476Zm5-6.667a2.501 2.501 0 0 1 4.717 0h3.476V10h-3.476a2.5 2.5 0 0 1-4.717 0H1.667V8.333h8.476Zm-5-6.666a2.501 2.501 0 0 1 4.717 0h8.475V3.333H9.86a2.5 2.5 0 0 1-4.717 0H1.667V1.667h3.476Z"/></svg>';
