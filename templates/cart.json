@@ -47,7 +47,7 @@
         "urgency_text": "⚡️ WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "checkout_button_text": "SECURE CHECKOUT",
         "show_payment_methods": true,
-        "empty_button_link": "shopify://pages/shop"
+        "empty_button_link": "shopify://products/brisa-starter-kit"
       }
     }
   },
