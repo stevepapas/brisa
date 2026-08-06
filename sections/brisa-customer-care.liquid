@@ -217,6 +217,11 @@
   #shopify-section-{{ section.id }} .brisa-customer-care__claim-panel {
     padding: 36px 20px 40px;
     background: var(--bcc-panel-bg);
+    scroll-margin-top: calc(
+      var(--header-height, 0px) * var(--enable-sticky-header, 0)
+      + var(--announcement-bar-height, 0px) * var(--enable-sticky-announcement-bar, 0)
+      + 16px
+    );
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__claim-inner {
@@ -698,20 +703,12 @@
   </div>
 
   {%- if section.settings.show_policy_links -%}
-    {%- liquid
-      assign guarantee_pdf_url = section.settings.guarantee_pdf_url
-      if guarantee_pdf_url == blank
-        assign guarantee_pdf_url = '30-day-success-guarantee.pdf' | asset_url
-      endif
-    -%}
     <ul class="brisa-customer-care__help-policies brisa-customer-care__form-policies" role="list" aria-label="Policies">
       {%- if section.settings.show_guarantee_pdf and section.settings.guarantee_pdf_label != blank -%}
         <li>
           <a
             class="brisa-customer-care__help-link"
-            href="{{ guarantee_pdf_url }}"
-            target="_blank"
-            rel="noopener"
+            href="#brisa-30-day-guarantee"
           >
             {{- section.settings.guarantee_pdf_label | escape -}}
           </a>
@@ -741,7 +738,7 @@
   {%- endif -%}
   </div>
 
-  <div class="brisa-customer-care__claim-panel">
+  <div class="brisa-customer-care__claim-panel" id="brisa-30-day-guarantee">
     <div class="brisa-customer-care__claim-inner">
       <h2 class="brisa-customer-care__claim-heading">{{ section.settings.claim_heading | escape }}</h2>
       {%- if section.settings.claim_intro != blank -%}
@@ -1075,7 +1072,7 @@
       "type": "textarea",
       "id": "method_2_text",
       "label": "Method 2 text",
-      "default": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number."
+      "default": "DM @brisabetter with the message \"30 Day Guarantee\" + your order number."
     },
     {
       "type": "url",
@@ -1167,21 +1164,15 @@
     {
       "type": "checkbox",
       "id": "show_guarantee_pdf",
-      "label": "Show 30 day guarantee PDF link",
+      "label": "Show 30 day guarantee link",
       "default": true,
-      "info": "Appears first in the policy list. Uses assets/30-day-success-guarantee.pdf unless a custom URL is set."
+      "info": "Appears first in the policy list and scrolls to the claim instructions below."
     },
     {
       "type": "text",
       "id": "guarantee_pdf_label",
-      "label": "Guarantee PDF link label",
+      "label": "Guarantee link label",
       "default": "30 DAY GUARANTEE."
-    },
-    {
-      "type": "url",
-      "id": "guarantee_pdf_url",
-      "label": "Guarantee PDF URL",
-      "info": "Optional. Leave blank to use the theme asset 30-day-success-guarantee.pdf."
     },
     {
       "type": "text",
@@ -1337,7 +1328,7 @@
           "type": "text",
           "id": "text",
           "label": "Text",
-          "default": "Instagram or website, takes 30 seconds"
+          "default": "Your order number + what's not landing (flavour, days used, what feels off). Takes 30 seconds."
         }
       ]
     },
@@ -1374,21 +1365,21 @@
           "type": "claim_step",
           "settings": {
             "title": "You reach out",
-            "text": "Instagram or website, takes 30 seconds"
+            "text": "Your order number + what's not landing (flavour, days used, what feels off). Takes 30 seconds."
           }
         },
         {
           "type": "claim_step",
           "settings": {
-            "title": "We book your 1-on-1 call",
-            "text": "15 minutes, we walk you through what to tweak"
+            "title": "We fix it with you",
+            "text": "Your Brisa Strategy Guide + the exact tweak to try, sent straight back."
           }
         },
         {
           "type": "claim_step",
           "settings": {
             "title": "We post your cores free",
-            "text": "3 weeks worth, sent same-week"
+            "text": "6 cores (2 packs), sent that same week."
           }
         },
         {

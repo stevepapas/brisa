@@ -16,21 +16,21 @@
           "type": "claim_step",
           "settings": {
             "title": "You reach out",
-            "text": "Instagram or website, takes 30 seconds"
+            "text": "Your order number + what's not landing (flavour, days used, what feels off). Takes 30 seconds."
           }
         },
         "claim_step_2": {
           "type": "claim_step",
           "settings": {
-            "title": "We book your 1-on-1 call",
-            "text": "15 minutes, we walk you through what to tweak"
+            "title": "We fix it with you",
+            "text": "Your Brisa Strategy Guide + the exact tweak to try, sent straight back."
           }
         },
         "claim_step_3": {
           "type": "claim_step",
           "settings": {
             "title": "We post your cores free",
-            "text": "3 weeks worth, sent same-week"
+            "text": "6 cores (2 packs), sent that same week."
           }
         },
         "care_step_1": {
@@ -102,7 +102,7 @@
         "method_1_title": "Submit through our website",
         "method_1_text": "Message us on the form above with your order number, and mention 'the 30 Day Guarantee' in your message.",
         "method_2_title": "Message us on Instagram",
-        "method_2_text": "DM @brisabetter with the message \"30 Day Guarantee Claim\" + your order number.",
+        "method_2_text": "DM @brisabetter with the message \"30 Day Guarantee\" + your order number.",
         "method_2_link": "https://www.instagram.com/brisabetter/",
         "claim_quote": "\"That's the deal. We've got you.\"",
         "ribbon_care": "Product Care",
