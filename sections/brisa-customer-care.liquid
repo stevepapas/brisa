@@ -184,6 +184,10 @@
     text-align: center;
   }
 
+  #shopify-section-{{ section.id }} .brisa-customer-care__form-policies {
+    margin-top: 28px;
+  }
+
   #shopify-section-{{ section.id }} .brisa-customer-care__guarantee {
     margin-top: 28px;
     padding: 20px;
@@ -692,6 +696,49 @@
       </div>
     {%- endif -%}
   </div>
+
+  {%- if section.settings.show_policy_links -%}
+    {%- liquid
+      assign guarantee_pdf_url = section.settings.guarantee_pdf_url
+      if guarantee_pdf_url == blank
+        assign guarantee_pdf_url = '30-day-success-guarantee.pdf' | asset_url
+      endif
+    -%}
+    <ul class="brisa-customer-care__help-policies brisa-customer-care__form-policies" role="list" aria-label="Policies">
+      {%- if section.settings.show_guarantee_pdf and section.settings.guarantee_pdf_label != blank -%}
+        <li>
+          <a
+            class="brisa-customer-care__help-link"
+            href="{{ guarantee_pdf_url }}"
+            target="_blank"
+            rel="noopener"
+          >
+            {{- section.settings.guarantee_pdf_label | escape -}}
+          </a>
+        </li>
+      {%- endif -%}
+      {%- if shop.refund_policy -%}
+        <li>
+          <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
+        </li>
+      {%- endif -%}
+      {%- if shop.terms_of_service -%}
+        <li>
+          <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
+        </li>
+      {%- endif -%}
+      {%- if shop.shipping_policy -%}
+        <li>
+          <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
+        </li>
+      {%- endif -%}
+      {%- if shop.privacy_policy -%}
+        <li>
+          <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
+        </li>
+      {%- endif -%}
+    </ul>
+  {%- endif -%}
   </div>
 
   <div class="brisa-customer-care__claim-panel">
@@ -857,30 +904,6 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.show_policy_links -%}
-      <ul class="brisa-customer-care__help-policies" role="list" aria-label="Policies">
-        {%- if shop.refund_policy -%}
-          <li>
-            <a class="brisa-customer-care__help-link" href="{{ shop.refund_policy.url }}">{{ section.settings.refund_link_label | escape }}</a>
-          </li>
-        {%- endif -%}
-        {%- if shop.terms_of_service -%}
-          <li>
-            <a class="brisa-customer-care__help-link" href="{{ shop.terms_of_service.url }}">{{ section.settings.terms_link_label | escape }}</a>
-          </li>
-        {%- endif -%}
-        {%- if shop.shipping_policy -%}
-          <li>
-            <a class="brisa-customer-care__help-link" href="{{ shop.shipping_policy.url }}">{{ section.settings.shipping_link_label | escape }}</a>
-          </li>
-        {%- endif -%}
-        {%- if shop.privacy_policy -%}
-          <li>
-            <a class="brisa-customer-care__help-link" href="{{ shop.privacy_policy.url }}">{{ section.settings.privacy_link_label | escape }}</a>
-          </li>
-        {%- endif -%}
-      </ul>
-    {%- endif -%}
   </div>
 </section>
 
@@ -1140,6 +1163,25 @@
       "id": "show_policy_links",
       "label": "Show policy links",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_guarantee_pdf",
+      "label": "Show 30 day guarantee PDF link",
+      "default": true,
+      "info": "Appears first in the policy list. Uses assets/30-day-success-guarantee.pdf unless a custom URL is set."
+    },
+    {
+      "type": "text",
+      "id": "guarantee_pdf_label",
+      "label": "Guarantee PDF link label",
+      "default": "30 DAY GUARANTEE."
+    },
+    {
+      "type": "url",
+      "id": "guarantee_pdf_url",
+      "label": "Guarantee PDF URL",
+      "info": "Optional. Leave blank to use the theme asset 30-day-success-guarantee.pdf."
     },
     {
       "type": "text",

@@ -95,8 +95,8 @@
         "placeholder_message": "Tell us whats going on...",
         "submit_label": "Send message >",
         "privacy_text": "We respect your privacy - your details stay with us.",
-        "guarantee_heading": "30 Day Success Guarantee",
-        "guarantee_text": "If Brisa doesn't work for you in 30 days, we'll send you 3 weeks of cores FREE and book a 1-on-1 call to help you get the most out of it. We don't leave you guessing.",
+        "guarantee_heading": "",
+        "guarantee_text": "",
         "claim_heading": "How to claim our 30 day guarantee.",
         "claim_intro": "Two ways to reach us:",
         "method_1_title": "Submit through our website",
@@ -114,6 +114,8 @@
         "help_heading": "Need more help?",
         "help_text": "Got a faulty unit, or something doesn't feel right? Drop us a message and we'll sort it.",
         "show_policy_links": true,
+        "show_guarantee_pdf": true,
+        "guarantee_pdf_label": "30 DAY GUARANTEE.",
         "content_max_width": 560
       }
     }
