@@ -1,0 +1,205 @@
+/* Learn-page Brisa overrides */
+/* Learn page — Same Motion feature grid spacing */
+.template-learn {
+  --learn-features-gap: 24px;
+}
+
+.template-learn .learn-pitch__features,
+.template-learn .learn-details__grid {
+  gap: var(--learn-features-gap) !important;
+  row-gap: var(--learn-features-gap) !important;
+  column-gap: var(--learn-features-gap) !important;
+}
+
+.template-learn .shopify-section--learn-product-pitch .learn-pitch__features {
+  margin-bottom: var(--learn-features-gap) !important;
+}
+
+.template-learn .shopify-section--learn-product-pitch {
+  padding-bottom: 0 !important;
+}
+
+.template-learn .shopify-section--learn-product-details {
+  padding-top: 0 !important;
+}
+
+.template-learn .learn-feature-icon-wrap,
+.template-learn .learn-pitch__feature-icon-wrap,
+.template-learn .learn-details__icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.template-learn .learn-feature-icon,
+.template-learn .learn-pitch__feature-icon,
+.template-learn .learn-details__icon {
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+/* Learn — Same Motion icons: override stale brisa_* shop images */
+.template-learn .learn-pitch__features .learn-pitch__feature:nth-child(1) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/no-nicotine.png) center / contain no-repeat;
+}
+
+.template-learn .learn-pitch__features .learn-pitch__feature:nth-child(2) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/satisfies-the-ritual.png) center / contain no-repeat;
+}
+
+.template-learn .learn-pitch__features .learn-pitch__feature:nth-child(3) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/throat-sensation.png) center / contain no-repeat;
+}
+
+.template-learn .learn-pitch__features .learn-pitch__feature:nth-child(4) .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/no-smoke-no-vapour.png) center / contain no-repeat;
+}
+
+.template-learn .learn-details__grid .learn-details__item:nth-child(1) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/30-day-success-guarantee.png) center / contain no-repeat;
+}
+
+.template-learn .learn-details__grid .learn-details__item:nth-child(2) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/reusable-device.png) center / contain no-repeat;
+}
+
+.template-learn .learn-details__grid .learn-details__item:nth-child(3) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/food-grade-cores.png) center / contain no-repeat;
+}
+
+.template-learn .learn-details__grid .learn-details__item:nth-child(4) .learn-details__icon-wrap:has(img[src*="brisa_"]) {
+  background: url(//brisabetter.com/cdn/shop/t/7/assets/australian-designed.png) center / contain no-repeat;
+}
+
+.template-learn .learn-pitch__feature-icon-wrap:has(img[src*="brisa_"]) img,
+.template-learn .learn-details__icon-wrap:has(img[src*="brisa_"]) img {
+  opacity: 0;
+}
+
+/* Learn page — icon circles (pre-rendered blue circle + white symbol PNGs) */
+.template-learn .learn-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border-radius: 50%;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.template-learn .learn-icon-circle img,
+.template-learn .learn-pitch__feature-icon,
+.template-learn .learn-details__icon {
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.template-learn .learn-hero__icon-circle {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.template-learn .learn-hero__icon-circle img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+/* Learn page — plain icons on white (no circle) */
+.template-learn .learn-icon-plain {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-learn .learn-icon-plain img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.template-learn .learn-hero__trust-item img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Learn page — light blue highlight boxes with red border */
+.template-learn .learn-highlight-box {
+  padding: 20px;
+  color: #038bdd;
+  background: #e8f6fc;
+  border: 2px solid #e53935;
+  border-radius: 14px;
+}
+
+.template-learn .learn-highlight-box h2,
+.template-learn .learn-highlight-box h3,
+.template-learn .learn-highlight-box p,
+.template-learn .learn-highlight-box strong {
+  color: #038bdd;
+}
+
+/* Learn page — full-width testimonials band */
+.template-learn .learn-details__testimonials {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin: 40px 0 0;
+  padding: 32px 24px 40px;
+  background: #f4f4f4;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__viewport {
+  max-width: 100%;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__track {
+  display: flex;
+  grid-auto-columns: unset;
+  grid-auto-flow: unset;
+  grid-template-rows: unset;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__card {
+  flex: 0 0 100%;
+  text-align: left;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__disclaimer {
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.template-learn .learn-details__testimonials .brisa-product-testimonials__video-grid {
+  margin-top: 24px;
+}
+
+.template-learn .shopify-section--learn-product-details {
+  overflow: hidden;
+}

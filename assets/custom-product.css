@@ -1,0 +1,307 @@
+/* Product-only Brisa overrides */
+/* ============================================================
+   Variant swatch — circles with labels + inline variant image
+   ============================================================ */
+
+/* Hide the main product media gallery on product pages */
+.shopify-section--main-product .product__media {
+  display: none !important;
+}
+
+/* Two-column layout: swatches left, variant image right */
+.color-swatch-with-image {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Swatch list — auto columns based on count */
+.color-swatch-with-image .color-swatch-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  grid-template-columns: none;
+  flex-shrink: 0;
+}
+
+/* Each swatch wrapper — flex column for circle + label */
+.color-swatch-with-image .color-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Circular swatch */
+.color-swatch-with-image .color-swatch__item {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  border: 3px solid transparent !important;
+  box-shadow: 0 0 0 2px #d0d0d0;
+  cursor: pointer;
+  display: block;
+}
+
+/* Selected state ring */
+.color-swatch-with-image input.color-swatch__radio:checked + .color-swatch__item,
+.color-swatch-with-image .color-swatch__item.is-selected {
+  box-shadow: 0 0 0 2px #23aee8 !important;
+}
+
+/* Colour name label */
+.color-swatch__name {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #2b2b2b;
+  letter-spacing: 0.02em;
+}
+
+/* Variant image on the right */
+.color-swatch-variant-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.color-swatch-variant-img {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+@media screen and (max-width: 749px) {
+  .color-swatch-with-image {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .color-swatch-variant-image {
+    width: 100%;
+  }
+  
+  .color-swatch-variant-img {
+    max-height: 80px;
+  }
+}
+
+.color-swatch.is-disabled .color-swatch__name::after {
+  content: "(SOLD OUT)";
+  display: block;
+  font-weight: bold;
+  color: red;
+  line-height: 1;
+}
+
+.color-swatch.is-disabled .color-swatch__item:before {
+background: linear-gradient(to bottom right,transparent calc(50% - 1px),
+ #ff0000 calc(50% - 1px),
+ #ff0000 calc(50% + 1px),
+ transparent calc(50% + 1px)) no-repeat;
+ border-color: red;
+}
+
+/* ============================================================
+   Add to Cart button — bright blue, rounded, bold
+   ============================================================ */
+.shopify-section--main-product .product-form__add-button,
+.shopify-section--brisa-cores-picker .product-form__add-button {
+  background: #23aee8 !important;
+  color: #ffffff !important;
+  border-radius: 999px !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  height: 56px !important;
+  border: none !important;
+}
+
+.shopify-section--main-product .product-form__add-button:hover,
+.shopify-section--brisa-cores-picker .product-form__add-button:hover {
+  background: #1a98d0 !important;
+}
+
+.shopify-section--main-product shopify-accelerated-checkout,
+.shopify-section--brisa-cores-picker shopify-accelerated-checkout {
+  --shopify-accelerated-checkout-button-border-radius: 999px;
+}
+
+.shopify-section--main-product .shopify-payment-button__button,
+.shopify-section--brisa-cores-picker .shopify-payment-button__button {
+  border-radius: 999px !important;
+}
+
+.template-brisa-cores .product-form__pricing-line,
+.template-brisa-cores-variations .product-form__pricing-line {
+  display: none !important;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+  .template-brisa-cores .shopify-section--brisa-cores-picker .product-form__variants,
+  .template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__variants,
+  .template-brisa-cores .shopify-section--brisa-cores-picker variant-picker,
+  .template-brisa-cores-variations .shopify-section--brisa-cores-picker variant-picker,
+  .template-brisa-cores .shopify-section--brisa-cores-picker .color-swatch-list,
+  .template-brisa-cores-variations .shopify-section--brisa-cores-picker .color-swatch-list,
+  .template-brisa-cores .shopify-section--brisa-cores-picker .block-swatch-list,
+  .template-brisa-cores-variations .shopify-section--brisa-cores-picker .block-swatch-list {
+    display: none !important;
+  }
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .shopify-app-block,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .shopify-app-block,
+.template-brisa-cores .shopify-section--brisa-cores-picker [class*="appstle"],
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker [class*="appstle"] {
+  order: 1;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form__text,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__text {
+  display: none !important;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-form__buy-buttons,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-form__buy-buttons {
+  order: 3;
+  margin-top: 12px;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .shopify-payment-button,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .shopify-payment-button {
+  order: 4;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .brisa-product-area-info__guarantee,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .brisa-product-area-info__guarantee {
+  margin-top: 20px;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .product-meta__title,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .product-meta__title,
+.template-brisa-cores .breadcrumb,
+.template-brisa-cores-variations .breadcrumb {
+  display: none !important;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker .appstle-branding-wrapper,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker .appstle-branding-wrapper {
+  display: none !important;
+}
+
+.template-brisa-cores .shopify-section--brisa-cores-picker:has(.brisa-product-area-info__trust-row) + .shopify-section--brisa-product-area-info .brisa-product-area-info__trust-row,
+.template-brisa-cores-variations .shopify-section--brisa-cores-picker:has(.brisa-product-area-info__trust-row) + .shopify-section--brisa-product-area-info .brisa-product-area-info__trust-row {
+  display: none !important;
+}
+
+/* Pricing line above ATC button */
+.product-form__pricing-line {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2b2b2b;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   Kit picker — mobile text size & spacing fix
+   ============================================================ */
+@media screen and (max-width: 749px) {
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__feature {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__features {
+    gap: 10px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__card--starter .product-kit-picker__features {
+    gap: 10px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__card--mates .product-kit-picker__features {
+    gap: 10px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__banner {
+    font-size: 18px !important;
+    padding: 10px 14px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__title {
+    font-size: 28px !important;
+  }
+
+  .shopify-section--brisa-product-kit-picker .product-kit-picker__subtitle {
+    font-size: 15px !important;
+  }
+}
+
+/* ============================================================
+   BRISA STARTER KIT PAGE — VISUAL FIXES (brisa-devices-variations)
+   ============================================================ */
+
+/* Fix 1: Colour swatches LEFT, product image RIGHT on mobile */
+@media (max-width: 749px) {
+  .template-brisa-devices-variations .shopify-section--main-product .product {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  /* product-media renders first (right col), product__info second — swap so info is on left */
+  .template-brisa-devices-variations .shopify-section--main-product .product__info {
+    order: -1;
+  }
+  .template-brisa-devices-variations .shopify-section--main-product .product > * {
+    min-width: 0;
+  }
+  /* Stack colour circles vertically so they fit in the narrow column */
+  .template-brisa-devices-variations .mpg-swatch-circle-button.mpg-swatch__nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
+
+/* Fix 2: Reorder product form → swatches (1) → pricing line (2) → buy button (3) → rest (5) */
+.template-brisa-devices-variations .product-form > * {
+  order: 5;
+}
+.template-brisa-devices-variations .product-form .product-form__variants {
+  order: 1;
+}
+.template-brisa-devices-variations .product-form .product-form__pricing-line {
+  order: 2;
+  font-weight: 700;
+  text-align: center;
+  margin: 4px 0;
+}
+.template-brisa-devices-variations .product-form .product-form__buy-buttons {
+  order: 3;
+}
+
+/* Fix 4: 30-day guarantee icon inline with title, not stacked above it */
+.brisa-product-detail__guarantee-header {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 10px;
+}
+.brisa-product-area-info__guarantee strong {
+  display: inline;
+}

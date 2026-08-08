@@ -22,6 +22,10 @@
       padding: {{ section.settings.mobile_padding_top }}px 0 {{ section.settings.mobile_padding_bottom }}px;
     }
   }
+
+  #shopify-section-{{ section.id }} .brisa-comparison__row {
+    display: contents;
+  }
 </style>
 
 {%- liquid
@@ -63,44 +67,46 @@
 
     <div class="brisa-comparison__scroll">
       <div class="brisa-comparison__table" role="table" aria-label="{{ section.settings.table_label | escape }}">
-        <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader"></div>
+        <div class="brisa-comparison__row" role="row">
+          <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader"></div>
 
-        <div class="brisa-comparison__cell brisa-comparison__cell--heading brisa-comparison__cell--brisa brisa-comparison__cell--brisa-heading" role="columnheader">
-          {% if section.settings.brisa_logo != blank %}
-            {%- assign brisa_logo_alt = section.settings.brisa_heading | default: 'Brisa Better' -%}
-            {{- section.settings.brisa_logo
-              | image_url: width: 240
-              | image_tag:
-                alt: brisa_logo_alt,
-                class: 'brisa-comparison__logo',
-                loading: 'lazy',
-                sizes: '(max-width: 749px) 72px, 118px',
-                widths: '72,118,144,236,240',
-                width: section.settings.brisa_logo.width,
-                height: section.settings.brisa_logo.height
-            -}}
-          {% else %}
-            <img
-              src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=240"
-              srcset="
-                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=72 72w,
-                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=118 118w,
-                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=144 144w,
-                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=236 236w
-              "
-              sizes="(max-width: 749px) 72px, 118px"
-              alt="{{ section.settings.brisa_heading | default: 'Brisa Better' | escape }}"
-              class="brisa-comparison__logo"
-              loading="lazy"
-              width="660"
-              height="299"
-            >
-          {% endif %}
+          <div class="brisa-comparison__cell brisa-comparison__cell--heading brisa-comparison__cell--brisa brisa-comparison__cell--brisa-heading" role="columnheader">
+            {% if section.settings.brisa_logo != blank %}
+              {%- assign brisa_logo_alt = section.settings.brisa_heading | default: 'Brisa Better' -%}
+              {{- section.settings.brisa_logo
+                | image_url: width: 240
+                | image_tag:
+                  alt: brisa_logo_alt,
+                  class: 'brisa-comparison__logo',
+                  loading: 'lazy',
+                  sizes: '(max-width: 749px) 72px, 118px',
+                  widths: '72,118,144,236,240',
+                  width: section.settings.brisa_logo.width,
+                  height: section.settings.brisa_logo.height
+              -}}
+            {% else %}
+              <img
+                src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&quality=70&width=240"
+                srcset="
+                  https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&quality=70&width=72 72w,
+                  https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&quality=70&width=118 118w,
+                  https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&quality=70&width=144 144w,
+                  https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&quality=70&width=236 236w
+                "
+                sizes="(max-width: 749px) 72px, 118px"
+                alt="{{ section.settings.brisa_heading | default: 'Brisa Better' | escape }}"
+                class="brisa-comparison__logo"
+                loading="lazy"
+                width="660"
+                height="299"
+              >
+            {% endif %}
+          </div>
+
+          <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader">{{ section.settings.column_2_heading | escape }}</div>
+          <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader">{{ section.settings.column_3_heading | escape }}</div>
+          <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader">{{ section.settings.column_4_heading | escape }}</div>
         </div>
-
-        <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader">{{ section.settings.column_2_heading | escape }}</div>
-        <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader">{{ section.settings.column_3_heading | escape }}</div>
-        <div class="brisa-comparison__cell brisa-comparison__cell--heading" role="columnheader">{{ section.settings.column_4_heading | escape }}</div>
 
         {% for block in section.blocks %}
           {% liquid
@@ -110,7 +116,8 @@
             endif
           %}
 
-          <div class="brisa-comparison__cell brisa-comparison__cell--label" role="rowheader" {{ block.shopify_attributes }}>
+          <div class="brisa-comparison__row" role="row">
+            <div class="brisa-comparison__cell brisa-comparison__cell--label" role="rowheader" {{ block.shopify_attributes }}>
             {% if block.settings.icon != blank %}
               <span class="brisa-comparison__row-icon" aria-hidden="true">
                 {{- block.settings.icon
@@ -138,16 +145,16 @@
               </span>
             {% endif %}
             <span class="brisa-comparison__row-label">{{ block.settings.label | escape }}</span>
-          </div>
+            </div>
 
           {%- capture brisa_value -%}
             {% case block.settings.brisa_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_brisa_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check"><span class="visually-hidden">Yes</span>{{ check_brisa_svg | raw }}</span>
               {% when 'empty' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty"><span class="visually-hidden">No</span>{{ empty_svg | raw }}</span>
               {% when 'cross' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
+                <span class="brisa-comparison__value brisa-comparison__value--icon"><span class="visually-hidden">No</span>
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
               {% when 'cost' %}
@@ -167,11 +174,11 @@
           {%- capture col2_value -%}
             {% case block.settings.column_2_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check"><span class="visually-hidden">Yes</span>{{ check_svg | raw }}</span>
               {% when 'empty' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty"><span class="visually-hidden">No</span>{{ empty_svg | raw }}</span>
               {% when 'cross' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
+                <span class="brisa-comparison__value brisa-comparison__value--icon"><span class="visually-hidden">No</span>
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
               {% when 'cost' %}
@@ -191,11 +198,11 @@
           {%- capture col3_value -%}
             {% case block.settings.column_3_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check"><span class="visually-hidden">Yes</span>{{ check_svg | raw }}</span>
               {% when 'empty' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty"><span class="visually-hidden">No</span>{{ empty_svg | raw }}</span>
               {% when 'cross' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
+                <span class="brisa-comparison__value brisa-comparison__value--icon"><span class="visually-hidden">No</span>
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
               {% when 'cost' %}
@@ -215,11 +222,11 @@
           {%- capture col4_value -%}
             {% case block.settings.column_4_value_type %}
               {% when 'check' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check" aria-label="Yes">{{ check_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--check"><span class="visually-hidden">Yes</span>{{ check_svg | raw }}</span>
               {% when 'empty' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty" aria-label="No">{{ empty_svg | raw }}</span>
+                <span class="brisa-comparison__value brisa-comparison__value--icon brisa-comparison__value--empty"><span class="visually-hidden">No</span>{{ empty_svg | raw }}</span>
               {% when 'cross' %}
-                <span class="brisa-comparison__value brisa-comparison__value--icon" aria-label="No">
+                <span class="brisa-comparison__value brisa-comparison__value--icon"><span class="visually-hidden">No</span>
                   <svg viewBox="0 0 40 40" focusable="false" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M12.5 12.5 27.5 27.5M27.5 12.5 12.5 27.5" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
                 </span>
               {% when 'cost' %}
@@ -236,12 +243,13 @@
             {% endcase %}
           {%- endcapture -%}
 
-          <div class="brisa-comparison__cell brisa-comparison__cell--brisa {% if is_last_row %}brisa-comparison__cell--brisa-last{% endif %}" role="cell">
-            {{ brisa_value }}
+            <div class="brisa-comparison__cell brisa-comparison__cell--brisa {% if is_last_row %}brisa-comparison__cell--brisa-last{% endif %}" role="cell">
+              {{ brisa_value }}
+            </div>
+            <div class="brisa-comparison__cell" role="cell">{{ col2_value }}</div>
+            <div class="brisa-comparison__cell" role="cell">{{ col3_value }}</div>
+            <div class="brisa-comparison__cell" role="cell">{{ col4_value }}</div>
           </div>
-          <div class="brisa-comparison__cell" role="cell">{{ col2_value }}</div>
-          <div class="brisa-comparison__cell" role="cell">{{ col3_value }}</div>
-          <div class="brisa-comparison__cell" role="cell">{{ col4_value }}</div>
         {% endfor %}
       </div>
     </div>

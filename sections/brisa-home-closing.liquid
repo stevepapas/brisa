@@ -20,6 +20,16 @@
     margin: 0 auto;
   }
 
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-heading {
+    margin: 0 0 18px;
+    color: var(--bhc-text);
+    font-size: clamp(28px, 5vw, {{ section.settings.kit_heading_size }}px);
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   #shopify-section-{{ section.id }} .brisa-home-closing__kit-image {
     display: block;
     width: 100%;
@@ -299,6 +309,9 @@
 <section class="brisa-home-closing" {{ section.shopify_attributes }}>
   <div class="brisa-home-closing__kit">
     <div class="brisa-home-closing__kit-inner">
+    {% if section.settings.kit_heading != blank %}
+      <h2 class="brisa-home-closing__kit-heading">{{ section.settings.kit_heading | escape }}</h2>
+    {% endif %}
     {% if kit_image != blank %}
       {{
         kit_image
@@ -441,6 +454,7 @@
     <a
       class="brisa-home-closing__button"
       href="{{ section.settings.button_link | default: '/products/brisa-starter-kit' }}"
+      aria-label="{{ section.settings.button_text | escape }} starter kit offer"
     >
       {{ section.settings.button_text | escape }}
     </a>

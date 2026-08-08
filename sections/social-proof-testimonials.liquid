@@ -16,9 +16,9 @@
       {%- if block.type == 'trust_item' -%}
         <div class="trust-bar__item" {{ block.shopify_attributes }}>
           {%- if block.settings.icon_image != blank -%}
-            {{ block.settings.icon_image | image_url: width: 48 | image_tag: loading: 'lazy', sizes: '24px', widths: '24,48', style: 'width:24px;height:24px;object-fit:contain;' }}
+            {{ block.settings.icon_image | image_url: width: 48 | image_tag: alt: '', loading: 'lazy', sizes: '24px', widths: '24,48', style: 'width:24px;height:24px;object-fit:contain;' }}
           {%- else -%}
-            <span class="trust-bar__icon">{{ block.settings.icon_emoji }}</span>
+            <span class="trust-bar__icon" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
           {%- endif -%}
           <span>{{ block.settings.text }}</span>
         </div>
@@ -33,9 +33,9 @@
       {%- if block.type == 'icon_item' -%}
         <div class="social-proof__icon-item" {{ block.shopify_attributes }}>
           {%- if block.settings.icon_image != blank -%}
-            {{ block.settings.icon_image | image_url: width: 88 | image_tag: class: 'social-proof__icon-img', loading: 'lazy', sizes: '44px', widths: '44,88' }}
+            {{ block.settings.icon_image | image_url: width: 88 | image_tag: alt: '', class: 'social-proof__icon-img', loading: 'lazy', sizes: '44px', widths: '44,88' }}
           {%- else -%}
-            <span class="social-proof__icon-img" style="font-size:2rem;">{{ block.settings.icon_emoji }}</span>
+            <span class="social-proof__icon-img" style="font-size:2rem;" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
           {%- endif -%}
           <span>{{ block.settings.label | escape }}</span>
         </div>

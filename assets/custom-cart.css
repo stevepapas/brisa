@@ -1,0 +1,853 @@
+/* Cart and cart-drawer Brisa overrides */
+.brisa-product-detail__guarantee-header {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 10px;
+}
+
+.brisa-product-area-info__guarantee strong {
+  display: inline;
+}
+
+/* ============================================================
+   Brisa cart page
+   ============================================================ */
+.shopify-section--brisa-main-cart {
+  background: #ffffff;
+  padding: 0;
+  overflow: visible;
+}
+
+.brisa-cart {
+  color: #000000;
+  background: #ffffff;
+  overflow: visible;
+}
+
+.brisa-cart__inner {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px 16px 32px;
+  overflow: visible;
+}
+
+.brisa-cart__title {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.brisa-cart__shipping-message {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.brisa-cart__shipping-message p {
+  margin: 0;
+}
+
+.brisa-cart__progress {
+  position: relative;
+  margin-bottom: 22px;
+  overflow: visible;
+}
+
+.brisa-cart__progress-track {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8e8e8;
+  overflow: hidden;
+}
+
+.brisa-cart__progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--progress, 0) * 100%);
+  border-radius: inherit;
+  background: #23aee8;
+}
+
+.brisa-cart__progress-thumb {
+  position: absolute;
+  top: 4px;
+  left: calc(var(--progress, 0) * 100%);
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #23aee8;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.brisa-cart__progress-markers {
+  position: relative;
+  height: 36px;
+  margin-top: 10px;
+  overflow: visible;
+}
+
+.brisa-cart__progress-icon {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #23aee8;
+  border-radius: 50%;
+  color: #23aee8;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.brisa-cart__progress-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.brisa-cart__progress-icon--shipping {
+  left: 42%;
+  transform: translateX(-50%);
+}
+
+.brisa-cart__progress-icon--gift {
+  left: 100%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+/* Cores / $ threshold: truck sits at the end (Canva pages 2–3) */
+.brisa-cart__progress--shipping-only .brisa-cart__progress-icon--shipping {
+  left: 100%;
+  transform: translateX(-50%);
+}
+
+.brisa-cart__progress--shipping-only .brisa-cart__progress-icon--gift {
+  display: none;
+}
+
+.brisa-cart__item {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  padding: 18px 0;
+  border-top: 1px solid #e5e5e5;
+  align-items: stretch;
+}
+
+.brisa-cart__item-media {
+  position: relative;
+  flex: 0 0 auto;
+  width: 96px;
+}
+
+.brisa-cart__item-image {
+  display: block;
+  width: 100%;
+}
+
+.brisa-cart__item-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.brisa-cart__item-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  padding: 6px;
+  border-radius: 50%;
+  background: #23aee8;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.brisa-cart__item-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brisa-cart__item-title {
+  display: block;
+  margin-bottom: 6px;
+  color: #0b2c4a;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.brisa-cart__item-details {
+  margin: 0 0 12px;
+  padding: 0;
+  color: #222222;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.brisa-cart__item-details:empty {
+  display: none;
+}
+
+.brisa-cart__item-details li {
+  position: relative;
+  margin: 0;
+  padding-left: 0.85em;
+}
+
+.brisa-cart__item-details li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+}
+
+.brisa-cart__item-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 100%;
+}
+
+.brisa-cart__item-pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.brisa-cart__price--compare {
+  color: #9a9a9a;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: line-through;
+}
+
+.brisa-cart__price--current {
+  color: #111111;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.brisa-cart__price--free {
+  color: #2e9e7b;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.brisa-cart__quantity {
+  display: block;
+  margin-top: auto;
+}
+
+.brisa-cart__quantity-selector {
+  width: max-content;
+  min-width: 96px;
+  border: 1px solid #111111;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.brisa-cart__quantity-selector .quantity-selector__button,
+.brisa-cart__quantity-selector .quantity-selector__input {
+  color: #111111;
+}
+
+.brisa-cart__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a8a8a;
+  text-decoration: none;
+}
+
+.brisa-cart__remove:hover {
+  color: #333333;
+}
+
+.brisa-cart__item-discounts {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #666666;
+  font-size: 12px;
+}
+
+.brisa-cart__recommendations {
+  display: block;
+  padding: 18px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.brisa-cart__recommendations[hidden] {
+  display: none;
+}
+
+.brisa-cart__recommendations-heading {
+  margin: 0 0 12px;
+  color: #888888;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.brisa-cart__recommendation {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.brisa-cart__recommendation-image {
+  flex: 0 0 72px;
+  width: 72px;
+}
+
+.brisa-cart__recommendation-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.brisa-cart__recommendation-title {
+  display: block;
+  margin-bottom: 2px;
+  color: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.brisa-cart__recommendation-price {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.brisa-cart__recommendation-quick-view {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: underline;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.brisa-cart__item--gift .brisa-cart__item-body {
+  justify-content: flex-start;
+}
+
+.brisa-cart__item-title--gift {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-bottom: 6px;
+  pointer-events: none;
+}
+
+.brisa-cart__item-image--placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: #eef6fb;
+}
+
+.brisa-cart__checkout-panel {
+  margin-top: 20px;
+  padding: 20px 18px 18px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(35, 174, 232, 0.12), 0 8px 28px rgba(35, 174, 232, 0.12);
+}
+
+.brisa-cart__summary {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.brisa-cart__summary-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0b2c4a;
+}
+
+.brisa-cart__summary-row--discount {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2e9e7b;
+}
+
+.brisa-cart__summary-row--subtotal {
+  margin-bottom: 0;
+  align-items: flex-start;
+}
+
+.brisa-cart__summary-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.brisa-cart__summary-label {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0b2c4a;
+}
+
+.brisa-cart__summary-note {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: #4f7fa3;
+}
+
+.brisa-cart__summary-price {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #23aee8;
+  white-space: nowrap;
+}
+
+.brisa-cart__summary-row--total {
+  margin-top: 12px;
+  margin-bottom: 0;
+  padding-top: 12px;
+  border-top: 1px solid #dddddd;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.brisa-cart__summary-free {
+  color: #2e9e7b;
+  font-weight: 800;
+}
+
+.brisa-cart__afterpay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.brisa-cart__afterpay-logo {
+  flex: 0 0 auto;
+  width: 64px;
+  height: auto;
+}
+
+.brisa-cart__guarantee {
+  margin-top: 18px !important;
+  text-align: left !important;
+}
+
+.brisa-cart__guarantee .brisa-product-detail__guarantee-header {
+  justify-content: flex-start;
+}
+
+.brisa-cart__trust-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  justify-content: center;
+  margin: 14px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.brisa-cart__trust-item {
+  white-space: nowrap;
+}
+
+.brisa-cart__urgency {
+  margin-top: 16px;
+}
+
+.brisa-cart__footer {
+  margin-top: 16px;
+}
+
+.brisa-cart__checkout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #23aee8 !important;
+  color: #ffffff !important;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brisa-cart__checkout-button:hover {
+  background: #1a98d0 !important;
+}
+
+.brisa-cart__checkout-lock {
+  display: inline-flex;
+  color: #ffffff;
+}
+
+.brisa-cart__checkout-lock svg {
+  width: 18px;
+  height: 18px;
+}
+
+.brisa-cart-colour-property__value {
+  font-weight: 600;
+}
+
+/* Beat .text--subdued on cart property lists */
+.product-item-meta__property .brisa-cart-colour-property__value,
+.product-item-meta__property-list .brisa-cart-colour-property__value,
+.brisa-cart__component .brisa-cart-colour-property__value {
+  opacity: 1;
+}
+
+.brisa-cart__payment-methods {
+  margin-top: 16px;
+}
+
+.brisa-cart__empty {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.brisa-cart__empty-text {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+@media screen and (min-width: 750px) {
+  .brisa-cart__inner {
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+
+  .brisa-cart__urgency {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+  }
+}
+
+/* —— Cores volume cart line (drawer + main) —— */
+.brisa-cart-cores__title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-decoration: none;
+}
+
+.brisa-cart-cores__flavour {
+  display: block;
+  font-weight: 800;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.brisa-cart-cores__product {
+  display: block;
+  font-weight: 800;
+  line-height: 1.2;
+  color: inherit;
+}
+
+.brisa-cart-cores__pack-copy {
+  margin: 4px 0 0;
+  line-height: 1.35;
+}
+
+.brisa-cart__item-details.brisa-cart-cores__pack-copy {
+  margin: 0 0 12px;
+}
+
+.brisa-cart__item-details.brisa-cart-cores__pack-copy li {
+  padding-left: 0;
+}
+
+.brisa-cart__item-details.brisa-cart-cores__pack-copy li::before {
+  content: none;
+}
+
+.brisa-cart-cores__pricing .brisa-cart__price--current {
+  order: -1;
+}
+
+.line-item--brisa-cores .brisa-cart-cores__price.price--highlight {
+  color: inherit;
+}
+
+.brisa-cart-cores__discount-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #ffffff;
+  background: #23aee8;
+}
+
+.brisa-cart-cores__discount-badge--mid {
+  background: #23aee8;
+}
+
+.brisa-cart-cores__discount-badge--top {
+  background: #e11d48;
+}
+
+.brisa-cart-cores__discount-badge.discount-badge {
+  background: #23aee8;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+
+.brisa-cart-cores__discount-badge--mid.discount-badge {
+  background: #23aee8;
+}
+
+.brisa-cart-cores__discount-badge--top.discount-badge {
+  background: #e11d48;
+}
+
+.brisa-cart-cores__discount-badge svg {
+  flex: 0 0 auto;
+}
+
+.brisa-cart__item-discount.brisa-cart-cores__discount-badge {
+  width: fit-content;
+}
+
+/* ============================================================
+   Brisa cart drawer (mini-cart matched to cart page)
+   ============================================================ */
+.mini-cart.brisa-cart-drawer {
+  color: #000000;
+  background: #ffffff;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__header {
+  padding-block: 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__title.brisa-cart__title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__content {
+  padding: 16px 16px 8px;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__content--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__empty {
+  padding: 24px 8px 40px;
+  width: 100%;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__progress {
+  margin-bottom: 8px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__items {
+  margin: 0;
+}
+
+/* Beat Impact .line-item { display: flow-root } */
+.mini-cart.brisa-cart-drawer .line-item.brisa-cart__item {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  padding: 16px 0;
+  border-top: 1px solid #e5e5e5;
+  align-items: stretch;
+  margin: 0;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__items > .brisa-cart__item:first-child,
+.mini-cart.brisa-cart-drawer .brisa-cart__items > .line-item.brisa-cart__item:first-child {
+  border-top: 0;
+  padding-top: 8px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__item-media {
+  width: 84px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__item-image {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__item-badge {
+  width: 46px;
+  height: 46px;
+  font-size: 7px;
+  padding: 5px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__recommendations {
+  display: block;
+  margin: 0;
+  padding: 16px 0 8px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__recommendations[hidden],
+.mini-cart.brisa-cart-drawer cart-drawer-recommendations[hidden] {
+  display: none;
+}
+
+/* Kill Impact's desktop side-panel recommendations (absolute 240px column) */
+.mini-cart.brisa-cart-drawer .mini-cart__recommendations {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  left: auto !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  text-align: start !important;
+}
+
+.mini-cart.brisa-cart-drawer .mini-cart__recommendations-inner {
+  margin: 0 !important;
+  margin-inline: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: block !important;
+}
+
+.mini-cart.brisa-cart-drawer .mini-cart__recommendations-inner .spinner {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__recommendation {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  text-align: start;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__footer {
+  padding: 0 12px 12px;
+  background: #ffffff;
+  border-top: 0;
+}
+
+.mini-cart.brisa-cart-drawer .drawer__footer.drawer__footer--bordered {
+  border-top: 0;
+  box-shadow: none;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__checkout-panel {
+  margin-top: 0;
+  padding: 16px 14px 14px;
+  border-radius: 14px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__checkout-button {
+  min-height: 52px;
+  font-size: 14px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__payment-methods {
+  margin-top: 12px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__payment-methods .payment-methods-list {
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mini-cart.brisa-cart-drawer .brisa-cart__payment-methods .payment-methods-list svg {
+  width: 36px;
+  height: auto;
+}
+
+/* Hide legacy Impact free-shipping bar if theme settings still inject it elsewhere */
+.mini-cart.brisa-cart-drawer .shipping-bar {
+  display: none;
+}
