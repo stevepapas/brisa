@@ -37,11 +37,11 @@
   <link
     rel="preload"
     as="image"
-    href="{{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }}"
+    href="{{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }}&quality=70"
     imagesrcset="
-      {{ 'brisa-home-hero.jpg' | asset_img_url: '400x' }} 400w,
-      {{ 'brisa-home-hero.jpg' | asset_img_url: '600x' }} 600w,
-      {{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }} 819w
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '400x' }}&quality=70 400w,
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '600x' }}&quality=70 600w,
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }}&quality=70 819w
     "
     imagesizes="100vw"
     fetchpriority="high"
