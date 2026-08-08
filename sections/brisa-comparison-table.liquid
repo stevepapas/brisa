@@ -39,10 +39,16 @@
         {% else %}
           <img
             class="brisa-comparison__heading-logo"
-            src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446"
+            src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=320"
+            srcset="
+              https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=160 160w,
+              https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=240 240w,
+              https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=320 320w
+            "
+            sizes="(max-width: 749px) 161px, 240px"
             alt="{{ section.settings.heading_brand | default: 'Brisa Better' | escape }}"
-            width="600"
-            height="270"
+            width="660"
+            height="299"
             loading="lazy"
           >
           <span class="brisa-comparison__vs">{{ section.settings.heading_vs | default: 'VS' | escape }}</span>
@@ -75,12 +81,19 @@
             -}}
           {% else %}
             <img
-              src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446"
+              src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=240"
+              srcset="
+                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=72 72w,
+                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=118 118w,
+                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=144 144w,
+                https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446&width=236 236w
+              "
+              sizes="(max-width: 749px) 72px, 118px"
               alt="{{ section.settings.brisa_heading | default: 'Brisa Better' | escape }}"
               class="brisa-comparison__logo"
               loading="lazy"
-              width="600"
-              height="270"
+              width="660"
+              height="299"
             >
           {% endif %}
         </div>

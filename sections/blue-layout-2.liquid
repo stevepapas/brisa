@@ -227,6 +227,14 @@
   assign hero_alt = section.settings.image.alt | default: section.settings.heading_line_1 | default: 'Brisa'
 -%}
 
+{% liquid
+  assign stat_icon_url = section.settings.stat_icon | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687'
+  assign stat_icon_query = '?'
+  if stat_icon_url contains '?'
+    assign stat_icon_query = '&'
+  endif
+%}
+
 <section class="blue-layout-2" {{ section.shopify_attributes }}>
   <div class="blue-layout-2__stat">
     {% if section.settings.number != blank %}
@@ -246,7 +254,7 @@
         <span>{{ section.settings.stat_footer | escape }}</span>
         <img
           class="blue-layout-2__stat-icon"
-          src="{{ section.settings.stat_icon | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687' }}"
+          src="{{ stat_icon_url }}{{ stat_icon_query }}width=96"
           alt=""
           width="28"
           height="28"
