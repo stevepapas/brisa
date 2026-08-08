@@ -3013,35 +3013,35 @@ display: none;
   min-width: 44px;
 }
 
-.template-index announcement-bar,
-.template-index .trust-bar,
-.template-index .blue-layout-2__stat,
-.template-index .device-questions {
+body.template-index announcement-bar,
+body.template-index .trust-bar,
+body.template-index .blue-layout-2__stat,
+body.template-index .device-questions {
   background-color: #006faf !important;
 }
 
-.template-index .product-slider__button,
-.template-index .habit-replacement__cta-button,
-.template-index .brisa-home-closing__button,
-.template-index .blue-layout-2__badge {
+body.template-index .product-slider__button,
+body.template-index .habit-replacement__cta-button,
+body.template-index .brisa-home-closing__button,
+body.template-index .blue-layout-2__badge {
   background-color: #006faf !important;
 }
 
-.template-index .brisa-comparison__cell--brisa {
+body.template-index .brisa-comparison__cell--brisa {
   background-color: #006faf !important;
 }
 
-.template-index .brisa-comparison__subheading,
-.template-index .brisa-comparison__footnote {
+body.template-index .brisa-comparison__subheading,
+body.template-index .brisa-comparison__footnote {
   color: #595959 !important;
 }
 
-.template-index .brisa-comparison__cost-pill,
-.template-index .habit-replacement__cta-card strong,
-.template-index .brisa-home-closing__rating {
+body.template-index .brisa-comparison__cost-pill,
+body.template-index .habit-replacement__cta-card strong,
+body.template-index .brisa-home-closing__rating {
   color: #006faf !important;
 }
 
-.template-index .brisa-home-closing__free-tag {
+body.template-index .brisa-home-closing__free-tag {
   color: #126b2c !important;
 }
