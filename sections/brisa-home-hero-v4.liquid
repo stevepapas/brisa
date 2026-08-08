@@ -781,7 +781,7 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--devices" href="{{ section.settings.button_1_link | default: '/products/brisa-starter-kit' }}">
           {% if section.settings.devices_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
-              {{ section.settings.devices_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700', sizes: '(max-width: 749px) 45vw, 220px' }}
+              {{ section.settings.devices_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '80,120,160,240,320,480', sizes: '(max-width: 749px) 80px, 230px' }}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
@@ -792,9 +792,10 @@
                   {{ devices_image_url }}{{ devices_image_query }}width=120 120w,
                   {{ devices_image_url }}{{ devices_image_query }}width=160 160w,
                   {{ devices_image_url }}{{ devices_image_query }}width=240 240w,
-                  {{ devices_image_url }}{{ devices_image_query }}width=320 320w
+                  {{ devices_image_url }}{{ devices_image_query }}width=320 320w,
+                  {{ devices_image_url }}{{ devices_image_query }}width=480 480w
                 "
-                sizes="(max-width: 749px) 80px, 110px"
+                sizes="(max-width: 749px) 80px, 230px"
                 alt=""
                 width="695"
                 height="860"
@@ -810,7 +811,7 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--cores" href="{{ section.settings.button_2_link | default: '/products/brisa-cores' }}">
           {% if section.settings.cores_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
-              {{ section.settings.cores_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700', sizes: '(max-width: 749px) 45vw, 220px' }}
+              {{ section.settings.cores_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '80,120,160,240,320,480', sizes: '(max-width: 749px) 110px, 161px' }}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
@@ -821,9 +822,10 @@
                   {{ cores_image_url }}{{ cores_image_query }}width=120 120w,
                   {{ cores_image_url }}{{ cores_image_query }}width=160 160w,
                   {{ cores_image_url }}{{ cores_image_query }}width=240 240w,
-                  {{ cores_image_url }}{{ cores_image_query }}width=320 320w
+                  {{ cores_image_url }}{{ cores_image_query }}width=320 320w,
+                  {{ cores_image_url }}{{ cores_image_query }}width=480 480w
                 "
-                sizes="(max-width: 749px) 110px, 160px"
+                sizes="(max-width: 749px) 110px, 161px"
                 alt=""
                 width="868"
                 height="539"
