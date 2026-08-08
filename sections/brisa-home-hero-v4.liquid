@@ -1,4 +1,3 @@
-{{ 'brisa-home-hero-fix.css' | asset_url | stylesheet_tag }}
 {% liquid
   assign accent = section.settings.accent_color | default: '#008bdc'
   assign button_bg = section.settings.button_background | default: '#35adff'
@@ -8,6 +7,36 @@
   endif
   assign text_in_image = section.settings.text_in_image
 %}
+
+{% if section.settings.image != blank %}
+  <link
+    rel="preload"
+    as="image"
+    href="{{ section.settings.image | image_url: width: 1200 }}"
+    imagesrcset="
+      {{ section.settings.image | image_url: width: 600 }} 600w,
+      {{ section.settings.image | image_url: width: 900 }} 900w,
+      {{ section.settings.image | image_url: width: 1200 }} 1200w,
+      {{ section.settings.image | image_url: width: 1600 }} 1600w,
+      {{ section.settings.image | image_url: width: 2000 }} 2000w
+    "
+    imagesizes="100vw"
+    fetchpriority="high"
+  >
+{% else %}
+  <link
+    rel="preload"
+    as="image"
+    href="{{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }}"
+    imagesrcset="
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '400x' }} 400w,
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '600x' }} 600w,
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }} 819w
+    "
+    imagesizes="100vw"
+    fetchpriority="high"
+  >
+{% endif %}
 
 <style>
   @font-face {

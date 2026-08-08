@@ -1,4 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=TeX+Gyre+Bonum:wght@400;700&display=swap');
+@font-face {
+  font-family: 'TeX Gyre Bonum';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('texgyrebonum-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'TeX Gyre Bonum';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('texgyrebonum-bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'TeX Gyre Bonum';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('texgyrebonum-italic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'TeX Gyre Bonum';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('texgyrebonum-bolditalic.woff') format('woff');
+}
 
 html {
   scroll-behavior: smooth;

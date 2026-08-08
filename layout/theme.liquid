@@ -55,11 +55,15 @@
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
 
-    {{ content_for_header }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
-    {{ 'brisa-home-hero-fix.css' | asset_url | stylesheet_tag }}
-    {{ 'brisa-kit-picker-panel.css' | asset_url | stylesheet_tag }}
+    {%- if request.page_type == 'index' -%}
+      {{ 'brisa-home-hero-fix.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'product' -%}
+      {{ 'brisa-kit-picker-panel.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {{ 'brisa-cta.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
   </head>
 
   {%- assign feature_classes = '' -%}
