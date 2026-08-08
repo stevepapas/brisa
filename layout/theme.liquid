@@ -36,7 +36,9 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
+    {%- unless request.page_type == 'index' -%}
+      <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
+    {%- endunless -%}
     <link rel="preload" as="script" href="{{ 'vendor.js' | asset_url }}">
     <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
 
@@ -53,7 +55,20 @@
     {% render 'css-variables', direction: direction %}
     {% render 'js-variables', direction: direction %}
 
-    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    {%- if request.page_type == 'index' -%}
+      <style data-brisa-home-critical>
+        {% render 'brisa-home-critical-css' %}
+      </style>
+      <link
+        rel="preload"
+        as="style"
+        href="{{ 'theme.css' | asset_url }}"
+        onload="this.onload=null;this.rel='stylesheet'"
+      >
+      <noscript><link rel="stylesheet" href="{{ 'theme.css' | asset_url }}"></noscript>
+    {%- else -%}
+      <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    {%- endif -%}
 
     <script src="{{ 'vendor.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
@@ -62,7 +77,17 @@
       <script src="{{ 'custom-product.js' | asset_url }}" defer></script>
     {%- endif -%}
 
-    {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {%- if request.page_type == 'index' -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'custom.css' | asset_url }}"
+        media="print"
+        onload="this.onload=null;this.media='all'"
+      >
+      <noscript>{{ 'custom.css' | asset_url | stylesheet_tag }}</noscript>
+    {%- else -%}
+      {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {%- if request.page_type == 'product' -%}
       {{ 'custom-product.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
@@ -72,13 +97,18 @@
     {%- if request.page_type == 'page' and template.suffix == 'learn' -%}
       {{ 'custom-learn.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
-    {%- if request.page_type == 'index' -%}
-      {{ 'brisa-home-hero-fix.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
     {%- if request.page_type == 'product' -%}
       {{ 'brisa-kit-picker-panel.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
-    {%- if request.page_type == 'index' or request.page_type == 'product' or template.suffix == 'learn' -%}
+    {%- if request.page_type == 'index' -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'brisa-cta.css' | asset_url }}"
+        media="print"
+        onload="this.onload=null;this.media='all'"
+      >
+      <noscript>{{ 'brisa-cta.css' | asset_url | stylesheet_tag }}</noscript>
+    {%- elsif request.page_type == 'product' or template.suffix == 'learn' -%}
       {{ 'brisa-cta.css' | asset_url | stylesheet_tag }}
     {%- endif -%}
     {{ content_for_header }}
