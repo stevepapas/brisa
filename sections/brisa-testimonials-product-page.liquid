@@ -157,13 +157,22 @@
           {{ block.shopify_attributes }}
         >
           {% if block.settings.thumbnail != blank %}
-            <img
-              src="{{ block.settings.thumbnail | image_url: width: 720 }}"
-              alt="{{ block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review' | escape }}"
-              loading="lazy"
-              width="{{ block.settings.thumbnail.width }}"
-              height="{{ block.settings.thumbnail.height }}"
-            >
+            {%- liquid
+              assign thumbnail_alt = block.settings.thumbnail.alt | default: block.settings.label | default: 'Customer video review'
+              assign thumbnail_width = block.settings.thumbnail.width | at_most: 720
+              assign thumbnail_desktop_size = section.settings.max_width | minus: 28 | divided_by: 3
+              assign thumbnail_sizes = '(max-width: 749px) calc((100vw - 52px) / 3), ' | append: thumbnail_desktop_size | append: 'px'
+            -%}
+            {{- block.settings.thumbnail
+              | image_url: width: thumbnail_width
+              | image_tag:
+                alt: thumbnail_alt,
+                loading: 'lazy',
+                sizes: thumbnail_sizes,
+                widths: '96,120,160,180,240,320,360,480,600,720',
+                width: block.settings.thumbnail.width,
+                height: block.settings.thumbnail.height
+            -}}
           {% else %}
             {% render 'brisa-media-placeholder', type: 'portrait', label: '' %}
           {% endif %}

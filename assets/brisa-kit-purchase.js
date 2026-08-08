@@ -132,15 +132,22 @@
       const img = role === 'mates' ? this.matesPreviewImg : this.yoursPreviewImg;
       const host = role === 'mates' ? this.matesPreview : this.yoursPreview;
       const src = String(swatch?.dataset?.image || '').trim();
+      const srcset = String(swatch?.dataset?.imageSrcset || '').trim();
       if (!img) return;
 
       if (!src) {
         img.removeAttribute('src');
+        img.removeAttribute('srcset');
         img.hidden = true;
         if (host) host.hidden = true;
         return;
       }
 
+      if (srcset) {
+        if (img.getAttribute('srcset') !== srcset) img.setAttribute('srcset', srcset);
+      } else {
+        img.removeAttribute('srcset');
+      }
       if (img.getAttribute('src') !== src) img.setAttribute('src', src);
       img.alt = swatch?.dataset?.label || img.alt || '';
       img.hidden = false;

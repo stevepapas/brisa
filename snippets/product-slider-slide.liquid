@@ -4,6 +4,11 @@
     assign slide_colour_param = slide_label | url_encode
     assign slide_href = slide_href | append: '&colour=' | append: slide_colour_param
   endif
+
+  assign desktop_image_size = section.settings.max_width | minus: 40 | times: section.settings.image_width | divided_by: 100
+  assign card_image_sizes = '(max-width: 749px) ' | append: section.settings.image_width | append: 'vw, ' | append: desktop_image_size | append: 'px'
+  assign sprout_mobile_size = section.settings.sprout_size | times: 0.72 | round
+  assign sprout_sizes = '(max-width: 749px) ' | append: sprout_mobile_size | append: 'px, ' | append: section.settings.sprout_size | append: 'px'
 %}
 
 <div
@@ -27,13 +32,16 @@
 
           {% if sprout_image != blank %}
             <div class="product-slider__sprout">
-              <img
-                src="{{ sprout_image | image_url: width: 160 }}"
-                alt=""
-                loading="lazy"
-                width="{{ sprout_image.width }}"
-                height="{{ sprout_image.height }}"
-              >
+              {{- sprout_image
+                | image_url: width: sprout_image.width
+                | image_tag:
+                  alt: '',
+                  loading: 'lazy',
+                  sizes: sprout_sizes,
+                  widths: '40,60,80,100,120,140,160,200,240,280',
+                  width: sprout_image.width,
+                  height: sprout_image.height
+              -}}
             </div>
           {% endif %}
         {% endfor %}
@@ -54,17 +62,35 @@
           else
             assign card_image = variant.metafields.custom.carousel_product_image.value | default: variant.metafields.custom.carousel_product_image | default: slider_product.metafields.custom.carousel_product_image.value | default: slider_product.metafields.custom.carousel_product_image | default: variant.image
         endcase
+
+        assign image_loading = 'lazy'
+        if eager_load
+          assign image_loading = 'eager'
+        endif
+
+        assign image_fetchpriority = 'auto'
+        if eager_load and section.index == 1
+          assign image_fetchpriority = 'high'
+        endif
+
+        if card_image != blank
+          assign card_image_width = card_image.width | at_most: 1600
+        endif
       %}
 
       {% if card_image != blank %}
-        <img
-          class="product-slider__image"
-          src="{{ card_image | image_url: width: 700 }}"
-          alt="{{ slide_label | escape }}"
-          loading="{% if eager_load %}eager{% else %}lazy{% endif %}"
-          width="{{ card_image.width }}"
-          height="{{ card_image.height }}"
-        >
+        {{- card_image
+          | image_url: width: card_image_width
+          | image_tag:
+            class: 'product-slider__image',
+            alt: slide_label,
+            loading: image_loading,
+            fetchpriority: image_fetchpriority,
+            sizes: card_image_sizes,
+            widths: '240,360,480,600,700,800,1000,1200,1400,1600',
+            width: card_image.width,
+            height: card_image.height
+        -}}
       {% endif %}
     </div>
   </a>

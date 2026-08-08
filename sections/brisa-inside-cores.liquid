@@ -272,26 +272,42 @@
         <div class="brisa-inside-cores__track" data-bic-track tabindex="0" role="list" aria-label="{{ section.settings.heading | default: 'Inside the Brisa core' | escape }}">
           {% for block in section.blocks %}
             {% liquid
-              assign card_image_url = blank
-              assign card_image_alt = block.settings.heading | default: section.settings.heading | escape
-              if block.settings.image != blank
-                assign card_image_url = block.settings.image | image_url: width: 1200
-              elsif block.settings.image_asset != blank
-                assign card_image_url = block.settings.image_asset | asset_url
+              assign card_image_alt = block.settings.heading | default: section.settings.heading
+              assign card_image_asset = block.settings.image_asset | strip
+              assign card_image_loading = 'lazy'
+              assign card_image_priority = blank
+              if forloop.first
+                assign card_image_loading = 'eager'
+                assign card_image_priority = 'high'
               endif
             %}
             <article class="brisa-inside-cores__card" role="listitem" {{ block.shopify_attributes }}>
               <div class="brisa-inside-cores__media">
-                {% if card_image_url != blank %}
-                  <img
-                    class="brisa-inside-cores__image"
-                    src="{{ card_image_url }}"
-                    alt="{{ card_image_alt }}"
-                    width="1200"
-                    height="683"
-                    loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-                    {% if forloop.first %}fetchpriority="high"{% endif %}
-                  >
+                {% if block.settings.image != blank %}
+                  {{- block.settings.image
+                    | image_url: width: 1200
+                    | image_tag:
+                      class: 'brisa-inside-cores__image',
+                      alt: card_image_alt,
+                      loading: card_image_loading,
+                      fetchpriority: card_image_priority,
+                      sizes: '(min-width: 750px) 610px, calc(100vw - 48px)',
+                      widths: '400,600,800,1000,1200',
+                      width: block.settings.image.width,
+                      height: block.settings.image.height
+                  -}}
+                {% elsif card_image_asset != blank %}
+                  {% render 'brisa-responsive-asset-img',
+                    filename: card_image_asset,
+                    widths: '400,600,800,1000,1200',
+                    sizes: '(min-width: 750px) 610px, calc(100vw - 48px)',
+                    alt: card_image_alt,
+                    class: 'brisa-inside-cores__image',
+                    loading: card_image_loading,
+                    fetchpriority: card_image_priority,
+                    width: 1200,
+                    height: 683
+                  %}
                 {% else %}
                   <span class="brisa-inside-cores__image-placeholder" aria-hidden="true"></span>
                 {% endif %}

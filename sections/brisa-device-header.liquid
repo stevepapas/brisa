@@ -321,14 +321,17 @@
           <div class="brisa-device-header__feature"{% if section.blocks.size > 0 %} {{ block.shopify_attributes }}{% endif %}>
             <div class="brisa-device-header__icon{% if feature_icon_file != blank or feature_icon_image != blank %} brisa-device-header__icon--has-image{% endif %}" aria-hidden="true">
               {% if feature_icon_image != blank %}
-                <img
-                  class="brisa-device-header__icon-image"
-                  src="{{ feature_icon_image | image_url: width: 120 }}"
-                  alt=""
-                  loading="lazy"
-                  width="120"
-                  height="120"
-                >
+                {{- feature_icon_image
+                  | image_url: width: 120
+                  | image_tag:
+                    class: 'brisa-device-header__icon-image',
+                    alt: '',
+                    loading: 'lazy',
+                    sizes: '28px',
+                    widths: '28,56,84,120',
+                    width: 120,
+                    height: 120
+                -}}
               {% elsif feature_icon_file != blank %}
                 <img
                   class="brisa-device-header__icon-image"

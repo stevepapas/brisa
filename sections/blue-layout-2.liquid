@@ -269,14 +269,16 @@
           alt: hero_alt
       }}
     {% else %}
-      <img
-        class="blue-layout-2__image"
-        src="{{ 'brisa-built-for-the-moment.jpg' | asset_url }}"
-        alt="{{ hero_alt | escape }}"
-        width="682"
-        height="1024"
-        loading="lazy"
-      >
+      {% render 'brisa-responsive-asset-img',
+        filename: 'brisa-built-for-the-moment.jpg',
+        widths: '400,600,682',
+        sizes: '100vw',
+        alt: hero_alt,
+        class: 'blue-layout-2__image',
+        loading: 'lazy',
+        width: 682,
+        height: 1024
+      %}
     {% endif %}
 
     <div class="blue-layout-2__overlay" aria-hidden="true"></div>

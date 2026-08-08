@@ -61,14 +61,18 @@
 
         <div class="brisa-comparison__cell brisa-comparison__cell--heading brisa-comparison__cell--brisa brisa-comparison__cell--brisa-heading" role="columnheader">
           {% if section.settings.brisa_logo != blank %}
-            <img
-              src="{{ section.settings.brisa_logo | image_url: width: 240 }}"
-              alt="{{ section.settings.brisa_heading | default: 'Brisa Better' | escape }}"
-              class="brisa-comparison__logo"
-              loading="lazy"
-              width="{{ section.settings.brisa_logo.width }}"
-              height="{{ section.settings.brisa_logo.height }}"
-            >
+            {%- assign brisa_logo_alt = section.settings.brisa_heading | default: 'Brisa Better' -%}
+            {{- section.settings.brisa_logo
+              | image_url: width: 240
+              | image_tag:
+                alt: brisa_logo_alt,
+                class: 'brisa-comparison__logo',
+                loading: 'lazy',
+                sizes: '(max-width: 749px) 72px, 118px',
+                widths: '72,118,144,236,240',
+                width: section.settings.brisa_logo.width,
+                height: section.settings.brisa_logo.height
+            -}}
           {% else %}
             <img
               src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/brisa-better.png?v=1772423446"
@@ -91,18 +95,33 @@
             if forloop.last
               assign is_last_row = true
             endif
-            assign row_icon = blank
-            if block.settings.icon != blank
-              assign row_icon = block.settings.icon | image_url: width: 96
-            elsif block.settings.icon_asset != blank
-              assign row_icon = block.settings.icon_asset | asset_url
-            endif
           %}
 
           <div class="brisa-comparison__cell brisa-comparison__cell--label" role="rowheader" {{ block.shopify_attributes }}>
-            {% if row_icon != blank %}
+            {% if block.settings.icon != blank %}
               <span class="brisa-comparison__row-icon" aria-hidden="true">
-                <img src="{{ row_icon }}" alt="" loading="lazy" width="40" height="40">
+                {{- block.settings.icon
+                  | image_url: width: 96
+                  | image_tag:
+                    alt: '',
+                    loading: 'lazy',
+                    sizes: '(max-width: 419px) 12px, (max-width: 749px) 14px, 28px',
+                    widths: '12,14,24,28,40,56,80,96',
+                    width: 40,
+                    height: 40
+                -}}
+              </span>
+            {% elsif block.settings.icon_asset != blank %}
+              <span class="brisa-comparison__row-icon" aria-hidden="true">
+                {% render 'brisa-responsive-asset-img',
+                  filename: block.settings.icon_asset,
+                  widths: '20,28,40,56,80,96',
+                  sizes: '(max-width: 419px) 12px, (max-width: 749px) 14px, 28px',
+                  alt: '',
+                  loading: 'lazy',
+                  width: 40,
+                  height: 40
+                %}
               </span>
             {% endif %}
             <span class="brisa-comparison__row-label">{{ block.settings.label | escape }}</span>

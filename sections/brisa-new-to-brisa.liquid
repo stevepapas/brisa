@@ -208,13 +208,15 @@
             alt: kit_alt
         }}
       {% else %}
-        <img
-          src="{{ kit_asset | asset_url }}"
-          alt="Brisa Starter Kit"
-          width="676"
-          height="819"
-          loading="lazy"
-        >
+        {% render 'brisa-responsive-asset-img',
+          filename: kit_asset,
+          widths: '280,420,560,676',
+          sizes: '(max-width: 749px) 80vw, 360px',
+          alt: 'Brisa Starter Kit',
+          loading: 'lazy',
+          width: 676,
+          height: 819
+        %}
       {% endif %}
     </div>
   </div>

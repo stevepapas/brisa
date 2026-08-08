@@ -645,15 +645,17 @@
             alt: ''
         }}
       {% else %}
-        <img
-          class="brisa-home-hero__image"
-          src="{{ 'brisa-home-hero.jpg' | asset_url }}"
-          alt=""
-          width="819"
-          height="1024"
-          loading="eager"
-          fetchpriority="high"
-        >
+        {% render 'brisa-responsive-asset-img',
+          filename: 'brisa-home-hero.jpg',
+          widths: '400,600,819',
+          sizes: '100vw',
+          alt: '',
+          class: 'brisa-home-hero__image',
+          loading: 'eager',
+          fetchpriority: 'high',
+          width: 819,
+          height: 1024
+        %}
       {% endif %}
     </div>
     <div class="brisa-home-hero__veil"></div>
@@ -740,7 +742,7 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--devices" href="{{ section.settings.button_1_link | default: '/products/brisa-starter-kit' }}">
           {% if section.settings.devices_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
-              {{ section.settings.devices_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700' }}
+              {{ section.settings.devices_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700', sizes: '(max-width: 749px) 45vw, 220px' }}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
@@ -761,7 +763,7 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--cores" href="{{ section.settings.button_2_link | default: '/products/brisa-cores' }}">
           {% if section.settings.cores_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
-              {{ section.settings.cores_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700' }}
+              {{ section.settings.cores_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700', sizes: '(max-width: 749px) 45vw, 220px' }}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">

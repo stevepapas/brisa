@@ -1,0 +1,52 @@
+{%- comment -%}
+  Render a responsive theme asset image.
+
+  Required:
+    filename: Theme asset filename.
+    widths: Comma-separated numeric widths.
+
+  Optional:
+    sizes, alt, class, loading, fetchpriority, width, height, draggable, decoding.
+{%- endcomment -%}
+{%- liquid
+  assign asset_filename = filename | default: '' | strip
+  assign responsive_widths = widths | default: '' | split: ','
+  assign largest_width = ''
+
+  for candidate in responsive_widths
+    assign candidate_width = candidate | strip
+    if candidate_width != blank
+      assign largest_width = candidate_width
+    endif
+  endfor
+
+  if largest_width == blank and width != blank
+    assign largest_width = width
+  endif
+
+  assign source_size = largest_width | append: 'x'
+-%}
+{%- if asset_filename != blank and largest_width != blank -%}
+  {%- capture responsive_srcset -%}
+    {%- for candidate in responsive_widths -%}
+      {%- assign candidate_width = candidate | strip -%}
+      {%- if candidate_width != blank -%}
+        {%- assign named_size = candidate_width | append: 'x' -%}
+        {{- asset_filename | asset_img_url: named_size -}} {{ candidate_width }}w{%- unless forloop.last -%}, {% endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  <img
+    src="{{ asset_filename | asset_img_url: source_size | escape }}"
+    srcset="{{ responsive_srcset | strip | escape }}"
+    alt="{{ alt | default: '' | escape }}"
+    {%- if class != blank %} class="{{ class | escape }}"{% endif %}
+    {%- if sizes != blank %} sizes="{{ sizes | escape }}"{% endif %}
+    {%- if loading != blank %} loading="{{ loading | escape }}"{% endif %}
+    {%- if fetchpriority != blank %} fetchpriority="{{ fetchpriority | escape }}"{% endif %}
+    width="{{ width | default: largest_width }}"
+    height="{{ height | default: largest_width }}"
+    {%- if draggable != blank %} draggable="{{ draggable | escape }}"{% endif %}
+    {%- if decoding != blank %} decoding="{{ decoding | escape }}"{% endif %}
+  >
+{%- endif -%}

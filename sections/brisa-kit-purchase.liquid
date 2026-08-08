@@ -398,15 +398,17 @@
             {% if kit_image != blank %}
               {{ kit_image | image_url: width: 280 | image_tag: class: 'bkp__kit-thumb', loading: 'lazy', widths: '112,160,224,280', alt: kit_title }}
             {% elsif kit_image_asset != blank %}
-              <img
-                class="bkp__kit-thumb"
-                src="{{ kit_image_asset | asset_url }}"
-                alt="{{ kit_title | escape }}"
-                width="140"
-                height="140"
-                loading="lazy"
-                decoding="async"
-              >
+              {% render 'brisa-responsive-asset-img',
+                filename: kit_image_asset,
+                widths: '112,160,224,280',
+                sizes: '(max-width: 749px) 56px, 136px',
+                alt: kit_title,
+                class: 'bkp__kit-thumb',
+                loading: 'lazy',
+                width: 140,
+                height: 140,
+                decoding: 'async'
+              %}
             {% endif %}
             <span class="bkp__kit-radio" aria-hidden="true"></span>
             <div class="bkp__kit-pricing">
@@ -438,14 +440,16 @@
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 160 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
             {% elsif block.settings.image_asset != blank %}
-              <img
-                class="bkp__gift-media"
-                src="{{ block.settings.image_asset | asset_url }}"
-                alt="{{ block.settings.title | escape }}"
-                width="160"
-                height="160"
-                loading="lazy"
-              >
+              {% render 'brisa-responsive-asset-img',
+                filename: block.settings.image_asset,
+                widths: '64,96,128,160',
+                sizes: '64px',
+                alt: block.settings.title,
+                class: 'bkp__gift-media',
+                loading: 'lazy',
+                width: 160,
+                height: 160
+              %}
             {% else %}
               <span class="bkp__gift-media" aria-hidden="true"></span>
             {% endif %}
@@ -540,15 +544,17 @@
           {% if addon_image != blank %}
             {{ addon_image | image_url: width: 280 | image_tag: class: 'bkp__addon-media', loading: 'lazy', widths: '120,180,240,280', alt: section.settings.addon_title }}
           {% elsif addon_image_asset != blank %}
-            <img
-              class="bkp__addon-media"
-              src="{{ addon_image_asset | asset_url }}"
-              alt="{{ section.settings.addon_title | escape }}"
-              width="140"
-              height="140"
-              loading="lazy"
-              decoding="async"
-            >
+            {% render 'brisa-responsive-asset-img',
+              filename: addon_image_asset,
+              widths: '120,180,240,280',
+              sizes: '(min-width: 750px) 110px, 68px',
+              alt: section.settings.addon_title,
+              class: 'bkp__addon-media',
+              loading: 'lazy',
+              width: 140,
+              height: 140,
+              decoding: 'async'
+            %}
           {% endif %}
         </div>
 
@@ -561,15 +567,17 @@
             {% if addon_bonus_image != blank %}
               {{ addon_bonus_image | image_url: width: 96 | image_tag: class: 'bkp__addon-bonus-media', loading: 'lazy', widths: '48,72,96', alt: '' }}
             {% elsif addon_bonus_image_asset != blank %}
-              <img
-                class="bkp__addon-bonus-media"
-                src="{{ addon_bonus_image_asset | asset_url }}"
-                alt=""
-                width="48"
-                height="48"
-                loading="lazy"
-                decoding="async"
-              >
+              {% render 'brisa-responsive-asset-img',
+                filename: addon_bonus_image_asset,
+                widths: '48,72,96',
+                sizes: '(min-width: 750px) 40px, 32px',
+                alt: '',
+                class: 'bkp__addon-bonus-media',
+                loading: 'lazy',
+                width: 48,
+                height: 48,
+                decoding: 'async'
+              %}
             {% endif %}
           </div>
         {% endif %}
@@ -645,14 +653,27 @@
                   assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
                 endif
                 assign colour_preview_url = ''
+                assign colour_preview_url_400 = ''
+                assign colour_preview_url_800 = ''
+                assign colour_preview_srcset = ''
                 if colour_preview != blank
                   assign colour_preview_url = colour_preview | image_url: width: 1200
+                  assign colour_preview_url_400 = colour_preview | image_url: width: 400
+                  assign colour_preview_url_800 = colour_preview | image_url: width: 800
                 elsif block.settings.image_asset != blank
-                  assign colour_preview_url = block.settings.image_asset | asset_url
+                  assign colour_preview_asset = block.settings.image_asset | strip | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_url = colour_preview_asset | asset_img_url: '1200x'
+                  assign colour_preview_url_400 = colour_preview_asset | asset_img_url: '400x'
+                  assign colour_preview_url_800 = colour_preview_asset | asset_img_url: '800x'
                 endif
                 # Prefer landscape device cutouts beside swatches (black/cyan/rose-tran-horiz.png).
-                if colour_preview_url != blank
+                if colour_preview != blank and colour_preview_url != blank
                   assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_url_400 = colour_preview_url_400 | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_url_800 = colour_preview_url_800 | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                endif
+                if colour_preview_url != blank
+                  assign colour_preview_srcset = colour_preview_url_400 | append: ' 400w, ' | append: colour_preview_url_800 | append: ' 800w, ' | append: colour_preview_url | append: ' 1200w'
                 endif
                 assign swatch_style = block.settings.hex | default: '#cccccc'
                 assign is_first = forloop.first
@@ -672,6 +693,7 @@
                   data-variant-id="{{ colour_variant_id }}"
                   data-kit-variant-id="{{ kit_colour_variant_id }}"
                   data-image="{{ colour_preview_url | escape }}"
+                  data-image-srcset="{{ colour_preview_srcset | escape }}"
                   data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
                   {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
                   aria-label="{{ block.settings.label | escape }}"
@@ -683,13 +705,26 @@
           </div>
           {%- liquid
             assign yours_preview_src = ''
+            assign yours_preview_src_400 = ''
+            assign yours_preview_src_800 = ''
+            assign yours_preview_srcset = ''
             if default_colour_preview != blank
               assign yours_preview_src = default_colour_preview | image_url: width: 1200
+              assign yours_preview_src_400 = default_colour_preview | image_url: width: 400
+              assign yours_preview_src_800 = default_colour_preview | image_url: width: 800
             elsif colour_blocks.size > 0 and colour_blocks.first.settings.image_asset != blank
-              assign yours_preview_src = colour_blocks.first.settings.image_asset | asset_url
+              assign yours_preview_asset = colour_blocks.first.settings.image_asset | strip | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+              assign yours_preview_src = yours_preview_asset | asset_img_url: '1200x'
+              assign yours_preview_src_400 = yours_preview_asset | asset_img_url: '400x'
+              assign yours_preview_src_800 = yours_preview_asset | asset_img_url: '800x'
+            endif
+            if default_colour_preview != blank and yours_preview_src != blank
+              assign yours_preview_src = yours_preview_src | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+              assign yours_preview_src_400 = yours_preview_src_400 | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+              assign yours_preview_src_800 = yours_preview_src_800 | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
             endif
             if yours_preview_src != blank
-              assign yours_preview_src = yours_preview_src | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+              assign yours_preview_srcset = yours_preview_src_400 | append: ' 400w, ' | append: yours_preview_src_800 | append: ' 800w, ' | append: yours_preview_src | append: ' 1200w'
             endif
           -%}
           <div class="bkp__colour-preview" data-bkp-colour-preview="yours"{% if yours_preview_src == blank %} hidden{% endif %}>
@@ -697,6 +732,8 @@
               class="bkp__colour-preview-img"
               data-bkp-colour-preview-img="yours"
               src="{{ yours_preview_src | escape }}"
+              srcset="{{ yours_preview_srcset | escape }}"
+              sizes="(min-width: 750px) 300px, 45vw"
               alt="{{ default_colour_preview_alt | escape }}"
               loading="eager"
               decoding="async"
@@ -746,13 +783,26 @@
                   assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
                 endif
                 assign colour_preview_url = ''
+                assign colour_preview_url_400 = ''
+                assign colour_preview_url_800 = ''
+                assign colour_preview_srcset = ''
                 if colour_preview != blank
                   assign colour_preview_url = colour_preview | image_url: width: 1200
+                  assign colour_preview_url_400 = colour_preview | image_url: width: 400
+                  assign colour_preview_url_800 = colour_preview | image_url: width: 800
                 elsif block.settings.image_asset != blank
-                  assign colour_preview_url = block.settings.image_asset | asset_url
+                  assign colour_preview_asset = block.settings.image_asset | strip | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_url = colour_preview_asset | asset_img_url: '1200x'
+                  assign colour_preview_url_400 = colour_preview_asset | asset_img_url: '400x'
+                  assign colour_preview_url_800 = colour_preview_asset | asset_img_url: '800x'
+                endif
+                if colour_preview != blank and colour_preview_url != blank
+                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_url_400 = colour_preview_url_400 | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_url_800 = colour_preview_url_800 | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
                 endif
                 if colour_preview_url != blank
-                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+                  assign colour_preview_srcset = colour_preview_url_400 | append: ' 400w, ' | append: colour_preview_url_800 | append: ' 800w, ' | append: colour_preview_url | append: ' 1200w'
                 endif
                 assign swatch_style = block.settings.hex | default: '#cccccc'
                 assign is_first = forloop.first
@@ -772,6 +822,7 @@
                   data-variant-id="{{ colour_variant_id }}"
                   data-kit-variant-id="{{ kit_colour_variant_id }}"
                   data-image="{{ colour_preview_url | escape }}"
+                  data-image-srcset="{{ colour_preview_srcset | escape }}"
                   data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
                   {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
                   aria-label="{{ block.settings.label | escape }}"
@@ -785,6 +836,8 @@
               class="bkp__colour-preview-img"
               data-bkp-colour-preview-img="mates"
               src="{{ yours_preview_src | escape }}"
+              srcset="{{ yours_preview_srcset | escape }}"
+              sizes="(min-width: 750px) 300px, 45vw"
               alt="{{ default_colour_preview_alt | escape }}"
               loading="lazy"
               decoding="async"

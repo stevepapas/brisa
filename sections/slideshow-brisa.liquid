@@ -632,16 +632,17 @@
             {%- if image != blank -%}
               {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600,2000,2400,3000' -}}
             {%- elsif image_asset != blank -%}
-              <img
-                class="slideshow__image"
-                src="{{ image_asset | asset_url }}"
-                alt=""
-                loading="{{ loading_attribute_value }}"
-                draggable="false"
-                sizes="{{ slide_image_sizes }}"
-                width="1000"
-                height="1000"
-              >
+              {%- render 'brisa-responsive-asset-img',
+                filename: image_asset,
+                widths: '400,600,800,1000,1200',
+                sizes: slide_image_sizes,
+                alt: '',
+                class: 'slideshow__image',
+                loading: loading_attribute_value,
+                width: 1000,
+                height: 1000,
+                draggable: 'false'
+              -%}
             {%- else -%}
               {% capture image_name %}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
               {{- image_name | placeholder_svg_tag: 'slideshow__image slideshow__image--placeholder' -}}
@@ -801,14 +802,22 @@
                 loading="{% if dot_index < 4 %}eager{% else %}lazy{% endif %}"
               >
             {%- elsif thumb_asset != blank -%}
-              <img
-                class="slideshow-brisa__thumb-image"
-                src="{{ thumb_asset | asset_url }}"
-                width="160"
-                height="160"
-                alt=""
-                loading="{% if dot_index < 4 %}eager{% else %}lazy{% endif %}"
-              >
+              {%- if dot_index < 4 -%}
+                {%- assign thumbnail_loading = 'eager' -%}
+              {%- else -%}
+                {%- assign thumbnail_loading = 'lazy' -%}
+              {%- endif -%}
+              {%- assign thumbnail_sizes = section.settings.thumbnail_size | append: 'px' -%}
+              {%- render 'brisa-responsive-asset-img',
+                filename: thumb_asset,
+                widths: '80,120,160',
+                sizes: thumbnail_sizes,
+                alt: '',
+                class: 'slideshow-brisa__thumb-image',
+                loading: thumbnail_loading,
+                width: 160,
+                height: 160
+              -%}
             {%- else -%}
               <span class="slideshow-brisa__thumb-placeholder" aria-hidden="true"></span>
             {%- endif -%}
