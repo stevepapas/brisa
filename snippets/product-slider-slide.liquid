@@ -27,19 +27,28 @@
           {% liquid
             assign sprout_key = 'sprout_image_' | append: i
             assign sprout_image = variant.metafields.custom[sprout_key].value | default: slider_product.metafields.custom[sprout_key].value
+            if sprout_image != blank
+              assign sprout_image_width = sprout_image.width | at_most: 280
+            endif
           %}
 
           {% if sprout_image != blank %}
             <div class="product-slider__sprout">
-              {{- sprout_image
-                | image_url: width: sprout_image.width
-                | image_tag:
-                  alt: '',
-                  loading: 'lazy',
-                  sizes: sprout_sizes,
-                  widths: '40,60,80,100,120,140,160,200,240,280',
-                  width: sprout_image.width,
-                  height: sprout_image.height
+              {%- capture sprout_image_markup -%}
+                {{- sprout_image
+                  | image_url: width: sprout_image_width
+                  | image_tag:
+                    alt: '',
+                    loading: 'lazy',
+                    sizes: sprout_sizes,
+                    widths: '40,60,80,100,120,140,160,200,240,280',
+                    width: sprout_image.width,
+                    height: sprout_image.height
+                -}}
+              {%- endcapture -%}
+              {{- sprout_image_markup
+                | replace: '&amp;width=', '&amp;quality=70&amp;width='
+                | replace: '?width=', '?quality=70&amp;width='
               -}}
             </div>
           {% endif %}
@@ -83,17 +92,23 @@
       %}
 
       {% if card_image != blank %}
-        {{- card_image
-          | image_url: width: card_image_width
-          | image_tag:
-            class: 'product-slider__image',
-            alt: slide_label,
-            loading: image_loading,
-            fetchpriority: image_fetchpriority,
-            sizes: card_image_sizes,
-            widths: '40,60,80,100,120,160,180,240,320,360,480,600,800,1000,1200,1600',
-            width: card_image.width,
-            height: card_image.height
+        {%- capture card_image_markup -%}
+          {{- card_image
+            | image_url: width: card_image_width
+            | image_tag:
+              class: 'product-slider__image',
+              alt: slide_label,
+              loading: image_loading,
+              fetchpriority: image_fetchpriority,
+              sizes: card_image_sizes,
+              widths: '40,60,80,100,120,160,180,240,320,360,480,600,800,1000,1200,1600',
+              width: card_image.width,
+              height: card_image.height
+          -}}
+        {%- endcapture -%}
+        {{- card_image_markup
+          | replace: '&amp;width=', '&amp;quality=70&amp;width='
+          | replace: '?width=', '?quality=70&amp;width='
         -}}
       {% endif %}
     </div>

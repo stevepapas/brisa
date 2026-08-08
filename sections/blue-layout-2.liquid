@@ -238,7 +238,7 @@
 <section class="blue-layout-2" {{ section.shopify_attributes }}>
   <div class="blue-layout-2__stat">
     {% if section.settings.number != blank %}
-      <h2 class="blue-layout-2__number">{{ section.settings.number | escape }}</h2>
+      <p class="blue-layout-2__number">{{ section.settings.number | escape }}</p>
     {% endif %}
 
     {% if section.settings.stat_copy != blank %}
@@ -254,7 +254,7 @@
         <span>{{ section.settings.stat_footer | escape }}</span>
         <img
           class="blue-layout-2__stat-icon"
-          src="{{ stat_icon_url }}{{ stat_icon_query }}width=96"
+          src="{{ stat_icon_url }}{{ stat_icon_query }}quality=70&width=56"
           alt=""
           width="28"
           height="28"
@@ -297,7 +297,7 @@
       {% endif %}
 
       {% if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank or section.settings.heading_line_3 != blank %}
-        <h3 class="blue-layout-2__heading">
+        <h2 class="blue-layout-2__heading">
           {% if section.settings.heading_line_1 != blank %}
             <span class="blue-layout-2__heading-line">{{ section.settings.heading_line_1 | escape }}</span>
           {% endif %}
@@ -307,7 +307,7 @@
           {% if section.settings.heading_line_3 != blank %}
             <span class="blue-layout-2__heading-line">{{ section.settings.heading_line_3 | escape }}</span>
           {% endif %}
-        </h3>
+        </h2>
       {% endif %}
 
       {% if section.settings.body != blank %}

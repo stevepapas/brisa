@@ -155,27 +155,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 0;
     margin-top: {{ section.settings.dots_spacing }}px;
     padding: 0 24px;
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dot {
     appearance: none;
-    width: 10px;
-    height: 10px;
+    position: relative;
+    width: 44px;
+    height: 44px;
     padding: 0;
-    border: 1.5px solid var(--bic-dot-inactive);
-    border-radius: 50%;
+    border: 0;
     background: transparent;
     cursor: pointer;
+  }
+
+  .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dot::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--bic-dot-inactive);
+    border-radius: 50%;
+    background: var(--bic-dot-active);
+    content: "";
+    transform: translate(-50%, -50%);
     transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   }
 
-  .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dot.is-active {
-    background: var(--bic-dot-active);
+  .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dot:not(.is-active)::before {
+    background: transparent;
+  }
+
+  .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dot.is-active::before {
     border-color: var(--bic-dot-active);
-    transform: scale(1.05);
+    transform: translate(-50%, -50%) scale(1.05);
   }
 
   .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__dot:focus-visible {
@@ -276,7 +292,7 @@
               assign card_image_asset = block.settings.image_asset | strip
               assign card_image_loading = 'lazy'
             %}
-            <article class="brisa-inside-cores__card" role="listitem" {{ block.shopify_attributes }}>
+            <div class="brisa-inside-cores__card" role="listitem" {{ block.shopify_attributes }}>
               <div class="brisa-inside-cores__media">
                 {% if block.settings.image != blank %}
                   {{- block.settings.image
@@ -313,12 +329,12 @@
               {% if block.settings.description != blank %}
                 <div class="brisa-inside-cores__card-text">{{ block.settings.description | escape | newline_to_br }}</div>
               {% endif %}
-            </article>
+            </div>
           {% endfor %}
         </div>
 
         {% if section.blocks.size > 1 %}
-          <div class="brisa-inside-cores__dots" data-bic-dots role="tablist" aria-label="Carousel pagination">
+          <div class="brisa-inside-cores__dots" data-bic-dots role="group" aria-label="Carousel pagination">
             {% for block in section.blocks %}
               <button
                 type="button"
@@ -735,7 +751,7 @@
           "type": "text",
           "id": "image_asset",
           "label": "Theme asset filename",
-          "info": "Fallback when no Theme Editor image is set, e.g. brisa-inside-core-1.png"
+          "info": "Fallback when no Theme Editor image is set, e.g. brisa-inside-core-1.webp"
         },
         {
           "type": "text",
@@ -760,7 +776,7 @@
         {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-1.png",
+            "image_asset": "brisa-inside-core-1.webp",
             "heading": "The flavours you actually chase 🍒",
             "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
@@ -768,7 +784,7 @@
         {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-2.png",
+            "image_asset": "brisa-inside-core-2.webp",
             "heading": "A formula we'll never share 🤫",
             "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
           }
@@ -776,7 +792,7 @@
         {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-3.png",
+            "image_asset": "brisa-inside-core-3.webp",
             "heading": "The hit isn't an accident",
             "description": "That satisfying hit and rush at the back of your throat is engineered. Our secret layering delivers the sensation you know, with zero nicotine, zero smoke, zero vapour. The closest thing to the real feeling."
           }
@@ -784,7 +800,7 @@
         {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-4.png",
+            "image_asset": "brisa-inside-core-4.webp",
             "heading": "Food-grade to the core 🍽️",
             "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
           }

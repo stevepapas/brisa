@@ -54,11 +54,13 @@
             {{- section.settings.liquid -}}
           {%- endcapture -%}
           {%- liquid
-            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/cyan-tran.png?v=1772367343', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/cyan-tran.png?v=1772367343&width=180'
-            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png?width=140'
-            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/bold-familiar-flavour.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/bold-familiar-flavour.png?width=140'
-            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/real-throat.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/real-throat.png?width=140'
-            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/hand-to-mouth.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/hand-to-mouth.png?width=140'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/cyan-tran.png?v=1772367343', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/cyan-tran.png?v=1772367343&quality=70&width=180'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/no-nicotine_0a7af6ed-56f4-4ca6-b69c-8aaa0c76d8ac.png?quality=70&width=112'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/bold-familiar-flavour.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/bold-familiar-flavour.png?quality=70&width=112'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/real-throat.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/real-throat.png?quality=70&width=112'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/hand-to-mouth.png', 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/hand-to-mouth.png?quality=70&width=112'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: '<h3 class="heading h2 what-is-brisa__heading">', '<h2 class="heading h2 what-is-brisa__heading">'
+            assign optimized_custom_liquid = optimized_custom_liquid | replace: 'WHAT IS BRISA?</h3>', 'WHAT IS BRISA?</h2>'
           -%}
           <div class="liquid">
             {{- optimized_custom_liquid -}}

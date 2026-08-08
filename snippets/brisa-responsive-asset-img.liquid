@@ -6,11 +6,12 @@
     widths: Comma-separated numeric widths.
 
   Optional:
-    sizes, alt, class, loading, fetchpriority, width, height, draggable, decoding.
+    sizes, alt, class, loading, fetchpriority, width, height, draggable, decoding, quality.
 {%- endcomment -%}
 {%- liquid
   assign asset_filename = filename | default: '' | strip
   assign responsive_widths = widths | default: '' | split: ','
+  assign image_quality = quality | default: 70
   assign largest_width = ''
 
   for candidate in responsive_widths
@@ -25,6 +26,8 @@
   endif
 
   assign source_size = largest_width | append: 'x'
+  assign source_url = asset_filename | asset_img_url: source_size
+  assign source_url = source_url | append: '&quality=' | append: image_quality
 -%}
 {%- if asset_filename != blank and largest_width != blank -%}
   {%- capture responsive_srcset -%}
@@ -32,12 +35,13 @@
       {%- assign candidate_width = candidate | strip -%}
       {%- if candidate_width != blank -%}
         {%- assign named_size = candidate_width | append: 'x' -%}
-        {{- asset_filename | asset_img_url: named_size }} {{ candidate_width }}w{%- unless forloop.last -%}, {% endunless -%}
+        {%- assign candidate_url = asset_filename | asset_img_url: named_size -%}
+        {{- candidate_url }}&quality={{ image_quality }} {{ candidate_width }}w{%- unless forloop.last -%}, {% endunless -%}
       {%- endif -%}
     {%- endfor -%}
   {%- endcapture -%}
   <img
-    src="{{ asset_filename | asset_img_url: source_size | escape }}"
+    src="{{ source_url | escape }}"
     srcset="{{ responsive_srcset | strip | escape }}"
     alt="{{ alt | default: '' | escape }}"
     {%- if class != blank %} class="{{ class | escape }}"{% endif %}
