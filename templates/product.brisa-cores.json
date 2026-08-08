@@ -668,7 +668,7 @@
         "card_flavours": {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-1.webp",
+            "image_asset": "brisa-inside-core-1.png",
             "heading": "The flavours you actually chase 🍒",
             "description": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know."
           }
@@ -676,7 +676,7 @@
         "card_formula": {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-2.webp",
+            "image_asset": "brisa-inside-core-2.png",
             "heading": "A formula we'll never share 🤫",
             "description": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience: a rush of flavour and aroma, a real throat sensation, and longevity in every core."
           }
@@ -684,7 +684,7 @@
         "card_hit": {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-3.webp",
+            "image_asset": "brisa-inside-core-3.png",
             "heading": "The hit isn't an accident",
             "description": "That satisfying hit and rush at the back of your throat is engineered. Our secret layering delivers the sensation you know, with zero nicotine, zero smoke, zero vapour. The closest thing to the real feeling."
           }
@@ -692,7 +692,7 @@
         "card_food_grade": {
           "type": "card",
           "settings": {
-            "image_asset": "brisa-inside-core-4.webp",
+            "image_asset": "brisa-inside-core-4.png",
             "heading": "Food-grade to the core 🍽️",
             "description": "Food-grade aroma compounds inside a food-grade core. No nicotine, no smoke, no vapour, no combustion — just pure, clean sensory intensity, every draw."
           }
