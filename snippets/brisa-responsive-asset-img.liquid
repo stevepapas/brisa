@@ -32,7 +32,7 @@
       {%- assign candidate_width = candidate | strip -%}
       {%- if candidate_width != blank -%}
         {%- assign named_size = candidate_width | append: 'x' -%}
-        {{- asset_filename | asset_img_url: named_size -}} {{ candidate_width }}w{%- unless forloop.last -%}, {% endunless -%}
+        {{- asset_filename | asset_img_url: named_size }} {{ candidate_width }}w{%- unless forloop.last -%}, {% endunless -%}
       {%- endif -%}
     {%- endfor -%}
   {%- endcapture -%}
