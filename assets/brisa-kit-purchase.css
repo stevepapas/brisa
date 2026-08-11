@@ -190,8 +190,7 @@
 
 .bkp__kit:has(.bkp__kit-banner) {
   margin-top: 8px;
-  /* Clear absolute popular/sold-out pill above the title */
-  padding-top: 24px;
+  padding-top: 16px;
 }
 
 .bkp__kit.is-selected {
@@ -243,7 +242,7 @@
 .bkp__kit-subtitle {
   margin: 2px 0 0;
   font-size: 13px;
-  line-height: 1.3;
+  line-height: 1.1;
   color: var(--bkp-muted);
 }
 
@@ -289,19 +288,36 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0;
+  gap: 5px;
 }
 
 .bkp__kit-feature {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bkp-ink);
+}
+
+.bkp__kit-feature-icon {
+  display: inline-flex;
+  flex: 0 0 19px;
+  width: 19px;
+  height: 19px;
+  color: var(--bkp-blue);
+}
+
+.bkp__kit-feature-icon svg {
   display: block;
-  font-size: 12px;
-  line-height: 1.15;
-  color: #333;
+  width: 100%;
+  height: 100%;
 }
 
 .bkp__kit-feature--composition,
 .bkp__kit-features > .bkp__kit-feature:nth-child(3):not(.bkp__kit-feature--bonus) {
-  color: #6e6e6e;
+  color: var(--bkp-ink);
   font-weight: 700;
 }
 
@@ -324,6 +340,10 @@
 }
 
 .bkp__kit-radio {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 2;
   width: 22px;
   height: 22px;
   border: 2px solid #c5c5c5;
@@ -351,10 +371,58 @@
 
 .bkp__kit-thumb {
   width: auto;
-  height: 120px;
+  height: 144px;
   border-radius: 0;
   object-fit: contain;
   background: transparent;
+}
+
+.bkp__kit-colours {
+  display: none;
+  grid-column: 1 / -1;
+  width: 100%;
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 2px solid rgba(0, 139, 220, 0.5);
+}
+
+.bkp__kit.is-selected .bkp__kit-colours {
+  display: grid;
+  gap: 12px;
+}
+
+.bkp__kit-colours .bkp__colour-group + .bkp__colour-group {
+  margin-top: 0;
+}
+
+.bkp__kit-colours .bkp__colour-label {
+  margin-bottom: 7px;
+  font-size: 12px;
+}
+
+.bkp__kit-colours .bkp__colour-picker {
+  gap: 10px 14px;
+}
+
+.bkp__kit-colours .bkp__swatches {
+  gap: 10px 13px;
+}
+
+.bkp__kit-colours .bkp__swatch {
+  width: 33px;
+  height: 33px;
+}
+
+.bkp__kit-colours .bkp__swatch-name {
+  font-size: 11px;
+}
+
+.bkp__kit-colours .bkp__colour-preview {
+  min-height: 48px;
+}
+
+.bkp__kit-colours .bkp__colour-preview-img {
+  max-height: 56px;
 }
 
 .bkp__kit input[type='radio'] {
@@ -893,6 +961,48 @@
   filter: brightness(1.05);
 }
 
+.bkp__express {
+  margin-top: 12px;
+}
+
+.bkp__express-label {
+  margin: 0 0 8px;
+  color: var(--bkp-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bkp__express-form,
+.bkp__express .shopify-payment-button {
+  width: 100%;
+  margin: 0;
+}
+
+.bkp__express .shopify-payment-button__button {
+  min-height: 52px;
+  border-radius: 999px !important;
+  overflow: hidden;
+}
+
+.bkp__express .shopify-payment-button__more-options {
+  margin-top: 8px;
+}
+
+.bkp__express.is-unavailable .bkp__express-form {
+  display: none;
+}
+
+.bkp__express-message {
+  margin: 8px 0 0;
+  color: var(--bkp-muted);
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
+}
+
 .bkp__error {
   margin: 8px 0 0;
   font-size: 13px;
@@ -1084,19 +1194,19 @@
   }
 
   .bkp__kit {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
     padding: 8px 6px 8px 8px;
     gap: 2px 4px;
     align-items: start;
   }
 
   .bkp__kit:has(.bkp__kit-banner) {
-    padding-top: 18px;
+    padding-top: 10px;
   }
 
   .bkp__kit-main {
-    gap: 2px;
-    min-width: 0;
+    display: contents;
   }
 
   .bkp__kit-heading {
@@ -1106,50 +1216,66 @@
     gap: 0 6px;
     margin: 0;
     min-width: 0;
+    grid-column: 1;
+    grid-row: 1;
+    z-index: 1;
   }
 
   .bkp__kit-title {
     font-size: 14px;
-    line-height: 1.15;
+    line-height: 1.05;
   }
 
   .bkp__kit-subtitle {
     margin: 0;
     font-size: 10px;
-    line-height: 1.15;
+    line-height: 1.05;
   }
 
   .bkp__kit-features {
-    gap: 0;
+    grid-column: 1;
+    grid-row: 3;
+    gap: 4px;
+    z-index: 1;
   }
 
   .bkp__kit-feature {
-    font-size: 10px;
-    line-height: 1.12;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1;
   }
 
-  /* Thumb left, radio right on one row; pricing tight under that cluster */
+  .bkp__kit-feature-icon {
+    flex-basis: 17px;
+    width: 17px;
+    height: 17px;
+  }
+
+  /* The radio overlays the top-right, matching the Canva card. */
   .bkp__kit-side {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    gap: 2px 4px;
-    align-content: start;
-    justify-items: end;
-    min-width: 0;
+    display: contents;
   }
 
   .bkp__kit-thumb {
-    grid-column: 1;
-    grid-row: 1;
+    grid-column: 1 / -1;
+    grid-row: 1 / 4;
+    justify-self: end;
+    align-self: center;
     width: auto;
-    height: 56px;
+    height: 78px;
+    max-width: 50%;
+    max-height: 80%;
+    object-fit: contain;
+    margin-right: 24px;
+  }
+
+  .bkp__kit[data-kit-key='mates'] .bkp__kit-thumb {
+    height: 46.8px;
   }
 
   .bkp__kit-radio {
-    grid-column: 2;
-    grid-row: 1;
-    align-self: center;
+    top: 8px;
+    right: 8px;
     width: 18px;
     height: 18px;
     flex: 0 0 auto;
@@ -1161,12 +1287,12 @@
   }
 
   .bkp__kit-pricing {
-    grid-column: 1 / -1;
+    grid-column: 1;
     grid-row: 2;
-    justify-self: stretch;
+    justify-self: start;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: baseline;
     gap: 2px 3px;
     margin: 0;
@@ -1190,6 +1316,36 @@
     padding: 1px 4px;
     letter-spacing: 0.01em;
   }
+
+  .bkp__kit-colours {
+    margin-top: 4px;
+    padding-top: 9px;
+  }
+
+  .bkp__kit-colours .bkp__colour-picker {
+    align-items: center;
+  }
+
+  .bkp__kit-colours .bkp__swatch {
+    width: 29px;
+    height: 29px;
+  }
+
+  .bkp__kit-colours .bkp__swatch-wrap {
+    gap: 4px;
+  }
+
+  .bkp__kit-colours .bkp__swatch-name {
+    font-size: 9px;
+  }
+
+  .bkp__kit-colours .bkp__colour-preview {
+    min-height: 42px;
+  }
+
+  .bkp__kit-colours .bkp__colour-preview-img {
+    max-height: 48px;
+  }
 }
 
 @media (min-width: 750px) {
@@ -1199,6 +1355,7 @@
 
   .bkp__kit {
     padding: 16px 18px;
+    row-gap: 3px;
     /* heading | radio
        pricing | thumb
        features | (thumb continues) */
@@ -1219,7 +1376,7 @@
   .bkp__kit-pricing {
     grid-column: 1;
     grid-row: 2;
-    margin: 0 0 4px;
+    margin: 0;
   }
 
   .bkp__kit-features {
@@ -1228,18 +1385,34 @@
   }
 
   .bkp__kit-radio {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
+    top: 16px;
+    right: 18px;
   }
 
   .bkp__kit-thumb {
-    grid-column: 2;
-    grid-row: 2 / 4;
+    grid-column: 1 / -1;
+    grid-row: 1 / 4;
     justify-self: end;
-    align-self: start;
+    align-self: center;
     width: auto;
-    height: 136px;
+    height: 168px;
+    max-width: 50%;
+    max-height: 80%;
+    object-fit: contain;
+    margin-right: 38px;
     border-radius: 0;
+  }
+
+  .bkp__kit[data-kit-key='mates'] .bkp__kit-thumb {
+    height: 100.8px;
+  }
+
+  .bkp__kit-colours {
+    grid-row: 4;
+  }
+
+  .bkp__kit[data-devices='2'] .bkp__kit-colours {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
   }
 }

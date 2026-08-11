@@ -956,7 +956,7 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "1 x Brisa device - 1 time purchase ( completely reusable )",
+            "text": "1 reusable Brisa device",
             "bonus": false
           }
         },
@@ -964,7 +964,7 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "9 cores - Nearly a Months worth!",
+            "text": "9 cores - roughly a month worth",
             "bonus": false
           }
         },
@@ -972,8 +972,8 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "6 Cherry Pom - 3 Mint Ice",
-            "composition": true,
+            "text": "Free cores + cleaning kit & Bag",
+            "composition": false,
             "bonus": false
           }
         },
@@ -981,7 +981,7 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "Cleaning kit + carry bag",
+            "text": "",
             "bonus": false
           }
         },
@@ -989,15 +989,15 @@
           "type": "feature",
           "settings": {
             "kit": "try",
-            "text": "FREE 3 x Watermelon cores (worth $15)",
-            "bonus": true
+            "text": "",
+            "bonus": false
           }
         },
         "f_com_1": {
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "1 x Brisa device - 1 time purchase ( completely reusable )",
+            "text": "1 reusable Brisa device",
             "bonus": false
           }
         },
@@ -1005,7 +1005,7 @@
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "27 cores - Roughly 10 weeks worth!",
+            "text": "27 cores - about 10 weeks",
             "bonus": false
           }
         },
@@ -1013,8 +1013,8 @@
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "18 Cherry Pom - 9 Mint Ice",
-            "composition": true,
+            "text": "Free cores + cleaning kit & Bag",
+            "composition": false,
             "bonus": false
           }
         },
@@ -1022,7 +1022,7 @@
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "Cleaning kit + carry bag",
+            "text": "",
             "bonus": false
           }
         },
@@ -1030,15 +1030,15 @@
           "type": "feature",
           "settings": {
             "kit": "commitment",
-            "text": "FREE 3 x Watermelon cores (worth $15)",
-            "bonus": true
+            "text": "",
+            "bonus": false
           }
         },
         "f_mat_1": {
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "2 x Brisa device - 1 time purchase ( completely reusable )",
+            "text": "2 reusable Brisa device",
             "bonus": false
           }
         },
@@ -1046,7 +1046,7 @@
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "18 cores - about 1 month each",
+            "text": "18 cores - roughly a month each",
             "bonus": false
           }
         },
@@ -1054,8 +1054,8 @@
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "12 Cherry Pom - 6 Mint Ice",
-            "composition": true,
+            "text": "Free cores + cleaning kit’s & Bag",
+            "composition": false,
             "bonus": false
           }
         },
@@ -1063,7 +1063,7 @@
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "2 x Cleaning kit + carry bag",
+            "text": "",
             "bonus": false
           }
         },
@@ -1071,8 +1071,8 @@
           "type": "feature",
           "settings": {
             "kit": "mates",
-            "text": "FREE 3 x Watermelon cores (worth $15)",
-            "bonus": true
+            "text": "",
+            "bonus": false
           }
         },
         "acc_description": {
@@ -1158,7 +1158,7 @@
         "try_product": "brisa-starter-kit",
         "try_handle": "brisa-starter-kit",
         "try_title": "Starter Kit",
-        "try_subtitle": "Try Brisa First",
+        "try_subtitle": "",
         "try_price": "$130",
         "try_compare": "$145",
         "try_save": "SAVE $15",
@@ -1186,9 +1186,10 @@
         "mates_price_cents": 22000,
         "mates_image_asset": "brisa-kit-mates.jpg",
         "gifts_heading": "INCLUDED GIFTS (WORTH $37)",
-        "colour_label_yours": "Device Colour",
+        "colour_label_yours": "Select your colour",
         "colour_label_mates": "Mate's colour",
-        "show_addon": true,
+        "show_express_checkout": true,
+        "show_addon": false,
         "addon_product": "monthly-better-box",
         "addon_handle": "monthly-better-box",
         "addon_tab": "ADD ON",

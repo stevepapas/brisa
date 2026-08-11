@@ -368,9 +368,11 @@
             </div>
 
             <ul class="bkp__kit-features">
+              {% assign feature_position = 0 %}
               {% for block in section.blocks %}
                 {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
                   {% liquid
+                    assign feature_position = feature_position | plus: 1
                     assign feature_text = block.settings.text
                     assign feature_class = 'bkp__kit-feature'
                     if block.settings.composition
@@ -381,6 +383,25 @@
                     endif
                   %}
                   <li class="{{ feature_class }}" {{ block.shopify_attributes }}>
+                    <span class="bkp__kit-feature-icon" aria-hidden="true">
+                      {% case feature_position %}
+                        {% when 1 %}
+                          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                            <rect x="6.5" y="2.5" width="11" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                            <path d="M10 5h4M11 18.5h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                          </svg>
+                        {% when 2 %}
+                          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                            <path d="M20.5 3.5C12 4 6.5 8.1 6.5 14.1c0 2.1 1.2 3.8 3.2 4.4 4.8 1.4 9.5-3.7 10.8-15Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M3.5 21c2.8-5.5 6.6-9.5 12.2-12.5M7.8 14.5l4.7-.2M11.1 10.8l.3-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                          </svg>
+                        {% else %}
+                          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                            <path d="M3 9h18v12H3zM2 6h20v4H2zM12 6v15" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M12 6H8.7C6.4 6 5.2 4.8 5.2 3.5c0-1 1-1.7 2-1.5 2 .3 3.5 2.1 4.8 4ZM12 6h3.3c2.3 0 3.5-1.2 3.5-2.5 0-1-1-1.7-2-1.5-2 .3-3.5 2.1-4.8 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                          </svg>
+                      {% endcase %}
+                    </span>
                     {% if block.settings.bonus and feature_text contains '(worth' %}
                       {% assign worth_parts = feature_text | split: '(worth' %}
                       <span class="bkp__kit-feature-text">{{ worth_parts.first | strip | escape }}</span>
@@ -420,6 +441,25 @@
                 <span class="bkp__kit-save">{{ kit_save | escape }}</span>
               {% endif %}
             </div>
+          </div>
+
+          <div class="bkp__kit-colours" data-bkp-colours>
+            {% render 'brisa-kit-colour-picker',
+              colour_blocks: colour_blocks,
+              kit_product: kit_product,
+              try_product: try_product,
+              role: 'yours',
+              label: section.settings.colour_label_yours
+            %}
+            {% if kit_devices > 1 %}
+              {% render 'brisa-kit-colour-picker',
+                colour_blocks: colour_blocks,
+                kit_product: kit_product,
+                try_product: try_product,
+                role: 'mates',
+                label: section.settings.colour_label_mates
+              %}
+            {% endif %}
           </div>
         </label>
       {% endfor %}
@@ -580,224 +620,50 @@
       </div>
     {% endif %}
 
-    {%- liquid
-      # Resolve default colour preview from first colour block (Black / Blue↔Ocean / Rose).
-      assign default_colour_preview = blank
-      assign default_colour_preview_alt = ''
-      if colour_blocks.size > 0
-        assign default_colour_preview_alt = colour_blocks.first.settings.label
-        assign default_label_key = colour_blocks.first.settings.label | downcase | strip
-        if try_product != blank
-          for colour_variant in try_product.variants
-            assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-            if colour_name == default_label_key or default_label_key == 'ocean' and colour_name == 'blue' or default_label_key == 'blue' and colour_name == 'ocean'
-              assign default_colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-              break
-            endif
-          endfor
-        endif
-        if default_colour_preview == blank and colour_blocks.first.settings.image != blank
-          assign default_colour_preview = colour_blocks.first.settings.image
-        endif
-        if default_colour_preview == blank and colour_blocks.first.settings.device_product != blank
-          assign default_colour_preview = colour_blocks.first.settings.device_product.featured_media | default: colour_blocks.first.settings.device_product.featured_image
-        endif
-      endif
-    -%}
-    <div class="bkp__colours bkp__colours--dual" data-bkp-colours>
-      <div class="bkp__colour-group" data-role="yours">
-        <p class="bkp__colour-label">{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}</p>
-        <div class="bkp__colour-picker">
-          <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}">
-            {% for block in colour_blocks %}
-              {% liquid
-                assign colour_product = block.settings.device_product
-                assign colour_variant_id = ''
-                assign kit_colour_variant_id = ''
-                assign kit_colour_available = true
-                assign colour_label_key = block.settings.label | downcase | strip
-                assign colour_preview = blank
-                if colour_product != blank
-                  assign colour_variant_id = colour_product.selected_or_first_available_variant.id
-                endif
-                if try_product != blank
-                  for colour_variant in try_product.variants
-                    assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-                    if colour_name == colour_label_key
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'ocean' and colour_name == 'blue'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'blue' and colour_name == 'ocean'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    endif
-                  endfor
-                endif
-                if colour_preview == blank and block.settings.image != blank
-                  assign colour_preview = block.settings.image
-                endif
-                if colour_preview == blank and colour_product != blank
-                  assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
-                endif
-                assign colour_preview_url = ''
-                if colour_preview != blank
-                  assign colour_preview_url = colour_preview | image_url: width: 1200
-                elsif block.settings.image_asset != blank
-                  assign colour_preview_url = block.settings.image_asset | asset_url
-                endif
-                # Prefer landscape device cutouts beside swatches (black/cyan/rose-tran-horiz.png).
-                if colour_preview_url != blank
-                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
-                endif
-                assign swatch_style = block.settings.hex | default: '#cccccc'
-                assign is_first = forloop.first
-                assign swatch_sold_out = false
-                if kit_colour_variant_id != blank and kit_colour_available == false
-                  assign swatch_sold_out = true
-                endif
-              %}
-              <div class="bkp__swatch-wrap">
-                <button
-                  type="button"
-                  class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
-                  style="background-color: {{ swatch_style }};"
-                  data-bkp-swatch
-                  data-role="yours"
-                  data-label="{{ block.settings.label | escape }}"
-                  data-variant-id="{{ colour_variant_id }}"
-                  data-kit-variant-id="{{ kit_colour_variant_id }}"
-                  data-image="{{ colour_preview_url | escape }}"
-                  data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
-                  {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
-                  aria-label="{{ block.settings.label | escape }}"
-                  {{ block.shopify_attributes }}
-                ></button>
-                <span class="bkp__swatch-name">{{ block.settings.label | escape }}</span>
-              </div>
-            {% endfor %}
-          </div>
-          {%- liquid
-            assign yours_preview_src = ''
-            if default_colour_preview != blank
-              assign yours_preview_src = default_colour_preview | image_url: width: 1200
-            elsif colour_blocks.size > 0 and colour_blocks.first.settings.image_asset != blank
-              assign yours_preview_src = colour_blocks.first.settings.image_asset | asset_url
-            endif
-            if yours_preview_src != blank
-              assign yours_preview_src = yours_preview_src | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
-            endif
-          -%}
-          <div class="bkp__colour-preview" data-bkp-colour-preview="yours"{% if yours_preview_src == blank %} hidden{% endif %}>
-            <img
-              class="bkp__colour-preview-img"
-              data-bkp-colour-preview-img="yours"
-              src="{{ yours_preview_src | escape }}"
-              alt="{{ default_colour_preview_alt | escape }}"
-              loading="eager"
-              decoding="async"
-              {% if yours_preview_src == blank %}hidden{% endif %}
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="bkp__colour-group" data-role="mates">
-        <p class="bkp__colour-label">{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}</p>
-        <div class="bkp__colour-picker">
-          <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}">
-            {% for block in colour_blocks %}
-              {% liquid
-                assign colour_product = block.settings.device_product
-                assign colour_variant_id = ''
-                assign kit_colour_variant_id = ''
-                assign kit_colour_available = true
-                assign colour_label_key = block.settings.label | downcase | strip
-                assign colour_preview = blank
-                if colour_product != blank
-                  assign colour_variant_id = colour_product.selected_or_first_available_variant.id
-                endif
-                if try_product != blank
-                  for colour_variant in try_product.variants
-                    assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-                    if colour_name == colour_label_key
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'ocean' and colour_name == 'blue'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'blue' and colour_name == 'ocean'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    endif
-                  endfor
-                endif
-                if colour_preview == blank and block.settings.image != blank
-                  assign colour_preview = block.settings.image
-                endif
-                if colour_preview == blank and colour_product != blank
-                  assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
-                endif
-                assign colour_preview_url = ''
-                if colour_preview != blank
-                  assign colour_preview_url = colour_preview | image_url: width: 1200
-                elsif block.settings.image_asset != blank
-                  assign colour_preview_url = block.settings.image_asset | asset_url
-                endif
-                if colour_preview_url != blank
-                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
-                endif
-                assign swatch_style = block.settings.hex | default: '#cccccc'
-                assign is_first = forloop.first
-                assign swatch_sold_out = false
-                if kit_colour_variant_id != blank and kit_colour_available == false
-                  assign swatch_sold_out = true
-                endif
-              %}
-              <div class="bkp__swatch-wrap">
-                <button
-                  type="button"
-                  class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
-                  style="background-color: {{ swatch_style }};"
-                  data-bkp-swatch
-                  data-role="mates"
-                  data-label="{{ block.settings.label | escape }}"
-                  data-variant-id="{{ colour_variant_id }}"
-                  data-kit-variant-id="{{ kit_colour_variant_id }}"
-                  data-image="{{ colour_preview_url | escape }}"
-                  data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
-                  {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
-                  aria-label="{{ block.settings.label | escape }}"
-                ></button>
-                <span class="bkp__swatch-name">{{ block.settings.label | escape }}</span>
-              </div>
-            {% endfor %}
-          </div>
-          <div class="bkp__colour-preview" data-bkp-colour-preview="mates"{% if yours_preview_src == blank %} hidden{% endif %}>
-            <img
-              class="bkp__colour-preview-img"
-              data-bkp-colour-preview-img="mates"
-              src="{{ yours_preview_src | escape }}"
-              alt="{{ default_colour_preview_alt | escape }}"
-              loading="lazy"
-              decoding="async"
-              {% if yours_preview_src == blank %}hidden{% endif %}
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
     <button type="button" class="bkp__atc" data-bkp-atc id="bkp-main-atc">
       <span data-bkp-atc-label>ADD TO CART</span>
     </button>
+    {% if section.settings.show_express_checkout %}
+      <div class="bkp__express" data-bkp-express>
+        <p class="bkp__express-label">Express checkout</p>
+        {% assign express_defs = 'try,commitment,mates' | split: ',' %}
+        {% for express_key in express_defs %}
+          {% liquid
+            assign express_product = blank
+            case express_key
+              when 'try'
+                assign express_product = try_product
+              when 'commitment'
+                assign express_product = commitment_product
+              when 'mates'
+                assign express_product = mates_product
+            endcase
+          %}
+          {% if express_product != blank %}
+            {% liquid
+              assign express_variant = express_product.selected_or_first_available_variant
+              assign express_form_id = 'bkp-express-' | append: section.id | append: '-' | append: express_key
+            %}
+            <div
+              class="bkp__express-option"
+              data-bkp-express-option
+              data-kit-key="{{ express_key }}"
+              {% unless active_key == express_key %}hidden{% endunless %}
+            >
+              {% form 'product', express_product, id: express_form_id, class: 'bkp__express-form' %}
+                <input type="hidden" name="id" value="{{ express_variant.id }}" data-bkp-express-variant>
+                <input type="hidden" name="quantity" value="1">
+                <div data-bkp-express-properties></div>
+                {{ form | payment_button }}
+              {% endform %}
+            </div>
+          {% endif %}
+        {% endfor %}
+        <p class="bkp__express-message" data-bkp-express-message hidden>
+          Use Add to Cart when adding the Monthly Better Box.
+        </p>
+      </div>
+    {% endif %}
     <p class="bkp__error" data-bkp-error role="status" aria-live="polite"></p>
 
     <ul class="bkp__trust" data-bkp-trust-source>
@@ -1225,6 +1091,16 @@
       "id": "colour_label_mates",
       "label": "Mate colour label",
       "default": "Mate's colour"
+    },
+    {
+      "type": "header",
+      "content": "Checkout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_express_checkout",
+      "label": "Show express checkout buttons",
+      "default": true
     },
     {
       "type": "header",
