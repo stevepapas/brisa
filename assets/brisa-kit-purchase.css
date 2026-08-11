@@ -297,7 +297,7 @@
   gap: 7px;
   font-size: 14px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 0.95;
   color: var(--bkp-ink);
 }
 
@@ -1199,6 +1199,7 @@
     padding: 8px 6px 8px 8px;
     gap: 2px 4px;
     align-items: start;
+    min-height: 94px;
   }
 
   .bkp__kit:has(.bkp__kit-banner) {
@@ -1242,7 +1243,7 @@
   .bkp__kit-feature {
     gap: 6px;
     font-size: 12px;
-    line-height: 1;
+    line-height: 0.95;
   }
 
   .bkp__kit-feature-icon {
@@ -1257,20 +1258,25 @@
   }
 
   .bkp__kit-thumb {
-    grid-column: 1 / -1;
-    grid-row: 1 / 4;
-    justify-self: end;
-    align-self: center;
+    position: absolute;
+    top: 8px;
+    right: 24px;
     width: auto;
     height: 78px;
     max-width: 50%;
     max-height: 80%;
     object-fit: contain;
-    margin-right: 24px;
   }
 
   .bkp__kit[data-kit-key='mates'] .bkp__kit-thumb {
     height: 46.8px;
+    top: 8px;
+    transform: scaleX(1.3);
+    transform-origin: right center;
+  }
+
+  .bkp__kit[data-kit-key='commitment'] .bkp__kit-thumb {
+    right: 44px;
   }
 
   .bkp__kit-radio {
@@ -1356,6 +1362,7 @@
   .bkp__kit {
     padding: 16px 18px;
     row-gap: 3px;
+    min-height: 200px;
     /* heading | radio
        pricing | thumb
        features | (thumb continues) */
@@ -1390,25 +1397,39 @@
   }
 
   .bkp__kit-thumb {
-    grid-column: 1 / -1;
-    grid-row: 1 / 4;
-    justify-self: end;
-    align-self: center;
+    position: absolute;
+    top: 16px;
+    right: 38px;
     width: auto;
     height: 168px;
     max-width: 50%;
     max-height: 80%;
     object-fit: contain;
-    margin-right: 38px;
     border-radius: 0;
   }
 
   .bkp__kit[data-kit-key='mates'] .bkp__kit-thumb {
     height: 100.8px;
+    top: 16px;
+    transform: scaleX(1.3);
+    transform-origin: right center;
+  }
+
+  .bkp__kit[data-kit-key='try'] .bkp__kit-thumb {
+    height: 110px;
+  }
+
+  .bkp__kit[data-kit-key='commitment'] .bkp__kit-thumb {
+    right: 58px;
   }
 
   .bkp__kit-colours {
     grid-row: 4;
+    margin-top: 6px;
+  }
+
+  .bkp__kit[data-kit-key='commitment'] .bkp__kit-colours {
+    margin-top: 68px;
   }
 
   .bkp__kit[data-devices='2'] .bkp__kit-colours {
