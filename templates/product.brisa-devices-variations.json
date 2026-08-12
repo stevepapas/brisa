@@ -63,7 +63,10 @@
           "name": "device-3",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-3.png",
+            "image": "shopify://shop_images/slide3.jpg",
+            "video": "shopify://files/videos/slide3-video.mp4",
+            "video_aspect": "square",
+            "video_label": "Play Brisa device video",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",

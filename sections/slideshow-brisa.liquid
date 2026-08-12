@@ -274,6 +274,53 @@
     background: #d0d0d0;
   }
 
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play {
+    --play-button-background: 255, 255, 255;
+    --play-button-arrow: 0, 139, 220;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #008bdc;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.28));
+    cursor: pointer;
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play:hover {
+    transform: translate(-50%, -50%) scale(1.07);
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.34));
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play svg {
+    display: block;
+    width: 76px;
+    height: 76px;
+  }
+
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .slideshow-brisa__video-play,
+    #shopify-section-{{ section.id }} .slideshow-brisa__video-play svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
   #shopify-section-{{ section.id }} .slideshow-brisa__arrow {
     flex: 0 0 auto;
     display: inline-flex;
@@ -609,6 +656,18 @@
           assign image = block.settings.image
           assign image_asset = block.settings.image_asset | strip
           assign image_aspect_ratio = image.aspect_ratio | default: 1
+          assign video_src = blank
+          assign video_type = 'iframe'
+
+          if block.settings.video != blank
+            assign video_src = block.settings.video.sources.first.url
+            assign video_type = 'html5'
+          elsif block.settings.video_url != blank
+            assign video_src = block.settings.video_url
+          elsif block.settings.video_asset != blank
+            assign video_src = block.settings.video_asset | asset_url
+            assign video_type = 'html5'
+          endif
         -%}
 
         {%- if visible_index > 2 -%}
@@ -647,6 +706,19 @@
               {{- image_name | placeholder_svg_tag: 'slideshow__image slideshow__image--placeholder' -}}
             {%- endif -%}
           </div>
+
+          {%- if video_src != blank -%}
+            <button
+              type="button"
+              class="slideshow-brisa__video-play"
+              data-brisa-video-src="{{ video_src | escape }}"
+              data-brisa-video-type="{{ video_type }}"
+              data-brisa-video-aspect="{{ block.settings.video_aspect | default: 'landscape' }}"
+              aria-label="{{ block.settings.video_label | default: 'Play video' | escape }}"
+            >
+              {%- render 'icon' with 'play', width: 76, height: 76 -%}
+            </button>
+          {%- endif -%}
 
           {%- comment -%}
           ----------------------------------------------------------------------------------------------------------------
@@ -1104,6 +1176,44 @@
           "id": "thumbnail_image",
           "label": "Thumbnail image",
           "info": "Optional. Used in pagination. Falls back to slide image if empty."
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "External video URL",
+          "info": "Optional. Used when no Shopify-hosted video is selected."
+        },
+        {
+          "type": "text",
+          "id": "video_asset",
+          "label": "Theme video asset fallback",
+          "info": "Optional filename in theme assets. Used when the video settings above are empty."
+        },
+        {
+          "type": "select",
+          "id": "video_aspect",
+          "label": "Video shape",
+          "default": "landscape",
+          "options": [
+            { "value": "landscape", "label": "Landscape" },
+            { "value": "square", "label": "Square" },
+            { "value": "portrait", "label": "Portrait" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "video_label",
+          "label": "Play button label",
+          "default": "Play video"
         },
         {
           "type": "select",

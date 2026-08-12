@@ -416,6 +416,7 @@ document.addEventListener('click', (event) => {
   const content = lightbox.querySelector('.brisa-video-lightbox__content');
   const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
   content.classList.toggle('brisa-video-lightbox__content--portrait', videoAspect === 'portrait');
+  content.classList.toggle('brisa-video-lightbox__content--square', videoAspect === 'square');
   frame.innerHTML = '';
 
   if (videoType === 'html5') {
@@ -448,6 +449,7 @@ document.addEventListener('click', (event) => {
 
   frame.innerHTML = '';
   content.classList.remove('brisa-video-lightbox__content--portrait');
+  content.classList.remove('brisa-video-lightbox__content--square');
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });
@@ -462,6 +464,7 @@ document.addEventListener('keydown', (event) => {
   const frame = lightbox.querySelector('.brisa-video-lightbox__frame');
   frame.innerHTML = '';
   content.classList.remove('brisa-video-lightbox__content--portrait');
+  content.classList.remove('brisa-video-lightbox__content--square');
   lightbox.classList.remove('is-open');
   document.documentElement.style.overflow = '';
 });

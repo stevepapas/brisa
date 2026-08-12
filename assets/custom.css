@@ -2529,6 +2529,12 @@ display: none;
   height: auto;
 }
 
+.brisa-video-lightbox__content--square {
+  width: min(760px, 92vw, 88vh);
+  aspect-ratio: 1 / 1;
+  height: auto;
+}
+
 .brisa-video-lightbox__frame,
 .brisa-video-lightbox__content iframe,
 .brisa-video-lightbox__content video {
