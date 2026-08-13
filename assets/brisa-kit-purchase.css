@@ -1293,7 +1293,7 @@
   left: 50%;
   z-index: -1;
   width: 100vw;
-  background: linear-gradient(#fff, #f4f6f8);
+  background: #fff;
   transform: translateX(-50%);
 }
 
@@ -1317,7 +1317,9 @@
   padding: 17px 14px 12px;
   border-radius: 14px;
   background: #fff;
-  box-shadow: 0 7px 24px rgba(44, 67, 87, 0.12);
+  box-shadow:
+    0 0 18px rgba(44, 67, 87, 0.14),
+    0 0 34px rgba(44, 67, 87, 0.08);
   color: #111;
 }
 
