@@ -86,10 +86,10 @@
         },
         "image_drDPHj": {
           "type": "image",
-          "name": "device-4",
+          "name": "device-5",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-4.png",
+            "image_asset": "brisa-device-slide-5.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -130,10 +130,12 @@
             "overlay_opacity": 0
           }
         },
-        "image_device8": {
+        "image_device7": {
           "type": "image",
+          "name": "device-7",
           "settings": {
             "kit_set": "both",
+            "image_asset": "brisa-device-slide-7.png",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -148,10 +150,100 @@
             "button_text_color": "#000000",
             "show_image_overlay": false,
             "overlay_color": "#000000",
-            "overlay_opacity": 0,
-            "image_asset": "brisa-device-slide-8.png"
-          },
-          "name": "device-8"
+            "overlay_opacity": 0
+          }
+        },
+        "image_device8": {
+          "type": "image",
+          "name": "device-8",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-8.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_device9": {
+          "type": "image",
+          "name": "device-9",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-9.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_device10": {
+          "type": "image",
+          "name": "device-10",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-10.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_device11": {
+          "type": "image",
+          "name": "device-11",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-device-slide-11.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
         }
       },
       "block_order": [
@@ -160,7 +252,11 @@
         "image_fqhXJ3",
         "image_drDPHj",
         "image_device6",
-        "image_device8"
+        "image_device7",
+        "image_device8",
+        "image_device9",
+        "image_device10",
+        "image_device11"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
@@ -458,7 +554,7 @@
         "commitment_product": "the-commitment-kit",
         "commitment_handle": "the-commitment-kit",
         "commitment_title": "The Commitment Kit",
-        "commitment_subtitle": "Give it a real go - 2 months of ritual",
+        "commitment_subtitle": "",
         "commitment_price": "$165",
         "commitment_compare": "$205",
         "commitment_save": "SAVE $40",
@@ -469,7 +565,7 @@
         "mates_product": "brisa-mates-pack",
         "mates_handle": "brisa-mates-pack",
         "mates_title": "Mates pack",
-        "mates_subtitle": "For you and someone else",
+        "mates_subtitle": "",
         "mates_price": "$220",
         "mates_compare": "$260",
         "mates_save": "SAVE $40",
@@ -691,7 +787,7 @@
         "how_video": "shopify://files/videos/how to use, personal exp.mp4",
         "how_video_url": "",
         "how_video_label": "Play how it works video",
-        "show_results": true,
+        "show_results": false,
         "results_heading": "Real Results",
         "show_testimonials": false,
         "show_video_placeholders": false,
@@ -1174,8 +1270,9 @@
       ],
       "name": "Brisa product reviews",
       "settings": {
-        "heading": "Real results",
-        "subheading": "Video testimonials",
+        "heading": "What Real Customers Are Saying",
+        "subheading": "",
+        "canva_embed_url": "https://www.canva.com/design/DAHR87Gpjqo/nQ-BobtordnfbFq7VwX2Wg/view?embed",
         "disclaimer": "",
         "show_text_testimonials": false,
         "show_arrows": true,

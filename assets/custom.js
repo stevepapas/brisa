@@ -398,6 +398,35 @@ document.addEventListener('click', (event) => {
   const videoType = playButton.dataset.brisaVideoType || 'iframe';
   const videoAspect = playButton.dataset.brisaVideoAspect || 'landscape';
 
+  if (playButton.classList.contains('slideshow-brisa__video-play')) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const slide = playButton.closest('slide-show-item');
+    if (!slide || slide.querySelector('.slideshow-brisa__inline-video')) return;
+
+    let inlineVideo;
+    if (videoType === 'html5') {
+      inlineVideo = document.createElement('video');
+      inlineVideo.src = videoSrc;
+      inlineVideo.controls = true;
+      inlineVideo.autoplay = true;
+      inlineVideo.playsInline = true;
+    } else {
+      inlineVideo = document.createElement('iframe');
+      inlineVideo.title = 'Brisa video';
+      inlineVideo.allow = 'autoplay; encrypted-media; fullscreen';
+      inlineVideo.allowFullscreen = true;
+      inlineVideo.src = videoSrc;
+    }
+
+    inlineVideo.className = 'slideshow-brisa__inline-video';
+    slide.classList.add('is-playing-video');
+    slide.querySelector('.slideshow__slide-inner')?.appendChild(inlineVideo);
+    inlineVideo.play?.().catch(() => {});
+    return;
+  }
+
   let lightbox = document.querySelector('.brisa-video-lightbox');
 
   if (!lightbox) {
@@ -493,6 +522,220 @@ function withSlideshowBrisaSyncLock(section, fn) {
   }
 }
 
+function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
+  const galleryRoot = section.matches?.('[data-brisa-native-gallery="true"]')
+    ? section
+    : section.querySelector('[data-brisa-native-gallery="true"]');
+  if (!galleryRoot || slideshow.dataset.brisaNativeSwipeInit === 'true') return;
+
+  const slideList = slideshow.querySelector('.slideshow__slide-list');
+  const items = Array.from(slideshow.querySelectorAll('slide-show-item'));
+  if (!slideList || items.length < 2) return;
+
+  slideshow.dataset.brisaNativeSwipeInit = 'true';
+
+  const originalMethods = {
+    select: slideshow.select.bind(slideshow),
+    next: slideshow.next.bind(slideshow),
+    previous: slideshow.previous.bind(slideshow),
+  };
+  const state = {
+    enabled: false,
+    index: Math.max(0, items.findIndex((item) => !item.hasAttribute('hidden'))),
+    startIndex: 0,
+    startX: 0,
+    startY: 0,
+    lastX: 0,
+    startScrollLeft: 0,
+    dragging: false,
+    scrollTimer: null,
+  };
+
+  const clampIndex = (index) => Math.max(0, Math.min(items.length - 1, Number(index) || 0));
+  const scrollPadding = () => parseFloat(getComputedStyle(slideList).scrollPaddingInlineStart) || 0;
+  const itemScrollLeft = (index) => Math.max(0, items[index].offsetLeft - scrollPadding());
+  const nearestIndex = () => {
+    let nearest = 0;
+    let nearestDistance = Infinity;
+    items.forEach((item, index) => {
+      const distance = Math.abs(slideList.scrollLeft - itemScrollLeft(index));
+      if (distance < nearestDistance) {
+        nearest = index;
+        nearestDistance = distance;
+      }
+    });
+    return nearest;
+  };
+
+  let opacityFrame = null;
+  const updateSlideOpacity = () => {
+    if (window.innerWidth < 1000) {
+      items.forEach((item) => item.style.removeProperty('opacity'));
+      return;
+    }
+
+    const viewport = slideList.getBoundingClientRect();
+    const viewportCenter = viewport.left + (viewport.width / 2);
+    const slideWidth = items[0]?.getBoundingClientRect().width || 1;
+    items.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const slideCenter = rect.left + (rect.width / 2);
+      const progress = Math.min(1, Math.abs(slideCenter - viewportCenter) / slideWidth);
+      item.style.opacity = String(1 - (0.9 * progress));
+    });
+  };
+
+  const scheduleOpacityUpdate = () => {
+    if (opacityFrame) return;
+    opacityFrame = requestAnimationFrame(() => {
+      opacityFrame = null;
+      updateSlideOpacity();
+    });
+  };
+
+  const setActive = (index) => {
+    state.index = clampIndex(index);
+    items.forEach((item, itemIndex) => {
+      if (itemIndex !== state.index) {
+        item.querySelector('.slideshow-brisa__inline-video')?.remove();
+        item.classList.remove('is-playing-video');
+      }
+      if (itemIndex === state.index) item.removeAttribute('hidden');
+      else item.setAttribute('hidden', '');
+    });
+    if (pageDots && pageDots.selectedIndex !== state.index) {
+      pageDots.selectedIndex = state.index;
+    }
+    scheduleOpacityUpdate();
+  };
+
+  const goTo = (index, animate = true) => {
+    if (!state.enabled) return originalMethods.select(clampIndex(index), animate);
+    const targetIndex = clampIndex(index);
+    setActive(targetIndex);
+    slideList.scrollTo({
+      left: itemScrollLeft(targetIndex),
+      behavior: animate ? 'smooth' : 'auto',
+    });
+  };
+
+  const enable = () => {
+    if (state.enabled) return;
+    state.enabled = true;
+    slideshow.select = (index, shouldTransition = true) => goTo(index, shouldTransition);
+    slideshow.next = () => goTo(state.index + 1, true);
+    slideshow.previous = () => goTo(state.index - 1, true);
+    requestAnimationFrame(() => goTo(state.index, false));
+    requestAnimationFrame(updateSlideOpacity);
+  };
+
+  const disable = () => {
+    if (!state.enabled) return;
+    state.enabled = false;
+    slideList.classList.remove('is-dragging');
+    slideshow.select = originalMethods.select;
+    slideshow.next = originalMethods.next;
+    slideshow.previous = originalMethods.previous;
+    slideList.scrollLeft = 0;
+    setActive(state.index);
+  };
+
+  slideList.addEventListener('touchstart', (event) => {
+    if (!state.enabled || event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    state.startX = touch.clientX;
+    state.startY = touch.clientY;
+    state.lastX = touch.clientX;
+    state.startScrollLeft = slideList.scrollLeft;
+    state.startIndex = nearestIndex();
+    state.dragging = false;
+  }, { passive: true });
+
+  slideList.addEventListener('touchmove', (event) => {
+    if (!state.enabled || event.touches.length !== 1) return;
+    const touch = event.touches[0];
+    const deltaX = touch.clientX - state.startX;
+    const deltaY = touch.clientY - state.startY;
+    state.lastX = touch.clientX;
+
+    if (!state.dragging && Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      state.dragging = true;
+      slideList.classList.add('is-dragging');
+    }
+    if (state.dragging) {
+      slideList.scrollLeft = state.startScrollLeft - deltaX;
+    }
+  }, { passive: true });
+
+  const finishTouch = () => {
+    if (!state.enabled || !state.dragging) return;
+    const distance = state.startX - state.lastX;
+    slideList.classList.remove('is-dragging');
+    state.dragging = false;
+
+    const targetIndex = Math.abs(distance) >= 40
+      ? state.startIndex + (distance > 0 ? 1 : -1)
+      : nearestIndex();
+    goTo(targetIndex, true);
+  };
+
+  slideList.addEventListener('touchend', finishTouch, { passive: true });
+  slideList.addEventListener('touchcancel', finishTouch, { passive: true });
+
+  slideList.addEventListener('pointerdown', (event) => {
+    if (!state.enabled || event.pointerType === 'touch' || event.button !== 0) return;
+    state.startX = event.clientX;
+    state.lastX = event.clientX;
+    state.startScrollLeft = slideList.scrollLeft;
+    state.startIndex = nearestIndex();
+    state.dragging = false;
+    slideList.setPointerCapture(event.pointerId);
+  });
+
+  slideList.addEventListener('pointermove', (event) => {
+    if (!state.enabled || event.pointerType === 'touch' || !slideList.hasPointerCapture(event.pointerId)) return;
+    const deltaX = event.clientX - state.startX;
+    state.lastX = event.clientX;
+    if (!state.dragging && Math.abs(deltaX) > 6) {
+      state.dragging = true;
+      slideList.classList.add('is-dragging');
+    }
+    if (state.dragging) {
+      event.preventDefault();
+      slideList.scrollLeft = state.startScrollLeft - deltaX;
+    }
+  });
+
+  const finishPointer = (event) => {
+    if (event.pointerType === 'touch') return;
+    if (slideList.hasPointerCapture(event.pointerId)) slideList.releasePointerCapture(event.pointerId);
+    finishTouch();
+  };
+
+  slideList.addEventListener('pointerup', finishPointer);
+  slideList.addEventListener('pointercancel', finishPointer);
+
+  slideList.addEventListener('scroll', () => {
+    scheduleOpacityUpdate();
+    if (!state.enabled || state.dragging) return;
+    clearTimeout(state.scrollTimer);
+    state.scrollTimer = window.setTimeout(() => setActive(nearestIndex()), 100);
+  }, { passive: true });
+
+  window.addEventListener('resize', scheduleOpacityUpdate, { passive: true });
+
+  // The theme slideshow emits these after touchend. Native scrolling has
+  // already handled the gesture, so prevent the legacy clip-path transition.
+  slideshow.addEventListener('swipeleft', (event) => {
+    if (state.enabled) event.stopImmediatePropagation();
+  }, true);
+  slideshow.addEventListener('swiperight', (event) => {
+    if (state.enabled) event.stopImmediatePropagation();
+  }, true);
+
+  enable();
+}
+
 function applySlideshowBrisaKit(section, kitSet) {
   if (!section || !kitSet) return;
 
@@ -567,6 +810,8 @@ function initSlideshowBrisaSection(section) {
   const slideshow = section.querySelector('slide-show.slideshow-brisa');
   const pageDots = section.querySelector('page-dots.slideshow-brisa__dots');
   if (!slideshow || !pageDots) return;
+
+  initSlideshowBrisaNativeGallery(section, slideshow, pageDots);
 
   section.dataset.slideshowBrisaInit = 'true';
 
