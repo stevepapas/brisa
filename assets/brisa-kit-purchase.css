@@ -238,16 +238,18 @@
 }
 
 .bkp__choose-heading {
-  margin: 0 0 1px;
+  margin: 0;
   text-align: left;
-  font-size: 22px;
+  font-size: 26.4px;
   font-weight: 800;
+  line-height: 1.05;
 }
 
 .bkp__choose-sub {
-  margin: 0 0 12px;
+  margin: 1px 0 12px;
   text-align: left;
-  font-size: 13px;
+  font-size: 15.6px;
+  line-height: 1.1;
   color: var(--bkp-muted);
 }
 
