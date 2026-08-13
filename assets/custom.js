@@ -525,6 +525,19 @@ function withSlideshowBrisaSyncLock(section, fn) {
   }
 }
 
+function loadSlideshowBrisaImage(slide) {
+  const image = slide?.querySelector?.('.slideshow__image[data-src]');
+  if (!image) return;
+  image.src = image.dataset.src;
+  image.removeAttribute('data-src');
+}
+
+function warmSlideshowBrisaImages(items, index) {
+  [index, index - 1, index + 1].forEach((itemIndex) => {
+    if (itemIndex >= 0 && itemIndex < items.length) loadSlideshowBrisaImage(items[itemIndex]);
+  });
+}
+
 function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
   const galleryRoot = section.matches?.('[data-brisa-native-gallery="true"]')
     ? section
@@ -598,6 +611,7 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
 
   const setActive = (index) => {
     state.index = clampIndex(index);
+    warmSlideshowBrisaImages(items, state.index);
     items.forEach((item, itemIndex) => {
       if (itemIndex !== state.index) {
         item.querySelector('.slideshow-brisa__inline-video')?.remove();
@@ -763,6 +777,7 @@ function applySlideshowBrisaKit(section, kitSet) {
     const firstThumbIndex = firstThumb ? thumbs.indexOf(firstThumb) : -1;
 
     // Never blank the gallery: keep the first matching slide visible while hiding the rest.
+    warmSlideshowBrisaImages(items, firstItemIndex);
     items.forEach((item) => {
       if (item === firstItem) {
         item.removeAttribute('hidden');
@@ -842,6 +857,7 @@ function initSlideshowBrisaSection(section) {
       peek.hidden = false;
       return;
     }
+    loadSlideshowBrisaImage(slide);
     const img = slide.querySelector('.slideshow__image');
     const src = img?.currentSrc || img?.getAttribute('src') || '';
     if (src) {
@@ -857,6 +873,9 @@ function initSlideshowBrisaSection(section) {
       peek.hidden = false;
     }
   };
+
+  const initialIndex = Math.max(0, items.findIndex((item) => !item.hasAttribute('hidden')));
+  warmSlideshowBrisaImages(items, initialIndex);
 
   const syncPeek = () => {
     if (items.length < 2) {

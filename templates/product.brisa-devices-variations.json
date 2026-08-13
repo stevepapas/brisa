@@ -17,7 +17,7 @@
           "name": "device-1",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-1.png",
+            "image_asset": "brisa-device-slide-1.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -40,7 +40,7 @@
           "name": "device-2",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-2.png",
+            "image_asset": "brisa-device-slide-2.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -89,7 +89,7 @@
           "name": "device-5",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-5.png",
+            "image_asset": "brisa-device-slide-5.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -112,7 +112,7 @@
           "name": "device-6",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-6.png",
+            "image_asset": "brisa-device-slide-6.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -135,7 +135,7 @@
           "name": "device-7",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-7.png",
+            "image_asset": "brisa-device-slide-7.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -158,7 +158,7 @@
           "name": "device-8",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-8.png",
+            "image_asset": "brisa-device-slide-8.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -181,7 +181,7 @@
           "name": "device-9",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-9.png",
+            "image_asset": "brisa-device-slide-9.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -204,7 +204,7 @@
           "name": "device-10",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-10.png",
+            "image_asset": "brisa-device-slide-10.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -227,7 +227,7 @@
           "name": "device-11",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-device-slide-11.png",
+            "image_asset": "brisa-device-slide-11.webp",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",

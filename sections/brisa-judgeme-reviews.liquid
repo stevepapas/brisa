@@ -1376,9 +1376,23 @@
             bootRevamp();
           }
 
+          function whenReviewsNearViewport(callback) {
+            var section = el.closest('.shopify-section--brisa-judgeme-reviews') || el;
+            if (!('IntersectionObserver' in window)) {
+              callback();
+              return;
+            }
+            var observer = new IntersectionObserver(function (entries) {
+              if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+              observer.disconnect();
+              callback();
+            }, { rootMargin: '1000px 0px' });
+            observer.observe(section);
+          }
+
           var seeded = window.jdgm.data.reviewWidget[productId];
           if (hasReviewPayload(seeded)) {
-            bootRevamp();
+            whenReviewsNearViewport(bootRevamp);
             return;
           }
 
@@ -1392,15 +1406,17 @@
             encodeURIComponent(productId) +
             '&platform=shopify';
 
-          fetch(url)
-            .then(function (res) {
-              if (!res.ok) throw new Error('Judge.me reviews fetch failed');
-              return res.json();
-            })
-            .then(seedAndBoot)
-            .catch(function () {
-              seedAndBoot(seeded || {});
-            });
+          whenReviewsNearViewport(function () {
+            fetch(url)
+              .then(function (res) {
+                if (!res.ok) throw new Error('Judge.me reviews fetch failed');
+                return res.json();
+              })
+              .then(seedAndBoot)
+              .catch(function () {
+                seedAndBoot(seeded || {});
+              });
+          });
         })();
       </script>
       <!-- End of Judge.me code -->
@@ -1416,6 +1432,8 @@
   (function () {
     var root = document.getElementById('shopify-section-{{ section.id }}');
     if (!root) return;
+
+    function initBrisaJudgemeEnhancements() {
 
     // Judge.me revamp (Vue) mounts into [data-entry-point] — do not restyle/reorder that DOM.
     function isRevampWidget() {
@@ -2039,6 +2057,18 @@
         modalSyncTimer = setTimeout(syncProductImageAttrs, 50);
       });
       bodyObserver.observe(document.body, { childList: true, subtree: true });
+    }
+    }
+
+    if ('IntersectionObserver' in window) {
+      var brisaJudgemeObserver = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+        brisaJudgemeObserver.disconnect();
+        initBrisaJudgemeEnhancements();
+      }, { rootMargin: '1000px 0px' });
+      brisaJudgemeObserver.observe(root);
+    } else {
+      initBrisaJudgemeEnhancements();
     }
   })();
 </script>
