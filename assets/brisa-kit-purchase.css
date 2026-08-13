@@ -1527,16 +1527,16 @@
   }
 
   .bkp__stars svg {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
   }
 
   .bkp__rating-text {
-    font-size: 11px;
+    font-size: 14px;
   }
 
   .bkp__rating-badge {
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .bkp__kit {
