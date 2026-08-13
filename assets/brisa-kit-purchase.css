@@ -1579,16 +1579,18 @@
   }
 
   .bkp__kit-features {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 3;
     gap: 4px;
-    z-index: 1;
+    width: calc(100% - 8px);
+    z-index: 2;
   }
 
   .bkp__kit-feature {
     gap: 6px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1;
+    white-space: nowrap;
   }
 
   .bkp__kit-feature-icon {
