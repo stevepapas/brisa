@@ -402,6 +402,9 @@ document.addEventListener('click', (event) => {
     event.preventDefault();
     event.stopPropagation();
 
+    const slideList = playButton.closest('.slideshow__slide-list');
+    if (slideList?.dataset.brisaDragging === 'true') return;
+
     const slide = playButton.closest('slide-show-item');
     if (!slide || slide.querySelector('.slideshow-brisa__inline-video')) return;
 
@@ -661,6 +664,7 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
     if (!state.dragging && Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
       state.dragging = true;
       slideList.classList.add('is-dragging');
+      slideList.dataset.brisaDragging = 'true';
     }
     if (state.dragging) {
       slideList.scrollLeft = state.startScrollLeft - deltaX;
@@ -672,6 +676,7 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
     const distance = state.startX - state.lastX;
     slideList.classList.remove('is-dragging');
     state.dragging = false;
+    window.setTimeout(() => delete slideList.dataset.brisaDragging, 0);
 
     const targetIndex = Math.abs(distance) >= 40
       ? state.startIndex + (distance > 0 ? 1 : -1)
@@ -699,6 +704,7 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
     if (!state.dragging && Math.abs(deltaX) > 6) {
       state.dragging = true;
       slideList.classList.add('is-dragging');
+      slideList.dataset.brisaDragging = 'true';
     }
     if (state.dragging) {
       event.preventDefault();
