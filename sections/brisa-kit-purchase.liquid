@@ -165,37 +165,41 @@
   {% if addon_selling_plan_id != blank %}data-addon-selling-plan-id="{{ addon_selling_plan_id }}"{% endif %}
   {{ section.shopify_attributes }}
 >
-  <div class="bkp__inner">
-    {% if section.settings.eyebrow != blank %}
-      <p class="bkp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
-    {% endif %}
+  <div class="bkp__intro-panel">
+    <div class="bkp__intro-inner">
+      {% if section.settings.eyebrow != blank %}
+        <p class="bkp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
 
-    <h2 class="bkp__title">
-      {{ section.settings.title | default: 'BRISA™ STARTER KIT' | escape }}
-    </h2>
+      <h2 class="bkp__title">
+        {{ section.settings.title | default: 'BRISA™ STARTER KIT' | escape }}
+      </h2>
 
-    {% if section.settings.intro_text != blank %}
-      <p class="bkp__intro">{{ section.settings.intro_text | escape }}</p>
-    {% endif %}
+      {% if section.settings.intro_text != blank %}
+        <p class="bkp__intro">{{ section.settings.intro_text | escape }}</p>
+      {% endif %}
 
-    {% if section.settings.show_rating %}
-      <div class="bkp__rating">
-        <a href="#real_reviews" class="bkp__rating-link" aria-label="{{ section.settings.rating_text | default: 'View customer reviews' | escape }}">
-          <span class="bkp__stars" aria-hidden="true">
-            {%- for i in (1..5) -%}
-              <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            {%- endfor -%}
-          </span>
-          {% if section.settings.rating_text != blank %}
-            <span class="bkp__rating-text">{{ section.settings.rating_text | escape }}</span>
+      {% if section.settings.show_rating %}
+        <div class="bkp__rating">
+          <a href="#real_reviews" class="bkp__rating-link" aria-label="{{ section.settings.rating_text | default: 'View customer reviews' | escape }}">
+            <span class="bkp__stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              {%- endfor -%}
+            </span>
+            {% if section.settings.rating_text != blank %}
+              <span class="bkp__rating-text">{{ section.settings.rating_text | escape }}</span>
+            {% endif %}
+          </a>
+          {% if section.settings.rating_badge != blank %}
+            <span class="bkp__rating-badge">{{ section.settings.rating_badge | escape }}</span>
           {% endif %}
-        </a>
-        {% if section.settings.rating_badge != blank %}
-          <span class="bkp__rating-badge">{{ section.settings.rating_badge | escape }}</span>
-        {% endif %}
-      </div>
-    {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
 
+  <div class="bkp__inner">
     <ul class="bkp__highlights">
       {% for i in (1..4) %}
         {% liquid
