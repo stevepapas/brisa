@@ -694,17 +694,17 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
     state.startScrollLeft = slideList.scrollLeft;
     state.startIndex = nearestIndex();
     state.dragging = false;
-    slideList.setPointerCapture(event.pointerId);
   });
 
   slideList.addEventListener('pointermove', (event) => {
-    if (!state.enabled || event.pointerType === 'touch' || !slideList.hasPointerCapture(event.pointerId)) return;
+    if (!state.enabled || event.pointerType === 'touch' || (event.buttons & 1) !== 1) return;
     const deltaX = event.clientX - state.startX;
     state.lastX = event.clientX;
     if (!state.dragging && Math.abs(deltaX) > 6) {
       state.dragging = true;
       slideList.classList.add('is-dragging');
       slideList.dataset.brisaDragging = 'true';
+      slideList.setPointerCapture(event.pointerId);
     }
     if (state.dragging) {
       event.preventDefault();

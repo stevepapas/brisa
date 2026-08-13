@@ -18,36 +18,38 @@
 }
 
 .bkp__inner {
-  max-width: 560px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 .bkp__eyebrow {
-  margin: 0 0 6px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  margin: 0 0 2px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: center;
   text-transform: uppercase;
   color: var(--bkp-ink);
 }
 
 .bkp__title {
-  margin: 0 0 12px;
-  font-size: clamp(22px, 6vw, 36px);
-  font-weight: 800;
+  margin: 0 0 8px;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .bkp__intro {
-  max-width: 520px;
-  margin: 0 auto 10px;
+  max-width: 680px;
+  margin: 0 auto 20px;
   color: var(--bkp-ink);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.22;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.18;
   text-align: center;
 }
 
@@ -103,15 +105,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 10px;
-  margin-bottom: 10px;
+  justify-content: center;
+  gap: 14px 18px;
+  margin-bottom: 16px;
 }
 
 .bkp__rating-link {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 10px;
+  gap: 18px;
   color: inherit;
   text-decoration: none;
   cursor: pointer;
@@ -129,24 +132,25 @@
 }
 
 .bkp__stars svg {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   display: block;
 }
 
 .bkp__rating-text {
-  font-size: 15px;
-  font-weight: 700;
+  color: #646a73;
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .bkp__rating-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 12px;
-  border-radius: 999px;
+  padding: 3px 10px;
+  border-radius: 5px;
   background: #40bafe;
   color: #003f7b;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
 }
 
