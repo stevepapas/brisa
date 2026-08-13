@@ -196,6 +196,14 @@
     .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__card-heading {
       font-size: {{ section.settings.card_heading_size | plus: 2 }}px;
     }
+
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__heading {
+      font-size: {{ section.settings.heading_size | times: 1.2 }}px;
+    }
+
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__subtitle {
+      font-size: {{ section.settings.subtitle_size | times: 1.2 }}px;
+    }
   }
 
   @media screen and (max-width: 749px) {
@@ -206,6 +214,12 @@
 
     .brisa-inside-cores-{{ section_id }} {
       --bic-gap: 8px;
+    }
+
+    .brisa-inside-cores-{{ section_id }} .brisa-inside-cores__header {
+      width: 75%;
+      margin-inline: auto;
+      padding-inline: 0;
     }
 
     /* Left-anchored cards: fixed left inset, 15% wider than prior centered width,
