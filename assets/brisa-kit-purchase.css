@@ -322,7 +322,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 1px;
 }
 
 .bkp__kit-heading {
@@ -354,7 +354,8 @@
 }
 
 .bkp__kit-price {
-  font-size: 18px;
+  font-size: 28px;
+  line-height: 1;
   font-weight: 800;
   flex: 0 0 auto;
 }
@@ -392,7 +393,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1;
   color: var(--bkp-ink);
@@ -400,9 +401,9 @@
 
 .bkp__kit-feature-icon {
   display: inline-flex;
-  flex: 0 0 19px;
-  width: 19px;
-  height: 19px;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
   color: var(--bkp-blue);
 }
 
@@ -478,8 +479,8 @@
   display: none;
   grid-column: 1 / -1;
   width: 100%;
-  margin-top: 6px;
-  padding-top: 12px;
+  margin-top: 0;
+  padding-top: 5px;
   border-top: 2px solid rgba(0, 139, 220, 0.5);
 }
 
@@ -506,8 +507,8 @@
 }
 
 .bkp__kit-colours .bkp__swatch {
-  width: 33px;
-  height: 33px;
+  width: 38px;
+  height: 38px;
 }
 
 .bkp__kit-colours .bkp__swatch-name {
@@ -1338,14 +1339,14 @@
 
   .bkp__kit-feature {
     gap: 6px;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1;
   }
 
   .bkp__kit-feature-icon {
-    flex-basis: 17px;
-    width: 17px;
-    height: 17px;
+    flex-basis: 19px;
+    width: 19px;
+    height: 19px;
   }
 
   /* The radio overlays the top-right, matching the Canva card. */
@@ -1400,8 +1401,8 @@
   }
 
   .bkp__kit-price {
-    font-size: 13px;
-    line-height: 1.1;
+    font-size: 20px;
+    line-height: 1;
   }
 
   .bkp__kit-compare {
@@ -1415,8 +1416,8 @@
   }
 
   .bkp__kit-colours {
-    margin-top: 4px;
-    padding-top: 9px;
+    margin-top: 0;
+    padding-top: 4px;
   }
 
   .bkp__kit-colours .bkp__colour-picker {
@@ -1424,8 +1425,8 @@
   }
 
   .bkp__kit-colours .bkp__swatch {
-    width: 29px;
-    height: 29px;
+    width: 33px;
+    height: 33px;
   }
 
   .bkp__kit-colours .bkp__swatch-wrap {
@@ -1452,7 +1453,7 @@
 
   .bkp__kit {
     padding: 16px 18px;
-    row-gap: 3px;
+    row-gap: 0;
     /* heading | radio
        pricing | thumb
        features | (thumb continues) */
