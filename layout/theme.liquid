@@ -57,7 +57,12 @@
 
     {{ content_for_header }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
-    {{ 'brisa-cta.css' | asset_url | stylesheet_tag }}
+    {%- if template.suffix == 'brisa-devices' or template.suffix == 'brisa-devices-variations' -%}
+      <link rel="stylesheet" href="{{ 'brisa-cta.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'brisa-cta.css' | asset_url | stylesheet_tag }}</noscript>
+    {%- else -%}
+      {{ 'brisa-cta.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
   </head>
 
   {%- assign feature_classes = '' -%}

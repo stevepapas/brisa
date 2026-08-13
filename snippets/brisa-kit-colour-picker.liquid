@@ -56,7 +56,7 @@
 
           assign colour_preview_url = ''
           if colour_preview != blank
-            assign colour_preview_url = colour_preview | image_url: width: 1200
+            assign colour_preview_url = colour_preview | image_url: width: 480
           elsif colour_block.settings.image_asset != blank
             assign colour_preview_url = colour_block.settings.image_asset | asset_url
           endif
@@ -103,6 +103,8 @@
         data-bkp-colour-preview-img="{{ picker_role }}"
         src="{{ default_preview_url | escape }}"
         alt="{{ default_preview_alt | escape }}"
+        width="480"
+        height="86"
         loading="lazy"
         decoding="async"
         {% if default_preview_url == blank %}hidden{% endif %}
