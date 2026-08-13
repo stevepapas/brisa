@@ -690,6 +690,21 @@
     {% endif %}
     <p class="bkp__error" data-bkp-error role="status" aria-live="polite"></p>
 
+    <div class="bkp__assurance-bar">
+      <div class="bkp__assurance-guarantee">
+        <img src="{{ 'brisa-trust-shield.svg' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+        <span>30 Day Guarantee</span>
+      </div>
+      <img
+        class="bkp__assurance-formulation"
+        src="https://brisabetter.com/cdn/shop/t/17/assets/brisa-world-first-formulation.png?v=183722205332753190501786453063"
+        alt="World first formulation"
+        width="260"
+        height="96"
+        loading="lazy"
+      >
+    </div>
+
     <ul class="bkp__trust" data-bkp-trust-source>
       <li class="bkp__trust-item">
         <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
@@ -700,16 +715,6 @@
           {%- endif -%}
         </span>
         <span>{{ section.settings.trust_1 | default: 'Ships Next Day' | escape }}</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          {%- if section.settings.trust_icon_2 != blank -%}
-            {{ section.settings.trust_icon_2 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
-          {%- else -%}
-            <img src="{{ section.settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-          {%- endif -%}
-        </span>
-        <span>{{ section.settings.trust_2 | default: 'Secure checkout' | escape }}</span>
       </li>
       <li class="bkp__trust-item">
         <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
@@ -733,25 +738,47 @@
       </li>
       <li class="bkp__trust-item">
         <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          {%- if section.settings.trust_icon_5 != blank -%}
-            {{ section.settings.trust_icon_5 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+          {%- if section.settings.trust_icon_2 != blank -%}
+            {{ section.settings.trust_icon_2 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
           {%- else -%}
-            <img src="{{ section.settings.trust_icon_asset_5 | default: 'brisa-trust-star.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+            <img src="{{ section.settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
           {%- endif -%}
         </span>
-        <span>{{ section.settings.trust_5 | default: '4.7 (163)' | escape }}</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          {%- if section.settings.trust_icon_6 != blank -%}
-            {{ section.settings.trust_icon_6 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
-          {%- else -%}
-            <img src="{{ section.settings.trust_icon_asset_6 | default: 'brisa-trust-shield.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-          {%- endif -%}
-        </span>
-        <span>{{ section.settings.trust_6 | default: '30 Day Guarantee' | escape }}</span>
+        <span>{{ section.settings.trust_2 | default: 'Secure checkout' | escape }}</span>
       </li>
     </ul>
+
+    {%- assign purchase_testimonials = shop.metaobjects.testimonial.values -%}
+    {% if purchase_testimonials != blank %}
+      <div class="bkp__testimonial-summary">
+        <span class="bkp__testimonial-summary-stars" aria-hidden="true">★★★★★</span>
+        <strong>4.8· (137)</strong> customers
+      </div>
+      <div class="bkp__testimonial-viewport">
+        <div class="bkp__testimonial-track">
+          {% for testimonial in purchase_testimonials limit: 8 %}
+            {%- liquid
+              assign testimonial_title = testimonial.heading.value | default: testimonial.title.value | default: testimonial.review_title.value
+              assign testimonial_quote = testimonial.quote.value | default: testimonial.review.value | default: testimonial.content.value | default: testimonial.testimonial.value
+              assign testimonial_author = testimonial.author.value | default: testimonial.name.value | default: testimonial.customer_name.value
+              assign testimonial_rating = testimonial.rating.value | default: 5 | plus: 0
+            -%}
+            {% if testimonial_quote != blank %}
+              <article class="bkp__testimonial-card">
+                <div class="bkp__testimonial-card-head">
+                  {% if testimonial_title != blank %}<strong>{{ testimonial_title | escape }}</strong>{% endif %}
+                  <span aria-label="{{ testimonial_rating }} out of 5 stars">
+                    {% for star in (1..5) %}<span{% if star > testimonial_rating %} class="is-empty"{% endif %}>★</span>{% endfor %}
+                  </span>
+                </div>
+                <p>"{{ testimonial_quote | strip_html | escape }}"</p>
+                {% if testimonial_author != blank %}<footer>{{ testimonial_author | escape }} · verified</footer>{% endif %}
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
 
     {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
     {% if accordion_blocks.size > 0 %}

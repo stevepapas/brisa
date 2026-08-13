@@ -1168,27 +1168,31 @@
 
 .bkp__trust {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px 8px;
-  margin: 20px 0 0;
-  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+  margin: 0;
+  padding: 12px 28px 16px;
+  border-bottom: 3px solid #9bdcf8;
+  background: #fff;
   list-style: none;
   text-align: center;
 }
 
 .bkp__trust-item {
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-  font-size: 11px;
-  font-weight: 600;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 1.25;
   color: #333;
 }
 
 .bkp__trust-icon {
-  width: 28px;
-  height: 28px;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
   color: var(--bkp-blue);
   display: inline-flex;
   align-items: center;
@@ -1202,6 +1206,140 @@
   display: block;
   object-fit: contain;
   border-radius: 0;
+}
+
+.bkp__assurance-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 20px;
+  margin-top: 18px;
+  padding: 8px 28px;
+  background: #ccefff;
+  color: #064c99;
+}
+
+.bkp__assurance-guarantee {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.bkp__assurance-guarantee img {
+  width: 40px;
+  height: 40px;
+}
+
+.bkp__assurance-formulation {
+  width: 150px;
+  height: 42px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(19%) sepia(94%) saturate(2276%) hue-rotate(202deg) brightness(86%) contrast(101%);
+}
+
+.bkp__testimonial-summary {
+  padding: 24px 28px 10px;
+  background: #fff;
+  color: #111;
+  font-size: 17px;
+}
+
+.bkp__testimonial-summary-stars,
+.bkp__testimonial-card-head > span {
+  color: #0050b5;
+  letter-spacing: -1px;
+}
+
+.bkp__testimonial-viewport {
+  overflow: hidden;
+  margin-inline: -20px;
+  padding: 0 20px 28px;
+  background: linear-gradient(#fff, #f4f6f8);
+}
+
+.bkp__testimonial-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.bkp__testimonial-track::-webkit-scrollbar {
+  display: none;
+}
+
+.bkp__testimonial-card {
+  flex: 0 0 88%;
+  scroll-snap-align: start;
+  min-height: 135px;
+  padding: 17px 14px 12px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 7px 24px rgba(44, 67, 87, 0.12);
+  color: #111;
+}
+
+.bkp__testimonial-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 17px;
+}
+
+.bkp__testimonial-card p {
+  margin: 4px 0 18px;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.bkp__testimonial-card footer {
+  color: #aaa;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.bkp__testimonial-card .is-empty {
+  opacity: 0.25;
+}
+
+@media (max-width: 749px) {
+  .bkp__assurance-bar {
+    padding-inline: 14px;
+  }
+
+  .bkp__assurance-guarantee {
+    font-size: 18px;
+  }
+
+  .bkp__assurance-guarantee img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .bkp__assurance-formulation {
+    width: 126px;
+    height: 36px;
+  }
+
+  .bkp__trust {
+    gap: 10px 14px;
+    padding-inline: 14px;
+  }
+
+  .bkp__trust-item {
+    font-size: 14px;
+  }
+
+  .bkp__trust-icon {
+    flex-basis: 30px;
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .bkp__trust-icon--custom {
