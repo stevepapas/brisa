@@ -169,17 +169,16 @@
 
 .bkp__highlights {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px 12px;
-  margin: 20px 0 18px;
-  padding: 0;
+  margin: 0 0 18px;
+  padding: 20px 0 0;
   list-style: none;
 }
 
 @media (max-width: 749px) {
   .bkp__highlights {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 16px;
+    padding-top: 16px;
   }
 }
 
@@ -223,15 +222,15 @@
 }
 
 .bkp__choose-heading {
-  margin: 0 0 4px;
-  text-align: center;
+  margin: 0 0 1px;
+  text-align: left;
   font-size: 22px;
   font-weight: 800;
 }
 
 .bkp__choose-sub {
-  margin: 0 0 16px;
-  text-align: center;
+  margin: 0 0 12px;
+  text-align: left;
   font-size: 13px;
   color: var(--bkp-muted);
 }
