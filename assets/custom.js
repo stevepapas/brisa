@@ -969,6 +969,14 @@ document.addEventListener('click', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => initAllSlideshowBrisaSections());
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.bkp__testimonial-track').forEach((track) => {
+    const cards = track.querySelectorAll('.bkp__testimonial-card');
+    if (cards.length < 3) return;
+    const target = cards[1];
+    track.scrollLeft = Math.max(0, target.offsetLeft - ((track.clientWidth - target.offsetWidth) / 2));
+  });
+});
 document.addEventListener('shopify:section:load', (event) => {
   const section = event.target?.closest?.('.shopify-section--slideshow-brisa') ?? event.target;
   if (section?.classList?.contains('shopify-section--slideshow-brisa')) {

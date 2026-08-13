@@ -1262,6 +1262,7 @@
   display: block;
   width: 150px;
   height: 42px;
+  mix-blend-mode: multiply;
 }
 
 .bkp__testimonial-summary {
@@ -1282,7 +1283,7 @@
   isolation: isolate;
   overflow: hidden;
   margin-inline: -20px;
-  padding: 0 20px;
+  padding: 0;
   background: transparent;
 }
 
@@ -1301,7 +1302,8 @@
   display: flex;
   gap: 18px;
   overflow-x: auto;
-  padding: 4px 0 0;
+  padding: 14px 6% 0;
+  scroll-padding-inline: 6%;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -1311,15 +1313,15 @@
 }
 
 .bkp__testimonial-card {
-  flex: 0 0 88%;
-  scroll-snap-align: start;
+  flex: 0 0 calc(88% - 9px);
+  scroll-snap-align: center;
   min-height: 135px;
   padding: 17px 14px 12px;
   border-radius: 14px;
   background: #fff;
   box-shadow:
-    0 0 18px rgba(44, 67, 87, 0.14),
-    0 0 34px rgba(44, 67, 87, 0.08);
+    0 0 20px rgba(78, 86, 94, 0.22),
+    0 0 38px rgba(78, 86, 94, 0.12);
   color: #111;
 }
 
@@ -1329,6 +1331,11 @@
   justify-content: space-between;
   gap: 14px;
   font-size: 17px;
+}
+
+.bkp__testimonial-card-stars {
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 .bkp__testimonial-card p {
