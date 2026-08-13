@@ -51,6 +51,14 @@
     background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
   }
 
+  {%- if slideshow_product_gallery -%}
+    #shopify-section-{{ section.id }},
+    #shopify-section-{{ section.id }} .slideshow-brisa,
+    #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
+      background: #eaf8ff !important;
+    }
+  {%- endif -%}
+
   {%- for block in section.blocks -%}
     {%- assign text_position = block.settings.text_position | split: '_' | first -%}
     {%- assign image_focal = block.settings.image_focal_point | default: 'center_center' | replace: '_', ' ' -%}

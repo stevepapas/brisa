@@ -174,6 +174,10 @@
       {{ section.settings.title | default: 'BRISA™ STARTER KIT' | escape }}
     </h2>
 
+    {% if section.settings.intro_text != blank %}
+      <p class="bkp__intro">{{ section.settings.intro_text | escape }}</p>
+    {% endif %}
+
     {% if section.settings.show_rating %}
       <div class="bkp__rating">
         <a href="#real_reviews" class="bkp__rating-link" aria-label="{{ section.settings.rating_text | default: 'View customer reviews' | escape }}">
@@ -786,6 +790,12 @@
       "id": "title",
       "label": "Title",
       "default": "BRISA™ STARTER KIT"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Intro text",
+      "default": "Built for the moment the urge hits, reach for Brisa instead of your vape. No smoke, no vapour, no nicotine, just real flavour and our world-first aroma formulation."
     },
     {
       "type": "checkbox",
