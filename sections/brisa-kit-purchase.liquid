@@ -481,13 +481,25 @@
         {% if block.type == 'gift' %}
           <div class="bkp__gift" {{ block.shopify_attributes }}>
             {% if block.settings.tag != blank %}
-              <span class="bkp__gift-tag">{{ block.settings.tag | escape }}</span>
+              <span class="bkp__gift-tag">
+                {% if block.settings.tag contains '$' %}
+                  {% assign gift_tag_parts = block.settings.tag | split: '$' %}
+                  <span>{{ gift_tag_parts.first | strip | escape }}</span>
+                  <s>${{ gift_tag_parts.last | strip | escape }}</s>
+                {% else %}
+                  {{ block.settings.tag | escape }}
+                {% endif %}
+              </span>
+            {% endif %}
+            {% assign gift_media_class = 'bkp__gift-media' %}
+            {% if block.settings.title contains 'Shipping' %}
+              {% assign gift_media_class = gift_media_class | append: ' bkp__gift-media--shipping' %}
             {% endif %}
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 160 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
+              {{ block.settings.image | image_url: width: 160 | image_tag: class: gift_media_class, loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
             {% elsif block.settings.image_asset != blank %}
               <img
-                class="bkp__gift-media"
+                class="{{ gift_media_class }}"
                 src="{{ block.settings.image_asset | asset_url }}"
                 alt="{{ block.settings.title | escape }}"
                 width="160"
@@ -509,6 +521,10 @@
         {% endif %}
       {% endfor %}
     </div>
+
+    {% if section.settings.gifts_footer_text != blank %}
+      <p class="bkp__gifts-footer">{{ section.settings.gifts_footer_text | escape }}</p>
+    {% endif %}
 
     {% if section.settings.show_addon %}
       {%- liquid
@@ -1093,6 +1109,12 @@
       "id": "gifts_heading",
       "label": "Gifts heading",
       "default": "INCLUDED GIFTS (WORTH $37)"
+    },
+    {
+      "type": "text",
+      "id": "gifts_footer_text",
+      "label": "Text below gifts",
+      "default": "Every time the urge hits, reach for Brisa instead."
     },
     {
       "type": "text",

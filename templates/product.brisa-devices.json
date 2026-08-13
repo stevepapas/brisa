@@ -1287,6 +1287,7 @@
         "mates_price_cents": 22000,
         "mates_image_asset": "brisa-kit-mates.jpg",
         "gifts_heading": "INCLUDED GIFTS (WORTH $37)",
+        "gifts_footer_text": "Every time the urge hits, reach for Brisa instead.",
         "colour_label_yours": "Select your colour",
         "colour_label_mates": "Mate's colour",
         "show_express_checkout": true,

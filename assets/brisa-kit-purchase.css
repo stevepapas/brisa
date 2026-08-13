@@ -571,6 +571,10 @@
   background: transparent;
 }
 
+.bkp__gift-media--shipping {
+  transform: scale(0.8);
+}
+
 .bkp__gift-body {
   min-width: 0;
 }
@@ -599,6 +603,11 @@
   line-height: 1.2;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  gap: 4px;
+}
+
+.bkp__gift-tag s {
+  text-decoration-thickness: 2px;
 }
 
 .bkp__gift-text {
@@ -606,6 +615,14 @@
   font-size: 17px;
   line-height: 1.15;
   color: #111;
+}
+
+.bkp__gifts-footer {
+  margin: -5px 0 14px;
+  color: #8b8b8b;
+  font-size: 18px;
+  line-height: 1.2;
+  text-align: center;
 }
 
 @media (max-width: 749px) {
@@ -636,6 +653,11 @@
     right: -2px;
     padding: 5px 12px;
     font-size: 12px;
+  }
+
+
+  .bkp__gifts-footer {
+    font-size: 15px;
   }
 }
 
