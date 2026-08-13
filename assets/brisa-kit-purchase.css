@@ -93,6 +93,11 @@
     font-size: 24px;
   }
 
+  .bkp__intro {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+
   .bkp__rating {
     justify-content: center;
     margin-bottom: 14px;
