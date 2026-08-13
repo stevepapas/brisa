@@ -532,37 +532,39 @@
 }
 
 .bkp__gifts-heading {
-  margin: 0 0 10px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  margin: 4px 0 14px;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
 }
 
 .bkp__gifts {
   display: grid;
-  gap: 12px;
-  margin-bottom: 18px;
-  padding-top: 8px;
-  padding-right: 8px;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-top: 4px;
+  padding-right: 0;
 }
 
 .bkp__gift {
   position: relative;
   display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 12px;
+  grid-template-columns: minmax(150px, 42%) 1fr;
+  gap: 18px;
   align-items: center;
-  padding: 10px 12px;
-  border: 1.5px solid var(--bkp-blue-soft);
-  border-radius: 12px;
-  background: #e8f4ff;
+  min-height: 142px;
+  padding: 8px 26px 8px 16px;
+  border: 2px solid var(--bkp-blue);
+  border-radius: 16px;
+  background: #eaf8ff;
   overflow: visible;
 }
 
 .bkp__gift-media {
-  width: 64px;
-  height: 64px;
+  width: 100%;
+  height: 124px;
   border-radius: 0;
   object-fit: contain;
   object-position: center;
@@ -574,25 +576,26 @@
 }
 
 .bkp__gift-title {
-  margin: 0 0 2px;
-  font-size: 14px;
-  font-weight: 800;
+  margin: 0 0 7px;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 .bkp__gift-tag {
   position: absolute;
-  top: -11px;
-  right: -12px;
+  top: -14px;
+  right: -2px;
   z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: #e11d2e;
+  padding: 7px 20px;
+  border-radius: 8px;
+  background: #ff3939;
   color: #fff;
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 900;
   line-height: 1.2;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -600,9 +603,40 @@
 
 .bkp__gift-text {
   margin: 0;
-  font-size: 12px;
-  line-height: 1.35;
-  color: #444;
+  font-size: 17px;
+  line-height: 1.15;
+  color: #111;
+}
+
+@media (max-width: 749px) {
+  .bkp__gifts-heading {
+    font-size: 18px;
+  }
+
+  .bkp__gift {
+    grid-template-columns: 112px 1fr;
+    gap: 12px;
+    min-height: 116px;
+    padding: 8px 14px;
+  }
+
+  .bkp__gift-media {
+    height: 98px;
+  }
+
+  .bkp__gift-title {
+    font-size: 17px;
+  }
+
+  .bkp__gift-text {
+    font-size: 14px;
+  }
+
+  .bkp__gift-tag {
+    right: -2px;
+    padding: 5px 12px;
+    font-size: 12px;
+  }
 }
 
 .bkp__addon {
