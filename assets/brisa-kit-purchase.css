@@ -170,7 +170,7 @@
 .bkp__highlights {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 12px;
+  gap: 16px 28px;
   margin: 0 0 18px;
   padding: 20px 0 0;
   list-style: none;
@@ -185,16 +185,16 @@
 .bkp__highlight {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1.1;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .bkp__highlight-icon {
   flex: 0 0 auto;
-  width: 28px;
-  height: 28px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -202,6 +202,22 @@
   background: var(--bkp-blue-mid);
   color: #fff;
   overflow: hidden;
+}
+
+@media (max-width: 749px) {
+  .bkp__highlights {
+    gap: 12px 16px;
+  }
+
+  .bkp__highlight {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .bkp__highlight-icon {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .bkp__highlight-icon img,
