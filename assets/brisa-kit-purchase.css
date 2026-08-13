@@ -1302,7 +1302,7 @@
   display: flex;
   gap: 18px;
   overflow-x: auto;
-  padding: 14px 6% 0;
+  padding: 24px 6% 36px;
   scroll-padding-inline: 6%;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -1320,8 +1320,8 @@
   border-radius: 14px;
   background: #fff;
   box-shadow:
-    0 0 20px rgba(78, 86, 94, 0.22),
-    0 0 38px rgba(78, 86, 94, 0.12);
+    0 0 28px rgba(78, 86, 94, 0.22),
+    0 0 52px rgba(78, 86, 94, 0.13);
   color: #111;
 }
 
