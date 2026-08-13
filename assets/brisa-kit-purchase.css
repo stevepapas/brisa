@@ -1167,6 +1167,7 @@
 }
 
 .bkp__trust {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px 24px;
@@ -1176,6 +1177,18 @@
   background: #fff;
   list-style: none;
   text-align: center;
+}
+
+.bkp__trust::after {
+  content: '';
+  position: absolute;
+  right: 50%;
+  bottom: -3px;
+  left: 50%;
+  width: 100vw;
+  height: 3px;
+  background: #9bdcf8;
+  transform: translateX(-50%);
 }
 
 .bkp__trust-item {
@@ -1217,6 +1230,19 @@
   padding: 8px 28px;
   background: #ccefff;
   color: #064c99;
+  position: relative;
+  isolation: isolate;
+}
+
+.bkp__assurance-bar::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  z-index: -1;
+  width: 100vw;
+  background: #ccefff;
+  transform: translateX(-50%);
 }
 
 .bkp__assurance-guarantee {
@@ -1233,10 +1259,9 @@
 }
 
 .bkp__assurance-formulation {
+  display: block;
   width: 150px;
   height: 42px;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(19%) sepia(94%) saturate(2276%) hue-rotate(202deg) brightness(86%) contrast(101%);
 }
 
 .bkp__testimonial-summary {
@@ -1253,17 +1278,30 @@
 }
 
 .bkp__testimonial-viewport {
+  position: relative;
+  isolation: isolate;
   overflow: hidden;
   margin-inline: -20px;
-  padding: 0 20px 28px;
+  padding: 0 20px;
+  background: transparent;
+}
+
+.bkp__testimonial-viewport::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  z-index: -1;
+  width: 100vw;
   background: linear-gradient(#fff, #f4f6f8);
+  transform: translateX(-50%);
 }
 
 .bkp__testimonial-track {
   display: flex;
   gap: 18px;
   overflow-x: auto;
-  padding: 4px 0 12px;
+  padding: 4px 0 0;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -1371,7 +1409,7 @@
 }
 
 .bkp__accordions {
-  margin: 18px 0 0;
+  margin: 0;
   border-top: 1px solid #e6e6e6;
 }
 
