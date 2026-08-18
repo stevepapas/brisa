@@ -7,9 +7,11 @@
 
 <style>
   #shopify-section-{{ section.id }} {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid #e0e0e0;
+    padding-top: 28px;
+    padding-bottom: 36px;
+    border-top: 4px solid #008bdc;
+    border-bottom: 4px solid #42b9ef;
+    background: #e9f7ff;
   }
 
   @media screen and (min-width: 750px) {
@@ -17,8 +19,306 @@
       max-width: 800px;
     }
   }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews {
+    width: min(100%, 1120px);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 14px;
+    color: #050505;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__formulation {
+    display: block;
+    width: clamp(190px, 32vw, 290px);
+    height: auto;
+    mix-blend-mode: multiply;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__rating {
+    display: grid;
+    justify-items: center;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__stars {
+    letter-spacing: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__heading {
+    max-width: 720px;
+    margin: 0 auto 24px;
+    color: #050505;
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 900;
+    line-height: 0.94;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__viewport {
+    width: min(100%, 540px);
+    margin: 0 auto;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__track {
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__slide {
+    display: flex;
+    flex: 0 0 calc(85% - 14px);
+    flex-direction: column;
+    overflow: hidden;
+    border: 0;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: none;
+    contain: paint;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transform: translateZ(0);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__slide > * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 831;
+    border-radius: 18px 18px 0 0 !important;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px 22px 18px;
+    color: #050505;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__quote {
+    margin: 0;
+    font-size: clamp(16px, 2.3vw, 20px);
+    line-height: 1.24;
+    white-space: pre-line;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__footer {
+    margin-top: auto;
+    padding-top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__review-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 7px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__review-stars {
+    font-size: 22px;
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__verified {
+    padding: 3px 6px;
+    background: #ededed;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-canva-reviews__author {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.08;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__trust {
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__formulation {
+      width: 190px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__rating {
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__content {
+      padding: 16px 17px 15px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__quote {
+      font-size: 16px;
+      line-height: 1.22;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__review-stars {
+      font-size: 19px;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-canva-reviews__author {
+      font-size: 18px;
+    }
+  }
+
 </style>
 <div id="real_reviews"></div>
+{% if section.settings.canva_embed_url != blank %}
+  <section class="brisa-canva-reviews" {{ section.shopify_attributes }}>
+    <div class="brisa-canva-reviews__trust" aria-label="World first formulation. Rated 4.7 out of 5.">
+      <img
+        class="brisa-canva-reviews__formulation"
+        src="{{ 'brisa-world-first-formulation.png' | asset_url }}"
+        alt="World first formulation"
+        width="1200"
+        height="419"
+        loading="lazy"
+      >
+      <div class="brisa-canva-reviews__rating">
+        <span class="brisa-canva-reviews__stars" aria-hidden="true">★★★★★</span>
+        <span>Rated 4.7</span>
+      </div>
+    </div>
+
+    {% if section.settings.heading != blank %}
+      <h2 class="brisa-canva-reviews__heading">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    <div class="brisa-canva-reviews__viewport" aria-label="Customer reviews. Swipe to see more.">
+      <div class="brisa-canva-reviews__track">
+        <article class="brisa-canva-reviews__slide">
+          <img class="brisa-canva-reviews__photo" src="{{ 'brisa-review-tyler-photo.png' | asset_url }}" alt="Tyler Keogh Paladin" width="1200" height="831" loading="lazy" draggable="false">
+          <div class="brisa-canva-reviews__content">
+            <p class="brisa-canva-reviews__quote">This device was a massive step forward for me. I’d obviously tried all the gums, sprays and patches, but I didn’t even realise something like this existed until I saw their ad.
+It’s honestly blown me away with how well it worked for me. When I’d normally reach for my vape, I started reaching for the Brisa instead. I still get that hand to mouth, the throat hit and the flavour, which was the part I felt like everything else was missing.
+
+Really cool device and something completely different to everything else I tried. Can’t recommend it enough.</p>
+            <div class="brisa-canva-reviews__footer">
+              <div class="brisa-canva-reviews__review-rating" aria-label="5 out of 5 stars. Verified review.">
+                <span class="brisa-canva-reviews__review-stars" aria-hidden="true">★★★★★</span>
+                <span class="brisa-canva-reviews__verified">VERIFIED</span>
+              </div>
+              <p class="brisa-canva-reviews__author">Tyler keogh Paladin</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="brisa-canva-reviews__slide">
+          <img class="brisa-canva-reviews__photo" src="{{ 'brisa-review-matt-photo.png' | asset_url }}" alt="Matt Mccafferty" width="1200" height="831" loading="lazy" draggable="false">
+          <div class="brisa-canva-reviews__content">
+            <p class="brisa-canva-reviews__quote">I was vaping pretty much all day without even thinking about it. Driving to work, on smoko, after food, driving home. It was just always there.
+I’d tried the sprays and gums and none of that was what I actually needed. I still wanted something to grab and draw from when the habit kicked in.
+Don’t know how no one got me onto Brisa earlier 😂 This is what I actually needed. I chuck it in my pocket for work and take it everywhere.
+Cherry Pomegranate is easily my favourite. Unreal flavour.</p>
+            <div class="brisa-canva-reviews__footer">
+              <div class="brisa-canva-reviews__review-rating" aria-label="5 out of 5 stars. Verified review.">
+                <span class="brisa-canva-reviews__review-stars" aria-hidden="true">★★★★★</span>
+                <span class="brisa-canva-reviews__verified">VERIFIED</span>
+              </div>
+              <p class="brisa-canva-reviews__author">Matt Mccafferty</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="brisa-canva-reviews__slide">
+          <img class="brisa-canva-reviews__photo" src="{{ 'brisa-review-naomi-photo.png' | asset_url }}" alt="Naomi Adams" width="1200" height="831" loading="lazy" draggable="false">
+          <div class="brisa-canva-reviews__content">
+            <p class="brisa-canva-reviews__quote">I’ll be honest, when I first saw Brisa I thought it was probably another gimmick. I’d already tried other things and nothing really replaced the part I actually missed.
+I decided to give it a go and completely changed my mind. Having something to hold and draw from makes such a difference for me, and the flavour is way stronger than I expected.
+It goes everywhere with me now. I genuinely wish I’d found it sooner.
+If you’re sitting on the fence like I was, just try it.</p>
+            <div class="brisa-canva-reviews__footer">
+              <p class="brisa-canva-reviews__author">Naomi Adams</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="brisa-canva-reviews__slide">
+          <img class="brisa-canva-reviews__photo" src="{{ 'brisa-review-ellie-photo.png' | asset_url }}" alt="Ellie Maree" width="1200" height="831" loading="lazy" draggable="false">
+          <div class="brisa-canva-reviews__content">
+            <p class="brisa-canva-reviews__quote">Going out was always the hardest part for me. As soon as I was around friends who were vaping I’d automatically want something in my hand too.
+
+Brisa surprised me because I still get the flavour, the draw and something to actually hold without needing a vape.
+
+I take it everywhere now, especially on nights out. Honestly wish this existed when I first started vaping 😂
+
+Mint Ice is my go to.</p>
+            <div class="brisa-canva-reviews__footer">
+              <div class="brisa-canva-reviews__review-rating" aria-label="5 out of 5 stars. Verified review.">
+                <span class="brisa-canva-reviews__review-stars" aria-hidden="true">★★★★★</span>
+                <span class="brisa-canva-reviews__verified">VERIFIED</span>
+              </div>
+              <p class="brisa-canva-reviews__author">Ellie Maree</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="brisa-canva-reviews__slide">
+          <img class="brisa-canva-reviews__photo" src="{{ 'brisa-review-corey-photo.png' | asset_url }}" alt="Corey Worth" width="1200" height="831" loading="lazy" draggable="false">
+          <div class="brisa-canva-reviews__content">
+            <p class="brisa-canva-reviews__quote">I actually thought this was a bit of a rip off at the start 😂 but my mate kept recommending it, so I gave it a go. I hated how much I still relied on my vape and thought it was probably time I had a crack at giving it up.
+First few days took a bit of getting used to, but this really helped in those moments you don’t realise how much you normally vape. You just reach for the Brisa instead and you’ve still got the flavour, throat hit and something to draw from. It honestly feels pretty close to the routine of vaping.
+
+Very impressed tbh. Flavours are nice as and the thing actually looks cool too.</p>
+            <div class="brisa-canva-reviews__footer">
+              <div class="brisa-canva-reviews__review-rating" aria-label="5 out of 5 stars. Verified review.">
+                <span class="brisa-canva-reviews__review-stars" aria-hidden="true">★★★★★</span>
+                <span class="brisa-canva-reviews__verified">VERIFIED</span>
+              </div>
+              <p class="brisa-canva-reviews__author">Corey Worth</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="brisa-canva-reviews__slide">
+          <img class="brisa-canva-reviews__photo" src="{{ 'brisa-review-dylan-photo.jpg' | asset_url }}" alt="Dylan Clark" width="1200" height="831" loading="lazy" draggable="false">
+          <div class="brisa-canva-reviews__content">
+            <p class="brisa-canva-reviews__quote">Brisa was an interesting one for me. I was a bit unsure at first, but after just having my second kid I’ve been trying to focus more on looking after myself. I really like how closely it mimics the experience of vaping, which has made the transition away from it a lot easier, especially when I’m around all my mates who still vape.</p>
+            <div class="brisa-canva-reviews__footer">
+              <div class="brisa-canva-reviews__review-rating" aria-label="5 out of 5 stars. Verified review.">
+                <span class="brisa-canva-reviews__review-stars" aria-hidden="true">★★★★★</span>
+                <span class="brisa-canva-reviews__verified">VERIFIED</span>
+              </div>
+              <p class="brisa-canva-reviews__author">Dylan Clark</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+{% else %}
 <brisa-product-testimonials
   class="brisa-product-testimonials"
   data-total-items="{{ total_testimonials }}"
@@ -153,6 +453,7 @@
     </div>
   {% endif %}
 </brisa-product-testimonials>
+{% endif %}
 
 {% schema %}
 {
@@ -171,6 +472,11 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Video testimonials"
+    },
+    {
+      "type": "url",
+      "id": "canva_embed_url",
+      "label": "Canva review slider embed URL"
     },
     {
       "type": "textarea",
