@@ -1318,10 +1318,11 @@
 }
 
 .bkp__testimonial-card {
+  position: relative;
   flex: 0 0 calc(88% - 9px);
   scroll-snap-align: center;
   min-height: 135px;
-  padding: 17px 14px 12px;
+  padding: 17px 14px 44px;
   border-radius: 14px;
   background: #fff;
   box-shadow:
@@ -1333,13 +1334,13 @@
 .bkp__testimonial-card-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 14px;
   font-size: 17px;
 }
 
 .bkp__testimonial-card-stars {
-  margin-left: auto;
+  margin-left: 0;
   white-space: nowrap;
 }
 
@@ -1350,6 +1351,10 @@
 }
 
 .bkp__testimonial-card footer {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  left: 14px;
   color: #aaa;
   font-size: 16px;
   font-weight: 700;
