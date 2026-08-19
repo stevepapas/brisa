@@ -389,6 +389,38 @@ if (!customElements.get('brisa-product-testimonials')) {
   customElements.define('brisa-product-testimonials', BrisaProductTestimonials);
 }
 
+function startSlideshowBrisaInlineVideo(slide, { muted = false } = {}) {
+  if (!slide || slide.querySelector('.slideshow-brisa__inline-video')) return null;
+
+  const playButton = slide.querySelector('.slideshow-brisa__video-play[data-brisa-video-src]');
+  const videoSrc = playButton?.dataset.brisaVideoSrc;
+  if (!playButton || !videoSrc) return null;
+
+  const videoType = playButton.dataset.brisaVideoType || 'iframe';
+  let inlineVideo;
+
+  if (videoType === 'html5') {
+    inlineVideo = document.createElement('video');
+    inlineVideo.src = videoSrc;
+    inlineVideo.controls = true;
+    inlineVideo.autoplay = true;
+    inlineVideo.playsInline = true;
+    inlineVideo.muted = muted;
+  } else {
+    inlineVideo = document.createElement('iframe');
+    inlineVideo.title = 'Brisa video';
+    inlineVideo.allow = 'autoplay; encrypted-media; fullscreen';
+    inlineVideo.allowFullscreen = true;
+    inlineVideo.src = videoSrc;
+  }
+
+  inlineVideo.className = 'slideshow-brisa__inline-video';
+  slide.classList.add('is-playing-video');
+  slide.querySelector('.slideshow__slide-inner')?.appendChild(inlineVideo);
+  inlineVideo.play?.().catch(() => {});
+  return inlineVideo;
+}
+
 document.addEventListener('click', (event) => {
   const playButton = event.target.closest('[data-brisa-video-src]');
   if (!playButton) return;
@@ -405,28 +437,7 @@ document.addEventListener('click', (event) => {
     const slideList = playButton.closest('.slideshow__slide-list');
     if (slideList?.dataset.brisaDragging === 'true') return;
 
-    const slide = playButton.closest('slide-show-item');
-    if (!slide || slide.querySelector('.slideshow-brisa__inline-video')) return;
-
-    let inlineVideo;
-    if (videoType === 'html5') {
-      inlineVideo = document.createElement('video');
-      inlineVideo.src = videoSrc;
-      inlineVideo.controls = true;
-      inlineVideo.autoplay = true;
-      inlineVideo.playsInline = true;
-    } else {
-      inlineVideo = document.createElement('iframe');
-      inlineVideo.title = 'Brisa video';
-      inlineVideo.allow = 'autoplay; encrypted-media; fullscreen';
-      inlineVideo.allowFullscreen = true;
-      inlineVideo.src = videoSrc;
-    }
-
-    inlineVideo.className = 'slideshow-brisa__inline-video';
-    slide.classList.add('is-playing-video');
-    slide.querySelector('.slideshow__slide-inner')?.appendChild(inlineVideo);
-    inlineVideo.play?.().catch(() => {});
+    startSlideshowBrisaInlineVideo(playButton.closest('slide-show-item'));
     return;
   }
 
@@ -619,6 +630,9 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
       }
       if (itemIndex === state.index) item.removeAttribute('hidden');
       else item.setAttribute('hidden', '');
+    });
+    requestAnimationFrame(() => {
+      startSlideshowBrisaInlineVideo(items[state.index], { muted: true });
     });
     if (pageDots && pageDots.selectedIndex !== state.index) {
       pageDots.selectedIndex = state.index;
