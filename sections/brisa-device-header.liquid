@@ -7,24 +7,37 @@
 %}
 
 <style>
-  /* Match brisa-kit-purchase header/highlights on the devices page */
+  /* Match the light-blue intro panel used by brisa-kit-purchase on the devices page. */
   #shopify-section-{{ section.id }} {
-    background: {{ section.settings.background }};
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: #ffffff;
+    padding: 0;
   }
 
   .brisa-device-header-{{ section_id }} {
     color: {{ section.settings.text_color }};
   }
 
-  .brisa-device-header-{{ section_id }} .brisa-device-header__inner {
+  .brisa-device-header-{{ section_id }} .brisa-device-header__intro-panel {
+    width: 100%;
+    padding: {{ section.settings.padding_top }}px 0 14px;
+    border-bottom: 5px solid {{ section.settings.intro_border_color }};
+    background: {{ section.settings.background }};
+  }
+
+  .brisa-device-header-{{ section_id }} .brisa-device-header__content,
+  .brisa-device-header-{{ section_id }} .brisa-device-header__features-panel {
     max-width: 560px;
     margin: 0 auto;
     padding: 0 20px;
   }
 
   .brisa-device-header-{{ section_id }} .brisa-device-header__content {
-    max-width: 560px;
+    text-align: center;
+  }
+
+  .brisa-device-header-{{ section_id }} .brisa-device-header__features-panel {
+    padding-top: 18px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 
   .brisa-device-header-{{ section_id }} .brisa-device-header__intro {
@@ -38,7 +51,7 @@
   }
 
   .brisa-device-header-{{ section_id }} .brisa-device-header__heading {
-    margin: 0 0 12px;
+    margin: 0 0 8px;
     color: {{ section.settings.heading_color }};
     font-size: clamp(22px, 6vw, 36px);
     font-weight: 800;
@@ -47,10 +60,20 @@
     text-transform: uppercase;
   }
 
+  .brisa-device-header-{{ section_id }} .brisa-device-header__description {
+    max-width: 540px;
+    margin: 0 auto 14px;
+    color: {{ section.settings.heading_color }};
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.18;
+  }
+
   .brisa-device-header-{{ section_id }} .brisa-device-header__rating {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: 8px 10px;
     margin-bottom: 10px;
   }
@@ -112,7 +135,7 @@
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px 12px;
-    margin: 0 0 18px;
+    margin: 0;
     padding: 0;
   }
 
@@ -184,13 +207,23 @@
   }
 
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} {
-      padding-top: 24px;
-      padding-bottom: 24px;
+    .brisa-device-header-{{ section_id }} .brisa-device-header__intro-panel {
+      padding-top: 4px;
+      padding-bottom: 10px;
     }
 
     .brisa-device-header-{{ section_id }} .brisa-device-header__heading {
-      margin-bottom: 0;
+      margin-bottom: 4px;
+    }
+
+    .brisa-device-header-{{ section_id }} .brisa-device-header__description {
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .brisa-device-header-{{ section_id }} .brisa-device-header__features-panel {
+      padding-top: 14px;
+      padding-bottom: 24px;
     }
 
     .brisa-device-header-{{ section_id }} .brisa-device-header__rating {
@@ -213,7 +246,7 @@
 </style>
 
 <section class="brisa-device-header brisa-device-header-{{ section_id }}" {{ section.shopify_attributes }}>
-  <div class="brisa-device-header__inner">
+  <div class="brisa-device-header__intro-panel">
     <div class="brisa-device-header__content">
       {% if section.settings.intro != blank %}
         <p class="brisa-device-header__intro">{{ section.settings.intro | escape }}</p>
@@ -221,6 +254,10 @@
 
       {% if section.settings.heading != blank %}
         <h2 class="brisa-device-header__heading">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="brisa-device-header__description">{{ section.settings.description | escape }}</p>
       {% endif %}
 
       {% if section.settings.show_rating %}
@@ -251,14 +288,18 @@
         </div>
       {% endif %}
 
-      {% liquid
-        assign feature_count = section.blocks.size
-        if feature_count == 0
-          assign feature_count = 4
-        endif
-      %}
+    </div>
+  </div>
 
-      <div class="brisa-device-header__features">
+  {% liquid
+    assign feature_count = section.blocks.size
+    if feature_count == 0
+      assign feature_count = 4
+    endif
+  %}
+
+  <div class="brisa-device-header__features-panel">
+    <div class="brisa-device-header__features">
         {% for i in (1..feature_count) %}
           {% liquid
             assign feature_icon = 'leaf'
@@ -383,7 +424,6 @@
             </div>
           </div>
         {% endfor %}
-      </div>
     </div>
   </div>
 </section>
@@ -431,10 +471,22 @@
       "default": "Better cores"
     },
     {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Refill the ritual. Real throat sensation, cooling and bold flavour from food-grade aroma alone, no nicotine, no smoke, no vapour."
+    },
+    {
       "type": "color",
       "id": "background",
-      "label": "Background",
-      "default": "#ffffff"
+      "label": "Intro background",
+      "default": "#eaf8ff"
+    },
+    {
+      "type": "color",
+      "id": "intro_border_color",
+      "label": "Intro bottom border",
+      "default": "#86d7f7"
     },
     {
       "type": "color",

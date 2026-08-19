@@ -318,11 +318,13 @@
         "rating_label": "Rated 4.7 out of 5 by 163 customers",
         "badge_text": "Happy customers",
         "heading": "BETTER CORES",
-        "background": "#ffffff",
+        "description": "Refill the ritual. Real throat sensation, cooling and bold flavour from food-grade aroma alone, no nicotine, no smoke, no vapour.",
+        "background": "#eaf8ff",
+        "intro_border_color": "#86d7f7",
         "heading_color": "#000000",
         "text_color": "#111111",
         "accent_color": "#38adf5",
-        "padding_top": 28,
+        "padding_top": 24,
         "padding_bottom": 12,
         "heading_size": 54
       }
