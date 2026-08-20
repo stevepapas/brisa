@@ -208,6 +208,10 @@
     object-fit: contain;
     background: #b7e0f4;
   }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[id$="-image_cores01"] .slideshow__image {
+    object-position: left center;
+  }
   {%- else -%}
     #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide-list {
       position: relative;
@@ -504,6 +508,7 @@
       width: 100%;
       max-width: 100%;
       overflow: hidden;
+      background: #eaf8ff;
       box-sizing: border-box;
     }
 
@@ -546,7 +551,7 @@
       pointer-events: none;
       cursor: default;
       opacity: 1;
-      background: #fff;
+      background: #eaf8ff;
       border-radius: 0;
     }
 
@@ -645,7 +650,7 @@
       border-radius: var(--slideshow-brisa-slide-radius);
       clip-path: none !important;
       visibility: visible !important;
-      scroll-snap-align: start;
+      scroll-snap-align: center;
       scroll-snap-stop: always;
       z-index: auto;
     }

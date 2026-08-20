@@ -579,8 +579,10 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
   };
 
   const clampIndex = (index) => Math.max(0, Math.min(items.length - 1, Number(index) || 0));
-  const scrollPadding = () => parseFloat(getComputedStyle(slideList).scrollPaddingInlineStart) || 0;
-  const itemScrollLeft = (index) => Math.max(0, items[index].offsetLeft - scrollPadding());
+  const itemScrollLeft = (index) => Math.max(
+    0,
+    items[index].offsetLeft - ((slideList.clientWidth - items[index].offsetWidth) / 2)
+  );
   const nearestIndex = () => {
     let nearest = 0;
     let nearestDistance = Infinity;
