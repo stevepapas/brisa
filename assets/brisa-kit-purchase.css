@@ -1666,6 +1666,11 @@
     margin-right: 18px;
   }
 
+  .bkp__kit[data-kit-key='commitment'] .bkp__kit-thumb {
+    height: 80px;
+    transform: translateY(3px);
+  }
+
   .bkp__kit[data-kit-key='mates'] .bkp__kit-thumb {
     height: 74px;
     max-width: 42%;
