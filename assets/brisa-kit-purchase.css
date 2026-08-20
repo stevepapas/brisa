@@ -1631,6 +1631,7 @@
     grid-column: 1 / -1;
     grid-row: 3;
     gap: 4px;
+    margin-top: 3px;
     width: calc(100% - 8px);
     z-index: 2;
   }
@@ -1738,13 +1739,13 @@
 
   .bkp__kit-compare {
     font-size: 10px;
-    margin-top: 0;
+    margin-top: -2px;
   }
 
   .bkp__kit-save {
     font-size: 8px;
     padding: 0 4px;
-    margin-top: 0;
+    margin-top: 2px;
     letter-spacing: 0.01em;
   }
 
