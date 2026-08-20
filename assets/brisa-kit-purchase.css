@@ -327,7 +327,7 @@
     padding-inline: 8px;
     white-space: nowrap;
     text-align: center;
-    font-size: 7px;
+    font-size: 8px;
     line-height: 1.1;
     letter-spacing: 0;
   }
@@ -390,6 +390,8 @@
   color: #9a9a9a;
   text-decoration: line-through;
   flex: 0 0 auto;
+  align-self: flex-start;
+  margin-top: 2px;
 }
 
 .bkp__kit-save {
@@ -404,6 +406,8 @@
   color: #fff;
   text-transform: uppercase;
   white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
 }
 
 .bkp__kit-features {
@@ -1783,8 +1787,20 @@
   }
 
   .bkp__kit-heading {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 6px;
+    width: max-content;
+    max-width: 65%;
+  }
+
+  .bkp__kit-subtitle {
+    margin: 0;
+    font-size: 11px;
+    white-space: nowrap;
   }
 
   .bkp__kit-pricing {
@@ -1796,6 +1812,8 @@
   .bkp__kit-features {
     grid-column: 1;
     grid-row: 3;
+    gap: 6px;
+    margin-top: 7px;
   }
 
   .bkp__kit-radio {
