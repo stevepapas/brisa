@@ -536,6 +536,23 @@
         margin-inline: 0;
       }
     }
+
+    @media screen and (max-width: 999px) {
+      #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: auto;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide,
+      #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[hidden],
+      #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide:not([hidden]) {
+        height: auto;
+        min-height: 0 !important;
+        aspect-ratio: 1 / 1;
+      }
+    }
   {%- else -%}
     /* Homepage hero: centred, same width as What is Brisa panel (800px on desktop) */
     #shopify-section-{{ section.id }} .slideshow-brisa-section--hero .slideshow-brisa__stage {
