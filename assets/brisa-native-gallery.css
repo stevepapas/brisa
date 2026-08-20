@@ -12,6 +12,12 @@
   -webkit-overflow-scrolling: touch;
 }
 
+[data-brisa-native-gallery="true"],
+[data-brisa-native-gallery="true"] .slideshow-brisa__stage,
+[data-brisa-native-gallery="true"] .slideshow__slide-list {
+  background: #eaf8ff;
+}
+
 [data-brisa-native-gallery="true"] .slideshow__slide-list::-webkit-scrollbar {
   display: none;
 }
@@ -37,7 +43,7 @@
   border-radius: var(--slideshow-brisa-slide-radius, 18px);
   clip-path: none !important;
   visibility: visible !important;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   scroll-snap-stop: always;
   z-index: auto;
 }
