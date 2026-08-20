@@ -693,17 +693,17 @@
 
     @media screen and (max-width: 999px) {
       #shopify-section-{{ section.id }} .slideshow-brisa__stage {
-        display: block;
+        display: flex;
         overflow: hidden;
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa__peek {
-        display: none !important;
+        display: block !important;
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
-        width: 100% !important;
-        max-width: 100%;
+        width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap))) !important;
+        max-width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap)));
         height: auto;
         aspect-ratio: auto;
         padding-inline: 15px;
