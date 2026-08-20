@@ -403,9 +403,11 @@ function startSlideshowBrisaInlineVideo(slide, { muted = false } = {}) {
     inlineVideo = document.createElement('video');
     inlineVideo.src = videoSrc;
     inlineVideo.controls = true;
-    inlineVideo.autoplay = true;
+    inlineVideo.autoplay = false;
     inlineVideo.playsInline = true;
+    inlineVideo.defaultMuted = muted;
     inlineVideo.muted = muted;
+    if (!muted) inlineVideo.volume = 1;
   } else {
     inlineVideo = document.createElement('iframe');
     inlineVideo.title = 'Brisa video';
@@ -633,9 +635,8 @@ function initSlideshowBrisaNativeGallery(section, slideshow, pageDots) {
       if (itemIndex === state.index) item.removeAttribute('hidden');
       else item.setAttribute('hidden', '');
     });
-    requestAnimationFrame(() => {
-      startSlideshowBrisaInlineVideo(items[state.index], { muted: true });
-    });
+    // Do not auto-create videos when a slide becomes active. Mobile browsers
+    // require the user's play tap to begin audible playback reliably.
     if (pageDots && pageDots.selectedIndex !== state.index) {
       pageDots.selectedIndex = state.index;
     }

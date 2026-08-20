@@ -764,7 +764,8 @@ display: none;
 .template-brisa-devices-variations .shopify-section--slideshow-brisa,
 .template-brisa-cores .shopify-section--slideshow-brisa,
 .template-brisa-cores-variations .shopify-section--slideshow-brisa {
-  margin-top: 15px;
+  margin-top: 0;
+  padding-top: 15px;
 }
 
 /* Product hero slideshow: square, centered on desktop (not full viewport width) */

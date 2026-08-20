@@ -570,8 +570,7 @@
           canExpand &&
           device2Id &&
           /^\d+$/.test(device2Id) &&
-          device2Id !== variantId &&
-          device2Id !== device1Id
+          device2Id !== variantId
         ) {
           properties._device_2_variant_id = device2Id;
         }
@@ -835,8 +834,7 @@
           canExpand &&
           device2Id &&
           /^\d+$/.test(device2Id) &&
-          device2Id !== variantId &&
-          device2Id !== device1Id
+          device2Id !== variantId
         ) {
           properties._device_2_variant_id = device2Id;
         }

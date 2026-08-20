@@ -249,6 +249,7 @@
           assign kit_compare = ''
           assign kit_save = ''
           assign kit_banner = ''
+          assign kit_cores_description = ''
           assign kit_devices = 1
           assign kit_image = blank
           assign kit_image_asset = ''
@@ -264,9 +265,10 @@
               assign kit_compare = section.settings.try_compare
               assign kit_save = section.settings.try_save
               assign kit_banner = section.settings.try_banner
+              assign kit_cores_description = section.settings.try_cores_description
               assign kit_devices = 1
               assign kit_image = section.settings.try_image
-              assign kit_image_asset = section.settings.try_image_asset | default: 'brisa-kit-try.jpg' | strip
+              assign kit_image_asset = section.settings.try_image_asset | default: 'brisa-kit-try-canva.png' | strip
               assign price_cents = section.settings.try_price_cents | default: 13000
             when 'commitment'
               assign kit_product = commitment_product
@@ -276,10 +278,11 @@
               assign kit_compare = section.settings.commitment_compare
               assign kit_save = section.settings.commitment_save
               assign kit_banner = section.settings.commitment_banner
+              assign kit_cores_description = section.settings.commitment_cores_description
               assign kit_devices = 1
               assign kit_image = section.settings.commitment_image
-              assign kit_image_asset = section.settings.commitment_image_asset | default: 'brisa-kit-commitment.jpg' | strip
-              assign price_cents = section.settings.commitment_price_cents | default: 16500
+              assign kit_image_asset = section.settings.commitment_image_asset | default: 'brisa-kit-commitment-canva.png' | strip
+              assign price_cents = section.settings.commitment_price_cents | default: 15500
             when 'mates'
               assign kit_product = mates_product
               assign kit_title = section.settings.mates_title
@@ -288,9 +291,10 @@
               assign kit_compare = section.settings.mates_compare
               assign kit_save = section.settings.mates_save
               assign kit_banner = section.settings.mates_banner
+              assign kit_cores_description = section.settings.mates_cores_description
               assign kit_devices = 2
               assign kit_image = section.settings.mates_image
-              assign kit_image_asset = section.settings.mates_image_asset | default: 'brisa-kit-mates.jpg' | strip
+              assign kit_image_asset = section.settings.mates_image_asset | default: 'brisa-kit-mates-canva.png' | strip
               assign price_cents = section.settings.mates_price_cents | default: 22000
           endcase
 
@@ -298,7 +302,7 @@
             assign kit_variant = kit_product.selected_or_first_available_variant
             assign variant_id = kit_variant.id
             assign price_cents = kit_variant.price
-            if kit_image == blank
+            if kit_image == blank and kit_image_asset == blank
               assign kit_image = kit_product.featured_image
             endif
             if kit_price == blank
@@ -362,7 +366,13 @@
         >
           <input type="radio" name="bkp-kit-{{ section.id }}" value="{{ key }}" {% if is_selected %}checked{% endif %} {% unless kit_available %}disabled{% endunless %}>
           {% if kit_available and kit_banner != blank %}
-            <span class="bkp__kit-banner">{{ kit_banner | escape }}</span>
+            <span class="bkp__kit-banner">
+              {% if kit_banner contains '★' %}
+                <span class="bkp__kit-banner-star" aria-hidden="true">★</span>{{ kit_banner | remove_first: '★' | strip | escape }}
+              {% else %}
+                {{ kit_banner | escape }}
+              {% endif %}
+            </span>
           {% elsif kit_available == false %}
             <span class="bkp__kit-banner bkp__kit-banner--sold-out">Sold out</span>
           {% endif %}
@@ -414,6 +424,11 @@
                       {% assign worth_parts = feature_text | split: '(worth' %}
                       <span class="bkp__kit-feature-text">{{ worth_parts.first | strip | escape }}</span>
                       <span class="bkp__kit-feature-worth">(worth{{ worth_parts.last | escape }}</span>
+                    {% elsif feature_position == 2 and kit_cores_description != blank %}
+                      <span class="bkp__kit-feature-copy">
+                        <span class="bkp__kit-feature-text">{{ feature_text | escape }}</span>
+                        <span class="bkp__kit-feature-description">{{ kit_cores_description | escape }}</span>
+                      </span>
                     {% else %}
                       <span class="bkp__kit-feature-text">{{ feature_text | escape }}</span>
                     {% endif %}
@@ -952,8 +967,13 @@
     {
       "type": "text",
       "id": "try_subtitle",
-      "label": "Try subtitle",
-      "default": "Try Brisa First"
+      "label": "Try subtitle"
+    },
+    {
+      "type": "text",
+      "id": "try_cores_description",
+      "label": "Try cores description",
+      "default": "(3 Mint - 6 Cherry pomegranate)"
     },
     {
       "type": "text",
@@ -994,7 +1014,7 @@
       "type": "text",
       "id": "try_image_asset",
       "label": "Try image asset fallback",
-      "default": "brisa-kit-try.jpg"
+      "default": "brisa-kit-try-canva.png"
     },
     {
       "type": "header",
@@ -1025,33 +1045,39 @@
     },
     {
       "type": "text",
+      "id": "commitment_cores_description",
+      "label": "Commitment cores description",
+      "default": "(9 Mint - 9 Cherry pomegranate)"
+    },
+    {
+      "type": "text",
       "id": "commitment_price",
       "label": "Commitment price label",
-      "default": "$165"
+      "default": "$155"
     },
     {
       "type": "text",
       "id": "commitment_compare",
       "label": "Commitment compare label",
-      "default": "$205"
+      "default": "$175"
     },
     {
       "type": "text",
       "id": "commitment_save",
       "label": "Commitment save label",
-      "default": "SAVE $40"
+      "default": "SAVE $20"
     },
     {
       "type": "text",
       "id": "commitment_banner",
       "label": "Commitment banner",
-      "default": "★MOST POPULAR - SAVE $40"
+      "default": "★ MOST POPULAR - 9 EXTRA CORES FOR JUST $25 MORE"
     },
     {
       "type": "number",
       "id": "commitment_price_cents",
       "label": "Commitment price (cents fallback)",
-      "default": 16500
+      "default": 15500
     },
     {
       "type": "image_picker",
@@ -1063,7 +1089,7 @@
       "type": "text",
       "id": "commitment_image_asset",
       "label": "Commitment image asset fallback",
-      "default": "brisa-kit-commitment.jpg"
+      "default": "brisa-kit-commitment-canva.png"
     },
     {
       "type": "header",
@@ -1091,6 +1117,12 @@
       "id": "mates_subtitle",
       "label": "Mates subtitle",
       "default": "For you and someone else"
+    },
+    {
+      "type": "text",
+      "id": "mates_cores_description",
+      "label": "Mates cores description",
+      "default": "(3 Mint - 6 Cherry pomegranate each)"
     },
     {
       "type": "text",
@@ -1131,7 +1163,7 @@
       "type": "text",
       "id": "mates_image_asset",
       "label": "Mates image asset fallback",
-      "default": "brisa-kit-mates.jpg"
+      "default": "brisa-kit-mates-canva.png"
     },
     {
       "type": "header",
@@ -1567,7 +1599,7 @@
         { "type": "feature", "settings": { "kit": "try", "text": "Cleaning kit + carry bag" } },
         { "type": "feature", "settings": { "kit": "try", "text": "FREE 3 x Watermelon cores (worth $15)", "bonus": true } },
         { "type": "feature", "settings": { "kit": "commitment", "text": "1x Brisa device" } },
-        { "type": "feature", "settings": { "kit": "commitment", "text": "27 cores (18 Cherry Pom, 9 Mint Ice)" } },
+        { "type": "feature", "settings": { "kit": "commitment", "text": "18 cores - about 8 weeks" } },
         { "type": "feature", "settings": { "kit": "commitment", "text": "Cleaning kit + carry bag" } },
         { "type": "feature", "settings": { "kit": "commitment", "text": "FREE 3 x Watermelon cores (worth $15)", "bonus": true } },
         { "type": "feature", "settings": { "kit": "mates", "text": "2x Brisa device" } },
