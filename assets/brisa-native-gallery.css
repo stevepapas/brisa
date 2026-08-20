@@ -80,17 +80,17 @@
 
 @media screen and (max-width: 999px) {
   [data-brisa-native-gallery="true"] .slideshow-brisa__stage {
-    display: block;
+    display: flex;
     overflow: hidden;
   }
 
   [data-brisa-native-gallery="true"] .slideshow-brisa__peek {
-    display: none !important;
+    display: block !important;
   }
 
   [data-brisa-native-gallery="true"] .slideshow__slide-list {
-    width: 100% !important;
-    max-width: 100%;
+    width: calc(100% - (2 * var(--slideshow-brisa-peek-size, 18px)) - (2 * var(--slideshow-brisa-peek-gap, 8px))) !important;
+    max-width: calc(100% - (2 * var(--slideshow-brisa-peek-size, 18px)) - (2 * var(--slideshow-brisa-peek-gap, 8px)));
     padding-inline: 15px;
     border-radius: 0;
     scroll-padding-inline: 15px;
