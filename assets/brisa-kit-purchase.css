@@ -324,10 +324,10 @@
   .bkp__kit-banner {
     width: max-content;
     max-width: 75%;
-    padding-inline: 8px;
+    padding: 3.3px 9px;
     white-space: nowrap;
     text-align: center;
-    font-size: 8px;
+    font-size: 8.8px;
     line-height: 1.1;
     letter-spacing: 0;
   }
@@ -1600,13 +1600,15 @@
 
   .bkp__kit-heading {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: baseline;
     gap: 0 6px;
     margin: 0;
     min-width: 0;
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 1;
+    width: max-content;
+    max-width: calc(100% - 112px);
     z-index: 1;
   }
 
@@ -1617,8 +1619,9 @@
 
   .bkp__kit-subtitle {
     margin: 0;
-    font-size: 10px;
+    font-size: 7.5px;
     line-height: 1.05;
+    white-space: nowrap;
   }
 
   .bkp__kit-features {
@@ -1711,7 +1714,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 2px 3px;
     margin: 0;
     max-width: none;
@@ -1727,11 +1730,13 @@
 
   .bkp__kit-compare {
     font-size: 10px;
+    margin-top: 0;
   }
 
   .bkp__kit-save {
     font-size: 8px;
-    padding: 1px 4px;
+    padding: 0 4px;
+    margin-top: 0;
     letter-spacing: 0.01em;
   }
 
