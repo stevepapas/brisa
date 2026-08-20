@@ -1,0 +1,114 @@
+{%- liquid
+  assign picker_role = role | default: 'yours'
+  assign picker_label = label | default: 'Device Colour'
+  assign default_preview_url = ''
+  assign default_preview_alt = ''
+-%}
+
+<div class="bkp__colour-group" data-role="{{ picker_role }}">
+  <p class="bkp__colour-label">{{ picker_label | escape }}</p>
+  <div class="bkp__colour-picker">
+    <div class="bkp__swatches" role="listbox" aria-label="{{ picker_label | escape }}">
+      {% for colour_block in colour_blocks %}
+        {% liquid
+          assign colour_product = colour_block.settings.device_product
+          assign colour_variant_id = ''
+          assign kit_colour_variant_id = ''
+          assign kit_colour_available = true
+          assign colour_label_key = colour_block.settings.label | downcase | strip
+          assign colour_preview = blank
+
+          if colour_product != blank
+            assign colour_variant_id = colour_product.selected_or_first_available_variant.id
+            unless colour_product.available
+              assign kit_colour_available = false
+            endunless
+          endif
+
+          if kit_product != blank
+            for colour_variant in kit_product.variants
+              assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+              if colour_name == colour_label_key or colour_label_key == 'ocean' and colour_name == 'blue' or colour_label_key == 'blue' and colour_name == 'ocean'
+                assign kit_colour_variant_id = colour_variant.id
+                assign kit_colour_available = colour_variant.available
+                assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
+                break
+              endif
+            endfor
+          endif
+
+          if colour_preview == blank and try_product != blank
+            for colour_variant in try_product.variants
+              assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
+              if colour_name == colour_label_key or colour_label_key == 'ocean' and colour_name == 'blue' or colour_label_key == 'blue' and colour_name == 'ocean'
+                assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
+                break
+              endif
+            endfor
+          endif
+
+          if colour_preview == blank and colour_block.settings.image != blank
+            assign colour_preview = colour_block.settings.image
+          endif
+          if colour_preview == blank and colour_product != blank
+            assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
+          endif
+
+          assign colour_preview_url = ''
+          if colour_preview != blank
+            assign colour_preview_url = colour_preview | image_url: width: 480
+          elsif colour_block.settings.image_asset != blank
+            assign colour_preview_url = colour_block.settings.image_asset | asset_url
+          endif
+          if colour_preview_url != blank
+            assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
+          endif
+
+          if forloop.first
+            assign default_preview_url = colour_preview_url
+            assign default_preview_alt = colour_block.settings.label
+          endif
+
+          assign swatch_style = colour_block.settings.hex | default: '#cccccc'
+          assign swatch_sold_out = false
+          unless kit_colour_available
+            assign swatch_sold_out = true
+          endunless
+        %}
+        <div class="bkp__swatch-wrap">
+          <button
+            type="button"
+            class="bkp__swatch{% if forloop.first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
+            style="background-color: {{ swatch_style }};"
+            data-bkp-swatch
+            data-role="{{ picker_role }}"
+            data-label="{{ colour_block.settings.label | escape }}"
+            data-variant-id="{{ colour_variant_id }}"
+            data-kit-variant-id="{{ kit_colour_variant_id }}"
+            data-image="{{ colour_preview_url | escape }}"
+            data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
+            role="option"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
+            aria-label="{{ colour_block.settings.label | escape }}"
+          ></button>
+          <span class="bkp__swatch-name">{{ colour_block.settings.label | escape }}</span>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="bkp__colour-preview" data-bkp-colour-preview="{{ picker_role }}"{% if default_preview_url == blank %} hidden{% endif %}>
+      <img
+        class="bkp__colour-preview-img"
+        data-bkp-colour-preview-img="{{ picker_role }}"
+        src="{{ default_preview_url | escape }}"
+        alt="{{ default_preview_alt | escape }}"
+        width="480"
+        height="86"
+        loading="lazy"
+        decoding="async"
+        {% if default_preview_url == blank %}hidden{% endif %}
+      >
+    </div>
+  </div>
+</div>
