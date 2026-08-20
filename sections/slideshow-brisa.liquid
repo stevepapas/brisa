@@ -36,6 +36,11 @@
   endif
 -%}
 
+{%- if slideshow_product_gallery -%}
+  {{- 'brisa-native-gallery.css' | asset_url | stylesheet_tag -}}
+  <script src="{{ 'brisa-native-gallery.js' | asset_url }}" defer></script>
+{%- endif -%}
+
 <style>
   #shopify-section-{{ section.id }} {
     --progress-bar-color: {{ progress_block.settings.text_color.red }}, {{ progress_block.settings.text_color.green }}, {{ progress_block.settings.text_color.blue }};
@@ -566,6 +571,7 @@
 
 <section
   class="section section--flush{% unless slideshow_product_gallery %} slideshow-brisa-section--hero{% endunless %}{% if section.settings.desktop_layout == 'square' %} slideshow-brisa-section--square-desktop{% endif %}"
+  data-brisa-native-gallery="{{ slideshow_product_gallery }}"
   data-active-kit-set="{{ active_kit_set }}"
   data-starter-handle-prefix="{{ section.settings.starter_handle_prefix | default: 'brisa-device-' | escape }}"
   data-starter-handle="{{ section.settings.starter_handle | escape }}"
