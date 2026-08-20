@@ -1608,19 +1608,22 @@
     grid-column: 1 / -1;
     grid-row: 1;
     width: max-content;
-    max-width: calc(100% - 112px);
+    max-width: calc(100% - 30px);
     z-index: 1;
   }
 
   .bkp__kit-title {
     font-size: 14px;
     line-height: 1.05;
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 
   .bkp__kit-subtitle {
     margin: 0;
     font-size: 7.5px;
     line-height: 1.05;
+    flex: 0 0 auto;
     white-space: nowrap;
   }
 
