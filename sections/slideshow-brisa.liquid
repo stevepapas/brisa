@@ -34,12 +34,12 @@
       assign slideshow_product_gallery = true
     endif
   endif
--%}
 
-{%- if slideshow_product_gallery -%}
-  {{- 'brisa-native-gallery.css' | asset_url | stylesheet_tag -}}
-  <script src="{{ 'brisa-native-gallery.js' | asset_url }}" defer></script>
-{%- endif -%}
+  # Product galleries always use a square frame, independently of Theme Editor values.
+  if slideshow_product_gallery
+    assign frame_height_percent = 100
+  endif
+-%}
 
 <style>
   #shopify-section-{{ section.id }} {
@@ -55,6 +55,14 @@
     --slideshow-brisa-frame-ratio: 100 / {{ frame_height_percent }};
     background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
   }
+
+  {%- if slideshow_product_gallery -%}
+    #shopify-section-{{ section.id }},
+    #shopify-section-{{ section.id }} .slideshow-brisa,
+    #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
+      background: #eaf8ff !important;
+    }
+  {%- endif -%}
 
   {%- for block in section.blocks -%}
     {%- assign text_position = block.settings.text_position | split: '_' | first -%}
@@ -151,6 +159,18 @@
   }
 
   {%- if slideshow_product_gallery -%}
+    /* Core and device galleries always render in a square frame. Square artwork is
+       unaffected; non-square artwork crops from the top-left so corner messaging
+       such as "World 1st formulation" remains visible. */
+    #shopify-section-{{ section.id }} {
+      --slideshow-brisa-frame-ratio: 1 / 1;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__image,
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__image--placeholder {
+      object-position: left top !important;
+    }
+
     #shopify-section-{{ section.id }} .slideshow-brisa {
       --slideshow-min-height: 0;
       display: flex;
@@ -196,14 +216,19 @@
       height: 100%;
     }
 
-    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__image {
-      object-fit: cover;
-      object-position: center;
-    }
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__image {
+    object-fit: cover;
+    object-position: center;
+  }
 
-    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[id$="-image_cores01"] .slideshow__image {
-      object-position: left center;
-    }
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[id$="-image_device6"] .slideshow__image {
+    object-fit: contain;
+    background: #b7e0f4;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[id$="-image_cores01"] .slideshow__image {
+    object-position: left center;
+  }
   {%- else -%}
     #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide-list {
       position: relative;
@@ -281,6 +306,65 @@
     width: 100%;
     height: 100%;
     background: #d0d0d0;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    color: #008bdc;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play:hover svg {
+    transform: scale(1.07);
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.34));
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__video-play svg {
+    display: block;
+    width: 76px;
+    height: 76px;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.28));
+    transition: transform 0.2s ease, filter 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow-brisa__inline-video {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #000;
+    object-fit: contain;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow__slide.is-playing-video .slideshow__image-wrapper,
+  #shopify-section-{{ section.id }} .slideshow__slide.is-playing-video .slideshow-brisa__video-play {
+    visibility: hidden;
+  }
+
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .slideshow-brisa__video-play svg {
+      width: 64px;
+      height: 64px;
+    }
   }
 
   #shopify-section-{{ section.id }} .slideshow-brisa__arrow {
@@ -410,7 +494,7 @@
       {%- if slideshow_product_gallery and visible_blocks_count > 0 -%}
         --slideshow-brisa-thumb-size: min(
           {{ section.settings.thumbnail_size | times: 0.78 | round }}px,
-          calc((100vw - 124px - {{ section.settings.thumbnail_gap | times: visible_blocks_count | minus: 1 }}px) / {{ visible_blocks_count }})
+          calc((100vw - 124px - {{ visible_blocks_count | minus: 1 | times: 2 }}px) / {{ visible_blocks_count }})
         );
       {%- else -%}
         --slideshow-brisa-thumb-size: {{ section.settings.thumbnail_size | times: 0.78 | round }}px;
@@ -420,6 +504,10 @@
     #shopify-section-{{ section.id }} .slideshow-brisa__nav-bar {
       gap: 10px;
       padding: 12px 14px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa__dots {
+      gap: 2px;
     }
 
     #shopify-section-{{ section.id }} .slideshow-brisa__arrow {
@@ -542,20 +630,129 @@
       }
     }
 
+    /* Native gallery track at every breakpoint. The complete current slide
+       travels out while the next complete slide enters on the same track. */
+    #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      touch-action: pan-y;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list.is-dragging {
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+      cursor: grabbing;
+      user-select: none;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide,
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[hidden],
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide:not([hidden]) {
+      position: relative !important;
+      inset: auto !important;
+      display: block !important;
+      flex: 0 0 calc(100% - 4px);
+      width: calc(100% - 4px);
+      height: 100%;
+      min-height: 100% !important;
+      overflow: hidden;
+      border-radius: var(--slideshow-brisa-slide-radius);
+      clip-path: none !important;
+      visibility: visible !important;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      z-index: auto;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide {
+      opacity: 0.1;
+    }
+
+    @media screen and (min-width: 1000px) {
+      #shopify-section-{{ section.id }} .slideshow-brisa__stage {
+        display: block;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa__peek,
+      #shopify-section-{{ section.id }} .slideshow-brisa__peek.is-empty,
+      #shopify-section-{{ section.id }} .slideshow-brisa__peek[hidden] {
+        display: none !important;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow-brisa__stage .slideshow__slide-list {
+        width: 100% !important;
+        max-width: 100%;
+        height: var(--slideshow-brisa-desktop-size, 520px);
+        aspect-ratio: auto;
+        padding-inline: calc(var(--slideshow-brisa-peek-size) + var(--slideshow-brisa-peek-gap));
+        border-radius: 0;
+        scroll-padding-inline: calc(var(--slideshow-brisa-peek-size) + var(--slideshow-brisa-peek-gap));
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide,
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide[hidden],
+      #shopify-section-{{ section.id }} .slideshow-brisa-section--square-desktop .slideshow__slide:not([hidden]) {
+        flex: 0 0 var(--slideshow-brisa-desktop-size, 520px) !important;
+        width: var(--slideshow-brisa-desktop-size, 520px) !important;
+        height: var(--slideshow-brisa-desktop-size, 520px);
+        min-height: var(--slideshow-brisa-desktop-size, 520px) !important;
+        aspect-ratio: 1 / 1;
+      }
+    }
+
     @media screen and (max-width: 999px) {
+      #shopify-section-{{ section.id }} .slideshow-brisa__stage {
+        display: flex;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Mobile previews live in dedicated side gutters. The centre track has no
+         padding or gap, so only one previous/next image appears on each side. */
+      #shopify-section-{{ section.id }} .slideshow-brisa__peek {
+        display: block !important;
+        position: relative;
+        inset: auto;
+        z-index: 1;
+      }
+
+      #shopify-section-{{ section.id }} .slideshow-brisa__peek.is-empty,
+      #shopify-section-{{ section.id }} .slideshow-brisa__peek[hidden] {
+        display: block !important;
+      }
+
       #shopify-section-{{ section.id }} .slideshow-brisa__stage .slideshow__slide-list {
         width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap))) !important;
         max-width: calc(100% - (2 * var(--slideshow-brisa-peek-size)) - (2 * var(--slideshow-brisa-peek-gap)));
         height: auto;
         aspect-ratio: auto;
+        gap: 0;
+        padding-inline: 0;
+        border-radius: var(--slideshow-brisa-slide-radius);
+        scroll-padding-inline: 0;
       }
 
       #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide,
       #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide[hidden],
       #shopify-section-{{ section.id }} .slideshow-brisa .slideshow__slide:not([hidden]) {
+        flex: 0 0 100%;
+        width: 100%;
         height: auto;
         min-height: 0 !important;
         aspect-ratio: 1 / 1;
+        opacity: 1 !important;
       }
     }
   {%- else -%}
@@ -637,12 +834,40 @@
           assign image = block.settings.image
           assign image_asset = block.settings.image_asset | strip
           assign image_aspect_ratio = image.aspect_ratio | default: 1
+          assign video_src = blank
+          assign video_type = 'iframe'
+
+          if block.settings.video != blank
+            for video_source in block.settings.video.sources
+              if video_source.format == 'mp4'
+                assign video_src = video_source.url
+                break
+              endif
+            endfor
+
+            if video_src == blank
+              assign video_src = block.settings.video.sources.first.url
+            endif
+
+            assign video_type = 'html5'
+          elsif block.settings.video_url != blank
+            assign video_src = block.settings.video_url
+          elsif block.settings.video_asset != blank
+            assign video_src = block.settings.video_asset | asset_url
+            assign video_type = 'html5'
+          endif
         -%}
 
-        {%- if visible_index > 2 -%}
+        {%- if visible_index > 1 -%}
           {%- assign loading_attribute_value = 'lazy' -%}
         {%- else -%}
           {%- assign loading_attribute_value = 'eager' -%}
+        {%- endif -%}
+
+        {%- if visible_index == 1 -%}
+          {%- assign fetch_priority_value = 'high' -%}
+        {%- else -%}
+          {%- assign fetch_priority_value = 'auto' -%}
         {%- endif -%}
 
         {%- liquid
@@ -658,24 +883,43 @@
         {%- capture slide_content -%}
           <div class="slideshow__image-wrapper{% if block.settings.show_image_overlay %} slideshow__image-wrapper--has-overlay{% endif %}" {% if section.settings.transition_type == 'reveal' and section.settings.show_initial_transition or is_first_visible == false %}reveal-visibility{% endif %}>
             {%- if image != blank -%}
-              {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600,2000,2400,3000' -}}
+              {{- image | image_url: width: 1600 | image_tag: loading: loading_attribute_value, fetchpriority: fetch_priority_value, decoding: 'async', draggable: false, class: 'slideshow__image', sizes: slide_image_sizes, widths: '400,600,800,1000,1200,1600' -}}
             {%- elsif image_asset != blank -%}
-              {%- render 'brisa-responsive-asset-img',
-                filename: image_asset,
-                widths: '400,600,800,1000,1200',
-                sizes: slide_image_sizes,
-                alt: '',
-                class: 'slideshow__image',
-                loading: loading_attribute_value,
-                width: 1000,
-                height: 1000,
-                draggable: 'false'
-              -%}
+              <img
+                class="slideshow__image"
+                {% if is_first_visible %}
+                  src="{{ image_asset | asset_url }}"
+                {% else %}
+                  src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                  data-src="{{ image_asset | asset_url }}"
+                {% endif %}
+                alt=""
+                loading="{{ loading_attribute_value }}"
+                fetchpriority="{{ fetch_priority_value }}"
+                decoding="async"
+                draggable="false"
+                sizes="{{ slide_image_sizes }}"
+                width="800"
+                height="800"
+              >
             {%- else -%}
               {% capture image_name %}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
               {{- image_name | placeholder_svg_tag: 'slideshow__image slideshow__image--placeholder' -}}
             {%- endif -%}
           </div>
+
+          {%- if video_src != blank -%}
+            <button
+              type="button"
+              class="slideshow-brisa__video-play"
+              data-brisa-video-src="{{ video_src | escape }}"
+              data-brisa-video-type="{{ video_type }}"
+              data-brisa-video-aspect="{{ block.settings.video_aspect | default: 'landscape' }}"
+              aria-label="{{ block.settings.video_label | default: 'Play video' | escape }}"
+            >
+              {%- render 'icon' with 'play', width: 76, height: 76 -%}
+            </button>
+          {%- endif -%}
 
           {%- comment -%}
           ----------------------------------------------------------------------------------------------------------------
@@ -808,6 +1052,7 @@
             {%- assign thumb_image = block.settings.image -%}
           {%- endif -%}
           {%- assign thumb_asset = block.settings.image_asset | strip -%}
+          {%- assign thumb_asset_optimized = thumb_asset | replace: '.webp', '-thumb.webp' -%}
 
           <button
             type="button"
@@ -830,22 +1075,15 @@
                 loading="{% if dot_index < 4 %}eager{% else %}lazy{% endif %}"
               >
             {%- elsif thumb_asset != blank -%}
-              {%- if dot_index < 4 -%}
-                {%- assign thumbnail_loading = 'eager' -%}
-              {%- else -%}
-                {%- assign thumbnail_loading = 'lazy' -%}
-              {%- endif -%}
-              {%- assign thumbnail_sizes = section.settings.thumbnail_size | append: 'px' -%}
-              {%- render 'brisa-responsive-asset-img',
-                filename: thumb_asset,
-                widths: '80,120,160',
-                sizes: thumbnail_sizes,
-                alt: '',
-                class: 'slideshow-brisa__thumb-image',
-                loading: thumbnail_loading,
-                width: 160,
-                height: 160
-              -%}
+              <img
+                class="slideshow-brisa__thumb-image"
+                src="{{ thumb_asset_optimized | asset_url }}"
+                width="96"
+                height="96"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              >
             {%- else -%}
               <span class="slideshow-brisa__thumb-placeholder" aria-hidden="true"></span>
             {%- endif -%}
@@ -1141,6 +1379,44 @@
           "id": "thumbnail_image",
           "label": "Thumbnail image",
           "info": "Optional. Used in pagination. Falls back to slide image if empty."
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "External video URL",
+          "info": "Optional. Used when no Shopify-hosted video is selected."
+        },
+        {
+          "type": "text",
+          "id": "video_asset",
+          "label": "Theme video asset fallback",
+          "info": "Optional filename in theme assets. Used when the video settings above are empty."
+        },
+        {
+          "type": "select",
+          "id": "video_aspect",
+          "label": "Video shape",
+          "default": "landscape",
+          "options": [
+            { "value": "landscape", "label": "Landscape" },
+            { "value": "square", "label": "Square" },
+            { "value": "portrait", "label": "Portrait" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "video_label",
+          "label": "Play button label",
+          "default": "Play video"
         },
         {
           "type": "select",
