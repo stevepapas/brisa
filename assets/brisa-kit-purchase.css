@@ -1724,7 +1724,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 2px 3px;
-    margin: 0;
+    margin: 5px 0 0;
     max-width: none;
     width: 100%;
     min-width: 0;
