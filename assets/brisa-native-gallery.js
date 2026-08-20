@@ -136,12 +136,4 @@
 
   document.addEventListener('DOMContentLoaded', () => initAll());
   document.addEventListener('shopify:section:load', (event) => initAll(event.target));
-  document.addEventListener('prev-next:prev', (event) => {
-    const gallery = event.target.closest('.shopify-section--slideshow-brisa')?.querySelector(gallerySelector);
-    gallery?.querySelector('slide-show.slideshow-brisa')?.previous();
-  });
-  document.addEventListener('prev-next:next', (event) => {
-    const gallery = event.target.closest('.shopify-section--slideshow-brisa')?.querySelector(gallerySelector);
-    gallery?.querySelector('slide-show.slideshow-brisa')?.next();
-  });
 })();
