@@ -20,6 +20,16 @@
     margin: 0 auto;
   }
 
+  #shopify-section-{{ section.id }} .brisa-home-closing__kit-heading {
+    margin: 0 0 18px;
+    color: var(--bhc-text);
+    font-size: clamp(28px, 5vw, {{ section.settings.kit_heading_size }}px);
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
   #shopify-section-{{ section.id }} .brisa-home-closing__kit-image {
     display: block;
     width: 100%;
@@ -135,7 +145,7 @@
     justify-content: center;
     gap: 8px;
     margin: 0 0 2px;
-    color: #1f8a3b;
+    color: #126b2c;
     font-size: 13px;
     font-weight: 900;
     letter-spacing: 0.02em;
@@ -169,7 +179,7 @@
     justify-content: center;
     width: 18px;
     height: 18px;
-    color: #1f8a3b;
+    color: #126b2c;
     font-size: 14px;
     font-weight: 900;
     line-height: 1;
@@ -180,7 +190,7 @@
     align-items: center;
     justify-content: center;
     padding: 4px 8px;
-    color: #1f8a3b;
+    color: #126b2c;
     background: #e7f7eb;
     border-radius: 999px;
     font-size: 11px;
@@ -291,11 +301,17 @@
   assign kit_image = section.settings.kit_image
   assign old_image = section.settings.old_image
   assign new_image = section.settings.new_image
+  assign kit_image_alt = section.settings.kit_heading | default: 'The Starter Kit'
+  assign old_image_alt = section.settings.old_label | default: 'The old habit'
+  assign new_image_alt = section.settings.new_label | default: 'Brisa'
 -%}
 
 <section class="brisa-home-closing" {{ section.shopify_attributes }}>
   <div class="brisa-home-closing__kit">
     <div class="brisa-home-closing__kit-inner">
+    {% if section.settings.kit_heading != blank %}
+      <h2 class="brisa-home-closing__kit-heading">{{ section.settings.kit_heading | escape }}</h2>
+    {% endif %}
     {% if kit_image != blank %}
       {{
         kit_image
@@ -308,14 +324,16 @@
           alt: section.settings.kit_heading | default: 'The Starter Kit'
       }}
     {% else %}
-      <img
-        class="brisa-home-closing__kit-image"
-        src="{{ 'brisa-the-starter-kit.jpg' | asset_url }}"
-        alt="{{ section.settings.kit_heading | default: 'The Starter Kit' | escape }}"
-        width="819"
-        height="1024"
-        loading="lazy"
-      >
+      {% render 'brisa-responsive-asset-img',
+        filename: 'brisa-the-starter-kit.jpg',
+        widths: '400,600,819',
+        sizes: '(min-width: 750px) 640px, 100vw',
+        alt: kit_image_alt,
+        class: 'brisa-home-closing__kit-image',
+        loading: 'lazy',
+        width: 819,
+        height: 1024
+      %}
     {% endif %}
     </div>
   </div>
@@ -335,14 +353,16 @@
             alt: section.settings.old_label | default: 'The old habit'
         }}
       {% else %}
-        <img
-          class="brisa-home-closing__card-image"
-          src="{{ 'brisa-old-habit.jpg' | asset_url }}"
-          alt="{{ section.settings.old_label | default: 'The old habit' | escape }}"
-          width="819"
-          height="1024"
-          loading="lazy"
-        >
+        {% render 'brisa-responsive-asset-img',
+          filename: 'brisa-old-habit.jpg',
+          widths: '400,600,819',
+          sizes: '(min-width: 750px) 310px, 48vw',
+          alt: old_image_alt,
+          class: 'brisa-home-closing__card-image',
+          loading: 'lazy',
+          width: 819,
+          height: 1024
+        %}
       {% endif %}
       <div class="brisa-home-closing__card-overlay">
         {% if section.settings.old_label != blank %}
@@ -370,14 +390,16 @@
             alt: section.settings.new_label | default: 'Brisa'
         }}
       {% else %}
-        <img
-          class="brisa-home-closing__card-image"
-          src="{{ 'brisa-new-habit.jpg' | asset_url }}"
-          alt="{{ section.settings.new_label | default: 'Brisa' | escape }}"
-          width="768"
-          height="1024"
-          loading="lazy"
-        >
+        {% render 'brisa-responsive-asset-img',
+          filename: 'brisa-new-habit.jpg',
+          widths: '400,600,768',
+          sizes: '(min-width: 750px) 310px, 48vw',
+          alt: new_image_alt,
+          class: 'brisa-home-closing__card-image',
+          loading: 'lazy',
+          width: 768,
+          height: 1024
+        %}
       {% endif %}
       <div class="brisa-home-closing__card-overlay">
         {% if section.settings.new_label != blank %}
@@ -432,6 +454,7 @@
     <a
       class="brisa-home-closing__button"
       href="{{ section.settings.button_link | default: '/products/brisa-starter-kit' }}"
+      aria-label="{{ section.settings.button_text | escape }} starter kit offer"
     >
       {{ section.settings.button_text | escape }}
     </a>

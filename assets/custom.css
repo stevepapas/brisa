@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=TeX+Gyre+Bonum:wght@400;700&display=swap');
+@font-face {
+  font-family: 'TeX Gyre Bonum';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('texgyrebonum-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'TeX Gyre Bonum';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('texgyrebonum-bold.woff') format('woff');
+}
 
 html {
   scroll-behavior: smooth;
@@ -192,7 +206,33 @@ a.switch {
   font-family: 'TeX Gyre Bonum Bold';
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
   src: local('TeXGyreBonum-Bold'), url('texgyrebonum-bold.woff') format('woff');
+}
+
+/* Keep heavy product content out of initial layout/paint work until it nears the viewport. */
+.template-brisa-devices :is(
+  .shopify-section--brisa-product-detail,
+  .shopify-section--brisa-how-it-works,
+  .shopify-section--brisa-inside-cores,
+  .shopify-section--brisa-comparison-table,
+  .shopify-section--engineered-switch,
+  .shopify-section--device-questions,
+  .shopify-section--brisa-product-reviews,
+  .shopify-section--brisa-judgeme-reviews
+),
+.template-brisa-devices-variations :is(
+  .shopify-section--brisa-product-detail,
+  .shopify-section--brisa-how-it-works,
+  .shopify-section--brisa-inside-cores,
+  .shopify-section--brisa-comparison-table,
+  .shopify-section--engineered-switch,
+  .shopify-section--device-questions,
+  .shopify-section--brisa-product-reviews,
+  .shopify-section--brisa-judgeme-reviews
+) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 
 
@@ -724,7 +764,8 @@ display: none;
 .template-brisa-devices-variations .shopify-section--slideshow-brisa,
 .template-brisa-cores .shopify-section--slideshow-brisa,
 .template-brisa-cores-variations .shopify-section--slideshow-brisa {
-  margin-top: 15px;
+  margin-top: 0;
+  padding-top: 15px;
 }
 
 /* Product hero slideshow: square, centered on desktop (not full viewport width) */
@@ -2526,6 +2567,12 @@ display: none;
   width: min(420px, 92vw);
   max-height: min(88vh, 760px);
   aspect-ratio: 9 / 16;
+  height: auto;
+}
+
+.brisa-video-lightbox__content--square {
+  width: min(760px, 92vw, 88vh);
+  aspect-ratio: 1 / 1;
   height: auto;
 }
 

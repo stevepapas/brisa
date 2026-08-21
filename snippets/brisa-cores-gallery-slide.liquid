@@ -30,17 +30,35 @@
       if card_image == blank and product.featured_media != blank
         assign card_image = product.featured_media.preview_image
       endif
+
+      assign image_loading = 'lazy'
+      if eager_load
+        assign image_loading = 'eager'
+      endif
+
+      assign image_fetchpriority = 'auto'
+      if eager_load and section.index == 1
+        assign image_fetchpriority = 'high'
+      endif
+
+      if card_image != blank
+        assign card_image_width = card_image.width | at_most: 1440
+      endif
     %}
 
     {% if card_image != blank %}
-      <img
-        class="brisa-cores-gallery__image"
-        src="{{ card_image | image_url: width: 900 }}"
-        alt="{{ slide_label | escape }}"
-        loading="{% if eager_load %}eager{% else %}lazy{% endif %}"
-        width="{{ card_image.width }}"
-        height="{{ card_image.height }}"
-      >
+      {{- card_image
+        | image_url: width: card_image_width
+        | image_tag:
+          class: 'brisa-cores-gallery__image',
+          alt: slide_label,
+          loading: image_loading,
+          fetchpriority: image_fetchpriority,
+          sizes: '(max-width: 749px) calc(100vw - 40px), 720px',
+          widths: '360,540,720,900,1080,1440',
+          width: card_image.width,
+          height: card_image.height
+      -}}
     {% endif %}
   </div>
 </div>

@@ -157,11 +157,32 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
         <a class="header__logo-link" href="{{ routes.root_url }}">
           {%- if section.settings.logo != blank -%}
             {%- assign logo_size = section.settings.logo_max_width | at_least: section.settings.mobile_logo_max_width | times: 2 %}
-            <span class="visually-hidden">{{ shop.name }}</span>
-            <img class="header__logo-image" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" src="{{ section.settings.logo | image_url: width: logo_size }}" alt="{{ section.settings.logo.alt | escape }}">
+            {%- assign logo_sizes = '(max-width: 740px) ' | append: section.settings.mobile_logo_max_width | append: 'px, ' | append: section.settings.logo_max_width | append: 'px' -%}
+            {%- assign logo_alt = section.settings.logo.alt | default: shop.name -%}
+            {{- section.settings.logo
+              | image_url: width: logo_size
+              | image_tag:
+                class: 'header__logo-image',
+                alt: logo_alt,
+                loading: 'eager',
+                sizes: logo_sizes,
+                widths: '50,75,100,125,150,170,200,250,300,400,500,600',
+                width: section.settings.logo.width,
+                height: section.settings.logo.height
+            -}}
 
             {%- if request.page_type == 'index' and section.settings.enable_transparent_header and section.settings.transparent_logo != blank -%}
-              <img class="header__logo-image header__logo-image--transparent" width="{{ section.settings.transparent_logo.width }}" height="{{ section.settings.transparent_logo.height }}" src="{{ section.settings.transparent_logo | image_url: width: logo_size }}" alt="{{ section.settings.transparent_logo.alt | escape }}">
+              {{- section.settings.transparent_logo
+                | image_url: width: logo_size
+                | image_tag:
+                  class: 'header__logo-image header__logo-image--transparent',
+                  alt: '',
+                  loading: 'eager',
+                  sizes: logo_sizes,
+                  widths: '50,75,100,125,150,170,200,250,300,400,500,600',
+                  width: section.settings.transparent_logo.width,
+                  height: section.settings.transparent_logo.height
+              -}}
             {%- endif -%}
           {%- else -%}
             <span class="header__logo-text heading h5">{{ shop.name }}</span>
@@ -169,11 +190,7 @@ IMPLEMENTATION NOTE: the header in Focal is pretty complex as it allows a lot of
         </a>
       {%- endcapture -%}
 
-      {%- if request.page_type == 'index' -%}
-        <h1 class="header__logo">{{ logo }}</h1>
-      {%- else -%}
-        <span class="header__logo">{{ logo }}</span>
-      {%- endif -%}
+      <div class="header__logo">{{ logo }}</div>
 
       <!-- SECONDARY LINKS PART -->
       <div class="header__secondary-links">

@@ -69,13 +69,12 @@
 
             {%- capture announcement_icon -%}
               <span class="announcement-bar__icon" aria-hidden="true">
-                <img
-                  src="https://cdn.shopify.com/s/files/1/0939/5752/1780/files/free-shipping-ribbon.gif?v=1785234427"
-                  alt=""
-                  width="20"
-                  height="20"
-                  loading="eager"
-                >
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M3 6.5h11v10H3zM14 10h3.4l3.1 3.2v3.3H14z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                  <circle cx="7" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                  <circle cx="17.5" cy="17.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M5.5 9.5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
               </span>
             {%- endcapture -%}
 

@@ -9,13 +9,17 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height">
     <meta name="theme-color" content="{{ settings.header_background }}">
 
     <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% endif %}</title>
 
-    {%- if page_description -%}
-      <meta name="description" content="{{ page_description | escape }}">
+    {%- assign meta_description = page_description -%}
+    {%- if meta_description == blank and request.page_type == 'index' -%}
+      {%- assign meta_description = 'Brisa is a reusable, nicotine-free sensory habit device designed to replace the hand-to-mouth routine of smoking and vaping.' -%}
+    {%- endif -%}
+    {%- if meta_description != blank -%}
+      <meta name="description" content="{{ meta_description | escape }}">
     {%- endif -%}
 
     <link rel="canonical" href="{{ canonical_url }}">
@@ -32,7 +36,9 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
+    {%- unless request.page_type == 'index' -%}
+      <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
+    {%- endunless -%}
     <link rel="preload" as="script" href="{{ 'vendor.js' | asset_url }}">
     <link rel="preload" as="script" href="{{ 'theme.js' | asset_url }}">
 
@@ -49,17 +55,63 @@
     {% render 'css-variables', direction: direction %}
     {% render 'js-variables', direction: direction %}
 
-    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    {%- if request.page_type == 'index' -%}
+      <style data-brisa-home-critical>
+        {% render 'brisa-home-critical-css' %}
+      </style>
+      <link
+        rel="preload"
+        as="style"
+        href="{{ 'theme.css' | asset_url }}"
+        onload="this.onload=null;this.rel='stylesheet'"
+      >
+      <noscript><link rel="stylesheet" href="{{ 'theme.css' | asset_url }}"></noscript>
+    {%- else -%}
+      <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    {%- endif -%}
 
     <script src="{{ 'vendor.js' | asset_url }}" defer></script>
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    {%- if request.page_type == 'product' -%}
+      <script src="{{ 'custom-product.js' | asset_url }}" defer></script>
+    {%- endif -%}
 
+    {%- if request.page_type == 'index' -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'custom.css' | asset_url }}"
+        media="print"
+        onload="this.onload=null;this.media='all'"
+      >
+      <noscript>{{ 'custom.css' | asset_url | stylesheet_tag }}</noscript>
+    {%- else -%}
+      {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'product' -%}
+      {{ 'custom-product.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'cart' or settings.cart_type != 'page' -%}
+      {{ 'custom-cart.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'page' and template.suffix == 'learn' -%}
+      {{ 'custom-learn.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'product' -%}
+      {{ 'brisa-kit-picker-panel.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
+    {%- if request.page_type == 'index' -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'brisa-cta.css' | asset_url }}"
+        media="print"
+        onload="this.onload=null;this.media='all'"
+      >
+      <noscript>{{ 'brisa-cta.css' | asset_url | stylesheet_tag }}</noscript>
+    {%- elsif request.page_type == 'product' or template.suffix == 'learn' -%}
+      {{ 'brisa-cta.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {{ content_for_header }}
-    {{ 'custom.css' | asset_url | stylesheet_tag }}
-    {{ 'brisa-home-hero-fix.css' | asset_url | stylesheet_tag }}
-    {{ 'brisa-kit-picker-panel.css' | asset_url | stylesheet_tag }}
-    {{ 'brisa-cta.css' | asset_url | stylesheet_tag }}
   </head>
 
   {%- assign feature_classes = '' -%}
@@ -68,7 +120,7 @@
     {% assign feature_classes = feature_classes | append: ' features--image-zoom' %}
   {%- endif -%}
 
-  <body class="no-focus-outline {{ feature_classes }} template-{{ template.name }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}" data-instant-allow-query-string>
+  <body class="{{ feature_classes }} template-{{ template.name }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}" data-instant-allow-query-string>
     <svg class="visually-hidden">
       <linearGradient id="rating-star-gradient-half">
         <stop offset="50%" stop-color="rgb(var(--product-star-rating))" />

@@ -21,11 +21,11 @@
       this.atcLabel = this.querySelector('[data-bkp-atc-label]');
       this.errorEl = this.querySelector('[data-bkp-error]');
       this.addonCheck = this.querySelector('[data-bkp-addon-check]');
-      this.colourRoot = this.querySelector('[data-bkp-colours]');
-      this.yoursPreviewImg = this.querySelector('[data-bkp-colour-preview-img="yours"]');
-      this.matesPreviewImg = this.querySelector('[data-bkp-colour-preview-img="mates"]');
-      this.yoursPreview = this.querySelector('[data-bkp-colour-preview="yours"]');
-      this.matesPreview = this.querySelector('[data-bkp-colour-preview="mates"]');
+      this.express = this.querySelector('[data-bkp-express]');
+      this.expressOptions = Array.from(
+        this.express?.querySelectorAll('[data-bkp-express-option]') || []
+      );
+      this.expressMessage = this.express?.querySelector('[data-bkp-express-message]');
 
       this.kits.forEach((kit) => {
         kit.addEventListener('click', (event) => {
@@ -44,8 +44,9 @@
 
       this.querySelectorAll('[data-bkp-swatch]').forEach((btn) => {
         btn.addEventListener('click', (event) => {
+          event.preventDefault();
+          event.stopPropagation();
           if (btn.disabled || btn.classList.contains('is-sold-out')) {
-            event.preventDefault();
             return;
           }
           this.selectColour(btn);
@@ -70,6 +71,14 @@
         this.updatePrice();
       });
       this.syncAddonUi();
+      this.expressOptions.forEach((option) => {
+        option.querySelector('form')?.addEventListener('submit', (event) => {
+          this.syncExpressCheckout();
+          if (this.express?.classList.contains('is-unavailable') || option.hidden) {
+            event.preventDefault();
+          }
+        });
+      });
       this.atc?.addEventListener('click', (e) => {
         e.preventDefault();
         this.addToCart();
@@ -120,8 +129,10 @@
       if (btn.disabled || btn.classList.contains('is-sold-out')) return;
 
       const role = btn.dataset.role || 'yours';
-      this.querySelectorAll(`[data-bkp-swatch][data-role="${role}"]`).forEach((el) => {
+      const kit = btn.closest('[data-bkp-kit]') || this.selectedKit();
+      kit?.querySelectorAll(`[data-bkp-swatch][data-role="${role}"]`).forEach((el) => {
         el.classList.toggle('is-selected', el === btn);
+        el.setAttribute('aria-selected', el === btn ? 'true' : 'false');
       });
       this.updateColourPreview(role, btn);
       this.updatePrice();
@@ -129,8 +140,9 @@
     }
 
     updateColourPreview(role, swatch) {
-      const img = role === 'mates' ? this.matesPreviewImg : this.yoursPreviewImg;
-      const host = role === 'mates' ? this.matesPreview : this.yoursPreview;
+      const kit = swatch?.closest('[data-bkp-kit]') || this.selectedKit();
+      const img = kit?.querySelector(`[data-bkp-colour-preview-img="${role}"]`);
+      const host = kit?.querySelector(`[data-bkp-colour-preview="${role}"]`);
       const src = String(swatch?.dataset?.image || '').trim();
       if (!img) return;
 
@@ -181,16 +193,22 @@
       const request = this.requestedColour();
       if (!request) return;
 
-      const swatches = Array.from(this.querySelectorAll('[data-bkp-swatch][data-role="yours"]'));
+      const kit = this.selectedKit();
+      const swatches = Array.from(kit?.querySelectorAll('[data-bkp-swatch][data-role="yours"]') || []);
       const match = swatches.find((swatch) => this.swatchMatchesColour(swatch, request));
       if (!match || match.classList.contains('is-sold-out')) return;
 
-      swatches.forEach((swatch) => swatch.classList.toggle('is-selected', swatch === match));
+      swatches.forEach((swatch) => {
+        swatch.classList.toggle('is-selected', swatch === match);
+        swatch.setAttribute('aria-selected', swatch === match ? 'true' : 'false');
+      });
       this.updateColourPreview('yours', match);
     }
 
     selectedSwatch(role) {
-      return this.querySelector(`[data-bkp-swatch][data-role="${role}"].is-selected:not(.is-sold-out)`);
+      return this.selectedKit()?.querySelector(
+        `[data-bkp-swatch][data-role="${role}"].is-selected:not(.is-sold-out)`
+      );
     }
 
     isAddonAvailable() {
@@ -258,6 +276,8 @@
       document.querySelectorAll('[data-bkp-bottom] [data-bkp-sync-atc]').forEach((btn) => {
         btn.disabled = disabled;
       });
+
+      this.syncExpressCheckout();
     }
 
     bindSyncAtc() {
@@ -459,8 +479,9 @@
 
     syncColourAvailability() {
       const kit = this.selectedKit();
+      if (!kit) return;
       const map = this.colourVariantMap(kit);
-      const swatches = Array.from(this.querySelectorAll('[data-bkp-swatch]'));
+      const swatches = Array.from(kit.querySelectorAll('[data-bkp-swatch]'));
       const hasMappedColours = swatches.some((swatch) => this.colourEntry(map, swatch.dataset.label) != null);
 
       ['yours', 'mates'].forEach((role) => {
@@ -477,6 +498,7 @@
           if (soldOut) {
             swatch.title = 'Sold out';
             swatch.classList.remove('is-selected');
+            swatch.setAttribute('aria-selected', 'false');
           } else {
             swatch.removeAttribute('title');
           }
@@ -488,12 +510,110 @@
         if (!selected) {
           selected = roleSwatches.find((swatch) => !swatch.classList.contains('is-sold-out'));
           if (selected) {
-            roleSwatches.forEach((swatch) => swatch.classList.toggle('is-selected', swatch === selected));
+            roleSwatches.forEach((swatch) => {
+              swatch.classList.toggle('is-selected', swatch === selected);
+              swatch.setAttribute('aria-selected', swatch === selected ? 'true' : 'false');
+            });
           }
         }
         if (selected) {
           this.updateColourPreview(role, selected);
         }
+      });
+    }
+
+    expressSelection() {
+      const kit = this.selectedKit();
+      if (!kit || !this.isKitAvailable(kit)) return null;
+
+      const devices = Number(kit.dataset.devices || 1);
+      const yours = this.selectedSwatch('yours');
+      const mates = this.selectedSwatch('mates');
+      if (!yours || (devices > 1 && !mates)) return null;
+
+      const kitKey = kit.dataset.kitKey || '';
+      const isStarterKit = kitKey === 'try';
+      const isCommitmentKit = kitKey === 'commitment';
+      const isMatesKit = kitKey === 'mates';
+      const colourMappedId = isMatesKit
+        ? this.resolveMatesPairVariantId(kit, yours, mates)
+        : isStarterKit || isCommitmentKit
+          ? this.resolveColourVariantId(kit, yours)
+          : '';
+      const variantId = String(colourMappedId || kit.dataset.variantId || '').trim();
+      if (!/^\d+$/.test(variantId)) return null;
+
+      const yourColourLabel = String(yours.dataset.label || '').trim();
+      const matesColourLabel = devices > 1 ? String(mates?.dataset?.label || '').trim() : '';
+      const colourSummary = [yourColourLabel, matesColourLabel].filter(Boolean).join(' / ');
+      const kitLabel = String(kit.dataset.title || '').trim();
+      const device1Id = String(yours.dataset.variantId || '').trim();
+      const device2Id = devices > 1 ? String(mates?.dataset?.variantId || '').trim() : '';
+      const canExpand =
+        !isStarterKit && device1Id && /^\d+$/.test(device1Id) && device1Id !== variantId;
+
+      const properties = {
+        _bundle: 'brisa-kit',
+        _kit_key: kitKey,
+        Kit: colourSummary ? `${kitLabel} — ${colourSummary}` : kitLabel,
+        'Your colour': yourColourLabel,
+        'Device Colour': yourColourLabel,
+        Colours: colourSummary,
+      };
+
+      if (canExpand) properties._device_1_variant_id = device1Id;
+
+      if (devices > 1) {
+        properties["Mate's colour"] = matesColourLabel;
+        properties['Mate Colour'] = matesColourLabel;
+        if (
+          canExpand &&
+          device2Id &&
+          /^\d+$/.test(device2Id) &&
+          device2Id !== variantId
+        ) {
+          properties._device_2_variant_id = device2Id;
+        }
+        this._expressMatesId ||= uid();
+        properties._mates_pack = this._expressMatesId;
+      }
+
+      return { variantId, properties };
+    }
+
+    syncExpressCheckout() {
+      if (!this.express) return;
+
+      const addonSelected = Boolean(this.addonCheck?.checked);
+      const selection = this.expressSelection();
+      const unavailable = !selection || addonSelected;
+      this.express.classList.toggle('is-unavailable', unavailable);
+
+      if (this.expressMessage) {
+        this.expressMessage.hidden = !addonSelected;
+      }
+      const selectedKey = this.selectedKit()?.dataset?.kitKey || '';
+      let activeOption = null;
+      this.expressOptions.forEach((option) => {
+        const active = !unavailable && option.dataset.kitKey === selectedKey;
+        option.hidden = !active;
+        if (active) activeOption = option;
+      });
+      if (!selection || !activeOption) return;
+
+      const expressVariant = activeOption.querySelector('[data-bkp-express-variant]');
+      const expressProperties = activeOption.querySelector('[data-bkp-express-properties]');
+      if (!expressVariant || !expressProperties) return;
+
+      expressVariant.value = selection.variantId;
+      expressProperties.replaceChildren();
+      Object.entries(selection.properties).forEach(([name, value]) => {
+        if (value == null || value === '') return;
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `properties[${name}]`;
+        input.value = String(value);
+        expressProperties.appendChild(input);
       });
     }
 
@@ -714,8 +834,7 @@
           canExpand &&
           device2Id &&
           /^\d+$/.test(device2Id) &&
-          device2Id !== variantId &&
-          device2Id !== device1Id
+          device2Id !== variantId
         ) {
           properties._device_2_variant_id = device2Id;
         }

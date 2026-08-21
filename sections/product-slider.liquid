@@ -42,6 +42,10 @@
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
 
+  .shopify_section_product_slider product-slider {
+    display: block;
+  }
+
   .shopify_section_product_slider .product-slider {
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
@@ -242,6 +246,9 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     gap: 6px;
     padding: 0;
     color: {{ section.settings.text_color }};
@@ -342,11 +349,12 @@
   }
 </style>
 
-<section
-  class="product-slider product-slider-{{ section_key }}"
-  data-product-slider
-  data-product-url="{{ slider_product.url }}"
->
+<product-slider>
+  <section
+    class="product-slider product-slider-{{ section_key }}"
+    data-product-slider
+    data-product-url="{{ slider_product.url }}"
+  >
   {% if section.settings.heading != blank or section.settings.subheading != blank %}
     <div class="product-slider__header">
       {% if section.settings.heading != blank %}
@@ -436,7 +444,7 @@
       </div>
     {% endif %}
 
-    <div class="product-slider__pagination" data-product-slider-pagination>
+    <div class="product-slider__pagination" data-product-slider-pagination role="radiogroup" aria-label="Select product colour">
       {% if slider_option != blank %}
         {% for option_value in slider_option.values limit: section.settings.variant_limit %}
           {% render 'product-slider-nav',
@@ -465,97 +473,132 @@
     </div>
 
     {% if section.settings.button_text != blank %}
-      <a class="product-slider__button bkp__atc" href="{{ section.settings.button_link }}" data-product-slider-button>
+      <a
+        class="product-slider__button bkp__atc"
+        href="{{ section.settings.button_link }}"
+        aria-label="{{ section.settings.button_text | escape }} – {{ slider_product.title | escape }}"
+        data-product-slider-button
+      >
         {{ section.settings.button_text | escape }}
       </a>
     {% endif %}
   {% else %}
     <p class="product-slider__subheading">Select a product to show its variations.</p>
   {% endif %}
-</section>
+  </section>
+</product-slider>
 
-<script>
-  (() => {
-    const root = document.currentScript.previousElementSibling;
-    if (!root || !root.matches('[data-product-slider]')) return;
+{% javascript %}
+  if (!customElements.get('product-slider')) {
+    class ProductSlider extends HTMLElement {
+      connectedCallback() {
+        if (this.initialized) return;
 
-    const track = root.querySelector('[data-product-slider-track]');
-    const cards = Array.from(root.querySelectorAll('[data-product-slider-card]'));
-    const navItems = Array.from(root.querySelectorAll('[data-product-slider-nav]'));
-    const titles = Array.from(root.querySelectorAll('[data-product-slider-title]'));
-    const prev = root.querySelector('[data-product-slider-prev]');
-    const next = root.querySelector('[data-product-slider-next]');
-    const button = root.querySelector('[data-product-slider-button]');
-    const buttonBase = button ? button.getAttribute('href') || '' : '';
+        const root = this.querySelector('[data-product-slider]');
+        if (!root) return;
 
-    function toUrl(value) {
-      if (!value) return null;
-      try {
-        return new URL(value, window.location.origin);
-      } catch (err) {
-        return null;
+        this.initialized = true;
+
+        const track = root.querySelector('[data-product-slider-track]');
+        const cards = Array.from(root.querySelectorAll('[data-product-slider-card]'));
+        const navItems = Array.from(root.querySelectorAll('[data-product-slider-nav]'));
+        const titles = Array.from(root.querySelectorAll('[data-product-slider-title]'));
+        const prev = root.querySelector('[data-product-slider-prev]');
+        const next = root.querySelector('[data-product-slider-next]');
+        const button = root.querySelector('[data-product-slider-button]');
+        const buttonBase = button ? button.getAttribute('href') || '' : '';
+
+        const toUrl = (value) => {
+          if (!value) return null;
+
+          try {
+            return new URL(value, window.location.origin);
+          } catch (error) {
+            return null;
+          }
+        };
+
+        const buttonUrl = toUrl(buttonBase);
+        const productUrl = toUrl(root.dataset.productUrl);
+        // Only carry the active colour when the button already points at the slider's own product.
+        const buttonTracksColour = Boolean(
+          buttonUrl &&
+            productUrl &&
+            buttonUrl.pathname.replace(/\/$/, '') === productUrl.pathname.replace(/\/$/, '')
+        );
+        let currentIndex = 0;
+
+        const updateButtonLink = (item) => {
+          if (!buttonTracksColour || !item) return;
+
+          const url = new URL(buttonUrl.href);
+          if (item.dataset.variantId) url.searchParams.set('variant', item.dataset.variantId);
+          if (item.dataset.colourLabel) url.searchParams.set('colour', item.dataset.colourLabel);
+          button.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
+        };
+
+        const updateSlider = (index) => {
+          if (!track || cards.length === 0) return;
+
+          currentIndex = (index + cards.length) % cards.length;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+          navItems.forEach((item, itemIndex) => {
+            const isActive = itemIndex === currentIndex;
+            item.classList.toggle('is-active', isActive);
+            item.setAttribute('aria-checked', isActive ? 'true' : 'false');
+            item.tabIndex = isActive ? 0 : -1;
+
+            if (isActive) {
+              item.setAttribute('aria-current', 'true');
+            } else {
+              item.removeAttribute('aria-current');
+            }
+          });
+
+          titles.forEach((title, titleIndex) => {
+            title.classList.toggle('is-active', titleIndex === currentIndex);
+          });
+
+          updateButtonLink(navItems[currentIndex]);
+        };
+
+        navItems.forEach((item) => {
+          item.addEventListener('click', () => {
+            updateSlider(parseInt(item.dataset.index, 10));
+          });
+
+          item.addEventListener('keydown', (event) => {
+            if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+
+            event.preventDefault();
+            const direction = event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1;
+            const enabledItems = navItems.filter((navItem) => !navItem.disabled);
+            const enabledIndex = enabledItems.indexOf(item);
+            const nextItem = enabledItems[(enabledIndex + direction + enabledItems.length) % enabledItems.length];
+
+            if (nextItem) {
+              updateSlider(parseInt(nextItem.dataset.index, 10));
+              nextItem.focus();
+            }
+          });
+        });
+
+        updateButtonLink(navItems[currentIndex]);
+
+        if (prev) {
+          prev.addEventListener('click', () => updateSlider(currentIndex - 1));
+        }
+
+        if (next) {
+          next.addEventListener('click', () => updateSlider(currentIndex + 1));
+        }
       }
     }
 
-    const buttonUrl = toUrl(buttonBase);
-    const productUrl = toUrl(root.dataset.productUrl);
-    // Only carry the active colour when the button already points at the slider's own product.
-    const buttonTracksColour = Boolean(
-      buttonUrl &&
-        productUrl &&
-        buttonUrl.pathname.replace(/\/$/, '') === productUrl.pathname.replace(/\/$/, '')
-    );
-    let currentIndex = 0;
-
-    function updateButtonLink(item) {
-      if (!buttonTracksColour || !item) return;
-
-      const url = new URL(buttonUrl.href);
-      if (item.dataset.variantId) url.searchParams.set('variant', item.dataset.variantId);
-      if (item.dataset.colourLabel) url.searchParams.set('colour', item.dataset.colourLabel);
-      button.setAttribute('href', `${url.pathname}${url.search}${url.hash}`);
-    }
-
-    function updateSlider(index) {
-      if (!track || cards.length === 0) return;
-
-      currentIndex = (index + cards.length) % cards.length;
-      track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-      navItems.forEach((item, itemIndex) => {
-        const isActive = itemIndex === currentIndex;
-        item.classList.toggle('is-active', isActive);
-        if (isActive) {
-          item.setAttribute('aria-current', 'true');
-        } else {
-          item.removeAttribute('aria-current');
-        }
-      });
-
-      titles.forEach((title, titleIndex) => {
-        title.classList.toggle('is-active', titleIndex === currentIndex);
-      });
-
-      updateButtonLink(navItems[currentIndex]);
-    }
-
-    navItems.forEach((item) => {
-      item.addEventListener('click', () => {
-        updateSlider(parseInt(item.dataset.index, 10));
-      });
-    });
-
-    updateButtonLink(navItems[currentIndex]);
-
-    if (prev) {
-      prev.addEventListener('click', () => updateSlider(currentIndex - 1));
-    }
-
-    if (next) {
-      next.addEventListener('click', () => updateSlider(currentIndex + 1));
-    }
-  })();
-</script>
+    customElements.define('product-slider', ProductSlider);
+  }
+{% endjavascript %}
 
 {% schema %}
 {

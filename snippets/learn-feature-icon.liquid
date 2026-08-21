@@ -7,13 +7,15 @@
 -%}
 {%- if title != blank -%}
   <span class="learn-feature-icon-wrap learn-icon-circle">
-    <img
-      src="{{ icon_asset | asset_url }}"
-      class="learn-feature-icon"
-      alt=""
-      loading="lazy"
-      width="44"
-      height="44"
-    >
+    {% render 'brisa-responsive-asset-img',
+      filename: icon_asset,
+      widths: '44,88',
+      sizes: '44px',
+      alt: '',
+      class: 'learn-feature-icon',
+      loading: 'lazy',
+      width: 44,
+      height: 44
+    %}
   </span>
 {%- endif -%}

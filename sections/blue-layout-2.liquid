@@ -227,10 +227,18 @@
   assign hero_alt = section.settings.image.alt | default: section.settings.heading_line_1 | default: 'Brisa'
 -%}
 
+{% liquid
+  assign stat_icon_url = section.settings.stat_icon | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687'
+  assign stat_icon_query = '?'
+  if stat_icon_url contains '?'
+    assign stat_icon_query = '&'
+  endif
+%}
+
 <section class="blue-layout-2" {{ section.shopify_attributes }}>
   <div class="blue-layout-2__stat">
     {% if section.settings.number != blank %}
-      <h2 class="blue-layout-2__number">{{ section.settings.number | escape }}</h2>
+      <p class="blue-layout-2__number">{{ section.settings.number | escape }}</p>
     {% endif %}
 
     {% if section.settings.stat_copy != blank %}
@@ -246,7 +254,7 @@
         <span>{{ section.settings.stat_footer | escape }}</span>
         <img
           class="blue-layout-2__stat-icon"
-          src="{{ section.settings.stat_icon | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/aus-map-white-bg.png?v=1784968687' }}"
+          src="{{ stat_icon_url }}{{ stat_icon_query }}quality=70&width=56"
           alt=""
           width="28"
           height="28"
@@ -269,14 +277,16 @@
           alt: hero_alt
       }}
     {% else %}
-      <img
-        class="blue-layout-2__image"
-        src="{{ 'brisa-built-for-the-moment.jpg' | asset_url }}"
-        alt="{{ hero_alt | escape }}"
-        width="682"
-        height="1024"
-        loading="lazy"
-      >
+      {% render 'brisa-responsive-asset-img',
+        filename: 'brisa-built-for-the-moment.jpg',
+        widths: '400,600,682',
+        sizes: '100vw',
+        alt: hero_alt,
+        class: 'blue-layout-2__image',
+        loading: 'lazy',
+        width: 682,
+        height: 1024
+      %}
     {% endif %}
 
     <div class="blue-layout-2__overlay" aria-hidden="true"></div>
@@ -287,7 +297,7 @@
       {% endif %}
 
       {% if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank or section.settings.heading_line_3 != blank %}
-        <h3 class="blue-layout-2__heading">
+        <h2 class="blue-layout-2__heading">
           {% if section.settings.heading_line_1 != blank %}
             <span class="blue-layout-2__heading-line">{{ section.settings.heading_line_1 | escape }}</span>
           {% endif %}
@@ -297,7 +307,7 @@
           {% if section.settings.heading_line_3 != blank %}
             <span class="blue-layout-2__heading-line">{{ section.settings.heading_line_3 | escape }}</span>
           {% endif %}
-        </h3>
+        </h2>
       {% endif %}
 
       {% if section.settings.body != blank %}

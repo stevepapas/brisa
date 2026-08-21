@@ -23,8 +23,6 @@
   assign active_key = 'commitment'
   if mates_product != blank and product.id == mates_product.id
     assign active_key = 'mates'
-  elsif try_product != blank and product.id == try_product.id
-    assign active_key = 'try'
   elsif commitment_product != blank and product.id == commitment_product.id
     assign active_key = 'commitment'
   elsif product.handle contains 'mates'
@@ -165,33 +163,41 @@
   {% if addon_selling_plan_id != blank %}data-addon-selling-plan-id="{{ addon_selling_plan_id }}"{% endif %}
   {{ section.shopify_attributes }}
 >
-  <div class="bkp__inner">
-    {% if section.settings.eyebrow != blank %}
-      <p class="bkp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
-    {% endif %}
+  <div class="bkp__intro-panel">
+    <div class="bkp__intro-inner">
+      {% if section.settings.eyebrow != blank %}
+        <p class="bkp__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
 
-    <h2 class="bkp__title">
-      {{ section.settings.title | default: 'BRISA™ STARTER KIT' | escape }}
-    </h2>
+      <h2 class="bkp__title">
+        {{ section.settings.title | default: 'BRISA™ STARTER KIT' | escape }}
+      </h2>
 
-    {% if section.settings.show_rating %}
-      <div class="bkp__rating">
-        <a href="#real_reviews" class="bkp__rating-link" aria-label="{{ section.settings.rating_text | default: 'View customer reviews' | escape }}">
-          <span class="bkp__stars" aria-hidden="true">
-            {%- for i in (1..5) -%}
-              <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            {%- endfor -%}
-          </span>
-          {% if section.settings.rating_text != blank %}
-            <span class="bkp__rating-text">{{ section.settings.rating_text | escape }}</span>
+      {% if section.settings.intro_text != blank %}
+        <p class="bkp__intro">{{ section.settings.intro_text | escape }}</p>
+      {% endif %}
+
+      {% if section.settings.show_rating %}
+        <div class="bkp__rating">
+          <a href="#real_reviews" class="bkp__rating-link" aria-label="{{ section.settings.rating_text | default: 'View customer reviews' | escape }}">
+            <span class="bkp__stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              {%- endfor -%}
+            </span>
+            {% if section.settings.rating_text != blank %}
+              <span class="bkp__rating-text">{{ section.settings.rating_text | escape }}</span>
+            {% endif %}
+          </a>
+          {% if section.settings.rating_badge != blank %}
+            <span class="bkp__rating-badge">{{ section.settings.rating_badge | escape }}</span>
           {% endif %}
-        </a>
-        {% if section.settings.rating_badge != blank %}
-          <span class="bkp__rating-badge">{{ section.settings.rating_badge | escape }}</span>
-        {% endif %}
-      </div>
-    {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
 
+  <div class="bkp__inner">
     <ul class="bkp__highlights">
       {% for i in (1..4) %}
         {% liquid
@@ -241,6 +247,7 @@
           assign kit_compare = ''
           assign kit_save = ''
           assign kit_banner = ''
+          assign kit_cores_description = ''
           assign kit_devices = 1
           assign kit_image = blank
           assign kit_image_asset = ''
@@ -256,9 +263,10 @@
               assign kit_compare = section.settings.try_compare
               assign kit_save = section.settings.try_save
               assign kit_banner = section.settings.try_banner
+              assign kit_cores_description = section.settings.try_cores_description
               assign kit_devices = 1
               assign kit_image = section.settings.try_image
-              assign kit_image_asset = section.settings.try_image_asset | default: 'brisa-kit-try.jpg' | strip
+              assign kit_image_asset = section.settings.try_image_asset | default: 'brisa-kit-try-canva.png' | strip
               assign price_cents = section.settings.try_price_cents | default: 13000
             when 'commitment'
               assign kit_product = commitment_product
@@ -268,10 +276,11 @@
               assign kit_compare = section.settings.commitment_compare
               assign kit_save = section.settings.commitment_save
               assign kit_banner = section.settings.commitment_banner
+              assign kit_cores_description = section.settings.commitment_cores_description
               assign kit_devices = 1
               assign kit_image = section.settings.commitment_image
-              assign kit_image_asset = section.settings.commitment_image_asset | default: 'brisa-kit-commitment.jpg' | strip
-              assign price_cents = section.settings.commitment_price_cents | default: 16500
+              assign kit_image_asset = section.settings.commitment_image_asset | default: 'brisa-kit-commitment-canva.png' | strip
+              assign price_cents = section.settings.commitment_price_cents | default: 15500
             when 'mates'
               assign kit_product = mates_product
               assign kit_title = section.settings.mates_title
@@ -280,17 +289,20 @@
               assign kit_compare = section.settings.mates_compare
               assign kit_save = section.settings.mates_save
               assign kit_banner = section.settings.mates_banner
+              assign kit_cores_description = section.settings.mates_cores_description
               assign kit_devices = 2
               assign kit_image = section.settings.mates_image
-              assign kit_image_asset = section.settings.mates_image_asset | default: 'brisa-kit-mates.jpg' | strip
+              assign kit_image_asset = section.settings.mates_image_asset | default: 'brisa-kit-mates-canva.png' | strip
               assign price_cents = section.settings.mates_price_cents | default: 22000
           endcase
 
           if kit_product != blank
             assign kit_variant = kit_product.selected_or_first_available_variant
             assign variant_id = kit_variant.id
-            assign price_cents = kit_variant.price
-            if kit_image == blank
+            if price_cents == blank or price_cents == 0
+              assign price_cents = kit_variant.price
+            endif
+            if kit_image == blank and kit_image_asset == blank
               assign kit_image = kit_product.featured_image
             endif
             if kit_price == blank
@@ -354,7 +366,13 @@
         >
           <input type="radio" name="bkp-kit-{{ section.id }}" value="{{ key }}" {% if is_selected %}checked{% endif %} {% unless kit_available %}disabled{% endunless %}>
           {% if kit_available and kit_banner != blank %}
-            <span class="bkp__kit-banner">{{ kit_banner | escape }}</span>
+            <span class="bkp__kit-banner">
+              {% if kit_banner contains '★' %}
+                <span class="bkp__kit-banner-star" aria-hidden="true">★</span>{{ kit_banner | remove_first: '★' | strip | escape }}
+              {% else %}
+                {{ kit_banner | escape }}
+              {% endif %}
+            </span>
           {% elsif kit_available == false %}
             <span class="bkp__kit-banner bkp__kit-banner--sold-out">Sold out</span>
           {% endif %}
@@ -368,9 +386,11 @@
             </div>
 
             <ul class="bkp__kit-features">
+              {% assign feature_position = 0 %}
               {% for block in section.blocks %}
                 {% if block.type == 'feature' and block.settings.kit == key and block.settings.text != blank %}
                   {% liquid
+                    assign feature_position = feature_position | plus: 1
                     assign feature_text = block.settings.text
                     assign feature_class = 'bkp__kit-feature'
                     if block.settings.composition
@@ -381,10 +401,34 @@
                     endif
                   %}
                   <li class="{{ feature_class }}" {{ block.shopify_attributes }}>
+                    <span class="bkp__kit-feature-icon" aria-hidden="true">
+                      {% case feature_position %}
+                        {% when 1 %}
+                          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                            <rect x="6.5" y="2.5" width="11" height="19" rx="2" stroke="currentColor" stroke-width="1.7"/>
+                            <path d="M10 5h4M11 18.5h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                          </svg>
+                        {% when 2 %}
+                          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                            <path d="M20.5 3.5C12 4 6.5 8.1 6.5 14.1c0 2.1 1.2 3.8 3.2 4.4 4.8 1.4 9.5-3.7 10.8-15Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M3.5 21c2.8-5.5 6.6-9.5 12.2-12.5M7.8 14.5l4.7-.2M11.1 10.8l.3-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                          </svg>
+                        {% else %}
+                          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+                            <path d="M3 9h18v12H3zM2 6h20v4H2zM12 6v15" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M12 6H8.7C6.4 6 5.2 4.8 5.2 3.5c0-1 1-1.7 2-1.5 2 .3 3.5 2.1 4.8 4ZM12 6h3.3c2.3 0 3.5-1.2 3.5-2.5 0-1-1-1.7-2-1.5-2 .3-3.5 2.1-4.8 4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                          </svg>
+                      {% endcase %}
+                    </span>
                     {% if block.settings.bonus and feature_text contains '(worth' %}
                       {% assign worth_parts = feature_text | split: '(worth' %}
                       <span class="bkp__kit-feature-text">{{ worth_parts.first | strip | escape }}</span>
                       <span class="bkp__kit-feature-worth">(worth{{ worth_parts.last | escape }}</span>
+                    {% elsif feature_position == 2 and kit_cores_description != blank %}
+                      <span class="bkp__kit-feature-copy">
+                        <span class="bkp__kit-feature-text">{{ feature_text | escape }}</span>
+                        <span class="bkp__kit-feature-description">{{ kit_cores_description | escape }}</span>
+                      </span>
                     {% else %}
                       <span class="bkp__kit-feature-text">{{ feature_text | escape }}</span>
                     {% endif %}
@@ -396,7 +440,7 @@
 
           <div class="bkp__kit-side">
             {% if kit_image != blank %}
-              {{ kit_image | image_url: width: 280 | image_tag: class: 'bkp__kit-thumb', loading: 'lazy', widths: '112,160,224,280', alt: kit_title }}
+              {{ kit_image | image_url: width: 180 | image_tag: class: 'bkp__kit-thumb', loading: 'lazy', decoding: 'async', sizes: '(max-width: 749px) 140px, 180px', widths: '96,120,140,160,180', alt: kit_title }}
             {% elsif kit_image_asset != blank %}
               <img
                 class="bkp__kit-thumb"
@@ -421,6 +465,25 @@
               {% endif %}
             </div>
           </div>
+
+          <div class="bkp__kit-colours" data-bkp-colours>
+            {% render 'brisa-kit-colour-picker',
+              colour_blocks: colour_blocks,
+              kit_product: kit_product,
+              try_product: try_product,
+              role: 'yours',
+              label: section.settings.colour_label_yours
+            %}
+            {% if kit_devices > 1 %}
+              {% render 'brisa-kit-colour-picker',
+                colour_blocks: colour_blocks,
+                kit_product: kit_product,
+                try_product: try_product,
+                role: 'mates',
+                label: section.settings.colour_label_mates
+              %}
+            {% endif %}
+          </div>
         </label>
       {% endfor %}
     </div>
@@ -433,13 +496,25 @@
         {% if block.type == 'gift' %}
           <div class="bkp__gift" {{ block.shopify_attributes }}>
             {% if block.settings.tag != blank %}
-              <span class="bkp__gift-tag">{{ block.settings.tag | escape }}</span>
+              <span class="bkp__gift-tag">
+                {% if block.settings.tag contains '$' %}
+                  {% assign gift_tag_parts = block.settings.tag | split: '$' %}
+                  <span>{{ gift_tag_parts.first | strip | escape }}</span>
+                  <s>${{ gift_tag_parts.last | strip | escape }}</s>
+                {% else %}
+                  {{ block.settings.tag | escape }}
+                {% endif %}
+              </span>
+            {% endif %}
+            {% assign gift_media_class = 'bkp__gift-media' %}
+            {% if block.settings.title contains 'Shipping' %}
+              {% assign gift_media_class = gift_media_class | append: ' bkp__gift-media--shipping' %}
             {% endif %}
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 160 | image_tag: class: 'bkp__gift-media', loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
+              {{ block.settings.image | image_url: width: 160 | image_tag: class: gift_media_class, loading: 'lazy', widths: '64,96,128,160', alt: block.settings.title }}
             {% elsif block.settings.image_asset != blank %}
               <img
-                class="bkp__gift-media"
+                class="{{ gift_media_class }}"
                 src="{{ block.settings.image_asset | asset_url }}"
                 alt="{{ block.settings.title | escape }}"
                 width="160"
@@ -461,6 +536,10 @@
         {% endif %}
       {% endfor %}
     </div>
+
+    {% if section.settings.gifts_footer_text != blank %}
+      <p class="bkp__gifts-footer">{{ section.settings.gifts_footer_text | escape }}</p>
+    {% endif %}
 
     {% if section.settings.show_addon %}
       {%- liquid
@@ -580,225 +659,72 @@
       </div>
     {% endif %}
 
-    {%- liquid
-      # Resolve default colour preview from first colour block (Black / Blue↔Ocean / Rose).
-      assign default_colour_preview = blank
-      assign default_colour_preview_alt = ''
-      if colour_blocks.size > 0
-        assign default_colour_preview_alt = colour_blocks.first.settings.label
-        assign default_label_key = colour_blocks.first.settings.label | downcase | strip
-        if try_product != blank
-          for colour_variant in try_product.variants
-            assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-            if colour_name == default_label_key or default_label_key == 'ocean' and colour_name == 'blue' or default_label_key == 'blue' and colour_name == 'ocean'
-              assign default_colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-              break
-            endif
-          endfor
-        endif
-        if default_colour_preview == blank and colour_blocks.first.settings.image != blank
-          assign default_colour_preview = colour_blocks.first.settings.image
-        endif
-        if default_colour_preview == blank and colour_blocks.first.settings.device_product != blank
-          assign default_colour_preview = colour_blocks.first.settings.device_product.featured_media | default: colour_blocks.first.settings.device_product.featured_image
-        endif
-      endif
-    -%}
-    <div class="bkp__colours bkp__colours--dual" data-bkp-colours>
-      <div class="bkp__colour-group" data-role="yours">
-        <p class="bkp__colour-label">{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}</p>
-        <div class="bkp__colour-picker">
-          <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_yours | default: 'Device Colour' | escape }}">
-            {% for block in colour_blocks %}
-              {% liquid
-                assign colour_product = block.settings.device_product
-                assign colour_variant_id = ''
-                assign kit_colour_variant_id = ''
-                assign kit_colour_available = true
-                assign colour_label_key = block.settings.label | downcase | strip
-                assign colour_preview = blank
-                if colour_product != blank
-                  assign colour_variant_id = colour_product.selected_or_first_available_variant.id
-                endif
-                if try_product != blank
-                  for colour_variant in try_product.variants
-                    assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-                    if colour_name == colour_label_key
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'ocean' and colour_name == 'blue'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'blue' and colour_name == 'ocean'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    endif
-                  endfor
-                endif
-                if colour_preview == blank and block.settings.image != blank
-                  assign colour_preview = block.settings.image
-                endif
-                if colour_preview == blank and colour_product != blank
-                  assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
-                endif
-                assign colour_preview_url = ''
-                if colour_preview != blank
-                  assign colour_preview_url = colour_preview | image_url: width: 1200
-                elsif block.settings.image_asset != blank
-                  assign colour_preview_url = block.settings.image_asset | asset_url
-                endif
-                # Prefer landscape device cutouts beside swatches (black/cyan/rose-tran-horiz.png).
-                if colour_preview_url != blank
-                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
-                endif
-                assign swatch_style = block.settings.hex | default: '#cccccc'
-                assign is_first = forloop.first
-                assign swatch_sold_out = false
-                if kit_colour_variant_id != blank and kit_colour_available == false
-                  assign swatch_sold_out = true
-                endif
-              %}
-              <div class="bkp__swatch-wrap">
-                <button
-                  type="button"
-                  class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
-                  style="background-color: {{ swatch_style }};"
-                  data-bkp-swatch
-                  data-role="yours"
-                  data-label="{{ block.settings.label | escape }}"
-                  data-variant-id="{{ colour_variant_id }}"
-                  data-kit-variant-id="{{ kit_colour_variant_id }}"
-                  data-image="{{ colour_preview_url | escape }}"
-                  data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
-                  {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
-                  aria-label="{{ block.settings.label | escape }}"
-                  {{ block.shopify_attributes }}
-                ></button>
-                <span class="bkp__swatch-name">{{ block.settings.label | escape }}</span>
-              </div>
-            {% endfor %}
-          </div>
-          {%- liquid
-            assign yours_preview_src = ''
-            if default_colour_preview != blank
-              assign yours_preview_src = default_colour_preview | image_url: width: 1200
-            elsif colour_blocks.size > 0 and colour_blocks.first.settings.image_asset != blank
-              assign yours_preview_src = colour_blocks.first.settings.image_asset | asset_url
-            endif
-            if yours_preview_src != blank
-              assign yours_preview_src = yours_preview_src | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
-            endif
-          -%}
-          <div class="bkp__colour-preview" data-bkp-colour-preview="yours"{% if yours_preview_src == blank %} hidden{% endif %}>
-            <img
-              class="bkp__colour-preview-img"
-              data-bkp-colour-preview-img="yours"
-              src="{{ yours_preview_src | escape }}"
-              alt="{{ default_colour_preview_alt | escape }}"
-              loading="eager"
-              decoding="async"
-              {% if yours_preview_src == blank %}hidden{% endif %}
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="bkp__colour-group" data-role="mates">
-        <p class="bkp__colour-label">{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}</p>
-        <div class="bkp__colour-picker">
-          <div class="bkp__swatches" role="listbox" aria-label="{{ section.settings.colour_label_mates | default: "Mate's colour" | escape }}">
-            {% for block in colour_blocks %}
-              {% liquid
-                assign colour_product = block.settings.device_product
-                assign colour_variant_id = ''
-                assign kit_colour_variant_id = ''
-                assign kit_colour_available = true
-                assign colour_label_key = block.settings.label | downcase | strip
-                assign colour_preview = blank
-                if colour_product != blank
-                  assign colour_variant_id = colour_product.selected_or_first_available_variant.id
-                endif
-                if try_product != blank
-                  for colour_variant in try_product.variants
-                    assign colour_name = colour_variant.option1 | default: colour_variant.title | downcase | strip
-                    if colour_name == colour_label_key
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'ocean' and colour_name == 'blue'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    elsif colour_label_key == 'blue' and colour_name == 'ocean'
-                      assign kit_colour_variant_id = colour_variant.id
-                      assign kit_colour_available = colour_variant.available
-                      assign colour_preview = colour_variant.metafields.custom.slider_image.value | default: colour_variant.featured_media | default: colour_variant.image
-                    endif
-                  endfor
-                endif
-                if colour_preview == blank and block.settings.image != blank
-                  assign colour_preview = block.settings.image
-                endif
-                if colour_preview == blank and colour_product != blank
-                  assign colour_preview = colour_product.featured_media | default: colour_product.featured_image
-                endif
-                assign colour_preview_url = ''
-                if colour_preview != blank
-                  assign colour_preview_url = colour_preview | image_url: width: 1200
-                elsif block.settings.image_asset != blank
-                  assign colour_preview_url = block.settings.image_asset | asset_url
-                endif
-                if colour_preview_url != blank
-                  assign colour_preview_url = colour_preview_url | replace: '-tran.png', '-tran-horiz.png' | replace: '-tran.jpg', '-tran-horiz.jpg'
-                endif
-                assign swatch_style = block.settings.hex | default: '#cccccc'
-                assign is_first = forloop.first
-                assign swatch_sold_out = false
-                if kit_colour_variant_id != blank and kit_colour_available == false
-                  assign swatch_sold_out = true
-                endif
-              %}
-              <div class="bkp__swatch-wrap">
-                <button
-                  type="button"
-                  class="bkp__swatch{% if is_first %} is-selected{% endif %}{% if swatch_sold_out %} is-sold-out{% endif %}"
-                  style="background-color: {{ swatch_style }};"
-                  data-bkp-swatch
-                  data-role="mates"
-                  data-label="{{ block.settings.label | escape }}"
-                  data-variant-id="{{ colour_variant_id }}"
-                  data-kit-variant-id="{{ kit_colour_variant_id }}"
-                  data-image="{{ colour_preview_url | escape }}"
-                  data-available="{% if swatch_sold_out %}false{% else %}true{% endif %}"
-                  {% if swatch_sold_out %}disabled aria-disabled="true" title="Sold out"{% endif %}
-                  aria-label="{{ block.settings.label | escape }}"
-                ></button>
-                <span class="bkp__swatch-name">{{ block.settings.label | escape }}</span>
-              </div>
-            {% endfor %}
-          </div>
-          <div class="bkp__colour-preview" data-bkp-colour-preview="mates"{% if yours_preview_src == blank %} hidden{% endif %}>
-            <img
-              class="bkp__colour-preview-img"
-              data-bkp-colour-preview-img="mates"
-              src="{{ yours_preview_src | escape }}"
-              alt="{{ default_colour_preview_alt | escape }}"
-              loading="lazy"
-              decoding="async"
-              {% if yours_preview_src == blank %}hidden{% endif %}
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-
     <button type="button" class="bkp__atc" data-bkp-atc id="bkp-main-atc">
       <span data-bkp-atc-label>ADD TO CART</span>
     </button>
+    {% if section.settings.show_express_checkout %}
+      <div class="bkp__express" data-bkp-express>
+        <p class="bkp__express-label">Express checkout</p>
+        {% assign express_defs = 'try,commitment,mates' | split: ',' %}
+        {% for express_key in express_defs %}
+          {% liquid
+            assign express_product = blank
+            case express_key
+              when 'try'
+                assign express_product = try_product
+              when 'commitment'
+                assign express_product = commitment_product
+              when 'mates'
+                assign express_product = mates_product
+            endcase
+          %}
+          {% if express_product != blank %}
+            {% liquid
+              assign express_variant = express_product.selected_or_first_available_variant
+              assign express_form_id = 'bkp-express-' | append: section.id | append: '-' | append: express_key
+            %}
+            <div
+              class="bkp__express-option"
+              data-bkp-express-option
+              data-kit-key="{{ express_key }}"
+              {% unless active_key == express_key %}hidden{% endunless %}
+            >
+              {% form 'product', express_product, id: express_form_id, class: 'bkp__express-form' %}
+                <input type="hidden" name="id" value="{{ express_variant.id }}" data-bkp-express-variant>
+                <input type="hidden" name="quantity" value="1">
+                <div data-bkp-express-properties></div>
+                {{ form | payment_button }}
+              {% endform %}
+            </div>
+          {% endif %}
+        {% endfor %}
+        <p class="bkp__express-message" data-bkp-express-message hidden>
+          Use Add to Cart when adding the Monthly Better Box.
+        </p>
+      </div>
+    {% endif %}
     <p class="bkp__error" data-bkp-error role="status" aria-live="polite"></p>
+
+    <div class="bkp__assurance-bar">
+      <div class="bkp__assurance-guarantee">
+        <img src="{{ 'brisa-trust-shield.svg' | asset_url }}" alt="" width="36" height="36" loading="lazy">
+        <span>30 Day Guarantee</span>
+      </div>
+      <svg class="bkp__assurance-formulation" viewBox="0 0 1200 419" role="img" aria-label="World first formulation">
+        <defs>
+          <filter id="bkp-formulation-blue-{{ section.id }}" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="0.975 0 0 0 0.025  0 0.702 0 0 0.298  0 0 0.4 0 0.6  0 0 0 1 0" />
+          </filter>
+        </defs>
+        <image
+          href="https://brisabetter.com/cdn/shop/t/17/assets/brisa-world-first-formulation.png?v=183722205332753190501786453063"
+          width="1200"
+          height="419"
+          preserveAspectRatio="xMidYMid meet"
+          filter="url(#bkp-formulation-blue-{{ section.id }})"
+        />
+      </svg>
+    </div>
 
     <ul class="bkp__trust" data-bkp-trust-source>
       <li class="bkp__trust-item">
@@ -810,16 +736,6 @@
           {%- endif -%}
         </span>
         <span>{{ section.settings.trust_1 | default: 'Ships Next Day' | escape }}</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          {%- if section.settings.trust_icon_2 != blank -%}
-            {{ section.settings.trust_icon_2 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
-          {%- else -%}
-            <img src="{{ section.settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-          {%- endif -%}
-        </span>
-        <span>{{ section.settings.trust_2 | default: 'Secure checkout' | escape }}</span>
       </li>
       <li class="bkp__trust-item">
         <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
@@ -843,25 +759,47 @@
       </li>
       <li class="bkp__trust-item">
         <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          {%- if section.settings.trust_icon_5 != blank -%}
-            {{ section.settings.trust_icon_5 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
+          {%- if section.settings.trust_icon_2 != blank -%}
+            {{ section.settings.trust_icon_2 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
           {%- else -%}
-            <img src="{{ section.settings.trust_icon_asset_5 | default: 'brisa-trust-star.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
+            <img src="{{ section.settings.trust_icon_asset_2 | default: 'brisa-trust-lock.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
           {%- endif -%}
         </span>
-        <span>{{ section.settings.trust_5 | default: '4.7 (163)' | escape }}</span>
-      </li>
-      <li class="bkp__trust-item">
-        <span class="bkp__trust-icon bkp__trust-icon--custom" aria-hidden="true">
-          {%- if section.settings.trust_icon_6 != blank -%}
-            {{ section.settings.trust_icon_6 | image_url: width: 96 | image_tag: loading: 'lazy', widths: '28,56,96', alt: '' }}
-          {%- else -%}
-            <img src="{{ section.settings.trust_icon_asset_6 | default: 'brisa-trust-shield.svg' | asset_url }}" alt="" width="28" height="28" loading="lazy">
-          {%- endif -%}
-        </span>
-        <span>{{ section.settings.trust_6 | default: '30 Day Guarantee' | escape }}</span>
+        <span>{{ section.settings.trust_2 | default: 'Secure checkout' | escape }}</span>
       </li>
     </ul>
+
+    {%- assign purchase_testimonials = shop.metaobjects.testimonial.values -%}
+    {% if purchase_testimonials != blank %}
+      <a href="#real_reviews" class="bkp__testimonial-summary" aria-label="View customer reviews">
+        <span class="bkp__testimonial-summary-stars" aria-hidden="true">★★★★★</span>
+        <strong>4.8· (137)</strong> customers
+      </a>
+      <div class="bkp__testimonial-viewport">
+        <div class="bkp__testimonial-track">
+          {% for testimonial in purchase_testimonials limit: 8 %}
+            {%- liquid
+              assign testimonial_title = testimonial.heading.value | default: testimonial.title.value | default: testimonial.review_title.value
+              assign testimonial_quote = testimonial.quote.value | default: testimonial.review.value | default: testimonial.content.value | default: testimonial.testimonial.value
+              assign testimonial_author = testimonial.author.value | default: testimonial.name.value | default: testimonial.customer_name.value
+              assign testimonial_rating = testimonial.rating.value | default: 5 | plus: 0
+            -%}
+            {% if testimonial_quote != blank %}
+              <article class="bkp__testimonial-card">
+                <div class="bkp__testimonial-card-head">
+                  {% if testimonial_title != blank %}<strong>{{ testimonial_title | escape }}</strong>{% endif %}
+                  <span class="bkp__testimonial-card-stars" aria-label="{{ testimonial_rating }} out of 5 stars">
+                    {% for star in (1..5) %}<span{% if star > testimonial_rating %} class="is-empty"{% endif %}>★</span>{% endfor %}
+                  </span>
+                </div>
+                <p>"{{ testimonial_quote | strip_html | escape }}"</p>
+                {% if testimonial_author != blank %}<footer>{{ testimonial_author | escape }} · verified</footer>{% endif %}
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
 
     {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion' -%}
     {% if accordion_blocks.size > 0 %}
@@ -920,6 +858,12 @@
       "id": "title",
       "label": "Title",
       "default": "BRISA™ STARTER KIT"
+    },
+    {
+      "type": "textarea",
+      "id": "intro_text",
+      "label": "Intro text",
+      "default": "Built for the moment the urge hits, reach for Brisa instead of your vape. No smoke, no vapour, no nicotine, just real flavour and our world-first aroma formulation."
     },
     {
       "type": "checkbox",
@@ -1023,8 +967,13 @@
     {
       "type": "text",
       "id": "try_subtitle",
-      "label": "Try subtitle",
-      "default": "Try Brisa First"
+      "label": "Try subtitle"
+    },
+    {
+      "type": "text",
+      "id": "try_cores_description",
+      "label": "Try cores description",
+      "default": "(3 Mint - 6 Cherry pomegranate)"
     },
     {
       "type": "text",
@@ -1065,7 +1014,7 @@
       "type": "text",
       "id": "try_image_asset",
       "label": "Try image asset fallback",
-      "default": "brisa-kit-try.jpg"
+      "default": "brisa-kit-try-canva.png"
     },
     {
       "type": "header",
@@ -1096,33 +1045,39 @@
     },
     {
       "type": "text",
+      "id": "commitment_cores_description",
+      "label": "Commitment cores description",
+      "default": "(9 Mint - 9 Cherry pomegranate)"
+    },
+    {
+      "type": "text",
       "id": "commitment_price",
       "label": "Commitment price label",
-      "default": "$165"
+      "default": "$155"
     },
     {
       "type": "text",
       "id": "commitment_compare",
       "label": "Commitment compare label",
-      "default": "$205"
+      "default": "$175"
     },
     {
       "type": "text",
       "id": "commitment_save",
       "label": "Commitment save label",
-      "default": "SAVE $40"
+      "default": "SAVE $20"
     },
     {
       "type": "text",
       "id": "commitment_banner",
       "label": "Commitment banner",
-      "default": "★MOST POPULAR - SAVE $40"
+      "default": "★ MOST POPULAR - 9 EXTRA CORES FOR JUST $25 MORE"
     },
     {
       "type": "number",
       "id": "commitment_price_cents",
       "label": "Commitment price (cents fallback)",
-      "default": 16500
+      "default": 15500
     },
     {
       "type": "image_picker",
@@ -1134,7 +1089,7 @@
       "type": "text",
       "id": "commitment_image_asset",
       "label": "Commitment image asset fallback",
-      "default": "brisa-kit-commitment.jpg"
+      "default": "brisa-kit-commitment-canva.png"
     },
     {
       "type": "header",
@@ -1162,6 +1117,12 @@
       "id": "mates_subtitle",
       "label": "Mates subtitle",
       "default": "For you and someone else"
+    },
+    {
+      "type": "text",
+      "id": "mates_cores_description",
+      "label": "Mates cores description",
+      "default": "(3 Mint - 6 Cherry pomegranate each)"
     },
     {
       "type": "text",
@@ -1202,7 +1163,7 @@
       "type": "text",
       "id": "mates_image_asset",
       "label": "Mates image asset fallback",
-      "default": "brisa-kit-mates.jpg"
+      "default": "brisa-kit-mates-canva.png"
     },
     {
       "type": "header",
@@ -1216,6 +1177,12 @@
     },
     {
       "type": "text",
+      "id": "gifts_footer_text",
+      "label": "Text below gifts",
+      "default": "Every time the urge hits, reach for Brisa instead."
+    },
+    {
+      "type": "text",
       "id": "colour_label_yours",
       "label": "Device colour label",
       "default": "Device Colour"
@@ -1225,6 +1192,16 @@
       "id": "colour_label_mates",
       "label": "Mate colour label",
       "default": "Mate's colour"
+    },
+    {
+      "type": "header",
+      "content": "Checkout"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_express_checkout",
+      "label": "Show express checkout buttons",
+      "default": true
     },
     {
       "type": "header",
@@ -1622,7 +1599,7 @@
         { "type": "feature", "settings": { "kit": "try", "text": "Cleaning kit + carry bag" } },
         { "type": "feature", "settings": { "kit": "try", "text": "FREE 3 x Watermelon cores (worth $15)", "bonus": true } },
         { "type": "feature", "settings": { "kit": "commitment", "text": "1x Brisa device" } },
-        { "type": "feature", "settings": { "kit": "commitment", "text": "27 cores (18 Cherry Pom, 9 Mint Ice)" } },
+        { "type": "feature", "settings": { "kit": "commitment", "text": "18 cores - about 8 weeks" } },
         { "type": "feature", "settings": { "kit": "commitment", "text": "Cleaning kit + carry bag" } },
         { "type": "feature", "settings": { "kit": "commitment", "text": "FREE 3 x Watermelon cores (worth $15)", "bonus": true } },
         { "type": "feature", "settings": { "kit": "mates", "text": "2x Brisa device" } },

@@ -63,7 +63,7 @@
           "name": "cores-3",
           "settings": {
             "kit_set": "both",
-            "image_asset": "brisa-cores-slide-3.png",
+            "image_asset": "brisa-cores-slide-3.jpg",
             "image_focal_point": "center_center",
             "text_position": "middle_center",
             "subheading": "",
@@ -149,6 +149,75 @@
             "overlay_color": "#000000",
             "overlay_opacity": 0
           }
+        },
+        "image_cores07": {
+          "type": "image",
+          "name": "cores-7",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-7.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores08": {
+          "type": "image",
+          "name": "cores-8",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-8.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        },
+        "image_cores09": {
+          "type": "image",
+          "name": "cores-9",
+          "settings": {
+            "kit_set": "both",
+            "image_asset": "brisa-cores-slide-9.png",
+            "image_focal_point": "center_center",
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "",
+            "content": "",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "show_image_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
         }
       },
       "block_order": [
@@ -157,7 +226,10 @@
         "image_cores03",
         "image_cores04",
         "image_cores05",
-        "image_cores06"
+        "image_cores06",
+        "image_cores07",
+        "image_cores08",
+        "image_cores09"
       ],
       "custom_css": [
         "h3 {margin-bottom: 0px; line-height: 1.3;}",
@@ -176,14 +248,14 @@
         "desktop_layout": "square",
         "desktop_max_width": 520,
         "desktop_image_fit": "cover",
-        "frame_height_percent": 93,
+        "frame_height_percent": 100,
         "section_height": "auto",
         "transition_type": "sweep",
         "show_initial_transition": false,
         "autoplay": true,
         "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)",
-        "nav_background": "#ffffff",
+        "background": "#eaf8ff",
+        "nav_background": "#eaf8ff",
         "thumbnail_gap": 8,
         "thumbnail_size": 56,
         "thumbnail_radius": 15,
@@ -246,11 +318,13 @@
         "rating_label": "Rated 4.7 out of 5 by 163 customers",
         "badge_text": "Happy customers",
         "heading": "BETTER CORES",
-        "background": "#ffffff",
+        "description": "Refill the ritual. Real throat sensation, cooling and bold flavour from food-grade aroma alone, no nicotine, no smoke, no vapour.",
+        "background": "#eaf8ff",
+        "intro_border_color": "#86d7f7",
         "heading_color": "#000000",
         "text_color": "#111111",
         "accent_color": "#38adf5",
-        "padding_top": 28,
+        "padding_top": 24,
         "padding_bottom": 12,
         "heading_size": 54
       }

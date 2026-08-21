@@ -117,7 +117,7 @@ Code that create the faceted search for the collection and search pages. It curr
                               <input class="visual-filter__radio visually-hidden" type="checkbox" name="{{ filter_value.param_name }}" id="{{ filter_value.param_name | escape }}-{{ forloop.index }}" value="{{ filter_value.value | escape }}" {% if filter_value.active %}checked="checked"{% endif %}>
                               <label class="visual-filter__item" for="{{ filter_value.param_name | escape }}-{{ forloop.index }}">
                                 {%- if filter_value.image != blank -%}
-                                  {{- filter_value.image | image_url: width: filter_value.image.width | image_tag: loading: 'lazy', sizes: '32,64,96' -}}
+                                  {{- filter_value.image | image_url: width: filter_value.image.width | image_tag: loading: 'lazy', sizes: '32px', widths: '32,64,96' -}}
                                 {%- endif -%}
 
                                 <span>{{ filter_value.label }}</span>

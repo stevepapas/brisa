@@ -82,14 +82,14 @@
                             <a href="{{ value.product_url }}" class="variant-swatch__item {% if value == option.selected_value %}is-selected{% endif %}">
                               <span class="visually-hidden">{{ value }}</span>
 
-                              {{- image | image_url: width: image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) 64px, 72px', sizes: '64,72,128,144,192,216', class: 'variant-swatch__image' -}}
+                              {{- image | image_url: width: image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) 64px, 72px', widths: '64,72,128,144,192,216', class: 'variant-swatch__image' -}}
                             </a>
                           {%- else -%}
                             <input class="variant-swatch__radio visually-hidden" type="radio" data-option-position="{{ option.position }}" name="option{{ option.position }}" form="{{ product_form_id }}" id="{{ option_id }}-{{ forloop.index }}" value="{{ value.id }}" {% if value == option.selected_value %}checked="checked"{% endif %} aria-label="{{ value | escape }}">
                             <label class="variant-swatch__item" for="{{ option_id }}-{{ forloop.index }}">
                               <span class="visually-hidden">{{ value }}</span>
 
-                              {{- image | image_url: width: image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) 64px, 72px', sizes: '64,72,128,144,192,216', class: 'variant-swatch__image' -}}
+                              {{- image | image_url: width: image.width | image_tag: loading: 'lazy', sizes: '(max-width: 740px) 64px, 72px', widths: '64,72,128,144,192,216', class: 'variant-swatch__image' -}}
                             </label>
                           {%- endif -%}
                         </div>

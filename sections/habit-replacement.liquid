@@ -475,14 +475,28 @@
 
     <div class="habit-replacement__video">
       {% if section.settings.video_image != blank %}
-        <img
-          class="habit-replacement__video-image"
-          src="{{ section.settings.video_image | image_url: width: 900 }}"
-          alt="{{ section.settings.video_image.alt | default: 'How Brisa works' | escape }}"
-          loading="lazy"
-          width="{{ section.settings.video_image.width }}"
-          height="{{ section.settings.video_image.height }}"
-        >
+        {%- liquid
+          assign video_image_alt = section.settings.video_image.alt | default: 'How Brisa works'
+          assign video_image_width = section.settings.video_image.width | at_most: 900
+          assign video_image_sizes = '(max-width: 749px) calc(100vw - 56px), ' | append: section.settings.max_width | append: 'px'
+        -%}
+        {%- capture video_image_markup -%}
+          {{- section.settings.video_image
+            | image_url: width: video_image_width
+            | image_tag:
+              class: 'habit-replacement__video-image',
+              alt: video_image_alt,
+              loading: 'lazy',
+              sizes: video_image_sizes,
+              widths: '280,360,480,640,800,900',
+              width: section.settings.video_image.width,
+              height: section.settings.video_image.height
+          -}}
+        {%- endcapture -%}
+        {{- video_image_markup
+          | replace: '&amp;width=', '&amp;quality=70&amp;width='
+          | replace: '?width=', '?quality=70&amp;width='
+        -}}
       {% endif %}
 
       {% liquid
@@ -558,6 +572,7 @@
           <a
             class="habit-replacement__cta-button"
             href="{{ section.settings.cta_button_link | default: '/products/brisa-starter-kit' }}"
+            aria-label="{{ section.settings.cta_button_text | escape }} from How Brisa works"
           >
             {{ section.settings.cta_button_text | escape }}
           </a>

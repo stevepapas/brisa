@@ -1212,6 +1212,81 @@
     text-align: center;
   }
 
+  /* Lightweight placeholder until Judge.me mounts near the viewport */
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 220px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__bar,
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__card {
+    border-radius: 6px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--brisa-jdgm-border-soft) 55%, var(--brisa-jdgm-card-bg)) 0%,
+      var(--brisa-jdgm-card-bg) 50%,
+      color-mix(in srgb, var(--brisa-jdgm-border-soft) 55%, var(--brisa-jdgm-card-bg)) 100%
+    );
+    background-size: 200% 100%;
+    animation: brisa-jdgm-shimmer-{{ section.id }} 1.4s ease-in-out infinite;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__bar {
+    height: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__bar--stars {
+    width: 140px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__bar--btn {
+    width: 128px;
+    height: 40px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--brisa-jdgm-card-gap);
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__card {
+    height: 148px;
+    border-radius: var(--brisa-jdgm-card-radius);
+  }
+
+  #shopify-section-{{ section.id }} .jdgm-widget-revamp .brisa-jdgm-skeleton,
+  #shopify-section-{{ section.id }} .jdgm-review-widget:has(.jm-review-widget, .jdgm-rev-widg) .brisa-jdgm-skeleton {
+    display: none !important;
+  }
+
+  @keyframes brisa-jdgm-shimmer-{{ section.id }} {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__bar,
+    #shopify-section-{{ section.id }} .brisa-jdgm-skeleton__card {
+      animation: none;
+    }
+  }
+
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       overflow-x: clip;
@@ -1285,9 +1360,7 @@
 
 <section class="brisa-judgeme" id="judgeme_reviews" data-brisa-judgeme {{ section.shopify_attributes }}>
   <div class="brisa-judgeme__inner">
-    {%- if section.settings.heading != blank -%}
-      <h2 class="brisa-judgeme__heading">{{ section.settings.heading | escape }}</h2>
-    {%- endif -%}
+    <h2 class="brisa-judgeme__heading">{{ section.settings.heading | default: 'Customer reviews' | escape }}</h2>
 
     {%- if section.blocks.size > 0 -%}
       {%- for block in section.blocks -%}
@@ -1296,69 +1369,80 @@
         </div>
       {%- endfor -%}
     {%- elsif review_product != blank -%}
-      {%- liquid
-        assign jdgm_revamp_data = review_product.metafields.judgeme.review_widget_data
-        if jdgm_revamp_data.value != blank
-          assign jdgm_revamp_json = jdgm_revamp_data.value
-        elsif jdgm_revamp_data != blank
-          assign jdgm_revamp_json = jdgm_revamp_data
-        endif
-      -%}
       <!--
-        Judge.me revamp reads window.jdgm.data.reviewWidget[productId].
-        Seed it from the metafield (or CDN fallback) before booting the Vue entry.
+        Lazy Judge.me: keep an empty mount + skeleton until near viewport,
+        then AJAX-seed JSON and boot the Vue review widget (HTML only when needed).
       -->
-      <script>
-        window.jdgm = window.jdgm || {};
-        window.jdgm.data = window.jdgm.data || {};
-        window.jdgm.data.reviewWidget = window.jdgm.data.reviewWidget || {};
-        window.jdgm.data.reviewWidget[{{ review_product.id | json }}] =
-          {% if jdgm_revamp_json != blank %}
-            {{ jdgm_revamp_json | json }}
-          {% else %}
-            null
-          {% endif %}
-        ;
-      </script>
       <div style="clear:both"></div>
       <div
         id="judgeme_product_reviews"
         class="jdgm-widget jdgm-review-widget"
         data-widget="review"
-        data-entry-key="review-widget/main.js"
         data-product-title="{{ review_product.title | escape }}"
         data-product-handle="{{ review_product.handle | escape }}"
         data-product-id="{{ review_product.id }}"
         data-id="{{ review_product.id }}"
-        data-auto-install="true"
         data-product-image-url="{{ jdgm_product_image_url | escape }}"
         data-image-url="{{ jdgm_product_image_url | escape }}"
+        data-brisa-jdgm-lazy="1"
       >
-        {%- if review_product.metafields.judgeme.widget != blank -%}
-          <div class="jdgm-legacy-widget-content" style="display:none">
-            {{ review_product.metafields.judgeme.widget }}
+        <div class="brisa-jdgm-skeleton" aria-hidden="true">
+          <div class="brisa-jdgm-skeleton__header">
+            <span class="brisa-jdgm-skeleton__bar brisa-jdgm-skeleton__bar--stars"></span>
+            <span class="brisa-jdgm-skeleton__bar brisa-jdgm-skeleton__bar--btn"></span>
           </div>
-        {%- endif -%}
+          <div class="brisa-jdgm-skeleton__cards">
+            <span class="brisa-jdgm-skeleton__card"></span>
+            <span class="brisa-jdgm-skeleton__card"></span>
+          </div>
+        </div>
       </div>
       <script>
         (function () {
           var productId = {{ review_product.id | json }};
           var el = document.getElementById('judgeme_product_reviews');
-          if (!el) return;
+          if (!el || el.getAttribute('data-brisa-jdgm-booted') === '1') return;
+
+          var started = false;
+          var bootTries = 0;
 
           function hasReviewPayload(data) {
-            return !!(data && (data.number_of_reviews > 0 || (data.reviews && data.reviews.length) || (data.primary_language_reviews && data.primary_language_reviews.length)));
+            return !!(
+              data &&
+              (data.number_of_reviews > 0 ||
+                (data.reviews && data.reviews.length) ||
+                (data.primary_language_reviews && data.primary_language_reviews.length))
+            );
+          }
+
+          function reviewsUrl() {
+            var shop = (window.Shopify && Shopify.shop) || window.location.hostname;
+            return (
+              'https://cdn.judge.me/reviews/reviews_for_widget?url=' +
+              encodeURIComponent(shop) +
+              '&shop_domain=' +
+              encodeURIComponent(shop) +
+              '&product_id=' +
+              encodeURIComponent(productId) +
+              '&platform=shopify'
+            );
           }
 
           function bootRevamp() {
             var base = (window.jdgm && jdgm.CDN_BASE_URL) || '';
             if (!base) {
+              bootTries += 1;
+              if (bootTries > 80) return;
               setTimeout(bootRevamp, 50);
               return;
             }
             if (el.classList.contains('jdgm-widget-revamp')) return;
+
+            el.setAttribute('data-brisa-jdgm-booted', '1');
             el.setAttribute('data-entry-point', 'review_widget.js');
             el.setAttribute('data-entry-key', 'review-widget/main.js');
+            el.setAttribute('data-auto-install', 'true');
+
             var existing = document.querySelector('script[data-brisa-jdgm-revamp="1"]');
             if (existing) existing.remove();
             var script = document.createElement('script');
@@ -1366,6 +1450,9 @@
             script.src = base + 'review_widget.js?brisa=' + Date.now();
             script.setAttribute('data-brisa-jdgm-revamp', '1');
             document.head.appendChild(script);
+            document.dispatchEvent(
+              new CustomEvent('brisa:jdgm-boot', { detail: { productId: productId } })
+            );
           }
 
           function seedAndBoot(data) {
@@ -1376,31 +1463,52 @@
             bootRevamp();
           }
 
-          var seeded = window.jdgm.data.reviewWidget[productId];
-          if (hasReviewPayload(seeded)) {
-            bootRevamp();
-            return;
+          function loadAndBoot() {
+            if (started) return;
+            started = true;
+
+            var seeded =
+              window.jdgm &&
+              window.jdgm.data &&
+              window.jdgm.data.reviewWidget &&
+              window.jdgm.data.reviewWidget[productId];
+
+            if (hasReviewPayload(seeded)) {
+              seedAndBoot(seeded);
+              return;
+            }
+
+            fetch(reviewsUrl())
+              .then(function (res) {
+                if (!res.ok) throw new Error('Judge.me reviews fetch failed');
+                return res.json();
+              })
+              .then(seedAndBoot)
+              .catch(function () {
+                seedAndBoot(seeded || {});
+              });
           }
 
-          var shop = (window.Shopify && Shopify.shop) || window.location.hostname;
-          var url =
-            'https://cdn.judge.me/reviews/reviews_for_widget?url=' +
-            encodeURIComponent(shop) +
-            '&shop_domain=' +
-            encodeURIComponent(shop) +
-            '&product_id=' +
-            encodeURIComponent(productId) +
-            '&platform=shopify';
+          function startWhenNear() {
+            if (!('IntersectionObserver' in window)) {
+              loadAndBoot();
+              return;
+            }
+            var io = new IntersectionObserver(
+              function (entries) {
+                for (var i = 0; i < entries.length; i++) {
+                  if (!entries[i].isIntersecting) continue;
+                  io.disconnect();
+                  loadAndBoot();
+                  break;
+                }
+              },
+              { rootMargin: '300px 0px', threshold: 0.01 }
+            );
+            io.observe(el);
+          }
 
-          fetch(url)
-            .then(function (res) {
-              if (!res.ok) throw new Error('Judge.me reviews fetch failed');
-              return res.json();
-            })
-            .then(seedAndBoot)
-            .catch(function () {
-              seedAndBoot(seeded || {});
-            });
+          startWhenNear();
         })();
       </script>
       <!-- End of Judge.me code -->
@@ -1970,22 +2078,47 @@
     );
 
     syncProductImageAttrs();
-    enhance();
 
     var tries = 0;
-    var timer = setInterval(function () {
-      tries += 1;
+    var timer = null;
+
+    function runEnhancePass() {
       if (root.querySelector('.jdgm-widget-revamp')) {
         enhanceRevamp();
-        if (tries > 20) clearInterval(timer);
-        return;
+        return true;
       }
-      enhance();
-      formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
-      hydrateReviewImages();
-      syncProductImageAttrs();
-      if (tries > 40) clearInterval(timer);
-    }, 250);
+      if (root.querySelector('.jdgm-rev-widg__summary')) {
+        enhance();
+        formatAverageEl(root.querySelector('.jdgm-rev-widg, .jdgm-widget'));
+        hydrateReviewImages();
+        syncProductImageAttrs();
+        return true;
+      }
+      return false;
+    }
+
+    function startEnhancePolling() {
+      if (timer) return;
+      tries = 0;
+      runEnhancePass();
+      timer = setInterval(function () {
+        tries += 1;
+        runEnhancePass();
+        // Keep polling briefly after first success so Vue remounts can settle; MO covers later.
+        if (tries > 40) {
+          clearInterval(timer);
+          timer = null;
+        }
+      }, 250);
+    }
+
+    // Widget boots lazily near viewport — only poll after that, or if already mounted.
+    document.addEventListener('brisa:jdgm-boot', startEnhancePolling);
+    if (
+      root.querySelector('[data-brisa-jdgm-booted="1"], .jdgm-widget-revamp, .jdgm-rev-widg__summary')
+    ) {
+      startEnhancePolling();
+    }
 
     document.addEventListener('jdgm.doneDoneSetup', function () {
       enhance();
@@ -2013,6 +2146,7 @@
             enhanceRevamp();
             return;
           }
+          if (!root.querySelector('.jdgm-rev-widg__summary')) return;
           dedupeFormWrappers();
           relocateFormOutsideHeader();
           syncWritingState();
@@ -2054,7 +2188,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Requires Judge.me installed with the app embed enabled. Header matches a minimal stars + filter + Write a review layout; reviews scroll in a feed with Show more."
+      "content": "Requires Judge.me installed with the app embed enabled. The widget loads via AJAX when the section nears the viewport (skeleton shown until then). Header matches a minimal stars + filter + Write a review layout."
     },
     {
       "type": "text",

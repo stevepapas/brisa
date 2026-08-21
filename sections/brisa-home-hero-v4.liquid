@@ -1,4 +1,3 @@
-{{ 'brisa-home-hero-fix.css' | asset_url | stylesheet_tag }}
 {% liquid
   assign accent = section.settings.accent_color | default: '#008bdc'
   assign button_bg = section.settings.button_background | default: '#35adff'
@@ -7,7 +6,47 @@
     assign hero_alt = section.settings.image.alt
   endif
   assign text_in_image = section.settings.text_in_image
+  assign devices_image_url = section.settings.devices_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-devices-trans.png?v=1784972994'
+  assign devices_image_query = '?'
+  if devices_image_url contains '?'
+    assign devices_image_query = '&'
+  endif
+  assign cores_image_url = section.settings.cores_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-cores-trans.png?v=1784972994'
+  assign cores_image_query = '?'
+  if cores_image_url contains '?'
+    assign cores_image_query = '&'
+  endif
 %}
+
+{% if section.settings.image != blank %}
+  <link
+    rel="preload"
+    as="image"
+    href="{{ section.settings.image | image_url: width: 1200 }}"
+    imagesrcset="
+      {{ section.settings.image | image_url: width: 600 }} 600w,
+      {{ section.settings.image | image_url: width: 900 }} 900w,
+      {{ section.settings.image | image_url: width: 1200 }} 1200w,
+      {{ section.settings.image | image_url: width: 1600 }} 1600w,
+      {{ section.settings.image | image_url: width: 2000 }} 2000w
+    "
+    imagesizes="100vw"
+    fetchpriority="high"
+  >
+{% else %}
+  <link
+    rel="preload"
+    as="image"
+    href="{{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }}&quality=70"
+    imagesrcset="
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '400x' }}&quality=70 400w,
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '600x' }}&quality=70 600w,
+      {{ 'brisa-home-hero.jpg' | asset_img_url: '819x' }}&quality=70 819w
+    "
+    imagesizes="100vw"
+    fetchpriority="high"
+  >
+{% endif %}
 
 <style>
   @font-face {
@@ -645,15 +684,17 @@
             alt: ''
         }}
       {% else %}
-        <img
-          class="brisa-home-hero__image"
-          src="{{ 'brisa-home-hero.jpg' | asset_url }}"
-          alt=""
-          width="819"
-          height="1024"
-          loading="eager"
-          fetchpriority="high"
-        >
+        {% render 'brisa-responsive-asset-img',
+          filename: 'brisa-home-hero.jpg',
+          widths: '400,600,819',
+          sizes: '100vw',
+          alt: '',
+          class: 'brisa-home-hero__image',
+          loading: 'eager',
+          fetchpriority: 'high',
+          width: 819,
+          height: 1024
+        %}
       {% endif %}
     </div>
     <div class="brisa-home-hero__veil"></div>
@@ -740,15 +781,30 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--devices" href="{{ section.settings.button_1_link | default: '/products/brisa-starter-kit' }}">
           {% if section.settings.devices_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
-              {{ section.settings.devices_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700' }}
+              {%- capture devices_image_markup -%}
+                {{ section.settings.devices_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '80,120,160,240,320,480', sizes: '(max-width: 749px) 80px, 230px' }}
+              {%- endcapture -%}
+              {{- devices_image_markup
+                | replace: '&amp;width=', '&amp;quality=70&amp;width='
+                | replace: '?width=', '?quality=70&amp;width='
+              -}}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--devices" aria-hidden="true">
               <img
-                src="{{ section.settings.devices_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-devices-trans.png?v=1784972994' }}"
+                src="{{ devices_image_url }}{{ devices_image_query }}quality=70&width=160"
+                srcset="
+                  {{ devices_image_url }}{{ devices_image_query }}quality=70&width=80 80w,
+                  {{ devices_image_url }}{{ devices_image_query }}quality=70&width=120 120w,
+                  {{ devices_image_url }}{{ devices_image_query }}quality=70&width=160 160w,
+                  {{ devices_image_url }}{{ devices_image_query }}quality=70&width=240 240w,
+                  {{ devices_image_url }}{{ devices_image_query }}quality=70&width=320 320w,
+                  {{ devices_image_url }}{{ devices_image_query }}quality=70&width=480 480w
+                "
+                sizes="(max-width: 749px) 80px, 230px"
                 alt=""
-                width="700"
-                height="280"
+                width="695"
+                height="860"
                 loading="lazy"
               >
             </span>
@@ -761,15 +817,30 @@
         <a class="brisa-home-hero__cta brisa-home-hero__cta--cores" href="{{ section.settings.button_2_link | default: '/products/brisa-cores' }}">
           {% if section.settings.cores_image != blank %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
-              {{ section.settings.cores_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '300,500,700' }}
+              {%- capture cores_image_markup -%}
+                {{ section.settings.cores_image | image_url: width: 480 | image_tag: loading: 'lazy', widths: '80,120,160,240,320,480', sizes: '(max-width: 749px) 110px, 161px' }}
+              {%- endcapture -%}
+              {{- cores_image_markup
+                | replace: '&amp;width=', '&amp;quality=70&amp;width='
+                | replace: '?width=', '?quality=70&amp;width='
+              -}}
             </span>
           {% else %}
             <span class="brisa-home-hero__cta-art brisa-home-hero__cta-art--cores" aria-hidden="true">
               <img
-                src="{{ section.settings.cores_image_url | default: 'https://cdn.shopify.com/s/files/1/0939/5752/1780/files/3-cores-trans.png?v=1784972994' }}"
+                src="{{ cores_image_url }}{{ cores_image_query }}quality=70&width=240"
+                srcset="
+                  {{ cores_image_url }}{{ cores_image_query }}quality=70&width=80 80w,
+                  {{ cores_image_url }}{{ cores_image_query }}quality=70&width=120 120w,
+                  {{ cores_image_url }}{{ cores_image_query }}quality=70&width=160 160w,
+                  {{ cores_image_url }}{{ cores_image_query }}quality=70&width=240 240w,
+                  {{ cores_image_url }}{{ cores_image_query }}quality=70&width=320 320w,
+                  {{ cores_image_url }}{{ cores_image_query }}quality=70&width=480 480w
+                "
+                sizes="(max-width: 749px) 110px, 161px"
                 alt=""
-                width="700"
-                height="280"
+                width="868"
+                height="539"
                 loading="lazy"
               >
             </span>
