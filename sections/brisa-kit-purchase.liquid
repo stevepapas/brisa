@@ -771,10 +771,10 @@
 
     {%- assign purchase_testimonials = shop.metaobjects.testimonial.values -%}
     {% if purchase_testimonials != blank %}
-      <div class="bkp__testimonial-summary">
+      <a href="#real_reviews" class="bkp__testimonial-summary" aria-label="View customer reviews">
         <span class="bkp__testimonial-summary-stars" aria-hidden="true">★★★★★</span>
         <strong>4.8· (137)</strong> customers
-      </div>
+      </a>
       <div class="bkp__testimonial-viewport">
         <div class="bkp__testimonial-track">
           {% for testimonial in purchase_testimonials limit: 8 %}

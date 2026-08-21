@@ -1309,10 +1309,12 @@
 }
 
 .bkp__testimonial-summary {
+  display: block;
   padding: 24px 28px 10px;
   background: #fff;
   color: #111;
   font-size: 17px;
+  text-decoration: none;
 }
 
 .bkp__testimonial-summary-stars,
