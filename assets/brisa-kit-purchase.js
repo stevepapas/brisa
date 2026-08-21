@@ -547,6 +547,8 @@
       const matesColourLabel = devices > 1 ? String(mates?.dataset?.label || '').trim() : '';
       const colourSummary = [yourColourLabel, matesColourLabel].filter(Boolean).join(' / ');
       const kitLabel = String(kit.dataset.title || '').trim();
+      const kitDescription = String(kit.dataset.cartDescription || '').trim();
+      const kitImageUrl = String(kit.dataset.cartImageUrl || '').trim();
       const device1Id = String(yours.dataset.variantId || '').trim();
       const device2Id = devices > 1 ? String(mates?.dataset?.variantId || '').trim() : '';
       const canExpand =
@@ -560,6 +562,9 @@
         'Device Colour': yourColourLabel,
         Colours: colourSummary,
       };
+
+      if (kitDescription) properties._kit_description = kitDescription;
+      if (kitImageUrl) properties._kit_image_url = kitImageUrl;
 
       if (canExpand) properties._device_1_variant_id = device1Id;
 
@@ -811,6 +816,8 @@
         devices > 1 ? String(mates?.dataset?.label || '').trim() : '';
       const colourSummary = [yourColourLabel, matesColourLabel].filter(Boolean).join(' / ');
       const kitLabel = String(kit.dataset.title || '').trim();
+      const kitDescription = String(kit.dataset.cartDescription || '').trim();
+      const kitImageUrl = String(kit.dataset.cartImageUrl || '').trim();
 
       const properties = {
         _bundle: 'brisa-kit',
@@ -822,6 +829,9 @@
         'Device Colour': yourColourLabel,
         Colours: colourSummary,
       };
+
+      if (kitDescription) properties._kit_description = kitDescription;
+      if (kitImageUrl) properties._kit_image_url = kitImageUrl;
 
       if (canExpand) {
         properties._device_1_variant_id = device1Id;

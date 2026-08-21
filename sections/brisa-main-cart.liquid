@@ -113,15 +113,30 @@
               endif
 
               assign line_kit_key = line_item.properties['_kit_key'] | downcase
-              assign line_subtitle = ''
-              case line_kit_key
-                when 'commitment'
-                  assign line_subtitle = '27 cores · roughly 10 weeks of ritual'
-                when 'mates'
-                  assign line_subtitle = '18 cores · about 1 month each'
-                when 'try'
-                  assign line_subtitle = '9 cores · 3 to 5 weeks of ritual'
-              endcase
+              assign line_subtitle = line_item.properties['_kit_description']
+              assign line_image_url = line_item.properties['_kit_image_url']
+
+              if line_subtitle == blank
+                case line_kit_key
+                  when 'commitment'
+                    assign line_subtitle = 'Give it a real go - 2 months of ritual · 1 reusable Brisa device · 18 cores - about 8 weeks (9 Mint - 9 Cherry pomegranate) · Free cores + cleaning kit & Bag'
+                  when 'mates'
+                    assign line_subtitle = 'For you and someone else · 2 reusable Brisa device · 18 cores - roughly a month each (3 Mint - 6 Cherry pomegranate each) · Free cores + cleaning kit’s & Bag'
+                  when 'try'
+                    assign line_subtitle = '1 reusable Brisa device · 9 cores - roughly a month worth (3 Mint - 6 Cherry pomegranate) · Free cores + cleaning kit & Bag'
+                endcase
+              endif
+
+              if line_image_url == blank
+                case line_kit_key
+                  when 'commitment'
+                    assign line_image_url = 'brisa-kit-commitment-canva.png' | asset_url
+                  when 'mates'
+                    assign line_image_url = 'brisa-kit-mates-canva.png' | asset_url
+                  when 'try'
+                    assign line_image_url = 'brisa-kit-try-canva.png' | asset_url
+                endcase
+              endif
               if line_subtitle == blank
                 assign line_subtitle = line_item.product.metafields.custom.cart_subtitle.value
               endif
@@ -143,10 +158,14 @@
             %}
 
             <article class="brisa-cart__item{% if is_cores_onetime %} brisa-cart__item--cores{% endif %}">
-              {%- if line_item.image != blank -%}
+              {%- if line_image_url != blank or line_item.image != blank -%}
                 <div class="brisa-cart__item-media">
                   <a href="{{ line_item.url }}" class="brisa-cart__item-image" tabindex="-1" aria-hidden="true">
-                    {{- line_item.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: line_item.product.title -}}
+                    {%- if line_image_url != blank -%}
+                      <img src="{{ line_image_url }}" width="200" height="200" loading="lazy" alt="{{ line_item.product.title | escape }}">
+                    {%- else -%}
+                      {{- line_item.image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100,140,200', sizes: '100px', alt: line_item.product.title -}}
+                    {%- endif -%}
                   </a>
                   {%- unless is_cores_onetime -%}
                     {%- if line_item.variant.compare_at_price > line_item.variant.price or line_item.original_line_price > line_item.final_line_price -%}

@@ -350,6 +350,27 @@
           if active_key == key and kit_available
             assign is_selected = true
           endif
+
+          assign kit_cart_image_url = ''
+          if kit_image != blank
+            assign kit_cart_image_url = kit_image | image_url: width: 400
+          elsif kit_image_asset != blank
+            assign kit_cart_image_url = kit_image_asset | asset_url
+          endif
+
+          assign kit_cart_description = kit_subtitle | strip
+          for feature_block in section.blocks
+            if feature_block.type == 'feature' and feature_block.settings.kit == key and feature_block.settings.text != blank
+              assign kit_cart_feature = feature_block.settings.text | strip
+              if kit_cart_description != blank
+                assign kit_cart_description = kit_cart_description | append: ' · '
+              endif
+              assign kit_cart_description = kit_cart_description | append: kit_cart_feature
+              if kit_cart_feature contains 'cores' and kit_cores_description != blank
+                assign kit_cart_description = kit_cart_description | append: ' ' | append: kit_cores_description
+              endif
+            endif
+          endfor
         %}
 
         <label
@@ -362,6 +383,8 @@
           data-colour-variants='{{ colour_variants_json }}'
           data-price-cents="{{ price_cents }}"
           data-title="{{ kit_title | escape }}"
+          data-cart-description="{{ kit_cart_description | escape }}"
+          data-cart-image-url="{{ kit_cart_image_url | escape }}"
           {% unless kit_available %}aria-disabled="true"{% endunless %}
         >
           <input type="radio" name="bkp-kit-{{ section.id }}" value="{{ key }}" {% if is_selected %}checked{% endif %} {% unless kit_available %}disabled{% endunless %}>
