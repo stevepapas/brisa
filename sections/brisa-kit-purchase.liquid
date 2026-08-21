@@ -301,7 +301,9 @@
           if kit_product != blank
             assign kit_variant = kit_product.selected_or_first_available_variant
             assign variant_id = kit_variant.id
-            assign price_cents = kit_variant.price
+            if price_cents == blank or price_cents == 0
+              assign price_cents = kit_variant.price
+            endif
             if kit_image == blank and kit_image_asset == blank
               assign kit_image = kit_product.featured_image
             endif
