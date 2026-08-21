@@ -23,8 +23,6 @@
   assign active_key = 'commitment'
   if mates_product != blank and product.id == mates_product.id
     assign active_key = 'mates'
-  elsif try_product != blank and product.id == try_product.id
-    assign active_key = 'try'
   elsif commitment_product != blank and product.id == commitment_product.id
     assign active_key = 'commitment'
   elsif product.handle contains 'mates'
