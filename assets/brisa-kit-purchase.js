@@ -393,6 +393,13 @@
       return true;
     }
 
+    deviceVariantId(swatch) {
+      const linked = String(swatch?.dataset?.variantId || '').trim();
+      if (/^\d+$/.test(linked)) return linked;
+      const colour = this.normalizeColourLabel(swatch?.dataset?.label);
+      return BrisaKitPurchase.STARTER_COLOUR_VARIANTS[colour] || '';
+    }
+
     // Hard aliases when Liquid map is stale (Ocean is "Blue" in Shopify).
     static STARTER_COLOUR_VARIANTS = {
       black: '54693535777140',
@@ -549,8 +556,8 @@
       const kitLabel = String(kit.dataset.title || '').trim();
       const kitDescription = String(kit.dataset.cartDescription || '').trim();
       const kitImageUrl = String(kit.dataset.cartImageUrl || '').trim();
-      const device1Id = String(yours.dataset.variantId || '').trim();
-      const device2Id = devices > 1 ? String(mates?.dataset?.variantId || '').trim() : '';
+      const device1Id = this.deviceVariantId(yours);
+      const device2Id = devices > 1 ? this.deviceVariantId(mates) : '';
       const canExpand =
         !isStarterKit && device1Id && /^\d+$/.test(device1Id) && device1Id !== variantId;
       const rolloutMarker = String(this.dataset.bundleRollout || '').trim();
@@ -818,8 +825,8 @@
 
       // Cart Transform Option A: only when swatches link SEPARATE device products
       // (data-variant-id from colour block device_product), not pack colour variants.
-      const device1Id = String(yours.dataset.variantId || '').trim();
-      const device2Id = devices > 1 ? String(mates.dataset.variantId || '').trim() : '';
+      const device1Id = this.deviceVariantId(yours);
+      const device2Id = devices > 1 ? this.deviceVariantId(mates) : '';
       const canExpand =
         !isStarterKit &&
         device1Id &&
