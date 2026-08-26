@@ -553,6 +553,11 @@
       const device2Id = devices > 1 ? String(mates?.dataset?.variantId || '').trim() : '';
       const canExpand =
         !isStarterKit && device1Id && /^\d+$/.test(device1Id) && device1Id !== variantId;
+      const rolloutMarker = String(this.dataset.bundleRollout || '').trim();
+      const rolloutReady =
+        rolloutMarker &&
+        /^\d+$/.test(device1Id) &&
+        (devices <= 1 || /^\d+$/.test(device2Id));
 
       const properties = {
         _bundle: 'brisa-kit',
@@ -565,6 +570,16 @@
 
       if (kitDescription) properties._kit_description = kitDescription;
       if (kitImageUrl) properties._kit_image_url = kitImageUrl;
+
+      if (rolloutReady) {
+        properties._bundle_rollout = rolloutMarker;
+        properties._bundle_selection_1_variant_id = device1Id;
+        properties._bundle_selection_1_label = yourColourLabel;
+        if (devices > 1) {
+          properties._bundle_selection_2_variant_id = device2Id;
+          properties._bundle_selection_2_label = matesColourLabel;
+        }
+      }
 
       if (canExpand) properties._device_1_variant_id = device1Id;
 
@@ -810,6 +825,11 @@
         device1Id &&
         /^\d+$/.test(device1Id) &&
         device1Id !== variantId;
+      const rolloutMarker = String(this.dataset.bundleRollout || '').trim();
+      const rolloutReady =
+        rolloutMarker &&
+        /^\d+$/.test(device1Id) &&
+        (devices <= 1 || /^\d+$/.test(device2Id));
 
       const yourColourLabel = String(yours.dataset.label || '').trim();
       const matesColourLabel =
@@ -832,6 +852,16 @@
 
       if (kitDescription) properties._kit_description = kitDescription;
       if (kitImageUrl) properties._kit_image_url = kitImageUrl;
+
+      if (rolloutReady) {
+        properties._bundle_rollout = rolloutMarker;
+        properties._bundle_selection_1_variant_id = device1Id;
+        properties._bundle_selection_1_label = yourColourLabel;
+        if (devices > 1) {
+          properties._bundle_selection_2_variant_id = device2Id;
+          properties._bundle_selection_2_label = matesColourLabel;
+        }
+      }
 
       if (canExpand) {
         properties._device_1_variant_id = device1Id;

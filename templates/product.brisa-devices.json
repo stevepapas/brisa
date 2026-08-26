@@ -1279,6 +1279,7 @@
         "highlight_icon_4": "shopify://shop_images/brisa_10.png",
         "choose_heading": "Choose your kit",
         "choose_sub": "One-time purchase · 30 day guarantee on every kit",
+        "bundle_rollout_marker": "device-page-dev-v1",
         "try_product": "brisa-starter-kit",
         "try_handle": "brisa-starter-kit",
         "try_title": "Starter Kit",

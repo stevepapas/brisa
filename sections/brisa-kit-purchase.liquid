@@ -159,6 +159,7 @@
   data-devices="1"
   data-addon-price-cents="{{ addon_price_cents }}"
   data-addon-available="{% if addon_available %}true{% else %}false{% endif %}"
+  {% if section.settings.bundle_rollout_marker != blank %}data-bundle-rollout="{{ section.settings.bundle_rollout_marker | escape }}"{% endif %}
   {% if addon_variant != blank %}data-addon-variant-id="{{ addon_variant.id }}"{% endif %}
   {% if addon_selling_plan_id != blank %}data-addon-selling-plan-id="{{ addon_selling_plan_id }}"{% endif %}
   {{ section.shopify_attributes }}
@@ -953,6 +954,12 @@
     {
       "type": "header",
       "content": "Kit picker"
+    },
+    {
+      "type": "text",
+      "id": "bundle_rollout_marker",
+      "label": "Bundle rollout marker",
+      "info": "Leave blank on the live theme. Use the exact marker configured in Bundle Manager while testing."
     },
     {
       "type": "text",
