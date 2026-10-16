@@ -78,14 +78,11 @@
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__hero-text {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.5;
-    text-align: left;
-  }
-
-  #shopify-section-{{ section.id }} .brisa-customer-care__hero-text strong {
-    font-weight: 700;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: center;
   }
 
   #shopify-section-{{ section.id }} .brisa-customer-care__form-panel {
@@ -595,6 +592,326 @@
   #shopify-section-{{ section.id }} .brisa-customer-care__form-banner {
     margin-bottom: 20px;
   }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-help {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+    padding: 24px 20px 32px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-help-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-item {
+    overflow: hidden;
+    background: #ffffff;
+    border: 2px solid #d8d8d8;
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-item summary {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 16px;
+    align-items: center;
+    gap: 12px;
+    min-height: 72px;
+    padding: 10px 14px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-item summary::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #a8a8a8;
+    border-bottom: 2px solid #a8a8a8;
+    transform: rotate(45deg) translateY(-3px);
+    transition: transform 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-item[open] summary::after {
+    transform: rotate(225deg) translate(-2px, -1px);
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    color: #ffffff;
+    background: #078edc;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-copy {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-title,
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-subtitle {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-title {
+    color: var(--bcc-text);
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-subtitle {
+    margin-top: 2px;
+    color: #4f4f4f;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-answer {
+    padding: 2px 14px 14px;
+    color: var(--bcc-text);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-answer p {
+    margin: 0 0 10px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-answer p:last-child {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-steps {
+    display: grid;
+    gap: 9px;
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-step {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: #078edc;
+    background: #e2f4ff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 42px;
+    margin-top: 12px;
+    padding: 9px 14px;
+    color: #111111;
+    background: #ffffff;
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-note {
+    margin-top: 9px !important;
+    color: #4f4f4f;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-note a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__quick-link {
+    color: #006fae;
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__charge-note {
+    margin: 16px 0 0;
+    padding: 14px 16px;
+    color: #173f5f;
+    background: #eef8ff;
+    border-left: 4px solid #008bdc;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__before-open {
+    padding: 36px 20px;
+    background: #f4f4f4;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__before-open-inner {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__before-open-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__before-open-card {
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__before-open-card strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__before-open-card p {
+    margin: 0;
+    color: var(--bcc-muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription {
+    padding: 36px 20px 40px;
+    background: #dff2ff;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-inner {
+    max-width: var(--bcc-max-width);
+    margin: 0 auto;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-badge {
+    display: inline-block;
+    margin: 0 0 14px;
+    padding: 7px 12px;
+    color: #24568d;
+    background: #bde3fb;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-heading {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-intro {
+    margin: 0 0 20px;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-options {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-option {
+    padding: 16px;
+    background: #fff;
+    border-radius: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-option strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-option p,
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-note,
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-contact {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-button {
+    display: block;
+    width: 100%;
+    margin: 0 0 14px;
+    padding: 15px 20px;
+    color: #fff;
+    background: #111;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .04em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-note {
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    background: #dff5df;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .brisa-customer-care__subscription-contact a {
+    font-weight: 800;
+    text-decoration: underline;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .brisa-customer-care__quick-help {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    #shopify-section-{{ section.id }} .brisa-customer-care__before-open-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
 </style>
 
 <section class="brisa-customer-care" {{ section.shopify_attributes }}>
@@ -605,10 +922,101 @@
       {%- endif -%}
       <h1 class="brisa-customer-care__hero-heading">{{ section.settings.hero_heading | escape }}</h1>
       {%- if section.settings.hero_text != blank -%}
-        {%- assign escaped_hero_text = section.settings.hero_text | escape -%}
-        <p class="brisa-customer-care__hero-text">{{ escaped_hero_text | replace: '1 business day', '<strong>1 business day</strong>' }}</p>
+        <p class="brisa-customer-care__hero-text">{{ section.settings.hero_text | escape }}</p>
       {%- endif -%}
     </div>
+  </div>
+
+  <div class="brisa-customer-care__quick-help">
+    <h2 class="brisa-customer-care__section-heading">What do you need help with?</h2>
+    <p class="brisa-customer-care__section-subtext">Choose the closest option for the quickest way forward</p>
+    <div class="brisa-customer-care__quick-help-list">
+      <details class="brisa-customer-care__quick-item">
+        <summary>
+          <span class="brisa-customer-care__quick-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="m4 7 8 4 8-4v10l-8 4-8-4V7Z"/><path d="M12 11v10"/></svg>
+          </span>
+          <span class="brisa-customer-care__quick-copy">
+            <span class="brisa-customer-care__quick-title">Where's my order?</span>
+            <span class="brisa-customer-care__quick-subtitle">Dispatched in 1-2 business days.</span>
+          </span>
+        </summary>
+        <div class="brisa-customer-care__quick-answer">
+          <p>Orders are dispatched in 1-2 business days. You'll get an email with tracking as soon as it ships.</p>
+          <a class="brisa-customer-care__quick-button" href="/account">TRACK MY ORDER</a>
+          <p class="brisa-customer-care__quick-note">Delivery estimate by country</p>
+        </div>
+      </details>
+      <details class="brisa-customer-care__quick-item">
+        <summary>
+          <span class="brisa-customer-care__quick-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M4 17v-5h5"/><path d="M6.1 8.2A7 7 0 0 1 18.7 7L20 12M4 12l1.3 5A7 7 0 0 0 17.9 15.8"/></svg>
+          </span>
+          <span class="brisa-customer-care__quick-copy">
+            <span class="brisa-customer-care__quick-title">Cancel or change my subscription</span>
+            <span class="brisa-customer-care__quick-subtitle">Skip, pause or cancel anytime.</span>
+          </span>
+        </summary>
+        <div class="brisa-customer-care__quick-answer">
+          <p>Skip a delivery, pause or cancel anytime from your account. It takes under a minute and you don't need to email us.</p>
+          <a class="brisa-customer-care__quick-button" href="/a/subscriptions/login">MANAGE SUBSCRIPTION</a>
+          <p class="brisa-customer-care__quick-note">Changes made before your next renewal date apply to that order. Can't log in? Email <a href="mailto:admin@brisabetter.com">admin@brisabetter.com</a> with your order number and we'll cancel it for you.</p>
+        </div>
+      </details>
+      <details class="brisa-customer-care__quick-item">
+        <summary>
+          <span class="brisa-customer-care__quick-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5h5M15 5h5M7 5v14M17 5v14M4 19h5M15 19h5M12 3v18"/></svg>
+          </span>
+          <span class="brisa-customer-care__quick-copy">
+            <span class="brisa-customer-care__quick-title">Something's not landing</span>
+            <span class="brisa-customer-care__quick-subtitle">Claim the 30 Day Guarantee</span>
+          </span>
+        </summary>
+        <div class="brisa-customer-care__quick-answer">
+          <ol class="brisa-customer-care__quick-steps">
+            <li class="brisa-customer-care__quick-step"><span class="brisa-customer-care__quick-step-number">1</span><span><strong>You reach out.</strong> Your order number and what's not landing: flavour, days used and what feels off. Takes 30 seconds.</span></li>
+            <li class="brisa-customer-care__quick-step"><span class="brisa-customer-care__quick-step-number">2</span><span><strong>We fix it with you.</strong> A strategy personalised to you by our team, to get you on track.</span></li>
+            <li class="brisa-customer-care__quick-step"><span class="brisa-customer-care__quick-step-number">3</span><span><strong>We post your cores free.</strong> Six cores (2 packs), sent the same week.</span></li>
+          </ol>
+          <a class="brisa-customer-care__quick-button" href="#brisa-30-day-guarantee">CLAIM THE GUARANTEE</a>
+          <p class="brisa-customer-care__quick-note">Used devices and opened cores can't be returned for hygiene reasons.</p>
+        </div>
+      </details>
+      <details class="brisa-customer-care__quick-item">
+        <summary>
+          <span class="brisa-customer-care__quick-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3 2.8 19h18.4L12 3Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          </span>
+          <span class="brisa-customer-care__quick-copy">
+            <span class="brisa-customer-care__quick-title">Faulty or damaged</span>
+            <span class="brisa-customer-care__quick-subtitle">We'll sort a replacement or refund.</span>
+          </span>
+        </summary>
+        <div class="brisa-customer-care__quick-answer">
+          <p>Send us your order number, a photo, and what's wrong. We'll sort a replacement or refund.</p>
+          <a class="brisa-customer-care__quick-button" href="#brisa-contact-form">REPORT A PROBLEM</a>
+          <p class="brisa-customer-care__quick-note">If something is faulty or damaged, we'll make it right.</p>
+        </div>
+      </details>
+      <details class="brisa-customer-care__quick-item">
+        <summary>
+          <span class="brisa-customer-care__quick-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+          </span>
+          <span class="brisa-customer-care__quick-copy">
+            <span class="brisa-customer-care__quick-title">Something else</span>
+            <span class="brisa-customer-care__quick-subtitle">Ask us anything about Brisa.</span>
+          </span>
+        </summary>
+        <div class="brisa-customer-care__quick-answer">
+          <p>Send us a message and we'll reply within 1 business day.</p>
+          <a class="brisa-customer-care__quick-button" href="#brisa-contact-form">SEND A MESSAGE</a>
+          <p class="brisa-customer-care__quick-note">Prefer email? <a href="mailto:admin@brisabetter.com">admin@brisabetter.com</a></p>
+        </div>
+      </details>
+    </div>
+    <p class="brisa-customer-care__charge-note"><strong>See a charge you don't recognise?</strong> Contact us before opening a payment dispute so we can identify the order or subscription and resolve it quickly.</p>
   </div>
 
   <div class="brisa-customer-care__form-panel">
@@ -667,6 +1075,7 @@
           type="text"
           name="contact[Order Number]"
           placeholder="{{ section.settings.placeholder_order | escape }}"
+          required
         >
       </div>
 
@@ -736,6 +1145,52 @@
       {%- endif -%}
     </ul>
   {%- endif -%}
+  </div>
+
+  <section class="brisa-customer-care__subscription" aria-labelledby="brisa-subscription-heading-{{ section.id }}">
+    <div class="brisa-customer-care__subscription-inner">
+      <p class="brisa-customer-care__subscription-badge">Subscription</p>
+      <h2 class="brisa-customer-care__subscription-heading" id="brisa-subscription-heading-{{ section.id }}">Manage your subscription</h2>
+      <p class="brisa-customer-care__subscription-intro">Skip, pause or cancel in your account. It takes under a minute. No emails, no forms.</p>
+      <div class="brisa-customer-care__subscription-options">
+        <div class="brisa-customer-care__subscription-option">
+          <strong>Skip a delivery</strong>
+          <p>Got enough cores? Skip the next one.</p>
+        </div>
+        <div class="brisa-customer-care__subscription-option">
+          <strong>Pause</strong>
+          <p>Take a break and restart when you're ready.</p>
+        </div>
+        <div class="brisa-customer-care__subscription-option">
+          <strong>Cancel</strong>
+          <p>Cancel any time. No fees, no calls.</p>
+        </div>
+      </div>
+      <a class="brisa-customer-care__subscription-button" href="/a/subscriptions/login">Manage subscription</a>
+      <p class="brisa-customer-care__subscription-note">Cancel before your next billing date and you won't be charged again.</p>
+      <p class="brisa-customer-care__subscription-contact">Can't log in? Email <a href="mailto:admin@brisabetter.com">admin@brisabetter.com</a> from the address you ordered with and we'll cancel it for you.</p>
+    </div>
+  </section>
+
+  <div class="brisa-customer-care__before-open">
+    <div class="brisa-customer-care__before-open-inner">
+      <h2 class="brisa-customer-care__section-heading">Know before you open</h2>
+      <p class="brisa-customer-care__section-subtext">A few simple things help every core and device perform as intended.</p>
+      <div class="brisa-customer-care__before-open-grid">
+        <div class="brisa-customer-care__before-open-card">
+          <strong>Core lifespan</strong>
+          <p>Each core is designed for roughly 2–3 days of normal use. Heavy use can shorten that window.</p>
+        </div>
+        <div class="brisa-customer-care__before-open-card">
+          <strong>Flavour naturally fades</strong>
+          <p>A softer aroma or throat feel usually means the core is ready to be replaced, not that the device is faulty.</p>
+        </div>
+        <div class="brisa-customer-care__before-open-card">
+          <strong>Clean every three days</strong>
+          <p>Regular cleaning keeps airflow clear and prevents residue from affecting the draw and flavour.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="brisa-customer-care__claim-panel" id="brisa-30-day-guarantee">
@@ -929,7 +1384,7 @@
       "type": "textarea",
       "id": "hero_text",
       "label": "Intro text",
-      "default": "Whether it's your order, your Brisa Better, Brisa Cores, our 30 day guarantee, or a general question, we're here to help you get sorted. Drop us a message below and we'll get back to you within 1 business day."
+      "default": "Order, subscription, guarantee or a general question? Pick what you need and we'll get you sorted within 1 business day."
     },
     {
       "type": "header",
