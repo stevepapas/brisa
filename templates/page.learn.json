@@ -91,7 +91,7 @@
         "quote": "It's not the nicotine, mate. It's the hand-to-mouth. Every time I try to stop, that's what pulls me back.",
         "body": "<p>That stuck. I went home, did the research, called Kaiden. We bought every product we could find, tested them all, and knew what was missing and what to produce.</p><p>They all missed the same things. Felt cheap in your hand. Looked out of place pulling out at the pub or on a worksite, or replaced bad stuff with more bad stuff. Nothing anyone actually wanted.</p><p>So we built our own option. Same motion. Same draw. Same moment. No chemicals, no nicotine, no vapour. Built solid. Looks the part. Flavours people actually know, with every aspect in mind.</p><p>Something Aussies are happy to be seen with.</p><p>That's Brisa. Still the two of us behind it.</p>",
         "image": "shopify://shop_images/founders.jpg",
-        "signature": "\u2014 SAM & KAIDEN, CO-FOUNDERS",
+        "signature": "— SAM & KAIDEN, CO-FOUNDERS",
         "max_width": 520,
         "background": "#ffffff",
         "padding_top": 40,
@@ -115,7 +115,7 @@
           "settings": {
             "label": "02 - THE STEAL",
             "title": "It's not just your lungs. It's your sleep, your mood, your training.",
-            "text": "<p>Vaping feels like it calms you down, but nicotine is still a stimulant. It's linked to trouble falling asleep, waking through the night, poorer recovery, and feeling more tired the next day. So it's not just stealing your breath \u2014 it's stealing your energy.</p>",
+            "text": "<p>Vaping feels like it calms you down, but nicotine is still a stimulant. It's linked to trouble falling asleep, waking through the night, poorer recovery, and feeling more tired the next day. So it's not just stealing your breath — it's stealing your energy.</p>",
             "quote": "How much of your energy, sleep and performance is it quietly stealing every day?"
           }
         },
@@ -124,7 +124,7 @@
           "settings": {
             "label": "03 - THE BILL",
             "title": "It's a weekly bill dressed up as a small expense.",
-            "text": "<p>Disposables, pods, coils, juice \u2014 none of it feels like much in the moment. But over months and years, it adds up fast. The worst part? You're not paying for something that builds your life. You're paying to stay stuck.</p>",
+            "text": "<p>Disposables, pods, coils, juice — none of it feels like much in the moment. But over months and years, it adds up fast. The worst part? You're not paying for something that builds your life. You're paying to stay stuck.</p>",
             "quote": "How much has this habit already cost you, and what could that money have built instead?"
           }
         },
@@ -133,7 +133,7 @@
           "settings": {
             "label": "04 - THE HIDE",
             "title": "It starts to make people feel weak.",
-            "text": "<p>Most people don't want to be the person ducking off for a hit, hiding it from family, or stressing when the vape's dead. It slowly becomes something you rely on \u2014 then something you're embarrassed by.</p>",
+            "text": "<p>Most people don't want to be the person ducking off for a hit, hiding it from family, or stressing when the vape's dead. It slowly becomes something you rely on — then something you're embarrassed by.</p>",
             "quote": "Why does it feel so good to imagine not needing it anymore?"
           }
         },
@@ -142,7 +142,7 @@
           "settings": {
             "label": "05 - THE FUTURE",
             "title": "We don't know what 40 years of this looks like yet.",
-            "text": "<p>One vape can carry as much nicotine as 50 cigarettes. Cigarettes had friction \u2014 lighters, smell, a clear finish. Vapes removed all of it. Easier to hide, easier to hit constantly, and more frequent than nicotine has ever been in human history.</p>",
+            "text": "<p>One vape can carry as much nicotine as 50 cigarettes. Cigarettes had friction — lighters, smell, a clear finish. Vapes removed all of it. Easier to hide, easier to hit constantly, and more frequent than nicotine has ever been in human history.</p>",
             "quote": "What are lifelong vapers going to look like after decades of this?"
           }
         }
@@ -286,6 +286,12 @@
       ],
       "name": "Learn product details",
       "settings": {
+        "core_label": "Inside the Brisa core",
+        "core_subhead": "The part everyone tries to copy... and no one's cracked.",
+        "flavour_heading": "The flavours you actually chase 🍒",
+        "flavour_text": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know.",
+        "formula_heading": "A formula we'll never share 🤫",
+        "formula_text": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone — there is none alike, locked away. Creating the best all-around experience for our customers: a rush of flavour/aroma, a real throat sensation, and longevity in every core.",
         "badge": "REAL RESULTS",
         "social_heading": "",
         "disclaimer": "Customer experiences vary. Brisa is not a medical device or smoking cessation product.",
@@ -296,13 +302,7 @@
         "max_width": 520,
         "background": "#ffffff",
         "padding_top": 0,
-        "padding_bottom": 48,
-        "core_label": "Inside the Brisa core",
-        "core_subhead": "The part everyone tries to copy... and no one's cracked.",
-        "flavour_heading": "The flavours you actually chase \ud83c\udf52",
-        "flavour_text": "We create the ones people genuinely miss, starting with Cherry Pomegranate, a world first no one in our category has cracked. And we're building more, matched to the profiles you already know.",
-        "formula_heading": "A formula we'll never share \ud83e\udd2b",
-        "formula_text": "Almost a year of R&D in the making, our exact combination of food-grade aroma and cooling compounds is ours alone \u2014 there is none alike, locked away. Creating the best all-around experience for our customers: a rush of flavour/aroma, a real throat sensation, and longevity in every core."
+        "padding_bottom": 48
       }
     },
     "learn_guarantee": {
@@ -364,7 +364,7 @@
         "starter_price": "$130",
         "starter_compare_price": "$145",
         "starter_button_text": "SHOP STARTER KIT >",
-        "starter_button_link": "shopify://products/brisa-starter-kit",
+        "starter_button_link": "shopify://products/brisa-starter-kit-stock",
         "mates_badge": "SAVE $40",
         "mates_title": "MATES PACK",
         "mates_features": "2 Starter Kits\n$40 saving",
@@ -386,35 +386,35 @@
           "type": "question",
           "settings": {
             "question": "Be honest... will it actually satisfy me?",
-            "answer": "<p>Brisa is built for the moment the urge hits \u2014 familiar weight, size, hand-to-mouth feel, draw pressure, and aroma \u2014 without nicotine, smoke, or vapour. It replaces the ritual action, not with another nicotine product.</p>"
+            "answer": "<p>Brisa is built for the moment the urge hits — familiar weight, size, hand-to-mouth feel, draw pressure, and aroma — without nicotine, smoke, or vapour. It replaces the ritual action, not with another nicotine product.</p>"
           }
         },
         "faq_vape": {
           "type": "question",
           "settings": {
             "question": "Isn't it just a vape without the nicotine?",
-            "answer": "<p>No. There is no heating, no battery, no e-liquid, and no vapour. You draw air through a food-grade aroma core. Same ritual cues \u2014 completely different mechanism.</p>"
+            "answer": "<p>No. There is no heating, no battery, no e-liquid, and no vapour. You draw air through a food-grade aroma core. Same ritual cues — completely different mechanism.</p>"
           }
         },
         "faq_pens": {
           "type": "question",
           "settings": {
             "question": "Isn't it like those wooden pens that just blow air?",
-            "answer": "<p>Those miss what makes the ritual land. Brisa is built around weight, size, look, calibrated airflow, throat sensation, and aroma profiles people actually recognise \u2014 not just empty air through a stick.</p>"
+            "answer": "<p>Those miss what makes the ritual land. Brisa is built around weight, size, look, calibrated airflow, throat sensation, and aroma profiles people actually recognise — not just empty air through a stick.</p>"
           }
         },
         "faq_gums": {
           "type": "question",
           "settings": {
             "question": "I've tried gums and patches, how is this different?",
-            "answer": "<p>Gums and patches address nicotine chemically. Brisa targets the hand-to-mouth ritual itself \u2014 the reach, the draw, the sensory pause \u2014 so you have something to do in the moment without going back to nicotine.</p>"
+            "answer": "<p>Gums and patches address nicotine chemically. Brisa targets the hand-to-mouth ritual itself — the reach, the draw, the sensory pause — so you have something to do in the moment without going back to nicotine.</p>"
           }
         },
         "faq_inhale": {
           "type": "question",
           "settings": {
             "question": "Is it actually safe to inhale? What am I breathing in?",
-            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid. You breathe air through a PET fibre core with food-grade aroma compounds \u2014 no burning and no vaporising.</p>"
+            "answer": "<p>Brisa is a non-consumption product. There is no smoke, no vapour, no nicotine, no heating, no battery, and no e-liquid. You breathe air through a PET fibre core with food-grade aroma compounds — no burning and no vaporising.</p>"
           }
         },
         "faq_cost": {
@@ -428,14 +428,14 @@
           "type": "question",
           "settings": {
             "question": "Can I use it at work and around people?",
-            "answer": "<p>Yes. There is no smoke, no vapour, and no lingering smell like cigarettes or disposables. It is designed for everyday routines \u2014 work, pubs, worksites \u2014 without the social friction of vaping.</p>"
+            "answer": "<p>Yes. There is no smoke, no vapour, and no lingering smell like cigarettes or disposables. It is designed for everyday routines — work, pubs, worksites — without the social friction of vaping.</p>"
           }
         },
         "faq_gimmick": {
           "type": "question",
           "settings": {
-            "question": "Is this just a gimmick \u2014 will it really work?",
-            "answer": "<p>Brisa is designed for the urge moment: same motion, different story. If it is not landing in your first 30 days, claim the Success Guarantee \u2014 we send a Brisa Strategy Guide with the exact tweak to try, plus 6 free cores (2 packs) the same week.</p>"
+            "question": "Is this just a gimmick — will it really work?",
+            "answer": "<p>Brisa is designed for the urge moment: same motion, different story. If it is not landing in your first 30 days, claim the Success Guarantee — we send a Brisa Strategy Guide with the exact tweak to try, plus 6 free cores (2 packs) the same week.</p>"
           }
         }
       },
@@ -453,11 +453,11 @@
       "settings": {
         "badge": "MOST POPULAR",
         "heading": "QUICK QUESTIONS.",
+        "subheading": "Frequently Asked Questions Answered",
         "max_width": 520,
         "background": "#f4f4f4",
         "padding_top": 48,
-        "padding_bottom": 48,
-        "subheading": "Frequently Asked Questions Answered"
+        "padding_bottom": 48
       }
     }
   },

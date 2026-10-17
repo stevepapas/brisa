@@ -28,9 +28,9 @@
         "show_gift_bonus": true,
         "kit_trigger_handles": "brisa-starter-kit,starter-kit,the-commitment-kit,commitment-kit,brisa-mates-pack,mates-pack",
         "gift_trigger_handles": "brisa-starter-kit,starter-kit,the-commitment-kit,commitment-kit,brisa-mates-pack,mates-pack",
-        "gift_text": "🎁 FREE Watermelon Core 3-pack — $15 value · auto-included with your kit",
-        "gift_detail": "3 free cores",
         "gift_image_url": "https://cdn.shopify.com/s/files/1/0939/5752/1780/files/wm-pack-cart.png?v=1785245338",
+        "gift_detail": "3 free cores",
+        "gift_text": "🎁 FREE Watermelon Core 3-pack — $15 value · auto-included with your kit",
         "gift_value": "$15.00",
         "gift_price_label": "FREE",
         "free_shipping_note": "Free shipping",
@@ -47,7 +47,7 @@
         "urgency_text": "⚡️ WE SOLD OUT FAST LAST TIME - GET IN QUICK AND ORDER NOW",
         "checkout_button_text": "SECURE CHECKOUT",
         "show_payment_methods": true,
-        "empty_button_link": "shopify://products/brisa-starter-kit"
+        "empty_button_link": "shopify://products/brisa-starter-kit-stock"
       }
     }
   },
