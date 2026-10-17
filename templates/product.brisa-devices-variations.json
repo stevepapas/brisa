@@ -543,7 +543,7 @@
         "bundle_rollout_marker": "device-page-dev-v1",
         "choose_heading": "Choose your kit",
         "choose_sub": "One-time purchase · 30 day guarantee on every kit",
-        "try_product": "brisa-starter-kit",
+        "try_product": "brisa-starter-kit-stock",
         "try_handle": "brisa-starter-kit",
         "try_title": "Starter Kit",
         "try_subtitle": "",
@@ -1388,7 +1388,7 @@
       "name": "Judge.me reviews",
       "settings": {
         "heading": "",
-        "product": "brisa-starter-kit",
+        "product": "brisa-starter-kit-stock",
         "max_width": 720,
         "list_max_height": 720,
         "padding_top": 48,
